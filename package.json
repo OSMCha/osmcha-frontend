@@ -2,8 +2,10 @@
   "name": "osmcha-frontend",
   "version": "0.1.0",
   "dependencies": {
+    "immutable": "^3.8.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-redux": "^5.0.4",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0"
@@ -15,13 +17,7 @@
     "lint-staged": "^3.4.0",
     "prettier": "^0.22.0",
     "prettier-eslint-cli": "^3.2.0",
-    "react-scripts": "0.9.5",
-    "babel-eslint": "7.0.0",
-    "eslint": "3.8.1",
-    "eslint-plugin-flowtype": "2.21.0",
-    "eslint-plugin-import": "2.0.1",
-    "eslint-plugin-jsx-a11y": "4.0.0",
-    "eslint-plugin-react": "6.4.1"
+    "react-scripts": "0.9.5"
   },
   "scripts": {
     "precommit": "lint-staged",
