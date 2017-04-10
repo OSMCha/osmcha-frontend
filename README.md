@@ -1,6 +1,6 @@
 # osmcha-frontend
 
-[wip] Frontend for the osmcha-django REST API
+[wip] Frontend for the osmcha-django REST API  
 [wip] API Testing endpoint: https://osmcha-django-api-test.tilestream.net/api-docs/
 
 Published to Github Pages at https://mapbox.github.io/osmcha-frontend/
