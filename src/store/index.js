@@ -47,4 +47,4 @@ store.subscribe(() => {
   }
 });
 
-export {store};
+export {store, history};

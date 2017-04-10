@@ -3,18 +3,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
 import {Provider} from 'react-redux';
-import {store} from './store';
+import {store, history} from './store';
 import './index.css';
-import {Router, Route, hashHistory} from 'react-router';
-import {syncHistoryWithStore} from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
-const history = createHistory();
-
+import {Route} from 'react-router';
+import {ConnectedRouter} from 'react-router-redux';
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
+    <ConnectedRouter history={history}>
       <Route path="/" component={App} />
-    </Router>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root'),
 );
