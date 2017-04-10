@@ -1,21 +1,38 @@
 {
   "name": "osmcha-frontend",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
+    "immutable": "^3.8.1",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.1",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "flow-bin": "^0.43.1",
     "gh-pages": "^0.12.0",
+    "husky": "^0.13.3",
+    "lint-staged": "^3.4.0",
+    "prettier": "^0.22.0",
+    "prettier-eslint-cli": "^3.2.0",
     "react-scripts": "0.9.5"
   },
   "scripts": {
+    "precommit": "lint-staged",
+    "flow": "flow",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier-eslint --write",
+      "git add"
+    ]
   },
   "homepage": "https://mapbox.github.io/osmcha-frontend"
 }
