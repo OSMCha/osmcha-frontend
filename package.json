@@ -10,6 +10,7 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "flow-bin": "^0.43.1",
     "gh-pages": "^0.12.0",
     "husky": "^0.13.3",
     "lint-staged": "^3.4.0",
@@ -18,6 +19,7 @@
   },
   "scripts": {
     "precommit": "lint-staged",
+    "flow": "flow",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
