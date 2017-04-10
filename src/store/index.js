@@ -1,15 +1,16 @@
+// @flow
 import {combineReducers, createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
-
-import safeStorage from './utils/safe_storage';
+import {createLogger} from 'redux-logger';
+import {Map} from 'immutable';
+import safeStorage from '../utils/safe_storage';
 
 // Reducers
-import user from './user_reducer';
+import {userReducer} from './user_reducer';
 
 // Root reducer
-const rootReducer = combineReducers({
-  user,
+const reducers = combineReducers({
+  user: userReducer,
 });
 
 // Middlewares
@@ -22,27 +23,26 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Persisted state
 const persistedState = {
-  user: {
-    isAuthenticated: false,
-    token: safeStorage.get('token') || null,
-  },
+  user: Map({
+    token: safeStorage.get('token'),
+  }),
 };
 
 // Store
 const store = createStore(
-  rootReducer,
+  reducers,
   persistedState,
   applyMiddleware(...middlewares),
 );
 
 // Persist change to local storage
 store.subscribe(() => {
-  const state = store.getState();
-  const {token} = state.user;
+  const {user} = store.getState();
+  const token = user.get('token');
 
   if (token !== safeStorage.get('token')) {
     safeStorage.set('token', token);
   }
 });
 
-export default store;
+export {store};

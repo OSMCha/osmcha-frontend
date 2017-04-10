@@ -1,17 +1,18 @@
-const get = key => {
+// @flow
+const get = (key: string): ?Object => {
   try {
-    const serializedValue = localStorage.getItem(key);
-    if (serializedValue === null) {
-      return undefined;
+    const serializedValue: ?string = localStorage.getItem(key);
+    if (typeof serializedValue === 'string') {
+      return JSON.parse(serializedValue);
     }
-    return JSON.parse(serializedValue);
+    return null;
   } catch (err) {
     console.error('Could not read from localStorage.');
-    return undefined;
+    return null;
   }
 };
 
-const set = (key, value) => {
+const set = (key: string, value: Object) => {
   try {
     const serializedValue = JSON.stringify(value);
     localStorage.setItem(key, serializedValue);
@@ -20,7 +21,7 @@ const set = (key, value) => {
   }
 };
 
-const remove = key => {
+const remove = (key: string) => {
   try {
     localStorage.removeItem(key);
   } catch (err) {
