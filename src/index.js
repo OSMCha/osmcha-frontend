@@ -4,13 +4,14 @@ import ReactDOM from 'react-dom';
 import App from './app';
 import {Provider} from 'react-redux';
 import {store, history} from './store';
-import './index.css';
-import {Route} from 'react-router';
 import {ConnectedRouter} from 'react-router-redux';
+
+import './index.css';
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Route path="/" component={App} />
+      <App />
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root'),
