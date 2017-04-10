@@ -5,7 +5,7 @@
 
 Published to Github Pages at https://mapbox.github.io/osmcha-frontend/
 
-## Workflow
+## Workflow 
 
 `yarn run start`
 
