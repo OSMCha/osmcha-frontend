@@ -1,4 +1,5 @@
 # osmcha-frontend
+[![CircleCI](https://circleci.com/gh/mapbox/osmcha-frontend.svg?style=svg)](https://circleci.com/gh/mapbox/osmcha-frontend)
 
 [wip] Frontend for the osmcha-django REST API  
 [wip] API Testing endpoint: https://osmcha-django-api-test.tilestream.net/api-docs/
