@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 class App extends Component {
   render() {
-    return (
-      <p>Hello OSMCHA!</p>
-    );
+    return <p>Hello OSMCHA!</p>;
   }
 }
 

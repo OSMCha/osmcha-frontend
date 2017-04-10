@@ -1,4 +1,4 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux';
+import {combineReducers, createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
@@ -32,13 +32,13 @@ const persistedState = {
 const store = createStore(
   rootReducer,
   persistedState,
-  applyMiddleware(...middlewares)
+  applyMiddleware(...middlewares),
 );
 
 // Persist change to local storage
 store.subscribe(() => {
   const state = store.getState();
-  const { token } = state.user;
+  const {token} = state.user;
 
   if (token !== safeStorage.get('token')) {
     safeStorage.set('token', token);

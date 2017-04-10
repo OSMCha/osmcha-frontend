@@ -1,4 +1,4 @@
-const get = (key) => {
+const get = key => {
   try {
     const serializedValue = localStorage.getItem(key);
     if (serializedValue === null) {
@@ -20,7 +20,7 @@ const set = (key, value) => {
   }
 };
 
-const remove = (key) => {
+const remove = key => {
   try {
     localStorage.removeItem(key);
   } catch (err) {
