@@ -12,12 +12,16 @@ class App extends Component {
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
-          <li><Link to="/topics">Topics</Link></li>
+          <li><Link to="/stats">Stats</Link></li>
+          <li><Link to="/features">Features</Link></li>
+
         </ul>
         <hr />
         <Route exact path="/" render={() => <p>Home</p>} />
         <Route path="/about" render={() => <p>About</p>} />
-        <Route path="/topics" render={() => <p>topics</p>} />
+        <Route path="/stats" render={() => <p>stats</p>} />
+        <Route path="/features" render={() => <p>features</p>} />
+
       </div>
     );
   }

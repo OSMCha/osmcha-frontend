@@ -7,8 +7,8 @@
   "dependencies": {
     "history": "^4.6.1",
     "immutable": "^3.8.1",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "react": "^15.5.3",
+    "react-dom": "^15.5.3",
     "react-redux": "^5.0.4",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",
