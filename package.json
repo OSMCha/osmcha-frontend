@@ -5,6 +5,7 @@
     "node": ">=7.0"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "history": "^4.6.1",
     "immutable": "^3.8.1",
     "react": "^15.5.3",
