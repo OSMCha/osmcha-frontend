@@ -1,6 +1,14 @@
+// @flow
 import React from 'react';
-import {Tabs} from './Tabs';
-export function Sidebar({className, tabs, children}) {
+import type {Element, Children} from 'react';
+
+function Sidebar(
+  {
+    tabs,
+    user,
+    children,
+  }: {tabs: Element<*>, user: Element<*>, children?: Children},
+) {
   return (
     <div
       className="flex-parent flex-parent--column viewport-third h-full hmax-full bg-white mt12"
@@ -15,8 +23,11 @@ export function Sidebar({className, tabs, children}) {
           </h3>
         </div>
       </div>
-      <div className="flex-child flex-child px12 mt12">
-        <Tabs />
+      <div className="flex-child px12 mt12">
+        {user}
+      </div>
+      <div className="flex-child px12 mt12">
+        {tabs}
       </div>
       <div className="flex-child flex-child--grow px12 scroll-auto mt12">
         {children}
@@ -27,3 +38,5 @@ export function Sidebar({className, tabs, children}) {
     </div>
   );
 }
+
+export {Sidebar};

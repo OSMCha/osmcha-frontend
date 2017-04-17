@@ -16,9 +16,7 @@ class App extends Component {
     return (
       <div className="flex-parent viewport-full relative clip">
         <div className="flex-child w-full w300-ml absolute static-ml left top">
-          <Sidebar tabs={Tabs}>
-            <span>jola</span>
-          </Sidebar>
+          <Sidebar tabs={<Tabs />} user={<p>hola</p>} />
         </div>
         <div
           className="flex-child flex-child--grow bg-darken10 viewport-twothirds viewport-full-ml"
