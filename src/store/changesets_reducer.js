@@ -1,18 +1,18 @@
 /* @flow */
 import {CHANGESETS_FETCHED} from './changesets_actions';
-import {Map} from 'immutable';
+import {List} from 'immutable';
 
-const changesetsInitial = Map({
-  count: 0,
-});
+const changesetsInitial = new List();
 
 function changesetsReducer(
-  state: Map<string, *> = changesetsInitial,
+  state: List<Object> = changesetsInitial,
   action: Object,
-): Map<string, *> {
+): List<Object> {
   switch (action.type) {
-    case CHANGESETS_FETCHED:
-      return state.set('count', action.data);
+    case CHANGESETS_FETCHED: {
+      console.log(action);
+      return state.set(action.page - 1, action.data);
+    }
     default:
       return state;
   }

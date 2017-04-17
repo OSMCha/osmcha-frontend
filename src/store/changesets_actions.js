@@ -1,24 +1,27 @@
 // @flow
-import {delay} from 'redux-saga';
 import {put, takeEvery} from 'redux-saga/effects';
-
+import {API_URL} from '../config';
 export const CHANGESETS_FETCH_ASYNC = 'CHANGESETS_FETCH_ASYNC';
 export const CHANGESETS_FETCHED = 'CHANGESETS_FETCHED';
 
-type Payload = {
-  data?: Object,
-};
-
-export function action(type: string, payload: Payload = {}) {
+export function action(type: string, payload: ?Object) {
   return {type, ...payload};
 }
 
-export const fetchChangesets = () => action(CHANGESETS_FETCH_ASYNC);
+export const fetchChangesets = (page: number) =>
+  action(CHANGESETS_FETCH_ASYNC, {page});
 
 /** Sagas **/
-export function* fetchChangesetsAsync(): Object {
-  yield delay(6000);
-  yield put({type: CHANGESETS_FETCHED, data: 2});
+export function* fetchChangesetsAsync({page = 1}: {page: number}): Object {
+  var data = yield fetch(`${API_URL}/changesets?page=${page}`).then(res =>
+    res.json());
+
+  yield put(
+    action(CHANGESETS_FETCHED, {
+      data: data,
+      page: page,
+    }),
+  );
 }
 
 export function* watchFetchChangesets(): any {
