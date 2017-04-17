@@ -8,6 +8,7 @@
     "classnames": "^2.2.5",
     "history": "^4.6.1",
     "immutable": "^3.8.1",
+    "ramda": "^0.23.0",
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
     "react-redux": "^5.0.4",

@@ -11,7 +11,7 @@ class Tabs extends PureComponent {
   render() {
     const {pathname} = this.props;
     return (
-      <div className="mb12 mr12 flex-parent flex-parent--row justify--center">
+      <div className="mb3 mr12 flex-parent flex-parent--row justify--center">
         <span className="flex-child">
           <Link
             className={classNames(

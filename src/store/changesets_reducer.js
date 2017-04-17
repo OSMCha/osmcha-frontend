@@ -1,20 +1,47 @@
 /* @flow */
-import {CHANGESETS_FETCHED} from './changesets_actions';
-import {List} from 'immutable';
+import {
+  CHANGESETS_PAGE_FETCHED,
+  CHANGESETS_CHANGE_PAGE,
+  CHANGESETS_PAGE_LOADING,
+} from './changesets_actions';
+import {List, Map} from 'immutable';
 
-const changesetsInitial = new List();
+const changesetsInitial = new Map({
+  pageIndex: 0,
+  currentPage: null,
+  pages: new List(),
+  loading: false,
+});
 
 function changesetsReducer(
-  state: List<Object> = changesetsInitial,
+  state: Map<*, any> = changesetsInitial,
   action: Object,
-): List<Object> {
+): Map<*, any> {
   switch (action.type) {
-    case CHANGESETS_FETCHED: {
-      console.log(action);
-      return state.set(action.page - 1, action.data);
+    case CHANGESETS_PAGE_LOADING: {
+      return state
+        .set('pageIndex', action.pageIndex)
+        .set('loading', true)
+        .set('currrentPage', null);
     }
-    default:
+    case CHANGESETS_PAGE_FETCHED: {
+      const pages = state.get('pages').set(action.pageIndex, action.data);
+      return state
+        .set('pages', pages)
+        .set('pageIndex', action.pageIndex)
+        .set('currrentPage', action.data)
+        .set('loading', false);
+    }
+    case CHANGESETS_CHANGE_PAGE: {
+      const pages = state.get('pages');
+      return state
+        .set('pageIndex', action.pageIndex)
+        .set('currrentPage', pages.get(action.pageIndex))
+        .set('loading', false);
+    }
+    default: {
       return state;
+    }
   }
 }
 
