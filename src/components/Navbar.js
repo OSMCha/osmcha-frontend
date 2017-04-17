@@ -42,10 +42,12 @@ class Navbar extends PureComponent {
           Stats
         </Link>
         <Link
-          className={classNames(
-            {'is-active': pathname === '/features'},
+          className={
+            `
+            ${pathname === '/features' ? 'is-active' : ''} 
             'flex-parent-inline btn color-blue color-white-on-active bg-transparent bg-darken5-on-hover bg-blue-on-active txt-s ml3',
-          )}
+            `
+          }
           to="/features"
         >
           <svg className="icon mr3"><use xlinkHref="#icon-marker" /></svg>
