@@ -16,7 +16,7 @@
     "react-router-redux": "next",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
-    "redux-thunk": "^2.2.0"
+    "redux-saga": "^0.14.6"
   },
   "devDependencies": {
     "check-node-version": "^2.0.1",
