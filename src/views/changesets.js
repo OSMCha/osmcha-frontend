@@ -1,3 +1,3 @@
 import React from 'react';
 
-export default () => <div> changesets here </div>;
+export const Changesets = () => <div> changesets here </div>;

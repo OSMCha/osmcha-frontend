@@ -1,3 +1,3 @@
 import React from 'react';
 
-export default () => <div> features here </div>;
+export const Features = () => <div> features here </div>;

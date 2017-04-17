@@ -1,3 +1,3 @@
 import React from 'react';
 
-export default () => <div> about here </div>;
+export const About = () => <div> about here </div>;

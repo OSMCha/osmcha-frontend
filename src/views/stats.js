@@ -1,3 +1,3 @@
 import React from 'react';
 
-export default () => <div> stats here </div>;
+export const Stats = () => <div> stats here </div>;
