@@ -31,7 +31,7 @@ class ChangesetsList extends React.PureComponent {
     changesetsPage: ChangesetsPageType,
     fetchChangesetsPage: (number) => mixed, // base 0
     fetchChangeset: (number) => mixed, // base 0
-    match: Object,
+    activeChangesetId: ?number,
   };
   constructor(props) {
     super(props);
@@ -54,6 +54,7 @@ class ChangesetsList extends React.PureComponent {
           <ul>
             {currentPage &&
               <List
+                activeChangesetId={this.props.activeChangesetId}
                 changesets={currentPage.features}
                 fetchChangeset={this.props.fetchChangeset}
               />}
@@ -77,6 +78,7 @@ class ChangesetsList extends React.PureComponent {
 ChangesetsList = connect(
   (state: RootStateType) => ({
     pathname: state.routing.location.pathname,
+    activeChangesetId: state.changeset.get('changesetId'),
     changesetsPage: state.changesetsPage,
   }),
   {
