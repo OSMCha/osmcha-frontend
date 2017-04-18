@@ -19,9 +19,10 @@ const changesetsInitial: ChangesetsPageType = new Map({
   currentPage: null,
   pages: new List(),
   loading: false,
+  error: null,
 });
 
-function changesetsPageReducer(
+export function changesetsPageReducer(
   state: ChangesetsPageType = changesetsInitial,
   action: Object,
 ): ChangesetsPageType {
@@ -62,5 +63,3 @@ function changesetsPageReducer(
     }
   }
 }
-
-export {changesetsPageReducer};

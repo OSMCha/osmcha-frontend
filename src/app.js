@@ -1,11 +1,12 @@
 // @flow
 import React, {Component} from 'react';
 import {Route} from 'react-router-dom';
-import {Changesets} from './views/changesets';
+import {Changeset} from './views/changeset';
 import {About} from './views/about';
 import {Stats} from './views/stats';
 import {Features} from './views/features';
 import {Sidebar} from './components/sidebar';
+
 class App extends Component {
   render() {
     return (
@@ -16,8 +17,8 @@ class App extends Component {
         <div
           className="flex-child flex-child--grow bg-darken10 viewport-twothirds viewport-full-ml"
         >
-          <Route exact path="/" component={Changesets} />
-          <Route path="/changesets/:id" component={Changesets} />
+          <Route exact path="/" component={Changeset} />
+          <Route path="/changesets/:id" component={Changeset} />
           <Route path="/about" component={About} />
           <Route path="/stats" component={Stats} />
           <Route path="/features" component={Features} />

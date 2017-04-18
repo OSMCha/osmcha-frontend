@@ -17,7 +17,7 @@ const Logo = () => (
   </div>
 );
 
-const Sidebar = function() {
+export function Sidebar() {
   return (
     <div
       className="flex-parent flex-parent--column viewport-third h-full hmax-full bg-white pt12"
@@ -32,6 +32,4 @@ const Sidebar = function() {
       <ChangesetsList />
     </div>
   );
-};
-
-export {Sidebar};
+}
