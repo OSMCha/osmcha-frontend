@@ -34,7 +34,7 @@
     "flow": "flow",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "check-node-version --node '>= 7.0' && react-scripts test --env=jsdom",
+    "test": "check-node-version --node '>= 7.0' && npm run flow && react-scripts test --env=jsdom",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },
