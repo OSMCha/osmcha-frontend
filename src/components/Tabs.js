@@ -3,7 +3,7 @@ import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
-
+import type {RootStateType} from '../store';
 class Tabs extends PureComponent {
   props: {
     pathname: string,
@@ -40,16 +40,5 @@ class Tabs extends PureComponent {
     );
   }
 }
-Tabs = connect(state => state.routing.location)(Tabs);
+Tabs = connect((state: RootStateType) => state.routing.location)(Tabs);
 export {Tabs};
-
-// <Link
-//   className={classNames(
-//     {'is-active': pathname === '/stats'},
-//     'flex-parent-inline btn color-blue color-white-on-active bg-transparent bg-darken5-on-hover bg-blue-on-active txt-s ml3',
-//   )}
-//   to="/stats"
-// >
-//   <svg className="icon mr3"><use xlinkHref="#icon-database" /></svg>
-//   Stats
-// </Link>

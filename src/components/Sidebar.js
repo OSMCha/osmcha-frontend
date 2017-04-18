@@ -1,8 +1,7 @@
 // @flow
 import React from 'react';
-import type {Children} from 'react';
-import {Tabs} from './Tabs';
-import {User} from './User';
+import {Tabs} from './tabs';
+import {User} from './user';
 import {ChangesetsList} from '../views/changesets_list';
 const Logo = () => (
   <div className="border-b border-b--2 border--gray-light">
@@ -18,7 +17,7 @@ const Logo = () => (
   </div>
 );
 
-let Sidebar = function() {
+const Sidebar = function() {
   return (
     <div
       className="flex-parent flex-parent--column viewport-third h-full hmax-full bg-white pt12"

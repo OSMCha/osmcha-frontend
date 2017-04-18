@@ -3,7 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {fetchChangesets} from '../store/changesets_page_actions';
 import R from 'ramda';
-import {List} from '../components/List';
+import {List} from '../components/list';
 import type {ChangesetsPageType} from '../store/changesets_page_reducer';
 import type {RootStateType} from '../store';
 
