@@ -14,7 +14,7 @@ class ListItem extends React.PureComponent {
 export class List extends React.PureComponent {
   props: {
     changesets: Array<Object>,
-    fetchChangeset: (number) => void,
+    fetchChangeset: (number) => any,
   };
   render() {
     console.log('here');
