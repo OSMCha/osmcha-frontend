@@ -31,6 +31,7 @@ class ChangesetsList extends React.PureComponent {
     changesetsPage: ChangesetsPageType,
     fetchChangesetsPage: (number) => mixed, // base 0
     fetchChangeset: (number) => mixed, // base 0
+    match: Object,
   };
   constructor(props) {
     super(props);

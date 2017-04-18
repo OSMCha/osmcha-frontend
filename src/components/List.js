@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 class ListItem extends React.PureComponent {
   render() {
     return (
-      <Link className="flex-child" to={`/changesets/${this.props.id}`}>
+      <Link className={`flex-child`} to={`/changesets/${this.props.id}`}>
         {this.props.id}
       </Link>
     );
