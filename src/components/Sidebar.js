@@ -3,7 +3,7 @@ import React from 'react';
 import type {Children} from 'react';
 import {Tabs} from './Tabs';
 import {User} from './User';
-import {List} from './List';
+import {ChangesetsList} from '../views/changesets_list';
 const Logo = () => (
   <div className="border-b border-b--2 border--gray-light">
     <h3 className="flex-parent flex-parent-row inline-block pl3">
@@ -30,7 +30,7 @@ let Sidebar = function() {
       <div className="flex-child px12 mt12">
         <Tabs />
       </div>
-      <List />
+      <ChangesetsList />
     </div>
   );
 };
