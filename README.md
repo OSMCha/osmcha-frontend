@@ -15,19 +15,19 @@ This repository uses [prettier](https://github.com/prettier/prettier) to keep th
 
 ## Workflow
 
-`yarn run start`
+`yarn start`
 
 Runs the app in the development mode.
 Open http://localhost:3000 to view it in the browser.
 
-`yarn run test`
+`yarn test`
 
 Launches the test runner in the interactive watch mode.
 
-`yarn run build`
+`yarn build`
 
 Builds the app for production to the build folder.
 
-`yarn run deploy`
+`yarn deploy`
 
 Build and publish to the `gh-pages` branch.
