@@ -3,8 +3,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {fetchChangesets} from '../store/changesets_page_actions';
 import R from 'ramda';
-import {PAGE_SIZE} from '../config/constants';
-import {Link} from 'react-router-dom';
+
+import type {ChangesetsPageType} from '../store/changesets_page_reducer';
+import type {RootStateType} from '../store';
 
 class RangeItem extends React.PureComponent {
   render() {
@@ -26,7 +27,7 @@ class RangeItem extends React.PureComponent {
 class List extends React.PureComponent {
   props: {
     pathname: string,
-    changesets: Object,
+    changesetsPage: ChangesetsPageType,
     fetchChangesets: (number) => mixed, // base 0
   };
   constructor(props) {
@@ -34,10 +35,10 @@ class List extends React.PureComponent {
     this.props.fetchChangesets(0);
   }
   render() {
-    const currentPage = this.props.changesets.get('currrentPage');
-    const pageIndex = this.props.changesets.get('pageIndex');
-    const loading = this.props.changesets.get('loading');
-    const error = this.props.changesets.get('error');
+    const currentPage = this.props.changesetsPage.get('currentPage');
+    const pageIndex = this.props.changesetsPage.get('pageIndex');
+    const loading = this.props.changesetsPage.get('loading');
+    const error = this.props.changesetsPage.get('error');
     const base = parseInt(pageIndex / 10, 10) * 10;
 
     if (error) {
@@ -68,9 +69,9 @@ class List extends React.PureComponent {
 }
 
 List = connect(
-  state => ({
+  (state: RootStateType) => ({
     pathname: state.routing.location.pathname,
-    changesets: state.changesets,
+    changesetsPage: state.changesetsPage,
   }),
   {fetchChangesets},
 )(List);

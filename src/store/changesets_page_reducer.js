@@ -7,22 +7,29 @@ import {
 } from './changesets_page_actions';
 import {List, Map} from 'immutable';
 
-const changesetsInitial = new Map({
+export type ChangesetsPageType = Map<
+  | 'currentPage'
+  | 'pages'
+  | 'pageIndex'
+  | 'loading'
+  | 'error', any>;
+
+const changesetsInitial: ChangesetsPageType = new Map({
   pageIndex: 0,
   currentPage: null,
   pages: new List(),
   loading: false,
 });
 
-function changesetsReducer(
-  state: Map<string, any> = changesetsInitial,
+function changesetsPageReducer(
+  state: ChangesetsPageType = changesetsInitial,
   action: Object,
-): Map<string, any> {
+): ChangesetsPageType {
   switch (action.type) {
     case CHANGESETS_PAGE_LOADING: {
       return state
         .set('pageIndex', action.pageIndex)
-        .set('currrentPage', null)
+        .set('currentPage', null)
         .set('loading', true)
         .set('error', null);
     }
@@ -31,7 +38,7 @@ function changesetsReducer(
       return state
         .set('pages', pages)
         .set('pageIndex', action.pageIndex)
-        .set('currrentPage', action.data)
+        .set('currentPage', action.data)
         .set('loading', false)
         .set('error', null);
     }
@@ -39,7 +46,7 @@ function changesetsReducer(
       const pages = state.get('pages');
       return state
         .set('pageIndex', action.pageIndex)
-        .set('currrentPage', pages.get(action.pageIndex))
+        .set('currentPage', pages.get(action.pageIndex))
         .set('loading', false)
         .set('error', null);
     }
@@ -56,4 +63,4 @@ function changesetsReducer(
   }
 }
 
-export {changesetsReducer};
+export {changesetsPageReducer};

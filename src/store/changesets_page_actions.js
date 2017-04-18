@@ -1,6 +1,6 @@
 // @flow
 import {put, call, takeLatest, select} from 'redux-saga/effects';
-import {API_URL} from '../config';
+import {networkFetchChangesets} from '../network/changesets_page';
 
 export const CHANGESETS_PAGE_FETCH_ASYNC = 'CHANGESETS_PAGE_FETCH_ASYNC';
 export const CHANGESETS_PAGE_FETCHED = 'CHANGESETS_PAGE_FETCHED';
@@ -8,33 +8,30 @@ export const CHANGESETS_PAGE_CHANGE = 'CHANGESETS_PAGE_CHANGE';
 export const CHANGESETS_PAGE_LOADING = 'CHANGESETS_PAGE_LOADING';
 export const CHANGESETS_PAGE_ERROR = 'CHANGESETS_PAGE_ERROR';
 
-import {PAGE_SIZE} from '../config/constants';
+import type {RootStateType} from './';
 
 export function action(type: string, payload: ?Object) {
   return {type, ...payload};
 }
 
 // public
+// starting point for react component to start fetch
 export const fetchChangesets = (pageIndex: number) =>
   action(CHANGESETS_PAGE_FETCH_ASYNC, {pageIndex});
 
+// watches for CHANGESETS_PAGE_FETCH_ASYNC and only
+// dispatches latest tofetchChangesetsPageAsync
 export function* watchFetchChangesets(): any {
   yield takeLatest(CHANGESETS_PAGE_FETCH_ASYNC, fetchChangesetsPageAsync);
 }
 
-export function networkCall(pageIndex: number) {
-  return fetch(
-    `${API_URL}/changesets?page=${pageIndex + 1}&page_size=${PAGE_SIZE}`,
-  ).then(res => res.json());
-}
-
 /** Sagas **/
 export function* fetchChangesetsPageAsync(
-  {pageIndex = 0}: {pageIndex: number},
+  {pageIndex}: {pageIndex: number},
 ): Object {
-  // check if it already exists
-  let thisPage = yield select(state =>
-    state.changesets.get('pages').get(pageIndex));
+  // check if the page already exists
+  let thisPage = yield select((state: RootStateType) =>
+    state.changesetsPage.get('pages').get(pageIndex));
 
   if (thisPage) {
     yield put(
@@ -50,7 +47,7 @@ export function* fetchChangesetsPageAsync(
     );
 
     try {
-      thisPage = yield call(networkCall, pageIndex);
+      thisPage = yield call(networkFetchChangesets, pageIndex);
       yield put(
         action(CHANGESETS_PAGE_FETCHED, {
           data: thisPage,
