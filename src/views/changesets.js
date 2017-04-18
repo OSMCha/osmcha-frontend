@@ -1,3 +1,10 @@
 import React from 'react';
 
-export const Changesets = () => <div> changesets here </div>;
+export class Changesets extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <div> changesets here </div>;
+  }
+}

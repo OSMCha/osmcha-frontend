@@ -22,6 +22,7 @@ class App extends Component {
           className="flex-child flex-child--grow bg-darken10 viewport-twothirds viewport-full-ml"
         >
           <Route exact path="/" component={Changesets} />
+          <Route path="/changesets/:id" component={Changesets} />
           <Route path="/about" component={About} />
           <Route path="/stats" component={Stats} />
           <Route path="/features" component={Features} />
@@ -30,11 +31,5 @@ class App extends Component {
     );
   }
 }
-App = connect(
-  state => state,
-  dispatch => ({
-    actions: bindActionCreators({requestLogin}, dispatch),
-  }),
-)(App);
 
 export default App;

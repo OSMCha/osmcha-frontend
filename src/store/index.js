@@ -9,7 +9,7 @@ import createSagaMiddleware from 'redux-saga';
 
 // Reducers
 import {userReducer} from './user_reducer';
-import {changesetsReducer} from './changesets_reducer';
+import {changesetsReducer} from './changesets_page_reducer';
 // Sages
 import sagas from './sagas';
 

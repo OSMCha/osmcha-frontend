@@ -1,11 +1,12 @@
 // @flow
-import {put, takeLatest, select} from 'redux-saga/effects';
+import {put, call, takeLatest, select} from 'redux-saga/effects';
 import {API_URL} from '../config';
 
 export const CHANGESETS_PAGE_FETCH_ASYNC = 'CHANGESETS_PAGE_FETCH_ASYNC';
 export const CHANGESETS_PAGE_FETCHED = 'CHANGESETS_PAGE_FETCHED';
-export const CHANGESETS_CHANGE_PAGE = 'CHANGESETS_CHANGE_PAGE';
+export const CHANGESETS_PAGE_CHANGE = 'CHANGESETS_PAGE_CHANGE';
 export const CHANGESETS_PAGE_LOADING = 'CHANGESETS_PAGE_LOADING';
+export const CHANGESETS_PAGE_ERROR = 'CHANGESETS_PAGE_ERROR';
 
 import {PAGE_SIZE} from '../config/constants';
 
@@ -18,21 +19,26 @@ export const fetchChangesets = (pageIndex: number) =>
   action(CHANGESETS_PAGE_FETCH_ASYNC, {pageIndex});
 
 export function* watchFetchChangesets(): any {
-  yield takeLatest(CHANGESETS_PAGE_FETCH_ASYNC, fetchChangesetsAsync);
+  yield takeLatest(CHANGESETS_PAGE_FETCH_ASYNC, fetchChangesetsPageAsync);
+}
+
+export function networkCall(pageIndex: number) {
+  return fetch(
+    `${API_URL}/changesets?page=${pageIndex + 1}&page_size=${PAGE_SIZE}`,
+  ).then(res => res.json());
 }
 
 /** Sagas **/
-export function* fetchChangesetsAsync(
+export function* fetchChangesetsPageAsync(
   {pageIndex = 0}: {pageIndex: number},
 ): Object {
-  console.log(pageIndex);
   // check if it already exists
   let thisPage = yield select(state =>
     state.changesets.get('pages').get(pageIndex));
 
   if (thisPage) {
     yield put(
-      action(CHANGESETS_CHANGE_PAGE, {
+      action(CHANGESETS_PAGE_CHANGE, {
         pageIndex,
       }),
     );
@@ -42,21 +48,23 @@ export function* fetchChangesetsAsync(
         pageIndex,
       }),
     );
-    try {
-      thisPage = yield fetch(
-        `${API_URL}/changesets?page=${pageIndex + 1}&page_size=${PAGE_SIZE}`,
-      ).then(res => res.json());
-    } catch (e) {
-      if (e) {
-        console.error(e);
-      }
-    }
 
-    yield put(
-      action(CHANGESETS_PAGE_FETCHED, {
-        data: thisPage,
-        pageIndex,
-      }),
-    );
+    try {
+      thisPage = yield call(networkCall, pageIndex);
+      yield put(
+        action(CHANGESETS_PAGE_FETCHED, {
+          data: thisPage,
+          pageIndex,
+        }),
+      );
+    } catch (error) {
+      console.log(error);
+      yield put(
+        action(CHANGESETS_PAGE_ERROR, {
+          pageIndex,
+          error,
+        }),
+      );
+    }
   }
 }

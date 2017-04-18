@@ -1,9 +1,10 @@
 // @flow
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchChangesets} from '../store/changesets_actions';
+import {fetchChangesets} from '../store/changesets_page_actions';
 import R from 'ramda';
 import {PAGE_SIZE} from '../config/constants';
+import {Link} from 'react-router-dom';
 
 class RangeItem extends React.PureComponent {
   render() {
@@ -36,8 +37,12 @@ class List extends React.PureComponent {
     const currentPage = this.props.changesets.get('currrentPage');
     const pageIndex = this.props.changesets.get('pageIndex');
     const loading = this.props.changesets.get('loading');
-    const base = parseInt(pageIndex / 10) * 10;
-    console.log(loading);
+    const error = this.props.changesets.get('error');
+    const base = parseInt(pageIndex / 10, 10) * 10;
+
+    if (error) {
+      return <div>error {JSON.stringify(error.stack)} </div>;
+    }
     return (
       <div className="flex-parent flex-parent--column flex-child--grow">
         {loading ? <div className="loading" /> : null}

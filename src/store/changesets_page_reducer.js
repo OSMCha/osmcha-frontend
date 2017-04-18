@@ -1,9 +1,10 @@
 /* @flow */
 import {
   CHANGESETS_PAGE_FETCHED,
-  CHANGESETS_CHANGE_PAGE,
+  CHANGESETS_PAGE_CHANGE,
   CHANGESETS_PAGE_LOADING,
-} from './changesets_actions';
+  CHANGESETS_PAGE_ERROR,
+} from './changesets_page_actions';
 import {List, Map} from 'immutable';
 
 const changesetsInitial = new Map({
@@ -14,15 +15,16 @@ const changesetsInitial = new Map({
 });
 
 function changesetsReducer(
-  state: Map<*, any> = changesetsInitial,
+  state: Map<string, any> = changesetsInitial,
   action: Object,
-): Map<*, any> {
+): Map<string, any> {
   switch (action.type) {
     case CHANGESETS_PAGE_LOADING: {
       return state
         .set('pageIndex', action.pageIndex)
+        .set('currrentPage', null)
         .set('loading', true)
-        .set('currrentPage', null);
+        .set('error', null);
     }
     case CHANGESETS_PAGE_FETCHED: {
       const pages = state.get('pages').set(action.pageIndex, action.data);
@@ -30,14 +32,23 @@ function changesetsReducer(
         .set('pages', pages)
         .set('pageIndex', action.pageIndex)
         .set('currrentPage', action.data)
-        .set('loading', false);
+        .set('loading', false)
+        .set('error', null);
     }
-    case CHANGESETS_CHANGE_PAGE: {
+    case CHANGESETS_PAGE_CHANGE: {
       const pages = state.get('pages');
       return state
         .set('pageIndex', action.pageIndex)
         .set('currrentPage', pages.get(action.pageIndex))
-        .set('loading', false);
+        .set('loading', false)
+        .set('error', null);
+    }
+    case CHANGESETS_PAGE_ERROR: {
+      return state
+        .set('pageIndex', action.pageIndex)
+        .set('currentPage', null)
+        .set('loading', false)
+        .set('error', action.error);
     }
     default: {
       return state;
