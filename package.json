@@ -8,6 +8,7 @@
     "classnames": "^2.2.5",
     "history": "^4.6.1",
     "immutable": "^3.8.1",
+    "ramda": "^0.23.0",
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
     "react-redux": "^5.0.4",
@@ -16,7 +17,7 @@
     "react-router-redux": "next",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
-    "redux-thunk": "^2.2.0"
+    "redux-saga": "^0.14.6"
   },
   "devDependencies": {
     "check-node-version": "^2.0.1",
@@ -33,7 +34,7 @@
     "flow": "flow",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "check-node-version --node '>= 7.0' && react-scripts test --env=jsdom",
+    "test": "check-node-version --node '>= 7.0' && npm run flow && react-scripts test --env=jsdom",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },
