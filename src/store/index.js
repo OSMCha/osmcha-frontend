@@ -2,7 +2,7 @@
 import {combineReducers, createStore, applyMiddleware} from 'redux';
 import {createLogger} from 'redux-logger';
 import {Map} from 'immutable';
-import safeStorage from '../utils/safe_storage';
+import * as safeStorage from '../utils/safe_storage';
 import {routerReducer, routerMiddleware} from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import createSagaMiddleware from 'redux-saga';
@@ -46,7 +46,7 @@ if (process.env.NODE_ENV !== 'production') {
 // Persisted state
 const persistedState = {
   user: Map({
-    token: safeStorage.get('token'),
+    token: safeStorage.getItem('token'),
   }),
 };
 
@@ -62,8 +62,8 @@ store.subscribe(() => {
   const {user} = store.getState();
   const token = user.get('token');
 
-  if (token !== safeStorage.get('token')) {
-    safeStorage.set('token', token);
+  if (token !== safeStorage.getItem('token')) {
+    safeStorage.setItem('token', token);
   }
 });
 
