@@ -1,10 +1,12 @@
 // @flow
 
+// Transparent wrapper over Window.localStorage
+// Adheres to the Web Storage API:
+// https://developer.mozilla.org/en-US/docs/Web/API/Storage
+
 /**
- * Wraps localStorage.getItem in a try/catch
- * Returns null if localStorage fails or does not have the key
- *
- * @param {string} key
+ * Wraps localStorage.getItem in a try/catch. Return null
+ * if the key does not exist or localStorage fails.
  */
 function getItem(key: string): ?string {
   try {
@@ -16,13 +18,9 @@ function getItem(key: string): ?string {
 }
 
 /**
- * Wraps localStorage.setItem in a try/catch
- * Stringify a value before calling setItem
- *
- * @param {string} key
- * @param {string} value
+ * Wraps localStorage.setItem in a try/catch.
  */
-function setItem(key: string, value: string) {
+function setItem(key: string, value: string): void {
   try {
     localStorage.setItem(key, value);
   } catch (err) {
@@ -31,11 +29,9 @@ function setItem(key: string, value: string) {
 }
 
 /**
- * Wraps localStorage.removeItem in a try/catch
- *
- * @param {string} key
+ * Wraps localStorage.removeItem in a try/catch.
  */
-function removeItem(key: string) {
+function removeItem(key: string): void {
   try {
     localStorage.removeItem(key);
   } catch (err) {
