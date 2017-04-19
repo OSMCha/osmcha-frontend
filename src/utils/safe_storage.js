@@ -1,38 +1,46 @@
 // @flow
-const get = (key: string): ?Object => {
+
+/**
+ * Wraps localStorage.getItem in a try/catch
+ * Returns null if localStorage fails or does not have the key
+ *
+ * @param {string} key
+ */
+function getItem(key: string): ?string {
   try {
-    const serializedValue: ?string = localStorage.getItem(key);
-    if (typeof serializedValue === 'string') {
-      return JSON.parse(serializedValue);
-    }
-    return null;
+    return localStorage.getItem(key) || null;
   } catch (err) {
-    console.error('Could not read from localStorage.');
+    console.warn('Could not read from localStorage.');
     return null;
   }
-};
+}
 
-const set = (key: string, value: Object) => {
+/**
+ * Wraps localStorage.setItem in a try/catch
+ * Stringify a value before calling setItem
+ *
+ * @param {string} key
+ * @param {string} value
+ */
+function setItem(key: string, value: string) {
   try {
-    const serializedValue = JSON.stringify(value);
-    localStorage.setItem(key, serializedValue);
+    localStorage.setItem(key, value);
   } catch (err) {
-    console.error('Could not write to localStorage.');
+    console.warn('Could not write to localStorage.');
   }
-};
+}
 
-const remove = (key: string) => {
+/**
+ * Wraps localStorage.removeItem in a try/catch
+ *
+ * @param {string} key
+ */
+function removeItem(key: string) {
   try {
     localStorage.removeItem(key);
   } catch (err) {
-    console.error('Could not delete from localStorage.');
+    console.warn('Could not delete from localStorage.');
   }
-};
+}
 
-const safeStorage = {
-  get,
-  set,
-  remove,
-};
-
-export default safeStorage;
+export {getItem, setItem, removeItem};
