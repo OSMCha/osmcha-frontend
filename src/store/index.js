@@ -10,7 +10,10 @@ import createSagaMiddleware from 'redux-saga';
 // Reducers
 import {userReducer} from './user_reducer';
 import {changesetsPageReducer} from './changesets_page_reducer';
+import {changesetReducer} from './changeset_reducer';
+
 import type {ChangesetsPageType} from './changesets_page_reducer';
+import type {ChangesetType} from './changeset_reducer';
 
 // Sages
 import sagas from './sagas';
@@ -18,14 +21,16 @@ import sagas from './sagas';
 export type RootStateType = {
   user: Object,
   changesetsPage: ChangesetsPageType,
+  changeset: ChangesetType,
   routing: Object,
 };
 
 // Root reducer
 const reducers: RootStateType = combineReducers({
-  user: userReducer,
   changesetsPage: changesetsPageReducer,
+  changeset: changesetReducer,
   routing: routerReducer,
+  user: userReducer,
 });
 
 const history = createHistory();

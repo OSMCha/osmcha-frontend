@@ -16,12 +16,12 @@ export function action(type: string, payload: ?Object) {
 
 // public
 // starting point for react component to start fetch
-export const fetchChangesets = (pageIndex: number) =>
+export const fetchChangesetsPage = (pageIndex: number) =>
   action(CHANGESETS_PAGE_FETCH_ASYNC, {pageIndex});
 
 // watches for CHANGESETS_PAGE_FETCH_ASYNC and only
-// dispatches latest tofetchChangesetsPageAsync
-export function* watchFetchChangesets(): any {
+// dispatches latest to fetchChangesetsPageAsync
+export function* watchFetchChangesetsPage(): any {
   yield takeLatest(CHANGESETS_PAGE_FETCH_ASYNC, fetchChangesetsPageAsync);
 }
 
@@ -55,7 +55,7 @@ export function* fetchChangesetsPageAsync(
         }),
       );
     } catch (error) {
-      console.log(error);
+      console.log(error.stack);
       yield put(
         action(CHANGESETS_PAGE_ERROR, {
           pageIndex,

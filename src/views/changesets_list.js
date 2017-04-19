@@ -1,7 +1,9 @@
 // @flow
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchChangesets} from '../store/changesets_page_actions';
+import {fetchChangesetsPage} from '../store/changesets_page_actions';
+import {fetchChangeset} from '../store/changeset_actions';
+
 import R from 'ramda';
 import {List} from '../components/list';
 import type {ChangesetsPageType} from '../store/changesets_page_reducer';
@@ -9,7 +11,6 @@ import type {RootStateType} from '../store';
 
 class RangeItem extends React.PureComponent {
   render() {
-    console.log(this.props);
     return (
       <button
         onClick={this._onClick}
@@ -20,7 +21,7 @@ class RangeItem extends React.PureComponent {
     );
   }
   _onClick = () => {
-    this.props.fetchChangesets(this.props.page);
+    this.props.fetchChangesetsPage(this.props.page);
   };
 }
 
@@ -28,11 +29,13 @@ class ChangesetsList extends React.PureComponent {
   props: {
     pathname: string,
     changesetsPage: ChangesetsPageType,
-    fetchChangesets: (number) => mixed, // base 0
+    fetchChangesetsPage: (number) => mixed, // base 0
+    fetchChangeset: (number) => mixed, // base 0
+    activeChangesetId: ?number,
   };
   constructor(props) {
     super(props);
-    this.props.fetchChangesets(0);
+    this.props.fetchChangesetsPage(0);
   }
   render() {
     const currentPage = this.props.changesetsPage.get('currentPage');
@@ -49,7 +52,12 @@ class ChangesetsList extends React.PureComponent {
         {loading ? <div className="loading" /> : null}
         <div className="flex-child flex-child--grow px12 scroll-auto mt12">
           <ul>
-            {currentPage && <List changesets={currentPage.features} />}
+            {currentPage &&
+              <List
+                activeChangesetId={this.props.activeChangesetId}
+                changesets={currentPage.features}
+                fetchChangeset={this.props.fetchChangeset}
+              />}
           </ul>
         </div>
         <footer className="p12 bg-gray-faint txt-s">
@@ -58,7 +66,7 @@ class ChangesetsList extends React.PureComponent {
               key={n}
               page={n}
               active={n === pageIndex}
-              fetchChangesets={this.props.fetchChangesets}
+              fetchChangesetsPage={this.props.fetchChangesetsPage}
             />
           ))}
         </footer>
@@ -70,8 +78,12 @@ class ChangesetsList extends React.PureComponent {
 ChangesetsList = connect(
   (state: RootStateType) => ({
     pathname: state.routing.location.pathname,
+    activeChangesetId: state.changeset.get('changesetId'),
     changesetsPage: state.changesetsPage,
   }),
-  {fetchChangesets},
+  {
+    fetchChangesetsPage,
+    fetchChangeset,
+  },
 )(ChangesetsList);
 export {ChangesetsList};
