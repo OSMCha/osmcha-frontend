@@ -7,7 +7,7 @@ export const CHANGESET_FETCHED = 'CHANGESET_FETCHED';
 export const CHANGESET_CHANGE = 'CHANGESET_CHANGE';
 export const CHANGESET_LOADING = 'CHANGESET_LOADING';
 export const CHANGESET_ERROR = 'CHANGESET_ERROR';
-
+import {fromJS} from 'immutable';
 import type {RootStateType} from './';
 
 export function action(type: string, payload: ?Object) {
@@ -50,7 +50,7 @@ export function* fetchChangesetAsync(
       changeset = yield call(networkFetchChangeset, changesetId);
       yield put(
         action(CHANGESET_FETCHED, {
-          data: changeset,
+          data: fromJS(changeset),
           changesetId,
         }),
       );

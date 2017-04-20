@@ -7,6 +7,7 @@ export const CHANGESETS_PAGE_FETCHED = 'CHANGESETS_PAGE_FETCHED';
 export const CHANGESETS_PAGE_CHANGE = 'CHANGESETS_PAGE_CHANGE';
 export const CHANGESETS_PAGE_LOADING = 'CHANGESETS_PAGE_LOADING';
 export const CHANGESETS_PAGE_ERROR = 'CHANGESETS_PAGE_ERROR';
+import {fromJS} from 'immutable';
 
 import type {RootStateType} from './';
 
@@ -50,7 +51,7 @@ export function* fetchChangesetsPageAsync(
       thisPage = yield call(networkFetchChangesets, pageIndex);
       yield put(
         action(CHANGESETS_PAGE_FETCHED, {
-          data: thisPage,
+          data: fromJS(thisPage),
           pageIndex,
         }),
       );
