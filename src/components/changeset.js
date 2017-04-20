@@ -2,6 +2,7 @@
 import React from 'react';
 import {Map} from 'immutable';
 import {Header} from './changeset_header';
+import {CMap} from './changeset_map';
 // presentational component for view/changeset
 export function Changeset({changeset}: {changeset: ?Map<string, *>}) {
   if (!changeset) return null;
@@ -21,7 +22,7 @@ export function Changeset({changeset}: {changeset: ?Map<string, *>}) {
         comment={properties.get('comment')}
         imagery={properties.get('imagery_used')}
       />
-      {JSON.stringify(changeset.toJS())}
+      <CMap changesetId={changeset.get('id')} />
     </div>
   );
 }

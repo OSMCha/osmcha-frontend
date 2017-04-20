@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import {store, history} from './store';
 import {ConnectedRouter} from 'react-router-redux';
 import './index.css';
-
+require('changeset-map/css/style.css');
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>

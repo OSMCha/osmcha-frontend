@@ -5,6 +5,7 @@
     "node": ">=7.0"
   },
   "dependencies": {
+    "changeset-map": "^0.0.88888888",
     "classnames": "^2.2.5",
     "history": "^4.6.1",
     "immutable": "^3.8.1",
