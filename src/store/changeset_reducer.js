@@ -7,6 +7,7 @@ import {
   CHANGESET_MAP_CHANGE,
   CHANGESET_MAP_ERROR,
   CHANGESET_MAP_FETCHED,
+  CHANGESET_MAP_LOADING,
   CHANGESET_MAP_RESET,
 } from './changeset_actions';
 import {List, Map} from 'immutable';
@@ -16,6 +17,7 @@ export type ChangesetType = Map<
   | 'changesets'
   | 'changesetId' // of the currentChangeset
   | 'loading'
+  | 'loadingChangesetMap'
   | 'changesetMap'
   | 'currentChangesetMap'
   | 'errorChangesetMap'
@@ -28,6 +30,7 @@ const initial: ChangesetType = new Map({
   changesets: new Map(),
   changesetMap: new Map(),
   loading: false,
+  loadingChangesetMap: false,
   error: null,
   errorChangesetMap: null,
 });
@@ -91,6 +94,11 @@ export function changesetReducer(
       return state
         .set('currentChangesetMap', null)
         .set('errorChangesetMap', null);
+    }
+    case CHANGESET_MAP_LOADING: {
+      return state
+        .set('changesetId', action.changesetId)
+        .set('loadingChangesetMap', true);
     }
     case CHANGESET_MAP_ERROR: {
       return state

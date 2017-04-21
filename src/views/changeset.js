@@ -3,7 +3,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {fetchChangeset, fetchChangesetMap} from '../store/changeset_actions';
 import {Changeset as ChangesetDumb} from '../components/changeset';
-import {getRealChangeset} from '../network/real_changeset';
 import {Map} from 'immutable';
 import type {ChangesetType} from '../store/changeset_reducer';
 import type {RootStateType} from '../store';
