@@ -3,21 +3,42 @@ import React from 'react';
 import {Map} from 'immutable';
 import {Header} from './changeset_header';
 import {CMap} from './changeset_map';
+import {dispatchEvent} from '../utils/dispatch_event';
 
 // presentational component for view/changeset.js
 export function Changeset(
   {
-    changeset,
+    changesetId,
+    currentChangeset,
+    errorChangeset,
     currentChangesetMap,
-  }: {changeset: ?Map<string, *>, currentChangesetMap: ?Object},
+    errorChangesetMap,
+  }: {
+    changesetId: ?number,
+    currentChangeset: ?Map<string, *>,
+    currentChangesetMap: ?Object,
+    errorChangeset: ?Object,
+    errorChangesetMap: ?Object,
+  },
 ) {
-  if (!changeset) return null;
-  console.log(changeset.toJS());
-  const properties = changeset.get('properties');
+  if (errorChangeset) {
+    console.log('error');
+    dispatchEvent('showToast', {
+      title: 'changeset failed to load',
+      content: 'Try reloading osmcha',
+      timeOut: 5000,
+      type: 'error',
+    });
+    console.error(errorChangeset);
+    return null;
+  }
+  if (!currentChangeset) return null;
+  const properties = currentChangeset.get('properties');
+
   return (
     <div>
       <Header
-        changesetId={changeset.get('id')}
+        changesetId={changesetId}
         date={properties.get('date')}
         create={properties.get('create')}
         modify={properties.get('modify')}
@@ -29,10 +50,7 @@ export function Changeset(
         imagery={properties.get('imagery_used')}
       />
       {currentChangesetMap
-        ? <CMap
-            changesetId={changeset.get('id')}
-            adiffResult={currentChangesetMap}
-          />
+        ? <CMap changesetId={changesetId} adiffResult={currentChangesetMap} />
         : null}
     </div>
   );

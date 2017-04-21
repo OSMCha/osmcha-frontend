@@ -3,17 +3,19 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {fetchChangeset} from '../store/changeset_actions';
 import {Changeset as ChangesetDumb} from '../components/changeset';
-import {dispatchEvent} from '../utils/dispatch_event';
-
+import {Navbar} from '../components/navbar';
 import {Map} from 'immutable';
 import type {ChangesetType} from '../store/changeset_reducer';
 import type {RootStateType} from '../store';
 class Changeset extends React.PureComponent {
   props: {
     changeset: ChangesetType,
-    paramsId: number,
+    paramsId: number, // is also the changesetId
     match: Object,
     fetchChangeset: (number) => mixed,
+  };
+  state = {
+    filter: false,
   };
   constructor(props) {
     super(props);
@@ -33,39 +35,51 @@ class Changeset extends React.PureComponent {
       this.props.fetchChangeset(newId);
     }
   }
-  render() {
+  showChangeset = () => {
     const {match, changeset} = this.props;
     const currentChangeset: Map<string, *> = changeset.get('currentChangeset');
     const currentChangesetMap: Object = changeset.get('currentChangesetMap');
-    if (match.path !== '/changesets/:id') {
-      return <div> batpad, please select a changeset </div>;
-    }
     if (changeset.get('loading')) {
       return <div className="loading" />;
     }
-    if (changeset.get('error')) {
-      dispatchEvent('showToast', {
-        title: 'changeset failed to load',
-        content: 'Try reloading osmcha',
-        timeOut: 5000,
-        type: 'error',
-      });
-      console.error(changeset.get('error'));
-      return null;
-    }
-    if (changeset.get('errorChangesetMap')) {
-      dispatchEvent('showToast', {
-        title: 'changesetMap failed to load',
-        content: 'Try reloading osmcha',
-        timeOut: 5000,
-        type: 'error',
-      });
+    if (match.path !== '/changesets/:id') {
+      return <div> batpad, please select a changeset </div>;
     }
     return (
       <ChangesetDumb
-        changeset={currentChangeset}
+        changesetId={this.props.paramsId}
+        currentChangeset={currentChangeset}
+        errorChangeset={changeset.get('errorChangeset')}
+        errorChangesetMap={changeset.get('errorChangesetMap')}
         currentChangesetMap={currentChangesetMap}
       />
+    );
+  };
+  toggleFilter = () => {
+    this.setState({
+      filter: !this.state.filter,
+    });
+  };
+  render() {
+    return (
+      <div>
+        <Navbar
+          className="bg-white color-gray-dark border border--gray-light border--1 "
+          title={<span className="txt-bold">{this.props.paramsId}</span>}
+          buttons={
+            <a
+              className={
+                `${this.state.filter ? 'is-active' : ''} flex-parent-inline btn color-gray-dark color-gray-dark-on-active bg-transparent bg-darken5-on-hover bg-gray-light-on-active txt-s ml3`
+              }
+              href="#"
+              onClick={this.toggleFilter}
+            >
+              <svg className="icon"><use xlinkHref="#icon-osm" /></svg>
+            </a>
+          }
+        />
+        {this.showChangeset()}
+      </div>
     );
   }
 }

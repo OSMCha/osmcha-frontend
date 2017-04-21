@@ -21,7 +21,7 @@ export type ChangesetType = Map<
   | 'changesetMap'
   | 'currentChangesetMap'
   | 'errorChangesetMap'
-  | 'error', any>;
+  | 'errorChangeset', any>;
 
 const initial: ChangesetType = new Map({
   changesetId: null,
@@ -46,7 +46,7 @@ export function changesetReducer(
         .set('changesetId', action.changesetId)
         .set('currentChangeset', changesets.get(action.changesetId))
         .set('loading', false)
-        .set('error', null)
+        .set('errorChangeset', null)
         .set('errorChangesetMap', null);
     }
     case CHANGESET_LOADING: {
@@ -54,7 +54,7 @@ export function changesetReducer(
         .set('changesetId', action.changesetId)
         .set('currentChangeset', null)
         .set('loading', true)
-        .set('error', null);
+        .set('errorChangeset', null);
     }
     case CHANGESET_FETCHED: {
       const changesets = state
@@ -65,14 +65,14 @@ export function changesetReducer(
         .set('changesetId', action.changesetId)
         .set('currentChangeset', action.data)
         .set('loading', false)
-        .set('error', null);
+        .set('errorChangeset', null);
     }
     case CHANGESET_ERROR: {
       return state
         .set('changesetId', action.changesetId)
         .set('currentChangeset', null)
         .set('loading', false)
-        .set('error', action.error);
+        .set('errorChangeset', action.error);
     }
     case CHANGESET_MAP_CHANGE: {
       const changesetMap = state.get('changesetMap');

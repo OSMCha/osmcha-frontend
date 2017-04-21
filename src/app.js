@@ -7,7 +7,7 @@ import {Stats} from './views/stats';
 import {Features} from './views/features';
 import {Sidebar} from './components/sidebar';
 import {ToastContainer, ToastMessage} from 'react-toastr';
-
+import {initKeyGobal} from './utils/key_bindings';
 var ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
 class App extends Component {
@@ -15,10 +15,13 @@ class App extends Component {
     if (document && document.body) {
       document.body.addEventListener('showToast', this.showToast);
     }
+    initKeyGobal();
   }
-  showToast = (ev: Object) => {
-    const message = ev.detail;
+  // trigger it via events
+  showToast = (event: Object) => {
+    const message = event.detail;
     const messageType: 'warning' | 'error' | 'success' | 'info' = message.type;
+
     this.refs.toastr[messageType](message.title + Date.now(), message.content, {
       timeOut: message.timeOut,
       extendedTimeOut: 4000,
@@ -30,11 +33,11 @@ class App extends Component {
   render() {
     return (
       <div className="flex-parent viewport-full relative clip">
-        <div className="flex-child w-full w300-ml absolute static-ml left top">
+        <div className="flex-child w300 wmin300 absolute static-ml left top">
           <Sidebar />
         </div>
         <div
-          className="flex-child flex-child--grow bg-darken10 viewport-twothirds viewport-full-ml"
+          className="flex-child flex-child--grow h-full hmax-full viewport-twothirds"
         >
           <Route exact path="/" component={Changeset} />
           <Route path="/changesets/:id" component={Changeset} />
