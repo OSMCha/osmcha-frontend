@@ -30,6 +30,7 @@ class ChangesetsList extends React.PureComponent {
     loading: boolean,
     error: Object,
     currentPage: Map<string, *>,
+    cachedChangesets: Map<string, *>,
     pageIndex: number,
     fetchChangesetsPage: (number) => mixed, // base 0
     fetchChangeset: (number) => mixed, // base 0
@@ -46,7 +47,8 @@ class ChangesetsList extends React.PureComponent {
     return (
       <List
         activeChangesetId={this.props.activeChangesetId}
-        changesets={features}
+        data={features}
+        cachedChangesets={this.props.cachedChangesets}
         fetchChangeset={this.props.fetchChangeset}
       />
     );
@@ -70,7 +72,7 @@ class ChangesetsList extends React.PureComponent {
     return (
       <div className="flex-parent flex-parent--column flex-child--grow">
         {loading ? <div className="loading" /> : null}
-        <div className="flex-child flex-child--grow px12 scroll-auto mt12">
+        <div className="flex-child flex-child--grow pl12 scroll-auto mt3">
           {this.showList()}
         </div>
         <footer className="p12 bg-gray-faint txt-s">
@@ -86,6 +88,7 @@ ChangesetsList = connect(
     pathname: state.routing.location.pathname,
     activeChangesetId: state.changeset.get('changesetId'),
     currentPage: state.changesetsPage.get('currentPage'),
+    cachedChangesets: state.changeset.get('changesets'),
     pageIndex: state.changesetsPage.get('pageIndex'),
     loading: state.changesetsPage.get('loading'),
     error: state.changesetsPage.get('error'),

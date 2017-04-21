@@ -32,9 +32,6 @@ export function Sidebar() {
           }
         />
       </div>
-      <div className="flex-child px12 mt12">
-        {/* <Tabs />*/}
-      </div>
       <ChangesetsList />
     </div>
   );
