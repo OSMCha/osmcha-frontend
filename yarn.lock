@@ -1206,9 +1206,9 @@ chalk@~0.4.0:
     has-color "~0.1.0"
     strip-ansi "~0.1.0"
 
-changeset-map@^0.0.88888888:
+"changeset-map@https://github.com/kepta/changeset-map.git#e4511af3040771a2eb49912d28012e2fcbd033db":
   version "0.0.88888888"
-  resolved "https://registry.yarnpkg.com/changeset-map/-/changeset-map-0.0.88888888.tgz#3aeede1fb22b924af6d05ef4f1e59dc67276f08c"
+  resolved "https://github.com/kepta/changeset-map.git#e4511af3040771a2eb49912d28012e2fcbd033db"
   dependencies:
     "@turf/bbox-polygon" "^3.13.0"
     "@turf/helpers" "^3.13.0"

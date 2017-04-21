@@ -6,7 +6,7 @@ export class CMap extends React.PureComponent {
   };
   componentDidMount() {
     require.ensure([], require => {
-      const changesetMap = window.render;
+      const changesetMap = window.renderChangesetMap;
       var container = document.getElementById('container');
       var changesetMapControl = changesetMap(
         container,

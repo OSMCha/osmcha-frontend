@@ -5,7 +5,7 @@
     "node": ">=7.0"
   },
   "dependencies": {
-    "changeset-map": "^0.0.88888888",
+    "changeset-map": "https://github.com/kepta/changeset-map.git#e4511af3040771a2eb49912d28012e2fcbd033db",
     "classnames": "^2.2.5",
     "history": "^4.6.1",
     "immutable": "^3.8.1",
