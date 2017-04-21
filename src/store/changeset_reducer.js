@@ -46,7 +46,8 @@ export function changesetReducer(
         .set('changesetId', action.changesetId)
         .set('currentChangeset', changesets.get(action.changesetId))
         .set('loading', false)
-        .set('error', null);
+        .set('error', null)
+        .set('errorChangesetMap', null);
     }
     case CHANGESET_LOADING: {
       return state
@@ -98,7 +99,8 @@ export function changesetReducer(
     case CHANGESET_MAP_LOADING: {
       return state
         .set('changesetId', action.changesetId)
-        .set('loadingChangesetMap', true);
+        .set('loadingChangesetMap', true)
+        .set('errorChangesetMap', null);
     }
     case CHANGESET_MAP_ERROR: {
       return state

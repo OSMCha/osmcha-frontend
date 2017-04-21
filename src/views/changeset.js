@@ -3,6 +3,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {fetchChangeset, fetchChangesetMap} from '../store/changeset_actions';
 import {Changeset as ChangesetDumb} from '../components/changeset';
+import {dispatchEvent} from '../utils/dispatch_event';
+
 import {Map} from 'immutable';
 import type {ChangesetType} from '../store/changeset_reducer';
 import type {RootStateType} from '../store';
@@ -45,7 +47,22 @@ class Changeset extends React.PureComponent {
       return <div className="loading" />;
     }
     if (changeset.get('error')) {
-      return <div>{JSON.stringify(changeset.get('error').stack)}</div>;
+      dispatchEvent('showToast', {
+        title: 'changeset failed to load',
+        content: 'Try reloading osmcha',
+        timeOut: 5000,
+        type: 'error',
+      });
+      console.error(changeset.get('error'));
+      return null;
+    }
+    if (changeset.get('errorChangesetMap')) {
+      dispatchEvent('showToast', {
+        title: 'changesetMap failed to load',
+        content: 'Try reloading osmcha',
+        timeOut: 5000,
+        type: 'error',
+      });
     }
     return (
       <ChangesetDumb
