@@ -5343,7 +5343,7 @@ readline2@^1.0.1:
     is-fullwidth-code-point "^1.0.0"
     mute-stream "0.0.5"
 
-real-changesets-parser@^1.2.0:
+real-changesets-parser@^1.2.0, real-changesets-parser@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/real-changesets-parser/-/real-changesets-parser-1.2.3.tgz#6b8a052f6b591697cadf0106829cadbbcaa9547c"
   dependencies:
