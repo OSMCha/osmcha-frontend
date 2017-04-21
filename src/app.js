@@ -12,7 +12,9 @@ var ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
 class App extends Component {
   componentDidMount() {
-    document.body.addEventListener('showToast', this.showToast);
+    if (document && document.body) {
+      document.body.addEventListener('showToast', this.showToast);
+    }
   }
   showToast = (ev: Object) => {
     const message = ev.detail;

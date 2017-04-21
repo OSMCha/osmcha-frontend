@@ -26,7 +26,7 @@ export type RootStateType = {
 };
 
 // Root reducer
-const reducers: RootStateType = combineReducers({
+const reducers = combineReducers({
   changesetsPage: changesetsPageReducer,
   changeset: changesetReducer,
   routing: routerReducer,

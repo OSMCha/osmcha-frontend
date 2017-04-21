@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchChangeset, fetchChangesetMap} from '../store/changeset_actions';
+import {fetchChangeset} from '../store/changeset_actions';
 import {Changeset as ChangesetDumb} from '../components/changeset';
 import {dispatchEvent} from '../utils/dispatch_event';
 
@@ -14,7 +14,6 @@ class Changeset extends React.PureComponent {
     paramsId: number,
     match: Object,
     fetchChangeset: (number) => mixed,
-    fetchChangesetMap: (number) => mixed,
   };
   constructor(props) {
     super(props);
@@ -22,7 +21,6 @@ class Changeset extends React.PureComponent {
     var changesetId = this.props.paramsId;
     if (!Number.isNaN(changesetId)) {
       this.props.fetchChangeset(changesetId);
-      // this.props.fetchChangesetMap(changesetId);
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -33,7 +31,6 @@ class Changeset extends React.PureComponent {
     }
     if (newId !== oldId) {
       this.props.fetchChangeset(newId);
-      // this.props.fetchChangesetMap(newId);
     }
   }
   render() {
@@ -78,7 +75,7 @@ Changeset = connect(
     changeset: state.changeset,
     paramsId: parseInt(props.match.params.id, 10),
   }),
-  {fetchChangeset, fetchChangesetMap},
+  {fetchChangeset},
 )(Changeset);
 
 export {Changeset};
