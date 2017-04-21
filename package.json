@@ -5,10 +5,12 @@
     "node": ">=7.0"
   },
   "dependencies": {
+    "animate.css": "^3.5.2",
     "changeset-map": "https://github.com/kepta/changeset-map.git#e4511af3040771a2eb49912d28012e2fcbd033db",
     "classnames": "^2.2.5",
     "history": "^4.6.1",
     "immutable": "^3.8.1",
+    "mousetrap": "^1.6.1",
     "ramda": "^0.23.0",
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
@@ -16,6 +18,7 @@
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",
     "react-router-redux": "next",
+    "react-toastr": "^2.8.2",
     "real-changesets-parser": "^1.2.3",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",

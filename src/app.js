@@ -6,8 +6,26 @@ import {About} from './views/about';
 import {Stats} from './views/stats';
 import {Features} from './views/features';
 import {Sidebar} from './components/sidebar';
+import {ToastContainer, ToastMessage} from 'react-toastr';
+
+var ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
 class App extends Component {
+  componentDidMount() {
+    document.body.addEventListener('showToast', this.showToast);
+  }
+  showToast = (ev: Object) => {
+    const message = ev.detail;
+    const messageType: 'warning' | 'error' | 'success' | 'info' = message.type;
+    console.log('here', message);
+    this.refs.toastr[messageType](message.title + Date.now(), message.content, {
+      timeOut: message.timeOut,
+      extendedTimeOut: 4000,
+      closeButton: true,
+      showAnimation: 'animated slideInDown',
+      hideAnimation: 'animated fadeOut',
+    });
+  };
   render() {
     return (
       <div className="flex-parent viewport-full relative clip">
@@ -23,6 +41,11 @@ class App extends Component {
           <Route path="/stats" component={Stats} />
           <Route path="/features" component={Features} />
         </div>
+        <ToastContainer
+          ref="toastr"
+          toastMessageFactory={ToastMessageFactory}
+          className="toast-top-right"
+        />
       </div>
     );
   }
