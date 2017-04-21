@@ -17,7 +17,6 @@ class App extends Component {
   showToast = (ev: Object) => {
     const message = ev.detail;
     const messageType: 'warning' | 'error' | 'success' | 'info' = message.type;
-    console.log('here', message);
     this.refs.toastr[messageType](message.title + Date.now(), message.content, {
       timeOut: message.timeOut,
       extendedTimeOut: 4000,

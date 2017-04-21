@@ -22,7 +22,7 @@ class Changeset extends React.PureComponent {
     var changesetId = this.props.paramsId;
     if (!Number.isNaN(changesetId)) {
       this.props.fetchChangeset(changesetId);
-      this.props.fetchChangesetMap(changesetId);
+      // this.props.fetchChangesetMap(changesetId);
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -33,7 +33,7 @@ class Changeset extends React.PureComponent {
     }
     if (newId !== oldId) {
       this.props.fetchChangeset(newId);
-      this.props.fetchChangesetMap(newId);
+      // this.props.fetchChangesetMap(newId);
     }
   }
   render() {

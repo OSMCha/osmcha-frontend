@@ -19,68 +19,6 @@ export function networkFetchChangesetMap(changesetID) {
       changeset: resp[0],
     };
   });
-  // return osm(changesetID).then(changeset => {
-  //   return fetch(url, {
-  //     'Response-Type': 'application/osm3s+xml',
-  //   })
-
-  //     .then(x => {
-  //       var geojson = jsonParser(JSON.parse(x));
-  //       var featureMap = getFeatureMap(geojson);
-
-  //       return {
-  //         geojson: geojson,
-  //         featureMap: featureMap,
-  //         changeset: changeset,
-  //       };
-  //     });
-
-  // xhr.get(url, function(err, response) {
-  //     if (err || response.statusCode === 403) {
-  //       // Fallback to overpass
-  //         var data = getDataParam(changeset);
-  //         var bbox = getBboxParam(changeset.bbox);
-  //         var url = overpassBase + '?data=' + data + '&bbox=' + bbox;
-  //         var xhrOptions = {
-  //             'Response-Type': 'application/osm3s+xml'
-  //         };
-  //         xhr.get(url, xhrOptions, function(err, response) {
-  //             if (err) {
-  //                 return callback({
-  //                     'msg': 'Overpass query failed.',
-  //                     'error': err
-  //                 }, null);
-  //             }
-  //             adiffParser(response.body, null, function(err, json) {
-  //                 if (err) {
-  //                     return callback({
-  //                         'msg': 'Failed to parser adiff xml.',
-  //                         'error': err
-  //                     }, null);
-  //                 }
-  //                 var geojson = jsonParser({elements: json[changesetID]});
-  //                 var featureMap = getFeatureMap(geojson);
-
-  //                 var ret = {
-  //                     'geojson': geojson,
-  //                     'featureMap': featureMap,
-  //                     'changeset': changeset
-  //                 };
-  //                 return callback(null, ret);
-  //             });
-  //         });
-  //     } else {
-  //         var geojson = jsonParser(JSON.parse(response.body));
-  //         var featureMap = getFeatureMap(geojson);
-
-  //         var ret = {
-  //             'geojson': geojson,
-  //             'featureMap': featureMap,
-  //             'changeset': changeset
-  //         };
-  //         return callback(null, ret);
-  //     }
-  // });
 }
 
 function getDataParam(c) {

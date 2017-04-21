@@ -3,7 +3,8 @@ import React from 'react';
 import {Map} from 'immutable';
 import {Header} from './changeset_header';
 import {CMap} from './changeset_map';
-// presentational component for view/changeset
+
+// presentational component for view/changeset.js
 export function Changeset(
   {
     changeset,

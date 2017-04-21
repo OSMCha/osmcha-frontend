@@ -10,7 +10,6 @@ export const CHANGESET_CHANGE = 'CHANGESET_CHANGE';
 export const CHANGESET_LOADING = 'CHANGESET_LOADING';
 export const CHANGESET_ERROR = 'CHANGESET_ERROR';
 
-export const CHANGESET_MAP_FETCH_ASYNC = 'CHANGESET_MAP_FETCH_ASYNC';
 export const CHANGESET_MAP_LOADING = 'CHANGESET_MAP_FETCH_LOADING';
 export const CHANGESET_MAP_FETCHED = 'CHANGESET_MAP_FETCHED';
 export const CHANGESET_MAP_ERROR = 'CHANGESET_MAP_ERROR';
@@ -29,20 +28,23 @@ export function action(type: string, payload: ?Object) {
 export const fetchChangeset = (changesetId: number) =>
   action(CHANGESET_FETCH_ASYNC, {changesetId});
 
-export const fetchChangesetMap = (changesetId: number) =>
-  action(CHANGESET_MAP_FETCH_ASYNC, {changesetId});
-
 // watches for CHANGESET_FETCH_ASYNC and only
 // dispatches latest tofetchChangesetsPageAsync
 export function* watchFetchChangeset(): any {
-  yield takeLatest(CHANGESET_FETCH_ASYNC, fetchChangesetAsync);
-}
-
-export function* watchFetchChangesetMap(): any {
-  yield takeLatest(CHANGESET_MAP_FETCH_ASYNC, fetchChangesetMapAsync);
+  yield takeLatest(CHANGESET_FETCH_ASYNC, fetchChangesetAndChangesetMap);
 }
 
 /** Sagas **/
+export function* fetchChangesetAndChangesetMap(
+  {changesetId}: {changesetId: number},
+): Object {
+  // run both in parallel
+  yield [
+    call(fetchChangesetAsync, {changesetId}),
+    call(fetchChangesetMapAsync, {changesetId}),
+  ];
+}
+
 export function* fetchChangesetAsync(
   {changesetId}: {changesetId: number},
 ): Object {
@@ -87,6 +89,7 @@ export function* fetchChangesetMapAsync(
   {changesetId}: {changesetId: number},
 ): Object {
   yield put(action(CHANGESET_MAP_RESET));
+  // tiny delay for changeset map to reset
   yield delay(100);
   let changesetMap = yield select((state: RootStateType) =>
     state.changeset.get('changesetMap').get(changesetId));

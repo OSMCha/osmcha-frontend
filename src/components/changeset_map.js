@@ -5,17 +5,14 @@ export class CMap extends React.PureComponent {
     adiffResult: Object,
   };
   componentDidMount() {
-    require.ensure([], require => {
-      const changesetMap = window.renderChangesetMap;
-
-      var container = document.getElementById('container');
-      var changesetMapControl = changesetMap(
-        container,
-        this.props.changesetId,
-        {width: '800px', height: '500px'},
-        this.props.adiffResult,
-      );
-    });
+    const changesetMap = window.renderChangesetMap;
+    var container = document.getElementById('container');
+    var changesetMapControl = changesetMap(
+      container,
+      this.props.changesetId,
+      {width: '800px', height: '500px'},
+      this.props.adiffResult,
+    );
   }
   render() {
     return (
