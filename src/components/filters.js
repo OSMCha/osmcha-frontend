@@ -5,8 +5,22 @@ import {Tooltip} from 'react-tippy';
 class Filter extends React.PureComponent {
   showForm = () => {
     const {display, type, icontains, name, range, all} = this.props.data;
-    if (type === 'string') {
-      return <input className="input wmin300 wmax300" placeholder={display} />;
+    if (type === 'text') {
+      return (
+        <input
+          type={type}
+          className="input wmin300 wmax300"
+          placeholder={display}
+        />
+      );
+    }
+    if (range) {
+      return (
+        <span className="flex-parent flex-parent--row  wmin300 wmax300">
+          <input type={type} className="input mr3" placeholder="min" />{' '}
+          <input type={type} className="input" placeholder="max" />{' '}
+        </span>
+      );
     }
   };
   render() {
