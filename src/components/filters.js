@@ -6,7 +6,7 @@ class Filter extends React.PureComponent {
   showForm = () => {
     const {display, type, icontains, name, range, all} = this.props.data;
     if (type === 'string') {
-      return <input className="input wmin240 wmax300" placeholder={display} />;
+      return <input className="input wmin300 wmax300" placeholder={display} />;
     }
   };
   render() {
