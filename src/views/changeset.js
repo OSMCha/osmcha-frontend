@@ -8,6 +8,7 @@ import {Changeset as ChangesetDumb} from '../components/changeset';
 import {Navbar} from '../components/navbar';
 import {Sidebar} from '../components/sidebar';
 import {Loading} from '../components/loading';
+import {FILTER_BINDING} from '../config/bindings';
 import {Map} from 'immutable';
 import type {ChangesetType} from '../store/changeset_reducer';
 import type {RootStateType} from '../store';
@@ -29,7 +30,7 @@ class Changeset extends React.PureComponent {
     }
   }
   componentDidMount() {
-    Mousetrap.bind('\\', () => {
+    Mousetrap.bind(FILTER_BINDING, () => {
       this.toggleFilter();
     });
   }
@@ -103,7 +104,7 @@ class Changeset extends React.PureComponent {
                         <span
                           className="flex-parent flex-parent--center-cross justify--space-between txt-fancy color-gray txt-l"
                         >
-                          <span className="txt-bold">Filters</span>
+                          <span className="txt-bold select-none">Filters</span>
                           <span className="flex-child flex-child--grow" />
                           <a
                             className={

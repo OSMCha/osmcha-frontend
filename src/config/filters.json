@@ -1,0 +1,170 @@
+[
+  {
+    "name": "comment",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Comment",
+    "type": "string"
+  },
+  {
+    "name": "source",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Source",
+    "type": "string"
+  },
+  {
+    "name": "editor",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Editor",
+    "type": "string"
+  },
+  {
+    "name": "date",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Date",
+    "type": "date"
+  },
+  {
+    "name": "check_date",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Check Date",
+    "type": "date"
+  },
+  {
+    "name": "create",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Create",
+    "type": "number"
+  },
+  {
+    "name": "modify",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Modify",
+    "type": "number"
+  },
+  {
+    "name": "imagery_used",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Imagery used",
+    "type": "string"
+  },
+  {
+    "name": "delete",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Delete",
+    "type": "number"
+  },
+  {
+    "name": "geometry",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Geometry",
+    "type": "string"
+  },
+  {
+    "name": "checked_by",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Checked by",
+    "type": "string"
+  },
+  {
+    "name": "users",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Users",
+    "type": "string_comma"
+  },
+  {
+    "name": "ids",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "ids",
+    "type": "string_comma"
+  },
+  {
+    "name": "reasons",
+    "icontains": false,
+    "range": false,
+    "all": true,
+    "display": "Reasons",
+    "type": "string_comma"
+  },
+  {
+    "name": "tags",
+    "icontains": false,
+    "range": false,
+    "all": true,
+    "display": "Tags",
+    "type": "string_comma"
+  },
+  {
+    "name": "checked",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Checked",
+    "type": "string"
+  },
+  {
+    "name": "harmful",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Harmful",
+    "type": "string"
+  },
+  {
+    "name": "is_suspect",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Suspect",
+    "type": "string"
+  },
+  {
+    "name": "powerfull_editor",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Powerful editor",
+    "type": "string"
+  },
+  {
+    "name": "order_by",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Order by",
+    "type": "string"
+  },
+  {
+    "name": "hide_whitelist",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Order by",
+    "type": "string"
+  }
+]
