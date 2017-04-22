@@ -4693,6 +4693,10 @@ point-geometry@0.0.0, point-geometry@^0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/point-geometry/-/point-geometry-0.0.0.tgz#6fcbcad7a803b6418247dd6e49c2853c584daff7"
 
+popper.js@^1.5.1, popper.js@^1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.8.2.tgz#c6256b39dc20b3da58f0f2231407b126da017d40"
+
 postcss-calc@^5.2.0:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/postcss-calc/-/postcss-calc-5.3.1.tgz#77bae7ca928ad85716e2fda42f261bf7c1d65b5e"
@@ -5298,6 +5302,12 @@ react-scripts@0.9.5:
     whatwg-fetch "2.0.2"
   optionalDependencies:
     fsevents "1.0.17"
+
+react-tippy@^0.6.1-3:
+  version "0.6.1-3"
+  resolved "https://registry.yarnpkg.com/react-tippy/-/react-tippy-0.6.1-3.tgz#5c30b3d8aa7d6b8c5046e51a16c728b6f7c6d2ee"
+  dependencies:
+    popper.js "^1.5.1"
 
 react-toastr@^2.8.2:
   version "2.8.2"
@@ -6146,6 +6156,12 @@ timers-browserify@^2.0.2:
 tinyqueue@^1.1.0:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/tinyqueue/-/tinyqueue-1.2.2.tgz#947229e5e4197aba988acd27751dcc582e6728ff"
+
+tippy.js@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-0.7.0.tgz#d8e8fb31c2bd4704b8ceb6c3e567a8dabc5ed438"
+  dependencies:
+    popper.js "^1.8.2"
 
 tmpl@1.0.x:
   version "1.0.4"
