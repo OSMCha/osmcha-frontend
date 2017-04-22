@@ -8,6 +8,8 @@ import {Changeset as ChangesetDumb} from '../components/changeset';
 import {Navbar} from '../components/navbar';
 import {Sidebar} from '../components/sidebar';
 import {Loading} from '../components/loading';
+import {Filters} from '../components/filters';
+
 import {FILTER_BINDING} from '../config/bindings';
 import {Map} from 'immutable';
 import type {ChangesetType} from '../store/changeset_reducer';
@@ -73,8 +75,12 @@ class Changeset extends React.PureComponent {
     return (
       <div className="flex-parent flex-parent--column h-full hmax-full">
         <Navbar
-          className="bg-white color-gray-dark border-b border--gray-light border--1 "
-          title={<span className="txt-bold">{this.props.paramsId}</span>}
+          className="bg-white color-gray border-b border--gray-light border--1 "
+          title={
+            <span className="txt-l">
+              Changeset: <span className="txt-em">{this.props.paramsId}</span>
+            </span>
+          }
           buttons={
             <a
               className={
@@ -87,7 +93,7 @@ class Changeset extends React.PureComponent {
             </a>
           }
         />
-        <div className="flex-parent flex-parent--rowh">
+        <div className="flex-parent flex-parent--row">
           {this.showChangeset()}
           <CSSTransitionGroup
             transitionName="filters-bar"
@@ -122,7 +128,7 @@ class Changeset extends React.PureComponent {
                     />
                   }
                 >
-                  Holla
+                  <Filters />
                 </Sidebar>
               : null}
           </CSSTransitionGroup>

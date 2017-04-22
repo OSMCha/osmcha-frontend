@@ -8,15 +8,23 @@ class ListItem extends React.PureComponent {
   render() {
     return (
       <Tooltip
-        title="Welcome to React"
         position="right"
+        theme="osmcha"
+        interactive
         arrow
         animation="perspective"
         html={
-          <div className="flex-parent flex-parent--column">
+          <div
+            className="flex-parent flex-parent--column color-gray align-items--start"
+          >
             <span className="flex-child txt-bold txt-l">
               Changeset: {this.props.id}
             </span>
+            {this.props.properties.get('reasons').size > 0
+              ? <span className="flex-child txt-em mb6 px6 txt-underline">
+                  {this.props.properties.get('reasons').join(', ')}
+                </span>
+              : null}
             <span className="flex-child">
               by
               {' '}
@@ -24,7 +32,7 @@ class ListItem extends React.PureComponent {
                 {this.props.properties.get('user')}
               </span>
             </span>
-            <span className="flex-child">
+            <span className="flex-child align-items--start txt-truncate">
               using <span className="txt-em">
                 {this.props.properties.get('editor')}
                 /

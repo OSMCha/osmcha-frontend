@@ -5,7 +5,8 @@
     "all": false,
     "range": false,
     "display": "Comment",
-    "type": "string"
+    "type": "string",
+    "description": "Here goes one description"
   },
   {
     "name": "source",
@@ -13,7 +14,8 @@
     "all": false,
     "range": false,
     "display": "Source",
-    "type": "string"
+    "type": "string",
+    "description": "Here goes one description"
   },
   {
     "name": "editor",
@@ -21,7 +23,8 @@
     "all": false,
     "range": false,
     "display": "Editor",
-    "type": "string"
+    "type": "string",
+    "description": "Here goes one description"
   },
   {
     "name": "date",
@@ -29,7 +32,8 @@
     "all": false,
     "range": true,
     "display": "Date",
-    "type": "date"
+    "type": "date",
+    "description": "Here goes one description"
   },
   {
     "name": "check_date",
@@ -37,7 +41,8 @@
     "all": false,
     "range": true,
     "display": "Check Date",
-    "type": "date"
+    "type": "date",
+    "description": "Here goes one description"
   },
   {
     "name": "create",
@@ -45,7 +50,8 @@
     "all": false,
     "range": true,
     "display": "Create",
-    "type": "number"
+    "type": "number",
+    "description": "Here goes one description"
   },
   {
     "name": "modify",
@@ -53,7 +59,8 @@
     "all": false,
     "range": true,
     "display": "Modify",
-    "type": "number"
+    "type": "number",
+    "description": "Here goes one description"
   },
   {
     "name": "imagery_used",
@@ -61,7 +68,8 @@
     "all": false,
     "range": false,
     "display": "Imagery used",
-    "type": "string"
+    "type": "string",
+    "description": "Here goes one description"
   },
   {
     "name": "delete",
@@ -69,7 +77,8 @@
     "all": false,
     "range": true,
     "display": "Delete",
-    "type": "number"
+    "type": "number",
+    "description": "Here goes one description"
   },
   {
     "name": "geometry",
@@ -77,7 +86,8 @@
     "all": false,
     "range": false,
     "display": "Geometry",
-    "type": "string"
+    "type": "string",
+    "description": "Here goes one description"
   },
   {
     "name": "checked_by",
@@ -85,7 +95,8 @@
     "all": false,
     "range": false,
     "display": "Checked by",
-    "type": "string"
+    "type": "string",
+    "description": "Here goes one description"
   },
   {
     "name": "users",
@@ -93,7 +104,8 @@
     "all": false,
     "range": false,
     "display": "Users",
-    "type": "string_comma"
+    "type": "string_comma",
+    "description": "Here goes one description"
   },
   {
     "name": "ids",
@@ -101,7 +113,8 @@
     "range": false,
     "all": false,
     "display": "ids",
-    "type": "string_comma"
+    "type": "string_comma",
+    "description": "Here goes one description"
   },
   {
     "name": "reasons",
@@ -109,7 +122,8 @@
     "range": false,
     "all": true,
     "display": "Reasons",
-    "type": "string_comma"
+    "type": "string_comma",
+    "description": "Here goes one description"
   },
   {
     "name": "tags",
@@ -117,7 +131,8 @@
     "range": false,
     "all": true,
     "display": "Tags",
-    "type": "string_comma"
+    "type": "string_comma",
+    "description": "Here goes one description"
   },
   {
     "name": "checked",
@@ -125,7 +140,8 @@
     "range": false,
     "all": false,
     "display": "Checked",
-    "type": "string"
+    "type": "string",
+    "description": "Here goes one description"
   },
   {
     "name": "harmful",
@@ -133,7 +149,8 @@
     "range": false,
     "all": false,
     "display": "Harmful",
-    "type": "string"
+    "type": "string",
+    "description": "Here goes one description"
   },
   {
     "name": "is_suspect",
@@ -141,7 +158,8 @@
     "range": false,
     "all": false,
     "display": "Suspect",
-    "type": "string"
+    "type": "string",
+    "description": "Here goes one description"
   },
   {
     "name": "powerfull_editor",
@@ -149,7 +167,8 @@
     "range": false,
     "all": false,
     "display": "Powerful editor",
-    "type": "string"
+    "type": "string",
+    "description": "Here goes one description"
   },
   {
     "name": "order_by",
@@ -157,7 +176,8 @@
     "range": false,
     "all": false,
     "display": "Order by",
-    "type": "string"
+    "type": "string",
+    "description": "Here goes one description"
   },
   {
     "name": "hide_whitelist",
@@ -165,6 +185,7 @@
     "range": false,
     "all": false,
     "display": "Order by",
-    "type": "string"
+    "type": "string",
+    "description": "Here goes one description"
   }
 ]

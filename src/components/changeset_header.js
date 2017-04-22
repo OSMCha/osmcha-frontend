@@ -27,7 +27,7 @@ export function Header(
     imagery,
   } = props;
   return (
-    <div>
+    <div className="px12 color-gray">
       <h2 className="txt-subhead txt-light">Time: {date} </h2>
       <h2 className="txt-l txt-light">Changeset: {changesetId} </h2>
       <h2 className="txt-subhead txt-light">

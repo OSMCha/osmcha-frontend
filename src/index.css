@@ -10,12 +10,20 @@
     justify-content: flex-end;
 }
 
+.justify--flex-start {
+    justify-content: flex-start;
+}
+
 .justify--center {
     justify-content: center;
 }
 
 .align-items--center {
     align-items: center;
+}
+
+.align-items--start {
+    align-items: flex-start;
 }
 
 .toast {
@@ -47,4 +55,17 @@
   opacity: 0.7;
   /*transition: opacity 300ms ease-in;*/
   animation: 0.4s fadeOutRight ease-in;
+}
+
+.tippy-tooltip.osmcha-theme {
+    /* Your styling here. Example: */
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    box-shadow: 1px 0px 6px 0px #ccc
+}
+.tippy-tooltip.osmcha-theme [x-arrow] {
+  /* Your arrow styling here. Uses transform: rotate() so no need for CSS triangle shenanigans. */
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-color: transparent transparent #ccc #ccc; /* same for any position */
 }
