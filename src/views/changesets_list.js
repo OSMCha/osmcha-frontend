@@ -6,6 +6,7 @@ import {fetchChangeset} from '../store/changeset_actions';
 import {List as ImmutableList, Map} from 'immutable';
 import R from 'ramda';
 import {List} from '../components/list';
+import {Loading} from '../components/loading';
 import type {RootStateType} from '../store';
 
 class RangeItem extends React.PureComponent {
@@ -69,9 +70,11 @@ class ChangesetsList extends React.PureComponent {
     if (error) {
       return <div>error {JSON.stringify(error.stack)} </div>;
     }
+    if (loading) {
+      return <Loading />;
+    }
     return (
       <div className="flex-parent flex-parent--column flex-child--grow">
-        {loading ? <div className="loading" /> : null}
         <div className="flex-child flex-child--grow pl12 scroll-auto mt3">
           {this.showList()}
         </div>
@@ -84,7 +87,8 @@ class ChangesetsList extends React.PureComponent {
 }
 
 ChangesetsList = connect(
-  (state: RootStateType) => ({
+  (state: RootStateType, props) => ({
+    routing: state.routing,
     pathname: state.routing.location.pathname,
     activeChangesetId: state.changeset.get('changesetId'),
     currentPage: state.changesetsPage.get('currentPage'),

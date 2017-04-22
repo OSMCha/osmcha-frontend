@@ -1,38 +1,29 @@
 // @flow
-import React from 'react';
+import React, {Children, Element} from 'react';
 import {Tabs} from './tabs';
 import {User} from './user';
 import {ChangesetsList} from '../views/changesets_list';
-import {Navbar} from './navbar';
-const Logo = () => (
-  <div className="border-b border-b--2 border--gray-light">
-    <h3 className="flex-parent flex-parent-row inline-block pl3">
-      <span className="txt-fancy color-gray txt-xl">
-        <span className="color-green txt-bold">OSM</span> CHA
-      </span>
-      <svg className="icon mr3"><use xlinkHref="#icon-question" /></svg>
-    </h3>
-    <div className="flex-child px12">
-      <User />
-    </div>
-  </div>
-);
 
-export function Sidebar() {
+export function Sidebar(
+  {
+    title,
+    children,
+    className,
+  }: {title: Element<*>, children?: Children, className?: string},
+) {
   return (
     <div
-      className="flex-parent flex-parent--column h-full hmax-full bg-gray-faint"
+      className={
+        `${className || ''} flex-child bg-gray-faint  border border--gray-light border--1
+        `
+      }
     >
-      <div className="flex-child flex-child">
-        <Navbar
-          title={
-            <span className="txt-fancy color-gray txt-xl">
-              <span className="color-green txt-bold">OSM</span> CHA
-            </span>
-          }
-        />
+      <div className="flex-parent flex-parent--column h-full hmax-full">
+        <div className="flex-child flex-child">
+          {title}
+        </div>
+        {children}
       </div>
-      <ChangesetsList />
     </div>
   );
 }
