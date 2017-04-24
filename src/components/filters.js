@@ -38,6 +38,7 @@ class Filter extends React.PureComponent {
               theme="osmcha"
               arrow
               animation="fade"
+              delay={200}
               html={
                 <span className="flex-child color-gray">
                   {this.props.data.description}

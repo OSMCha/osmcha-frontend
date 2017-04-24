@@ -11,6 +11,7 @@ class ListItem extends React.PureComponent {
         position="right"
         theme="osmcha"
         interactive
+        delay={500}
         arrow
         animation="perspective"
         html={
