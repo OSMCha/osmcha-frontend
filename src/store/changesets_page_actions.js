@@ -1,14 +1,16 @@
 // @flow
 import {put, call, takeLatest, select} from 'redux-saga/effects';
+import {fromJS} from 'immutable';
+
 import {networkFetchChangesets} from '../network/changesets_page';
+
+import type {RootStateType} from './';
 
 export const CHANGESETS_PAGE_FETCH_ASYNC = 'CHANGESETS_PAGE_FETCH_ASYNC';
 export const CHANGESETS_PAGE_FETCHED = 'CHANGESETS_PAGE_FETCHED';
 export const CHANGESETS_PAGE_CHANGE = 'CHANGESETS_PAGE_CHANGE';
 export const CHANGESETS_PAGE_LOADING = 'CHANGESETS_PAGE_LOADING';
 export const CHANGESETS_PAGE_ERROR = 'CHANGESETS_PAGE_ERROR';
-
-import type {RootStateType} from './';
 
 export function action(type: string, payload: ?Object) {
   return {type, ...payload};
@@ -50,7 +52,7 @@ export function* fetchChangesetsPageAsync(
       thisPage = yield call(networkFetchChangesets, pageIndex);
       yield put(
         action(CHANGESETS_PAGE_FETCHED, {
-          data: thisPage,
+          data: fromJS(thisPage),
           pageIndex,
         }),
       );

@@ -1,25 +1,39 @@
 /* @flow */
+import {Map} from 'immutable';
+
 import {
   CHANGESET_CHANGE,
   CHANGESET_ERROR,
   CHANGESET_LOADING,
   CHANGESET_FETCHED,
+  CHANGESET_MAP_CHANGE,
+  CHANGESET_MAP_ERROR,
+  CHANGESET_MAP_FETCHED,
+  CHANGESET_MAP_LOADING,
+  CHANGESET_MAP_RESET,
 } from './changeset_actions';
-import {List, Map} from 'immutable';
 
 export type ChangesetType = Map<
   | 'currentChangeset'
   | 'changesets'
   | 'changesetId' // of the currentChangeset
   | 'loading'
-  | 'error', any>;
+  | 'loadingChangesetMap'
+  | 'changesetMap'
+  | 'currentChangesetMap'
+  | 'errorChangesetMap'
+  | 'errorChangeset', any>;
 
 const initial: ChangesetType = new Map({
   changesetId: null,
   currentChangeset: null,
+  currentChangesetMap: null,
   changesets: new Map(),
+  changesetMap: new Map(),
   loading: false,
+  loadingChangesetMap: false,
   error: null,
+  errorChangesetMap: null,
 });
 
 export function changesetReducer(
@@ -33,14 +47,15 @@ export function changesetReducer(
         .set('changesetId', action.changesetId)
         .set('currentChangeset', changesets.get(action.changesetId))
         .set('loading', false)
-        .set('error', null);
+        .set('errorChangeset', null)
+        .set('errorChangesetMap', null);
     }
     case CHANGESET_LOADING: {
       return state
         .set('changesetId', action.changesetId)
         .set('currentChangeset', null)
         .set('loading', true)
-        .set('error', null);
+        .set('errorChangeset', null);
     }
     case CHANGESET_FETCHED: {
       const changesets = state
@@ -51,14 +66,48 @@ export function changesetReducer(
         .set('changesetId', action.changesetId)
         .set('currentChangeset', action.data)
         .set('loading', false)
-        .set('error', null);
+        .set('errorChangeset', null);
     }
     case CHANGESET_ERROR: {
       return state
         .set('changesetId', action.changesetId)
         .set('currentChangeset', null)
         .set('loading', false)
-        .set('error', action.error);
+        .set('errorChangeset', action.error);
+    }
+    case CHANGESET_MAP_CHANGE: {
+      const changesetMap = state.get('changesetMap');
+      return state
+        .set('changesetId', action.changesetId)
+        .set('currentChangesetMap', changesetMap.get(action.changesetId))
+        .set('errorChangesetMap', null);
+    }
+    case CHANGESET_MAP_FETCHED: {
+      const changesetMap = state
+        .get('changesetMap')
+        .set(action.changesetId, action.data);
+      return state
+        .set('changesetMap', changesetMap)
+        .set('changesetId', action.changesetId)
+        .set('currentChangesetMap', action.data)
+        .set('errorChangesetMap', null);
+    }
+    case CHANGESET_MAP_RESET: {
+      return state
+        .set('currentChangesetMap', null)
+        .set('errorChangesetMap', null);
+    }
+    case CHANGESET_MAP_LOADING: {
+      return state
+        .set('changesetId', action.changesetId)
+        .set('loadingChangesetMap', true)
+        .set('errorChangesetMap', null);
+    }
+    case CHANGESET_MAP_ERROR: {
+      return state
+        .set('changesetId', action.changesetId)
+        .set('currentChangesetMap', null)
+        .set('errorChangesetMap', action.error);
     }
     default: {
       return state;

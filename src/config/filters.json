@@ -1,0 +1,191 @@
+[
+  {
+    "name": "comment",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Comment",
+    "type": "text",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "source",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Source",
+    "type": "text",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "editor",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Editor",
+    "type": "text",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "date",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Date",
+    "type": "date",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "check_date",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Check Date",
+    "type": "date",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "create",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Create",
+    "type": "number",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "modify",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Modify",
+    "type": "number",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "imagery_used",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Imagery used",
+    "type": "text",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "delete",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Delete",
+    "type": "number",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "geometry",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Geometry",
+    "type": "text",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "checked_by",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Checked by",
+    "type": "text",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "users",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Users",
+    "type": "text_comma",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "ids",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "ids",
+    "type": "text_comma",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "reasons",
+    "icontains": false,
+    "range": false,
+    "all": true,
+    "display": "Reasons",
+    "type": "text_comma",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "tags",
+    "icontains": false,
+    "range": false,
+    "all": true,
+    "display": "Tags",
+    "type": "text_comma",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "checked",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Checked",
+    "type": "text",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "harmful",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Harmful",
+    "type": "text",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "is_suspect",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Suspect",
+    "type": "text",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "powerfull_editor",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Powerful editor",
+    "type": "text",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "order_by",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Order by",
+    "type": "text",
+    "description": "Here goes one description"
+  },
+  {
+    "name": "hide_whitelist",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Hide whitelist",
+    "type": "text",
+    "description": "Here goes one description"
+  }
+]
