@@ -1,8 +1,12 @@
 // @flow
 import {put, call, takeLatest, select} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
+import {fromJS} from 'immutable';
+
 import {networkFetchChangeset} from '../network/changeset';
 import {networkFetchChangesetMap} from '../network/real_changeset';
+
+import type {RootStateType} from './';
 
 export const CHANGESET_FETCH_ASYNC = 'CHANGESET_FETCH_ASYNC';
 export const CHANGESET_FETCHED = 'CHANGESET_FETCHED';
@@ -15,9 +19,6 @@ export const CHANGESET_MAP_FETCHED = 'CHANGESET_MAP_FETCHED';
 export const CHANGESET_MAP_ERROR = 'CHANGESET_MAP_ERROR';
 export const CHANGESET_MAP_CHANGE = 'CHANGESET_MAP_CHANGE';
 export const CHANGESET_MAP_RESET = 'CHANGESET_MAP_RESET';
-
-import {fromJS} from 'immutable';
-import type {RootStateType} from './';
 
 export function action(type: string, payload: ?Object) {
   return {type, ...payload};

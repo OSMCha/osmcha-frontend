@@ -2,10 +2,11 @@
 import {combineReducers, createStore, applyMiddleware} from 'redux';
 import {createLogger} from 'redux-logger';
 import {Map} from 'immutable';
-import safeStorage from '../utils/safe_storage';
 import {routerReducer, routerMiddleware} from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import createSagaMiddleware from 'redux-saga';
+
+import safeStorage from '../utils/safe_storage';
 
 // Reducers
 import {userReducer} from './user_reducer';

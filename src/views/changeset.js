@@ -1,19 +1,21 @@
 // @flow
 import React from 'react';
-import {connect} from 'react-redux';
 import Mousetrap from 'mousetrap';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import {connect} from 'react-redux';
+import {Map} from 'immutable';
+
 import {fetchChangeset} from '../store/changeset_actions';
 import {Changeset as ChangesetDumb} from '../components/changeset';
 import {Navbar} from '../components/navbar';
 import {Sidebar} from '../components/sidebar';
 import {Loading} from '../components/loading';
 import {Filters} from '../components/filters';
-
 import {FILTER_BINDING} from '../config/bindings';
-import {Map} from 'immutable';
+
 import type {ChangesetType} from '../store/changeset_reducer';
 import type {RootStateType} from '../store';
+
 class Changeset extends React.PureComponent {
   props: {
     changeset: ChangesetType,

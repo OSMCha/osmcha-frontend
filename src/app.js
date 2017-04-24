@@ -8,7 +8,6 @@ import {Features} from './views/features';
 import {ChangesetsList} from './views/changesets_list';
 import {Sidebar} from './components/sidebar';
 import {ToastContainer, ToastMessage} from 'react-toastr';
-import {initKeyGobal} from './utils/key_bindings';
 import {Navbar} from './components/navbar';
 var ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
@@ -17,7 +16,6 @@ class App extends Component {
     if (document && document.body) {
       document.body.addEventListener('showToast', this.showToast);
     }
-    initKeyGobal();
   }
   // trigger it via events
   showToast = (event: Object) => {
@@ -53,7 +51,7 @@ class App extends Component {
         <div
           className="flex-child flex-child--grow h-full hmax-full viewport-twothirds"
         >
-          <Route exact path="/" component={Changeset} customProp="hi" />
+          <Route exact path="/" component={Changeset} />
           <Route path="/changesets/:id" component={Changeset} />
           <Route path="/about" component={About} />
           <Route path="/stats" component={Stats} />

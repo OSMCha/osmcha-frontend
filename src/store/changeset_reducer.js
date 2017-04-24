@@ -1,4 +1,6 @@
 /* @flow */
+import {Map} from 'immutable';
+
 import {
   CHANGESET_CHANGE,
   CHANGESET_ERROR,
@@ -10,7 +12,6 @@ import {
   CHANGESET_MAP_LOADING,
   CHANGESET_MAP_RESET,
 } from './changeset_actions';
-import {List, Map} from 'immutable';
 
 export type ChangesetType = Map<
   | 'currentChangeset'

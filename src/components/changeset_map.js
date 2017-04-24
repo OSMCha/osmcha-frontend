@@ -1,4 +1,5 @@
 import React from 'react';
+
 export class CMap extends React.PureComponent {
   props: {
     changesetId: number,

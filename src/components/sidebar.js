@@ -1,8 +1,5 @@
 // @flow
 import React, {Children, Element} from 'react';
-import {Tabs} from './tabs';
-import {User} from './user';
-import {ChangesetsList} from '../views/changesets_list';
 
 export function Sidebar(
   {

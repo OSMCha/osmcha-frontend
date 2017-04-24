@@ -1,11 +1,12 @@
 /* @flow */
+import {List, Map} from 'immutable';
+
 import {
   CHANGESETS_PAGE_FETCHED,
   CHANGESETS_PAGE_CHANGE,
   CHANGESETS_PAGE_LOADING,
   CHANGESETS_PAGE_ERROR,
 } from './changesets_page_actions';
-import {List, Map} from 'immutable';
 
 export type ChangesetsPageType = Map<
   | 'currentPage'

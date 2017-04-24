@@ -1,12 +1,14 @@
 // @flow
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchChangesetsPage} from '../store/changesets_page_actions';
-import {fetchChangeset} from '../store/changeset_actions';
 import {List as ImmutableList, Map} from 'immutable';
 import R from 'ramda';
+
+import {fetchChangeset} from '../store/changeset_actions';
+import {fetchChangesetsPage} from '../store/changesets_page_actions';
 import {List} from '../components/list';
 import {Loading} from '../components/loading';
+
 import type {RootStateType} from '../store';
 
 class RangeItem extends React.PureComponent {

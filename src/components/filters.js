@@ -1,8 +1,13 @@
+// @flow
 import React from 'react';
-import filters from '../config/filters.json';
 import {Tooltip} from 'react-tippy';
 
+import filters from '../config/filters.json';
+
 class Filter extends React.PureComponent {
+  props: {
+    data: Object,
+  };
   showForm = () => {
     const {display, type, icontains, name, range, all} = this.props.data;
     if (type === 'text') {
@@ -56,9 +61,9 @@ class Filter extends React.PureComponent {
     );
   }
 }
+
 export class Filters extends React.PureComponent {
   render() {
-    console.log(filters);
     return (
       <div className="flex-parent flex-parent--column scroll-auto px18 mt12">
         {filters.map((f, k) => <Filter data={f} key={k} />)}

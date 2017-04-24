@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import {Map} from 'immutable';
+
 import {Header} from './changeset_header';
 import {CMap} from './changeset_map';
 import {dispatchEvent} from '../utils/dispatch_event';
