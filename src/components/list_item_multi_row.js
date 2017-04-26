@@ -32,7 +32,7 @@ export class ListItemMulti extends React.PureComponent {
           <div
             {...other}
             className={
-              `ml6 cursor-pointer flex-parent flex-parent--row justify--space-between border-b py6 border-b--1 border--gray-light`
+              `ml12 cursor-pointer flex-parent flex-parent--row justify--space-between border-b py6 border-b--1 border--gray-light`
             }
           >
             <div className="flex-parent flex-parent--row">
