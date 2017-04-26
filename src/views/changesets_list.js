@@ -77,7 +77,7 @@ class ChangesetsList extends React.PureComponent {
     }
     return (
       <div className="flex-parent flex-parent--column flex-child--grow">
-        <div className="flex-child flex-child--grow pl12 scroll-auto mt3">
+        <div className="flex-child flex-child--grow scroll-auto mt3">
           {this.showList()}
         </div>
         <footer className="p12 bg-gray-faint txt-s">
