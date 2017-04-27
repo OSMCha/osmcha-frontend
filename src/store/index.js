@@ -40,8 +40,8 @@ const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
 if (process.env.NODE_ENV !== 'production') {
-  const logger = createLogger();
-  middlewares.push(logger);
+  // const logger = createLogger();
+  // middlewares.push(logger);
 }
 
 // Persisted state

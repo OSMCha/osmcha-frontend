@@ -3,14 +3,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {List as ImmutableList, Map} from 'immutable';
 import R from 'ramda';
-
+import Mousetrap from 'mousetrap';
+import {history} from '../store';
 import {fetchChangeset} from '../store/changeset_actions';
 import {fetchChangesetsPage} from '../store/changesets_page_actions';
 import {List} from '../components/list';
 import {Loading} from '../components/loading';
+import {NEXT_CHANGESET, PREV_CHANGESET} from '../config/bindings';
 
 import type {RootStateType} from '../store';
-
+import type {ChangesetType} from '../store/changeset_reducer';
 class RangeItem extends React.PureComponent {
   render() {
     return (
@@ -42,6 +44,29 @@ class ChangesetsList extends React.PureComponent {
   constructor(props) {
     super(props);
     this.props.fetchChangesetsPage(0);
+  }
+  goUpDownToChangeset = (direction: number) => {
+    let features = this.props.currentPage.get('features');
+    if (features) {
+      let index = features.findIndex(
+        f => f.get('id') === this.props.activeChangesetId,
+      );
+      index += direction;
+      const nextFeature = features.get(index);
+      if (nextFeature) {
+        history.push(`/changesets/${nextFeature.get('id')}`);
+      }
+    }
+  };
+  componentDidMount() {
+    Mousetrap.bind(NEXT_CHANGESET, e => {
+      e.preventDefault();
+      this.goUpDownToChangeset(1);
+    });
+    Mousetrap.bind(PREV_CHANGESET, e => {
+      e.preventDefault();
+      this.goUpDownToChangeset(-1);
+    });
   }
   showList = () => {
     const currentPage = this.props.currentPage;
@@ -92,12 +117,12 @@ ChangesetsList = connect(
   (state: RootStateType, props) => ({
     routing: state.routing,
     pathname: state.routing.location.pathname,
-    activeChangesetId: state.changeset.get('changesetId'),
     currentPage: state.changesetsPage.get('currentPage'),
-    cachedChangesets: state.changeset.get('changesets'),
     pageIndex: state.changesetsPage.get('pageIndex'),
     loading: state.changesetsPage.get('loading'),
     error: state.changesetsPage.get('error'),
+    cachedChangesets: state.changeset.get('changesets'),
+    activeChangesetId: state.changeset.get('changesetId'),
   }),
   {
     fetchChangesetsPage,

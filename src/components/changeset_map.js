@@ -1,4 +1,19 @@
 import React from 'react';
+import debounce from 'lodash.debounce';
+let changesetId;
+let adiffResult;
+
+function loadMap() {
+  const changesetMap = window.renderChangesetMap;
+  var container = document.getElementById('container');
+  changesetMap(
+    container,
+    changesetId,
+    {width: '800px', height: '500px'},
+    adiffResult,
+  );
+}
+var deb = debounce(loadMap, 700);
 
 export class CMap extends React.PureComponent {
   props: {
@@ -6,14 +21,9 @@ export class CMap extends React.PureComponent {
     adiffResult: Object,
   };
   componentDidMount() {
-    const changesetMap = window.renderChangesetMap;
-    var container = document.getElementById('container');
-    var changesetMapControl = changesetMap(
-      container,
-      this.props.changesetId,
-      {width: '800px', height: '500px'},
-      this.props.adiffResult,
-    );
+    changesetId = this.props.changesetId;
+    adiffResult = this.props.adiffResult;
+    deb();
   }
   render() {
     return (

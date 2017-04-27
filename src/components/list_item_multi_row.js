@@ -15,6 +15,7 @@ export class ListItemMulti extends React.PureComponent {
       this.props.active ||
       nextProps.active;
   }
+  wasOpen = false;
   render() {
     const {
       properties,
@@ -22,6 +23,14 @@ export class ListItemMulti extends React.PureComponent {
       active,
       ...other
     } = this.props;
+
+    // way to show read/unread state without
+    // performance issue. The moment component
+    // gets active we set wasOpen to true and never
+    // toggle it back to any other state.
+    if (!this.wasOpen) {
+      this.wasOpen = this.props.active;
+    }
     return (
       <Link to={`/changesets/${changesetId}`}>
         <div
@@ -36,9 +45,14 @@ export class ListItemMulti extends React.PureComponent {
             }
           >
             <div className="flex-parent flex-parent--row">
-              <div />
+              <div className="txt-mono">{this.wasOpen ? '\u00a0' : '•'}</div>
               <div className="flex-parent flex-parent--column">
-                <div><ChangesetListTitle properties={properties} /></div>
+                <div>
+                  <ChangesetListTitle
+                    properties={properties}
+                    wasOpen={this.wasOpen}
+                  />
+                </div>
                 <div>
                   <ChangesetListComment comment={properties.get('comment')} />
                 </div>
@@ -57,7 +71,6 @@ export class ListItemMulti extends React.PureComponent {
     );
   }
 }
-
 function CDM(props) {
   return (
     <div
@@ -116,13 +129,12 @@ function CDM(props) {
     </div>
   );
 }
-
-function ChangesetListTitle({properties}) {
+function ChangesetListTitle({properties, wasOpen}) {
   return (
     <span
       className="flex-parent flex-parent--row flex-parent--center-cross flex-parent--wrap"
     >
-      <span className="txt-m txt-bold mt3 mr6">
+      <span className={`txt-m ${wasOpen ? '' : 'txt-bold'} mt3 mr6`}>
         {properties.get('user')}
       </span>
       <span>
@@ -144,7 +156,6 @@ function ChangesetListTitle({properties}) {
     </span>
   );
 }
-
 function ChangesetListMinorDetails({changesetId, date}) {
   return (
     <span className="flex-parent flex-parent--row txt-light txt-s">
@@ -157,7 +168,6 @@ function ChangesetListMinorDetails({changesetId, date}) {
     </span>
   );
 }
-
 function ChangesetListComment({comment}) {
   return (
     <span className="flex-parent flex-parent--column">

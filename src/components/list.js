@@ -108,18 +108,21 @@ export class List extends React.PureComponent {
     activeChangesetId: ?number,
     cachedChangesets: Map<string, *>,
   };
+  shouldComponentUpdate(nextProps: Object) {
+    return nextProps.activeChangesetId !== this.props.activeChangesetId ||
+      nextProps.data !== this.props.data;
+  }
   render() {
+    console.log('rendering');
     return (
       <ul className="flex-parent flex-parent--column">
         {this.props.data.map((f, k) => (
-          <Link key={k} to={`/changesets/${f.get('id')}`}>
-            <ListItemMulti
-              onClick={() => console.log('clicked')}
-              active={f.get('id') === this.props.activeChangesetId}
-              properties={f.get('properties')}
-              changesetId={f.get('id')}
-            />
-          </Link>
+          <ListItemMulti
+            active={f.get('id') === this.props.activeChangesetId}
+            properties={f.get('properties')}
+            changesetId={f.get('id')}
+            key={k}
+          />
         ))}
       </ul>
     );

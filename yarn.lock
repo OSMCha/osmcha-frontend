@@ -3878,6 +3878,10 @@ lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
 
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+
 lodash.isarguments@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/lodash.isarguments/-/lodash.isarguments-3.1.0.tgz#2f573d85c6a24289ff00663b491c1d338ff3458a"
@@ -4693,7 +4697,7 @@ point-geometry@0.0.0, point-geometry@^0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/point-geometry/-/point-geometry-0.0.0.tgz#6fcbcad7a803b6418247dd6e49c2853c584daff7"
 
-popper.js@^1.5.1, popper.js@^1.8.2:
+popper.js@^1.5.1:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.8.2.tgz#c6256b39dc20b3da58f0f2231407b126da017d40"
 
@@ -6156,12 +6160,6 @@ timers-browserify@^2.0.2:
 tinyqueue@^1.1.0:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/tinyqueue/-/tinyqueue-1.2.2.tgz#947229e5e4197aba988acd27751dcc582e6728ff"
-
-tippy.js@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-0.7.0.tgz#d8e8fb31c2bd4704b8ceb6c3e567a8dabc5ed438"
-  dependencies:
-    popper.js "^1.8.2"
 
 tmpl@1.0.x:
   version "1.0.4"
