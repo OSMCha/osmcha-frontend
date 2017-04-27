@@ -5,7 +5,7 @@ import {Map} from 'immutable';
 import {Header} from './changeset_header';
 import {CMap} from './changeset_map';
 import {dispatchEvent} from '../utils/dispatch_event';
-
+import {Loading} from './loading';
 // presentational component for view/changeset.js
 export function Changeset(
   {
@@ -37,7 +37,7 @@ export function Changeset(
   const properties = currentChangeset.get('properties');
 
   return (
-    <div>
+    <div className="flex-child flex-child--grow">
       <Header
         changesetId={changesetId}
         date={properties.get('date')}
@@ -50,9 +50,11 @@ export function Changeset(
         comment={properties.get('comment')}
         imagery={properties.get('imagery_used')}
       />
-      {currentChangesetMap
-        ? <CMap changesetId={changesetId} adiffResult={currentChangesetMap} />
-        : null}
+      <div>
+        {currentChangesetMap
+          ? <CMap changesetId={changesetId} adiffResult={currentChangesetMap} />
+          : <Loading />}
+      </div>
     </div>
   );
 }

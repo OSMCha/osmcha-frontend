@@ -51,7 +51,7 @@ export class List extends React.PureComponent {
   render() {
     const base = parseInt(this.props.pageIndex / RANGE, 10) * RANGE;
     return (
-      <ul className="flex-parent flex-parent--column">
+      <ul className="flex-parent flex-parent--column ">
         {this.props.data.map((f, k) => (
           <ListItemMulti
             active={f.get('id') === this.props.activeChangesetId}
