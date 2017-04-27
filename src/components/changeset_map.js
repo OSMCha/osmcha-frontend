@@ -6,12 +6,16 @@ let adiffResult;
 function loadMap() {
   const changesetMap = window.renderChangesetMap;
   var container = document.getElementById('container');
-  changesetMap(
-    container,
-    changesetId,
-    {width: '800px', height: '500px'},
-    adiffResult,
-  );
+  try {
+    changesetMap(
+      container,
+      changesetId,
+      {width: '800px', height: '500px'},
+      adiffResult,
+    );
+  } catch (e) {
+    console.log(e);
+  }
 }
 var deb = debounce(loadMap, 700);
 

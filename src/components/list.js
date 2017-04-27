@@ -3,102 +3,30 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {List as ImmutableList, Map} from 'immutable';
 import {Tooltip} from 'react-tippy';
-import {ListItemMulti} from './list_item_multi_row';
+import R from 'ramda';
 import moment from 'moment';
-
-class LisstItem extends React.PureComponent {
+import {ListItemMulti} from './list_item_multi_row';
+import {elementInViewport} from '../utils/element_in_view';
+const RANGE = 6;
+class RangeItem extends React.PureComponent {
   render() {
     return (
-      <Tooltip
-        position="right"
-        theme="osmcha"
-        interactive
-        delay={500}
-        arrow
-        animation="perspective"
-        html={
-          <div
-            className="flex-parent flex-parent--column color-gray align-items--start"
-          >
-            <span className="flex-child txt-bold txt-l">
-              Changeset: {this.props.id}
-            </span>
-            {this.props.properties.get('reasons').size > 0
-              ? <span className="flex-child txt-em mb6 px6 txt-underline">
-                  {this.props.properties.get('reasons').join(', ')}
-                </span>
-              : null}
-            <span className="flex-child">
-              by
-              {' '}
-              <span className="txt-em">
-                {this.props.properties.get('user')}
-              </span>
-            </span>
-            <span className="flex-child align-items--start txt-truncate">
-              using <span className="txt-em">
-                {this.props.properties.get('editor')}
-                /
-                {this.props.properties.get('source')}
-              </span>
-            </span>
-            <span className="flex-child txt-em my6">
-              "{this.props.properties.get('comment')}"
-            </span>
-            <span className="flex-child">
-              Created:
-              {' '}
-              <span className="txt-em">
-                {this.props.properties.get('create')}
-              </span>
-              , Modified:
-              {' '}
-              <span className="txt-em">
-                {this.props.properties.get('modify')}
-              </span>
-              , Deleted:
-              {' '}
-              <span className="txt-em">
-                {this.props.properties.get('delete')}
-              </span>
-            </span>
-          </div>
-        }
+      <button
+        onClick={this._onClick}
+        disabled={this.props.page === '<' && this.props.pageIndex === -1}
         className={
-          ` ${this.props.active ? 'bg-green-faint' : ''} transition flex-parent p12 flex-parent--center-cross justify--space-between transition bg-gray-light-on-hover h36 border-b border--gray-light border--1`
+          `flex-child btn btn--s  color-gray-dark 
+          ${this.props.active ? 'is-active bg-gray-light' : 'bg-gray-faint'}
+          `
         }
       >
-        <Link
-          className={
-            `
-            flex-child
-            ${this.props.isBold ? 'txt-bold' : ''}
-            `
-          }
-          to={`/changesets/${this.props.id}`}
-        >
-          {this.props.id}
-        </Link>
-        <div className="flex-child w96 wmin96">
-          <div
-            className="bg-green-faint mr3 color-green inline-block px6 py3 txt-xs txt-bold round-full"
-          >
-            {this.props.properties.get('create')}
-          </div>
-          <div
-            className="bg-orange-faint mr3 color-orange inline-block px6 py3 txt-xs txt-bold round-full"
-          >
-            {this.props.properties.get('modify')}
-          </div>
-          <div
-            className="bg-red-faint mr3 color-red inline-block px6 py3 txt-xs txt-bold round-full"
-          >
-            {this.props.properties.get('delete')}
-          </div>
-        </div>
-      </Tooltip>
+        {this.props.page}
+      </button>
     );
   }
+  _onClick = () => {
+    this.props.fetchChangesetsPage(this.props.pageIndex);
+  };
 }
 
 export class List extends React.PureComponent {
@@ -107,13 +35,21 @@ export class List extends React.PureComponent {
     fetchChangeset: (number) => any,
     activeChangesetId: ?number,
     cachedChangesets: Map<string, *>,
+    fetchChangesetsPage: (number) => mixed, // base 0
+    pageIndex: number,
   };
   shouldComponentUpdate(nextProps: Object) {
     return nextProps.activeChangesetId !== this.props.activeChangesetId ||
       nextProps.data !== this.props.data;
   }
+  handleScroll = (r: HTMLElement) => {
+    if (!r) return;
+    if (!elementInViewport(r)) {
+      r.scrollIntoView({block: 'end', behavior: 'smooth'});
+    }
+  };
   render() {
-    console.log('rendering');
+    const base = parseInt(this.props.pageIndex / RANGE, 10) * RANGE;
     return (
       <ul className="flex-parent flex-parent--column">
         {this.props.data.map((f, k) => (
@@ -121,9 +57,37 @@ export class List extends React.PureComponent {
             active={f.get('id') === this.props.activeChangesetId}
             properties={f.get('properties')}
             changesetId={f.get('id')}
+            inputRef={
+              f.get('id') === this.props.activeChangesetId // only saves the ref of currently active changesetId
+                ? this.handleScroll
+                : null
+            }
             key={k}
           />
         ))}
+        <footer
+          className="p12 pb24 bg-gray-faint txt-s flex-parent justify--space-around"
+        >
+          <RangeItem
+            page={'<'}
+            pageIndex={this.props.pageIndex - 1}
+            fetchChangesetsPage={this.props.fetchChangesetsPage}
+          />
+          {R.range(base, base + RANGE).map(n => (
+            <RangeItem
+              key={n}
+              page={n}
+              pageIndex={n}
+              active={n === this.props.pageIndex}
+              fetchChangesetsPage={this.props.fetchChangesetsPage}
+            />
+          ))}
+          <RangeItem
+            page={'>'}
+            pageIndex={this.props.pageIndex + 1}
+            fetchChangesetsPage={this.props.fetchChangesetsPage}
+          />
+        </footer>
       </ul>
     );
   }

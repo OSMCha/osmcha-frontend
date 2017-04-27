@@ -13,21 +13,6 @@ import {NEXT_CHANGESET, PREV_CHANGESET} from '../config/bindings';
 
 import type {RootStateType} from '../store';
 import type {ChangesetType} from '../store/changeset_reducer';
-class RangeItem extends React.PureComponent {
-  render() {
-    return (
-      <button
-        onClick={this._onClick}
-        className={`btn btn--s ${this.props.active ? 'is-active' : ''}`}
-      >
-        {this.props.page}
-      </button>
-    );
-  }
-  _onClick = () => {
-    this.props.fetchChangesetsPage(this.props.page);
-  };
-}
 
 class ChangesetsList extends React.PureComponent {
   props: {
@@ -69,7 +54,10 @@ class ChangesetsList extends React.PureComponent {
     });
   }
   showList = () => {
-    const currentPage = this.props.currentPage;
+    const {currentPage, loading} = this.props;
+    if (loading) {
+      return <Loading />;
+    }
     if (!currentPage) return null;
     const features: ImmutableList<Map<string, *>> = currentPage.get('features');
     return (
@@ -78,36 +66,32 @@ class ChangesetsList extends React.PureComponent {
         data={features}
         cachedChangesets={this.props.cachedChangesets}
         fetchChangeset={this.props.fetchChangeset}
+        fetchChangesetsPage={this.props.fetchChangesetsPage}
+        pageIndex={this.props.pageIndex}
       />
     );
   };
-  showFooter = () => {
-    const base = parseInt(this.props.pageIndex / 10, 10) * 10;
-    return R.range(base, base + 10).map(n => (
-      <RangeItem
-        key={n}
-        page={n}
-        active={n === this.props.pageIndex}
-        fetchChangesetsPage={this.props.fetchChangesetsPage}
-      />
-    ));
-  };
+  // showFooter = () => {
+  //   const base = parseInt(this.props.pageIndex / 10, 10) * 10;
+  //   return R.range(base, base + 10).map(n => (
+  //     <RangeItem
+  //       key={n}
+  //       page={n}
+  //       active={n === this.props.pageIndex}
+  //       fetchChangesetsPage={this.props.fetchChangesetsPage}
+  //     />
+  //   ));
+  // };
   render() {
-    const {loading, error} = this.props;
+    const {error} = this.props;
     if (error) {
       return <div>error {JSON.stringify(error.stack)} </div>;
-    }
-    if (loading) {
-      return <Loading />;
     }
     return (
       <div className="flex-parent flex-parent--column flex-child--grow">
         <div className="flex-child flex-child--grow scroll-auto mt3">
           {this.showList()}
         </div>
-        <footer className="p12 bg-gray-faint txt-s">
-          {this.showFooter()}
-        </footer>
       </div>
     );
   }

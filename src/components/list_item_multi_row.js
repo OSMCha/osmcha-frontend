@@ -1,14 +1,17 @@
 // @flow
 import React, {Element} from 'react';
+import {findDOMNode} from 'react-dom';
 import moment from 'moment';
 import {Tooltip} from 'react-tippy';
 import {Link} from 'react-router-dom';
 import {Map} from 'immutable';
+
 export class ListItemMulti extends React.PureComponent {
   props: {
     properties: Map<string, *>,
     active: ?boolean,
     changesetId: number,
+    inputRef: ?(any) => any,
   };
   shouldComponentUpdate(nextProps: Object) {
     return nextProps.changesetId !== this.props.changesetId ||
@@ -21,14 +24,14 @@ export class ListItemMulti extends React.PureComponent {
       properties,
       changesetId,
       active,
+      inputRef,
       ...other
     } = this.props;
-
-    // way to show read/unread state without
-    // performance issue. The moment component
-    // gets active we set wasOpen to true and never
-    // toggle it back to any other state.
     if (!this.wasOpen) {
+      // way to show read/unread state without
+      // performance issue. The moment component
+      // gets active we set wasOpen to true and never
+      // toggle it back to any other state.
       this.wasOpen = this.props.active;
     }
     return (
@@ -37,6 +40,7 @@ export class ListItemMulti extends React.PureComponent {
           className={
             `${active ? 'bg-green-faint bg-green-faint-on-hover' : ' bg-gray-faint-on-hover '} transition`
           }
+          ref={inputRef}
         >
           <div
             {...other}
