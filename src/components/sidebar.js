@@ -11,7 +11,7 @@ export function Sidebar(
   return (
     <div
       className={
-        `${className || ''} flex-child bg-gray-faint  border border--gray-light border--1
+        `${className || ''} flex-child  border border--gray-light border--1
         `
       }
     >

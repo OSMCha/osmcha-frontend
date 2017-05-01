@@ -95,7 +95,7 @@ class Changeset extends React.PureComponent {
             </a>
           }
         />
-        <div className="flex-parent flex-parent--row">
+        <div className="flex-parent flex-parent--row justify--center">
           {this.showChangeset()}
           <CSSTransitionGroup
             transitionName="filters-bar"

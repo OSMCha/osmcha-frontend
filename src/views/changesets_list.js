@@ -3,29 +3,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {List as ImmutableList, Map} from 'immutable';
 import R from 'ramda';
-
+import Mousetrap from 'mousetrap';
+import {history} from '../store';
 import {fetchChangeset} from '../store/changeset_actions';
 import {fetchChangesetsPage} from '../store/changesets_page_actions';
 import {List} from '../components/list';
 import {Loading} from '../components/loading';
+import {NEXT_CHANGESET, PREV_CHANGESET} from '../config/bindings';
 
 import type {RootStateType} from '../store';
-
-class RangeItem extends React.PureComponent {
-  render() {
-    return (
-      <button
-        onClick={this._onClick}
-        className={`btn btn--s ${this.props.active ? 'is-active' : ''}`}
-      >
-        {this.props.page}
-      </button>
-    );
-  }
-  _onClick = () => {
-    this.props.fetchChangesetsPage(this.props.page);
-  };
-}
+import type {ChangesetType} from '../store/changeset_reducer';
 
 class ChangesetsList extends React.PureComponent {
   props: {
@@ -43,8 +30,34 @@ class ChangesetsList extends React.PureComponent {
     super(props);
     this.props.fetchChangesetsPage(0);
   }
+  goUpDownToChangeset = (direction: number) => {
+    let features = this.props.currentPage.get('features');
+    if (features) {
+      let index = features.findIndex(
+        f => f.get('id') === this.props.activeChangesetId,
+      );
+      index += direction;
+      const nextFeature = features.get(index);
+      if (nextFeature) {
+        history.push(`/changesets/${nextFeature.get('id')}`);
+      }
+    }
+  };
+  componentDidMount() {
+    Mousetrap.bind(NEXT_CHANGESET, e => {
+      e.preventDefault();
+      this.goUpDownToChangeset(1);
+    });
+    Mousetrap.bind(PREV_CHANGESET, e => {
+      e.preventDefault();
+      this.goUpDownToChangeset(-1);
+    });
+  }
   showList = () => {
-    const currentPage = this.props.currentPage;
+    const {currentPage, loading} = this.props;
+    if (loading) {
+      return <Loading />;
+    }
     if (!currentPage) return null;
     const features: ImmutableList<Map<string, *>> = currentPage.get('features');
     return (
@@ -53,36 +66,32 @@ class ChangesetsList extends React.PureComponent {
         data={features}
         cachedChangesets={this.props.cachedChangesets}
         fetchChangeset={this.props.fetchChangeset}
+        fetchChangesetsPage={this.props.fetchChangesetsPage}
+        pageIndex={this.props.pageIndex}
       />
     );
   };
-  showFooter = () => {
-    const base = parseInt(this.props.pageIndex / 10, 10) * 10;
-    return R.range(base, base + 10).map(n => (
-      <RangeItem
-        key={n}
-        page={n}
-        active={n === this.props.pageIndex}
-        fetchChangesetsPage={this.props.fetchChangesetsPage}
-      />
-    ));
-  };
+  // showFooter = () => {
+  //   const base = parseInt(this.props.pageIndex / 10, 10) * 10;
+  //   return R.range(base, base + 10).map(n => (
+  //     <RangeItem
+  //       key={n}
+  //       page={n}
+  //       active={n === this.props.pageIndex}
+  //       fetchChangesetsPage={this.props.fetchChangesetsPage}
+  //     />
+  //   ));
+  // };
   render() {
-    const {loading, error} = this.props;
+    const {error} = this.props;
     if (error) {
       return <div>error {JSON.stringify(error.stack)} </div>;
     }
-    if (loading) {
-      return <Loading />;
-    }
     return (
       <div className="flex-parent flex-parent--column flex-child--grow">
-        <div className="flex-child flex-child--grow pl12 scroll-auto mt3">
+        <div className="flex-child flex-child--grow scroll-auto mt3">
           {this.showList()}
         </div>
-        <footer className="p12 bg-gray-faint txt-s">
-          {this.showFooter()}
-        </footer>
       </div>
     );
   }
@@ -92,12 +101,12 @@ ChangesetsList = connect(
   (state: RootStateType, props) => ({
     routing: state.routing,
     pathname: state.routing.location.pathname,
-    activeChangesetId: state.changeset.get('changesetId'),
     currentPage: state.changesetsPage.get('currentPage'),
-    cachedChangesets: state.changeset.get('changesets'),
     pageIndex: state.changesetsPage.get('pageIndex'),
     loading: state.changesetsPage.get('loading'),
     error: state.changesetsPage.get('error'),
+    cachedChangesets: state.changeset.get('changesets'),
+    activeChangesetId: state.changeset.get('changesetId'),
   }),
   {
     fetchChangesetsPage,
