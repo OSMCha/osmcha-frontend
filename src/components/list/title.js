@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+
 import {CreateDeleteModify} from './create_delete_modify';
 
 export function Title({properties, wasOpen}: Object) {

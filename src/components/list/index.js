@@ -1,9 +1,8 @@
 // @flow
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {List as ImmutableList, Map} from 'immutable';
-import {Tooltip} from 'react-tippy';
 import R from 'ramda';
+
 import {Row} from './row';
 import {elementInViewport} from '../../utils/element_in_view';
 import {PageRange} from './page_range';

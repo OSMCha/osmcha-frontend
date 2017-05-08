@@ -55,7 +55,7 @@ class Changeset extends React.PureComponent {
     if (changeset.get('loading')) {
       return <Loading />;
     }
-    if (match.path !== '/changesets/:id') {
+    if (match.path !== '/changesets/:id' || !this.props.paramsId) {
       return <div> batpad, please select a changeset </div>;
     }
     return (

@@ -1,7 +1,8 @@
+// @flow
 import React from 'react';
 import {Tooltip} from 'react-tippy';
 
-export function CreateDeleteModify(props) {
+export function CreateDeleteModify(props: Object) {
   return (
     <div
       className={

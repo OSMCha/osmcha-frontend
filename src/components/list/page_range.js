@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 
 export class PageRange extends React.PureComponent {

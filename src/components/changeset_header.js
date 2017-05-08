@@ -1,37 +1,26 @@
+// @flow
 import React from 'react';
 import {List} from 'immutable';
+import {Map} from 'immutable';
 
 export function Header(
-  props: {
-    changesetId: number,
-    date: string,
-    create: number,
-    modify: number,
-    delete: number,
-    reasons: List<*>,
-    source: string,
-    editor: string,
-    comment: string,
-    imagery: string,
-  },
+  {properties, changesetId}: {properties: Map<string, *>, changesetId: number},
 ) {
-  const {
-    changesetId,
-    date,
-    create,
-    modify,
-    reasons,
-    source,
-    editor,
-    comment,
-    imagery,
-  } = props;
+  const date = properties.get('date');
+  const create = properties.get('create');
+  const modify = properties.get('modify');
+  const destroy = properties.get('delete');
+  const reasons = properties.get('reasons');
+  const source = properties.get('source');
+  const editor = properties.get('editor');
+  const comment = properties.get('comment');
+  const imagery = properties.get('imagery_used');
   return (
     <div className="px12 color-gray">
       <h2 className="txt-subhead txt-light">Time: {date} </h2>
       <h2 className="txt-l txt-light">Changeset: {changesetId} </h2>
       <h2 className="txt-subhead txt-light">
-        create: {create}, modify: {modify}, delete: {props.delete}
+        create: {create}, modify: {modify}, delete: {destroy}
       </h2>
       <h2 className="txt-subhead txt-light">
         Reasons: {reasons.map((e, k) => <span key={k}>{e}</span>)}

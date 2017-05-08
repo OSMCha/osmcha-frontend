@@ -15,7 +15,7 @@ export function Changeset(
     currentChangesetMap,
     errorChangesetMap,
   }: {
-    changesetId: ?number,
+    changesetId: number,
     currentChangeset: ?Map<string, *>,
     currentChangesetMap: ?Object,
     errorChangeset: ?Object,
@@ -38,18 +38,7 @@ export function Changeset(
 
   return (
     <div className="flex-child flex-child--grow">
-      <Header
-        changesetId={changesetId}
-        date={properties.get('date')}
-        create={properties.get('create')}
-        modify={properties.get('modify')}
-        delete={properties.get('delete')}
-        reasons={properties.get('reasons')}
-        source={properties.get('source')}
-        editor={properties.get('editor')}
-        comment={properties.get('comment')}
-        imagery={properties.get('imagery_used')}
-      />
+      <Header changesetId={changesetId} properties={properties} />
       <div>
         {currentChangesetMap
           ? <CMap changesetId={changesetId} adiffResult={currentChangesetMap} />
