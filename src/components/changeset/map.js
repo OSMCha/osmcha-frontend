@@ -4,6 +4,7 @@ let changesetId;
 let adiffResult;
 let width = 700;
 let height = 500;
+
 function loadMap() {
   const changesetMap = window.renderChangesetMap;
   var container = document.getElementById('container');
@@ -19,6 +20,7 @@ function loadMap() {
     console.log(e);
   }
 }
+
 var deb = debounce(loadMap, 700);
 
 export class CMap extends React.PureComponent {

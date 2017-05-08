@@ -2,10 +2,11 @@
 import React from 'react';
 import {Map} from 'immutable';
 
-import {Header} from './changeset_header';
-import {CMap} from './changeset_map';
-import {dispatchEvent} from '../utils/dispatch_event';
-import {Loading} from './loading';
+import {dispatchEvent} from '../../utils/dispatch_event';
+import {Header} from './header';
+import {CMap} from './map';
+import {Loading} from '../loading';
+
 // presentational component for view/changeset.js
 export function Changeset(
   {
