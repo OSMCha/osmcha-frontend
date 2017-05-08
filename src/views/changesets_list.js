@@ -71,17 +71,6 @@ class ChangesetsList extends React.PureComponent {
       />
     );
   };
-  // showFooter = () => {
-  //   const base = parseInt(this.props.pageIndex / 10, 10) * 10;
-  //   return R.range(base, base + 10).map(n => (
-  //     <RangeItem
-  //       key={n}
-  //       page={n}
-  //       active={n === this.props.pageIndex}
-  //       fetchChangesetsPage={this.props.fetchChangesetsPage}
-  //     />
-  //   ));
-  // };
   render() {
     const {error} = this.props;
     if (error) {

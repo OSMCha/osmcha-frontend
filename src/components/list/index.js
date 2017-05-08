@@ -4,30 +4,11 @@ import {Link} from 'react-router-dom';
 import {List as ImmutableList, Map} from 'immutable';
 import {Tooltip} from 'react-tippy';
 import R from 'ramda';
-import moment from 'moment';
-import {ListItemMulti} from './list_item_multi_row';
-import {elementInViewport} from '../utils/element_in_view';
+import {Row} from './row';
+import {elementInViewport} from '../../utils/element_in_view';
+import {PageRange} from './page_range';
+
 const RANGE = 6;
-class RangeItem extends React.PureComponent {
-  render() {
-    return (
-      <button
-        onClick={this._onClick}
-        disabled={this.props.page === '<' && this.props.pageIndex === -1}
-        className={
-          `flex-child btn btn--s  color-gray-dark 
-          ${this.props.active ? 'is-active bg-gray-light' : 'bg-gray-faint'}
-          `
-        }
-      >
-        {this.props.page}
-      </button>
-    );
-  }
-  _onClick = () => {
-    this.props.fetchChangesetsPage(this.props.pageIndex);
-  };
-}
 
 export class List extends React.PureComponent {
   props: {
@@ -53,7 +34,7 @@ export class List extends React.PureComponent {
     return (
       <ul className="flex-parent flex-parent--column ">
         {this.props.data.map((f, k) => (
-          <ListItemMulti
+          <Row
             active={f.get('id') === this.props.activeChangesetId}
             properties={f.get('properties')}
             changesetId={f.get('id')}
@@ -68,13 +49,13 @@ export class List extends React.PureComponent {
         <footer
           className="p12 pb24 bg-gray-faint txt-s flex-parent justify--space-around"
         >
-          <RangeItem
+          <PageRange
             page={'<'}
             pageIndex={this.props.pageIndex - 1}
             fetchChangesetsPage={this.props.fetchChangesetsPage}
           />
           {R.range(base, base + RANGE).map(n => (
-            <RangeItem
+            <PageRange
               key={n}
               page={n}
               pageIndex={n}
@@ -82,7 +63,7 @@ export class List extends React.PureComponent {
               fetchChangesetsPage={this.props.fetchChangesetsPage}
             />
           ))}
-          <RangeItem
+          <PageRange
             page={'>'}
             pageIndex={this.props.pageIndex + 1}
             fetchChangesetsPage={this.props.fetchChangesetsPage}
