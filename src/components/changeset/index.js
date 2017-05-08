@@ -4,6 +4,7 @@ import {Map} from 'immutable';
 
 import {dispatchEvent} from '../../utils/dispatch_event';
 import {Header} from './header';
+import {Details} from './details';
 import {CMap} from './map';
 import {Loading} from '../loading';
 
@@ -38,8 +39,8 @@ export function Changeset(
   const properties = currentChangeset.get('properties');
 
   return (
-    <div className="flex-child flex-child--grow">
-      <Header changesetId={changesetId} properties={properties} />
+    <div className="flex-child flex-child--grow px24">
+      <Details changesetId={changesetId} properties={properties} />
       <div>
         {currentChangesetMap
           ? <CMap changesetId={changesetId} adiffResult={currentChangesetMap} />

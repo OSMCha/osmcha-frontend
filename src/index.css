@@ -57,6 +57,26 @@
   animation: 0.4s fadeOutRight ease-in;
 }
 
+.showmore-enter {
+  opacity: 0.1;
+}
+
+.showmore-enter.showmore-enter-active {
+  opacity: 1;
+  animation: 0.3s fadeIn ease-out;
+  /*transition: opacity 200ms ease-out;*/
+}
+
+.showmore-leave {
+  opacity: 0;
+}
+
+.showmore-leave.showmore-leave-active {
+  opacity: 0.3;
+  /*transition: opacity 100ms ease-in;*/
+  animation: 0.2s fadeOut ease-in;
+}
+
 .tippy-tooltip.osmcha-theme {
     /* Your styling here. Example: */
     background-color: #f7f7f7;
