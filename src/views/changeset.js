@@ -75,9 +75,31 @@ class Changeset extends React.PureComponent {
   };
   render() {
     return (
-      <div className="flex-parent flex-parent--column h-full hmax-full">
-
-        <div className="flex-parent flex-parent--row justify--center">
+      <div
+        className="flex-parent flex-parent--column h-full hmax-full bg-gray-faint"
+      >
+        <Navbar
+          className="bg-white color-gray border-b border--gray-light border--1 "
+          title={
+            <span className="txt-l">
+              Changeset: <span className="txt-em">{this.props.paramsId}</span>
+            </span>
+          }
+          buttons={
+            <a
+              className={
+                `${this.state.filter ? 'is-active' : ''} flex-parent-inline btn color-gray-dark color-gray-dark-on-active bg-transparent bg-darken5-on-hover bg-gray-light-on-active txt-s ml3`
+              }
+              href="#"
+              onClick={this.toggleFilter}
+            >
+              <svg className="icon"><use xlinkHref="#icon-osm" /></svg>
+            </a>
+          }
+        />
+        <div
+          className="flex-parent flex-parent--row justify--center pt12  scroll-auto"
+        >
           {this.showChangeset()}
           <CSSTransitionGroup
             transitionName="filters-bar"
@@ -131,23 +153,3 @@ Changeset = connect(
 )(Changeset);
 
 export {Changeset};
-
-// <Navbar
-//           className="bg-white color-gray border-b border--gray-light border--1 "
-//           title={
-//             <span className="txt-l">
-//               Changeset: <span className="txt-em">{this.props.paramsId}</span>
-//             </span>
-//           }
-//           buttons={
-//             <a
-//               className={
-//                 `${this.state.filter ? 'is-active' : ''} flex-parent-inline btn color-gray-dark color-gray-dark-on-active bg-transparent bg-darken5-on-hover bg-gray-light-on-active txt-s ml3`
-//               }
-//               href="#"
-//               onClick={this.toggleFilter}
-//             >
-//               <svg className="icon"><use xlinkHref="#icon-osm" /></svg>
-//             </a>
-//           }
-//         />

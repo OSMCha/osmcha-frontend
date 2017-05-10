@@ -34,7 +34,7 @@ export class CMap extends React.PureComponent {
     if (this.ref) {
       var rect = this.ref.parentNode.parentNode.parentNode.getBoundingClientRect();
       height = parseInt(window.innerHeight * 0.5, 10);
-      width = parseInt(rect.width * 0.9, 10);
+      width = parseInt(rect.width, 10);
     }
     deb();
   }
@@ -44,7 +44,7 @@ export class CMap extends React.PureComponent {
       <div className="flex-parent justify--center">
         <div
           id="container"
-          className="border border--2 border--gray"
+          className="border border--2 border--gray-dark"
           ref={this.setRef}
         />
       </div>

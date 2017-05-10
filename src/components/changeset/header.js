@@ -1,10 +1,15 @@
 // @flow
 import React from 'react';
-import {List} from 'immutable';
 import {Map} from 'immutable';
+import moment from 'moment';
 
+import {CreateDeleteModify} from '../create_delete_modify';
+import {Reasons} from '../reasons';
 export function Header(
-  {properties, changesetId}: {properties: Map<string, *>, changesetId: number},
+  {
+    properties,
+    changesetId,
+  }: {properties: Map<string, *>, changesetId: number},
 ) {
   const date = properties.get('date');
   const create = properties.get('create');
@@ -15,49 +20,87 @@ export function Header(
   const editor = properties.get('editor');
   const comment = properties.get('comment');
   const imagery = properties.get('imagery_used');
+  const user = properties.get('user');
   return (
-    <div className="px12 color-gray">
-      <h2 className="txt-subhead txt-light">Time: {date} </h2>
-      <h2 className="txt-l txt-light">Changeset: {changesetId} </h2>
-      <h2 className="txt-subhead txt-light">
-        create: {create}, modify: {modify}, delete: {destroy}
-      </h2>
-      <h2 className="txt-subhead txt-light">
-        Reasons: {reasons.map((e, k) => <span key={k}>{e}</span>)}
-      </h2>
-      <h2 className="txt-subhead txt-light">
-        source: {source}
-      </h2>
-      <h2 className="txt-subhead txt-light">
-        editor: {editor}
-      </h2>
-      <h2 className="txt-subhead txt-light">
-        comment: {comment}
-      </h2>
-      <h2 className="txt-subhead txt-light">
-        imagery: {imagery}
-      </h2>
-      <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
-        <a
-          target="_blank"
-          href={
-            `http://127.0.0.1:8111/import?url=http://www.openstreetmap.org/api/0.6/changeset/${changesetId}/download`
-          }
+    <div
+      className="my12 border border--gray-light z4 transition px18 py12 bg-white"
+    >
+      <div
+        className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap border-b border--gray-light"
+      >
+        <h2 className="txt-xl mr6">{user}</h2>
+        <div
+          className="flex-parent flex-parent--row justify--space-between flex-parent--wrap"
         >
-          HDYC
-        </a>
-      </button>
-      <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
-        <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
-          JOSM
-        </a>
-      </button>
-      <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
-        Verify Good
-      </button>
-      <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
-        Verify Bad
-      </button>
+          <span className="">
+            <span className="txt-underline-on-hover txt-em">
+              {changesetId} &nbsp;
+            </span>
+            <span>
+              created &nbsp;{moment(date).fromNow()}
+            </span>
+          </span>
+          <div>
+            <Reasons reasons={reasons} />
+            <CreateDeleteModify
+              className="mr3"
+              create={create}
+              modify={modify}
+              delete={destroy}
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="flex-parent flex-parent--row justify--space-between flex-parent--wrap"
+      >
+        <span>
+          <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
+            <a
+              target="_blank"
+              href={
+                `http://127.0.0.1:8111/import?url=http://www.openstreetmap.org/api/0.6/changeset/${changesetId}/download`
+              }
+            >
+              HDYC
+            </a>
+          </button>
+          <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
+            <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
+              JOSM
+            </a>
+          </button>
+        </span>
+        <div>
+          <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
+            Verify Good
+          </button>
+          <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
+            Verify Bad
+          </button>
+        </div>
+      </div>
+
+      <div className="border-b border--gray-light border--0">
+        <h2 className="txt-l mr6">Other</h2>
+        <div className="ml6">
+          <p className="flex-child txt-subhead  my3">
+            Source: <span className="txt-em txt-break-word">{source}</span>
+          </p>
+          <p className="flex-child txt-subhead  my3">
+            Editor: <span className="txt-em txt-break-word">{editor}</span>
+          </p>
+          <p className="flex-child txt-subhead  my3">
+            Imagery: <span className="txt-em txt-break-word">{imagery}</span>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
+
+//  <div className="flex-parent flex-parent--row-reverse">
+//         <button className={`btn btn--pill btn--s color-white btn--red`}>
+//           Not verified
+//         </button>
+//       </div>

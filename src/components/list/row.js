@@ -35,6 +35,7 @@ export class Row extends React.PureComponent {
       // toggle it back to any other state.
       this.wasOpen = this.props.active;
     }
+
     return (
       <Link to={`/changesets/${changesetId}`}>
         <div
@@ -56,7 +57,7 @@ export class Row extends React.PureComponent {
                   <Title properties={properties} wasOpen={this.wasOpen} />
                 </div>
                 <div>
-                  <PrimaryLine comment={properties.get('comment')} />
+                  <PrimaryLine comment={properties.get('features')} />
                 </div>
                 <div>
                   <SecondaryLine
