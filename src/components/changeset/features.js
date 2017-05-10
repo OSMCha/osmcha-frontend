@@ -25,7 +25,7 @@ export function Features(
       className="my12 border border--gray-light z4 transition px18 py12 bg-white"
     >
       <div>
-        <h2 className="txt-l mr6">Suspicious Features</h2>
+        <h2 className="txt-l mr6">Suspicious Features ({features.size})</h2>
         <p className="flex-child txt-subhead my3 txt-em ml6">
           {features.map((f, k) => <Feature key={k} data={f} />)}
         </p>
