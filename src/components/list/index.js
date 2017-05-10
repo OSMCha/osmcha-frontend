@@ -6,7 +6,7 @@ import R from 'ramda';
 import {Row} from './row';
 import {elementInViewport} from '../../utils/element_in_view';
 import {PageRange} from './page_range';
-
+import {Loading} from '../loading';
 const RANGE = 6;
 
 export class List extends React.PureComponent {
@@ -17,9 +17,11 @@ export class List extends React.PureComponent {
     cachedChangesets: Map<string, *>,
     fetchChangesetsPage: (number) => mixed, // base 0
     pageIndex: number,
+    loading: boolean,
   };
   shouldComponentUpdate(nextProps: Object) {
-    return nextProps.activeChangesetId !== this.props.activeChangesetId ||
+    return nextProps.loading !== this.props.loading ||
+      nextProps.activeChangesetId !== this.props.activeChangesetId ||
       nextProps.data !== this.props.data;
   }
   handleScroll = (r: HTMLElement) => {
@@ -30,21 +32,27 @@ export class List extends React.PureComponent {
   };
   render() {
     const base = parseInt(this.props.pageIndex / RANGE, 10) * RANGE;
+    console.log('render');
     return (
-      <ul className="flex-parent flex-parent--column ">
-        {this.props.data.map((f, k) => (
-          <Row
-            active={f.get('id') === this.props.activeChangesetId}
-            properties={f.get('properties')}
-            changesetId={f.get('id')}
-            inputRef={
-              f.get('id') === this.props.activeChangesetId // only saves the ref of currently active changesetId
-                ? this.handleScroll
-                : null
-            }
-            key={k}
-          />
-        ))}
+      <div>
+        <ul
+          className="flex-parent flex-parent--column scroll-auto"
+          style={{height: window.innerHeight - 55 * 2}}
+        >
+          {this.props.loading ? <Loading /> : this.props.data.map((f, k) => (
+                <Row
+                  active={f.get('id') === this.props.activeChangesetId}
+                  properties={f.get('properties')}
+                  changesetId={f.get('id')}
+                  inputRef={
+                    f.get('id') === this.props.activeChangesetId // only saves the ref of currently active changesetId
+                      ? this.handleScroll
+                      : null
+                  }
+                  key={k}
+                />
+              ))}
+        </ul>
         <footer
           className="p12 pb24 bg-gray-faint txt-s flex-parent justify--space-around"
         >
@@ -68,7 +76,7 @@ export class List extends React.PureComponent {
             fetchChangesetsPage={this.props.fetchChangesetsPage}
           />
         </footer>
-      </ul>
+      </div>
     );
   }
 }

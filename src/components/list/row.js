@@ -35,7 +35,6 @@ export class Row extends React.PureComponent {
       // toggle it back to any other state.
       this.wasOpen = this.props.active;
     }
-
     return (
       <Link to={`/changesets/${changesetId}`}>
         <div

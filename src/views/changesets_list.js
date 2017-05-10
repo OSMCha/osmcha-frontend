@@ -55,15 +55,13 @@ class ChangesetsList extends React.PureComponent {
   }
   showList = () => {
     const {currentPage, loading} = this.props;
-    if (loading) {
-      return <Loading />;
-    }
     if (!currentPage) return null;
     const features: ImmutableList<Map<string, *>> = currentPage.get('features');
     return (
       <List
         activeChangesetId={this.props.activeChangesetId}
         data={features}
+        loading={loading}
         cachedChangesets={this.props.cachedChangesets}
         fetchChangeset={this.props.fetchChangeset}
         fetchChangesetsPage={this.props.fetchChangesetsPage}
@@ -78,9 +76,7 @@ class ChangesetsList extends React.PureComponent {
     }
     return (
       <div className="flex-parent flex-parent--column flex-child--grow">
-        <div className="flex-child flex-child--grow scroll-auto mt3">
-          {this.showList()}
-        </div>
+        {this.showList()}
       </div>
     );
   }
