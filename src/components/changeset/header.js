@@ -16,10 +16,7 @@ export function Header(
   const modify = properties.get('modify');
   const destroy = properties.get('delete');
   const reasons = properties.get('reasons');
-  const source = properties.get('source');
-  const editor = properties.get('editor');
-  const comment = properties.get('comment');
-  const imagery = properties.get('imagery_used');
+
   const user = properties.get('user');
   return (
     <div
@@ -28,7 +25,25 @@ export function Header(
       <div
         className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap border-b border--gray-light"
       >
-        <h2 className="txt-xl mr6">{user}</h2>
+        <div
+          className="flex-parent flex-parent--row justify--space-between flex-parent--center-cross"
+        >
+          <h2 className="txt-xl mr6">{user}</h2>
+          <div
+            className="flex-parent flex-parent--column flex-parent--end-cross"
+            style={{position: 'relative', right: -24, top: -5}}
+          >
+            {reasons.map((r, k) => (
+              <span key={k} className="my3">
+                <span
+                  className="bg-blue color-white px6 py3 txt-s txt-bold border"
+                >
+                  {r}
+                </span>
+              </span>
+            ))}
+          </div>
+        </div>
         <div
           className="flex-parent flex-parent--row justify--space-between flex-parent--wrap"
         >
@@ -40,10 +55,10 @@ export function Header(
               created &nbsp;{moment(date).fromNow()}
             </span>
           </span>
-          <div>
-            <Reasons reasons={reasons} />
+          <div className="flex-parent flex-parent--column">
             <CreateDeleteModify
-              className="mr3"
+              showZero
+              className="mr3 pb3"
               create={create}
               modify={modify}
               delete={destroy}
@@ -81,20 +96,7 @@ export function Header(
         </div>
       </div>
 
-      <div className="border-b border--gray-light border--0">
-        <h2 className="txt-l mr6">Other</h2>
-        <div className="ml6">
-          <p className="flex-child txt-subhead  my3">
-            Source: <span className="txt-em txt-break-word">{source}</span>
-          </p>
-          <p className="flex-child txt-subhead  my3">
-            Editor: <span className="txt-em txt-break-word">{editor}</span>
-          </p>
-          <p className="flex-child txt-subhead  my3">
-            Imagery: <span className="txt-em txt-break-word">{imagery}</span>
-          </p>
-        </div>
-      </div>
+      <div className="border-b border--gray-light border--0" />
     </div>
   );
 }

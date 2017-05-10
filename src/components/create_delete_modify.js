@@ -3,13 +3,14 @@ import React from 'react';
 import {Tooltip} from 'react-tippy';
 
 export function CreateDeleteModify(props: Object) {
+  const showZero = props.showZero;
   return (
     <div
       className={
         `flex-parent flex-parent--row flex-parent--wrap ${props.className}`
       }
     >
-      {props.create > 0 &&
+      {(props.create > 0 || showZero) &&
         <Tooltip
           position="bottom"
           theme="osmcha"
@@ -25,7 +26,7 @@ export function CreateDeleteModify(props: Object) {
             {props.create}
           </div>
         </Tooltip>}
-      {props.modify > 0 &&
+      {(props.modify > 0 || showZero) &&
         <Tooltip
           position="bottom"
           theme="osmcha"
@@ -41,7 +42,7 @@ export function CreateDeleteModify(props: Object) {
             {props.modify}
           </div>{' '}
         </Tooltip>}
-      {props.delete > 0 &&
+      {(props.delete > 0 || showZero) &&
         <Tooltip
           position="bottom"
           theme="osmcha"
