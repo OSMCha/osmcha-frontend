@@ -12,7 +12,7 @@ function loadMap() {
     changesetMap(
       container,
       changesetId,
-      {width: width + 'px', height: Math.max(500, height) + 'px'},
+      {width: width + 'px', height: Math.max(450, height) + 'px'},
       adiffResult,
     );
   } catch (e) {

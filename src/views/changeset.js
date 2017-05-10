@@ -98,7 +98,7 @@ class Changeset extends React.PureComponent {
           }
         />
         <div
-          className="flex-parent flex-parent--row justify--center pt12  scroll-auto"
+          className="flex-parent flex-parent--row justify--center scroll-auto"
         >
           {this.showChangeset()}
           <CSSTransitionGroup
