@@ -57,7 +57,7 @@ export class Row extends React.PureComponent {
                   <Title properties={properties} wasOpen={this.wasOpen} />
                 </div>
                 <div>
-                  <PrimaryLine comment={properties.get('features')} />
+                  <PrimaryLine comment={properties.get('comment')} />
                 </div>
                 <div>
                   <SecondaryLine

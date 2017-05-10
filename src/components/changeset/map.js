@@ -8,7 +8,6 @@ let height = 500;
 function loadMap() {
   const changesetMap = window.renderChangesetMap;
   var container = document.getElementById('container');
-  console.log(height);
   try {
     changesetMap(
       container,

@@ -37,6 +37,7 @@ class App extends Component {
           className="w300 wmin300 left top "
           title={
             <Navbar
+              className="bg-white  border-b border--gray-light border--1"
               title={
                 <span className="txt-fancy color-gray txt-xl">
                   <span className="color-green txt-bold">OSM</span> CHA

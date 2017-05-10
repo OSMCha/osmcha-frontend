@@ -10,7 +10,7 @@ import {CMap} from './map';
 import {Loading} from '../loading';
 import {Comment} from './comment';
 import {Features} from './features';
-
+import {Box} from './box';
 // presentational component for view/changeset.js
 export function Changeset(
   {
@@ -42,16 +42,29 @@ export function Changeset(
   const properties = currentChangeset.get('properties');
 
   return (
-    <div className="flex-child flex-child--grow px24 wmax960">
-      <div>
+    <div className="flex-child flex-child--grow wmax960">
+      <Box>
         {currentChangesetMap
           ? <CMap changesetId={changesetId} adiffResult={currentChangesetMap} />
           : <Loading height={parseInt(window.innerHeight * 0.5, 10)} />}
+      </Box>
+
+      <Box>
+        <Header changesetId={changesetId} properties={properties} />
+      </Box>
+      <div
+        className="flex-parent flex-parent--row flex-parent--start flex-parent--wrap"
+      >
+        <Box>
+          <Comment changesetId={changesetId} properties={properties} />
+        </Box>
+        <Box>
+          <Details changesetId={changesetId} properties={properties} />
+        </Box>
+        <Box>
+          <Features changesetId={changesetId} properties={properties} />
+        </Box>
       </div>
-      <Header changesetId={changesetId} properties={properties} />
-      <Comment changesetId={changesetId} properties={properties} />
-      <Details changesetId={changesetId} properties={properties} />
-      <Features changesetId={changesetId} properties={properties} />
     </div>
   );
 }

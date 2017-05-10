@@ -10,9 +10,7 @@ export function Comment(
 ) {
   const comment = properties.get('comment');
   return (
-    <div
-      className="my12 border border--gray-light z4 transition px18 py12 bg-white"
-    >
+    <div className="p12">
       <div>
         <h2 className="txt-l mr6">Comment</h2>
         <p className="flex-child txt-subhead my3 txt-em ml6">

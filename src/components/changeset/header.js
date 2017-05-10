@@ -19,9 +19,7 @@ export function Header(
 
   const user = properties.get('user');
   return (
-    <div
-      className="my12 border border--gray-light z4 transition px18 py12 bg-white"
-    >
+    <div className="p12">
       <div
         className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap border-b border--gray-light"
       >

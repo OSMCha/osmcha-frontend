@@ -21,9 +21,7 @@ export function Features(
   const features = properties.get('features');
   console.log(features);
   return (
-    <div
-      className="my12 border border--gray-light z4 transition px18 py12 bg-white"
-    >
+    <div className="p12">
       <div>
         <h2 className="txt-l mr6">Suspicious Features ({features.size})</h2>
         <p className="flex-child txt-subhead my3 txt-em ml6">

@@ -12,9 +12,7 @@ export function Details(
   const editor = properties.get('editor');
   const imagery = properties.get('imagery_used');
   return (
-    <div
-      className="my12 border border--gray-light z4 transition px18 py12 bg-white"
-    >
+    <div className="p12">
       <h2 className="txt-l mr6">Other</h2>
       <div className="ml6">
         <p className="flex-child txt-subhead  my3">
