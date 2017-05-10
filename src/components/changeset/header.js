@@ -36,7 +36,7 @@ export function Header(
             {reasons.map((r, k) => (
               <span key={k} className="my3">
                 <span
-                  className="bg-blue color-white px6 py3 txt-s txt-bold border"
+                  className="bg-blue border border--blue-dark color-white px6 py3 txt-s txt-bold border"
                 >
                   {r}
                 </span>

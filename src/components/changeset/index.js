@@ -9,6 +9,8 @@ import {Header} from './header';
 import {CMap} from './map';
 import {Loading} from '../loading';
 import {Comment} from './comment';
+import {Features} from './features';
+
 // presentational component for view/changeset.js
 export function Changeset(
   {
@@ -44,12 +46,12 @@ export function Changeset(
       <div>
         {currentChangesetMap
           ? <CMap changesetId={changesetId} adiffResult={currentChangesetMap} />
-          : <Loading />}
+          : <Loading height={parseInt(window.innerHeight * 0.5, 10)} />}
       </div>
       <Header changesetId={changesetId} properties={properties} />
       <Comment changesetId={changesetId} properties={properties} />
       <Details changesetId={changesetId} properties={properties} />
-
+      <Features changesetId={changesetId} properties={properties} />
     </div>
   );
 }

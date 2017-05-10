@@ -28,6 +28,9 @@ export class CMap extends React.PureComponent {
     changesetId: number,
     adiffResult: Object,
   };
+  state = {
+    visible: false,
+  };
   componentDidMount() {
     changesetId = this.props.changesetId;
     adiffResult = this.props.adiffResult;
@@ -36,6 +39,14 @@ export class CMap extends React.PureComponent {
       height = parseInt(window.innerHeight * 0.5, 10);
       width = parseInt(rect.width, 10);
     }
+    setTimeout(
+      () => {
+        this.setState({
+          visible: true,
+        });
+      },
+      1000,
+    );
     deb();
   }
   setRef = r => this.ref = r;
@@ -43,8 +54,15 @@ export class CMap extends React.PureComponent {
     return (
       <div className="flex-parent justify--center">
         <div
+          style={{
+            height: parseInt(window.innerHeight * 0.5, 10),
+            display: this.state.visible ? 'none' : 'block',
+          }}
+        />
+        <div
           id="container"
           className="border border--2 border--gray-dark"
+          style={{visibility: this.state.visible ? 'visible' : 'hidden'}}
           ref={this.setRef}
         />
       </div>
