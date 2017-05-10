@@ -19,7 +19,6 @@ export function Features(
   }: {properties: Map<string, *>, changesetId: number, expanded?: boolean},
 ) {
   const features = properties.get('features');
-  console.log(features);
   return (
     <div className="p12">
       <div>

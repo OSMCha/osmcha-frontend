@@ -54,7 +54,7 @@ export class List extends React.PureComponent {
               ))}
         </ul>
         <footer
-          className="p12 pb24 bg-gray-faint txt-s flex-parent justify--space-around"
+          className="p12 pb24 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around bottom relative"
         >
           <PageRange
             page={'<'}

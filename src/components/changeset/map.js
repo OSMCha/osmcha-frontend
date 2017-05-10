@@ -34,9 +34,9 @@ export class CMap extends React.PureComponent {
     changesetId = this.props.changesetId;
     adiffResult = this.props.adiffResult;
     if (this.ref) {
-      var rect = this.ref.parentNode.parentNode.parentNode.getBoundingClientRect();
+      var rect = this.ref.parentNode.parentNode.getBoundingClientRect();
       height = parseInt(window.innerHeight * 0.5, 10);
-      width = parseInt(rect.width, 10);
+      width = parseInt(rect.width + (window.innerWidth < 1360 ? -100 : 0), 10);
     }
     setTimeout(
       () => {

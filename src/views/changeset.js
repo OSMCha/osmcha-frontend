@@ -75,11 +75,9 @@ class Changeset extends React.PureComponent {
   };
   render() {
     return (
-      <div
-        className="flex-parent flex-parent--column h-full hmax-full bg-gray-faint"
-      >
+      <div className="flex-parent flex-parent--column bg-gray-faint clip">
         <Navbar
-          className="bg-white color-gray border-b border--gray-light border--1 "
+          className="bg-white color-gray border-b border--gray-light border--1"
           title={
             <span className="txt-l">
               Changeset: <span className="txt-em">{this.props.paramsId}</span>
@@ -99,6 +97,9 @@ class Changeset extends React.PureComponent {
         />
         <div
           className="flex-parent flex-parent--row justify--center scroll-auto"
+          style={{
+            height: false ? window.innerHeight : window.innerHeight - 55,
+          }}
         >
           {this.showChangeset()}
           <CSSTransitionGroup

@@ -44,14 +44,9 @@ export function Changeset(
   return (
     <div className="flex-child flex-child--grow wmax960">
       <Box>
-        {currentChangesetMap
-          ? <CMap changesetId={changesetId} adiffResult={currentChangesetMap} />
-          : <Loading height={parseInt(window.innerHeight * 0.5, 10)} />}
-      </Box>
-
-      <Box>
         <Header changesetId={changesetId} properties={properties} />
       </Box>
+
       <div
         className="flex-parent flex-parent--row flex-parent--start flex-parent--wrap"
       >
@@ -65,6 +60,11 @@ export function Changeset(
           <Features changesetId={changesetId} properties={properties} />
         </Box>
       </div>
+      <Box>
+        {currentChangesetMap
+          ? <CMap changesetId={changesetId} adiffResult={currentChangesetMap} />
+          : <Loading height={parseInt(window.innerHeight * 0.5, 10)} />}
+      </Box>
     </div>
   );
 }
