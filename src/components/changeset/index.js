@@ -48,7 +48,9 @@ export function Changeset(
   const properties = currentChangeset.get('properties');
 
   return (
-    <div className="flex-child flex-child--grow wmax960 transition mt12 mx18">
+    <div
+      className="flex-child flex-child--grow wmax960 transition mt12 mx18 mb30"
+    >
       <Box>
         <Header changesetId={changesetId} properties={properties} />
       </Box>
@@ -68,6 +70,7 @@ export function Changeset(
       </div>
       <Box
         className="wmin480 wmax920"
+        bg="bg-black"
         pullDown={
           <span style={{position: 'relative', top: 2}}>
             <button
