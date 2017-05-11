@@ -57,13 +57,13 @@ export function Changeset(
           <Comment changesetId={changesetId} properties={properties} />
         </Box>
         <Box className="col col--6">
+          <Discussions changesetId={changesetId} properties={properties} />
+        </Box>
+        <Box className="col col--6">
           <Details changesetId={changesetId} properties={properties} />
         </Box>
         <Box className="col col--6">
           <Features changesetId={changesetId} properties={properties} />
-        </Box>
-        <Box className="col col--6">
-          <Discussions changesetId={changesetId} properties={properties} />
         </Box>
       </div>
       <Box
