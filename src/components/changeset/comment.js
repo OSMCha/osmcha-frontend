@@ -10,9 +10,9 @@ export function Comment(
 ) {
   const comment = properties.get('comment');
   return (
-    <div className="p12">
+    <div className="p12 ">
       <div>
-        <h2 className="txt-l mr6">Comment</h2>
+        <h2 className="txt-l mr6 txt-bold">Comment</h2>
         <p className="flex-child txt-subhead my3 txt-em ml6">
           {comment}
         </p>

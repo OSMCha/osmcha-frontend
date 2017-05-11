@@ -13,7 +13,7 @@ export function Details(
   const imagery = properties.get('imagery_used');
   return (
     <div className="p12">
-      <h2 className="txt-l mr6">Other</h2>
+      <h2 className="txt-l mr6 txt-bold">Other</h2>
       <div className="ml6">
         <p className="flex-child txt-subhead  my3">
           Source: <span className="txt-em txt-break-word">{source}</span>
@@ -28,9 +28,3 @@ export function Details(
     </div>
   );
 }
-
-//  <div className="flex-parent flex-parent--row-reverse">
-//         <button className={`btn btn--pill btn--s color-white btn--red`}>
-//           Not verified
-//         </button>
-//       </div>

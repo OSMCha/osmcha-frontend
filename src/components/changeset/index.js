@@ -53,16 +53,16 @@ export function Changeset(
         <Header changesetId={changesetId} properties={properties} />
       </Box>
       <div className="grid grid--gut12">
-        <Box className="col col--6">
+        <Box className="col col--6-mxl col--12">
           <Comment changesetId={changesetId} properties={properties} />
         </Box>
-        <Box className="col col--6">
+        <Box className="col col--6-mxl col--12">
           <Discussions changesetId={changesetId} properties={properties} />
         </Box>
-        <Box className="col col--6">
+        <Box className="col col--6-mxl col--12">
           <Details changesetId={changesetId} properties={properties} />
         </Box>
-        <Box className="col col--6">
+        <Box className="col col--6-mxl col--12">
           <Features changesetId={changesetId} properties={properties} />
         </Box>
       </div>

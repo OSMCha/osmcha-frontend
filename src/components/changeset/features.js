@@ -86,7 +86,9 @@ export function Features(
   return (
     <div className="p12">
       <div>
-        <h2 className="txt-l mr6">Suspicious Features ({features.size})</h2>
+        <h2 className="txt-l mr6 txt-bold">
+          Suspicious Features ({features.size})
+        </h2>
         <div className="flex-child txt-subhead my3 txt-em ml6">
           {features.map((f, k) => <Feature key={k} data={f} />)}
         </div>
