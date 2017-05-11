@@ -22,10 +22,11 @@ function shuffle(array) {
 
 const Feature = ({data}) => (
   <div
-    className="flex-parent flex-parent--row justify--space-between px42 flex-parent--wrap"
+    className="flex-parent flex-parent--row justify--space-between px6 flex-parent--wrap border-b border--gray-light pb3"
   >
-    <span className="wmin120">ID: {data.get('osm_id')}</span>
-    <span className="wmin240">Name: {data.get('name')}</span>
+    <span className="wmin120">
+      <a title={data.get('osm_id')}> Name: {data.get('name')}</a>
+    </span>
     <span className="wmin240"><Reasons reasons={data.get('reasons')} /></span>
 
   </div>
@@ -86,9 +87,9 @@ export function Features(
     <div className="p12">
       <div>
         <h2 className="txt-l mr6">Suspicious Features ({features.size})</h2>
-        <p className="flex-child txt-subhead my3 txt-em ml6">
+        <div className="flex-child txt-subhead my3 txt-em ml6">
           {features.map((f, k) => <Feature key={k} data={f} />)}
-        </p>
+        </div>
       </div>
     </div>
   );
