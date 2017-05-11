@@ -65,6 +65,8 @@ class Changeset extends React.PureComponent {
         errorChangeset={changeset.get('errorChangeset')}
         errorChangesetMap={changeset.get('errorChangesetMap')}
         currentChangesetMap={currentChangesetMap}
+        scrollUp={this.scrollUp}
+        scrollDown={this.scrollDown}
       />
     );
   };
@@ -73,9 +75,23 @@ class Changeset extends React.PureComponent {
       filter: !this.state.filter,
     });
   };
+  scrollDown = () => {
+    if (this.scrollable) {
+      window.s = this.scrollable;
+      this.scrollable.scrollTop = window.innerHeight;
+    }
+  };
+  scrollUp = () => {
+    if (this.scrollable) {
+      this.scrollable.scrollTop = 0;
+    }
+  };
+  scrollable = null;
   render() {
     return (
-      <div className="flex-parent flex-parent--column bg-gray-faint clip">
+      <div
+        className="flex-parent flex-parent--column bg-gray-faint clip transition"
+      >
         <Navbar
           className="bg-white color-gray border-b border--gray-light border--1"
           title={
@@ -96,7 +112,8 @@ class Changeset extends React.PureComponent {
           }
         />
         <div
-          className="flex-parent flex-parent--row justify--center scroll-auto"
+          className="flex-parent flex-parent--row justify--center scroll-auto transition"
+          ref={r => this.scrollable = r}
           style={{
             height: false ? window.innerHeight : window.innerHeight - 55,
           }}

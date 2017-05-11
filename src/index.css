@@ -1,3 +1,6 @@
+body {
+  scroll-behavior: smooth;
+}
 .justify--space-between {
     justify-content: space-between;
 }

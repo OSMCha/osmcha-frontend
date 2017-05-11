@@ -38,6 +38,7 @@ export class CMap extends React.PureComponent {
       height = parseInt(window.innerHeight * 0.5, 10);
       width = parseInt(rect.width + (window.innerWidth < 1360 ? -100 : 0), 10);
     }
+
     setTimeout(
       () => {
         this.setState({

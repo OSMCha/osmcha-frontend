@@ -19,12 +19,16 @@ export function Changeset(
     errorChangeset,
     currentChangesetMap,
     errorChangesetMap,
+    scrollDown,
+    scrollUp,
   }: {
     changesetId: number,
     currentChangeset: ?Map<string, *>,
     currentChangesetMap: ?Object,
     errorChangeset: ?Object,
     errorChangesetMap: ?Object,
+    scrollDown: () => void,
+    scrollUp: () => void,
   },
 ) {
   if (errorChangeset) {
@@ -42,7 +46,7 @@ export function Changeset(
   const properties = currentChangeset.get('properties');
 
   return (
-    <div className="flex-child flex-child--grow wmax960">
+    <div className="flex-child flex-child--grow wmax960 transition">
       <Box>
         <Header changesetId={changesetId} properties={properties} />
       </Box>
@@ -60,7 +64,28 @@ export function Changeset(
           <Features changesetId={changesetId} properties={properties} />
         </Box>
       </div>
-      <Box>
+      <Box
+        pullDown={
+          <span style={{position: 'relative', top: 2}}>
+            <button
+              className="btn btn--s btn--gray btn--pill-vt border-b"
+              onClick={scrollDown}
+            >
+              Show Map
+            </button>
+          </span>
+        }
+        pullUp={
+          <span style={{position: 'relative', bottom: 2}}>
+            <button
+              className="btn btn--s btn--gray btn--pill-vb border-b"
+              onClick={scrollUp}
+            >
+              Go Up
+            </button>
+          </span>
+        }
+      >
         {currentChangesetMap
           ? <CMap changesetId={changesetId} adiffResult={currentChangesetMap} />
           : <Loading height={parseInt(window.innerHeight * 0.5, 10)} />}
