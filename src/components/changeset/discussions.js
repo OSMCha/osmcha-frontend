@@ -54,7 +54,9 @@ export class Discussions extends React.PureComponent {
   render() {
     return (
       <div className="p12">
-        <h2 className="txt-l mr6">Discussions</h2>
+        <h2 className="txt-l mr6">
+          Discussions ({this.state.discussions.length})
+        </h2>
         <div className="ml6">
           {this.state.discussions.map((f, k) => (
             <div
