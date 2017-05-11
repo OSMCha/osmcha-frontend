@@ -15,13 +15,13 @@ export function Details(
     <div className="p12">
       <h2 className="txt-l mr6 txt-bold">Other</h2>
       <div className="ml6">
-        <p className="flex-child txt-subhead  my3">
+        <p className="flex-child txt-subhead  my3 border-b border--gray-light ">
           Source: <span className="txt-em txt-break-word">{source}</span>
         </p>
-        <p className="flex-child txt-subhead  my3">
+        <p className="flex-child txt-subhead  my3 border-b border--gray-light ">
           Editor: <span className="txt-em txt-break-word">{editor}</span>
         </p>
-        <p className="flex-child txt-subhead  my3">
+        <p className="flex-child txt-subhead  my3 border-b border--gray-light ">
           Imagery: <span className="txt-em txt-break-word">{imagery}</span>
         </p>
       </div>
