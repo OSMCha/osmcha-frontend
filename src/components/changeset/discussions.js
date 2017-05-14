@@ -54,9 +54,6 @@ export class Discussions extends React.PureComponent {
   render() {
     return (
       <div className="p12">
-        <h2 className="txt-l mr6 txt-bold">
-          Discussions ({this.state.discussions.length})
-        </h2>
         <div className="ml6">
           {this.state.discussions.map((f, k) => (
             <div
@@ -69,6 +66,8 @@ export class Discussions extends React.PureComponent {
               </span>
             </div>
           ))}
+          {this.state.discussions.length === 0 &&
+            `Nobody discussed for poor ${this.props.changesetId}`}
         </div>
       </div>
     );

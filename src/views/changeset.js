@@ -37,6 +37,14 @@ class Changeset extends React.PureComponent {
     Mousetrap.bind(FILTER_BINDING, () => {
       this.toggleFilter();
     });
+    Mousetrap.bind('f', () => {
+      var cmapSidebar = document.getElementsByClassName('cmap-sidebar')[0];
+      if (cmapSidebar) {
+        cmapSidebar.style.visibility = cmapSidebar.style.visibility === 'hidden'
+          ? 'visible'
+          : 'hidden';
+      }
+    });
   }
   componentWillReceiveProps(nextProps) {
     var newId = nextProps.paramsId;
@@ -95,9 +103,43 @@ class Changeset extends React.PureComponent {
         <Navbar
           className="bg-white color-gray border-b border--gray-light border--1"
           title={
-            <span className="txt-l">
-              Changeset: <span className="txt-em">{this.props.paramsId}</span>
-            </span>
+            <div
+              className="flex-parent flex-parent--row justify--space-between flex-parent--wrap"
+            >
+              <span className="txt-l">
+                Changeset: <span className="txt-em">{this.props.paramsId}</span>
+              </span>
+              <span>
+
+                <button
+                  className={`btn btn--pill btn--s color-gray btn--gray-faint`}
+                >
+                  <a
+                    target="_blank"
+                    href={
+                      `http://127.0.0.1:8111/import?url=http://www.openstreetmap.org/api/0.6/changeset/${this.props.paramsId}/download`
+                    }
+                  >
+                    HDYC
+                  </a>
+                </button>
+                <button
+                  className={`btn btn--pill btn--s color-gray btn--gray-faint`}
+                >
+                  <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
+                    JOSM
+                  </a>
+                </button>
+                <button
+                  className={`btn btn--pill btn--s color-gray btn--gray-faint`}
+                >
+                  <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
+                    Verify
+                  </a>
+                </button>
+              </span>
+
+            </div>
           }
           buttons={
             <a

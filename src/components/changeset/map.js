@@ -12,7 +12,7 @@ function loadMap() {
     changesetMap(
       container,
       changesetId,
-      {width: width + 'px', height: Math.max(450, height) + 'px'},
+      {width: width + 'px', height: Math.max(400, height) + 'px'},
       adiffResult,
     );
   } catch (e) {
@@ -36,7 +36,7 @@ export class CMap extends React.PureComponent {
     if (this.ref) {
       var rect = this.ref.parentNode.parentNode.getBoundingClientRect();
       height = parseInt(window.innerHeight * 0.5, 10);
-      width = parseInt(rect.width + (window.innerWidth < 1360 ? -100 : 0), 10);
+      width = parseInt(rect.width, 10);
     }
 
     setTimeout(
@@ -55,7 +55,7 @@ export class CMap extends React.PureComponent {
       <div className="flex-parent justify--center">
         <div
           style={{
-            height: parseInt(window.innerHeight * 0.5, 10),
+            height: parseInt(window.innerHeight * 0.5 - 55, 10),
             display: this.state.visible ? 'none' : 'block',
           }}
         />
