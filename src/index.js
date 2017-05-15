@@ -11,8 +11,8 @@ import {ConnectedRouter} from 'react-router-redux';
 import './index.css';
 import 'react-tippy/dist/tippy.css';
 import 'animate.css/animate.css';
-import 'changeset-map';
-import 'changeset-map/css/style.css';
+// import 'changeset-map';
+import 'changeset-map/public/css/style.css';
 
 ReactDOM.render(
   <Provider store={store}>

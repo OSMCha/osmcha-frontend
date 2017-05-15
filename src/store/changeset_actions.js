@@ -4,7 +4,7 @@ import {delay} from 'redux-saga';
 import {fromJS} from 'immutable';
 
 import {networkFetchChangeset} from '../network/changeset';
-import {networkFetchChangesetMap} from '../network/real_changeset';
+import {getChangeset} from 'changeset-map';
 
 import type {RootStateType} from './';
 
@@ -102,7 +102,7 @@ export function* fetchChangesetMapAsync(
     );
   } else {
     try {
-      changesetMap = yield call(networkFetchChangesetMap, changesetId);
+      changesetMap = yield call(getChangeset, changesetId);
       yield put(
         action(CHANGESET_MAP_FETCHED, {
           data: changesetMap,

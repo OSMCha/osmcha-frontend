@@ -1,20 +1,20 @@
 import React from 'react';
 import debounce from 'lodash.debounce';
+import {render} from 'changeset-map';
+
 let changesetId;
 let adiffResult;
 let width = 700;
 let height = 500;
 
 function loadMap() {
-  const changesetMap = window.renderChangesetMap;
   var container = document.getElementById('container');
   try {
-    changesetMap(
-      container,
-      changesetId,
-      {width: width + 'px', height: Math.max(400, height) + 'px'},
-      adiffResult,
-    );
+    render(container, changesetId, {
+      width: width + 'px',
+      height: Math.max(400, height) + 'px',
+      data: adiffResult,
+    });
   } catch (e) {
     console.log(e);
   }
@@ -45,7 +45,7 @@ export class CMap extends React.PureComponent {
           visible: true,
         });
       },
-      1000,
+      700,
     );
     deb();
   }
