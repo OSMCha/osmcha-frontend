@@ -6,11 +6,13 @@ let changesetId;
 let adiffResult;
 let width = 700;
 let height = 500;
+let event;
 
 function loadMap() {
   var container = document.getElementById('container');
+  if (!container) return;
   try {
-    render(container, changesetId, {
+    event = render(container, changesetId, {
       width: width + 'px',
       height: Math.max(400, height) + 'px',
       data: adiffResult,
@@ -21,6 +23,7 @@ function loadMap() {
 }
 
 var deb = debounce(loadMap, 700);
+var minDebounce = debounce(loadMap, 250);
 
 export class CMap extends React.PureComponent {
   props: {
@@ -35,7 +38,7 @@ export class CMap extends React.PureComponent {
     adiffResult = this.props.adiffResult;
     if (this.ref) {
       var rect = this.ref.parentNode.parentNode.getBoundingClientRect();
-      height = parseInt(window.innerHeight * 0.5, 10);
+      height = parseInt(window.innerHeight, 10);
       width = parseInt(rect.width, 10);
     }
 
@@ -45,17 +48,32 @@ export class CMap extends React.PureComponent {
           visible: true,
         });
       },
-      700,
+      800,
     );
     deb();
   }
+  componentWillUnmount() {
+    event.emit('remove');
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.visible !== this.state.visible ||
+      this.props.adiffResult !== nextProps.adiffResult;
+  }
+  componentDidUpdate(prevProp) {
+    if (this.props.adiffResult !== prevProp.adiffResult) {
+      minDebounce();
+    }
+  }
   setRef = r => this.ref = r;
   render() {
+    changesetId = this.props.changesetId;
+    adiffResult = this.props.adiffResult;
+    console.log('rendering');
     return (
       <div className="flex-parent justify--center">
         <div
           style={{
-            height: parseInt(window.innerHeight * 0.5 - 55, 10),
+            height: parseInt(window.innerHeight - 55, 10),
             display: this.state.visible ? 'none' : 'block',
           }}
         />

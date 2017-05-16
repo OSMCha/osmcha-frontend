@@ -69,7 +69,7 @@ export function Changeset(
   }
   if (!currentChangeset) return null;
   const properties = currentChangeset.get('properties');
-  const height = parseInt((window.innerHeight - 55) / 2, 10);
+  const height = parseInt(window.innerHeight - 55, 10);
 
   const features = fromJS(
     shuffle([
@@ -119,82 +119,6 @@ export function Changeset(
   );
   return (
     <div className="flex-child w-full transition clip">
-      <div>
-        <div className="grid grid--gut6">
-          <Box className="col col--6-mxl col--12 scroll-auto" style={{height}}>
-            <Collapsible
-              open
-              trigger={
-                <Heading>
-                  Changeset Details
-                </Heading>
-              }
-            >
-              <Details changesetId={changesetId} properties={properties} />
-            </Collapsible>
-            {window.innerWidth <= 1200 &&
-              <div>
-                <div>
-                  <Collapsible
-                    open
-                    trigger={
-                      <Heading>
-                        Features
-                      </Heading>
-                    }
-                  >
-                    <Features changesetId={changesetId} features={features} />
-                  </Collapsible>
-                </div>
-                <Collapsible
-                  trigger={
-                    <Heading>
-                      Discussions
-                    </Heading>
-                  }
-                >
-                  <Discussions
-                    changesetId={changesetId}
-                    properties={properties}
-                  />
-                </Collapsible>
-                <span>&nbsp;</span>
-              </div>}
-          </Box>
-          {window.innerWidth > 1200 &&
-            <Box
-              className="col col--6-mxl col--12 scroll-auto"
-              style={{
-                height,
-              }}
-            >
-              <Collapsible
-                trigger={
-                  <Heading>
-                    Discussions
-                  </Heading>
-                }
-              >
-                <Discussions
-                  changesetId={changesetId}
-                  properties={properties}
-                />
-              </Collapsible>
-              <Collapsible
-                open
-                trigger={
-                  <Heading>
-                    Features ({features.size})
-                  </Heading>
-                }
-              >
-
-                <Features changesetId={changesetId} features={features} />
-
-              </Collapsible>
-            </Box>}
-        </div>
-      </div>
       <div style={{height}}>
         <Box className="wmin480" bg="bg-black">
           {currentChangesetMap
@@ -202,9 +126,9 @@ export function Changeset(
                 changesetId={changesetId}
                 adiffResult={currentChangesetMap}
               />
-            : <Loading height={parseInt(window.innerHeight * 0.5, 10)} />}
+            : <Loading height={parseInt(window.innerHeight, 10)} />}
         </Box>
       </div>
     </div>
   );
-}
+} //  <div> //         <div className="grid grid--gut6"> //           <Box className="col col--6-mxl col--12 scroll-auto" style={{height}}> //             <Collapsible //               open //               trigger={ //                 <Heading> //                   Changeset Details //                 </Heading> //               } //             > //               <Details changesetId={changesetId} properties={properties} /> //             </Collapsible> //             {window.innerWidth <= 1200 && //               <div> //                 <div> //                   <Collapsible //                     open //                     trigger={ //                       <Heading> //                         Features //                       </Heading> //                     } //                   > //                     <Features changesetId={changesetId} features={features} /> //                   </Collapsible> //                 </div> //                 <Collapsible //                   trigger={ //                     <Heading> //                       Discussions //                     </Heading> //                   } //                 > //                   <Discussions //                     changesetId={changesetId} //                     properties={properties} //                   /> //                 </Collapsible> //                 <span>&nbsp;</span> //               </div>} //           </Box> //           {window.innerWidth > 1200 && //             <Box //               className="col col--6-mxl col--12 scroll-auto" //               style={{ //                 height, //               }} //             > //               <Collapsible //                 trigger={ //                   <Heading> //                     Discussions //                   </Heading> //                 } //               > //                 <Discussions //                   changesetId={changesetId} //                   properties={properties} //                 /> //               </Collapsible> //               <Collapsible //                 open //                 trigger={ //                   <Heading> //                     Features ({features.size}) //                   </Heading> //                 } //               > //                 <Features changesetId={changesetId} features={features} /> //               </Collapsible> //             </Box>} //         </div> //       </div>

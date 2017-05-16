@@ -134,3 +134,12 @@ body {
   /* bg color = bg color under block */
   background: transparent;
 }
+
+
+/* changeset map*/
+.cmap-container .cmap-sidebar {
+  bottom: 40px;
+  right: 0;
+  top: inherit !important;
+  left: inherit !important;
+}

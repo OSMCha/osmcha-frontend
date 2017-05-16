@@ -89,9 +89,9 @@ export function* fetchChangesetAsync(
 export function* fetchChangesetMapAsync(
   {changesetId}: {changesetId: number},
 ): Object {
-  yield put(action(CHANGESET_MAP_RESET));
+  // yield put(action(CHANGESET_MAP_RESET));
   // tiny delay for changeset map to reset
-  yield delay(100);
+  // yield delay(100);
   let changesetMap = yield select((state: RootStateType) =>
     state.changeset.get('changesetMap').get(changesetId));
   if (changesetMap) {
