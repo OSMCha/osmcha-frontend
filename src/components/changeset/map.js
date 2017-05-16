@@ -68,7 +68,6 @@ export class CMap extends React.PureComponent {
   render() {
     changesetId = this.props.changesetId;
     adiffResult = this.props.adiffResult;
-    console.log('rendering');
     return (
       <div className="flex-parent justify--center">
         <div

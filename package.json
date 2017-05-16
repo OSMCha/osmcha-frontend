@@ -16,6 +16,7 @@
     "react": "^15.5.3",
     "react-collapsible": "^1.4.0",
     "react-dom": "^15.5.3",
+    "react-measure": "^1.4.7",
     "react-redux": "^5.0.4",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",

@@ -29,6 +29,10 @@ body {
     align-items: flex-start;
 }
 
+.left-50-percent {
+  left: 50%;
+}
+
 .toast {
   animation-duration: 0.5s;
 }
