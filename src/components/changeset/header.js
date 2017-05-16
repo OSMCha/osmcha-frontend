@@ -64,35 +64,6 @@ export function Header(
           </div>
         </div>
       </div>
-      <div
-        className="flex-parent flex-parent--row justify--space-between flex-parent--wrap"
-      >
-        <span>
-          <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
-            <a
-              target="_blank"
-              href={
-                `http://127.0.0.1:8111/import?url=http://www.openstreetmap.org/api/0.6/changeset/${changesetId}/download`
-              }
-            >
-              HDYC
-            </a>
-          </button>
-          <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
-            <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
-              JOSM
-            </a>
-          </button>
-        </span>
-        <div>
-          <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
-            Verify Good
-          </button>
-          <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
-            Verify Bad
-          </button>
-        </div>
-      </div>
 
       <div className="border-b border--gray-light border--0" />
     </div>
@@ -104,3 +75,33 @@ export function Header(
 //           Not verified
 //         </button>
 //       </div>
+
+//  <div
+//       className="flex-parent flex-parent--row justify--space-between flex-parent--wrap"
+//     >
+//       <span>
+//         <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
+//           <a
+//             target="_blank"
+//             href={
+//               `http://127.0.0.1:8111/import?url=http://www.openstreetmap.org/api/0.6/changeset/${changesetId}/download`
+//             }
+//           >
+//             HDYC
+//           </a>
+//         </button>
+//         <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
+//           <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
+//             JOSM
+//           </a>
+//         </button>
+//       </span>
+//       <div>
+//         <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
+//           Verify Good
+//         </button>
+//         <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
+//           Verify Bad
+//         </button>
+//       </div>
+//     </div>

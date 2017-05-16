@@ -44,8 +44,8 @@ class App extends Component {
   };
   render() {
     return (
-      <div>
-        <div className="grid clip">
+      <div className="viewport-full  clip">
+        <div className="grid">
           <Sidebar
             className="col col--3-mxl col--3-ml h-full hmax-full sidebar"
             title={

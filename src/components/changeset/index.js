@@ -2,6 +2,8 @@
 import React from 'react';
 import Collapsible from 'react-collapsible';
 import {Map, List, fromJS} from 'immutable';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+
 import {Navbar} from '../navbar';
 import {Tooltip} from 'react-tippy';
 import {Floater} from './floater';
@@ -48,11 +50,17 @@ export class Changeset extends React.PureComponent {
     var rect = r.getBoundingClientRect();
     this.setState({
       width: parseInt(rect.width, 10),
+      left: parseInt(rect.left, 10),
     });
   };
   ref = null;
   state = {
-    width: undefined,
+    width: 0,
+    left: 0,
+    comment: false,
+    discussions: false,
+    features: false,
+    details: false,
   };
   props: {
     changesetId: number,
@@ -69,6 +77,68 @@ export class Changeset extends React.PureComponent {
     if (this.ref) {
     }
   }
+  showFloaters = () => {
+    const {
+      changesetId,
+      currentChangeset,
+    } = this.props;
+    const properties = currentChangeset && currentChangeset.get('properties');
+
+    return (
+      <CSSTransitionGroup
+        transitionName="floaters"
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={150}
+      >
+        {this.state.comment &&
+          <Box key={0} className="transition w480 my3">
+            <Comment changesetId={changesetId} properties={properties} />
+          </Box>}
+        {this.state.discussions &&
+          <Box key={1} className="transition w480 my3">
+            <Discussions changesetId={changesetId} properties={properties} />
+          </Box>}
+        {this.state.features &&
+          <Box key={2} className="transition w480 my3">
+            <Features changesetId={changesetId} properties={properties} />
+          </Box>}
+        {this.state.details &&
+          <Box key={3} className="transition w480 my3">
+            <Details changesetId={changesetId} properties={properties} />
+          </Box>}
+      </CSSTransitionGroup>
+    );
+  };
+  overview = true;
+  toggleAll = () => {
+    this.setState({
+      features: this.overview,
+      discussions: this.overview,
+      comment: this.overview,
+      details: this.overview,
+    });
+    this.overview = !this.overview;
+  };
+  toggleFeatures = () => {
+    this.setState({
+      features: !this.state.features,
+    });
+  };
+  toggleDiscussions = () => {
+    this.setState({
+      discussions: !this.state.discussions,
+    });
+  };
+  toggleComment = () => {
+    this.setState({
+      comment: !this.state.comment,
+    });
+  };
+  toggleDetails = () => {
+    this.setState({
+      details: !this.state.details,
+    });
+  };
   render() {
     const {
       changesetId,
@@ -91,55 +161,8 @@ export class Changeset extends React.PureComponent {
       return null;
     }
     if (!currentChangeset) return null;
-    const properties = currentChangeset.get('properties');
     const height = parseInt(window.innerHeight - 55, 10);
 
-    const features = fromJS(
-      shuffle([
-        {
-          osm_id: 2593918603,
-          url: 'node-2593918603',
-          name: 'HDFC Bank ATM',
-          reasons: ['Deleted a wikidata/wikipedia tag'],
-        },
-        {
-          osm_id: 2412772337,
-          url: 'node-2412772337',
-          name: 'HDFC ATM',
-          reasons: ['Deleted a wikidata/wikipedia tag'],
-        },
-        {
-          osm_id: 2593876995,
-          url: 'node-2593876995',
-          name: 'Andhra Bank ATM',
-          reasons: ['Deleted a wikidata/wikipedia tag'],
-        },
-        {
-          osm_id: 2412772336,
-          url: 'node-2412772336',
-          name: 'ICICI ATM',
-          reasons: ['Deleted a wikidata/wikipedia tag'],
-        },
-        {
-          osm_id: 4557677889,
-          url: 'node-4557677889',
-          name: 'Hitch city',
-          reasons: ['edited a name tag'],
-        },
-        {
-          osm_id: 3593876995,
-          url: 'node-2593876995',
-          name: 'Guj Bank ATM',
-          reasons: ['Deleted a wikidata/wikipedia tag'],
-        },
-        {
-          osm_id: 2412772336,
-          url: 'node-2412772336',
-          name: 'ATM',
-          reasons: ['Is too cool 😎'],
-        },
-      ]).slice(0, parseInt(Math.random() * 100, 10) % 7),
-    );
     return (
       <div className="flex-child w-full transition clip">
         <div style={{height}} ref={this.setRef}>
@@ -151,8 +174,9 @@ export class Changeset extends React.PureComponent {
               >
                 <a
                   className={
-                    `mx6 cursor-pointer txt-s color-gray inline-block txt-bold transition round p6  bg-gray-faint-on-hover`
+                    ` active mx6 cursor-pointer txt-s color-gray inline-block txt-bold transition round p6  bg-gray-faint-on-hover`
                   }
+                  onClick={this.toggleAll}
                 >
                   Overview
                 </a>
@@ -160,6 +184,7 @@ export class Changeset extends React.PureComponent {
                   className={
                     `mx6  cursor-pointer txt-s color-gray inline-block txt-bold transition round p6  bg-gray-faint-on-hover`
                   }
+                  onClick={this.toggleComment}
                 >
                   Comments
                 </a>
@@ -167,6 +192,7 @@ export class Changeset extends React.PureComponent {
                   className={
                     `mx6 cursor-pointer txt-s color-gray inline-block txt-bold transition round p6  bg-gray-faint-on-hover`
                   }
+                  onClick={this.toggleDiscussions}
                 >
                   Discussions
                 </a>
@@ -174,35 +200,42 @@ export class Changeset extends React.PureComponent {
                   className={
                     `mx6 cursor-pointer txt-s color-gray inline-block txt-bold transition round p6  bg-gray-faint-on-hover`
                   }
+                  onClick={this.toggleFeatures}
                 >
                   Suspicious
                 </a>
                 <a
+                  onClick={this.toggleDetails}
                   className={
                     `mx6 cursor-pointer txt-s color-gray inline-block txt-bold transition round p6  bg-gray-faint-on-hover`
                   }
                 >
-                  Other
+                  Details
                 </a>
 
               </div>
             }
           />
           <Box className="wmin480" bg="bg-black">
-            {currentChangesetMap
+            {currentChangesetMap && this.state.width
               ? <CMap
                   changesetId={changesetId}
                   adiffResult={currentChangesetMap}
+                  width={this.state.width}
                 />
               : <Loading height={parseInt(window.innerHeight, 10)} />}
           </Box>
-          <Floater style={{top: 55 * 2, width: this.state.width}}>
-            <Box className="wmin480 my3" bg="bg-white">
-              <Header changesetId={changesetId} properties={properties} />
-            </Box>
+          <Floater
+            style={{
+              top: 55 * 2,
+              width: 480,
+              left: this.state.left + (this.state.width - 480) / 2,
+            }}
+          >
+            {this.showFloaters()}
           </Floater>
         </div>
       </div>
     );
   }
-}
+} //  <Box className="wmin480 my3" bg="bg-white"> //               <Header changesetId={changesetId} properties={properties} /> //             </Box>

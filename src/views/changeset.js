@@ -103,125 +103,113 @@ class Changeset extends React.PureComponent {
   scrollable = null;
   render() {
     return (
-      <Measure
-        onMeasure={dimensions => {
-          this.setState({dimensions});
-        }}
+      <div
+        className="flex-parent flex-parent--column bg-gray-faint clip transition"
       >
-        <div
-          className="flex-parent flex-parent--column bg-gray-faint clip transition"
-        >
-          <Navbar
-            className="bg-white color-gray border-b border--gray-light border--1"
-            title={
-              <div
-                className="flex-parent flex-parent--row justify--space-between flex-parent--wrap"
-              >
-                <span className="txt-l">
-                  Changeset:
-                  {' '}
-                  <span className="txt-em">{this.props.paramsId}</span>
-                </span>
-                <span>
-
-                  <button
-                    className={
-                      `btn btn--pill btn--s color-gray btn--gray-faint`
-                    }
-                  >
-                    <a
-                      target="_blank"
-                      href={
-                        `http://127.0.0.1:8111/import?url=http://www.openstreetmap.org/api/0.6/changeset/${this.props.paramsId}/download`
-                      }
-                    >
-                      HDYC
-                    </a>
-                  </button>
-                  <button
-                    className={
-                      `btn btn--pill btn--s color-gray btn--gray-faint`
-                    }
-                  >
-                    <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
-                      JOSM
-                    </a>
-                  </button>
-                  <button
-                    className={
-                      `btn btn--pill btn--s color-gray btn--gray-faint`
-                    }
-                  >
-                    <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
-                      Verify
-                    </a>
-                  </button>
-                </span>
-
-              </div>
-            }
-            buttons={
-              <a
-                className={
-                  `${this.state.filter ? 'is-active' : ''} flex-parent-inline btn color-gray-dark color-gray-dark-on-active bg-transparent bg-darken5-on-hover bg-gray-light-on-active txt-s ml3`
-                }
-                href="#"
-                onClick={this.toggleFilter}
-              >
-                <svg className="icon"><use xlinkHref="#icon-osm" /></svg>
-              </a>
-            }
-          />
-          <div
-            className="flex-parent flex-parent--row justify--center scroll-auto transition"
-            ref={r => this.scrollable = r}
-            style={{
-              height: false ? window.innerHeight : window.innerHeight - 55,
-            }}
-          >
-            {this.showChangeset()}
-            <CSSTransitionGroup
-              transitionName="filters-bar"
-              transitionEnterTimeout={300}
-              transitionLeaveTimeout={400}
+        <Navbar
+          className="bg-white color-gray border-b border--gray-light border--1"
+          title={
+            <div
+              className="flex-parent flex-parent--row justify--space-between flex-parent--wrap"
             >
-              {this.state.filter
-                ? <Sidebar
-                    key={0}
-                    className="transition 480 wmin480 absolute bottom right z6 h-full"
-                    title={
-                      <Navbar
-                        title={
-                          <span
-                            className="flex-parent flex-parent--center-cross justify--space-between txt-fancy color-gray txt-l"
-                          >
-                            <span className="txt-bold select-none">
-                              Filters
-                            </span>
-                            <span className="flex-child flex-child--grow" />
-                            <a
-                              className={
-                                `flex-parent-inline btn color-white bg-transparent bg-gray-on-hover ml3`
-                              }
-                              href="#"
-                              onClick={this.toggleFilter}
-                            >
-                              <svg className="icon">
-                                <use xlinkHref="#icon-close" />
-                              </svg>
-                            </a>
-                          </span>
-                        }
-                      />
+              <span className="txt-l">
+                Changeset:
+                {' '}
+                <span className="txt-em">{this.props.paramsId}</span>
+              </span>
+              <span>
+
+                <button
+                  className={`btn btn--pill btn--s color-gray btn--gray-faint`}
+                >
+                  <a
+                    target="_blank"
+                    href={
+                      `http://127.0.0.1:8111/import?url=http://www.openstreetmap.org/api/0.6/changeset/${this.props.paramsId}/download`
                     }
                   >
-                    <Filters />
-                  </Sidebar>
-                : null}
-            </CSSTransitionGroup>
-          </div>
+                    HDYC
+                  </a>
+                </button>
+                <button
+                  className={`btn btn--pill btn--s color-gray btn--gray-faint`}
+                >
+                  <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
+                    JOSM
+                  </a>
+                </button>
+                <button
+                  className={`btn btn--pill btn--s color-gray btn--gray-faint`}
+                >
+                  <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
+                    Verify
+                  </a>
+                </button>
+              </span>
+
+            </div>
+          }
+          buttons={
+            <a
+              className={
+                `${this.state.filter ? 'is-active' : ''} flex-parent-inline btn color-gray-dark color-gray-dark-on-active bg-transparent bg-darken5-on-hover bg-gray-light-on-active txt-s ml3`
+              }
+              href="#"
+              onClick={this.toggleFilter}
+            >
+              <svg className="icon"><use xlinkHref="#icon-osm" /></svg>
+            </a>
+          }
+        />
+        <div
+          className="flex-parent flex-parent--row justify--center scroll-auto transition"
+          ref={r => this.scrollable = r}
+          style={{
+            height: false ? window.innerHeight : window.innerHeight - 55,
+          }}
+        >
+          {this.showChangeset()}
+          <CSSTransitionGroup
+            transitionName="filters-bar"
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={400}
+          >
+            {this.state.filter
+              ? <Sidebar
+                  key={0}
+                  className="transition 480 wmin480 absolute bottom right z6 h-full"
+                  title={
+                    <Navbar
+                      title={
+                        <span
+                          className="flex-parent flex-parent--center-cross justify--space-between txt-fancy color-gray txt-l"
+                        >
+                          <span className="txt-bold select-none">
+                            Filters
+                          </span>
+                          <span className="flex-child flex-child--grow" />
+                          <a
+                            className={
+                              `flex-parent-inline btn color-white bg-transparent bg-gray-on-hover ml3`
+                            }
+                            href="#"
+                            onClick={this.toggleFilter}
+                          >
+                            <svg className="icon">
+                              <use xlinkHref="#icon-close" />
+                            </svg>
+                          </a>
+                        </span>
+                      }
+                    />
+                  }
+                >
+                  <Filters />
+                </Sidebar>
+              : null}
+          </CSSTransitionGroup>
         </div>
-      </Measure>
+      </div>
     );
   }
 }

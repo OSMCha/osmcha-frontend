@@ -17,6 +17,7 @@ data/
 .*node_modules/expect-jsx/.*
 .*node_modules/jsonlint-lines/test/.*
 .*node_modules/unflowify/.*
+.*node_modules/changeset-map/.*
 [include]
 
 [libs]
