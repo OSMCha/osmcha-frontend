@@ -20,9 +20,3 @@ export function Comment(
     </div>
   );
 }
-
-//  <div className="flex-parent flex-parent--row-reverse">
-//         <button className={`btn btn--pill btn--s color-white btn--red`}>
-//           Not verified
-//         </button>
-//       </div>

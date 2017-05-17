@@ -1,6 +1,6 @@
 {
     "extends": "react-app",
     "ignore": [
-        "./flow-typed"
+        "flow-typed"
     ]
 }

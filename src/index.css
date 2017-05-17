@@ -72,6 +72,15 @@ body {
   animation: 0.4s fadeOutRight ease-in;
 }
 
+.floaters-appear {
+  opacity: 0.01;
+}
+
+.floaters-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
 .floaters-enter {
   opacity: 0.01;
 }
@@ -150,4 +159,13 @@ body {
 
 .cmap-changeset-section {
   display: none !important;
+}
+
+.cmap-diff {
+   position: fixed !important;
+  bottom: 0px;
+  right: 0px;
+  padding: 5px;
+  top: inherit !important;
+  left: inherit !important;
 }

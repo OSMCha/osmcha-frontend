@@ -13,6 +13,7 @@ import {Sidebar} from '../components/sidebar';
 import {Loading} from '../components/loading';
 import {Filters} from '../components/filters';
 import {FILTER_BINDING} from '../config/bindings';
+import {dispatchEvent} from '../utils/dispatch_event';
 
 import type {ChangesetType} from '../store/changeset_reducer';
 import type {RootStateType} from '../store';
@@ -65,11 +66,21 @@ class Changeset extends React.PureComponent {
     const {match, changeset} = this.props;
     const currentChangeset: Map<string, *> = changeset.get('currentChangeset');
     const currentChangesetMap: Object = changeset.get('currentChangesetMap');
-    if (changeset.get('loading')) {
-      return <Loading />;
-    }
     if (match.path !== '/changesets/:id' || !this.props.paramsId) {
       return <div> batpad, please select a changeset </div>;
+    }
+    if (changeset.get('loading') || !currentChangeset) {
+      return <Loading />;
+    }
+    if (changeset.get('errorChangeset')) {
+      dispatchEvent('showToast', {
+        title: 'changeset failed to load',
+        content: 'Try reloading osmcha',
+        timeOut: 5000,
+        type: 'error',
+      });
+      console.error(changeset.get('errorChangeset'));
+      return null;
     }
     return (
       <ChangesetDumb

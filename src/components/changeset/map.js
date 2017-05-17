@@ -1,6 +1,8 @@
+// @flow
 import React from 'react';
 import debounce from 'lodash.debounce';
 import {render} from 'changeset-map';
+import {dispatchEvent} from '../../utils/dispatch_event';
 
 let changesetId;
 let adiffResult;
@@ -29,10 +31,12 @@ export class CMap extends React.PureComponent {
   props: {
     changesetId: number,
     adiffResult: Object,
+    errorChangesetMap: ?Object,
   };
   state = {
     visible: false,
   };
+  ref = null;
   componentDidMount() {
     changesetId = this.props.changesetId;
     adiffResult = this.props.adiffResult;
@@ -55,19 +59,30 @@ export class CMap extends React.PureComponent {
   componentWillUnmount() {
     event.emit('remove');
   }
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: Object, nextState: Object) {
     return nextState.visible !== this.state.visible ||
       this.props.adiffResult !== nextProps.adiffResult;
   }
-  componentDidUpdate(prevProp) {
+  componentDidUpdate(prevProp: Object) {
     if (this.props.adiffResult !== prevProp.adiffResult) {
       minDebounce();
     }
   }
-  setRef = r => this.ref = r;
+  setRef = (r: any) => this.ref = r;
   render() {
+    if (this.props.errorChangesetMap) {
+      dispatchEvent('showToast', {
+        title: 'changeset-map failed to load',
+        content: 'Try reloading osmcha',
+        timeOut: 5000,
+        type: 'error',
+      });
+      console.error(this.props.errorChangesetMap);
+      return null;
+    }
     changesetId = this.props.changesetId;
     adiffResult = this.props.adiffResult;
+
     return (
       <div className="flex-parent justify--center">
         <div

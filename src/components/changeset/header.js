@@ -4,7 +4,8 @@ import {Map} from 'immutable';
 import moment from 'moment';
 
 import {CreateDeleteModify} from '../create_delete_modify';
-import {Reasons} from '../reasons';
+import {Details} from './details';
+
 export function Header(
   {
     properties,
@@ -16,6 +17,7 @@ export function Header(
   const modify = properties.get('modify');
   const destroy = properties.get('delete');
   const reasons = properties.get('reasons');
+  const comment = properties.get('comment');
 
   const user = properties.get('user');
   return (
@@ -26,7 +28,7 @@ export function Header(
         <div
           className="flex-parent flex-parent--row justify--space-between flex-parent--center-cross"
         >
-          <h2 className="txt-xl mr6">{user}</h2>
+          <h2 className="txt-l mr6">{user}</h2>
           <div
             className="flex-parent flex-parent--column flex-parent--end-cross"
             style={{position: 'relative', right: -24, top: -5}}
@@ -64,44 +66,8 @@ export function Header(
           </div>
         </div>
       </div>
+      <Details changesetId={changesetId} properties={properties} />
 
-      <div className="border-b border--gray-light border--0" />
     </div>
   );
 }
-
-//  <div className="flex-parent flex-parent--row-reverse">
-//         <button className={`btn btn--pill btn--s color-white btn--red`}>
-//           Not verified
-//         </button>
-//       </div>
-
-//  <div
-//       className="flex-parent flex-parent--row justify--space-between flex-parent--wrap"
-//     >
-//       <span>
-//         <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
-//           <a
-//             target="_blank"
-//             href={
-//               `http://127.0.0.1:8111/import?url=http://www.openstreetmap.org/api/0.6/changeset/${changesetId}/download`
-//             }
-//           >
-//             HDYC
-//           </a>
-//         </button>
-//         <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
-//           <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
-//             JOSM
-//           </a>
-//         </button>
-//       </span>
-//       <div>
-//         <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
-//           Verify Good
-//         </button>
-//         <button className={`btn btn--pill btn--s color-gray btn--gray-faint`}>
-//           Verify Bad
-//         </button>
-//       </div>
-//     </div>

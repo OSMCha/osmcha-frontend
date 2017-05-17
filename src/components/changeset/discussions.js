@@ -1,41 +1,25 @@
-// $(function() {
-//     var id = CHANGESET_ID; // defined in changeset_detail template
-//     var url = 'https://osm-comments-api.mapbox.com/api/v1/changesets/' + id;
-//     var $xhr = $.get(url);
-//     var tmpl = jsrender.templates($('#discussionsTpl').html());
-
-//     $xhr.success(function(data) {
-//         var html = tmpl.render({
-//             'comments': data.properties.comments.length ? data.properties.comments : null,
-//             'count': data.properties.comments.length
-//         });
-//         $('#changesetDiscussions').html(html);
-//     });
-//     $xhr.fail(function(err) {
-//         if (err.status === 404) {
-//             var html = tmpl.render({'comments': null});
-//             $('#changesetDiscussions').html(html);
-//         }
-//     });
-// });
-
 // @flow
 import React from 'react';
 import {Map} from 'immutable';
 
-export class Discussions extends React.PureComponent {
-  props: {
-    properties: Map<string, *>,
-    changesetId: number,
-  };
+type Props = {
+  properties: Map<string, *>,
+  changesetId: number,
+};
+
+type State = {
+  discussions: Array<Object>,
+};
+
+export class Discussions extends React.PureComponent<void, Props, State> {
   state = {
     discussions: [],
   };
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.getData(props.changesetId);
   }
-  getData = changesetId => {
+  getData = (changesetId: number) => {
     fetch(
       `https://osm-comments-api.mapbox.com/api/v1/changesets/${changesetId}`,
     )
@@ -48,7 +32,7 @@ export class Discussions extends React.PureComponent {
         }
       });
   };
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     this.getData(nextProps.changesetId);
   }
   render() {

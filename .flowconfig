@@ -18,6 +18,8 @@ data/
 .*node_modules/jsonlint-lines/test/.*
 .*node_modules/unflowify/.*
 .*node_modules/changeset-map/.*
+.*node_modules/changeset-map/node_modules/mapbox-gl/src/.*
+.*changeset-map/.*
 [include]
 
 [libs]

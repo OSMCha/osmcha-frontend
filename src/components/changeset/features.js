@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
-import {Map, List, fromJS} from 'immutable';
+import {Map, fromJS} from 'immutable';
 import {Reasons} from '../reasons';
+
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
