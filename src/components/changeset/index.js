@@ -2,14 +2,11 @@
 import React from 'react';
 import {Map, List, fromJS} from 'immutable';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import Mousetrap from 'mousetrap';
 
 import {Navbar} from '../navbar';
 import {Floater} from './floater';
-
-import {dispatchEvent} from '../../utils/dispatch_event';
-import {Details} from './details';
 import {Header} from './header';
-
 import {CMap} from './map';
 import {Loading} from '../loading';
 import {Comment} from './comment';
@@ -27,7 +24,7 @@ export class Changeset extends React.PureComponent {
     discussions: false,
     features: false,
     details: true,
-    overview: true,
+    showAll: true,
   };
   props: {
     changesetId: number,
@@ -38,7 +35,23 @@ export class Changeset extends React.PureComponent {
     scrollDown: () => void,
     scrollUp: () => void,
   };
-
+  componentDidMount() {
+    Mousetrap.bind('ctrl+a', () => {
+      this.toggleAll();
+    });
+    Mousetrap.bind('ctrl+s', () => {
+      this.toggleFeatures();
+    });
+    Mousetrap.bind('ctrl+d', () => {
+      this.toggleDiscussions();
+    });
+    Mousetrap.bind('ctrl+o', () => {
+      this.toggleDetails();
+    });
+    Mousetrap.bind('ctrl+c', () => {
+      this.toggleComment();
+    });
+  }
   setRef = (r: any) => {
     if (!r) return;
     var rect = r.getBoundingClientRect();
@@ -87,11 +100,11 @@ export class Changeset extends React.PureComponent {
 
   toggleAll = () => {
     this.setState({
-      features: this.state.overview,
-      discussions: this.state.overview,
-      comment: this.state.overview,
-      details: this.state.overview,
-      overview: !this.state.overview,
+      features: this.state.showAll,
+      discussions: this.state.showAll,
+      comment: this.state.showAll,
+      details: this.state.showAll,
+      showAll: !this.state.showAll,
     });
   };
   toggleFeatures = () => {
@@ -135,8 +148,8 @@ export class Changeset extends React.PureComponent {
             <div
               className="flex-parent flex-parent--row flex-parent--center-main flex-parent--wrap"
             >
-              <Button active={this.state.overview} onClick={this.toggleAll}>
-                Overview
+              <Button active={!this.state.showAll} onClick={this.toggleAll}>
+                {this.state.showAll ? 'Show all' : 'Hide'}
               </Button>
               <Button active={this.state.comment} onClick={this.toggleComment}>
                 Comments

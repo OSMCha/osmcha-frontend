@@ -4,7 +4,6 @@ import Mousetrap from 'mousetrap';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import {connect} from 'react-redux';
 import {Map} from 'immutable';
-import Measure from 'react-measure';
 
 import {fetchChangeset} from '../store/changeset_actions';
 import {Changeset as ChangesetDumb} from '../components/changeset';
@@ -188,7 +187,7 @@ class Changeset extends React.PureComponent {
             {this.state.filter
               ? <Sidebar
                   key={0}
-                  className="transition 480 wmin480 absolute bottom right z6 h-full"
+                  className="transition 480 wmin480 absolute bottom right z6 h-full bg-white"
                   title={
                     <Navbar
                       title={

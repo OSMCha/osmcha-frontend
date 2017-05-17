@@ -28,7 +28,7 @@ export function Header(
         <div
           className="flex-parent flex-parent--row justify--space-between flex-parent--center-cross"
         >
-          <h2 className="txt-l mr6">{user}</h2>
+          <h2 className="txt-l mr6 txt-bold">{user}</h2>
           <div
             className="flex-parent flex-parent--column flex-parent--end-cross"
             style={{position: 'relative', right: -24, top: -5}}
