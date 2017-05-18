@@ -11,6 +11,7 @@ import {ChangesetsList} from './views/changesets_list';
 import {Sidebar} from './components/sidebar';
 import {ToastContainer, ToastMessage} from 'react-toastr';
 import {Navbar} from './components/navbar';
+
 var ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
 class App extends Component {
@@ -53,7 +54,11 @@ class App extends Component {
                 className="bg-white  border-b border--gray-light border--1"
                 title={
                   <span className="txt-fancy color-gray txt-xl">
-                    <span className="color-green txt-bold">OSM</span> CHA
+                    <span className="color-green txt-bold">
+                      OSM
+                    </span>
+                    {' '}
+                    CHA
                   </span>
                 }
               />
