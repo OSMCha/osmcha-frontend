@@ -23,4 +23,5 @@ data/
 [include]
 
 [libs]
+changeset-map
 [options]

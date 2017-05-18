@@ -35,9 +35,14 @@ export class List extends React.PureComponent {
     console.log('render');
     return (
       <div>
+        <div
+          className="p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around top relative"
+        >
+          Hi
+        </div>
         <ul
           className="flex-parent flex-parent--column scroll-auto"
-          style={{height: window.innerHeight - 55 * 2}}
+          style={{height: window.innerHeight - 55 * 3}}
         >
           {this.props.loading ? <Loading /> : this.props.data.map((f, k) => (
                 <Row
