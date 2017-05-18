@@ -38,7 +38,7 @@ export class List extends React.PureComponent {
         <div
           className="p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around top relative"
         >
-          Hi
+          Login
         </div>
         <ul
           className="flex-parent flex-parent--column scroll-auto"

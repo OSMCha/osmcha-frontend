@@ -18,7 +18,6 @@ export const CHANGESET_MAP_LOADING = 'CHANGESET_MAP_FETCH_LOADING';
 export const CHANGESET_MAP_FETCHED = 'CHANGESET_MAP_FETCHED';
 export const CHANGESET_MAP_ERROR = 'CHANGESET_MAP_ERROR';
 export const CHANGESET_MAP_CHANGE = 'CHANGESET_MAP_CHANGE';
-export const CHANGESET_MAP_RESET = 'CHANGESET_MAP_RESET';
 
 export function action(type: string, payload: ?Object) {
   return {type, ...payload};
@@ -89,9 +88,6 @@ export function* fetchChangesetAsync(
 export function* fetchChangesetMapAsync(
   {changesetId}: {changesetId: number},
 ): Object {
-  // yield put(action(CHANGESET_MAP_RESET));
-  // tiny delay for changeset map to reset
-  // yield delay(100);
   let changesetMap = yield select((state: RootStateType) =>
     state.changeset.get('changesetMap').get(changesetId));
   if (changesetMap) {

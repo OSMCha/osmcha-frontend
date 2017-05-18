@@ -114,7 +114,7 @@ class Changeset extends React.PureComponent {
   render() {
     return (
       <div
-        className="flex-parent flex-parent--column bg-gray-faint clip transition"
+        className="flex-parent flex-parent--column bg-gray-faint clip transition border border-l--0 border--gray-light border--1"
       >
         <Navbar
           className="bg-white color-gray border-b border--gray-light border--1"
@@ -130,7 +130,7 @@ class Changeset extends React.PureComponent {
               <span>
 
                 <button
-                  className={`btn btn--pill btn--s color-gray btn--gray-faint`}
+                  className={'btn btn--pill btn--s color-gray btn--gray-faint'}
                 >
                   <a
                     target="_blank"
@@ -142,16 +142,16 @@ class Changeset extends React.PureComponent {
                   </a>
                 </button>
                 <button
-                  className={`btn btn--pill btn--s color-gray btn--gray-faint`}
+                  className={'btn btn--pill btn--s color-gray btn--gray-faint'}
                 >
-                  <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
+                  <a target="_blank" href={'http://hdyc.neis-one.org/?'}>
                     JOSM
                   </a>
                 </button>
                 <button
-                  className={`btn btn--pill btn--s color-gray btn--gray-faint`}
+                  className={'btn btn--pill btn--s color-gray btn--gray-faint'}
                 >
-                  <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
+                  <a target="_blank" href={'http://hdyc.neis-one.org/?'}>
                     Verify
                   </a>
                 </button>
@@ -200,7 +200,7 @@ class Changeset extends React.PureComponent {
                           <span className="flex-child flex-child--grow" />
                           <a
                             className={
-                              `flex-parent-inline btn color-white bg-transparent bg-gray-on-hover ml3`
+                              'flex-parent-inline btn color-white bg-transparent bg-gray-on-hover ml3'
                             }
                             href="#"
                             onClick={this.toggleFilter}

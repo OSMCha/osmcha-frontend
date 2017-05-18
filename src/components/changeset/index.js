@@ -13,7 +13,7 @@ import {Comment} from './comment';
 import {Features} from './features';
 import {Box} from './box';
 import {Discussions} from './discussions';
-import {Button} from './button';
+import {Button} from '../button';
 
 // presentational component for view/changeset.js
 export class Changeset extends React.PureComponent {

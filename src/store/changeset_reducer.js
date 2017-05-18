@@ -100,6 +100,7 @@ export function changesetReducer(
     case CHANGESET_MAP_LOADING: {
       return state
         .set('changesetId', action.changesetId)
+        .set('currentChangesetMap', null)
         .set('loadingChangesetMap', true)
         .set('errorChangesetMap', null);
     }
