@@ -14,7 +14,9 @@
     "mousetrap": "^1.6.1",
     "ramda": "^0.23.0",
     "react": "^15.5.3",
+    "react-collapsible": "^1.4.0",
     "react-dom": "^15.5.3",
+    "react-measure": "^1.4.7",
     "react-redux": "^5.0.4",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",
@@ -35,7 +37,8 @@
     "lint-staged": "^3.4.0",
     "prettier": "^0.22.0",
     "prettier-eslint-cli": "^3.2.0",
-    "react-scripts": "0.9.5"
+    "react-scripts": "0.9.5",
+    "why-did-you-update": "0.0.8"
   },
   "scripts": {
     "precommit": "lint-staged",
@@ -48,7 +51,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "prettier-eslint --write",
+      "prettier-eslint --write  ",
       "git add"
     ]
   },

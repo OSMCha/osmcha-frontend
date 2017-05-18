@@ -4,7 +4,7 @@ import {delay} from 'redux-saga';
 import {fromJS} from 'immutable';
 
 import {networkFetchChangeset} from '../network/changeset';
-import {networkFetchChangesetMap} from '../network/real_changeset';
+import {getChangeset} from 'changeset-map';
 
 import type {RootStateType} from './';
 
@@ -89,9 +89,9 @@ export function* fetchChangesetAsync(
 export function* fetchChangesetMapAsync(
   {changesetId}: {changesetId: number},
 ): Object {
-  yield put(action(CHANGESET_MAP_RESET));
+  // yield put(action(CHANGESET_MAP_RESET));
   // tiny delay for changeset map to reset
-  yield delay(100);
+  // yield delay(100);
   let changesetMap = yield select((state: RootStateType) =>
     state.changeset.get('changesetMap').get(changesetId));
   if (changesetMap) {
@@ -102,7 +102,7 @@ export function* fetchChangesetMapAsync(
     );
   } else {
     try {
-      changesetMap = yield call(networkFetchChangesetMap, changesetId);
+      changesetMap = yield call(getChangeset, changesetId);
       yield put(
         action(CHANGESET_MAP_FETCHED, {
           data: changesetMap,

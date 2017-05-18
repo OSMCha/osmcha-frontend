@@ -7,11 +7,11 @@ export function networkFetchChangesetMap(changesetID) {
   var url = S3_URL + changesetID + '.json';
 
   var network = fetch(url, {
-    'Response-Type': 'application/osm3s+xml',
-  }).then(r => r.text());
+    'Response-Type': 'application/json',
+  }).then(r => r.json());
 
   return Promise.all([osm(changesetID), network]).then(resp => {
-    var geojson = jsonParser(JSON.parse(resp[1]));
+    var geojson = jsonParser(resp[1]); //jsonParser(JSON.parse(resp[1]));
     var featureMap = getFeatureMap(geojson);
     return {
       geojson: geojson,

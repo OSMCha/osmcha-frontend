@@ -1,3 +1,6 @@
+body {
+  scroll-behavior: smooth;
+}
 .justify--space-between {
     justify-content: space-between;
 }
@@ -26,6 +29,10 @@
     align-items: flex-start;
 }
 
+.left-50-percent {
+  left: 50%;
+}
+
 .toast {
   animation-duration: 0.5s;
 }
@@ -37,13 +44,21 @@
     min-height: 55px!important;
 }
 
+
+@media only screen and (max-width: 768px) {
+  .sidebar {
+    display: none !important;
+  }
+}
+
+
 .filters-bar-enter {
   opacity: 0.7;
 }
 
 .filters-bar-enter.filters-bar-enter-active {
   opacity: 1;
-  animation: 0.3s slideInRight ease-out;
+  animation: 0.3s fadeOutRight ease-out;
   /*transition: opacity 200ms ease-in;*/
 }
 
@@ -55,6 +70,34 @@
   opacity: 0.7;
   /*transition: opacity 300ms ease-in;*/
   animation: 0.4s fadeOutRight ease-in;
+}
+
+.floaters-appear {
+  opacity: 0.01;
+}
+
+.floaters-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.floaters-enter {
+  opacity: 0.01;
+}
+
+.floaters-enter.floaters-enter-active {
+  opacity: 1;
+  /*transition: opacity 500ms ease-out;*/
+   animation: 0.3s slideInDown ease-out;
+}
+
+.floaters-leave {
+  opacity: 1;
+}
+
+.floaters-leave.floaters-leave-active {
+  opacity: 0.01;  
+  transition: opacity 100ms ease-in;
 }
 
 .tippy-tooltip.osmcha-theme {
@@ -102,4 +145,27 @@
   margin-top: 0.2em;
   /* bg color = bg color under block */
   background: transparent;
+}
+
+
+/* changeset map*/
+.cmap-container .cmap-sidebar {
+  position: fixed !important;
+  bottom: 0px;
+  padding: 5px;
+  top: inherit !important;
+  left: inherit !important;
+}
+
+.cmap-changeset-section {
+  display: none !important;
+}
+
+.cmap-diff {
+   position: fixed !important;
+  bottom: 0px;
+  right: 0px;
+  padding: 5px;
+  top: inherit !important;
+  left: inherit !important;
 }

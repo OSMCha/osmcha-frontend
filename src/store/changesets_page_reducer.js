@@ -31,7 +31,6 @@ export function changesetsPageReducer(
     case CHANGESETS_PAGE_LOADING: {
       return state
         .set('pageIndex', action.pageIndex)
-        .set('currentPage', null)
         .set('loading', true)
         .set('error', null);
     }
@@ -55,7 +54,6 @@ export function changesetsPageReducer(
     case CHANGESETS_PAGE_ERROR: {
       return state
         .set('pageIndex', action.pageIndex)
-        .set('currentPage', null)
         .set('loading', false)
         .set('error', action.error);
     }
