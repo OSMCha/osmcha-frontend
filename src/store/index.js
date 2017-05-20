@@ -9,18 +9,19 @@ import createSagaMiddleware from 'redux-saga';
 import * as safeStorage from '../utils/safe_storage';
 
 // Reducers
-import {userReducer} from './user_reducer';
+import {authReducer} from './auth_reducer';
 import {changesetsPageReducer} from './changesets_page_reducer';
 import {changesetReducer} from './changeset_reducer';
 
 import type {ChangesetsPageType} from './changesets_page_reducer';
 import type {ChangesetType} from './changeset_reducer';
+import type {AuthType} from './auth_reducer';
 
 // Sages
 import sagas from './sagas';
 
 export type RootStateType = {
-  user: Object,
+  auth: AuthType,
   changesetsPage: ChangesetsPageType,
   changeset: ChangesetType,
   routing: Object,
@@ -31,7 +32,7 @@ const reducers = combineReducers({
   changesetsPage: changesetsPageReducer,
   changeset: changesetReducer,
   routing: routerReducer,
-  user: userReducer,
+  auth: authReducer,
 });
 
 const history = createHistory();
@@ -40,15 +41,15 @@ const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
 if (process.env.NODE_ENV !== 'production') {
-  // const logger = createLogger();
-  // middlewares.push(logger);
+  const logger = createLogger();
+  middlewares.push(logger);
 }
 
 // Persisted state
 const persistedState = {
-  user: Map({
-    token: safeStorage.getItem('token'),
-  }),
+  // user: Map({
+  //   token: safeStorage.getItem('token'),
+  // }),
 };
 
 // Store
@@ -60,12 +61,11 @@ const store = createStore(
 
 // Persist change to local storage
 store.subscribe(() => {
-  const {user} = store.getState();
-  const token = user.get('token');
-
-  if (token !== safeStorage.getItem('token')) {
-    safeStorage.setItem('token', token);
-  }
+  // const {user} = store.getState();
+  // const token = user.get('token');
+  // if (token !== safeStorage.getItem('token')) {
+  //   safeStorage.setItem('token', token);
+  // }
 });
 
 sagaMiddleware.run(sagas);

@@ -2,7 +2,6 @@
 import React from 'react';
 import {List as ImmutableList, Map} from 'immutable';
 import R from 'ramda';
-
 import {Row} from './row';
 import {elementInViewport} from '../../utils/element_in_view';
 import {PageRange} from './page_range';
@@ -35,11 +34,6 @@ export class List extends React.PureComponent {
     console.log('render');
     return (
       <div>
-        <div
-          className="p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around top relative"
-        >
-          Login
-        </div>
         <ul
           className="flex-parent flex-parent--column scroll-auto"
           style={{height: window.innerHeight - 55 * 3}}
