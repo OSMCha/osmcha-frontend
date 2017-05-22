@@ -28,7 +28,9 @@
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "redux-saga": "^0.14.6",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "superagent": "^3.5.2",
+    "superagent-no-cache": "^0.1.1"
   },
   "devDependencies": {
     "check-node-version": "^2.0.1",
