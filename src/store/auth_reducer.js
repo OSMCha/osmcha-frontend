@@ -1,13 +1,15 @@
 // @flow
 import {Map} from 'immutable';
-import {SAVE_OSMCHA_OAUTH_OBJ} from './auth_actions';
+import {SAVE_OAUTH_OBJ, SAVE_TOKEN, CLEAR_SESSION} from './auth_actions';
 export type AuthType = Map<
-  | 'osmChaOAuthToken' // from osmcha's first post request
-  | 'osmChaOAuthTokenSecret', any>;
+  | 'oAuthToken' //  osm
+  | 'oAuthTokenSecret'
+  | 'token', any>; // osmcha uses this
 
 const initialState: AuthType = Map({
-  osmChaOAuthToken: null,
-  osmChaOAuthTokenSecret: null,
+  oAuthToken: null,
+  oAuthTokenSecret: null,
+  token: null,
 });
 
 export function authReducer(
@@ -15,10 +17,16 @@ export function authReducer(
   action: Object,
 ): AuthType {
   switch (action.type) {
-    case SAVE_OSMCHA_OAUTH_OBJ: {
+    case SAVE_OAUTH_OBJ: {
       return state
-        .set('osmChaOAuthToken', action.oAuthObj.oauth_token)
-        .set('osmChaOAuthTokenSecret', action.oAuthObj.oauth_token_secret);
+        .set('oAuthToken', action.oauth_token)
+        .set('oAuthTokenSecret', action.oauth_token_secret);
+    }
+    case SAVE_TOKEN: {
+      return state.set('token', action.token);
+    }
+    case CLEAR_SESSION: {
+      return Map({});
     }
     default:
       return state;

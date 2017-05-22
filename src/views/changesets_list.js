@@ -8,7 +8,7 @@ import Mousetrap from 'mousetrap';
 import {history} from '../store';
 import {fetchChangeset} from '../store/changeset_actions';
 import {fetchChangesetsPage} from '../store/changesets_page_actions';
-import {initOSMChaOAuthToken, initFinalToken} from '../store/auth_actions';
+import {getOAuthToken, getFinalToken, logUserOut} from '../store/auth_actions';
 
 import type {RootStateType} from '../store';
 import type {ChangesetType} from '../store/changeset_reducer';
@@ -16,7 +16,6 @@ import type {ChangesetType} from '../store/changeset_reducer';
 import {List} from '../components/list';
 import {Button} from '../components/button';
 
-import {osmchaSocialTokenUrl} from '../config/constants';
 import {NEXT_CHANGESET, PREV_CHANGESET} from '../config/bindings';
 import {osmAuthUrl} from '../config/constants';
 import {createPopup} from '../utils/create_popup';
@@ -32,15 +31,16 @@ class ChangesetsList extends React.PureComponent {
     pageIndex: number,
     fetchChangesetsPage: (number) => mixed, // base 0
     fetchChangeset: (number) => mixed, // base 0
-    initOSMChaOAuthToken: () => mixed,
-    initFinalToken: () => mixed,
+    getOAuthToken: () => mixed,
+    getFinalToken: () => mixed,
+    logUserOut: () => mixed,
     activeChangesetId: ?number,
-    osmChaOAuthToken: ?string,
+    oAuthToken: ?string,
+    token: ?string,
   };
   constructor(props) {
     super(props);
     this.props.fetchChangesetsPage(0);
-    this.props.initOSMChaOAuthToken();
   }
   goUpDownToChangeset = (direction: number) => {
     let features = this.props.currentPage.get('features');
@@ -85,12 +85,12 @@ class ChangesetsList extends React.PureComponent {
   handleLoginClick = () => {
     const popup = createPopup(
       'oauth_popup',
-      osmAuthUrl + this.props.osmChaOAuthToken,
+      osmAuthUrl + this.props.oAuthToken,
     );
 
     handlePopupCallback().then(oAuthObj => {
       console.log('popupgave', oAuthObj);
-      this.props.initFinalToken(oAuthObj);
+      this.props.getFinalToken(oAuthObj.oauth_verifier);
     });
   };
 
@@ -104,12 +104,16 @@ class ChangesetsList extends React.PureComponent {
         <div
           className="h55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around top relative"
         >
-          <Button
-            onClick={this.handleLoginClick}
-            disable={!this.props.osmChaOAuthToken}
-          >
-            Auth
-          </Button>
+          {this.props.token
+            ? <Button onClick={this.props.logUserOut}>
+                Logout
+              </Button>
+            : <Button
+                onClick={this.handleLoginClick}
+                disable={!this.props.oAuthToken}
+              >
+                Auth
+              </Button>}
         </div>
         {this.showList()}
       </div>
@@ -125,7 +129,8 @@ ChangesetsList = connect(
     pageIndex: state.changesetsPage.get('pageIndex'),
     loading: state.changesetsPage.get('loading'),
     error: state.changesetsPage.get('error'),
-    osmChaOAuthToken: state.auth.get('osmChaOAuthToken'),
+    oAuthToken: state.auth.get('oAuthToken'),
+    token: state.auth.get('token'),
     cachedChangesets: state.changeset.get('changesets'),
     activeChangesetId: state.changeset.get('changesetId'),
   }),
@@ -133,8 +138,9 @@ ChangesetsList = connect(
     // actions
     fetchChangesetsPage,
     fetchChangeset,
-    initOSMChaOAuthToken,
-    initFinalToken,
+    getOAuthToken,
+    getFinalToken,
+    logUserOut,
   },
 )(ChangesetsList);
 export {ChangesetsList};
