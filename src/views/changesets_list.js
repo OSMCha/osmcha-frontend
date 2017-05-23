@@ -28,6 +28,7 @@ class ChangesetsList extends React.PureComponent {
     error: Object,
     currentPage: Map<string, *>,
     cachedChangesets: Map<string, *>,
+    userDetails: Map<string, *>,
     pageIndex: number,
     getChangesetsPage: (number) => mixed, // base 0
     getChangeset: (number) => mixed, // base 0
@@ -107,6 +108,8 @@ class ChangesetsList extends React.PureComponent {
         <div
           className="h55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around top relative"
         >
+          {this.props.userDetails &&
+            <span> Hi, {this.props.userDetails.get('username')}</span>}
           {this.props.token
             ? <Button onClick={this.props.logUserOut}>
                 Logout
@@ -133,6 +136,7 @@ ChangesetsList = connect(
     loading: state.changesetsPage.get('loading'),
     error: state.changesetsPage.get('error'),
     oAuthToken: state.auth.get('oAuthToken'),
+    userDetails: state.auth.get('userDetails'),
     token: state.auth.get('token'),
     cachedChangesets: state.changeset.get('changesets'),
     activeChangesetId: state.changeset.get('changesetId'),

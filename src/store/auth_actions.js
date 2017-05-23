@@ -57,8 +57,8 @@ export function* watchAuth(): any {
     } catch (error) {
       yield put(action(LOGIN_ERROR, error));
       yield call(delay, 1000);
-      token = undefined;
     } finally {
+      token = undefined;
       yield put(action(CLEAR_SESSION));
       yield call(removeItem, 'token');
       yield call(removeItem, 'oauth_token');
