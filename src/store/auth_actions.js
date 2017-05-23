@@ -1,5 +1,5 @@
 // @flow
-import {put, call, take, select} from 'redux-saga/effects';
+import {put, call, take, delay} from 'redux-saga/effects';
 
 import {postTokensOSMCha} from '../network/auth';
 
@@ -16,6 +16,7 @@ export const GET_FINAL_TOKEN = 'GET_FINAL_TOKEN';
 export const SAVE_TOKEN = 'SAVE_TOKEN';
 export const LOGOUT = 'LOGOUT';
 export const CLEAR_SESSION = 'CLEAR_SESSION';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
 
 export function action(type: string, payload: ?Object) {
   return {type, ...payload};
@@ -36,29 +37,36 @@ export function* watchAuth(): any {
   // info: https://redux-saga.js.org/docs/advanced/NonBlockingCalls.html
   while (true) {
     // In our case we would want to send a post request
-    // to osmcha after receiving the `POST_SOCIAL_TOKEN`
-    const {oauth_token, oauth_token_secret} = yield call(postTokensOSMCha);
-    yield put(
-      action(SAVE_OAUTH_OBJ, {
-        oauth_token,
-        oauth_token_secret,
-      }),
-    );
-    // yield take(ACTION) waits for the particular action
-    // to emit and resume the flow. next in action would
-    // be to wait for the action
-    // `GET_FINAL_TOKEN` and resume the flow
-    const {oauth_verifier} = yield take(GET_FINAL_TOKEN);
-    const {token} = yield call(postTokensOSMCha, oauth_token, oauth_verifier);
-    console.log('token', token);
-    yield put(
-      action(SAVE_TOKEN, {
-        token,
-        oauth_verifier,
-      }),
-    );
-    yield take(LOGOUT);
+    // to osmcha as soon as possible. This prepares us for
+    // the eventual login flow.
+    try {
+      const {oauth_token, oauth_token_secret} = yield call(postTokensOSMCha);
+      yield put(
+        action(SAVE_OAUTH_OBJ, {
+          oauth_token,
+          oauth_token_secret,
+        }),
+      );
+
+      // yield take(ACTION) waits for the particular action
+      // to emit and resume the flow. next in action would
+      // be to wait for the action `GET_FINAL_TOKEN`
+      // and resume the flow
+      const {oauth_verifier} = yield take(GET_FINAL_TOKEN);
+      const {token} = yield call(postTokensOSMCha, oauth_token, oauth_verifier);
+      console.log('token', token);
+      yield put(
+        action(SAVE_TOKEN, {
+          token,
+          oauth_verifier,
+        }),
+      );
+    } catch (error) {
+      yield put({type: LOGIN_ERROR, error});
+    }
+    yield take([LOGOUT, LOGIN_ERROR]);
     yield put(action(CLEAR_SESSION));
-    console.log('cleared session');
+    yield call(delay, 1000);
+    console.log('cleared session, restarting');
   }
 }

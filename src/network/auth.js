@@ -14,8 +14,19 @@ export function postTokensOSMCha(
       .send({oauth_verifier: oauth_verifier})
       .then(r => {
         return r.body;
+      })
+      .catch(e => {
+        console.error(e);
+        return Promise.reject(e);
       });
   }
 
-  return request.post(osmchaSocialTokenUrl).type('form').then(r => r.body);
+  return request
+    .post(osmchaSocialTokenUrl)
+    .type('form')
+    .then(r => r.body)
+    .catch(e => {
+      console.error(e);
+      return Promise.reject(e);
+    });
 }
