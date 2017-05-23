@@ -83,15 +83,18 @@ class ChangesetsList extends React.PureComponent {
   };
 
   handleLoginClick = () => {
-    const popup = createPopup(
-      'oauth_popup',
-      osmAuthUrl + this.props.oAuthToken,
-    );
-
-    handlePopupCallback().then(oAuthObj => {
-      console.log('popupgave', oAuthObj);
-      this.props.getFinalToken(oAuthObj.oauth_verifier);
-    });
+    if (this.props.oAuthToken) {
+      const popup = createPopup(
+        'oauth_popup',
+        process.env.NODE_ENV === 'production'
+          ? `${osmAuthUrl}?oauth_token=${this.props.oAuthToken}&redirect_uri=http://localhost:3000`
+          : '/local-landing.html',
+      );
+      handlePopupCallback().then(oAuthObj => {
+        console.log('popupgave', oAuthObj);
+        this.props.getFinalToken(oAuthObj.oauth_verifier);
+      });
+    }
   };
 
   render() {

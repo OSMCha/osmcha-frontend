@@ -49,7 +49,9 @@ export function* fetchChangesetsPageAsync(
     );
 
     try {
-      thisPage = yield call(fetchChangesetsPage, pageIndex);
+      let token = yield select((state: RootStateType) =>
+        state.auth.get('token'));
+      thisPage = yield call(fetchChangesetsPage, pageIndex, token);
       yield put(
         action(CHANGESETS_PAGE_FETCHED, {
           data: fromJS(thisPage),

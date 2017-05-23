@@ -1,7 +1,10 @@
 // @flow
-import {put, call, take, delay} from 'redux-saga/effects';
-
+import {put, call, take, select} from 'redux-saga/effects';
+import {delay} from 'redux-saga';
 import {postTokensOSMCha} from '../network/auth';
+import * as safeStorage from '../utils/safe_storage';
+
+import type {RootStateType} from './';
 
 export type oAuthType = {
   oauth_token: ?string,
@@ -32,41 +35,61 @@ export const getFinalToken = (oauth_verifier: string) =>
 export const logUserOut = () => action(LOGOUT);
 
 export function* watchAuth(): any {
+  // get the token from localStorage.
+  // if it exists we just need to wait for
+  // logout action.
+  let localToken = yield select((state: RootStateType) =>
+    state.auth.get('token'));
+
   // wrapping it in a for loop allows us to
   // pause or resume our auth workflow
   // info: https://redux-saga.js.org/docs/advanced/NonBlockingCalls.html
   while (true) {
-    // In our case we would want to send a post request
-    // to osmcha as soon as possible. This prepares us for
-    // the eventual login flow.
     try {
-      const {oauth_token, oauth_token_secret} = yield call(postTokensOSMCha);
-      yield put(
-        action(SAVE_OAUTH_OBJ, {
+      if (!localToken) {
+        const {oauth_token, oauth_token_secret} = yield call(postTokensOSMCha);
+        yield put(
+          action(SAVE_OAUTH_OBJ, {
+            oauth_token,
+            oauth_token_secret,
+          }),
+        );
+        console.log('oauth_token', oauth_token);
+        // yield take(ACTION) waits for the particular action
+        // to emit and resume the flow. next in action would
+        // be to wait for the action `GET_FINAL_TOKEN`
+        // and resume the flow
+        const {oauth_verifier} = yield take(GET_FINAL_TOKEN);
+        const {token} = yield call(
+          postTokensOSMCha,
           oauth_token,
-          oauth_token_secret,
-        }),
-      );
-
-      // yield take(ACTION) waits for the particular action
-      // to emit and resume the flow. next in action would
-      // be to wait for the action `GET_FINAL_TOKEN`
-      // and resume the flow
-      const {oauth_verifier} = yield take(GET_FINAL_TOKEN);
-      const {token} = yield call(postTokensOSMCha, oauth_token, oauth_verifier);
-      console.log('token', token);
-      yield put(
-        action(SAVE_TOKEN, {
-          token,
           oauth_verifier,
-        }),
-      );
+        );
+
+        if (!token || token === '') {
+          throw new Error('invalid token');
+        }
+
+        console.log('token', token);
+        safeStorage.setItem('token', token);
+        safeStorage.setItem('oauth_token', oauth_token);
+        safeStorage.setItem('oauth_token_secret', oauth_token_secret);
+        yield put(
+          action(SAVE_TOKEN, {
+            token,
+            oauth_verifier,
+          }),
+        );
+      }
+      yield take(LOGOUT);
     } catch (error) {
-      yield put({type: LOGIN_ERROR, error});
+      yield put(action(LOGIN_ERROR, error));
+      yield call(delay, 1000);
+    } finally {
+      yield put(action(CLEAR_SESSION));
+      safeStorage.removeItem('token');
+      safeStorage.removeItem('oauth_token');
+      safeStorage.removeItem('oauth_token_secret');
     }
-    yield take([LOGOUT, LOGIN_ERROR]);
-    yield put(action(CLEAR_SESSION));
-    yield call(delay, 1000);
-    console.log('cleared session, restarting');
   }
 }

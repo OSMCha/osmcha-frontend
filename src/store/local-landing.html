@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+  <div id='formContainer'>
+    <form id='changesetForm'>
+      <input id='oauth_verifier' value='' placeholder='oauth_verifier' />
+      <button id='submitChangeset' class='button'>Submit</button>
+    </form>
+  </div>
+  <script>
+    // This page is called when the oauth
+    // handshake with the server has completed.
+
+    document
+      .getElementById('changesetForm')
+      .addEventListener('submit', function (e) {
+        e.preventDefault();
+        document.getElementById('formContainer').style.display = 'none';
+        var oauth_verifier = document.getElementById('oauth_verifier').value;
+        opener.authComplete(`window.location.href?oauth_verifier=${oauth_verifier}`);
+        window.close();
+      });
+  </script>
+</body>
+
+</html>

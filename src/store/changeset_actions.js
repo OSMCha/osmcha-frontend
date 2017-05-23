@@ -66,7 +66,9 @@ export function* fetchChangesetAsync(
     );
 
     try {
-      changeset = yield call(fetchChangeset, changesetId);
+      let token = yield select((state: RootStateType) =>
+        state.auth.get('token'));
+      changeset = yield call(fetchChangeset, changesetId, token);
       yield put(
         action(CHANGESET_FETCHED, {
           data: fromJS(changeset),

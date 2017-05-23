@@ -47,9 +47,12 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Persisted state
 const persistedState = {
-  // user: Map({
-  //   token: safeStorage.getItem('token'),
-  // }),
+  auth: Map({
+    token: safeStorage.getItem('token'),
+    oAuthToken: safeStorage.getItem('oauth_token'),
+    oAuthTokenSecret: safeStorage.getItem('oauth_token_secret'),
+    error: null,
+  }),
 };
 
 // Store
