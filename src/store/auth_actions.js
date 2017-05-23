@@ -35,7 +35,6 @@ export function* watchAuth(): any {
   // pause or resume our auth workflow
   // info: https://redux-saga.js.org/docs/advanced/NonBlockingCalls.html
   while (true) {
-    console.log('here 1');
     // In our case we would want to send a post request
     // to osmcha after receiving the `POST_SOCIAL_TOKEN`
     const {oauth_token, oauth_token_secret} = yield call(postTokensOSMCha);

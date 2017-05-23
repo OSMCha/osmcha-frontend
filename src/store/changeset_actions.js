@@ -3,8 +3,8 @@ import {put, call, takeLatest, select} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {fromJS} from 'immutable';
 
-import {networkFetchChangeset} from '../network/changeset';
-import {getChangeset} from 'changeset-map';
+import {fetchChangeset} from '../network/changeset';
+import {getChangeset as getCMapData} from 'changeset-map';
 
 import type {RootStateType} from './';
 
@@ -25,7 +25,7 @@ export function action(type: string, payload: ?Object) {
 
 // public
 // starting point for react component to start fetch
-export const fetchChangeset = (changesetId: number) =>
+export const getChangeset = (changesetId: number) =>
   action(CHANGESET_FETCH_ASYNC, {changesetId});
 
 // watches for CHANGESET_FETCH_ASYNC and only
@@ -66,7 +66,7 @@ export function* fetchChangesetAsync(
     );
 
     try {
-      changeset = yield call(networkFetchChangeset, changesetId);
+      changeset = yield call(fetchChangeset, changesetId);
       yield put(
         action(CHANGESET_FETCHED, {
           data: fromJS(changeset),
@@ -98,7 +98,7 @@ export function* fetchChangesetMapAsync(
     );
   } else {
     try {
-      changesetMap = yield call(getChangeset, changesetId);
+      changesetMap = yield call(getCMapData, changesetId);
       yield put(
         action(CHANGESET_MAP_FETCHED, {
           data: changesetMap,

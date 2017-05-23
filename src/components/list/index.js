@@ -11,10 +11,10 @@ const RANGE = 6;
 export class List extends React.PureComponent {
   props: {
     data: ImmutableList<Map<string, *>>,
-    fetchChangeset: (number) => any,
+    getChangeset: (number) => any,
     activeChangesetId: ?number,
     cachedChangesets: Map<string, *>,
-    fetchChangesetsPage: (number) => mixed, // base 0
+    getChangesetsPage: (number) => mixed, // base 0
     pageIndex: number,
     loading: boolean,
   };
@@ -58,7 +58,7 @@ export class List extends React.PureComponent {
           <PageRange
             page={'<'}
             pageIndex={this.props.pageIndex - 1}
-            fetchChangesetsPage={this.props.fetchChangesetsPage}
+            getChangesetsPage={this.props.getChangesetsPage}
           />
           {R.range(base, base + RANGE).map(n => (
             <PageRange
@@ -66,13 +66,13 @@ export class List extends React.PureComponent {
               page={n}
               pageIndex={n}
               active={n === this.props.pageIndex}
-              fetchChangesetsPage={this.props.fetchChangesetsPage}
+              getChangesetsPage={this.props.getChangesetsPage}
             />
           ))}
           <PageRange
             page={'>'}
             pageIndex={this.props.pageIndex + 1}
-            fetchChangesetsPage={this.props.fetchChangesetsPage}
+            getChangesetsPage={this.props.getChangesetsPage}
           />
         </footer>
       </div>

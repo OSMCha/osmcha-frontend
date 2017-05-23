@@ -5,7 +5,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import {connect} from 'react-redux';
 import {Map} from 'immutable';
 
-import {fetchChangeset} from '../store/changeset_actions';
+import {getChangeset} from '../store/changeset_actions';
 import {Changeset as ChangesetDumb} from '../components/changeset';
 import {Navbar} from '../components/navbar';
 import {Sidebar} from '../components/sidebar';
@@ -22,7 +22,7 @@ class Changeset extends React.PureComponent {
     changeset: ChangesetType,
     paramsId: number, // is also the changesetId
     match: Object,
-    fetchChangeset: (number) => mixed,
+    getChangeset: (number) => mixed,
   };
   state = {
     filter: false,
@@ -35,7 +35,7 @@ class Changeset extends React.PureComponent {
     super(props);
     var changesetId = this.props.paramsId;
     if (!Number.isNaN(changesetId)) {
-      this.props.fetchChangeset(changesetId);
+      this.props.getChangeset(changesetId);
     }
   }
   componentDidMount() {
@@ -58,7 +58,7 @@ class Changeset extends React.PureComponent {
       return;
     }
     if (newId !== oldId) {
-      this.props.fetchChangeset(newId);
+      this.props.getChangeset(newId);
     }
   }
   showChangeset = () => {
@@ -229,7 +229,7 @@ Changeset = connect(
     changeset: state.changeset,
     paramsId: parseInt(props.match.params.id, 10),
   }),
-  {fetchChangeset},
+  {getChangeset},
 )(Changeset);
 
 export {Changeset};

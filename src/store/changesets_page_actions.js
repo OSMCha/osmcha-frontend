@@ -2,7 +2,7 @@
 import {put, call, takeLatest, select} from 'redux-saga/effects';
 import {fromJS} from 'immutable';
 
-import {networkFetchChangesets} from '../network/changesets_page';
+import {fetchChangesetsPage} from '../network/changesets_page';
 
 import type {RootStateType} from './';
 
@@ -18,7 +18,7 @@ export function action(type: string, payload: ?Object) {
 
 // public
 // starting point for react component to start fetch
-export const fetchChangesetsPage = (pageIndex: number) =>
+export const getChangesetsPage = (pageIndex: number) =>
   action(CHANGESETS_PAGE_FETCH_ASYNC, {pageIndex});
 
 // watches for CHANGESETS_PAGE_FETCH_ASYNC and only
@@ -49,7 +49,7 @@ export function* fetchChangesetsPageAsync(
     );
 
     try {
-      thisPage = yield call(networkFetchChangesets, pageIndex);
+      thisPage = yield call(fetchChangesetsPage, pageIndex);
       yield put(
         action(CHANGESETS_PAGE_FETCHED, {
           data: fromJS(thisPage),

@@ -6,8 +6,8 @@ import R from 'ramda';
 import Mousetrap from 'mousetrap';
 
 import {history} from '../store';
-import {fetchChangeset} from '../store/changeset_actions';
-import {fetchChangesetsPage} from '../store/changesets_page_actions';
+import {getChangeset} from '../store/changeset_actions';
+import {getChangesetsPage} from '../store/changesets_page_actions';
 import {getOAuthToken, getFinalToken, logUserOut} from '../store/auth_actions';
 
 import type {RootStateType} from '../store';
@@ -29,8 +29,8 @@ class ChangesetsList extends React.PureComponent {
     currentPage: Map<string, *>,
     cachedChangesets: Map<string, *>,
     pageIndex: number,
-    fetchChangesetsPage: (number) => mixed, // base 0
-    fetchChangeset: (number) => mixed, // base 0
+    getChangesetsPage: (number) => mixed, // base 0
+    getChangeset: (number) => mixed, // base 0
     getOAuthToken: () => mixed,
     getFinalToken: () => mixed,
     logUserOut: () => mixed,
@@ -40,7 +40,7 @@ class ChangesetsList extends React.PureComponent {
   };
   constructor(props) {
     super(props);
-    this.props.fetchChangesetsPage(0);
+    this.props.getChangesetsPage(0);
   }
   goUpDownToChangeset = (direction: number) => {
     let features = this.props.currentPage.get('features');
@@ -75,8 +75,8 @@ class ChangesetsList extends React.PureComponent {
         data={features}
         loading={loading}
         cachedChangesets={this.props.cachedChangesets}
-        fetchChangeset={this.props.fetchChangeset}
-        fetchChangesetsPage={this.props.fetchChangesetsPage}
+        getChangeset={this.props.getChangeset}
+        getChangesetsPage={this.props.getChangesetsPage}
         pageIndex={this.props.pageIndex}
       />
     );
@@ -136,8 +136,8 @@ ChangesetsList = connect(
   }),
   {
     // actions
-    fetchChangesetsPage,
-    fetchChangeset,
+    getChangesetsPage,
+    getChangeset,
     getOAuthToken,
     getFinalToken,
     logUserOut,

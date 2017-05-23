@@ -1,7 +1,7 @@
 // @flow
 import {osmchaSocialTokenUrl} from '../config/constants';
 import request from 'superagent';
-
+window.request = request;
 export function postTokensOSMCha(
   oauth_token: ?string,
   oauth_verifier: ?string,
