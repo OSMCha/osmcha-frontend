@@ -1,7 +1,7 @@
 // @flow
 import {combineReducers, createStore, applyMiddleware} from 'redux';
 import {createLogger} from 'redux-logger';
-import {Map} from 'immutable';
+import {Map, Iterable} from 'immutable';
 import {routerReducer, routerMiddleware} from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import createSagaMiddleware from 'redux-saga';
@@ -40,8 +40,26 @@ const sagaMiddleware = createSagaMiddleware();
 // Middlewares
 const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
+const stateTransformer = state => {
+  if (Iterable.isIterable(state)) return state.toJS();
+  else return state;
+};
+
 if (process.env.NODE_ENV !== 'production') {
-  const logger = createLogger();
+  const logger = createLogger({
+    stateTransformer: state => {
+      let newState = {};
+
+      for (var i of Object.keys(state)) {
+        if (Iterable.isIterable(state[i])) {
+          newState[i] = state[i].toJS();
+        } else {
+          newState[i] = state[i];
+        }
+      }
+      return newState;
+    },
+  });
   middlewares.push(logger);
 }
 

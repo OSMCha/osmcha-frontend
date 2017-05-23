@@ -5,12 +5,14 @@ import {
   SAVE_TOKEN,
   CLEAR_SESSION,
   LOGIN_ERROR,
+  USER_DETAILS,
 } from './auth_actions';
 export type AuthType = Map<
   | 'oAuthToken' //  osm
   | 'oAuthTokenSecret'
   | 'error'
-  | 'token', any>; // osmcha uses this
+  | 'token'
+  | 'userDetails', any>; // osmcha uses this
 
 const initialState: AuthType = Map({
   oAuthToken: null,
@@ -38,6 +40,9 @@ export function authReducer(
     }
     case LOGIN_ERROR: {
       return state.set('error', action.error);
+    }
+    case USER_DETAILS: {
+      return state.set('userDetails', action.userDetails);
     }
     default:
       return state;

@@ -1,7 +1,7 @@
 // @flow
-import {osmchaSocialTokenUrl} from '../config/constants';
 import request from 'superagent';
-window.request = request;
+import {osmchaSocialTokenUrl, osmChaUrl} from '../config/constants';
+
 export function postTokensOSMCha(
   oauth_token: ?string,
   oauth_verifier: ?string,
@@ -29,4 +29,14 @@ export function postTokensOSMCha(
       console.error(e);
       return Promise.reject(e);
     });
+}
+
+export function fetchUserDetails(token: string) {
+  return fetch(`${osmChaUrl}/users`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token ? `Token ${token}` : '',
+    },
+  }).then(res => res.json());
 }
