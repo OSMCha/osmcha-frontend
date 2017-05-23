@@ -88,7 +88,7 @@ class ChangesetsList extends React.PureComponent {
       const popup = createPopup(
         'oauth_popup',
         process.env.NODE_ENV === 'production'
-          ? `${osmAuthUrl}?oauth_token=${this.props.oAuthToken}&redirect_uri=http://localhost:3000`
+          ? `${osmAuthUrl}?oauth_token=${this.props.oAuthToken}`
           : '/local-landing.html',
       );
       handlePopupCallback().then(oAuthObj => {

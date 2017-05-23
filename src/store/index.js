@@ -35,7 +35,12 @@ const reducers = combineReducers({
   auth: authReducer,
 });
 
-const history = createHistory();
+let historyConfig = {};
+if (process.env.NODE_ENV === 'production') {
+  historyConfig.basename = '/osmcha-frontend';
+}
+
+const history = createHistory(historyConfig);
 const sagaMiddleware = createSagaMiddleware();
 // Middlewares
 const middlewares = [sagaMiddleware, routerMiddleware(history)];
@@ -81,13 +86,13 @@ const store = createStore(
 );
 
 // Persist change to local storage
-store.subscribe(() => {
-  // const {user} = store.getState();
-  // const token = user.get('token');
-  // if (token !== safeStorage.getItem('token')) {
-  //   safeStorage.setItem('token', token);
-  // }
-});
+// store.subscribe(() => {
+// const {user} = store.getState();
+// const token = user.get('token');
+// if (token !== safeStorage.getItem('token')) {
+//   safeStorage.setItem('token', token);
+// }
+// });
 
 sagaMiddleware.run(sagas);
 
