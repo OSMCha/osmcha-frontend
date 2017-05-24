@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
 import debounce from 'lodash.debounce';
-import {render} from 'changeset-map';
-import {dispatchEvent} from '../../utils/dispatch_event';
+import { render } from 'changeset-map';
+import { dispatchEvent } from '../../utils/dispatch_event';
 
 let changesetId;
 let adiffResult;
@@ -17,7 +17,7 @@ function loadMap() {
     event = render(container, changesetId, {
       width: width + 'px',
       height: Math.max(400, height) + 'px',
-      data: adiffResult,
+      data: adiffResult
     });
   } catch (e) {
     console.log(e);
@@ -31,10 +31,10 @@ export class CMap extends React.PureComponent {
   props: {
     changesetId: number,
     adiffResult: Object,
-    errorChangesetMap: ?Object,
+    errorChangesetMap: ?Object
   };
   state = {
-    visible: false,
+    visible: false
   };
   ref = null;
   componentDidMount() {
@@ -46,36 +46,36 @@ export class CMap extends React.PureComponent {
       width = parseInt(rect.width, 10);
     }
 
-    setTimeout(
-      () => {
-        this.setState({
-          visible: true,
-        });
-      },
-      800,
-    );
+    setTimeout(() => {
+      this.setState({
+        visible: true
+      });
+    }, 800);
     deb();
   }
   componentWillUnmount() {
     event.emit('remove');
   }
   shouldComponentUpdate(nextProps: Object, nextState: Object) {
-    return nextState.visible !== this.state.visible ||
-      this.props.adiffResult !== nextProps.adiffResult;
+    return (
+      nextState.visible !== this.state.visible ||
+      this.props.adiffResult !== nextProps.adiffResult
+    );
   }
   componentDidUpdate(prevProp: Object) {
     if (this.props.adiffResult !== prevProp.adiffResult) {
+      console.log(this.props.adiffResult);
       minDebounce();
     }
   }
-  setRef = (r: any) => this.ref = r;
+  setRef = (r: any) => (this.ref = r);
   render() {
     if (this.props.errorChangesetMap) {
       dispatchEvent('showToast', {
         title: 'changeset-map failed to load',
         content: 'Try reloading osmcha',
         timeOut: 5000,
-        type: 'error',
+        type: 'error'
       });
       console.error(this.props.errorChangesetMap);
       return null;
@@ -88,13 +88,13 @@ export class CMap extends React.PureComponent {
         <div
           style={{
             height: parseInt(window.innerHeight - 55, 10),
-            display: this.state.visible ? 'none' : 'block',
+            display: this.state.visible ? 'none' : 'block'
           }}
         />
         <div
           id="container"
           className="border border--2 border--gray-dark"
-          style={{visibility: this.state.visible ? 'visible' : 'hidden'}}
+          style={{ visibility: this.state.visible ? 'visible' : 'hidden' }}
           ref={this.setRef}
         />
       </div>
