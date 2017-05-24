@@ -4,15 +4,22 @@ import {connect} from 'react-redux';
 import {List as ImmutableList, Map} from 'immutable';
 import R from 'ramda';
 import Mousetrap from 'mousetrap';
+
 import {history} from '../store';
-import {fetchChangeset} from '../store/changeset_actions';
-import {fetchChangesetsPage} from '../store/changesets_page_actions';
-import {List} from '../components/list';
-import {Loading} from '../components/loading';
-import {NEXT_CHANGESET, PREV_CHANGESET} from '../config/bindings';
+import {getChangeset} from '../store/changeset_actions';
+import {getChangesetsPage} from '../store/changesets_page_actions';
+import {getOAuthToken, getFinalToken, logUserOut} from '../store/auth_actions';
 
 import type {RootStateType} from '../store';
 import type {ChangesetType} from '../store/changeset_reducer';
+
+import {List} from '../components/list';
+import {Button} from '../components/button';
+
+import {NEXT_CHANGESET, PREV_CHANGESET} from '../config/bindings';
+import {osmAuthUrl} from '../config/constants';
+import {createPopup} from '../utils/create_popup';
+import {handlePopupCallback} from '../utils/handle_popup_callback';
 
 class ChangesetsList extends React.PureComponent {
   props: {
@@ -21,14 +28,20 @@ class ChangesetsList extends React.PureComponent {
     error: Object,
     currentPage: Map<string, *>,
     cachedChangesets: Map<string, *>,
+    userDetails: Map<string, *>,
     pageIndex: number,
-    fetchChangesetsPage: (number) => mixed, // base 0
-    fetchChangeset: (number) => mixed, // base 0
+    getChangesetsPage: (number) => mixed, // base 0
+    getChangeset: (number) => mixed, // base 0
+    getOAuthToken: () => mixed,
+    getFinalToken: () => mixed,
+    logUserOut: () => mixed,
     activeChangesetId: ?number,
+    oAuthToken: ?string,
+    token: ?string,
   };
   constructor(props) {
     super(props);
-    this.props.fetchChangesetsPage(0);
+    this.props.getChangesetsPage(0);
   }
   goUpDownToChangeset = (direction: number) => {
     let features = this.props.currentPage.get('features');
@@ -63,12 +76,28 @@ class ChangesetsList extends React.PureComponent {
         data={features}
         loading={loading}
         cachedChangesets={this.props.cachedChangesets}
-        fetchChangeset={this.props.fetchChangeset}
-        fetchChangesetsPage={this.props.fetchChangesetsPage}
+        getChangeset={this.props.getChangeset}
+        getChangesetsPage={this.props.getChangesetsPage}
         pageIndex={this.props.pageIndex}
       />
     );
   };
+
+  handleLoginClick = () => {
+    if (this.props.oAuthToken) {
+      const popup = createPopup(
+        'oauth_popup',
+        process.env.NODE_ENV === 'production'
+          ? `${osmAuthUrl}?oauth_token=${this.props.oAuthToken}`
+          : '/local-landing.html',
+      );
+      handlePopupCallback().then(oAuthObj => {
+        console.log('popupgave', oAuthObj);
+        this.props.getFinalToken(oAuthObj.oauth_verifier);
+      });
+    }
+  };
+
   render() {
     const {error} = this.props;
     if (error) {
@@ -76,6 +105,22 @@ class ChangesetsList extends React.PureComponent {
     }
     return (
       <div className="flex-parent flex-parent--column flex-child--grow">
+        <div
+          className="h55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around top relative"
+        >
+          {this.props.userDetails &&
+            <span> Hi, {this.props.userDetails.get('username')}</span>}
+          {this.props.token
+            ? <Button onClick={this.props.logUserOut}>
+                Logout
+              </Button>
+            : <Button
+                onClick={this.handleLoginClick}
+                disable={!this.props.oAuthToken}
+              >
+                Auth
+              </Button>}
+        </div>
         {this.showList()}
       </div>
     );
@@ -90,12 +135,19 @@ ChangesetsList = connect(
     pageIndex: state.changesetsPage.get('pageIndex'),
     loading: state.changesetsPage.get('loading'),
     error: state.changesetsPage.get('error'),
+    oAuthToken: state.auth.get('oAuthToken'),
+    userDetails: state.auth.get('userDetails'),
+    token: state.auth.get('token'),
     cachedChangesets: state.changeset.get('changesets'),
     activeChangesetId: state.changeset.get('changesetId'),
   }),
   {
-    fetchChangesetsPage,
-    fetchChangeset,
+    // actions
+    getChangesetsPage,
+    getChangeset,
+    getOAuthToken,
+    getFinalToken,
+    logUserOut,
   },
 )(ChangesetsList);
 export {ChangesetsList};

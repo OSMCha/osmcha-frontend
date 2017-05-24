@@ -5,7 +5,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import {connect} from 'react-redux';
 import {Map} from 'immutable';
 
-import {fetchChangeset} from '../store/changeset_actions';
+import {getChangeset} from '../store/changeset_actions';
 import {Changeset as ChangesetDumb} from '../components/changeset';
 import {Navbar} from '../components/navbar';
 import {Sidebar} from '../components/sidebar';
@@ -22,7 +22,7 @@ class Changeset extends React.PureComponent {
     changeset: ChangesetType,
     paramsId: number, // is also the changesetId
     match: Object,
-    fetchChangeset: (number) => mixed,
+    getChangeset: (number) => mixed,
   };
   state = {
     filter: false,
@@ -35,7 +35,7 @@ class Changeset extends React.PureComponent {
     super(props);
     var changesetId = this.props.paramsId;
     if (!Number.isNaN(changesetId)) {
-      this.props.fetchChangeset(changesetId);
+      this.props.getChangeset(changesetId);
     }
   }
   componentDidMount() {
@@ -58,7 +58,7 @@ class Changeset extends React.PureComponent {
       return;
     }
     if (newId !== oldId) {
-      this.props.fetchChangeset(newId);
+      this.props.getChangeset(newId);
     }
   }
   showChangeset = () => {
@@ -114,7 +114,7 @@ class Changeset extends React.PureComponent {
   render() {
     return (
       <div
-        className="flex-parent flex-parent--column bg-gray-faint clip transition"
+        className="flex-parent flex-parent--column bg-gray-faint clip transition border border-l--0 border--gray-light border--1"
       >
         <Navbar
           className="bg-white color-gray border-b border--gray-light border--1"
@@ -130,7 +130,7 @@ class Changeset extends React.PureComponent {
               <span>
 
                 <button
-                  className={`btn btn--pill btn--s color-gray btn--gray-faint`}
+                  className={'btn btn--pill btn--s color-gray btn--gray-faint'}
                 >
                   <a
                     target="_blank"
@@ -142,16 +142,16 @@ class Changeset extends React.PureComponent {
                   </a>
                 </button>
                 <button
-                  className={`btn btn--pill btn--s color-gray btn--gray-faint`}
+                  className={'btn btn--pill btn--s color-gray btn--gray-faint'}
                 >
-                  <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
+                  <a target="_blank" href={'http://hdyc.neis-one.org/?'}>
                     JOSM
                   </a>
                 </button>
                 <button
-                  className={`btn btn--pill btn--s color-gray btn--gray-faint`}
+                  className={'btn btn--pill btn--s color-gray btn--gray-faint'}
                 >
-                  <a target="_blank" href={`http://hdyc.neis-one.org/?`}>
+                  <a target="_blank" href={'http://hdyc.neis-one.org/?'}>
                     Verify
                   </a>
                 </button>
@@ -200,7 +200,7 @@ class Changeset extends React.PureComponent {
                           <span className="flex-child flex-child--grow" />
                           <a
                             className={
-                              `flex-parent-inline btn color-white bg-transparent bg-gray-on-hover ml3`
+                              'flex-parent-inline btn color-white bg-transparent bg-gray-on-hover ml3'
                             }
                             href="#"
                             onClick={this.toggleFilter}
@@ -229,7 +229,7 @@ Changeset = connect(
     changeset: state.changeset,
     paramsId: parseInt(props.match.params.id, 10),
   }),
-  {fetchChangeset},
+  {getChangeset},
 )(Changeset);
 
 export {Changeset};

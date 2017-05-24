@@ -18,6 +18,6 @@ export class PageRange extends React.PureComponent {
     );
   }
   _onClick = () => {
-    this.props.fetchChangesetsPage(this.props.pageIndex);
+    this.props.getChangesetsPage(this.props.pageIndex);
   };
 }

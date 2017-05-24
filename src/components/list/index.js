@@ -2,7 +2,6 @@
 import React from 'react';
 import {List as ImmutableList, Map} from 'immutable';
 import R from 'ramda';
-
 import {Row} from './row';
 import {elementInViewport} from '../../utils/element_in_view';
 import {PageRange} from './page_range';
@@ -12,10 +11,10 @@ const RANGE = 6;
 export class List extends React.PureComponent {
   props: {
     data: ImmutableList<Map<string, *>>,
-    fetchChangeset: (number) => any,
+    getChangeset: (number) => any,
     activeChangesetId: ?number,
     cachedChangesets: Map<string, *>,
-    fetchChangesetsPage: (number) => mixed, // base 0
+    getChangesetsPage: (number) => mixed, // base 0
     pageIndex: number,
     loading: boolean,
   };
@@ -35,11 +34,6 @@ export class List extends React.PureComponent {
     console.log('render');
     return (
       <div>
-        <div
-          className="p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around top relative"
-        >
-          Hi
-        </div>
         <ul
           className="flex-parent flex-parent--column scroll-auto"
           style={{height: window.innerHeight - 55 * 3}}
@@ -64,7 +58,7 @@ export class List extends React.PureComponent {
           <PageRange
             page={'<'}
             pageIndex={this.props.pageIndex - 1}
-            fetchChangesetsPage={this.props.fetchChangesetsPage}
+            getChangesetsPage={this.props.getChangesetsPage}
           />
           {R.range(base, base + RANGE).map(n => (
             <PageRange
@@ -72,13 +66,13 @@ export class List extends React.PureComponent {
               page={n}
               pageIndex={n}
               active={n === this.props.pageIndex}
-              fetchChangesetsPage={this.props.fetchChangesetsPage}
+              getChangesetsPage={this.props.getChangesetsPage}
             />
           ))}
           <PageRange
             page={'>'}
             pageIndex={this.props.pageIndex + 1}
-            fetchChangesetsPage={this.props.fetchChangesetsPage}
+            getChangesetsPage={this.props.getChangesetsPage}
           />
         </footer>
       </div>

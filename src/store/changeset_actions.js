@@ -3,8 +3,8 @@ import {put, call, takeLatest, select} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {fromJS} from 'immutable';
 
-import {networkFetchChangeset} from '../network/changeset';
-import {getChangeset} from 'changeset-map';
+import {fetchChangeset} from '../network/changeset';
+import {getChangeset as getCMapData} from 'changeset-map';
 
 import type {RootStateType} from './';
 
@@ -18,7 +18,6 @@ export const CHANGESET_MAP_LOADING = 'CHANGESET_MAP_FETCH_LOADING';
 export const CHANGESET_MAP_FETCHED = 'CHANGESET_MAP_FETCHED';
 export const CHANGESET_MAP_ERROR = 'CHANGESET_MAP_ERROR';
 export const CHANGESET_MAP_CHANGE = 'CHANGESET_MAP_CHANGE';
-export const CHANGESET_MAP_RESET = 'CHANGESET_MAP_RESET';
 
 export function action(type: string, payload: ?Object) {
   return {type, ...payload};
@@ -26,7 +25,7 @@ export function action(type: string, payload: ?Object) {
 
 // public
 // starting point for react component to start fetch
-export const fetchChangeset = (changesetId: number) =>
+export const getChangeset = (changesetId: number) =>
   action(CHANGESET_FETCH_ASYNC, {changesetId});
 
 // watches for CHANGESET_FETCH_ASYNC and only
@@ -67,7 +66,9 @@ export function* fetchChangesetAsync(
     );
 
     try {
-      changeset = yield call(networkFetchChangeset, changesetId);
+      let token = yield select((state: RootStateType) =>
+        state.auth.get('token'));
+      changeset = yield call(fetchChangeset, changesetId, token);
       yield put(
         action(CHANGESET_FETCHED, {
           data: fromJS(changeset),
@@ -89,9 +90,6 @@ export function* fetchChangesetAsync(
 export function* fetchChangesetMapAsync(
   {changesetId}: {changesetId: number},
 ): Object {
-  // yield put(action(CHANGESET_MAP_RESET));
-  // tiny delay for changeset map to reset
-  // yield delay(100);
   let changesetMap = yield select((state: RootStateType) =>
     state.changeset.get('changesetMap').get(changesetId));
   if (changesetMap) {
@@ -102,7 +100,7 @@ export function* fetchChangesetMapAsync(
     );
   } else {
     try {
-      changesetMap = yield call(getChangeset, changesetId);
+      changesetMap = yield call(getCMapData, changesetId);
       yield put(
         action(CHANGESET_MAP_FETCHED, {
           data: changesetMap,
