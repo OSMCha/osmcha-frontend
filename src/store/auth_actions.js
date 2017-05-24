@@ -53,6 +53,7 @@ export function* watchAuth(): any {
       }
       const userDetails = fromJS(yield call(fetchUserDetails, token));
       yield put(action(USER_DETAILS, {userDetails}));
+
       yield take(LOGOUT);
     } catch (error) {
       yield put(action(LOGIN_ERROR, error));

@@ -4,7 +4,7 @@
 
 <body>
   <div id='formContainer'>
-    <form id='changesetForm'>
+    <form id='verifierForm'>
       <input id='oauth_verifier' value='' placeholder='oauth_verifier' />
       <button id='submitChangeset' class='button'>Submit</button>
     </form>
@@ -12,9 +12,8 @@
   <script>
     // This page is called when the oauth
     // handshake with the server has completed.
-
     document
-      .getElementById('changesetForm')
+      .getElementById('verifierForm')
       .addEventListener('submit', function (e) {
         e.preventDefault();
         document.getElementById('formContainer').style.display = 'none';

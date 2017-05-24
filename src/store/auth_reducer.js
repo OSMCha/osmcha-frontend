@@ -19,6 +19,7 @@ const initialState: AuthType = Map({
   oAuthTokenSecret: null,
   error: null,
   token: null,
+  userDetails: null,
 });
 
 export function authReducer(

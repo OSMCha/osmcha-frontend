@@ -85,15 +85,6 @@ const store = createStore(
   applyMiddleware(...middlewares),
 );
 
-// Persist change to local storage
-// store.subscribe(() => {
-// const {user} = store.getState();
-// const token = user.get('token');
-// if (token !== safeStorage.getItem('token')) {
-//   safeStorage.setItem('token', token);
-// }
-// });
-
 sagaMiddleware.run(sagas);
 
 export {store, history};
