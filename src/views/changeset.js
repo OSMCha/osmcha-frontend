@@ -159,7 +159,7 @@ class Changeset extends React.PureComponent {
                   </a>
                 </button>
                 {this.props.currentChangeset &&
-                  this.props.currentChangeset.getIn(['properties', 'checked'])
+                  !this.props.currentChangeset.getIn(['properties', 'checked'])
                   ? <button
                       className={
                         'btn btn--pill btn--s color-gray btn--gray-faint'
@@ -177,7 +177,7 @@ class Changeset extends React.PureComponent {
                   : <Verify
                       placeholder="Verify"
                       onChange={this.handleVerify}
-                      value=""
+                      value="verify"
                       options={[
                         {
                           value: false,

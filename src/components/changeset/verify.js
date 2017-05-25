@@ -8,7 +8,7 @@ export function Verify({ options, className, onChange, value }) {
         value={value}
         onChange={onChange}
       >
-        <option value="" disabled selected>
+        <option value="verify" disabled>
           Verify
         </option>
         {options.map((v, k) => (
