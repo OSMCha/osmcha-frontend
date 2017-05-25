@@ -25,10 +25,11 @@ import type { RootStateType } from '../store';
 class Changeset extends React.PureComponent {
   props: {
     changeset: ChangesetType,
+    currentChangeset: Object,
     changesetId: number, // is also the the param :id
     match: Object,
     getChangeset: number => mixed,
-    handleChangesetModify: (number, boolean) => mixed
+    handleChangesetModify: (number, Map<string, *>, boolean) => mixed
   };
   state = {
     filter: false,
@@ -68,8 +69,7 @@ class Changeset extends React.PureComponent {
     }
   }
   showChangeset = () => {
-    const { match, changeset } = this.props;
-    const currentChangeset: Map<string, *> = changeset.get('currentChangeset');
+    const { match, changeset, currentChangeset } = this.props;
     const currentChangesetMap: Object = changeset.get('currentChangesetMap');
     if (match.path !== '/changesets/:id' || !this.props.changesetId) {
       return <div> batpad, please select a changeset </div>;
@@ -117,10 +117,17 @@ class Changeset extends React.PureComponent {
     }
   };
   handleVerify = e => {
-    this.props.handleChangesetModify(this.props.changesetId, e.target.value);
+    this.props.handleChangesetModify(
+      this.props.changesetId,
+      this.props.currentChangeset,
+      e.target.value === 'true' ? true : false
+    );
   };
   scrollable = null;
   render() {
+    if (this.props.currentChangeset) {
+      console.log(this.props.currentChangeset.toJS().properties);
+    }
     return (
       <div className="flex-parent flex-parent--column bg-gray-faint clip transition border border-l--0 border--gray-light border--1">
         <Navbar
@@ -151,19 +158,15 @@ class Changeset extends React.PureComponent {
                     JOSM
                   </a>
                 </button>
-                {this.props.changeset.getIn([
-                  'currentChangeset',
-                  'properties',
-                  'checked'
-                ])
+                {this.props.currentChangeset &&
+                  this.props.currentChangeset.getIn(['properties', 'checked'])
                   ? <button
                       className={
                         'btn btn--pill btn--s color-gray btn--gray-faint'
                       }
                     >
                       <a target="_blank" href={'http://hdyc.neis-one.org/?'}>
-                        {this.props.changeset.getIn([
-                          'currentChangeset',
+                        {this.props.currentChangeset.getIn([
                           'properties',
                           'harmful'
                         ])
@@ -256,7 +259,11 @@ class Changeset extends React.PureComponent {
 Changeset = connect(
   (state: RootStateType, props) => ({
     changeset: state.changeset,
-    changesetId: parseInt(props.match.params.id, 10)
+    changesetId: parseInt(props.match.params.id, 10),
+    currentChangeset: state.changeset.getIn([
+      'changesets',
+      parseInt(props.match.params.id, 10)
+    ])
   }),
   { getChangeset, handleChangesetModify }
 )(Changeset);

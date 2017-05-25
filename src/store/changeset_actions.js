@@ -10,7 +10,7 @@ import {
 import { delay } from 'redux-saga';
 import { fromJS, Map } from 'immutable';
 
-import { fetchChangeset } from '../network/changeset';
+import { fetchChangeset, setHarmful } from '../network/changeset';
 import { getChangeset as getCMapData } from 'changeset-map';
 
 import type { RootStateType } from './';
@@ -27,6 +27,8 @@ export const CHANGESET_MAP_ERROR = 'CHANGESET_MAP_ERROR';
 export const CHANGESET_MAP_CHANGE = 'CHANGESET_MAP_CHANGE';
 
 export const CHANGESET_MODIFY_HARMFUL = 'CHANGESET_MODIFY_HARMFUL';
+export const CHANGESET_MODIFY = 'CHANGESET_MODIFY';
+export const CHANGESET_MODIFY_REVERT = 'CHANGESET_MODIFY_REVERT';
 
 export function action(type: string, payload: ?Object) {
   return { type, ...payload };
@@ -37,52 +39,79 @@ export function action(type: string, payload: ?Object) {
 export const getChangeset = (changesetId: number) =>
   action(CHANGESET_FETCH_ASYNC, { changesetId });
 
-export const handleChangesetModify = (changesetId: number, harmful: boolean) =>
-  action(CHANGESET_MODIFY_HARMFUL, { changesetId, harmful });
+export const handleChangesetModify = (
+  changesetId: number,
+  changeset: Map<string, *>,
+  harmful: boolean
+) => action(CHANGESET_MODIFY_HARMFUL, { changesetId, changeset, harmful });
 
 // watches for CHANGESET_FETCH_ASYNC and only
 // dispatches latest tofetchChangesetsPageAsync
 export function* watchChangeset(): any {
   yield [
-    takeLatest(CHANGESET_FETCH_ASYNC, fetchChangesetAndChangesetMap),
+    takeLatest(CHANGESET_FETCH_ASYNC, fetchChangesetAndChangesetMapAction),
     modifyChangeset()
   ]; // on forking or not https://github.com/redux-saga/redux-saga/issues/178
 }
 
 export function* modifyChangeset(): any {
   while (true) {
-    const action = yield take([CHANGESET_MODIFY_HARMFUL]);
-    const changesetId = action.changesetId;
-    let networkRequest;
-    let changeset = yield select((state: RootStateType) =>
-      state.changeset.getIn(['changesets', 'changesetId'])
-    );
-    if (!changeset) {
+    const modifyAction = yield take([CHANGESET_MODIFY_HARMFUL]);
+
+    const changesetId = modifyAction.changesetId;
+    let oldChangeset = modifyAction.changeset;
+    let token = yield select((state: RootStateType) => state.auth.get('token')); // TOFIX handle token not existing
+
+    console.log('here', changesetId, oldChangeset, token);
+
+    if (!oldChangeset || !token) {
       continue;
     }
-    switch (action.type) {
-      case CHANGESET_MODIFY_HARMFUL: {
-        networkRequest = yield call();
+    try {
+      switch (modifyAction.type) {
+        case CHANGESET_MODIFY_HARMFUL: {
+          console.log('here');
+          const harmful = modifyAction.harmful;
+          yield call(setHarmfulAction, {
+            changesetId,
+            oldChangeset,
+            token,
+            harmful
+          });
+          break;
+        }
+        default: {
+          continue;
+        }
       }
+    } catch (error) {
+      console.log(error);
+      yield put(
+        action(CHANGESET_MODIFY_REVERT, {
+          changesetId,
+          changeset: oldChangeset
+        })
+      );
     }
+
     // yield fork(fetchPosts, action);
   }
 }
 
 /** Sagas **/
-export function* fetchChangesetAndChangesetMap({
+export function* fetchChangesetAndChangesetMapAction({
   changesetId
 }: {
   changesetId: number
 }): Object {
   // run both in parallel
   yield [
-    call(fetchChangesetAsync, { changesetId }),
-    call(fetchChangesetMapAsync, { changesetId })
+    call(fetchChangesetAction, { changesetId }),
+    call(fetchChangesetMapAction, { changesetId })
   ];
 }
 
-export function* fetchChangesetAsync({
+export function* fetchChangesetAction({
   changesetId
 }: {
   changesetId: number
@@ -117,7 +146,7 @@ export function* fetchChangesetAsync({
         })
       );
     } catch (error) {
-      console.error(error);
+      console.log(error);
       yield put(
         action(CHANGESET_ERROR, {
           changesetId,
@@ -128,7 +157,7 @@ export function* fetchChangesetAsync({
   }
 }
 
-export function* fetchChangesetMapAsync({
+export function* fetchChangesetMapAction({
   changesetId
 }: {
   changesetId: number
@@ -161,4 +190,23 @@ export function* fetchChangesetMapAsync({
       );
     }
   }
+}
+
+export function* setHarmfulAction({
+  changesetId,
+  oldChangeset,
+  token,
+  harmful
+}: Object): any {
+  const newChangeset = oldChangeset
+    .setIn(['properties', 'checked'], true)
+    .setIn(['properties', 'harmful'], harmful);
+  console.log(newChangeset.toJS());
+  yield put(
+    action(CHANGESET_MODIFY, {
+      changesetId,
+      changeset: newChangeset
+    })
+  );
+  yield call(setHarmful, changesetId, token, harmful);
 }

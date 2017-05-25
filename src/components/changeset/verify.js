@@ -12,7 +12,7 @@ export function Verify({ options, className, onChange, value }) {
           Verify
         </option>
         {options.map((v, k) => (
-          <option value={v.value + ''} key={k} hidden={v.hidden}>
+          <option value={v.value} key={k} hidden={v.hidden}>
             {v.display}
           </option>
         ))}

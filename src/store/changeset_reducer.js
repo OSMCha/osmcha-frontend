@@ -1,5 +1,5 @@
 /* @flow */
-import {Map} from 'immutable';
+import { Map } from 'immutable';
 
 import {
   CHANGESET_CHANGE,
@@ -10,19 +10,23 @@ import {
   CHANGESET_MAP_ERROR,
   CHANGESET_MAP_FETCHED,
   CHANGESET_MAP_LOADING,
-  CHANGESET_MAP_RESET,
+  CHANGESET_MODIFY,
+  CHANGESET_MODIFY_REVERT
 } from './changeset_actions';
 
 export type ChangesetType = Map<
-  | 'currentChangeset'
-  | 'changesets'
-  | 'changesetId' // of the currentChangeset
-  | 'loading'
-  | 'loadingChangesetMap'
-  | 'changesetMap'
-  | 'currentChangesetMap'
-  | 'errorChangesetMap'
-  | 'errorChangeset', any>;
+
+    | "currentChangeset"
+    | "changesets"
+    | "changesetId" // of the currentChangeset
+    | "loading"
+    | "loadingChangesetMap"
+    | "changesetMap"
+    | "currentChangesetMap"
+    | "errorChangesetMap"
+    | "errorChangeset",
+  any
+>;
 
 const initial: ChangesetType = new Map({
   changesetId: null,
@@ -32,13 +36,13 @@ const initial: ChangesetType = new Map({
   changesetMap: new Map(),
   loading: false,
   loadingChangesetMap: false,
-  error: null,
-  errorChangesetMap: null,
+  errorChangeset: null,
+  errorChangesetMap: null
 });
 
 export function changesetReducer(
   state: ChangesetType = initial,
-  action: Object,
+  action: Object
 ): ChangesetType {
   switch (action.type) {
     case CHANGESET_CHANGE: {
@@ -92,11 +96,6 @@ export function changesetReducer(
         .set('currentChangesetMap', action.data)
         .set('errorChangesetMap', null);
     }
-    case CHANGESET_MAP_RESET: {
-      return state
-        .set('currentChangesetMap', null)
-        .set('errorChangesetMap', null);
-    }
     case CHANGESET_MAP_LOADING: {
       return state
         .set('changesetId', action.changesetId)
@@ -109,6 +108,20 @@ export function changesetReducer(
         .set('changesetId', action.changesetId)
         .set('currentChangesetMap', null)
         .set('errorChangesetMap', action.error);
+    }
+    case CHANGESET_MODIFY: {
+      const changesets = state
+        .get('changesets')
+        .set(action.changesetId, action.changeset);
+      return state.set('changesets', changesets);
+    }
+    case CHANGESET_MODIFY_REVERT: {
+      const changesets = state
+        .get('changesets')
+        .set(action.changesetId, action.changeset);
+      return state
+        .set('changesets', changesets)
+        .set('errorChangeset', action.error);
     }
     default: {
       return state;
