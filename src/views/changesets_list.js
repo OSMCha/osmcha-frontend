@@ -32,6 +32,7 @@ class ChangesetsList extends React.PureComponent {
     pathname: string,
     loading: boolean,
     error: Object,
+    style: Object,
     currentPage: Map<string, *>,
     cachedChangesets: Map<string, *>,
     userDetails: Map<string, *>,
@@ -72,20 +73,6 @@ class ChangesetsList extends React.PureComponent {
       this.goUpDownToChangeset(-1);
     });
   }
-  showList = () => {
-    const { currentPage, loading } = this.props;
-    // if (!currentPage) return null;
-    return (
-      <List
-        activeChangesetId={this.props.activeChangesetId}
-        currentPage={currentPage}
-        loading={loading}
-        cachedChangesets={this.props.cachedChangesets}
-        getChangeset={this.props.getChangeset}
-        pageIndex={this.props.pageIndex}
-      />
-    );
-  };
 
   handleLoginClick = () => {
     if (this.props.oAuthToken) {
@@ -108,9 +95,11 @@ class ChangesetsList extends React.PureComponent {
       return <div>error {JSON.stringify(error.stack)} </div>;
     }
     const base = parseInt(this.props.pageIndex / RANGE, 10) * RANGE;
+    const { currentPage, loading } = this.props;
+
     return (
-      <div className="flex-parent flex-parent--column h-full">
-        <div className="hmin55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
+      <div className="flex-parent flex-parent--column changesets-list">
+        <header className="hmin55 h55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
           {this.props.userDetails &&
             <span> Hi, {this.props.userDetails.get('username')}</span>}
           {this.props.token
@@ -123,12 +112,20 @@ class ChangesetsList extends React.PureComponent {
               >
                 Auth
               </Button>}
-        </div>
-        {this.showList()}
+        </header>
+        <List
+          activeChangesetId={this.props.activeChangesetId}
+          currentPage={currentPage}
+          loading={loading}
+          cachedChangesets={this.props.cachedChangesets}
+          getChangeset={this.props.getChangeset}
+          pageIndex={this.props.pageIndex}
+        />
         <footer className="hmin55 p12 pb24 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
           <PageRange
             page={'<'}
             pageIndex={this.props.pageIndex - 1}
+            active={false}
             getChangesetsPage={this.props.getChangesetsPage}
           />
           {R.range(base, base + RANGE).map(n => (
@@ -143,6 +140,7 @@ class ChangesetsList extends React.PureComponent {
           <PageRange
             page={'>'}
             pageIndex={this.props.pageIndex + 1}
+            active={false}
             getChangesetsPage={this.props.getChangesetsPage}
           />
         </footer>

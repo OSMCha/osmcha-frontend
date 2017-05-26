@@ -17,11 +17,6 @@ export class List extends React.PureComponent {
     loading: boolean
   };
   shouldComponentUpdate(nextProps: Object) {
-    console.log(
-      nextProps.currentPage !== this.props.currentPage,
-      nextProps.currentPage && nextProps.currentPage.toJS(),
-      this.props.currentPage && this.props.currentPage.toJS()
-    );
     return (
       nextProps.loading !== this.props.loading ||
       nextProps.activeChangesetId !== this.props.activeChangesetId ||
@@ -35,12 +30,8 @@ export class List extends React.PureComponent {
     }
   };
   render() {
-    console.log('render');
     return (
-      <ul
-        className="flex-parent flex-parent--column scroll-auto"
-        style={{ flexGrow: 8 }}
-      >
+      <ul className="flex-parent flex-parent--column scroll-auto flex-child--grow">
         {!this.props.currentPage || this.props.loading
           ? <Loading />
           : this.props.currentPage.get('features').map((f, k) => (

@@ -51,6 +51,9 @@ body {
   }
 }
 
+.changesets-list {
+  height: calc(100vh - 55px);
+}
 
 .filters-bar-enter {
   opacity: 0.7;

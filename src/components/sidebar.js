@@ -15,12 +15,10 @@ export function Sidebar({
       className={`${className || ''} flex-child  border border--gray-light border--1
         `}
     >
-      <div className="flex-parent flex-parent--column h-full hmax-full">
-        <div className="flex-child flex-child">
-          {title}
-        </div>
-        {children}
+      <div className="flex-child flex-child">
+        {title}
       </div>
+      {children}
     </div>
   );
 }
