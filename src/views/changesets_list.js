@@ -5,6 +5,9 @@ import { List as ImmutableList, Map } from 'immutable';
 import R from 'ramda';
 import Mousetrap from 'mousetrap';
 
+import type { RootStateType } from '../store';
+import type { ChangesetType } from '../store/changeset_reducer';
+
 import { history } from '../store';
 import { getChangeset } from '../store/changeset_actions';
 import { getChangesetsPage } from '../store/changesets_page_actions';
@@ -14,16 +17,15 @@ import {
   logUserOut
 } from '../store/auth_actions';
 
-import type { RootStateType } from '../store';
-import type { ChangesetType } from '../store/changeset_reducer';
-
 import { List } from '../components/list';
 import { Button } from '../components/button';
+import { PageRange } from '../components/list/page_range';
 
 import { NEXT_CHANGESET, PREV_CHANGESET } from '../config/bindings';
 import { osmAuthUrl } from '../config/constants';
 import { createPopup } from '../utils/create_popup';
 import { handlePopupCallback } from '../utils/handle_popup_callback';
+const RANGE = 6;
 
 class ChangesetsList extends React.PureComponent {
   props: {
@@ -81,7 +83,6 @@ class ChangesetsList extends React.PureComponent {
         loading={loading}
         cachedChangesets={this.props.cachedChangesets}
         getChangeset={this.props.getChangeset}
-        getChangesetsPage={this.props.getChangesetsPage}
         pageIndex={this.props.pageIndex}
       />
     );
@@ -107,9 +108,10 @@ class ChangesetsList extends React.PureComponent {
     if (error) {
       return <div>error {JSON.stringify(error.stack)} </div>;
     }
+    const base = parseInt(this.props.pageIndex / RANGE, 10) * RANGE;
     return (
-      <div className="flex-parent flex-parent--column flex-child--grow">
-        <div className="h55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around top relative">
+      <div className="flex-parent flex-parent--column h-full">
+        <div className="hmin55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
           {this.props.userDetails &&
             <span> Hi, {this.props.userDetails.get('username')}</span>}
           {this.props.token
@@ -124,6 +126,28 @@ class ChangesetsList extends React.PureComponent {
               </Button>}
         </div>
         {this.showList()}
+        <footer className="hmin55 p12 pb24 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
+          <PageRange
+            page={'<'}
+            pageIndex={this.props.pageIndex - 1}
+            getChangesetsPage={this.props.getChangesetsPage}
+          />
+          {R.range(base, base + RANGE).map(n => (
+            <PageRange
+              key={n}
+              page={n}
+              pageIndex={n}
+              active={n === this.props.pageIndex}
+              getChangesetsPage={this.props.getChangesetsPage}
+            />
+          ))}
+          <PageRange
+            page={'>'}
+            pageIndex={this.props.pageIndex + 1}
+            getChangesetsPage={this.props.getChangesetsPage}
+          />
+        </footer>
+
       </div>
     );
   }

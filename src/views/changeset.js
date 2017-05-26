@@ -5,10 +5,6 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 
-import {
-  getChangeset,
-  handleChangesetModify
-} from '../store/changeset_actions';
 import { Changeset as ChangesetDumb } from '../components/changeset';
 import { Navbar } from '../components/navbar';
 import { Sidebar } from '../components/sidebar';
@@ -16,6 +12,10 @@ import { Loading } from '../components/loading';
 import { Filters } from '../components/filters';
 import { Verify } from '../components/changeset/verify';
 
+import {
+  getChangeset,
+  handleChangesetModify
+} from '../store/changeset_actions';
 import { FILTER_BINDING } from '../config/bindings';
 import { dispatchEvent } from '../utils/dispatch_event';
 
@@ -94,7 +94,6 @@ class Changeset extends React.PureComponent {
         errorChangeset={changeset.get('errorChangeset')}
         errorChangesetMap={changeset.get('errorChangesetMap')}
         currentChangesetMap={currentChangesetMap}
-        dimensions={this.state.dimensions}
         scrollUp={this.scrollUp}
         scrollDown={this.scrollDown}
       />
@@ -125,9 +124,6 @@ class Changeset extends React.PureComponent {
   };
   scrollable = null;
   render() {
-    if (this.props.currentChangeset) {
-      console.log(this.props.currentChangeset.toJS().properties);
-    }
     return (
       <div className="flex-parent flex-parent--column bg-gray-faint clip transition border border-l--0 border--gray-light border--1">
         <Navbar

@@ -12,7 +12,6 @@ export function Details({
 }) {
   const source = properties.get('source');
   const user = properties.get('user');
-
   const editor = properties.get('editor');
   const imagery = properties.get('imagery_used');
   const date = properties.get('date');
