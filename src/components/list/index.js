@@ -9,7 +9,7 @@ import { Loading } from '../loading';
 
 export class List extends React.PureComponent {
   props: {
-    data: ImmutableList<Map<string, *>>,
+    currentPage: ?Map<string, *>,
     getChangeset: number => any,
     activeChangesetId: ?number,
     cachedChangesets: Map<string, *>,
@@ -17,10 +17,15 @@ export class List extends React.PureComponent {
     loading: boolean
   };
   shouldComponentUpdate(nextProps: Object) {
+    console.log(
+      nextProps.currentPage !== this.props.currentPage,
+      nextProps.currentPage && nextProps.currentPage.toJS(),
+      this.props.currentPage && this.props.currentPage.toJS()
+    );
     return (
       nextProps.loading !== this.props.loading ||
       nextProps.activeChangesetId !== this.props.activeChangesetId ||
-      nextProps.data !== this.props.data
+      nextProps.currentPage !== this.props.currentPage
     );
   }
   handleScroll = (r: HTMLElement) => {
@@ -32,10 +37,13 @@ export class List extends React.PureComponent {
   render() {
     console.log('render');
     return (
-      <ul className="flex-parent flex-parent--column scroll-auto">
-        {this.props.loading
+      <ul
+        className="flex-parent flex-parent--column scroll-auto"
+        style={{ flexGrow: 8 }}
+      >
+        {!this.props.currentPage || this.props.loading
           ? <Loading />
-          : this.props.data.map((f, k) => (
+          : this.props.currentPage.get('features').map((f, k) => (
               <Row
                 active={f.get('id') === this.props.activeChangesetId}
                 properties={f.get('properties')}

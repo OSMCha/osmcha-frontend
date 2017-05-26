@@ -74,12 +74,11 @@ class ChangesetsList extends React.PureComponent {
   }
   showList = () => {
     const { currentPage, loading } = this.props;
-    if (!currentPage) return null;
-    const features: ImmutableList<Map<string, *>> = currentPage.get('features');
+    // if (!currentPage) return null;
     return (
       <List
         activeChangesetId={this.props.activeChangesetId}
-        data={features}
+        currentPage={currentPage}
         loading={loading}
         cachedChangesets={this.props.cachedChangesets}
         getChangeset={this.props.getChangeset}
