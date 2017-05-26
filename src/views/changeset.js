@@ -4,6 +4,7 @@ import Mousetrap from 'mousetrap';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
+import { Link } from 'react-router-dom';
 
 import { Changeset as ChangesetDumb } from '../components/changeset';
 import { Navbar } from '../components/navbar';
@@ -124,12 +125,14 @@ class Changeset extends React.PureComponent {
   };
   scrollable = null;
   render() {
+    const width = window.innerWidth;
     return (
       <div className="flex-parent flex-parent--column bg-gray-faint clip transition border border-l--0 border--gray-light border--1">
         <Navbar
           className="bg-white color-gray border-b border--gray-light border--1"
           title={
             <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
+              {width < 800 && <Link to="/">{'<'}</Link>}
               <span className="txt-l">
                 Changeset:
                 {' '}

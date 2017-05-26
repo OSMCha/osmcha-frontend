@@ -98,7 +98,9 @@ class ChangesetsList extends React.PureComponent {
     const { currentPage, loading } = this.props;
 
     return (
-      <div className="flex-parent flex-parent--column changesets-list">
+      <div
+        className={`flex-parent flex-parent--column changesets-list ${window.innerWidth < 800 ? 'viewport-full' : ''}`}
+      >
         <header className="hmin55 h55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
           {this.props.userDetails &&
             <span> Hi, {this.props.userDetails.get('username')}</span>}

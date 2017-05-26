@@ -39,44 +39,66 @@ class App extends Component {
     });
   };
   render() {
-    return (
-      <div className="viewport-full  clip">
-        <div className="grid">
-          <Sidebar
-            className="col col--3-mxl col--3-ml"
-            title={
-              <Navbar
-                className="bg-white  border-b border--gray-light border--1"
-                title={
-                  <span className="txt-fancy color-gray txt-xl">
-                    <span className="color-green txt-bold">
-                      OSM
+    const width = window.innerWidth;
+    if (width > 800) {
+      return (
+        <div className="viewport-full  clip">
+          <div className="grid">
+            <Sidebar
+              className="col col--3-mxl col--3-ml"
+              title={
+                <Navbar
+                  className="bg-white  border-b border--gray-light border--1"
+                  title={
+                    <span className="txt-fancy color-gray txt-xl">
+                      <span className="color-green txt-bold">
+                        OSM
+                      </span>
+                      {' '}
+                      CHA
                     </span>
-                    {' '}
-                    CHA
-                  </span>
-                }
-              />
-            }
-          >
-            <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
-          </Sidebar>
-          <div className="col col--9-mxl col--9-ml col--12-mm clip">
-            <Route exact path="/" component={Changeset} />
-            <Route path="/changesets/:id" component={Changeset} />
+                  }
+                />
+              }
+            >
+              <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
+            </Sidebar>
+            <div className="col col--9-mxl col--9-ml col--12-mm clip">
+              <Route exact path="/" component={Changeset} />
+              <Route path="/changesets/:id" component={Changeset} />
+              <Route path="/about" component={About} />
+              <Route path="/stats" component={Stats} />
+              <Route path="/features" component={Features} />
+            </div>
+
+          </div>
+          <ToastContainer
+            ref="toastr"
+            toastMessageFactory={ToastMessageFactory}
+            className="toast-top-right"
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className="viewport-full  clip">
+
+          <div className="col  clip">
+            <Route exact path="/" render={() => <ChangesetsList />} />
+            <Route path="/changesets/:id" component={Changeset} mobile />
             <Route path="/about" component={About} />
             <Route path="/stats" component={Stats} />
             <Route path="/features" component={Features} />
           </div>
 
+          <ToastContainer
+            ref="toastr"
+            toastMessageFactory={ToastMessageFactory}
+            className="toast-top-right"
+          />
         </div>
-        <ToastContainer
-          ref="toastr"
-          toastMessageFactory={ToastMessageFactory}
-          className="toast-top-right"
-        />
-      </div>
-    );
+      );
+    }
   }
 }
 
