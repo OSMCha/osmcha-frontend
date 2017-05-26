@@ -25,7 +25,7 @@ import type { RootStateType } from '../store';
 class Changeset extends React.PureComponent {
   props: {
     changeset: ChangesetType,
-    currentChangeset: Object,
+    currentChangeset: Map<string, *>,
     changesetId: number, // is also the the param :id
     match: Object,
     getChangeset: number => mixed,
