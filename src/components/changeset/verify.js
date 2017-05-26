@@ -1,5 +1,5 @@
-import React from 'react'
-export function Verify({changeset, options, className, onChange, value}) {
+import React from 'react';
+export function Verify({ changeset, options, className, onChange, value }) {
   if (changeset.getIn(['properties', 'checked'])) {
     return (
       <button className={'btn btn--pill btn--s color-gray btn--gray-faint'}>
@@ -7,7 +7,7 @@ export function Verify({changeset, options, className, onChange, value}) {
           {changeset.getIn(['properties', 'harmful']) ? 'Harmful' : 'Good'}
         </a>
       </button>
-    )
+    );
   }
   return (
     <div className="select-container">
@@ -27,5 +27,5 @@ export function Verify({changeset, options, className, onChange, value}) {
       </select>
       <div className="select-arrow" />
     </div>
-  )
+  );
 }

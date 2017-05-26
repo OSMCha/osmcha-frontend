@@ -1,31 +1,29 @@
 /* @flow */
-import {List, Map} from 'immutable';
+import { List, Map } from 'immutable';
 
 import {
   CHANGESETS_PAGE_FETCHED,
   CHANGESETS_PAGE_CHANGE,
   CHANGESETS_PAGE_LOADING,
-  CHANGESETS_PAGE_ERROR,
+  CHANGESETS_PAGE_ERROR
 } from './changesets_page_actions';
 
 export type ChangesetsPageType = Map<
-  | 'currentPage'
-  | 'pages'
-  | 'pageIndex'
-  | 'loading'
-  | 'error', any>;
+  "currentPage" | "pages" | "pageIndex" | "loading" | "error",
+  any
+>;
 
 const changesetsInitial: ChangesetsPageType = new Map({
   pageIndex: 0,
   currentPage: null,
   pages: new List(),
   loading: false,
-  error: null,
+  error: null
 });
 
 export function changesetsPageReducer(
   state: ChangesetsPageType = changesetsInitial,
-  action: Object,
+  action: Object
 ): ChangesetsPageType {
   switch (action.type) {
     case CHANGESETS_PAGE_LOADING: {

@@ -1,13 +1,15 @@
 // @flow
 import React from 'react';
-import {Map} from 'immutable';
+import { Map } from 'immutable';
 
-export function Comment(
-  {
-    properties,
-    changesetId,
-  }: {properties: Map<string, *>, changesetId: number, expanded?: boolean},
-) {
+export function Comment({
+  properties,
+  changesetId
+}: {
+  properties: Map<string, *>,
+  changesetId: number,
+  expanded?: boolean
+}) {
   const comment = properties.get('comment');
   return (
     <div className="p12 ">

@@ -1,6 +1,6 @@
 // @flow
-import {API_URL} from '../config';
-import {PAGE_SIZE} from '../config/constants';
+import { API_URL } from '../config';
+import { PAGE_SIZE } from '../config/constants';
 
 export function fetchChangesetsPage(pageIndex: number, token: ?string) {
   console.log(token);
@@ -10,8 +10,8 @@ export function fetchChangesetsPage(pageIndex: number, token: ?string) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: token ? `Token ${token}` : '',
-      },
-    },
+        Authorization: token ? `Token ${token}` : ''
+      }
+    }
   ).then(res => res.json());
 }

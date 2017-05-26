@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
-import {Provider} from 'react-redux';
-import {store, history} from './store';
-import {ConnectedRouter} from 'react-router-redux';
+import { Provider } from 'react-redux';
+import { store, history } from './store';
+import { ConnectedRouter } from 'react-router-redux';
 // if (process.env.NODE_ENV === 'production') {
 //   const {whyDidYouUpdate} = require('why-did-you-update');
 //   whyDidYouUpdate(React);
@@ -19,5 +19,5 @@ ReactDOM.render(
       <App />
     </ConnectedRouter>
   </Provider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );

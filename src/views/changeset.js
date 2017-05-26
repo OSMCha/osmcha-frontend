@@ -1,23 +1,26 @@
 // @flow
-import React from 'react'
-import Mousetrap from 'mousetrap'
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
-import {connect} from 'react-redux'
-import {Map} from 'immutable'
+import React from 'react';
+import Mousetrap from 'mousetrap';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { connect } from 'react-redux';
+import { Map } from 'immutable';
 
-import {getChangeset, handleChangesetModify} from '../store/changeset_actions'
-import {Changeset as ChangesetDumb} from '../components/changeset'
-import {Navbar} from '../components/navbar'
-import {Sidebar} from '../components/sidebar'
-import {Loading} from '../components/loading'
-import {Filters} from '../components/filters'
-import {Verify} from '../components/changeset/verify'
+import {
+  getChangeset,
+  handleChangesetModify
+} from '../store/changeset_actions';
+import { Changeset as ChangesetDumb } from '../components/changeset';
+import { Navbar } from '../components/navbar';
+import { Sidebar } from '../components/sidebar';
+import { Loading } from '../components/loading';
+import { Filters } from '../components/filters';
+import { Verify } from '../components/changeset/verify';
 
-import {FILTER_BINDING} from '../config/bindings'
-import {dispatchEvent} from '../utils/dispatch_event'
+import { FILTER_BINDING } from '../config/bindings';
+import { dispatchEvent } from '../utils/dispatch_event';
 
-import type {ChangesetType} from '../store/changeset_reducer'
-import type {RootStateType} from '../store'
+import type { ChangesetType } from '../store/changeset_reducer';
+import type { RootStateType } from '../store';
 
 class Changeset extends React.PureComponent {
   props: {
@@ -27,52 +30,52 @@ class Changeset extends React.PureComponent {
     match: Object,
     getChangeset: number => mixed,
     handleChangesetModify: (number, Map<string, *>, boolean) => mixed
-  }
+  };
   state = {
     filter: false,
     dimensions: {
       width: -1,
       height: -1
     }
-  }
+  };
   constructor(props) {
-    super(props)
-    var changesetId = this.props.changesetId
+    super(props);
+    var changesetId = this.props.changesetId;
     if (!Number.isNaN(changesetId)) {
-      this.props.getChangeset(changesetId)
+      this.props.getChangeset(changesetId);
     }
   }
   componentDidMount() {
     Mousetrap.bind(FILTER_BINDING, () => {
-      this.toggleFilter()
-    })
+      this.toggleFilter();
+    });
     Mousetrap.bind('f', () => {
-      var cmapSidebar = document.getElementsByClassName('cmap-sidebar')[0]
+      var cmapSidebar = document.getElementsByClassName('cmap-sidebar')[0];
       if (cmapSidebar) {
         cmapSidebar.style.visibility = cmapSidebar.style.visibility === 'hidden'
           ? 'visible'
-          : 'hidden'
+          : 'hidden';
       }
-    })
+    });
   }
   componentWillReceiveProps(nextProps) {
-    var newId = nextProps.changesetId
-    var oldId = this.props.changesetId
+    var newId = nextProps.changesetId;
+    var oldId = this.props.changesetId;
     if (Number.isNaN(newId)) {
-      return
+      return;
     }
     if (newId !== oldId) {
-      this.props.getChangeset(newId)
+      this.props.getChangeset(newId);
     }
   }
   showChangeset = () => {
-    const {match, changeset, currentChangeset} = this.props
-    const currentChangesetMap: Object = changeset.get('currentChangesetMap')
+    const { match, changeset, currentChangeset } = this.props;
+    const currentChangesetMap: Object = changeset.get('currentChangesetMap');
     if (match.path !== '/changesets/:id' || !this.props.changesetId) {
-      return <div> batpad, please select a changeset </div>
+      return <div> batpad, please select a changeset </div>;
     }
     if (changeset.get('loading') || !currentChangeset) {
-      return <Loading />
+      return <Loading />;
     }
     if (changeset.get('errorChangeset')) {
       dispatchEvent('showToast', {
@@ -80,9 +83,9 @@ class Changeset extends React.PureComponent {
         content: 'Try reloading osmcha',
         timeOut: 5000,
         type: 'error'
-      })
-      console.error(changeset.get('errorChangeset'))
-      return null
+      });
+      console.error(changeset.get('errorChangeset'));
+      return null;
     }
     return (
       <ChangesetDumb
@@ -95,35 +98,35 @@ class Changeset extends React.PureComponent {
         scrollUp={this.scrollUp}
         scrollDown={this.scrollDown}
       />
-    )
-  }
+    );
+  };
   toggleFilter = () => {
     this.setState({
       filter: !this.state.filter
-    })
-  }
+    });
+  };
   scrollDown = () => {
     if (this.scrollable) {
-      window.s = this.scrollable
-      this.scrollable.scrollTop = window.innerHeight
+      window.s = this.scrollable;
+      this.scrollable.scrollTop = window.innerHeight;
     }
-  }
+  };
   scrollUp = () => {
     if (this.scrollable) {
-      this.scrollable.scrollTop = 0
+      this.scrollable.scrollTop = 0;
     }
-  }
+  };
   handleVerify = e => {
     this.props.handleChangesetModify(
       this.props.changesetId,
       this.props.currentChangeset,
       e.target.value === 'true' ? true : false
-    )
-  }
-  scrollable = null
+    );
+  };
+  scrollable = null;
   render() {
     if (this.props.currentChangeset) {
-      console.log(this.props.currentChangeset.toJS().properties)
+      console.log(this.props.currentChangeset.toJS().properties);
     }
     return (
       <div className="flex-parent flex-parent--column bg-gray-faint clip transition border border-l--0 border--gray-light border--1">
@@ -235,7 +238,7 @@ class Changeset extends React.PureComponent {
           </CSSTransitionGroup>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -248,7 +251,7 @@ Changeset = connect(
       parseInt(props.match.params.id, 10)
     ])
   }),
-  {getChangeset, handleChangesetModify}
-)(Changeset)
+  { getChangeset, handleChangesetModify }
+)(Changeset);
 
-export {Changeset}
+export { Changeset };

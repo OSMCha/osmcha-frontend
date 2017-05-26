@@ -1,25 +1,29 @@
 // @flow
-import React from 'react'
-import {connect} from 'react-redux'
-import {List as ImmutableList, Map} from 'immutable'
-import R from 'ramda'
-import Mousetrap from 'mousetrap'
+import React from 'react';
+import { connect } from 'react-redux';
+import { List as ImmutableList, Map } from 'immutable';
+import R from 'ramda';
+import Mousetrap from 'mousetrap';
 
-import {history} from '../store'
-import {getChangeset} from '../store/changeset_actions'
-import {getChangesetsPage} from '../store/changesets_page_actions'
-import {getOAuthToken, getFinalToken, logUserOut} from '../store/auth_actions'
+import { history } from '../store';
+import { getChangeset } from '../store/changeset_actions';
+import { getChangesetsPage } from '../store/changesets_page_actions';
+import {
+  getOAuthToken,
+  getFinalToken,
+  logUserOut
+} from '../store/auth_actions';
 
-import type {RootStateType} from '../store'
-import type {ChangesetType} from '../store/changeset_reducer'
+import type { RootStateType } from '../store';
+import type { ChangesetType } from '../store/changeset_reducer';
 
-import {List} from '../components/list'
-import {Button} from '../components/button'
+import { List } from '../components/list';
+import { Button } from '../components/button';
 
-import {NEXT_CHANGESET, PREV_CHANGESET} from '../config/bindings'
-import {osmAuthUrl} from '../config/constants'
-import {createPopup} from '../utils/create_popup'
-import {handlePopupCallback} from '../utils/handle_popup_callback'
+import { NEXT_CHANGESET, PREV_CHANGESET } from '../config/bindings';
+import { osmAuthUrl } from '../config/constants';
+import { createPopup } from '../utils/create_popup';
+import { handlePopupCallback } from '../utils/handle_popup_callback';
 
 class ChangesetsList extends React.PureComponent {
   props: {
@@ -38,38 +42,38 @@ class ChangesetsList extends React.PureComponent {
     activeChangesetId: ?number,
     oAuthToken: ?string,
     token: ?string
-  }
+  };
   constructor(props) {
-    super(props)
-    this.props.getChangesetsPage(0)
+    super(props);
+    this.props.getChangesetsPage(0);
   }
   goUpDownToChangeset = (direction: number) => {
-    let features = this.props.currentPage.get('features')
+    let features = this.props.currentPage.get('features');
     if (features) {
       let index = features.findIndex(
         f => f.get('id') === this.props.activeChangesetId
-      )
-      index += direction
-      const nextFeature = features.get(index)
+      );
+      index += direction;
+      const nextFeature = features.get(index);
       if (nextFeature) {
-        history.push(`/changesets/${nextFeature.get('id')}`)
+        history.push(`/changesets/${nextFeature.get('id')}`);
       }
     }
-  }
+  };
   componentDidMount() {
     Mousetrap.bind(NEXT_CHANGESET, e => {
-      e.preventDefault()
-      this.goUpDownToChangeset(1)
-    })
+      e.preventDefault();
+      this.goUpDownToChangeset(1);
+    });
     Mousetrap.bind(PREV_CHANGESET, e => {
-      e.preventDefault()
-      this.goUpDownToChangeset(-1)
-    })
+      e.preventDefault();
+      this.goUpDownToChangeset(-1);
+    });
   }
   showList = () => {
-    const {currentPage, loading} = this.props
-    if (!currentPage) return null
-    const features: ImmutableList<Map<string, *>> = currentPage.get('features')
+    const { currentPage, loading } = this.props;
+    if (!currentPage) return null;
+    const features: ImmutableList<Map<string, *>> = currentPage.get('features');
     return (
       <List
         activeChangesetId={this.props.activeChangesetId}
@@ -80,8 +84,8 @@ class ChangesetsList extends React.PureComponent {
         getChangesetsPage={this.props.getChangesetsPage}
         pageIndex={this.props.pageIndex}
       />
-    )
-  }
+    );
+  };
 
   handleLoginClick = () => {
     if (this.props.oAuthToken) {
@@ -90,18 +94,18 @@ class ChangesetsList extends React.PureComponent {
         process.env.NODE_ENV === 'production'
           ? `${osmAuthUrl}?oauth_token=${this.props.oAuthToken}`
           : '/local-landing.html'
-      )
+      );
       handlePopupCallback().then(oAuthObj => {
-        console.log('popupgave', oAuthObj)
-        this.props.getFinalToken(oAuthObj.oauth_verifier)
-      })
+        console.log('popupgave', oAuthObj);
+        this.props.getFinalToken(oAuthObj.oauth_verifier);
+      });
     }
-  }
+  };
 
   render() {
-    const {error} = this.props
+    const { error } = this.props;
     if (error) {
-      return <div>error {JSON.stringify(error.stack)} </div>
+      return <div>error {JSON.stringify(error.stack)} </div>;
     }
     return (
       <div className="flex-parent flex-parent--column flex-child--grow">
@@ -121,7 +125,7 @@ class ChangesetsList extends React.PureComponent {
         </div>
         {this.showList()}
       </div>
-    )
+    );
   }
 }
 
@@ -147,5 +151,5 @@ ChangesetsList = connect(
     getFinalToken,
     logUserOut
   }
-)(ChangesetsList)
-export {ChangesetsList}
+)(ChangesetsList);
+export { ChangesetsList };

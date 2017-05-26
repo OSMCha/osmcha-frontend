@@ -1,19 +1,19 @@
 // @flow
 import React from 'react';
-import {Map} from 'immutable';
+import { Map } from 'immutable';
 
 type Props = {
   properties: Map<string, *>,
-  changesetId: number,
+  changesetId: number
 };
 
 type State = {
-  discussions: Array<Object>,
+  discussions: Array<Object>
 };
 
 export class Discussions extends React.PureComponent<void, Props, State> {
   state = {
-    discussions: [],
+    discussions: []
   };
   constructor(props: Props) {
     super(props);
@@ -21,13 +21,13 @@ export class Discussions extends React.PureComponent<void, Props, State> {
   }
   getData = (changesetId: number) => {
     fetch(
-      `https://osm-comments-api.mapbox.com/api/v1/changesets/${changesetId}`,
+      `https://osm-comments-api.mapbox.com/api/v1/changesets/${changesetId}`
     )
       .then(r => r.json())
       .then(x => {
         if (x && x.properties && Array.isArray(x.properties.comments)) {
           this.setState({
-            discussions: x.properties.comments,
+            discussions: x.properties.comments
           });
         }
       });
