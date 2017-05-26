@@ -1,21 +1,17 @@
 // @flow
 import { API_URL } from '../config';
-function foo() {
-  var x = 5;
-  function fetchChangeset(id: number, token: ?string) {
-    return fetch(`${API_URL}/changesets/${id}/`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token ? `Token ${token}` : ''
-      }
-    }).then(res => res.json());
-    console.log(x);
-  }
+
+export function fetchChangeset(id: number, token: ?string) {
+  return fetch(`${API_URL}/changesets/${id}/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token ? `Token ${token}` : ''
+    }
+  }).then(res => res.json());
 }
-console.log(x);
+
 export function setHarmful(id: number, token: string, harmful: boolean) {
-  console.log(harmful);
   return fetch(
     `${API_URL}/changesets/${id}/${harmful ? 'set-harmful' : 'set-good'}/`,
     {
@@ -35,16 +31,3 @@ export function setHarmful(id: number, token: string, harmful: boolean) {
     return res.json();
   });
 }
-
-// export function setGood(id: number, token: string, tags: ?Array<string>) {
-//   return fetch(`${API_URL}/changesets/${id}/set-good/`, {
-//     method: 'PUT',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Authorization: token ? `Token ${token}` : ''
-//     }
-//   }).then(res => res.json());
-// }
-
-// window.setHarmful = setHarmful;
-// window.setGood = setGood;
