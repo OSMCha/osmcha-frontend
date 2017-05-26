@@ -159,37 +159,23 @@ class Changeset extends React.PureComponent {
                   </a>
                 </button>
                 {this.props.currentChangeset &&
-                  this.props.currentChangeset.getIn(['properties', 'checked'])
-                  ? <button
-                      className={
-                        'btn btn--pill btn--s color-gray btn--gray-faint'
+                  <Verify
+                    changeset={this.props.currentChangeset}
+                    placeholder="Verify"
+                    onChange={this.handleVerify}
+                    value="verify"
+                    options={[
+                      {
+                        value: false,
+                        display: 'Good'
+                      },
+                      {
+                        value: true,
+                        display: 'Bad'
                       }
-                    >
-                      <a target="_blank" href={'http://hdyc.neis-one.org/?'}>
-                        {this.props.currentChangeset.getIn([
-                          'properties',
-                          'harmful'
-                        ])
-                          ? 'Harmful'
-                          : 'Good'}
-                      </a>
-                    </button>
-                  : <Verify
-                      placeholder="Verify"
-                      onChange={this.handleVerify}
-                      value="verify"
-                      options={[
-                        {
-                          value: false,
-                          display: 'Good'
-                        },
-                        {
-                          value: true,
-                          display: 'Bad'
-                        }
-                      ]}
-                      className="select--s"
-                    />}
+                    ]}
+                    className="select--s"
+                  />}
 
               </span>
 
