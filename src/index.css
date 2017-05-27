@@ -111,7 +111,7 @@ body {
 
 .map-hide-appear.example-appear-active {
   opacity: 1;
-  transition: opacity .5s ease-in;
+  transition: opacity .3s ease-in;
 }
 
 .map-hide-enter {
@@ -129,8 +129,8 @@ body {
 }
 
 .map-hide-leave.map-hide-leave-active {
-  opacity: 0.01;  
-  transition: opacity 100ms ease-in;
+  opacity: 0.5;  
+  transition: opacity 700ms ease-in;
 }
 
 .tippy-tooltip.osmcha-theme {

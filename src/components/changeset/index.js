@@ -160,6 +160,9 @@ export class Changeset extends React.PureComponent {
             </div>
           }
         />
+        <div className="flex-child flex-child--grow bg-black h-full">
+          {' '}&nbsp;
+        </div>
         <Floater
           style={{
             top: 55 * 2,

@@ -31,7 +31,7 @@ function loadMap() {
   }
 }
 
-var minDebounce = loadMap;
+var minDebounce = debounce(loadMap, 200);
 
 class CMap extends React.PureComponent {
   props: {
@@ -56,11 +56,7 @@ class CMap extends React.PureComponent {
       height = parseInt(window.innerHeight - 2 * 55, 10);
       width = parseInt(rect.width, 10);
     }
-    setTimeout(() => {
-      this.setState({
-        visible: true
-      });
-    }, 2000);
+
     loadMap();
   }
   componentWillUnmount() {
@@ -102,12 +98,22 @@ class CMap extends React.PureComponent {
     currentChangesetMap = this.props.currentChangesetMap;
     return (
       <div className={`wmin480 ${this.props.className}`} ref={this.setRef}>
+        <div
+          id="container"
+          className="border border--2 border--gray-dark"
+          style={{
+            visibility: !(this.props.loadingChangesetMap ||
+              this.props.errorChangesetMap)
+              ? 'visible'
+              : 'hidden'
+          }}
+        />
         <CSSTransitionGroup
           transitionName="map-hide"
           transitionAppearTimeout={300}
           transitionAppear={true}
           transitionEnterTimeout={300}
-          transitionLeaveTimeout={150}
+          transitionLeaveTimeout={700}
         >
           {(this.props.loadingChangesetMap || this.props.errorChangesetMap) &&
             <div
@@ -120,18 +126,11 @@ class CMap extends React.PureComponent {
                 height: this.state.height,
                 width: this.state.width
               }}
-            />}
+            >
+              <Loading />
+            </div>}
         </CSSTransitionGroup>
-        <div
-          id="container"
-          className="border border--2 border--gray-dark"
-          style={{
-            visibility: !(this.props.loadingChangesetMap ||
-              this.props.errorChangesetMap)
-              ? 'visible'
-              : 'hidden'
-          }}
-        />
+
       </div>
     );
   }
