@@ -103,6 +103,36 @@ body {
   transition: opacity 100ms ease-in;
 }
 
+
+
+.map-hide-appear {
+  opacity: 0.01;
+}
+
+.map-hide-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.map-hide-enter {
+  opacity: 0.01;
+}
+
+.map-hide-enter.map-hide-enter-active {
+  opacity: 1;
+  /*transition: opacity 500ms ease-out;*/
+   animation: 0.3s fadeIn ease-out;
+}
+
+.map-hide-leave {
+  opacity: 1;
+}
+
+.map-hide-leave.map-hide-leave-active {
+  opacity: 0.01;  
+  transition: opacity 100ms ease-in;
+}
+
 .tippy-tooltip.osmcha-theme {
     /* Your styling here. Example: */
     background-color: #f7f7f7;

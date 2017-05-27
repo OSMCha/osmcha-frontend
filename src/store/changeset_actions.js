@@ -172,6 +172,11 @@ export function* fetchChangesetMapAction({
       })
     );
   } else {
+    yield put(
+      action(CHANGESET_MAP_LOADING, {
+        changesetId
+      })
+    );
     try {
       changesetMap = yield call(getCMapData, changesetId);
       yield put(

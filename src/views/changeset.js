@@ -128,15 +128,18 @@ class Changeset extends React.PureComponent {
     const width = window.innerWidth;
     return (
       <div className="flex-parent flex-parent--column bg-gray-faint clip transition border border-l--0 border--gray-light border--1">
+
         <Navbar
           className="bg-white color-gray border-b border--gray-light border--1"
           title={
             <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
-              {width < 800 && <Link to="/">{'<'}</Link>}
-              <span className="txt-l">
-                Changeset:
-                {' '}
-                <span className="txt-em">{this.props.changesetId}</span>
+              <span>
+                {width < 800 && <Link to="/">{'<  '}</Link>}
+                <span className="txt-l">
+                  Changeset:
+                  {' '}
+                  <span className="txt-em">{this.props.changesetId}</span>
+                </span>
               </span>
               <span>
 
@@ -175,9 +178,7 @@ class Changeset extends React.PureComponent {
                     ]}
                     className="select--s"
                   />}
-
               </span>
-
             </div>
           }
           buttons={

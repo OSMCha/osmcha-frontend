@@ -84,7 +84,8 @@ export function changesetReducer(
       return state
         .set('changesetId', action.changesetId)
         .set('currentChangesetMap', changesetMap.get(action.changesetId))
-        .set('errorChangesetMap', null);
+        .set('errorChangesetMap', null)
+        .set('loadingChangesetMap', false);
     }
     case CHANGESET_MAP_FETCHED: {
       const changesetMap = state
@@ -93,6 +94,7 @@ export function changesetReducer(
       return state
         .set('changesetMap', changesetMap)
         .set('changesetId', action.changesetId)
+        .set('loadingChangesetMap', false)
         .set('currentChangesetMap', action.data)
         .set('errorChangesetMap', null);
     }
@@ -107,6 +109,7 @@ export function changesetReducer(
       return state
         .set('changesetId', action.changesetId)
         .set('currentChangesetMap', null)
+        .set('loadingChangesetMap', false)
         .set('errorChangesetMap', action.error);
     }
     case CHANGESET_MODIFY: {

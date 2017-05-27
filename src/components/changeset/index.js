@@ -7,8 +7,6 @@ import Mousetrap from 'mousetrap';
 import { Navbar } from '../navbar';
 import { Floater } from './floater';
 import { Header } from './header';
-import { CMap } from './map';
-import { Loading } from '../loading';
 import { Comment } from './comment';
 import { Features } from './features';
 import { Box } from './box';
@@ -31,7 +29,6 @@ export class Changeset extends React.PureComponent {
     currentChangeset: Map<string, *>,
     currentChangesetMap: ?Object,
     errorChangesetMap: ?Object,
-    dimensions: Object,
     scrollDown: () => void,
     scrollUp: () => void
   };
@@ -163,16 +160,6 @@ export class Changeset extends React.PureComponent {
             </div>
           }
         />
-        <Box className="wmin480" bg="bg-black">
-          {currentChangesetMap && this.state.width
-            ? <CMap
-                changesetId={changesetId}
-                adiffResult={currentChangesetMap}
-                width={this.state.width}
-                errorChangesetMap={errorChangesetMap}
-              />
-            : <Loading height={parseInt(window.innerHeight, 10)} />}
-        </Box>
         <Floater
           style={{
             top: 55 * 2,

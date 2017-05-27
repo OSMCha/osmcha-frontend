@@ -48,7 +48,7 @@ class ChangesetsList extends React.PureComponent {
   };
   constructor(props) {
     super(props);
-    this.props.getChangesetsPage(0);
+    this.props.getChangesetsPage(props.pageIndex);
   }
   goUpDownToChangeset = (direction: number) => {
     let features = this.props.currentPage.get('features');
@@ -157,7 +157,7 @@ ChangesetsList = connect(
     routing: state.routing,
     pathname: state.routing.location.pathname,
     currentPage: state.changesetsPage.get('currentPage'),
-    pageIndex: state.changesetsPage.get('pageIndex'),
+    pageIndex: state.changesetsPage.get('pageIndex') || 0,
     loading: state.changesetsPage.get('loading'),
     error: state.changesetsPage.get('error'),
     oAuthToken: state.auth.get('oAuthToken'),

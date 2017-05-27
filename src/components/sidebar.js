@@ -8,16 +8,13 @@ export function Sidebar({
 }: {
   title: Element<*>,
   children?: Children,
-  className?: string
+  className: string
 }) {
   return (
     <div
-      className={`${className || ''} flex-child  border border--gray-light border--1
-        `}
+      className={`${className} flex-child  border border--gray-light border--1`}
     >
-      <div className="flex-child flex-child">
-        {title}
-      </div>
+      {title}
       {children}
     </div>
   );
