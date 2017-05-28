@@ -5,11 +5,10 @@ import { render } from 'changeset-map';
 import { connect } from 'react-redux';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
-import { Box } from './box';
-import { Loading } from '../loading';
-import { dispatchEvent } from '../../utils/dispatch_event';
+import { Loading } from '../components/loading';
+import { dispatchEvent } from '../utils/dispatch_event';
 
-import type { RootStateType } from '../../store';
+import type { RootStateType } from '../store';
 
 let changesetId;
 let currentChangesetMap;

@@ -45,11 +45,6 @@ const sagaMiddleware = createSagaMiddleware();
 // Middlewares
 const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
-const stateTransformer = state => {
-  if (Iterable.isIterable(state)) return state.toJS();
-  else return state;
-};
-
 if (process.env.NODE_ENV !== 'production') {
   const logger = createLogger({
     stateTransformer: state => {

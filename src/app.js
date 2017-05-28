@@ -1,17 +1,17 @@
 // @flow
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import debounce from 'lodash.debounce';
+import { ToastContainer, ToastMessage } from 'react-toastr';
 
 import { Changeset } from './views/changeset';
 import { About } from './views/about';
 import { Stats } from './views/stats';
 import { Features } from './views/features';
+import { CMap } from './views/map';
 import { ChangesetsList } from './views/changesets_list';
 import { Sidebar } from './components/sidebar';
-import { ToastContainer, ToastMessage } from 'react-toastr';
 import { Navbar } from './components/navbar';
-import { CMap } from './components/changeset/map';
+
 var ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
 class App extends Component {
@@ -99,11 +99,7 @@ class App extends Component {
       return (
         <div className="viewport-full clip">
           <div className="col clip">
-            <Route
-              exact
-              path="/"
-              render={({ match }) => <ChangesetsList match={match} />}
-            />
+            <Route exact path="/" component={CMap} />
             <Route path="/changesets" render={RightSide} />
             <Route path="/about" component={About} />
             <Route path="/stats" component={Stats} />

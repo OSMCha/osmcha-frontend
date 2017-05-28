@@ -23,7 +23,6 @@ export class Row extends React.PureComponent {
   }
   wasOpen = false;
   render() {
-    console.log('rendering', this.props.changesetId);
     const { properties, changesetId, active, inputRef, ...other } = this.props;
     if (!this.wasOpen) {
       // way to show read/unread state without

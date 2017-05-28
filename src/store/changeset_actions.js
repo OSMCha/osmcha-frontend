@@ -1,12 +1,5 @@
 // @flow
-import {
-  put,
-  call,
-  take,
-  takeLatest,
-  select,
-  takeEvery
-} from 'redux-saga/effects';
+import { put, call, take, takeLatest, select, all } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { fromJS, Map } from 'immutable';
 
@@ -48,10 +41,10 @@ export const handleChangesetModify = (
 // watches for CHANGESET_FETCH_ASYNC and only
 // dispatches latest tofetchChangesetsPageAsync
 export function* watchChangeset(): any {
-  yield [
+  yield all([
     takeLatest(CHANGESET_FETCH_ASYNC, fetchChangesetAndChangesetMapAction),
     modifyChangeset()
-  ]; // on forking or not https://github.com/redux-saga/redux-saga/issues/178
+  ]); // on forking or not https://github.com/redux-saga/redux-saga/issues/178
 }
 
 export function* modifyChangeset(): any {
@@ -105,10 +98,10 @@ export function* fetchChangesetAndChangesetMapAction({
   changesetId: number
 }): Object {
   // run both in parallel
-  yield [
+  yield all([
     call(fetchChangesetAction, { changesetId }),
     call(fetchChangesetMapAction, { changesetId })
-  ];
+  ]);
 }
 
 export function* fetchChangesetAction({
