@@ -1,4 +1,4 @@
-export const PAGE_SIZE = 25;
+export const PAGE_SIZE = 90;
 
 export const overpassBase =
   '//overpass-cfn-production.tilestream.net/api/interpreter';

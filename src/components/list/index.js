@@ -4,7 +4,6 @@ import { List as ImmutableList, Map } from 'immutable';
 import R from 'ramda';
 import { Row } from './row';
 import { elementInViewport } from '../../utils/element_in_view';
-import { PageRange } from './page_range';
 import { Loading } from '../loading';
 
 export class List extends React.PureComponent {
