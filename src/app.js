@@ -28,7 +28,7 @@ class App extends Component {
   // trigger it via events
   showToast = (event: Object) => {
     const message = event.detail;
-    const messageType: "warning" | "error" | "success" | "info" = message.type;
+    const messageType: 'warning' | 'error' | 'success' | 'info' = message.type;
 
     this.refs.toastr[messageType](message.title, message.content, {
       timeOut: message.timeOut,
@@ -99,7 +99,7 @@ class App extends Component {
       return (
         <div className="viewport-full clip">
           <div className="col clip">
-            <Route exact path="/" component={CMap} />
+            <Route exact path="/" component={ChangesetsList} />
             <Route path="/changesets" render={RightSide} />
             <Route path="/about" component={About} />
             <Route path="/stats" component={Stats} />

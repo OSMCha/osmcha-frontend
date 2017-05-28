@@ -27,8 +27,6 @@ export class Changeset extends React.PureComponent {
   props: {
     changesetId: number,
     currentChangeset: Map<string, *>,
-    currentChangesetMap: ?Object,
-    errorChangesetMap: ?Object,
     scrollDown: () => void,
     scrollUp: () => void
   };
@@ -122,7 +120,7 @@ export class Changeset extends React.PureComponent {
     });
   };
   render() {
-    const { changesetId, currentChangesetMap, errorChangesetMap } = this.props;
+    const { changesetId } = this.props;
 
     const height = parseInt(window.innerHeight - 55, 10);
 

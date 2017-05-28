@@ -9,11 +9,11 @@ import {
 } from './auth_actions';
 export type AuthType = Map<
 
-    | "oAuthToken" //  osm
-    | "oAuthTokenSecret"
-    | "error"
-    | "token"
-    | "userDetails",
+    | 'oAuthToken' //  osm
+    | 'oAuthTokenSecret'
+    | 'error'
+    | 'token'
+    | 'userDetails',
   any
 >; // osmcha uses this
 

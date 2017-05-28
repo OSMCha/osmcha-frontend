@@ -156,7 +156,10 @@ ChangesetsList = connect(
   (state: RootStateType, props) => ({
     routing: state.routing,
     pathname: state.routing.location.pathname,
-    currentPage: state.changesetsPage.get('currentPage'),
+    currentPage: state.changesetsPage.getIn([
+      'pages',
+      state.changesetsPage.get('pageIndex')
+    ]),
     pageIndex: state.changesetsPage.get('pageIndex') || 0,
     loading: state.changesetsPage.get('loading'),
     error: state.changesetsPage.get('error'),

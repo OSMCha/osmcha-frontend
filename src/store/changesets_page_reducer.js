@@ -9,13 +9,12 @@ import {
 } from './changesets_page_actions';
 
 export type ChangesetsPageType = Map<
-  "currentPage" | "pages" | "pageIndex" | "loading" | "error",
+  'pages' | 'pageIndex' | 'loading' | 'error',
   any
 >;
 
 const changesetsInitial: ChangesetsPageType = new Map({
   pageIndex: 0,
-  currentPage: null,
   pages: new List(),
   loading: false,
   error: null
@@ -37,7 +36,6 @@ export function changesetsPageReducer(
       return state
         .set('pages', pages)
         .set('pageIndex', action.pageIndex)
-        .set('currentPage', action.data)
         .set('loading', false)
         .set('error', null);
     }
@@ -45,7 +43,6 @@ export function changesetsPageReducer(
       const pages = state.get('pages');
       return state
         .set('pageIndex', action.pageIndex)
-        .set('currentPage', pages.get(action.pageIndex))
         .set('loading', false)
         .set('error', null);
     }

@@ -13,43 +13,25 @@ import { Loading } from '../components/loading';
 import { Filters } from '../components/filters';
 import { Verify } from '../components/changeset/verify';
 
-import {
-  getChangeset,
-  handleChangesetModify
-} from '../store/changeset_actions';
+import { handleChangesetModify } from '../store/changeset_actions';
 import { FILTER_BINDING } from '../config/bindings';
 import { dispatchEvent } from '../utils/dispatch_event';
 
-import type { ChangesetType } from '../store/changeset_reducer';
 import type { RootStateType } from '../store';
 
 class Changeset extends React.PureComponent {
   props: {
-    changeset: ChangesetType,
+    errorChangeset: ?Object, // error of the latest that changeset failed
+    loading: boolean, // loading of the selected changesetId
     currentChangeset: Map<string, *>,
-    changesetId: number, // is also the the param :id
-    match: Object,
-    getChangeset: number => mixed,
+    changesetId: number,
     handleChangesetModify: (number, Map<string, *>, boolean) => mixed
   };
-  state = {
-    filter: false,
-    dimensions: {
-      width: -1,
-      height: -1
-    }
-  };
-  constructor(props) {
-    super(props);
-    var changesetId = this.props.changesetId;
-    if (!Number.isNaN(changesetId)) {
-      this.props.getChangeset(changesetId);
-    }
-  }
+  scrollable = null;
   componentDidMount() {
-    Mousetrap.bind(FILTER_BINDING, () => {
-      this.toggleFilter();
-    });
+    // Mousetrap.bind(FILTER_BINDING, () => {
+    //   this.toggleFilter();
+    // });
     Mousetrap.bind('f', () => {
       var cmapSidebar = document.getElementsByClassName('cmap-sidebar')[0];
       if (cmapSidebar) {
@@ -59,51 +41,37 @@ class Changeset extends React.PureComponent {
       }
     });
   }
-  componentWillReceiveProps(nextProps) {
-    var newId = nextProps.changesetId;
-    var oldId = this.props.changesetId;
-    if (Number.isNaN(newId)) {
-      return;
-    }
-    if (newId !== oldId) {
-      this.props.getChangeset(newId);
-    }
-  }
   showChangeset = () => {
-    const { match, changeset, currentChangeset } = this.props;
-    const currentChangesetMap: Object = changeset.get('currentChangesetMap');
-    if (match.path !== '/changesets/:id' || !this.props.changesetId) {
-      return <div> batpad, please select a changeset </div>;
-    }
-    if (changeset.get('loading') || !currentChangeset) {
+    const {
+      loading,
+      errorChangeset,
+      currentChangeset,
+      changesetId
+    } = this.props;
+
+    if (loading || !currentChangeset) {
       return <Loading />;
     }
-    if (changeset.get('errorChangeset')) {
+
+    if (errorChangeset) {
       dispatchEvent('showToast', {
-        title: 'changeset failed to load',
+        title: `changeset:${changesetId} failed to load`,
         content: 'Try reloading osmcha',
         timeOut: 5000,
         type: 'error'
       });
-      console.error(changeset.get('errorChangeset'));
+      console.error(errorChangeset);
       return null;
     }
     return (
       <ChangesetDumb
-        changesetId={this.props.changesetId}
+        changesetId={changesetId}
         currentChangeset={currentChangeset}
-        errorChangeset={changeset.get('errorChangeset')}
-        errorChangesetMap={changeset.get('errorChangesetMap')}
-        currentChangesetMap={currentChangesetMap}
+        errorChangeset={errorChangeset}
         scrollUp={this.scrollUp}
         scrollDown={this.scrollDown}
       />
     );
-  };
-  toggleFilter = () => {
-    this.setState({
-      filter: !this.state.filter
-    });
   };
   scrollDown = () => {
     if (this.scrollable) {
@@ -120,15 +88,13 @@ class Changeset extends React.PureComponent {
     this.props.handleChangesetModify(
       this.props.changesetId,
       this.props.currentChangeset,
-      e.target.value === 'true' ? true : false
+      e.target.value === 'true' ? true : false // whether harmful is true or false
     );
   };
-  scrollable = null;
   render() {
     const width = window.innerWidth;
     return (
       <div className="flex-parent flex-parent--column bg-gray-faint clip transition border border-l--0 border--gray-light border--1">
-
         <Navbar
           className="bg-white color-gray border-b border--gray-light border--1"
           title={
@@ -183,9 +149,9 @@ class Changeset extends React.PureComponent {
           }
           buttons={
             <a
-              className={`${this.state.filter ? 'is-active' : ''} flex-parent-inline btn color-gray-dark color-gray-dark-on-active bg-transparent bg-darken5-on-hover bg-gray-light-on-active txt-s ml3`}
+              className={`${false ? 'is-active' : ''} flex-parent-inline btn color-gray-dark color-gray-dark-on-active bg-transparent bg-darken5-on-hover bg-gray-light-on-active txt-s ml3`}
               href="#"
-              onClick={this.toggleFilter}
+              onClick={() => {}}
             >
               <svg className="icon"><use xlinkHref="#icon-osm" /></svg>
             </a>
@@ -204,7 +170,7 @@ class Changeset extends React.PureComponent {
             transitionEnterTimeout={300}
             transitionLeaveTimeout={400}
           >
-            {this.state.filter
+            {false
               ? <Sidebar
                   key={0}
                   className="transition 480 wmin480 absolute bottom right z6 h-full bg-white"
@@ -221,7 +187,6 @@ class Changeset extends React.PureComponent {
                               'flex-parent-inline btn color-white bg-transparent bg-gray-on-hover ml3'
                             }
                             href="#"
-                            onClick={this.toggleFilter}
                           >
                             <svg className="icon">
                               <use xlinkHref="#icon-close" />
@@ -249,9 +214,11 @@ Changeset = connect(
     currentChangeset: state.changeset.getIn([
       'changesets',
       parseInt(props.match.params.id, 10)
-    ])
+    ]),
+    errorChangeset: state.changeset.get('errorChangeset'),
+    loading: state.changeset.get('loading')
   }),
-  { getChangeset, handleChangesetModify }
+  { handleChangesetModify }
 )(Changeset);
 
 export { Changeset };

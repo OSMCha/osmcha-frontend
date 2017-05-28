@@ -16,27 +16,23 @@ import {
 
 export type ChangesetType = Map<
 
-    | "currentChangeset"
-    | "changesets"
-    | "changesetId" // of the currentChangeset
-    | "loading"
-    | "loadingChangesetMap"
-    | "changesetMap"
-    | "currentChangesetMap"
-    | "errorChangesetMap"
-    | "errorChangeset",
+    | 'changesets'
+    | 'changesetId' // of the currentChangeset
+    | 'loading'
+    | 'loadingChangesetMap'
+    | 'changesetMap'
+    | 'errorChangesetMap'
+    | 'errorChangeset',
   any
 >;
 
 const initial: ChangesetType = new Map({
   changesetId: null,
-  currentChangeset: null,
-  currentChangesetMap: null,
   changesets: new Map(),
-  changesetMap: new Map(),
   loading: false,
-  loadingChangesetMap: false,
   errorChangeset: null,
+  changesetMap: new Map(),
+  loadingChangesetMap: false,
   errorChangesetMap: null
 });
 
@@ -46,10 +42,8 @@ export function changesetReducer(
 ): ChangesetType {
   switch (action.type) {
     case CHANGESET_CHANGE: {
-      const changesets = state.get('changesets');
       return state
         .set('changesetId', action.changesetId)
-        .set('currentChangeset', changesets.get(action.changesetId))
         .set('loading', false)
         .set('errorChangeset', null)
         .set('errorChangesetMap', null);
@@ -57,7 +51,6 @@ export function changesetReducer(
     case CHANGESET_LOADING: {
       return state
         .set('changesetId', action.changesetId)
-        .set('currentChangeset', null)
         .set('loading', true)
         .set('errorChangeset', null);
     }
@@ -68,22 +61,18 @@ export function changesetReducer(
       return state
         .set('changesets', changesets)
         .set('changesetId', action.changesetId)
-        .set('currentChangeset', action.data)
         .set('loading', false)
         .set('errorChangeset', null);
     }
     case CHANGESET_ERROR: {
       return state
         .set('changesetId', action.changesetId)
-        .set('currentChangeset', null)
         .set('loading', false)
         .set('errorChangeset', action.error);
     }
     case CHANGESET_MAP_CHANGE: {
-      const changesetMap = state.get('changesetMap');
       return state
         .set('changesetId', action.changesetId)
-        .set('currentChangesetMap', changesetMap.get(action.changesetId))
         .set('errorChangesetMap', null)
         .set('loadingChangesetMap', false);
     }
@@ -95,20 +84,17 @@ export function changesetReducer(
         .set('changesetMap', changesetMap)
         .set('changesetId', action.changesetId)
         .set('loadingChangesetMap', false)
-        .set('currentChangesetMap', action.data)
         .set('errorChangesetMap', null);
     }
     case CHANGESET_MAP_LOADING: {
       return state
         .set('changesetId', action.changesetId)
-        .set('currentChangesetMap', null)
         .set('loadingChangesetMap', true)
         .set('errorChangesetMap', null);
     }
     case CHANGESET_MAP_ERROR: {
       return state
         .set('changesetId', action.changesetId)
-        .set('currentChangesetMap', null)
         .set('loadingChangesetMap', false)
         .set('errorChangesetMap', action.error);
     }

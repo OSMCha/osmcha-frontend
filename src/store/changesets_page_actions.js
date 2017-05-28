@@ -6,7 +6,7 @@ import { fetchChangesetsPage } from '../network/changesets_page';
 
 import type { RootStateType } from './';
 
-export const CHANGESETS_PAGE_FETCH_ASYNC = 'CHANGESETS_PAGE_FETCH_ASYNC';
+export const CHANGESET_PAGE_GET = 'CHANGESET_PAGE_GET';
 export const CHANGESETS_PAGE_FETCHED = 'CHANGESETS_PAGE_FETCHED';
 export const CHANGESETS_PAGE_CHANGE = 'CHANGESETS_PAGE_CHANGE';
 export const CHANGESETS_PAGE_LOADING = 'CHANGESETS_PAGE_LOADING';
@@ -19,12 +19,12 @@ export function action(type: string, payload: ?Object) {
 // public
 // starting point for react component to start fetch
 export const getChangesetsPage = (pageIndex: number) =>
-  action(CHANGESETS_PAGE_FETCH_ASYNC, { pageIndex });
+  action(CHANGESET_PAGE_GET, { pageIndex });
 
-// watches for CHANGESETS_PAGE_FETCH_ASYNC and only
+// watches for CHANGESET_PAGE_GET and only
 // dispatches latest to fetchChangesetsPageAsync
 export function* watchChangesetsPage(): any {
-  yield takeLatest(CHANGESETS_PAGE_FETCH_ASYNC, fetchChangesetsPageAsync);
+  yield takeLatest(CHANGESET_PAGE_GET, fetchChangesetsPageAsync);
 }
 
 /** Sagas **/
