@@ -1,15 +1,6 @@
 // @flow
-import {
-  put,
-  call,
-  take,
-  fork,
-  takeLatest,
-  select,
-  all,
-  cancel
-} from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import { put, call, take, fork, select, cancel } from 'redux-saga/effects';
+
 import { fromJS, Map } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { getChangeset as getCMapData } from 'changeset-map';
@@ -61,14 +52,15 @@ export function* watchChangeset(): any {
     if (changesetTask) yield cancel(changesetTask);
     if (changesetMapTask) yield cancel(changesetMapTask);
 
+    // extracts the changesetId param from location object
     let changesetId = getChangesetIdFromLocation(location);
-    if (!changesetId) continue;
+    if (!changesetId) continue; // default for non changesets/:id routes
 
     let oldChangesetId = yield select((state: RootStateType) =>
       state.changeset.get('changesetId')
     );
 
-    if (changesetId && oldChangesetId !== changesetId) {
+    if (oldChangesetId !== changesetId) {
       changesetTask = yield fork(fetchChangesetAction, changesetId);
       changesetMapTask = yield fork(fetchChangesetMapAction, changesetId);
     }
