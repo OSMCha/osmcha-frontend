@@ -7,8 +7,8 @@ export function createPopup(
   const settings = [
     ['width', width],
     ['height', height],
-    ['left', screen.width / 2 - width / 2],
-    ['top', screen.height / 2 - height / 2]
+    ['left', window.innerWidth.width / 2 - width / 2],
+    ['top', window.innerHeight.height / 2 - height / 2]
   ]
     .map(x => x.join('='))
     .join(',');

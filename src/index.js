@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import debounce from 'lodash.debounce';
+
+import { registerServiceWorker } from './serviceworker';
 import './index.css';
 import 'react-tippy/dist/tippy.css';
 import 'animate.css/animate.css';
@@ -24,6 +26,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-
+registerServiceWorker();
 const reload = debounce(() => window.location.reload(), 400);
 window.onresize = reload;
