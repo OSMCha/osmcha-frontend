@@ -39,4 +39,4 @@ function removeItem(key: string): void {
   }
 }
 
-export {getItem, setItem, removeItem};
+export { getItem, setItem, removeItem };

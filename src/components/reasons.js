@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-export function Reasons({reasons}: Object) {
+export function Reasons({ reasons }: Object) {
   return (
     <span>
       {reasons.map((r, k) => (

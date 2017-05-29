@@ -1,30 +1,33 @@
 // @flow
-import {Map} from 'immutable';
+import { Map } from 'immutable';
 import {
   SAVE_OAUTH_OBJ,
   SAVE_TOKEN,
   CLEAR_SESSION,
   LOGIN_ERROR,
-  USER_DETAILS,
+  USER_DETAILS
 } from './auth_actions';
 export type AuthType = Map<
-  | 'oAuthToken' //  osm
-  | 'oAuthTokenSecret'
-  | 'error'
-  | 'token'
-  | 'userDetails', any>; // osmcha uses this
+
+    | 'oAuthToken' //  osm
+    | 'oAuthTokenSecret'
+    | 'error'
+    | 'token'
+    | 'userDetails',
+  any
+>; // osmcha uses this
 
 const initialState: AuthType = Map({
   oAuthToken: null,
   oAuthTokenSecret: null,
   error: null,
   token: null,
-  userDetails: null,
+  userDetails: null
 });
 
 export function authReducer(
   state: AuthType = initialState,
-  action: Object,
+  action: Object
 ): AuthType {
   switch (action.type) {
     case SAVE_OAUTH_OBJ: {
@@ -37,7 +40,7 @@ export function authReducer(
       return state.set('token', action.token).set('error', null);
     }
     case CLEAR_SESSION: {
-      return Map({error: state.get('error')}); // retain the error
+      return Map({ error: state.get('error') }); // retain the error
     }
     case LOGIN_ERROR: {
       return state.set('error', action.error);

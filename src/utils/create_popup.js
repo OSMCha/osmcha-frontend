@@ -1,6 +1,6 @@
 export function createPopup(
   title: string = 'Authentication',
-  location: string,
+  location: string
 ) {
   const width = 500;
   const height = 600;
@@ -8,7 +8,7 @@ export function createPopup(
     ['width', width],
     ['height', height],
     ['left', screen.width / 2 - width / 2],
-    ['top', screen.height / 2 - height / 2],
+    ['top', screen.height / 2 - height / 2]
   ]
     .map(x => x.join('='))
     .join(',');

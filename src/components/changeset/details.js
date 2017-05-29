@@ -1,16 +1,17 @@
 // @flow
 import React from 'react';
-import {Map} from 'immutable';
+import { Map } from 'immutable';
 
-export function Details(
-  {
-    properties,
-    changesetId,
-  }: {properties: Map<string, *>, changesetId: number, expanded?: boolean},
-) {
+export function Details({
+  properties,
+  changesetId
+}: {
+  properties: Map<string, *>,
+  changesetId: number,
+  expanded?: boolean
+}) {
   const source = properties.get('source');
   const user = properties.get('user');
-
   const editor = properties.get('editor');
   const imagery = properties.get('imagery_used');
   const date = properties.get('date');
@@ -22,21 +23,15 @@ export function Details(
 
   return (
     <div>
-      <div
-        className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap "
-      >
+      <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
 
-        <div
-          className="flex-parent flex-parent--row justify--center flex-parent--wrap"
-        >
+        <div className="flex-parent flex-parent--row justify--center flex-parent--wrap">
           <p className="flex-child txt-subhead txt-em my3 txt-em txt-l ml3">
             "{comment}"
           </p>
         </div>
       </div>
-      <div
-        className="flex-parent px18 flex-parent--row justify--space-between flex-parent--wrap"
-      >
+      <div className="flex-parent px18 flex-parent--row justify--space-between flex-parent--wrap">
         <div className="flex-parent flex-parent--column ">
           <span className="txt-underline txt-bold ">Source</span>
           <span className="wmax180 txt-break-word">{source}</span>

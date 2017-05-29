@@ -1,7 +1,12 @@
-import {watchFetchChangesetsPage} from './changesets_page_actions';
-import {watchFetchChangeset} from './changeset_actions';
-import {watchAuth} from './auth_actions';
-
+import { all } from 'redux-saga/effects';
+import { watchChangesetsPage } from './changesets_page_actions';
+import { watchChangeset, watchModifyChangeset } from './changeset_actions';
+import { watchAuth } from './auth_actions';
 export default function* rootSaga() {
-  yield [watchFetchChangesetsPage(), watchFetchChangeset(), watchAuth()];
+  yield all([
+    watchChangesetsPage(),
+    watchChangeset(),
+    watchAuth(),
+    watchModifyChangeset()
+  ]);
 }

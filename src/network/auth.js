@@ -1,17 +1,19 @@
 // @flow
 import request from 'superagent';
-import {osmchaSocialTokenUrl, osmChaUrl} from '../config/constants';
+import { osmchaSocialTokenUrl, osmChaUrl } from '../config/constants';
 
 export function postTokensOSMCha(
   oauth_token: ?string,
-  oauth_verifier: ?string,
+  oauth_token_secret: ?string,
+  oauth_verifier: ?string
 ) {
-  if (oauth_token && oauth_verifier) {
+  if (oauth_token && oauth_verifier && oauth_token_secret) {
     return request
       .post(osmchaSocialTokenUrl)
       .type('form')
-      .send({oauth_token: oauth_token})
-      .send({oauth_verifier: oauth_verifier})
+      .send({ oauth_token: oauth_token })
+      .send({ oauth_verifier: oauth_verifier })
+      .send({ oauth_token_secret: oauth_token_secret })
       .then(r => {
         return r.body;
       })
@@ -36,7 +38,7 @@ export function fetchUserDetails(token: string) {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
-    },
+      Authorization: token ? `Token ${token}` : ''
+    }
   }).then(res => res.json());
 }

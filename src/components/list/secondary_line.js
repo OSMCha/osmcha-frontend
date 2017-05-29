@@ -2,7 +2,7 @@
 import React from 'react';
 import moment from 'moment';
 
-export function SecondaryLine({changesetId, date}: Object) {
+export function SecondaryLine({ changesetId, date }: Object) {
   return (
     <span className="flex-parent flex-parent--row txt-light txt-s">
       <span>

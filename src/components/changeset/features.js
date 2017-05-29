@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import {Map, fromJS} from 'immutable';
-import {Reasons} from '../reasons';
+import { Map, fromJS } from 'immutable';
+import { Reasons } from '../reasons';
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -21,10 +21,8 @@ function shuffle(array) {
   return array;
 }
 
-const Feature = ({data}) => (
-  <div
-    className="flex-parent flex-parent--row justify--space-between px6 flex-parent--wrap border-b border--gray-light pb3"
-  >
+const Feature = ({ data }) => (
+  <div className="flex-parent flex-parent--row justify--space-between px6 flex-parent--wrap border-b border--gray-light pb3">
     <span className="wmin120">
       <a title={data.get('osm_id')}> Name: {data.get('name')}</a>
     </span>
@@ -32,60 +30,58 @@ const Feature = ({data}) => (
 
   </div>
 );
-export function Features(
-  {
-    properties,
-    changesetId,
-  }: {
-    properties: Map<string, *>,
-    changesetId: number,
-  },
-) {
+export function Features({
+  properties,
+  changesetId
+}: {
+  properties: Map<string, *>,
+  changesetId: number
+}) {
   const features = fromJS(
     shuffle([
       {
         osm_id: 2593918603,
         url: 'node-2593918603',
         name: 'HDFC Bank ATM',
-        reasons: ['Deleted a wikidata/wikipedia tag'],
+        reasons: ['Deleted a wikidata/wikipedia tag']
       },
       {
         osm_id: 2412772337,
         url: 'node-2412772337',
         name: 'HDFC ATM',
-        reasons: ['Deleted a wikidata/wikipedia tag'],
+        reasons: ['Deleted a wikidata/wikipedia tag']
       },
       {
         osm_id: 2593876995,
         url: 'node-2593876995',
         name: 'Andhra Bank ATM',
-        reasons: ['Deleted a wikidata/wikipedia tag'],
+        reasons: ['Deleted a wikidata/wikipedia tag']
       },
       {
         osm_id: 2412772336,
         url: 'node-2412772336',
         name: 'ICICI ATM',
-        reasons: ['Deleted a wikidata/wikipedia tag'],
+        reasons: ['Deleted a wikidata/wikipedia tag']
       },
       {
         osm_id: 4557677889,
         url: 'node-4557677889',
         name: 'Hitch city',
-        reasons: ['edited a name tag'],
+        reasons: ['edited a name tag']
       },
       {
         osm_id: 3593876995,
         url: 'node-2593876995',
         name: 'Guj Bank ATM',
-        reasons: ['Deleted a wikidata/wikipedia tag'],
+        reasons: ['Deleted a wikidata/wikipedia tag']
       },
       {
         osm_id: 2412772336,
         url: 'node-2412772336',
         name: 'ATM',
-        reasons: ['Is too cool 😎'],
-      },
-    ]).slice(0, parseInt(Math.random() * 100, 10) % 7),
+        reasons: ['Is too cool 😎']
+      }
+    ]).slice(0, parseInt(Math.random() * 100, 10) % 7)
   );
   return (
     <div className="p12">

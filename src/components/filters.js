@@ -1,15 +1,15 @@
 // @flow
 import React from 'react';
-import {Tooltip} from 'react-tippy';
+import { Tooltip } from 'react-tippy';
 
 import filters from '../config/filters.json';
 
 class Filter extends React.PureComponent {
   props: {
-    data: Object,
+    data: Object
   };
   showForm = () => {
-    const {display, type, icontains, name, range, all} = this.props.data;
+    const { display, type, icontains, name, range, all } = this.props.data;
     if (type === 'text') {
       return (
         <input
@@ -31,9 +31,7 @@ class Filter extends React.PureComponent {
   render() {
     return (
       <div className="flex-child my6">
-        <div
-          className="flex-parent flex-parent--row justify--space-between align-items--center"
-        >
+        <div className="flex-parent flex-parent--row justify--space-between align-items--center">
 
           <span className="flex-parent flex-parent--row">
             {this.props.data.display}

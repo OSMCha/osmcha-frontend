@@ -1,5 +1,5 @@
 import React from 'react';
-export const Box = ({children, pullDown, pullUp, className, style, bg}) => (
+export const Box = ({ children, pullDown, pullUp, className, style, bg }) => (
   <div
     className={`box mb3 z4 transition bg-white  ${className} `}
     style={style}
