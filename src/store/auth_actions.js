@@ -8,13 +8,6 @@ import { setItem, removeItem } from '../utils/safe_storage';
 
 import type { RootStateType } from './';
 
-export type oAuthType = {
-  oauth_token: ?string,
-  oauth_token_secret: ?string,
-  oauth_verifier: ?string,
-  token: ?string
-};
-
 export const POST_SOCIAL_TOKEN = 'POST_SOCIAL_TOKEN';
 export const SAVE_OAUTH_OBJ = 'SAVE_OAUTH_OBJ';
 export const GET_FINAL_TOKEN = 'GET_FINAL_TOKEN';
@@ -53,7 +46,6 @@ export function* watchAuth(): any {
       }
       const userDetails = fromJS(yield call(fetchUserDetails, token));
       yield put(action(USER_DETAILS, { userDetails }));
-
       yield take(LOGOUT);
     } catch (error) {
       yield put(action(LOGIN_ERROR, error));

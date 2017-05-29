@@ -7,6 +7,7 @@ import { getChangeset as getCMapData } from 'changeset-map';
 
 import { fetchChangeset, setHarmful } from '../network/changeset';
 import { getChangesetIdFromLocation } from '../utils/routing';
+
 import type { RootStateType } from './';
 
 export const CHANGESET_GET = 'CHANGESET_GET';
@@ -17,8 +18,8 @@ export const CHANGESET_ERROR = 'CHANGESET_ERROR';
 
 export const CHANGESET_MAP_LOADING = 'CHANGESET_MAP_FETCH_LOADING';
 export const CHANGESET_MAP_FETCHED = 'CHANGESET_MAP_FETCHED';
-export const CHANGESET_MAP_ERROR = 'CHANGESET_MAP_ERROR';
 export const CHANGESET_MAP_CHANGE = 'CHANGESET_MAP_CHANGE';
+export const CHANGESET_MAP_ERROR = 'CHANGESET_MAP_ERROR';
 
 export const CHANGESET_MODIFY_HARMFUL = 'CHANGESET_MODIFY_HARMFUL';
 export const CHANGESET_MODIFY = 'CHANGESET_MODIFY';
@@ -49,18 +50,23 @@ export function* watchChangeset(): any {
   while (true) {
     const location = yield take(LOCATION_CHANGE);
 
+    // cancel any existing changeset tasks,
+    // even if it doesnt change to `changesets/:id`
+    // we anway would like to suspend the ongoing task
+    // to save resouces
     if (changesetTask) yield cancel(changesetTask);
     if (changesetMapTask) yield cancel(changesetMapTask);
 
-    // extracts the changesetId param from location object
+    // extracts the new changesetId param from location object
     let changesetId = getChangesetIdFromLocation(location);
-    if (!changesetId) continue; // default for non changesets/:id routes
+    if (!changesetId) continue; // skip for non changesets/:id routes
 
     let oldChangesetId = yield select((state: RootStateType) =>
       state.changeset.get('changesetId')
     );
 
     if (oldChangesetId !== changesetId) {
+      // on forking: https://redux-saga.js.org/docs/advanced/Concurrency.html
       changesetTask = yield fork(fetchChangesetAction, changesetId);
       changesetMapTask = yield fork(fetchChangesetMapAction, changesetId);
     }
@@ -70,10 +76,12 @@ export function* watchChangeset(): any {
 export function* watchModifyChangeset(): any {
   while (true) {
     const modifyAction = yield take([CHANGESET_MODIFY_HARMFUL]); // scope for multiple actions in future
+    const token = yield select((state: RootStateType) =>
+      state.auth.get('token')
+    ); // TOFIX handle token not existing
 
-    const changesetId = modifyAction.changesetId;
-    let oldChangeset = modifyAction.changeset;
-    let token = yield select((state: RootStateType) => state.auth.get('token')); // TOFIX handle token not existing
+    // all modify actions should have changesetId, oldChangeset
+    const { changesetId, oldChangeset } = modifyAction;
 
     if (!oldChangeset || !token) {
       continue;
@@ -109,44 +117,43 @@ export function* watchModifyChangeset(): any {
 /** Sagas **/
 
 export function* fetchChangesetAction(changesetId: number): Object {
-  // check if the changeset already exists
   let changeset = yield select((state: RootStateType) =>
     state.changeset.get('changesets').get(changesetId)
   );
-
+  // check if the changeset already exists
+  // if it does make it active and exit
   if (changeset) {
     yield put(
       action(CHANGESET_CHANGE, {
         changesetId
       })
     );
-  } else {
+    return;
+  }
+
+  yield put(
+    action(CHANGESET_LOADING, {
+      changesetId
+    })
+  );
+
+  try {
+    let token = yield select((state: RootStateType) => state.auth.get('token'));
+    changeset = yield call(fetchChangeset, changesetId, token);
     yield put(
-      action(CHANGESET_LOADING, {
+      action(CHANGESET_FETCHED, {
+        data: fromJS(changeset),
         changesetId
       })
     );
-
-    try {
-      let token = yield select((state: RootStateType) =>
-        state.auth.get('token')
-      );
-      changeset = yield call(fetchChangeset, changesetId, token);
-      yield put(
-        action(CHANGESET_FETCHED, {
-          data: fromJS(changeset),
-          changesetId
-        })
-      );
-    } catch (error) {
-      console.log(error);
-      yield put(
-        action(CHANGESET_ERROR, {
-          changesetId,
-          error
-        })
-      );
-    }
+  } catch (error) {
+    console.log(error);
+    yield put(
+      action(CHANGESET_ERROR, {
+        changesetId,
+        error
+      })
+    );
   }
 }
 
@@ -160,29 +167,30 @@ export function* fetchChangesetMapAction(changesetId: number): Object {
         changesetId
       })
     );
-  } else {
+    return;
+  }
+
+  yield put(
+    action(CHANGESET_MAP_LOADING, {
+      changesetId
+    })
+  );
+  try {
+    changesetMap = yield call(getCMapData, changesetId);
     yield put(
-      action(CHANGESET_MAP_LOADING, {
+      action(CHANGESET_MAP_FETCHED, {
+        data: changesetMap,
         changesetId
       })
     );
-    try {
-      changesetMap = yield call(getCMapData, changesetId);
-      yield put(
-        action(CHANGESET_MAP_FETCHED, {
-          data: changesetMap,
-          changesetId
-        })
-      );
-    } catch (error) {
-      console.error(error);
-      yield put(
-        action(CHANGESET_MAP_ERROR, {
-          changesetId,
-          error
-        })
-      );
-    }
+  } catch (error) {
+    console.error(error);
+    yield put(
+      action(CHANGESET_MAP_ERROR, {
+        changesetId,
+        error
+      })
+    );
   }
 }
 
