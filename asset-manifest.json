@@ -1,6 +1,16 @@
 {
-  "main.css": "static/css/main.ced108fb.css",
-  "main.css.map": "static/css/main.ced108fb.css.map",
-  "main.js": "static/js/main.75e7ca8e.js",
-  "main.js.map": "static/js/main.75e7ca8e.js.map"
+  "main.css": "static/css/main.bff6b247.css",
+  "main.css.map": "static/css/main.bff6b247.css.map",
+  "main.js": "static/js/main.c46099a0.js",
+  "main.js.map": "static/js/main.c46099a0.js.map",
+  "static/media/opensans-bold.woff": "static/media/opensans-bold.fd23d4aa.woff",
+  "static/media/opensans-bold.woff2": "static/media/opensans-bold.2698b92b.woff2",
+  "static/media/opensans-bolditalic.woff": "static/media/opensans-bolditalic.20dce0e8.woff",
+  "static/media/opensans-bolditalic.woff2": "static/media/opensans-bolditalic.4dafcc35.woff2",
+  "static/media/opensans-italic.woff": "static/media/opensans-italic.f89feb48.woff",
+  "static/media/opensans-italic.woff2": "static/media/opensans-italic.90518b7d.woff2",
+  "static/media/opensans-light.woff": "static/media/opensans-light.56082e66.woff",
+  "static/media/opensans-light.woff2": "static/media/opensans-light.da346807.woff2",
+  "static/media/opensans-regular.woff": "static/media/opensans-regular.b765ab2c.woff",
+  "static/media/opensans-regular.woff2": "static/media/opensans-regular.3872b8ed.woff2"
 }
