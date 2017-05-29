@@ -6,7 +6,8 @@
     "range": false,
     "display": "Comment",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": "Enter keywords like import, HOT ... "
   },
   {
     "name": "source",
@@ -15,7 +16,8 @@
     "range": false,
     "display": "Source",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "editor",
@@ -24,7 +26,8 @@
     "range": false,
     "display": "Editor",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "date",
@@ -33,7 +36,8 @@
     "range": true,
     "display": "Date",
     "type": "date",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "check_date",
@@ -42,25 +46,38 @@
     "range": true,
     "display": "Check Date",
     "type": "date",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "create",
     "icontains": false,
     "all": false,
     "range": true,
-    "display": "Create",
+    "display": "Objects Created",
     "type": "number",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "modify",
     "icontains": false,
     "all": false,
     "range": true,
-    "display": "Modify",
+    "display": "Objects Modified",
     "type": "number",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
+  },
+  {
+    "name": "delete",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Objects Deleted",
+    "type": "number",
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "imagery_used",
@@ -69,16 +86,8 @@
     "range": false,
     "display": "Imagery used",
     "type": "text",
-    "description": "Here goes one description"
-  },
-  {
-    "name": "delete",
-    "icontains": false,
-    "all": false,
-    "range": true,
-    "display": "Delete",
-    "type": "number",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "geometry",
@@ -87,7 +96,8 @@
     "range": false,
     "display": "Geometry",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "checked_by",
@@ -96,7 +106,8 @@
     "range": false,
     "display": "Checked by",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "users",
@@ -105,16 +116,18 @@
     "range": false,
     "display": "Users",
     "type": "text_comma",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": "Enter OSM usernames"
   },
   {
     "name": "ids",
     "icontains": false,
     "range": false,
     "all": false,
-    "display": "ids",
+    "display": "Changeset IDs",
     "type": "text_comma",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": "Enter Changeset IDs"
   },
   {
     "name": "reasons",
@@ -123,7 +136,8 @@
     "all": true,
     "display": "Reasons",
     "type": "text_comma",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "tags",
@@ -132,7 +146,8 @@
     "all": true,
     "display": "Tags",
     "type": "text_comma",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "checked",
@@ -141,7 +156,8 @@
     "all": false,
     "display": "Checked",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "harmful",
@@ -150,7 +166,8 @@
     "all": false,
     "display": "Harmful",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "is_suspect",
@@ -159,7 +176,8 @@
     "all": false,
     "display": "Suspect",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "powerfull_editor",
@@ -168,7 +186,8 @@
     "all": false,
     "display": "Powerful editor",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "order_by",
@@ -177,7 +196,8 @@
     "all": false,
     "display": "Order by",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   },
   {
     "name": "hide_whitelist",
@@ -186,6 +206,7 @@
     "all": false,
     "display": "Hide whitelist",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Here goes one description",
+    "placeholder": ""
   }
 ]

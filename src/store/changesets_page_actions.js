@@ -18,8 +18,8 @@ export function action(type: string, payload: ?Object) {
 
 // public
 // starting point for react component to start fetch
-export const getChangesetsPage = (pageIndex: number) =>
-  action(CHANGESET_PAGE_GET, { pageIndex });
+export const getChangesetsPage = (pageIndex: number, filters: ?Object) =>
+  action(CHANGESET_PAGE_GET, { pageIndex, filters });
 
 // watches for CHANGESET_PAGE_GET and only
 // dispatches latest to fetchChangesetsPageAsync
@@ -29,16 +29,19 @@ export function* watchChangesetsPage(): any {
 
 /** Sagas **/
 export function* fetchChangesetsPageAsync({
-  pageIndex
+  pageIndex,
+  filters
 }: {
-  pageIndex: number
+  pageIndex: number,
+  filters: ?Object
 }): Object {
   // check if the page already exists
-  let thisPage = yield select((state: RootStateType) =>
-    state.changesetsPage.get('pages').get(pageIndex)
-  );
+  let thisPage = null;
+  // let thisPage = yield select((state: RootStateType) =>
+  //   state.changesetsPage.get('pages').get(pageIndex)
+  // );
 
-  if (thisPage) {
+  if (false) {
     yield put(
       action(CHANGESETS_PAGE_CHANGE, {
         pageIndex
@@ -55,7 +58,7 @@ export function* fetchChangesetsPageAsync({
       let token = yield select((state: RootStateType) =>
         state.auth.get('token')
       );
-      thisPage = yield call(fetchChangesetsPage, pageIndex, token);
+      thisPage = yield call(fetchChangesetsPage, pageIndex, filters, token);
       yield put(
         action(CHANGESETS_PAGE_FETCHED, {
           data: fromJS(thisPage),

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { List as ImmutableList, Map } from 'immutable';
 import R from 'ramda';
 import Mousetrap from 'mousetrap';
+import { NavLink } from 'react-router-dom';
 
 import type { RootStateType } from '../store';
 import type { ChangesetType } from '../store/changeset_reducer';
@@ -114,6 +115,16 @@ class ChangesetsList extends React.PureComponent {
               >
                 Auth
               </Button>}
+          <Button>
+            <NavLink
+              activeStyle={{
+                fontWeight: 'bold'
+              }}
+              to="/filters"
+            >
+              Filters
+            </NavLink>
+          </Button>
         </header>
         <List
           activeChangesetId={this.props.activeChangesetId}

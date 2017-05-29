@@ -43,6 +43,13 @@ body {
 .hmin55 {
     min-height: 55px!important;
 }
+.wmin435 {
+  min-width: 435px!important;
+}
+.wmax435 {
+  max-width: 435px!important;
+}
+
 
 
 @media only screen and (max-width: 768px) {

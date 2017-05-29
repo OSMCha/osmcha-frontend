@@ -32,11 +32,13 @@ function loadMap() {
   if (!container || !currentChangesetMap) return;
   try {
     importChangesetMap().then(render => {
+      if (!render) return;
       event = render(container, changesetId, {
         width: width + 'px',
         height: Math.max(400, height) + 'px',
         data: currentChangesetMap
       });
+      console.log(event);
     });
   } catch (e) {
     console.log(e);
@@ -71,8 +73,7 @@ class CMap extends React.PureComponent {
     minDebounce();
   }
   componentWillUnmount() {
-    console.log('unmounting cmpa');
-    event.emit('remove');
+    event && event.emit('remove');
   }
   componentDidUpdate(prevProp: Object) {
     if (this.props.currentChangesetMap !== prevProp.currentChangesetMap) {

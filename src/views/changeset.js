@@ -10,7 +10,6 @@ import { Changeset as ChangesetDumb } from '../components/changeset';
 import { Navbar } from '../components/navbar';
 import { Sidebar } from '../components/sidebar';
 import { Loading } from '../components/loading';
-import { Filters } from '../components/filters';
 import { Verify } from '../components/changeset/verify';
 
 import { handleChangesetModify } from '../store/changeset_actions';
@@ -196,9 +195,7 @@ class Changeset extends React.PureComponent {
                       }
                     />
                   }
-                >
-                  <Filters />
-                </Sidebar>
+                />
               : null}
           </CSSTransitionGroup>
         </div>

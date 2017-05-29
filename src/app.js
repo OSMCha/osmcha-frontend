@@ -2,11 +2,12 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { ToastContainer, ToastMessage } from 'react-toastr';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import { Changeset } from './views/changeset';
 import { About } from './views/about';
 import { Stats } from './views/stats';
-import { Features } from './views/features';
+import { Filters } from './views/filters';
 import { ChangesetsList } from './views/changesets_list';
 import { CMap } from './views/map';
 import { Sidebar } from './components/sidebar';
@@ -66,24 +67,43 @@ class App extends Component {
             >
               <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
             </Sidebar>
-            <div className="col col--9-mxl col--9-ml col--12-mm clip">
-              <Route
-                exact
-                path="/"
-                render={() => <div> please select changeset</div>}
-              />
-              <Route
-                path="/changesets"
-                // Need to use render to avoid unmounting of
-                // CMap Ref: https://reacttraining.com/react-router/web/api/Route/render-func
-                // CMap and views/changeset.js are clubbed so they can be
-                // loaded on demand in future.
-                render={RightSide}
-              />
-              <Route path="/about" component={About} />
-              <Route path="/stats" component={Stats} />
-              <Route path="/features" component={Features} />
-            </div>
+            <Route
+              render={({ location }) => (
+                <div className="col col--9-mxl col--9-ml col--12-mm clip">
+                  <CSSTransitionGroup
+                    transitionName="floaters"
+                    transitionAppearTimeout={300}
+                    transitionAppear={true}
+                    transitionEnterTimeout={300}
+                    transitionLeaveTimeout={150}
+                  >
+                    <Route
+                      location={location}
+                      path="/filters"
+                      component={Filters}
+                      key={location.key}
+                    />
+                  </CSSTransitionGroup>
+                  <Route
+                    exact
+                    path="/"
+                    render={() => <div> please select changeset</div>}
+                  />
+                  <Route
+                    path="/changesets"
+                    // Need to use render to avoid unmounting of
+                    // CMap Ref: https://reacttraining.com/react-router/web/api/Route/render-func
+                    // CMap and views/changeset.js are clubbed so they can be
+                    // loaded on demand in future.
+                    render={RightSide}
+                  />
+                  <Route path="/about" component={About} />
+                  <Route path="/stats" component={Stats} />
+
+                </div>
+              )}
+            />
+
           </div>
           <ToastContainer
             ref="toastr"
@@ -100,7 +120,7 @@ class App extends Component {
             <Route path="/changesets" render={RightSide} />
             <Route path="/about" component={About} />
             <Route path="/stats" component={Stats} />
-            <Route path="/features" component={Features} />
+            <Route path="/filters" component={Filters} />
           </div>
           <ToastContainer
             ref="toastr"
