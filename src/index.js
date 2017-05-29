@@ -7,7 +7,6 @@ import debounce from 'lodash.debounce';
 import { registerServiceWorker } from './serviceworker';
 import 'react-tippy/dist/tippy.css';
 import 'animate.css/animate.css';
-import 'changeset-map/public/css/style.css';
 import './css/0.13.0.assembly.min.css';
 import './css/2.1.3.toastr.min.css';
 import './css/index.css';

@@ -1,13 +1,11 @@
 // @flow
 import React from 'react';
 import debounce from 'lodash.debounce';
-import { render } from 'changeset-map';
 import { connect } from 'react-redux';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-
 import { Loading } from '../components/loading';
 import { dispatchEvent } from '../utils/dispatch_event';
-
+import 'changeset-map/public/css/style.css';
 import type { RootStateType } from '../store';
 
 let changesetId;
@@ -15,15 +13,30 @@ let currentChangesetMap;
 let width = 700;
 let height = 500;
 let event;
+let cMapRender;
+
+function importChangesetMap() {
+  if (cMapRender) return Promise.resolve(cMapRender);
+  return import('changeset-map')
+    .then(function(module) {
+      cMapRender = module.render;
+      return cMapRender;
+    })
+    .catch(function(err) {
+      console.log('Failed to load moment', err);
+    });
+}
 
 function loadMap() {
   var container = document.getElementById('container');
   if (!container || !currentChangesetMap) return;
   try {
-    event = render(container, changesetId, {
-      width: width + 'px',
-      height: Math.max(400, height) + 'px',
-      data: currentChangesetMap
+    importChangesetMap().then(render => {
+      event = render(container, changesetId, {
+        width: width + 'px',
+        height: Math.max(400, height) + 'px',
+        data: currentChangesetMap
+      });
     });
   } catch (e) {
     console.log(e);
@@ -55,7 +68,7 @@ class CMap extends React.PureComponent {
       width = parseInt(rect.width, 10);
     }
 
-    loadMap();
+    minDebounce();
   }
   componentWillUnmount() {
     console.log('unmounting cmpa');
@@ -94,7 +107,7 @@ class CMap extends React.PureComponent {
     changesetId = this.props.changesetId;
     currentChangesetMap = this.props.currentChangesetMap;
     return (
-      <div className={`wmin480 ${this.props.className}`} ref={this.setRef}>
+      <div className="wmin480 fixed bottom right" ref={this.setRef}>
         <div
           id="container"
           className="border border--2 border--gray-dark"

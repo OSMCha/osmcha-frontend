@@ -3,7 +3,6 @@ import { put, call, take, fork, select, cancel } from 'redux-saga/effects';
 
 import { fromJS, Map } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { getChangeset as getCMapData } from 'changeset-map';
 
 import { fetchChangeset, setHarmful } from '../network/changeset';
 import { getChangesetIdFromLocation } from '../utils/routing';
@@ -24,7 +23,6 @@ export const CHANGESET_MAP_ERROR = 'CHANGESET_MAP_ERROR';
 export const CHANGESET_MODIFY_HARMFUL = 'CHANGESET_MODIFY_HARMFUL';
 export const CHANGESET_MODIFY = 'CHANGESET_MODIFY';
 export const CHANGESET_MODIFY_REVERT = 'CHANGESET_MODIFY_REVERT';
-
 export function action(type: string, payload: ?Object) {
   return { type, ...payload };
 }
@@ -158,6 +156,7 @@ export function* fetchChangesetAction(changesetId: number): Object {
 }
 
 export function* fetchChangesetMapAction(changesetId: number): Object {
+  let getCMapData;
   let changesetMap = yield select((state: RootStateType) =>
     state.changeset.get('changesetMap').get(changesetId)
   );
@@ -176,6 +175,13 @@ export function* fetchChangesetMapAction(changesetId: number): Object {
     })
   );
   try {
+    if (!getCMapData) {
+      const importPromise = new Promise(resolve =>
+        import('changeset-map').then(module => resolve(module.getChangeset))
+      );
+      const awaitPromise = () => Promise.resolve(importPromise);
+      getCMapData = yield call(awaitPromise);
+    }
     changesetMap = yield call(getCMapData, changesetId);
     yield put(
       action(CHANGESET_MAP_FETCHED, {

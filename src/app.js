@@ -7,8 +7,8 @@ import { Changeset } from './views/changeset';
 import { About } from './views/about';
 import { Stats } from './views/stats';
 import { Features } from './views/features';
-import { CMap } from './views/map';
 import { ChangesetsList } from './views/changesets_list';
+import { CMap } from './views/map';
 import { Sidebar } from './components/sidebar';
 import { Navbar } from './components/navbar';
 
@@ -16,9 +16,6 @@ var ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
 class App extends Component {
   resize = null;
-  constructor() {
-    super();
-  }
 
   componentDidMount() {
     if (document && document.body) {
