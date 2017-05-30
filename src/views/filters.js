@@ -47,7 +47,7 @@ class Filters extends React.PureComponent {
         <header className="hmin55 h55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
           some header
         </header>
-        <div className="m12 flex-parent flex-parent--row flex-parent--wrap justify--space-around scroll-auto ">
+        <div className="m12 flex-parent flex-parent--row flex-parent--wrap justify--space-around scroll-auto wmax960 ">
           {filters.map((f, k) => (
             <Filter
               data={f}

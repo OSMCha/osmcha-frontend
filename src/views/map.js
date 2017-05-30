@@ -41,7 +41,7 @@ function loadMap() {
   });
 }
 
-var minDebounce = debounce(loadMap, 140);
+var minDebounce = debounce(loadMap, 250);
 
 class CMap extends React.PureComponent {
   props: {
@@ -120,7 +120,7 @@ class CMap extends React.PureComponent {
           transitionAppearTimeout={300}
           transitionAppear={true}
           transitionEnterTimeout={300}
-          transitionLeaveTimeout={600} // determines the transition to cMap
+          transitionLeaveTimeout={1000} // determines the transition to cMap
         >
           {(this.props.loadingChangesetMap || this.props.errorChangesetMap) &&
             <div

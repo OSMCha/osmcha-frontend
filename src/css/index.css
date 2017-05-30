@@ -148,8 +148,8 @@ body {
 }
 
 .map-hide-leave.map-hide-leave-active {
-  opacity: 0.8;  
-  transition: opacity 600ms ease-in;
+  opacity: 0.9;  
+  transition: opacity 1s ease-out;
 }
 
 .tippy-tooltip.osmcha-theme {
