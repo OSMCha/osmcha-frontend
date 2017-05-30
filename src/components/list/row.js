@@ -34,7 +34,7 @@ export class Row extends React.PureComponent {
     return (
       <Link to={`/changesets/${changesetId}`}>
         <div
-          className={`${active ? 'bg-green-faint bg-green-faint-on-hover' : ' bg-gray-faint-on-hover '} transition`}
+          className={`${active ? 'bg-green-faint bg-green-faint-on-hover' : 'bg-gray-faint-on-hover '} transition`}
           ref={inputRef}
         >
           <div

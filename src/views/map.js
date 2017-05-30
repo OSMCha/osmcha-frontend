@@ -23,29 +23,25 @@ function importChangesetMap() {
       return cMapRender;
     })
     .catch(function(err) {
-      console.log('Failed to load moment', err);
+      console.error(err);
+      console.log('Failed to load module changeset-map');
     });
 }
 
 function loadMap() {
   var container = document.getElementById('container');
   if (!container || !currentChangesetMap) return;
-  try {
-    importChangesetMap().then(render => {
-      if (!render) return;
-      event = render(container, changesetId, {
-        width: width + 'px',
-        height: Math.max(400, height) + 'px',
-        data: currentChangesetMap
-      });
-      console.log(event);
+  importChangesetMap().then(render => {
+    if (!render) return;
+    event = render(container, changesetId, {
+      width: width + 'px',
+      height: Math.max(400, height) + 'px',
+      data: currentChangesetMap
     });
-  } catch (e) {
-    console.log(e);
-  }
+  });
 }
 
-var minDebounce = debounce(loadMap, 200);
+var minDebounce = debounce(loadMap, 140);
 
 class CMap extends React.PureComponent {
   props: {
@@ -111,7 +107,7 @@ class CMap extends React.PureComponent {
       <div className="wmin480 fixed bottom right" ref={this.setRef}>
         <div
           id="container"
-          className="border border--2 border--gray-dark"
+          className=""
           style={{
             visibility: !(this.props.loadingChangesetMap ||
               this.props.errorChangesetMap)
@@ -124,13 +120,13 @@ class CMap extends React.PureComponent {
           transitionAppearTimeout={300}
           transitionAppear={true}
           transitionEnterTimeout={300}
-          transitionLeaveTimeout={700}
+          transitionLeaveTimeout={600} // determines the transition to cMap
         >
           {(this.props.loadingChangesetMap || this.props.errorChangesetMap) &&
             <div
               key={0}
               id="placeholder"
-              className={`border border--2 border--gray-dark fixed bottom right 
+              className={` fixed bottom right 
           ${this.props.errorChangesetMap ? 'bg-red' : 'bg-black'}
           `}
               style={{
@@ -138,10 +134,9 @@ class CMap extends React.PureComponent {
                 width: this.state.width
               }}
             >
-              <Loading />
+              <Loading className="bg-black" height={this.state.height} />
             </div>}
         </CSSTransitionGroup>
-
       </div>
     );
   }

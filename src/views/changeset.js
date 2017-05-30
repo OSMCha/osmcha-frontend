@@ -49,7 +49,7 @@ class Changeset extends React.PureComponent {
     } = this.props;
 
     if (loading || !currentChangeset) {
-      return <Loading />;
+      return <Loading className="bg-black" />;
     }
 
     if (errorChangeset) {

@@ -126,7 +126,7 @@ export class Changeset extends React.PureComponent {
 
     return (
       <div
-        className="flex-child w-full transition clip"
+        className="flex-child w-full transition clip bg-black"
         style={{ height }}
         ref={this.setRef}
       >

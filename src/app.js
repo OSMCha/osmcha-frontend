@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { ToastContainer, ToastMessage } from 'react-toastr';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import Mousetrap from 'mousetrap';
 
 import { Changeset } from './views/changeset';
 import { About } from './views/about';
@@ -20,7 +21,16 @@ class App extends Component {
 
   componentDidMount() {
     if (document && document.body) {
-      document.body.addEventListener('showToast', this.showToast);
+      Mousetrap.bind('\\', () => {
+        if (
+          this.props.history.location &&
+          this.props.history.location.pathname === '/filters'
+        ) {
+          this.props.history.goBack();
+        } else {
+          this.props.history.push('/filters');
+        }
+      });
     }
   }
   // trigger it via events
@@ -46,10 +56,10 @@ class App extends Component {
     );
     if (width > 800) {
       return (
-        <div className="viewport-full clip">
+        <div className="viewport-full clip bg-black">
           <div className="grid">
             <Sidebar
-              className="col col--3-mxl col--3-ml"
+              className="col col--3-mxl col--3-ml bg-white"
               title={
                 <Navbar
                   className="bg-white border-b border--gray-light border--1"
@@ -71,16 +81,16 @@ class App extends Component {
               render={({ location }) => (
                 <div className="col col--9-mxl col--9-ml col--12-mm clip">
                   <CSSTransitionGroup
-                    transitionName="floaters"
-                    transitionAppearTimeout={300}
+                    transitionName="filters"
+                    transitionAppearTimeout={500}
                     transitionAppear={true}
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={150}
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={200}
                   >
                     <Route
                       location={location}
                       path="/filters"
-                      component={Filters}
+                      render={() => <Filters />}
                       key={location.key}
                     />
                   </CSSTransitionGroup>
