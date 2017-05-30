@@ -26,10 +26,24 @@ class Filters extends React.PureComponent {
     //   this.toggleFilter();
     // });
   }
+  handleSelectChange = (name, obj) => {
+    console.log(name, obj);
+    if (Array.isArray(obj)) {
+      return this.setState({
+        [name]: obj || []
+      });
+    }
+    return this.setState({
+      [name]: (obj && obj.value) || ''
+    });
+  };
   handleFormChange = (event: any) => {
+    let value;
+    let name;
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
+
+    value = target.type === 'checkbox' ? target.checked : target.value;
+    name = target.name;
 
     this.setState({
       [name]: value
@@ -48,19 +62,23 @@ class Filters extends React.PureComponent {
           some header
         </header>
         <div className="m12 flex-parent flex-parent--row flex-parent--wrap justify--space-around scroll-auto wmax960 ">
-          {filters.map((f, k) => (
-            <Filter
-              data={f}
-              value={this.state[f.name]}
-              key={k}
-              onChange={this.handleFormChange}
-            />
-          ))}
+          {filters
+            .filter(f => !f.ignore)
+            .map((f, k) => (
+              <Filter
+                data={f}
+                value={this.state[f.name]}
+                key={k}
+                onChange={this.handleFormChange}
+                onSelectChange={this.handleSelectChange}
+              />
+            ))}
           <span className="flex-child flex-child--grow wmin420 wmax435" />
         </div>
         <div className="flex-parent flex-parent--column justify--space-around  flex-child--grow" />
         <footer className="hmin55 p12 pb24 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
-          <Button onClick={this.handleApply}>Apply</Button>
+          <Link to="/">Close</Link>
+          <Link to="/" onClick={this.handleApply}>Apply</Link>
         </footer>
       </div>
     );

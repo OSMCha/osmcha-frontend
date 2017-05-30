@@ -1,5 +1,5 @@
 /* @flow */
-import { List, Map } from 'immutable';
+import { List, Map, fromJS } from 'immutable';
 
 import {
   CHANGESETS_PAGE_FETCHED,
@@ -13,7 +13,7 @@ export type ChangesetsPageType = Map<
   any
 >;
 
-const changesetsInitial: ChangesetsPageType = new Map({
+const changesetsInitial: ChangesetsPageType = fromJS({
   pageIndex: 0,
   pages: new List(),
   loading: false,

@@ -1,12 +1,45 @@
 // @flow
 import React from 'react';
 import { Tooltip } from 'react-tippy';
-
+import Select, { Creatable, Async } from 'react-select';
+import { API_URL } from '../config';
+// <fieldset id="group1" name={name} onChange={this.props.onChange}>
+//             {options &&
+//               options.map((o, k) => (
+//                 <span key={k} className="mr3">
+//                   <input
+//                     type="radio"
+//                     value={o.value}
+//                     data-name={name} // for the onchange handler to figure out filter name
+//                     name={o.display}
+//                     checked={o.value === this.props.value}
+//                   />
+//                   <label htmlFor={o.display}> {o.display}</label>
+//                 </span>
+//               ))}
+//           </fieldset>
 export class Filter extends React.PureComponent {
   props: {
     data: Object,
     value: ?string,
-    onChange: () => any
+    onChange: () => any,
+    onSelectChange: (string, Object) => any
+  };
+  onSelectChange = (value: Object | Array) => {
+    if (!this.props.data.name) return;
+    this.props.onSelectChange(this.props.data.name, value);
+  };
+  getAsyncOptions = () => {
+    return fetch(`${API_URL}/${this.props.data.data_url}`)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        const data = json
+          .filter(d => d.is_visible && d.for_changeset)
+          .map(d => ({ ...d, label: d.name, value: d.id }));
+        return { options: data };
+      });
   };
   showForm = () => {
     const {
@@ -16,13 +49,58 @@ export class Filter extends React.PureComponent {
       icontains,
       name,
       range,
-      all
+      all,
+      options,
+      data_url
     } = this.props.data;
+    if (type === 'radio' && options) {
+      return (
+        <span className="flex-parent flex-parent--row">
+          <Select
+            name={name}
+            value={this.props.value}
+            options={options}
+            placeholder={placeholder}
+            className="wmin300 wmax300"
+            onChange={this.onSelectChange} // have to add an identifier for filter name
+          />
+        </span>
+      );
+    }
+    if (type === 'text_comma' && data_url) {
+      return (
+        <Async
+          multi
+          promptTextCreator={label => `Add ${label} to ${display}`}
+          name={name}
+          className="wmin300 wmax300"
+          value={this.props.value}
+          loadOptions={this.getAsyncOptions}
+          onChange={this.onSelectChange} // have to add an identifier for filter name
+          placeholder={placeholder}
+        />
+      );
+    }
+    if (type === 'text_comma') {
+      console.log(this.props.value);
+      return (
+        <Creatable
+          multi
+          promptTextCreator={label => `Add ${label} to ${display}`}
+          name={name}
+          className="wmin300 wmax300"
+          value={this.props.value}
+          onChange={this.onSelectChange} // have to add an identifier for filter name
+          placeholder={placeholder}
+        />
+      );
+    }
+
     if (type === 'text' || type === 'text_comma') {
       return (
         <input
           name={name}
-          value={this.props.value}
+          value={this.props.value || ''}
           onChange={this.props.onChange}
           type={type}
           className="input wmin300 wmax300"
@@ -35,7 +113,7 @@ export class Filter extends React.PureComponent {
         <span className="flex-parent flex-parent--row  wmin300 wmax300">
           <input
             type={type}
-            value={this.props.value}
+            value={this.props.value || ''}
             onChange={this.props.onChange}
             className="input mr3"
             name={`${name}__gte`}
@@ -43,7 +121,7 @@ export class Filter extends React.PureComponent {
           />
           {' '}
           <input
-            value={this.props.value}
+            value={this.props.value || ''}
             onChange={this.props.onChange}
             type={type}
             className="input"

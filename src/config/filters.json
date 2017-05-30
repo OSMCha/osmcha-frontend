@@ -14,10 +14,11 @@
     "icontains": false,
     "range": false,
     "all": true,
+    "data_url": "suspicion-reasons",
     "display": "Reasons",
     "type": "text_comma",
-    "description": "Filter changesets that have one or more of the Suspicion Reasons. Inform the Suspicion Reasons ids separated by commas.",
-    "placeholder": ""
+    "description": "Filter changesets that have one or more of the Suspicious Reasons. Inform the Suspicion Reasons ids separated by commas.",
+    "placeholder": "Filter changesets with reasons"
   },
   {
     "name": "geometry",
@@ -54,10 +55,20 @@
     "icontains": false,
     "range": false,
     "all": false,
-    "display": "Checked",
-    "type": "text",
+    "display": "Reviewed",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
     "description": "Filter changesets that were checked or not. Use true/false, 1/0 values.",
-    "placeholder": ""
+    "placeholder": "Toggle if changeset was checked"
   },
   {
     "name": "editor",
@@ -156,6 +167,7 @@
     "all": true,
     "display": "Tags",
     "type": "text_comma",
+    "data_url": "tags",
     "description": "Filter changesets that have one or more of the Tags. Inform the Tags ids separated by commas.",
     "placeholder": ""
   },
@@ -165,22 +177,43 @@
     "range": false,
     "all": false,
     "display": "Harmful",
-    "type": "text",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
     "description": "Filter changesets that were marked as harmful or not. Use true/false, 1/0 values.",
-    "placeholder": ""
+    "placeholder": "Toggle harmful"
   },
   {
     "name": "is_suspect",
     "icontains": false,
     "range": false,
     "all": false,
-    "display": "Suspect",
-    "type": "text",
+    "display": "Show Flagged",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
     "description": "Filter changesets that were considered suspect by OSMCHA.",
-    "placeholder": ""
+    "placeholder": "Toggle Flagged changesets"
   },
   {
     "name": "powerfull_editor",
+    "ignore": true,
     "icontains": false,
     "range": false,
     "all": false,
@@ -195,7 +228,7 @@
     "range": false,
     "all": false,
     "display": "Order by",
-    "type": "text",
+    "type": "select",
     "description": "Order the Changesets by one of the following fields: id, date, check_date, create, modify or delete. Use a minus sign (-) before the field name to reverse the ordering. Default ordering is '-id'.",
     "placeholder": ""
   },
@@ -205,7 +238,7 @@
     "range": false,
     "all": false,
     "display": "Hide whitelist",
-    "type": "select",
+    "type": "radio",
     "description": "If True, it will exclude the changesets created by the users that you whitelisted",
     "placeholder": ""
   },

@@ -82,19 +82,16 @@ body {
 .filters-enter.filters-enter-active {
   opacity: 1;
   /*transition: opacity 500ms ease-out;*/
-  animation: 0.5s slideInDown ease-in;
+  animation: 0.5s slideInDown ease-out;
 }
 
 .filters-leave {
-  opacity: 1;
-  position: fixed;
-  
+  opacity: 0.9;
 }
 
 .filters-leave.filters-leave-active {
    opacity: 1; 
-   right: 0;
-   animation: 0.2s slideOutUp ease-out;
+   animation: 0.5s slideOutUp ease-in;
 }
 
 

@@ -26,7 +26,7 @@ class App extends Component {
           this.props.history.location &&
           this.props.history.location.pathname === '/filters'
         ) {
-          this.props.history.goBack();
+          this.props.history.push('/');
         } else {
           this.props.history.push('/filters');
         }
@@ -85,7 +85,7 @@ class App extends Component {
                     transitionAppearTimeout={500}
                     transitionAppear={true}
                     transitionEnterTimeout={500}
-                    transitionLeaveTimeout={200}
+                    transitionLeaveTimeout={500}
                   >
                     <Route
                       location={location}

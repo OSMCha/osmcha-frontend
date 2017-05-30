@@ -8,6 +8,7 @@ import { registerServiceWorker } from './serviceworker';
 import './css/index.css';
 import 'react-tippy/dist/tippy.css';
 import 'animate.css/animate.css';
+import 'react-select/dist/react-select.css';
 import './css/2.1.3.toastr.min.css';
 import './css/0.13.0.assembly.min.css';
 import './0.13.0.assembly';

@@ -7,11 +7,17 @@ export function fetchChangesetsPage(
   filters: Object = {},
   token: ?string
 ) {
-  const filterParams = Object.keys(filters)
-    .map(f => `${f}=${filters[f] || ''}`)
-    .join('&');
+  let flatFilters = '';
+  Object.keys(filters).forEach(f => {
+    let filter = filters[f];
+    if (Array.isArray(filter)) {
+      filter = filter.map(x => x.value).join(',');
+    }
+    flatFilters += `&${f}=${filter}`;
+  });
+  console.log(flatFilters);
   return fetch(
-    `${API_URL}/changesets/?page=${pageIndex + 1}&page_size=${PAGE_SIZE}&${filterParams}`,
+    `${API_URL}/changesets/?page=${pageIndex + 1}&page_size=${PAGE_SIZE}&${flatFilters}`,
     {
       method: 'GET',
       headers: {
