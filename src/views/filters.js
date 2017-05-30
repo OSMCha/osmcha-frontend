@@ -17,9 +17,10 @@ import type { RootStateType } from '../store';
 
 class Filters extends React.PureComponent {
   props: {
+    filters: Object,
     getChangesetsPage: (number, Object) => mixed // base 0
   };
-  state = {};
+  state = { ...this.props.filters };
   scrollable = null;
   componentDidMount() {
     // Mousetrap.bind(FILTER_BINDING, () => {
@@ -85,8 +86,13 @@ class Filters extends React.PureComponent {
   }
 }
 
-Filters = connect((state: RootStateType, props) => ({}), {
-  getChangesetsPage
-})(Filters);
+Filters = connect(
+  (state: RootStateType, props) => ({
+    filters: state.changesetsPage.get('filters') || {}
+  }),
+  {
+    getChangesetsPage
+  }
+)(Filters);
 
 export { Filters };

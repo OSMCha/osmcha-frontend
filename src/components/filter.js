@@ -3,21 +3,7 @@ import React from 'react';
 import { Tooltip } from 'react-tippy';
 import Select, { Creatable, Async } from 'react-select';
 import { API_URL } from '../config';
-// <fieldset id="group1" name={name} onChange={this.props.onChange}>
-//             {options &&
-//               options.map((o, k) => (
-//                 <span key={k} className="mr3">
-//                   <input
-//                     type="radio"
-//                     value={o.value}
-//                     data-name={name} // for the onchange handler to figure out filter name
-//                     name={o.display}
-//                     checked={o.value === this.props.value}
-//                   />
-//                   <label htmlFor={o.display}> {o.display}</label>
-//                 </span>
-//               ))}
-//           </fieldset>
+
 export class Filter extends React.PureComponent {
   props: {
     data: Object,
@@ -25,7 +11,7 @@ export class Filter extends React.PureComponent {
     onChange: () => any,
     onSelectChange: (string, Object) => any
   };
-  onSelectChange = (value: Object | Array) => {
+  onSelectChange = (value: Object) => {
     if (!this.props.data.name) return;
     this.props.onSelectChange(this.props.data.name, value);
   };

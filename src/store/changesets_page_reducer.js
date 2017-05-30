@@ -5,11 +5,12 @@ import {
   CHANGESETS_PAGE_FETCHED,
   CHANGESETS_PAGE_CHANGE,
   CHANGESETS_PAGE_LOADING,
-  CHANGESETS_PAGE_ERROR
+  CHANGESETS_PAGE_ERROR,
+  FILTERS_SET
 } from './changesets_page_actions';
 
 export type ChangesetsPageType = Map<
-  'pages' | 'pageIndex' | 'loading' | 'error',
+  'pages' | 'pageIndex' | 'loading' | 'error' | 'filters',
   any
 >;
 
@@ -25,6 +26,9 @@ export function changesetsPageReducer(
   action: Object
 ): ChangesetsPageType {
   switch (action.type) {
+    case FILTERS_SET: {
+      return state.set('filters', action.filters);
+    }
     case CHANGESETS_PAGE_LOADING: {
       return state
         .set('pageIndex', action.pageIndex)

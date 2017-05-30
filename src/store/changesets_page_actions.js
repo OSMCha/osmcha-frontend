@@ -11,6 +11,7 @@ export const CHANGESETS_PAGE_FETCHED = 'CHANGESETS_PAGE_FETCHED';
 export const CHANGESETS_PAGE_CHANGE = 'CHANGESETS_PAGE_CHANGE';
 export const CHANGESETS_PAGE_LOADING = 'CHANGESETS_PAGE_LOADING';
 export const CHANGESETS_PAGE_ERROR = 'CHANGESETS_PAGE_ERROR';
+export const FILTERS_SET = 'FILTERS_SET';
 
 export function action(type: string, payload: ?Object) {
   return { type, ...payload };
@@ -35,44 +36,40 @@ export function* fetchChangesetsPageAsync({
   pageIndex: number,
   filters: ?Object
 }): Object {
-  // check if the page already exists
-  let thisPage = null;
-  // let thisPage = yield select((state: RootStateType) =>
-  //   state.changesetsPage.get('pages').get(pageIndex)
-  // );
-
-  if (false) {
-    yield put(
-      action(CHANGESETS_PAGE_CHANGE, {
-        pageIndex
-      })
+  // no need to check if changesetPage exists
+  // as service worker caches this api request
+  if (!filters) {
+    filters = yield select((state: RootStateType) =>
+      state.changesetsPage.get('filters')
     );
   } else {
     yield put(
-      action(CHANGESETS_PAGE_LOADING, {
+      action(FILTERS_SET, {
+        filters
+      })
+    );
+  }
+  yield put(
+    action(CHANGESETS_PAGE_LOADING, {
+      pageIndex
+    })
+  );
+  try {
+    let token = yield select((state: RootStateType) => state.auth.get('token'));
+    let thisPage = yield call(fetchChangesetsPage, pageIndex, filters, token);
+    yield put(
+      action(CHANGESETS_PAGE_FETCHED, {
+        data: fromJS(thisPage),
         pageIndex
       })
     );
-
-    try {
-      let token = yield select((state: RootStateType) =>
-        state.auth.get('token')
-      );
-      thisPage = yield call(fetchChangesetsPage, pageIndex, filters, token);
-      yield put(
-        action(CHANGESETS_PAGE_FETCHED, {
-          data: fromJS(thisPage),
-          pageIndex
-        })
-      );
-    } catch (error) {
-      console.log(error.stack);
-      yield put(
-        action(CHANGESETS_PAGE_ERROR, {
-          pageIndex,
-          error
-        })
-      );
-    }
+  } catch (error) {
+    console.log(error.stack);
+    yield put(
+      action(CHANGESETS_PAGE_ERROR, {
+        pageIndex,
+        error
+      })
+    );
   }
 }
