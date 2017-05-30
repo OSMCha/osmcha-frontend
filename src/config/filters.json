@@ -1,92 +1,22 @@
 [
   {
-    "name": "comment",
-    "icontains": true,
-    "all": false,
-    "range": false,
-    "display": "Comment",
-    "type": "text",
-    "description": "Here goes one description",
-    "placeholder": "Enter keywords like import, HOT ... "
-  },
-  {
-    "name": "source",
-    "icontains": true,
-    "all": false,
-    "range": false,
-    "display": "Source",
-    "type": "text",
-    "description": "Here goes one description",
-    "placeholder": ""
-  },
-  {
-    "name": "editor",
-    "icontains": true,
-    "all": false,
-    "range": false,
-    "display": "Editor",
-    "type": "text",
-    "description": "Here goes one description",
-    "placeholder": ""
-  },
-  {
     "name": "date",
     "icontains": false,
     "all": false,
     "range": true,
     "display": "Date",
     "type": "date",
-    "description": "Here goes one description",
-    "placeholder": ""
+    "description": "Filter changesets whose date is greater or less than the date.",
+    "placeholder": "Changeset's inception date"
   },
   {
-    "name": "check_date",
+    "name": "reasons",
     "icontains": false,
-    "all": false,
-    "range": true,
-    "display": "Check Date",
-    "type": "date",
-    "description": "Here goes one description",
-    "placeholder": ""
-  },
-  {
-    "name": "create",
-    "icontains": false,
-    "all": false,
-    "range": true,
-    "display": "Objects Created",
-    "type": "number",
-    "description": "Here goes one description",
-    "placeholder": ""
-  },
-  {
-    "name": "modify",
-    "icontains": false,
-    "all": false,
-    "range": true,
-    "display": "Objects Modified",
-    "type": "number",
-    "description": "Here goes one description",
-    "placeholder": ""
-  },
-  {
-    "name": "delete",
-    "icontains": false,
-    "all": false,
-    "range": true,
-    "display": "Objects Deleted",
-    "type": "number",
-    "description": "Here goes one description",
-    "placeholder": ""
-  },
-  {
-    "name": "imagery_used",
-    "icontains": true,
-    "all": false,
     "range": false,
-    "display": "Imagery used",
-    "type": "text",
-    "description": "Here goes one description",
+    "all": true,
+    "display": "Reasons",
+    "type": "text_comma",
+    "description": "Filter changesets that have one or more of the Suspicion Reasons. Inform the Suspicion Reasons ids separated by commas.",
     "placeholder": ""
   },
   {
@@ -96,57 +26,27 @@
     "range": false,
     "display": "Geometry",
     "type": "text",
-    "description": "Here goes one description",
+    "description": "Geospatial filter of changeset whose bbox intersects with another geometry. You can use any geometry type in this filter.",
     "placeholder": ""
   },
   {
-    "name": "checked_by",
-    "icontains": false,
+    "name": "comment",
+    "icontains": true,
     "all": false,
     "range": false,
-    "display": "Checked by",
+    "display": "Comment",
     "type": "text",
-    "description": "Here goes one description",
-    "placeholder": ""
+    "description": "Filter changesets by its comment field using the icontains lookup expression.",
+    "placeholder": "Enter keywords like import, HOT ... "
   },
   {
-    "name": "users",
-    "icontains": false,
+    "name": "source",
+    "icontains": true,
     "all": false,
     "range": false,
-    "display": "Users",
-    "type": "text_comma",
-    "description": "Here goes one description",
-    "placeholder": "Enter OSM usernames"
-  },
-  {
-    "name": "ids",
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Changeset IDs",
-    "type": "text_comma",
-    "description": "Here goes one description",
-    "placeholder": "Enter Changeset IDs"
-  },
-  {
-    "name": "reasons",
-    "icontains": false,
-    "range": false,
-    "all": true,
-    "display": "Reasons",
-    "type": "text_comma",
-    "description": "Here goes one description",
-    "placeholder": ""
-  },
-  {
-    "name": "tags",
-    "icontains": false,
-    "range": false,
-    "all": true,
-    "display": "Tags",
-    "type": "text_comma",
-    "description": "Here goes one description",
+    "display": "Source",
+    "type": "text",
+    "description": "Filter changesets by its source field using the icontains lookup expression.",
     "placeholder": ""
   },
   {
@@ -156,7 +56,107 @@
     "all": false,
     "display": "Checked",
     "type": "text",
-    "description": "Here goes one description",
+    "description": "Filter changesets that were checked or not. Use true/false, 1/0 values.",
+    "placeholder": ""
+  },
+  {
+    "name": "editor",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Editor",
+    "type": "text",
+    "description": "Filter changesets by its editor field using the icontains lookup expression.",
+    "placeholder": ""
+  },
+  {
+    "name": "check_date",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Check Date",
+    "type": "date",
+    "description": "Filter changesets whose check_date is greater or less than the dates.",
+    "placeholder": ""
+  },
+  {
+    "name": "create",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Objects Created",
+    "type": "number",
+    "description": "Filter changesets whose number of elements created are greater or less than equal to number.",
+    "placeholder": ""
+  },
+  {
+    "name": "modify",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Objects Modified",
+    "type": "number",
+    "description": "Filter changesets whose number of elements modified are greater or less than equal to number.",
+    "placeholder": ""
+  },
+  {
+    "name": "delete",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Objects Deleted",
+    "type": "number",
+    "description": "Filter changesets whose number of elements deleted are greater or less than equal to number.",
+    "placeholder": ""
+  },
+  {
+    "name": "imagery_used",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Imagery used",
+    "type": "text",
+    "description": "Filter changesets by its imagery_used field using the icontains lookup expression.",
+    "placeholder": ""
+  },
+  {
+    "name": "checked_by",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Checked by",
+    "type": "text",
+    "description": "Filter changesets that were checked by a user. Use commas to search for more than one user.",
+    "placeholder": ""
+  },
+  {
+    "name": "users",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Users",
+    "type": "text_comma",
+    "description": "Filter changesets created by a user. Use commas to search for more than one user.",
+    "placeholder": "Enter OSM usernames"
+  },
+  {
+    "name": "ids",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Changeset IDs",
+    "type": "text_comma",
+    "description": "Filter changesets by its ID. Use commas to search for more than one id.",
+    "placeholder": "Enter Changeset IDs"
+  },
+  {
+    "name": "tags",
+    "icontains": false,
+    "range": false,
+    "all": true,
+    "display": "Tags",
+    "type": "text_comma",
+    "description": "Filter changesets that have one or more of the Tags. Inform the Tags ids separated by commas.",
     "placeholder": ""
   },
   {
@@ -166,7 +166,7 @@
     "all": false,
     "display": "Harmful",
     "type": "text",
-    "description": "Here goes one description",
+    "description": "Filter changesets that were marked as harmful or not. Use true/false, 1/0 values.",
     "placeholder": ""
   },
   {
@@ -176,7 +176,7 @@
     "all": false,
     "display": "Suspect",
     "type": "text",
-    "description": "Here goes one description",
+    "description": "Filter changesets that were considered suspect by OSMCHA.",
     "placeholder": ""
   },
   {
@@ -186,7 +186,7 @@
     "all": false,
     "display": "Powerful editor",
     "type": "text",
-    "description": "Here goes one description",
+    "description": "Filter changesets that were created using a software editor considered powerfull (those that allow to create, modify or delete data in a batch).",
     "placeholder": ""
   },
   {
@@ -196,7 +196,7 @@
     "all": false,
     "display": "Order by",
     "type": "text",
-    "description": "Here goes one description",
+    "description": "Order the Changesets by one of the following fields: id, date, check_date, create, modify or delete. Use a minus sign (-) before the field name to reverse the ordering. Default ordering is '-id'.",
     "placeholder": ""
   },
   {
@@ -205,8 +205,18 @@
     "range": false,
     "all": false,
     "display": "Hide whitelist",
-    "type": "text",
-    "description": "Here goes one description",
+    "type": "select",
+    "description": "If True, it will exclude the changesets created by the users that you whitelisted",
     "placeholder": ""
+  },
+  {
+    "name": "area_lt",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Bbox size bound",
+    "type": "select",
+    "description": "Filter changesets that have a bbox area lower than X times the area of your geospatial filter. For example, if the bbox or geometry you defined in your filter has an area of 1 degree and you set 'area_lt=2', it will filter the changesets whose bbox area is lower than 2 degree",
+    "placeholder": "Upper bound of area which have changesets."
   }
 ]
