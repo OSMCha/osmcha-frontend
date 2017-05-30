@@ -69,6 +69,7 @@ class CMap extends React.PureComponent {
     minDebounce();
   }
   componentWillUnmount() {
+    console.log('unmounting');
     event && event.emit('remove');
   }
   componentDidUpdate(prevProp: Object) {
@@ -104,7 +105,7 @@ class CMap extends React.PureComponent {
     changesetId = this.props.changesetId;
     currentChangesetMap = this.props.currentChangesetMap;
     return (
-      <div className="wmin480 fixed bottom right" ref={this.setRef}>
+      <div className="wmin480 fixed bottom right bg-black" ref={this.setRef}>
         <div
           id="container"
           className=""
@@ -134,7 +135,7 @@ class CMap extends React.PureComponent {
                 width: this.state.width
               }}
             >
-              <Loading className="bg-black" height={this.state.height} />
+              <Loading height={this.state.height} />
             </div>}
         </CSSTransitionGroup>
       </div>

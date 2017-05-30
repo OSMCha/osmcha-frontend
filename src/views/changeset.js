@@ -26,11 +26,7 @@ class Changeset extends React.PureComponent {
     changesetId: number,
     handleChangesetModify: (number, Map<string, *>, boolean) => mixed
   };
-  scrollable = null;
   componentDidMount() {
-    // Mousetrap.bind(FILTER_BINDING, () => {
-    //   this.toggleFilter();
-    // });
     Mousetrap.bind('f', () => {
       var cmapSidebar = document.getElementsByClassName('cmap-sidebar')[0];
       if (cmapSidebar) {
@@ -49,7 +45,7 @@ class Changeset extends React.PureComponent {
     } = this.props;
 
     if (loading || !currentChangeset) {
-      return <Loading className="bg-black" />;
+      return null;
     }
 
     if (errorChangeset) {
@@ -67,21 +63,8 @@ class Changeset extends React.PureComponent {
         changesetId={changesetId}
         currentChangeset={currentChangeset}
         errorChangeset={errorChangeset}
-        scrollUp={this.scrollUp}
-        scrollDown={this.scrollDown}
       />
     );
-  };
-  scrollDown = () => {
-    if (this.scrollable) {
-      window.s = this.scrollable;
-      this.scrollable.scrollTop = window.innerHeight;
-    }
-  };
-  scrollUp = () => {
-    if (this.scrollable) {
-      this.scrollable.scrollTop = 0;
-    }
   };
   handleVerify = e => {
     this.props.handleChangesetModify(
@@ -95,7 +78,7 @@ class Changeset extends React.PureComponent {
     return (
       <div className="flex-parent flex-parent--column bg-gray-faint clip transition border border-l--0 border--gray-light border--1">
         <Navbar
-          className="bg-white color-gray border-b border--gray-light border--1"
+          className="bg-white color-gray border-b border--gray-light border--1 border-t--0"
           title={
             <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
               <span>
@@ -107,7 +90,6 @@ class Changeset extends React.PureComponent {
                 </span>
               </span>
               <span>
-
                 <button
                   className={'btn btn--pill btn--s color-gray btn--gray-faint'}
                 >
@@ -156,48 +138,8 @@ class Changeset extends React.PureComponent {
             </a>
           }
         />
-        <div
-          className="flex-parent flex-parent--row justify--center scroll-auto transition"
-          ref={r => (this.scrollable = r)}
-          style={{
-            height: false ? window.innerHeight : window.innerHeight - 55
-          }}
-        >
+        <div className="flex-parent flex-parent--row justify--center transition">
           {this.showChangeset()}
-          <CSSTransitionGroup
-            transitionName="filters-bar"
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={400}
-          >
-            {false
-              ? <Sidebar
-                  key={0}
-                  className="transition 480 wmin480 absolute bottom right z6 h-full bg-white"
-                  title={
-                    <Navbar
-                      title={
-                        <span className="flex-parent flex-parent--center-cross justify--space-between txt-fancy color-gray txt-l">
-                          <span className="txt-bold select-none">
-                            Filters
-                          </span>
-                          <span className="flex-child flex-child--grow" />
-                          <a
-                            className={
-                              'flex-parent-inline btn color-white bg-transparent bg-gray-on-hover ml3'
-                            }
-                            href="#"
-                          >
-                            <svg className="icon">
-                              <use xlinkHref="#icon-close" />
-                            </svg>
-                          </a>
-                        </span>
-                      }
-                    />
-                  }
-                />
-              : null}
-          </CSSTransitionGroup>
         </div>
       </div>
     );

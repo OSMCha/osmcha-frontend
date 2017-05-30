@@ -122,14 +122,10 @@ export class Changeset extends React.PureComponent {
   render() {
     const { changesetId } = this.props;
 
-    const height = parseInt(window.innerHeight - 55, 10);
+    // const height = parseInt(window.innerHeight - 55, 10);
 
     return (
-      <div
-        className="flex-child w-full transition clip bg-black"
-        style={{ height }}
-        ref={this.setRef}
-      >
+      <div className="flex-child w-full transition clip" ref={this.setRef}>
         <Navbar
           className="bg-white color-gray border-b border--gray-light border--1"
           title={
@@ -158,9 +154,6 @@ export class Changeset extends React.PureComponent {
             </div>
           }
         />
-        <div className="flex-child flex-child--grow bg-black h-full">
-          {' '}&nbsp;
-        </div>
         <Floater
           style={{
             top: 55 * 2,

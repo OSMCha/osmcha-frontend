@@ -48,15 +48,10 @@ class App extends Component {
   };
   render() {
     const width = window.innerWidth;
-    const RightSide = ({ match }) => (
-      <div>
-        <CMap className="fixed bottom right" />
-        <Route path={`${match.url}/:id`} component={Changeset} />
-      </div>
-    );
+    const RightSide = ({ match }) => <div />;
     if (width > 800) {
       return (
-        <div className="viewport-full clip bg-black">
+        <div className="viewport-full clip">
           <div className="grid">
             <Sidebar
               className="col col--3-mxl col--3-ml bg-white"
@@ -105,11 +100,11 @@ class App extends Component {
                     // CMap Ref: https://reacttraining.com/react-router/web/api/Route/render-func
                     // CMap and views/changeset.js are clubbed so they can be
                     // loaded on demand in future.
-                    render={RightSide}
+                    render={() => <CMap className="z0 fixed bottom right" />}
                   />
+                  <Route path={'/changesets/:id'} component={Changeset} />
                   <Route path="/about" component={About} />
                   <Route path="/stats" component={Stats} />
-
                 </div>
               )}
             />
