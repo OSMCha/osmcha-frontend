@@ -38,16 +38,18 @@ body {
 }
 
 .h55 {
-    height: 55px!important;
+    height: 55px !important;
 }
 .hmin55 {
-    min-height: 55px!important;
+    min-height: 55px !important;
 }
+
 .wmin435 {
-  min-width: 435px!important;
+  min-width: 435px !important;
 }
+
 .wmax435 {
-  max-width: 435px!important;
+  max-width: 435px !important;
 }
 
 
@@ -85,11 +87,13 @@ body {
 
 .filters-leave {
   opacity: 1;
+  position: fixed;
+  
 }
 
 .filters-leave.filters-leave-active {
    opacity: 1; 
-   position: fixed;
+   right: 0;
    animation: 0.2s slideOutUp ease-out;
 }
 
@@ -160,8 +164,9 @@ body {
 }
 .tippy-tooltip.osmcha-theme [x-arrow] {
   /* Your arrow styling here. Uses transform: rotate() so no need for CSS triangle shenanigans. */
-    background-color: #f7f7f7;
+    background-color:transparent;
     border: 1px solid #ccc;
+    fill: white;
     border-color: transparent transparent #ccc #ccc; /* same for any position */
 }
 

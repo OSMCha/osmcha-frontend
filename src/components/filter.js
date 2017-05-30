@@ -60,24 +60,21 @@ export class Filter extends React.PureComponent {
       <div className="wmin435 wmax435 ml3 my12 flex-parent flex-parent--row">
         <span className="flex-child flex-child--grow">&nbsp;</span>
         <span className="flex-parent flex-parent--row flex-parent--center-cross">
-          <span className="txt-bold txt-truncate">
-            {this.props.data.display}:
-          </span>
           <Tooltip
             position="top"
-            theme="osmcha"
-            arrow
-            animation="fade"
-            delay={200}
+            animation="shift"
+            animateFill
+            delay={100}
             html={
-              <span className="flex-child color-gray">
+              <span className="flex-child color-white">
                 {this.props.data.description}
               </span>
             }
           >
-            <svg className="icon icon--s mr3">
-              <use xlinkHref="#icon-question" />
-            </svg>
+            <span className="txt-bold txt-truncate pointer">
+              {this.props.data.display}:&nbsp;
+            </span>
+
           </Tooltip>
         </span>
         <span>{this.showForm()}</span>

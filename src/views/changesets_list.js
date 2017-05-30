@@ -115,16 +115,14 @@ class ChangesetsList extends React.PureComponent {
               >
                 Auth
               </Button>}
-          <Button>
-            <NavLink
-              activeStyle={{
-                fontWeight: 'bold'
-              }}
-              to="/filters"
-            >
-              Filters
-            </NavLink>
-          </Button>
+          <NavLink
+            activeStyle={{
+              fontWeight: 'bold'
+            }}
+            to="/filters"
+          >
+            Filters
+          </NavLink>
         </header>
         <List
           activeChangesetId={this.props.activeChangesetId}

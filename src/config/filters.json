@@ -215,8 +215,8 @@
     "range": false,
     "all": false,
     "display": "Bbox size bound",
-    "type": "select",
+    "type": "text",
     "description": "Filter changesets that have a bbox area lower than X times the area of your geospatial filter. For example, if the bbox or geometry you defined in your filter has an area of 1 degree and you set 'area_lt=2', it will filter the changesets whose bbox area is lower than 2 degree",
-    "placeholder": "Upper bound of area which have changesets."
+    "placeholder": "Upper bound of bbox area"
   }
 ]
