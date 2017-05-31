@@ -11,7 +11,7 @@ import { Button } from '../components/button';
 
 import filters from '../config/filters.json';
 
-import { getChangesetsPage } from '../store/changesets_page_actions';
+import { applyFilters } from '../store/changesets_page_actions';
 
 import type { RootStateType } from '../store';
 
@@ -19,7 +19,7 @@ class Filters extends React.PureComponent {
   props: {
     filters: Object,
     location: Object,
-    getChangesetsPage: (number, Object, string) => mixed // base 0
+    applyFilters: (Object, string) => mixed // base 0
   };
   state = { ...this.props.filters };
   scrollable = null;
@@ -51,7 +51,7 @@ class Filters extends React.PureComponent {
     });
   };
   handleApply = () => {
-    this.props.getChangesetsPage(0, this.state, '/');
+    this.props.applyFilters(this.state, '/');
   };
   handleClear = () => {
     var keys = Object.keys(this.state);
@@ -59,7 +59,7 @@ class Filters extends React.PureComponent {
     keys.forEach(k => (newState[k] = undefined));
     this.setState(newState);
     console.log(newState);
-    this.props.getChangesetsPage(0, {}, '/');
+    this.props.applyFilters({}, '/');
   };
   render() {
     const width = window.innerWidth;
@@ -107,7 +107,7 @@ Filters = connect(
     location: props.location
   }),
   {
-    getChangesetsPage
+    applyFilters
   }
 )(Filters);
 

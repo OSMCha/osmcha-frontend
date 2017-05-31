@@ -48,7 +48,6 @@ class App extends Component {
   };
   render() {
     const width = window.innerWidth;
-    const RightSide = ({ match }) => <div />;
     if (width > 800) {
       return (
         <div className="viewport-full clip">
@@ -122,7 +121,15 @@ class App extends Component {
         <div className="viewport-full clip">
           <div className="col clip">
             <Route exact path="/" component={ChangesetsList} />
-            <Route path="/changesets" render={RightSide} />
+            <Route
+              path="/changesets"
+              // Need to use render to avoid unmounting of
+              // CMap Ref: https://reacttraining.com/react-router/web/api/Route/render-func
+              // CMap and views/changeset.js are clubbed so they can be
+              // loaded on demand in future.
+              render={() => <CMap className="z0 fixed bottom right" />}
+            />
+            <Route path={'/changesets/:id'} component={Changeset} />
             <Route path="/about" component={About} />
             <Route path="/stats" component={Stats} />
             <Route path="/filters" component={Filters} />

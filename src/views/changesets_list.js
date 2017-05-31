@@ -38,17 +38,18 @@ class ChangesetsList extends React.PureComponent {
     cachedChangesets: Map<string, *>,
     userDetails: Map<string, *>,
     pageIndex: number,
+    activeChangesetId: ?number,
+    oAuthToken: ?string,
+    token: ?string,
     getChangesetsPage: number => mixed, // base 0
     getChangeset: number => mixed, // base 0
     getOAuthToken: () => mixed,
     getFinalToken: () => mixed,
-    logUserOut: () => mixed,
-    activeChangesetId: ?number,
-    oAuthToken: ?string,
-    token: ?string
+    logUserOut: () => mixed
   };
   constructor(props) {
     super(props);
+    console.log('unmounted changeset list');
     this.props.getChangesetsPage(props.pageIndex);
   }
   goUpDownToChangeset = (direction: number) => {
@@ -119,7 +120,12 @@ class ChangesetsList extends React.PureComponent {
             activeStyle={{
               fontWeight: 'bold'
             }}
-            to={{ search: this.props.location.search, pathname: '/filters' }}
+            to={{
+              search: this.props.location.search,
+              pathname: this.props.location.pathname.indexOf('/filters') > -1
+                ? '/'
+                : '/filters'
+            }}
           >
             Filters
           </NavLink>
