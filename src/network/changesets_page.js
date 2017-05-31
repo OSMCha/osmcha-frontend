@@ -22,7 +22,7 @@ export function fetchChangesetsPage(
     });
 
   return fetch(
-    `${API_URL}/changesets/?page=${pageIndex + 1}&page_size=${PAGE_SIZE}&${flatFilters}`,
+    `${API_URL}/changesets/?page=${pageIndex + 1}&page_size=${PAGE_SIZE}${flatFilters}`,
     {
       method: 'GET',
       headers: {

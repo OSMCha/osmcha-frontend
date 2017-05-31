@@ -44,10 +44,8 @@ class Filters extends React.PureComponent {
     let value;
     let name;
     const target = event.target;
-
     value = target.type === 'checkbox' ? target.checked : target.value;
     name = target.name;
-
     this.setState({
       [name]: value
     });
@@ -59,7 +57,6 @@ class Filters extends React.PureComponent {
     var keys = Object.keys(this.state);
     var newState = {};
     keys.forEach(k => (newState[k] = undefined));
-    this.setState(newState);
     console.log(newState);
     this.props.applyFilters({}, '/');
   };
@@ -104,7 +101,14 @@ class Filters extends React.PureComponent {
             .map((f, k) => (
               <Filter
                 data={f}
-                value={this.state[f.name]}
+                value={
+                  f.range
+                    ? {
+                        __gte: this.state[f.name + '__gte'],
+                        __lte: this.state[f.name + '__lte']
+                      }
+                    : this.state[f.name]
+                }
                 key={k}
                 onChange={this.handleFormChange}
                 onSelectChange={this.handleSelectChange}

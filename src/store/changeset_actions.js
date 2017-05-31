@@ -112,7 +112,6 @@ export function* watchModifyChangeset(): any {
 }
 
 /** Sagas **/
-
 export function* fetchChangesetAction(changesetId: number): Object {
   let changeset = yield select((state: RootStateType) =>
     state.changeset.get('changesets').get(changesetId)

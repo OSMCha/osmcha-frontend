@@ -136,7 +136,8 @@
     "all": false,
     "range": false,
     "display": "Checked by",
-    "type": "text",
+    "cache": true,
+    "type": "text_comma",
     "description": "Filter changesets that were checked by a user. Use commas to search for more than one user.",
     "placeholder": ""
   },
@@ -146,6 +147,7 @@
     "all": false,
     "range": false,
     "display": "Users",
+    "cache": true,
     "type": "text_comma",
     "description": "Filter changesets created by a user. Use commas to search for more than one user.",
     "placeholder": "Enter OSM usernames"
@@ -228,7 +230,57 @@
     "range": false,
     "all": false,
     "display": "Order by",
-    "type": "select",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Ascending ID",
+        "value": "+id"
+      },
+      {
+        "label": "Ascending Date",
+        "value": "+date"
+      },
+      {
+        "label": "Ascending check date",
+        "value": "+check_date"
+      },
+      {
+        "label": "Ascending object created",
+        "value": "+create"
+      },
+      {
+        "label": "Ascending object modified",
+        "value": "+modify"
+      },
+      {
+        "label": "Ascending object deleted",
+        "value": "+delete"
+      },
+      {
+        "label": "Descending ID",
+        "value": "-id"
+      },
+      {
+        "label": "Descending Date",
+        "value": "-date"
+      },
+      {
+        "label": "Descending check date",
+        "value": "-check_date"
+      },
+      {
+        "label": "Descending object created",
+        "value": "-create"
+      },
+      {
+        "label": "Descending object modified",
+        "value": "-modify"
+      },
+      {
+        "label": "Descending object deleted",
+        "value": "-delete"
+      }
+    ],
     "description": "Order the Changesets by one of the following fields: id, date, check_date, create, modify or delete. Use a minus sign (-) before the field name to reverse the ordering. Default ordering is '-id'.",
     "placeholder": ""
   },
@@ -239,6 +291,16 @@
     "all": false,
     "display": "Hide whitelist",
     "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
     "description": "If True, it will exclude the changesets created by the users that you whitelisted",
     "placeholder": ""
   },

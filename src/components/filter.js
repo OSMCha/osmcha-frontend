@@ -7,7 +7,7 @@ import { API_URL } from '../config';
 export class Filter extends React.PureComponent {
   props: {
     data: Object,
-    value: ?string,
+    value: ?string | Object,
     onChange: () => any,
     onSelectChange: (string, Object) => any,
     usersAutofill: ?Array<Object>
@@ -76,7 +76,11 @@ export class Filter extends React.PureComponent {
           name={name}
           className="wmin300 wmax300"
           value={this.props.value}
-          options={name === 'users' ? this.props.usersAutofill : []}
+          options={
+            name === 'users' || name === 'checked_by'
+              ? this.props.usersAutofill
+              : []
+          }
           onChange={this.onSelectChange} // have to add an identifier for filter name
           placeholder={placeholder}
         />
@@ -100,18 +104,18 @@ export class Filter extends React.PureComponent {
         <span className="flex-parent flex-parent--row  wmin300 wmax300">
           <input
             type={type}
-            value={this.props.value || ''}
             onChange={this.props.onChange}
             className="input mr3"
             name={`${name}__gte`}
             placeholder="min"
+            value={this.props.value.__gte}
           />
           {' '}
           <input
-            value={this.props.value || ''}
             onChange={this.props.onChange}
             type={type}
             className="input"
+            value={this.props.value.__lte}
             name={`${name}__lte`}
             placeholder="max"
           />
