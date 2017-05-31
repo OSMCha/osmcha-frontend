@@ -68,7 +68,6 @@ export class Filter extends React.PureComponent {
       );
     }
     if (type === 'text_comma') {
-      console.log(this.props.value);
       return (
         <Creatable
           multi
@@ -82,7 +81,7 @@ export class Filter extends React.PureComponent {
       );
     }
 
-    if (type === 'text' || type === 'text_comma') {
+    if (type === 'text') {
       return (
         <input
           name={name}
@@ -138,7 +137,6 @@ export class Filter extends React.PureComponent {
             <span className="txt-bold txt-truncate pointer">
               {this.props.data.display}:&nbsp;
             </span>
-
           </Tooltip>
         </span>
         <span>{this.showForm()}</span>

@@ -12,6 +12,7 @@
     "immutable": "^3.8.1",
     "lodash.debounce": "^4.0.8",
     "mousetrap": "^1.6.1",
+    "query-string": "^4.3.4",
     "ramda": "^0.24.0",
     "react": "^15.5.3",
     "react-collapsible": "^1.4.0",

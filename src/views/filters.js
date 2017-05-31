@@ -18,7 +18,8 @@ import type { RootStateType } from '../store';
 class Filters extends React.PureComponent {
   props: {
     filters: Object,
-    getChangesetsPage: (number, Object) => mixed // base 0
+    location: Object,
+    getChangesetsPage: (number, Object, string) => mixed // base 0
   };
   state = { ...this.props.filters };
   scrollable = null;
@@ -28,10 +29,9 @@ class Filters extends React.PureComponent {
     // });
   }
   handleSelectChange = (name, obj) => {
-    console.log(name, obj);
     if (Array.isArray(obj)) {
       return this.setState({
-        [name]: obj || []
+        [name]: obj.map(o => ({ label: o.label, value: o.value })) || []
       });
     }
     return this.setState({
@@ -51,7 +51,15 @@ class Filters extends React.PureComponent {
     });
   };
   handleApply = () => {
-    this.props.getChangesetsPage(0, this.state);
+    this.props.getChangesetsPage(0, this.state, '/');
+  };
+  handleClear = () => {
+    var keys = Object.keys(this.state);
+    var newState = {};
+    keys.forEach(k => (newState[k] = undefined));
+    this.setState(newState);
+    console.log(newState);
+    this.props.getChangesetsPage(0, {}, '/');
   };
   render() {
     const width = window.innerWidth;
@@ -78,8 +86,15 @@ class Filters extends React.PureComponent {
         </div>
         <div className="flex-parent flex-parent--column justify--space-around  flex-child--grow" />
         <footer className="hmin55 p12 pb24 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
-          <Link to="/">Close</Link>
-          <Link to="/" onClick={this.handleApply}>Apply</Link>
+          <Link to={{ search: this.props.location.search, pathname: '/' }}>
+            Close
+          </Link>
+          <a onClick={this.handleClear}>
+            Clear
+          </a>
+          <a onClick={this.handleApply}>
+            Apply
+          </a>
         </footer>
       </div>
     );
@@ -88,7 +103,8 @@ class Filters extends React.PureComponent {
 
 Filters = connect(
   (state: RootStateType, props) => ({
-    filters: state.changesetsPage.get('filters') || {}
+    filters: state.changesetsPage.get('filters') || {},
+    location: props.location
   }),
   {
     getChangesetsPage

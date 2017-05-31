@@ -47,7 +47,6 @@ export function* watchChangeset(): any {
   let changesetMapTask;
   while (true) {
     const location = yield take(LOCATION_CHANGE);
-
     // cancel any existing changeset tasks,
     // even if it doesnt change to `changesets/:id`
     // we anway would like to suspend the ongoing task

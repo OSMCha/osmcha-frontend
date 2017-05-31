@@ -1,12 +1,13 @@
 // @flow
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
-import { Map, Iterable } from 'immutable';
+import { Map, Iterable, List } from 'immutable';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
+import { history } from './history';
 import createSagaMiddleware from 'redux-saga';
 
 import * as safeStorage from '../utils/safe_storage';
+import { getFiltersFromUrl } from '../utils/query_params';
 
 // Reducers
 import { authReducer } from './auth_reducer';
@@ -17,7 +18,7 @@ import type { ChangesetsPageType } from './changesets_page_reducer';
 import type { ChangesetType } from './changeset_reducer';
 import type { AuthType } from './auth_reducer';
 
-// Sages
+// Sagas
 import sagas from './sagas';
 
 export type RootStateType = {
@@ -35,12 +36,6 @@ const reducers = combineReducers({
   auth: authReducer
 });
 
-let historyConfig = {};
-if (process.env.NODE_ENV === 'production') {
-  historyConfig.basename = '/osmcha-frontend';
-}
-
-const history = createHistory(historyConfig);
 const sagaMiddleware = createSagaMiddleware();
 // Middlewares
 const middlewares = [sagaMiddleware, routerMiddleware(history)];
@@ -70,6 +65,13 @@ const persistedState = {
     oAuthToken: safeStorage.getItem('oauth_token'),
     oAuthTokenSecret: safeStorage.getItem('oauth_token_secret'),
     error: null
+  }),
+  changesetsPage: Map({
+    filters: getFiltersFromUrl(),
+    pageIndex: 0,
+    pages: new List(),
+    loading: false,
+    error: null
   })
 };
 
@@ -79,7 +81,6 @@ const store = createStore(
   persistedState,
   applyMiddleware(...middlewares)
 );
-
 sagaMiddleware.run(sagas);
 
-export { store, history };
+export { store };

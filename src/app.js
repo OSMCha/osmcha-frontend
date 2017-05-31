@@ -85,7 +85,7 @@ class App extends Component {
                     <Route
                       location={location}
                       path="/filters"
-                      render={() => <Filters />}
+                      render={({ location }) => <Filters location={location} />}
                       key={location.key}
                     />
                   </CSSTransitionGroup>

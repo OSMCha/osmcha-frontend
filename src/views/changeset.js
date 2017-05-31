@@ -21,6 +21,7 @@ import type { RootStateType } from '../store';
 class Changeset extends React.PureComponent {
   props: {
     errorChangeset: ?Object, // error of the latest that changeset failed
+    location: Object,
     loading: boolean, // loading of the selected changesetId
     currentChangeset: Map<string, *>,
     changesetId: number,
@@ -82,7 +83,12 @@ class Changeset extends React.PureComponent {
           title={
             <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
               <span>
-                {width < 800 && <Link to="/">{'<  '}</Link>}
+                {width < 800 &&
+                  <Link
+                    to={{ search: this.props.location.search, pathname: '/' }}
+                  >
+                    {'<  '}
+                  </Link>}
                 <span className="txt-l">
                   Changeset:
                   {' '}
@@ -149,6 +155,7 @@ class Changeset extends React.PureComponent {
 Changeset = connect(
   (state: RootStateType, props) => ({
     changeset: state.changeset,
+    location: props.location,
     changesetId: parseInt(props.match.params.id, 10),
     currentChangeset: state.changeset.getIn([
       'changesets',

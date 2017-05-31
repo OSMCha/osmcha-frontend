@@ -8,14 +8,19 @@ export function fetchChangesetsPage(
   token: ?string
 ) {
   let flatFilters = '';
-  Object.keys(filters).forEach(f => {
-    let filter = filters[f];
-    if (Array.isArray(filter)) {
-      filter = filter.map(x => x.value).join(',');
-    }
-    flatFilters += `&${f}=${filter}`;
-  });
-  console.log(flatFilters);
+  Object.keys(filters)
+    .filter(f => {
+      let filter = filters[f];
+      return filter && filter !== '';
+    })
+    .forEach(f => {
+      let filter: Array<{ name: string, value: string }> | string = filters[f];
+      if (Array.isArray(filter)) {
+        filter = filter.filter(x => x.value).map(x => x.value).join(',');
+      }
+      flatFilters += `&${f}=${filter}`;
+    });
+
   return fetch(
     `${API_URL}/changesets/?page=${pageIndex + 1}&page_size=${PAGE_SIZE}&${flatFilters}`,
     {

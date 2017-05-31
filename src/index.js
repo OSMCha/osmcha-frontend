@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ConnectedRouter } from 'react-router-redux';
@@ -14,7 +15,8 @@ import './css/0.13.0.assembly.min.css';
 import './0.13.0.assembly';
 
 import App from './app';
-import { store, history } from './store';
+import { history } from './store/history';
+import { store } from './store';
 
 // if (process.env.NODE_ENV === 'production') {
 //   const {whyDidYouUpdate} = require('why-did-you-update');
@@ -24,7 +26,7 @@ import { store, history } from './store';
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App history={history} />
+      <App />
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')

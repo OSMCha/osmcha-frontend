@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 import type { RootStateType } from '../store';
 import type { ChangesetType } from '../store/changeset_reducer';
 
-import { history } from '../store';
+import { history } from '../store/history';
 import { getChangeset } from '../store/changeset_actions';
 import { getChangesetsPage } from '../store/changesets_page_actions';
 import {
@@ -30,7 +30,7 @@ const RANGE = 6;
 
 class ChangesetsList extends React.PureComponent {
   props: {
-    pathname: string,
+    location: Object,
     loading: boolean,
     error: Object,
     style: Object,
@@ -119,7 +119,7 @@ class ChangesetsList extends React.PureComponent {
             activeStyle={{
               fontWeight: 'bold'
             }}
-            to="/filters"
+            to={{ search: this.props.location.search, pathname: '/filters' }}
           >
             Filters
           </NavLink>
@@ -164,7 +164,7 @@ class ChangesetsList extends React.PureComponent {
 ChangesetsList = connect(
   (state: RootStateType, props) => ({
     routing: state.routing,
-    pathname: state.routing.location.pathname,
+    location: state.routing.location,
     currentPage: state.changesetsPage.getIn([
       'pages',
       state.changesetsPage.get('pageIndex')

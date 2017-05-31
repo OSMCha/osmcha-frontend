@@ -1,8 +1,9 @@
 // @flow
 import { put, call, takeLatest, select } from 'redux-saga/effects';
 import { fromJS } from 'immutable';
-
+import { push } from 'react-router-redux';
 import { fetchChangesetsPage } from '../network/changesets_page';
+import { getObjAsQueryParam } from '../utils/query_params';
 
 import type { RootStateType } from './';
 
@@ -19,8 +20,11 @@ export function action(type: string, payload: ?Object) {
 
 // public
 // starting point for react component to start fetch
-export const getChangesetsPage = (pageIndex: number, filters: ?Object) =>
-  action(CHANGESET_PAGE_GET, { pageIndex, filters });
+export const getChangesetsPage = (
+  pageIndex: number,
+  filters: ?Object,
+  pathname: ?string
+) => action(CHANGESET_PAGE_GET, { pageIndex, filters, pathname });
 
 // watches for CHANGESET_PAGE_GET and only
 // dispatches latest to fetchChangesetsPageAsync
@@ -31,10 +35,12 @@ export function* watchChangesetsPage(): any {
 /** Sagas **/
 export function* fetchChangesetsPageAsync({
   pageIndex,
-  filters
+  filters,
+  pathname
 }: {
   pageIndex: number,
-  filters: ?Object
+  filters: ?Object,
+  pathname: ?string
 }): Object {
   // no need to check if changesetPage exists
   // as service worker caches this api request
@@ -43,6 +49,17 @@ export function* fetchChangesetsPageAsync({
       state.changesetsPage.get('filters')
     );
   } else {
+    const search = getObjAsQueryParam('filters', filters);
+    const location = yield select((state: RootStateType) => ({
+      ...state.routing.location, // deep clone it
+      pathname: pathname || state.routing.location.pathname,
+      search // update the search
+    }));
+
+    // documentation is spotty about push,
+    // I could find one comment in the readme
+    // about it ref: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
+    yield put(push(location));
     yield put(
       action(FILTERS_SET, {
         filters
