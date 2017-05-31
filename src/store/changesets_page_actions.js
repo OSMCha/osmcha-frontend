@@ -44,28 +44,23 @@ export function* fetchChangesetsPageAsync({
 }): Object {
   // no need to check if changesetPage exists
   // as service worker caches this api request
-  if (!filters) {
-    filters = yield select((state: RootStateType) =>
-      state.changesetsPage.get('filters')
-    );
-  } else {
-    const search = getObjAsQueryParam('filters', filters);
-    const location = yield select((state: RootStateType) => ({
-      ...state.routing.location, // deep clone it
-      pathname: pathname || state.routing.location.pathname,
-      search // update the search
-    }));
+  const search = getObjAsQueryParam('filters', filters);
+  const location = yield select((state: RootStateType) => ({
+    ...state.routing.location, // deep clone it
+    pathname: pathname || state.routing.location.pathname,
+    search // update the search
+  }));
 
-    // documentation is spotty about push,
-    // I could find one comment in the readme
-    // about it ref: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
-    yield put(push(location));
-    yield put(
-      action(FILTERS_SET, {
-        filters
-      })
-    );
-  }
+  // documentation is spotty about push,
+  // I could find one comment in the readme
+  // about it ref: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
+  yield put(push(location));
+  yield put(
+    action(FILTERS_SET, {
+      filters
+    })
+  );
+
   yield put(
     action(CHANGESETS_PAGE_LOADING, {
       pageIndex

@@ -16,6 +16,9 @@ export function getFiltersFromUrl(): Object {
 }
 
 export function getObjAsQueryParam(key: string, obj: Object) {
+  if (!obj || Object.keys(obj).length === 0) {
+    return '';
+  }
   return stringify({
     [key]: JSON.stringify(obj)
   });
