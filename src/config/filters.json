@@ -139,7 +139,7 @@
     "cache": true,
     "type": "text_comma",
     "description": "Filter changesets that were checked by a user. Use commas to search for more than one user.",
-    "placeholder": ""
+    "placeholder": "Checked by user"
   },
   {
     "name": "users",
@@ -171,7 +171,7 @@
     "type": "text_comma",
     "data_url": "tags",
     "description": "Filter changesets that have one or more of the Tags. Inform the Tags ids separated by commas.",
-    "placeholder": ""
+    "placeholder": "Add tags"
   },
   {
     "name": "harmful",
@@ -192,37 +192,6 @@
     ],
     "description": "Filter changesets that were marked as harmful or not. Use true/false, 1/0 values.",
     "placeholder": "Toggle harmful"
-  },
-  {
-    "name": "is_suspect",
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Show Flagged",
-    "type": "radio",
-    "options": [
-      {
-        "label": "Yes",
-        "value": "True"
-      },
-      {
-        "label": "No",
-        "value": "False"
-      }
-    ],
-    "description": "Filter changesets that were considered suspect by OSMCHA.",
-    "placeholder": "Toggle Flagged changesets"
-  },
-  {
-    "name": "powerfull_editor",
-    "ignore": true,
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Powerful editor",
-    "type": "text",
-    "description": "Filter changesets that were created using a software editor considered powerfull (those that allow to create, modify or delete data in a batch).",
-    "placeholder": ""
   },
   {
     "name": "order_by",
@@ -282,6 +251,37 @@
       }
     ],
     "description": "Order the Changesets by one of the following fields: id, date, check_date, create, modify or delete. Use a minus sign (-) before the field name to reverse the ordering. Default ordering is '-id'.",
+    "placeholder": "Asceding/Descending "
+  },
+  {
+    "name": "is_suspect",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Show Flagged",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
+    "description": "Filter changesets that were considered suspect by OSMCHA.",
+    "placeholder": "Toggle Flagged changesets"
+  },
+  {
+    "name": "powerfull_editor",
+    "ignore": true,
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Powerful editor",
+    "type": "text",
+    "description": "Filter changesets that were created using a software editor considered powerfull (those that allow to create, modify or delete data in a batch).",
     "placeholder": ""
   },
   {
@@ -302,7 +302,7 @@
       }
     ],
     "description": "If True, it will exclude the changesets created by the users that you whitelisted",
-    "placeholder": ""
+    "placeholder": "exclude changesets by whitelisted"
   },
   {
     "name": "area_lt",
