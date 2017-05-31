@@ -9,7 +9,8 @@ export class Filter extends React.PureComponent {
     data: Object,
     value: ?string,
     onChange: () => any,
-    onSelectChange: (string, Object) => any
+    onSelectChange: (string, Object) => any,
+    usersAutofill: ?Array<Object>
   };
   onSelectChange = (value: Object) => {
     if (!this.props.data.name) return;
@@ -75,6 +76,7 @@ export class Filter extends React.PureComponent {
           name={name}
           className="wmin300 wmax300"
           value={this.props.value}
+          options={name === 'users' ? this.props.usersAutofill : []}
           onChange={this.onSelectChange} // have to add an identifier for filter name
           placeholder={placeholder}
         />

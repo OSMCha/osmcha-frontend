@@ -2,23 +2,25 @@
 import React from 'react';
 import Mousetrap from 'mousetrap';
 import { connect } from 'react-redux';
-import { Map } from 'immutable';
+import { Map, List, Set } from 'immutable';
 import { Link } from 'react-router-dom';
 
 import { Navbar } from '../components/navbar';
 import { Filter } from '../components/filter';
 import { Button } from '../components/button';
+import { getItem, setItem } from '../utils/safe_storage';
 
 import filters from '../config/filters.json';
 
 import { applyFilters } from '../store/changesets_page_actions';
 
 import type { RootStateType } from '../store';
-
+const USERS_LIMIT = 200;
 class Filters extends React.PureComponent {
   props: {
     filters: Object,
     location: Object,
+    features: List<Map<string, any>>,
     applyFilters: (Object, string) => mixed // base 0
   };
   state = { ...this.props.filters };
@@ -63,6 +65,30 @@ class Filters extends React.PureComponent {
   };
   render() {
     const width = window.innerWidth;
+    let usersAutofill;
+    if (this.props.features) {
+      let merged = [];
+      let fromNetwork = Set(
+        this.props.features.map(f => f.getIn(['properties', 'user']))
+      ).toJS();
+
+      if (getItem('usersAutofill')) {
+        let cached = [];
+        try {
+          cached = JSON.parse(getItem('usersAutofill') || '');
+        } catch (e) {
+          console.error(e);
+        }
+        if (Array.isArray(cached)) {
+          merged = Array.from(Set(fromNetwork.concat(cached)));
+          merged.slice(0, USERS_LIMIT);
+        }
+      } else {
+        merged = fromNetwork;
+      }
+      setItem('usersAutofill', JSON.stringify(merged));
+      usersAutofill = merged.map(u => ({ label: u, value: u }));
+    }
     return (
       <div
         className={`flex-parent flex-parent--column changesets-list bg-gray-faint ${width < 800 ? 'viewport-full' : ''}`}
@@ -72,7 +98,9 @@ class Filters extends React.PureComponent {
         </header>
         <div className="m12 flex-parent flex-parent--row flex-parent--wrap justify--space-around scroll-auto wmax960 ">
           {filters
-            .filter(f => !f.ignore)
+            .filter(f => {
+              return !f.ignore;
+            })
             .map((f, k) => (
               <Filter
                 data={f}
@@ -80,6 +108,7 @@ class Filters extends React.PureComponent {
                 key={k}
                 onChange={this.handleFormChange}
                 onSelectChange={this.handleSelectChange}
+                usersAutofill={usersAutofill}
               />
             ))}
           <span className="flex-child flex-child--grow wmin420 wmax435" />
@@ -104,6 +133,7 @@ class Filters extends React.PureComponent {
 Filters = connect(
   (state: RootStateType, props) => ({
     filters: state.changesetsPage.get('filters') || {},
+    features: state.changesetsPage.getIn(['pages', 0, 'features']),
     location: props.location
   }),
   {
