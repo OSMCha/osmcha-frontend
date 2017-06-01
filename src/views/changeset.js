@@ -13,7 +13,10 @@ import { Loading } from '../components/loading';
 import { Tags } from '../components/tags';
 import { Verify } from '../components/changeset/verify';
 
-import { handleChangesetModify } from '../store/changeset_actions';
+import {
+  handleChangesetModifyHarmful,
+  handleChangesetModifyTag
+} from '../store/changeset_actions';
 import { FILTER_BINDING } from '../config/bindings';
 import { dispatchEvent } from '../utils/dispatch_event';
 
@@ -26,7 +29,8 @@ class Changeset extends React.PureComponent {
     loading: boolean, // loading of the selected changesetId
     currentChangeset: Map<string, *>,
     changesetId: number,
-    handleChangesetModify: (number, Map<string, *>, boolean) => mixed
+    handleChangesetModifyHarmful: (number, Map<string, *>, boolean) => mixed,
+    handleChangesetModifyTag: (number, Map<string, *>, number, boolean) => mixed
   };
   componentDidMount() {
     Mousetrap.bind('f', () => {
@@ -69,7 +73,7 @@ class Changeset extends React.PureComponent {
     );
   };
   handleVerify = e => {
-    this.props.handleChangesetModify(
+    this.props.handleChangesetModifyHarmful(
       this.props.changesetId,
       this.props.currentChangeset,
       e.target.value === 'true' ? true : false // whether harmful is true or false
@@ -83,7 +87,12 @@ class Changeset extends React.PureComponent {
           className="bg-white color-gray border-b border--gray-light border--1 border-t--0"
           title={
             <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
-              <Tags changesetId={this.props.changesetId} disabled={false} />
+              <Tags
+                changesetId={this.props.changesetId}
+                currentChangeset={this.props.currentChangeset}
+                disabled={false}
+                handleChangesetModifyTag={this.props.handleChangesetModifyTag}
+              />
 
               <span>
                 {width < 800 &&
@@ -167,7 +176,7 @@ Changeset = connect(
     errorChangeset: state.changeset.get('errorChangeset'),
     loading: state.changeset.get('loading')
   }),
-  { handleChangesetModify }
+  { handleChangesetModifyHarmful, handleChangesetModifyTag }
 )(Changeset);
 
 export { Changeset };

@@ -2,12 +2,24 @@
 import React from 'react';
 import { Async } from 'react-select-plus';
 import { API_URL } from '../config';
+import { Map, Set, fromJS } from 'immutable';
 
+// TOFIX This whole code is a complete shit
+// please rewrite it asap.
 export class Tags extends React.PureComponent {
   props: {
     changesetId: number,
     disabled: boolean,
-    currentChangeset: Map<string, *>
+    currentChangeset: Map<string, *>,
+    handleChangesetModifyTag: (number, Map<string, *>, number, boolean) => mixed
+  };
+  state: {
+    selectedTags: Array<any>,
+    allTags: Array<any>
+  };
+  state = {
+    allTags: {},
+    selectedTags: []
   };
   getAsyncOptions = () => {
     return fetch(`${API_URL}/tags/`)
@@ -15,17 +27,61 @@ export class Tags extends React.PureComponent {
         return response.json();
       })
       .then(json => {
-        const data = json
-          .filter(d => d.is_visible && d.for_changeset)
-          .map(d => ({ ...d, label: d.name, value: d.id }));
-        return { options: data };
+        let data = {};
+        let selectData = json.filter(d => d.is_visible && d.for_changeset);
+
+        selectData.forEach(d => {
+          data[d.name] = { ...d, value: d.id, label: d.name };
+        });
+
+        this.setState({
+          allTags: data
+        });
+        return {
+          options: selectData.map(d => ({ label: d.name, value: d.name }))
+        };
       });
   };
-  onSelectChange = data => {
-    console.log(data);
+  onSelectChange = (data: Array<any>) => {
+    const {
+      changesetId,
+      currentChangeset,
+      handleChangesetModifyTag
+    } = this.props;
+    data = data.map(d => ({ value: d.value, label: d.label }));
+    var newTags = Set(fromJS(data));
+    var oldTags = Set(
+      fromJS(
+        this.props.currentChangeset
+          .getIn(['properties', 'tags'])
+          .toJS()
+          .map(t => ({ label: t, value: t }))
+      )
+    );
+    newTags.subtract(oldTags).forEach(t => {
+      console.log(t.toJS(), this.state.allTags);
+      handleChangesetModifyTag(
+        changesetId,
+        currentChangeset,
+        this.state.allTags[t.toJS().label],
+        false
+      );
+    });
+    oldTags.subtract(newTags).forEach(t => {
+      console.log(t.toJS());
+      handleChangesetModifyTag(
+        changesetId,
+        currentChangeset,
+        this.state.allTags[t.toJS().label],
+        true
+      );
+    });
   };
+  componentDidUpdate(prevProps: Object, prevState: Object) {}
   render() {
+    if (!this.props.currentChangeset) return null;
     const { changesetId } = this.props;
+
     return (
       <Async
         multi
@@ -33,6 +89,10 @@ export class Tags extends React.PureComponent {
         promptTextCreator={label => `Add ${label} to ${changesetId}`}
         className={`wmin240 wmax240 ${this.props.disabled ? 'cursor-notallowed' : ''}`}
         loadOptions={this.getAsyncOptions}
+        value={this.props.currentChangeset
+          .getIn(['properties', 'tags'])
+          .toJS()
+          .map(t => ({ label: t, value: t }))}
         onChange={this.onSelectChange} // have to add an identifier for filter name
         placeholder="Add tags to this changeset"
       />

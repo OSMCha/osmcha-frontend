@@ -1,10 +1,10 @@
 // @flow
 import { put, call, take, fork, select, cancel } from 'redux-saga/effects';
 
-import { fromJS, Map } from 'immutable';
+import { fromJS, Map, List } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import { fetchChangeset, setHarmful } from '../network/changeset';
+import { fetchChangeset, setHarmful, setTag } from '../network/changeset';
 import { getChangesetIdFromLocation } from '../utils/routing';
 
 import type { RootStateType } from './';
@@ -23,6 +23,8 @@ export const CHANGESET_MAP_ERROR = 'CHANGESET_MAP_ERROR';
 export const CHANGESET_MODIFY_HARMFUL = 'CHANGESET_MODIFY_HARMFUL';
 export const CHANGESET_MODIFY = 'CHANGESET_MODIFY';
 export const CHANGESET_MODIFY_REVERT = 'CHANGESET_MODIFY_REVERT';
+export const CHANGESET_MODIFY_TAG = 'CHANGESET_MODIFY_TAG';
+
 export function action(type: string, payload: ?Object) {
   return { type, ...payload };
 }
@@ -32,11 +34,29 @@ export function action(type: string, payload: ?Object) {
 export const getChangeset = (changesetId: number) =>
   action(CHANGESET_GET, { changesetId });
 
-export const handleChangesetModify = (
+export const handleChangesetModifyHarmful = (
   changesetId: number,
   changeset: Map<string, *>,
   harmful: boolean
-) => action(CHANGESET_MODIFY_HARMFUL, { changesetId, changeset, harmful });
+) =>
+  action(CHANGESET_MODIFY_HARMFUL, {
+    oldChangeset: changeset,
+    changesetId,
+    harmful
+  });
+
+export const handleChangesetModifyTag = (
+  changesetId: number,
+  changeset: Map<string, *>,
+  tag: Object,
+  remove: boolean
+) =>
+  action(CHANGESET_MODIFY_TAG, {
+    oldChangeset: changeset,
+    changesetId,
+    tag,
+    remove
+  });
 
 // watches for LOCATION_CHANGE and only
 // dispatches the latest one to get changeset
@@ -72,7 +92,11 @@ export function* watchChangeset(): any {
 
 export function* watchModifyChangeset(): any {
   while (true) {
-    const modifyAction = yield take([CHANGESET_MODIFY_HARMFUL]); // scope for multiple actions in future
+    const modifyAction = yield take([
+      CHANGESET_MODIFY_HARMFUL,
+      CHANGESET_MODIFY_TAG
+    ]); // scope for multiple modify actions in future
+    console.log('errrr', modifyAction);
     const token = yield select((state: RootStateType) =>
       state.auth.get('token')
     ); // TOFIX handle token not existing
@@ -86,12 +110,24 @@ export function* watchModifyChangeset(): any {
     try {
       switch (modifyAction.type) {
         case CHANGESET_MODIFY_HARMFUL: {
+          console.log('heeee loo');
           const harmful = modifyAction.harmful;
           yield call(setHarmfulAction, {
             changesetId,
             oldChangeset,
             token,
             harmful
+          });
+          break;
+        }
+        case CHANGESET_MODIFY_TAG: {
+          const { tag, remove } = modifyAction;
+          yield call(setTagActions, {
+            changesetId,
+            oldChangeset,
+            token,
+            tag,
+            remove
           });
           break;
         }
@@ -214,4 +250,48 @@ export function* setHarmfulAction({
     })
   );
   yield call(setHarmful, changesetId, token, harmful);
+}
+
+export function* setTagActions({
+  changesetId,
+  oldChangeset,
+  token,
+  tag,
+  remove
+}: Object): any {
+  if (oldChangeset.getIn(['properties', 'checked'])) {
+    // TOFIX also check for user
+    let newChangeset = oldChangeset;
+    let existingTags: List<*>;
+    if (remove) {
+      existingTags = oldChangeset.getIn(['properties', 'tags']);
+      let key;
+      existingTags.forEach((value, i) => {
+        if (value === tag.label) {
+          key = i;
+        }
+      });
+      console.log('delete key', key);
+      newChangeset = oldChangeset.setIn(
+        ['properties', 'tags'],
+        existingTags.delete(key)
+      );
+    } else {
+      existingTags = oldChangeset.getIn(['properties', 'tags']);
+      newChangeset = oldChangeset.setIn(
+        ['properties', 'tags'],
+        existingTags.push(tag.label)
+      );
+    }
+
+    yield put(
+      action(CHANGESET_MODIFY, {
+        changesetId,
+        changeset: newChangeset
+      })
+    );
+    yield call(setTag, changesetId, token, tag, remove);
+  } else {
+    throw new Error('Only allowed on checked changesets');
+  }
 }
