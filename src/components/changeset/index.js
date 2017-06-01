@@ -71,19 +71,19 @@ export class Changeset extends React.PureComponent {
         transitionLeaveTimeout={150}
       >
         {this.state.comment &&
-          <Box key={0} className="transition w480 my3">
+          <Box key={0} className="transition w480 my3 round-tr round-br">
             <Comment changesetId={changesetId} properties={properties} />
           </Box>}
         {this.state.discussions &&
-          <Box key={1} className="transition w480 my3">
+          <Box key={1} className="transition w480 my3 round-tr round-br">
             <Discussions changesetId={changesetId} properties={properties} />
           </Box>}
         {this.state.features &&
-          <Box key={2} className="transition w480 my3">
+          <Box key={2} className="transition w480 my3 round-tr round-br">
             <Features changesetId={changesetId} properties={properties} />
           </Box>}
         {this.state.details &&
-          <Box key={3} className="transition w480 my3">
+          <Box key={3} className="transition w480 my3 round-tr round-br">
             <Header changesetId={changesetId} properties={properties} />
           </Box>}
       </CSSTransitionGroup>

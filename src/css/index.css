@@ -99,7 +99,7 @@ body {
 }
 
 .floaters-leave.floaters-leave-active {
-  opacity: 0.01;  
+  opacity: 0.01;
   transition: opacity 100ms ease-in;
 }
 
@@ -129,7 +129,7 @@ body {
 }
 
 .map-hide-leave.map-hide-leave-active {
-  opacity: 0.5;  
+  opacity: 0.5;
   transition: opacity 700ms ease-in;
 }
 
@@ -152,14 +152,14 @@ body {
   /* hide text if it more than N lines  */
   overflow: hidden;
   /* for set '...' in absolute position */
-  position: relative; 
+  position: relative;
   /* use this value to count block height */
   line-height: 1.2em;
   /* max-height = line-height (1.2) * lines max number (2) */
-  max-height: 2.4em; 
-  min-height: 2.4em; 
+  max-height: 2.4em;
+  min-height: 2.4em;
   /* fix problem when last visible word doesn't adjoin right side  */
-  text-align: left;  
+  text-align: left;
   /* place for '...' */
   margin-right: -1em;
   padding-right: 1em;
@@ -201,4 +201,20 @@ body {
   padding: 5px;
   top: inherit !important;
   left: inherit !important;
+}
+
+.cmap-bg-create {
+  background-color: #39DBC0;
+}
+
+.cmap-bg-modify-old {
+  background-color: #DB950A;
+}
+
+.cmap-bg-modify-new {
+  background-color: #E8E845;
+}
+
+.cmap-bg-delete {
+  background-color: #CC2C47;
 }
