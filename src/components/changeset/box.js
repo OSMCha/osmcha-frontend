@@ -4,7 +4,7 @@ export const Box = ({ children, pullDown, pullUp, className, style, bg }) => (
     <div className="flex-parent flex-parent--row flex-parent--center-main">
       {pullDown}
     </div>
-    <div className={`${bg} h-full`}>
+    <div className={`${bg} scroll-styled scroll-auto hmax480`}>
       {children}
     </div>
     <div className="flex-parent flex-parent--row flex-parent--center-main">

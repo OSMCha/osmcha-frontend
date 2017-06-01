@@ -37,6 +37,7 @@ export function Features({
   properties: Map<string, *>,
   changesetId: number
 }) {
+  // features[0].reasons
   const features = fromJS(
     shuffle([
       {

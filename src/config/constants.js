@@ -6,6 +6,6 @@ export const osmBase = '//www.openstreetmap.org/api/0.6/';
 export const mapboxAccessToken =
   'pk.eyJ1IjoicmFzYWd5IiwiYSI6ImNpejVrMjc4eTAwNGczM2thNWozYnJ1OHkifQ.yFRr3Sd39TJiwEguQpIkWQ';
 export const osmchaSocialTokenUrl =
-  'https://osmcha-django-api-test.tilestream.net/api/v1/social-auth/';
-export const osmChaUrl = 'https://osmcha-django-api-test.tilestream.net/api/v1';
+  'https://osmcha-django-staging.tilestream.net/api/v1/social-auth/';
+export const osmChaUrl = 'https://osmcha-django-staging.tilestream.net/api/v1';
 export const osmAuthUrl = 'https://www.openstreetmap.org/oauth/authorize';
