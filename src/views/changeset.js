@@ -10,6 +10,7 @@ import { Changeset as ChangesetDumb } from '../components/changeset';
 import { Navbar } from '../components/navbar';
 import { Sidebar } from '../components/sidebar';
 import { Loading } from '../components/loading';
+import { Tags } from '../components/tags';
 import { Verify } from '../components/changeset/verify';
 
 import { handleChangesetModify } from '../store/changeset_actions';
@@ -82,6 +83,8 @@ class Changeset extends React.PureComponent {
           className="bg-white color-gray border-b border--gray-light border--1 border-t--0"
           title={
             <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
+              <Tags changesetId={this.props.changesetId} disabled={false} />
+
               <span>
                 {width < 800 &&
                   <Link
