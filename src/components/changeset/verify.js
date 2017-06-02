@@ -1,4 +1,6 @@
 import React from 'react';
+import { Dropdown } from '../dropdown';
+
 export function Verify({ changeset, options, className, onChange, value }) {
   if (changeset.getIn(['properties', 'checked'])) {
     return (
@@ -11,21 +13,12 @@ export function Verify({ changeset, options, className, onChange, value }) {
   }
   return (
     <div className="select-container">
-      <select
-        className={`select ${className}`}
-        value={value}
+      <Dropdown
+        value={[]}
+        options={options}
         onChange={onChange}
-      >
-        <option value="verify" disabled>
-          Verify
-        </option>
-        {options.map((v, k) => (
-          <option value={v.value} key={k} hidden={v.hidden}>
-            {v.display}
-          </option>
-        ))}
-      </select>
-      <div className="select-arrow" />
+        display="Verify"
+      />
     </div>
   );
 }

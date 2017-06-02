@@ -11,6 +11,7 @@ import { Stats } from './views/stats';
 import { Filters } from './views/filters';
 import { ChangesetsList } from './views/changesets_list';
 import { CMap } from './views/map';
+import { NavbarChangeset } from './views/navbar_changeset';
 import { Sidebar } from './components/sidebar';
 import { Navbar } from './components/navbar';
 
@@ -18,7 +19,6 @@ var ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
 class App extends Component {
   resize = null;
-
   componentDidMount() {
     if (document && document.body) {
       Mousetrap.bind('\\', () => {
@@ -50,36 +50,40 @@ class App extends Component {
     const width = window.innerWidth;
     if (width > 800) {
       return (
-        <div className="viewport-full clip">
-          <div className="grid">
-            <Sidebar
-              className="col col--3-mxl col--3-ml bg-white"
-              title={
-                <Navbar
-                  className="bg-white border-b border--gray-light border--1"
-                  title={
-                    <span className="txt-fancy color-gray txt-xl">
-                      <span className="color-green txt-bold">
-                        OSM
+        <Route
+          render={({ location }) => (
+            <div className="viewport-full clip">
+              <div className="grid">
+                <div className="col col--3-mxl col--3-ml bg-white">
+                  <Navbar
+                    className="bg-white border-b border--gray-light border--1"
+                    title={
+                      <span className="txt-fancy color-gray txt-xl">
+                        <span className="color-green txt-bold">
+                          OSM
+                        </span>
+                        {' '}
+                        CHA
                       </span>
-                      {' '}
-                      CHA
-                    </span>
-                  }
-                />
-              }
-            >
-              <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
-            </Sidebar>
-            <Route
-              render={({ location }) => (
-                <div className="col col--9-mxl col--9-ml col--12-mm clip">
+                    }
+                  />
+                  <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
+                </div>
+                <div className="col col--9-mxl col--9-ml col--12-mm clip bg-black ">
+                  <Route
+                    path="/changesets"
+                    // Need to use render to avoid unmounting of
+                    // CMap Ref: https://reacttraining.com/react-router/web/api/Route/render-func
+                    // CMap and views/changeset.js are clubbed so they can be
+                    // loaded on demand in future.
+                    component={NavbarChangeset}
+                  />
                   <CSSTransitionGroup
                     transitionName="filters"
                     transitionAppearTimeout={500}
                     transitionAppear={true}
                     transitionEnterTimeout={500}
-                    transitionLeaveTimeout={500}
+                    transitionLeaveTimeout={400}
                   >
                     <Route
                       location={location}
@@ -88,6 +92,7 @@ class App extends Component {
                       key={location.key}
                     />
                   </CSSTransitionGroup>
+
                   <Route
                     exact
                     path="/"
@@ -105,16 +110,15 @@ class App extends Component {
                   <Route path="/about" component={About} />
                   <Route path="/stats" component={Stats} />
                 </div>
-              )}
-            />
-
-          </div>
-          <ToastContainer
-            ref="toastr"
-            toastMessageFactory={ToastMessageFactory}
-            className="toast-top-right"
-          />
-        </div>
+              </div>
+              <ToastContainer
+                ref="toastr"
+                toastMessageFactory={ToastMessageFactory}
+                className="toast-top-right"
+              />
+            </div>
+          )}
+        />
       );
     } else {
       return (

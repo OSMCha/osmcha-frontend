@@ -1,5 +1,5 @@
 // @flow
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 import {
   SAVE_OAUTH_OBJ,
   SAVE_TOKEN,
@@ -7,17 +7,13 @@ import {
   LOGIN_ERROR,
   USER_DETAILS
 } from './auth_actions';
-export type AuthType = Map<
 
-    | 'oAuthToken' //  osm
-    | 'oAuthTokenSecret'
-    | 'error'
-    | 'token'
-    | 'userDetails',
+export type AuthType = Map<
+  'oAuthToken' | 'oAuthTokenSecret' | 'error' | 'token' | 'userDetails',
   any
 >; // osmcha uses this
 
-const initialState: AuthType = Map({
+const initialState: AuthType = fromJS({
   oAuthToken: null,
   oAuthTokenSecret: null,
   error: null,
@@ -40,7 +36,7 @@ export function authReducer(
       return state.set('token', action.token).set('error', null);
     }
     case CLEAR_SESSION: {
-      return Map({ error: state.get('error') }); // retain the error
+      return fromJS({ error: state.get('error') }); // retain the error
     }
     case LOGIN_ERROR: {
       return state.set('error', action.error);

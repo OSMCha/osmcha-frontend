@@ -3,6 +3,7 @@ import React from 'react';
 import { Tooltip } from 'react-tippy';
 import Select, { Creatable, Async } from 'react-select';
 import { API_URL } from '../config';
+import { Dropdown } from './dropdown';
 
 export class Filter extends React.PureComponent {
   props: {
@@ -17,7 +18,7 @@ export class Filter extends React.PureComponent {
     this.props.onSelectChange(this.props.data.name, value);
   };
   getAsyncOptions = () => {
-    return fetch(`${API_URL}/${this.props.data.data_url}`)
+    return fetch(`${API_URL}/${this.props.data.data_url}/`)
       .then(response => {
         return response.json();
       })

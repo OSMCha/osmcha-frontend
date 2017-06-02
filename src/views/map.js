@@ -84,7 +84,7 @@ class CMap extends React.PureComponent {
   setDimensions = () => {
     if (!this.ref) return;
     var rect = this.ref.parentNode.getBoundingClientRect();
-    height = parseInt(rect.height - 2 * 55, 10);
+    height = parseInt(window.innerHeight - 2 * 55, 10);
     width = parseInt(rect.width, 10);
     this.setState({
       height,
@@ -127,7 +127,7 @@ class CMap extends React.PureComponent {
             <div
               key={0}
               id="placeholder"
-              className={` fixed bottom right 
+              className={` fixed bottom right z0
           ${this.props.errorChangesetMap ? 'bg-red' : 'bg-black'}
           `}
               style={{

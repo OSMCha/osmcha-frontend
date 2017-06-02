@@ -1,8 +1,9 @@
 // @flow
 import React from 'react';
-import { Async } from 'react-select-plus';
-import { API_URL } from '../config';
+import { Async } from 'react-select';
+import { API_URL } from '../../config';
 import { Map, Set, fromJS } from 'immutable';
+import { Dropdown } from '../dropdown';
 
 // TOFIX This whole code is a complete shit
 // please rewrite it asap.
@@ -83,19 +84,32 @@ export class Tags extends React.PureComponent {
     const { changesetId } = this.props;
 
     return (
-      <Async
+      <Dropdown
         multi
         disabled={this.props.disabled}
-        promptTextCreator={label => `Add ${label} to ${changesetId}`}
-        className={`wmin240 wmax240 ${this.props.disabled ? 'cursor-notallowed' : ''}`}
-        loadOptions={this.getAsyncOptions}
+        className={`${this.props.disabled ? 'cursor-notallowed' : ''}`}
         value={this.props.currentChangeset
           .getIn(['properties', 'tags'])
           .toJS()
           .map(t => ({ label: t, value: t }))}
-        onChange={this.onSelectChange} // have to add an identifier for filter name
-        placeholder="Add tags to this changeset"
+        loadOptions={this.getAsyncOptions}
+        onChange={this.onSelectChange}
+        display="Tags"
       />
     );
   }
 }
+
+// <Async
+//       multi
+//       disabled={this.props.disabled}
+//       promptTextCreator={label => `Add ${label} to ${changesetId}`}
+//       className={`wmin240 wmax240 ${this.props.disabled ? 'cursor-notallowed' : ''}`}
+//       loadOptions={this.getAsyncOptions}
+//       value={this.props.currentChangeset
+//         .getIn(['properties', 'tags'])
+//         .toJS()
+//         .map(t => ({ label: t, value: t }))}
+//       onChange={this.onSelectChange} // have to add an identifier for filter name
+//       placeholder="Add tags to this changeset"
+//     />

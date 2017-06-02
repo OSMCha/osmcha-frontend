@@ -64,15 +64,20 @@ body {
   height: calc(100vh - 55px);
 }
 
+.changesets-filters {
+  height: 100vh;
+}
+
 /* animations */
 
 .filters-appear {
-  opacity: 0.01;
+  opacity: 0.1;
 }
 
 .filters-appear.example-appear-active {
   opacity: 1;
   transition: opacity .5s ease-in;
+  
 }
 
 .filters-enter {
@@ -86,7 +91,7 @@ body {
 }
 
 .filters-leave {
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .filters-leave.filters-leave-active {
