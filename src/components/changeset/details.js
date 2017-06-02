@@ -26,7 +26,7 @@ export function Details({
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
         <div className="flex-parent flex-parent--row flex-parent--wrap py12">
           <p className="flex-child txt-subhead my12 txt-l ml3">
-            {comment}
+            {comment.length === 0 ? `No comments for ${changesetId}.` : comment}
           </p>
         </div>
       </div>
@@ -44,7 +44,6 @@ export function Details({
           <span className="wmax180 txt-break-word txt-s">{imagery}</span>
         </div>
       </div>
-      {comment.length === 0 && `No comments for ${changesetId}.`}
     </div>
   );
 }
