@@ -41,9 +41,6 @@ export class Changeset extends React.PureComponent {
     Mousetrap.bind('ctrl+o', () => {
       this.toggleDetails();
     });
-    Mousetrap.bind('ctrl+c', () => {
-      this.toggleComment();
-    });
   }
   setRef = (r: any) => {
     if (!r) return;
