@@ -44,6 +44,7 @@ export function Details({
           <span className="wmax180 txt-break-word txt-s">{imagery}</span>
         </div>
       </div>
+      {comment.length === 0 && `No comments for ${changesetId}.`}
     </div>
   );
 }
