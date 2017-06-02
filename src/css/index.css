@@ -174,7 +174,7 @@ body {
 
 /* truncate uptill 2 lines */
 
-.truncate-2-lines {
+.truncate-3-lines {
   /* hide text if it more than N lines  */
   overflow: hidden;
   /* for set '...' in absolute position */
@@ -182,8 +182,8 @@ body {
   /* use this value to count block height */
   line-height: 1.2em;
   /* max-height = line-height (1.2) * lines max number (2) */
-  max-height: 2.4em;
-  min-height: 2.4em;
+  max-height: 3.8em;
+  /*min-height: 2.4em;*/
   /* fix problem when last visible word doesn't adjoin right side  */
   text-align: left;
   /* place for '...' */
@@ -191,7 +191,7 @@ body {
   padding-right: 1em;
 }
 /* hide ... if we have text, which is less than or equal to max lines */
-.truncate-2-lines:after {
+.truncate-3-lines:after {
   /* points in the end */
   content: '';
   /* absolute position */
@@ -249,7 +249,29 @@ body {
   background-color: #CC2C47;
 }
 
-.cmap-custom-table th,
-.cmap-custom-table td {
+.osmcha-custom-table th,
+.osmcha-custom-table td {
    padding: 6px !important;
+}
+
+.border-color-good {
+  border-color: #52EC6D!important;
+  border-width: 4px!important;
+}
+
+.boder-color-bad {
+  border-color: #FF0000!important;
+  border-width: 4px!important;
+}
+
+.light-blue,
+.light-blue-on-hover:hover {
+  background-color: #EEF4FA!important;
+}
+
+/* OSMCha Custom CSS*/
+
+.border-color-neutral {
+  border-color: #D8D8D8!important;
+  border-width: 4px!important;
 }

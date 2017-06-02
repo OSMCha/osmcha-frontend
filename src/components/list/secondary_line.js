@@ -4,12 +4,12 @@ import moment from 'moment';
 
 export function SecondaryLine({ changesetId, date }: Object) {
   return (
-    <span className="flex-parent flex-parent--row txt-light txt-s">
+    <span className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray">
       <span>
-        Changeset {changesetId} created &nbsp;
+        Changeset: {changesetId}
       </span>
       <span>
-        {moment(date).fromNow()}
+        created &nbsp;{moment(date).fromNow()}
       </span>
     </span>
   );

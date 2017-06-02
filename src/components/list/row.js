@@ -31,6 +31,17 @@ export class Row extends React.PureComponent {
       // toggle it back to any other state.
       this.wasOpen = this.props.active;
     }
+
+    let borderClass = 'border-l border-color-neutral';
+    if (properties.get('harmful') === true)
+      borderClass = 'border-l border-color-bad';
+    if (properties.get('harmful') === false)
+      borderClass = 'border-l border-color-good';
+
+    let backgroundClass = '';
+    backgroundClass = active ? 'light-blue' : 'light-blue-on-hover';
+    backgroundClass += this.wasOpen ? ' bg-darken5' : '';
+
     return (
       <Link
         to={{
@@ -39,33 +50,32 @@ export class Row extends React.PureComponent {
         }}
       >
         <div
-          className={`${active ? 'bg-green-faint bg-green-faint-on-hover' : 'bg-gray-faint-on-hover '} transition`}
+          className={`${backgroundClass} ${borderClass} transition`}
           ref={inputRef}
         >
           <div
             {...other}
             className={
-              'ml12 cursor-pointer flex-parent flex-parent--row justify--space-between border-b py6 border-b--1 border--gray-light'
+              'ml12 cursor-pointer flex-parent flex-parent--column border-b py6 border-b--1 border--gray-light'
             }
           >
-            <div className="flex-parent flex-parent--row">
-              <div className="txt-mono">{this.wasOpen ? '\u00a0' : '•'}</div>
-              <div className="flex-parent flex-parent--column">
-                <div>
-                  <Title properties={properties} wasOpen={this.wasOpen} />
-                </div>
-                <div>
-                  <PrimaryLine comment={properties.get('comment')} />
-                </div>
-                <div>
-                  <SecondaryLine
-                    changesetId={changesetId}
-                    date={properties.get('date')}
-                  />
-                </div>
+            <div className="flex-parent flex-parent--column">
+              <div>
+                <Title properties={properties} wasOpen={this.wasOpen} />
+              </div>
+              <div>
+                <PrimaryLine
+                  reasons={properties.get('reasons')}
+                  comment={properties.get('comment')}
+                />
+              </div>
+              <div>
+                <SecondaryLine
+                  changesetId={changesetId}
+                  date={properties.get('date')}
+                />
               </div>
             </div>
-            <div />
           </div>
         </div>
       </Link>

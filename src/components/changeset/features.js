@@ -35,7 +35,7 @@ export function Features({
         </h2>
         {features.size === 0
           ? `No suspicious features for ${changesetId}.`
-          : <table className="table cmap-custom-table mt12">
+          : <table className="table osmcha-custom-table mt12">
               <thead>
                 <tr className="txt-s txt-uppercase">
                   <th>OSM Id</th>

@@ -31,7 +31,7 @@ export class List extends React.PureComponent {
   // TOFIX on invalid token handle error
   render() {
     return (
-      <ul className="flex-parent flex-parent--column scroll-auto flex-child--grow">
+      <ul className="flex-parent flex-parent--column scroll-styled scroll-auto flex-child--grow">
         {!this.props.currentPage || this.props.loading
           ? <Loading />
           : this.props.currentPage.get('features').map((f, k) => (
