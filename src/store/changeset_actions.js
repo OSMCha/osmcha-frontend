@@ -1,11 +1,10 @@
 // @flow
 import { put, call, take, fork, select, cancel } from 'redux-saga/effects';
 
-import { fromJS, Map } from 'immutable';
+import { fromJS, Map, List } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { getChangeset as getCMapData } from 'changeset-map';
 
-import { fetchChangeset, setHarmful } from '../network/changeset';
+import { fetchChangeset, setHarmful, setTag } from '../network/changeset';
 import { getChangesetIdFromLocation } from '../utils/routing';
 
 import type { RootStateType } from './';
@@ -24,6 +23,7 @@ export const CHANGESET_MAP_ERROR = 'CHANGESET_MAP_ERROR';
 export const CHANGESET_MODIFY_HARMFUL = 'CHANGESET_MODIFY_HARMFUL';
 export const CHANGESET_MODIFY = 'CHANGESET_MODIFY';
 export const CHANGESET_MODIFY_REVERT = 'CHANGESET_MODIFY_REVERT';
+export const CHANGESET_MODIFY_TAG = 'CHANGESET_MODIFY_TAG';
 
 export function action(type: string, payload: ?Object) {
   return { type, ...payload };
@@ -34,11 +34,29 @@ export function action(type: string, payload: ?Object) {
 export const getChangeset = (changesetId: number) =>
   action(CHANGESET_GET, { changesetId });
 
-export const handleChangesetModify = (
+export const handleChangesetModifyHarmful = (
   changesetId: number,
   changeset: Map<string, *>,
-  harmful: boolean
-) => action(CHANGESET_MODIFY_HARMFUL, { changesetId, changeset, harmful });
+  harmful: boolean | -1
+) =>
+  action(CHANGESET_MODIFY_HARMFUL, {
+    oldChangeset: changeset,
+    changesetId,
+    harmful
+  });
+
+export const handleChangesetModifyTag = (
+  changesetId: number,
+  changeset: Map<string, *>,
+  tag: Object,
+  remove: boolean
+) =>
+  action(CHANGESET_MODIFY_TAG, {
+    oldChangeset: changeset,
+    changesetId,
+    tag,
+    remove
+  });
 
 // watches for LOCATION_CHANGE and only
 // dispatches the latest one to get changeset
@@ -49,7 +67,6 @@ export function* watchChangeset(): any {
   let changesetMapTask;
   while (true) {
     const location = yield take(LOCATION_CHANGE);
-
     // cancel any existing changeset tasks,
     // even if it doesnt change to `changesets/:id`
     // we anway would like to suspend the ongoing task
@@ -75,7 +92,10 @@ export function* watchChangeset(): any {
 
 export function* watchModifyChangeset(): any {
   while (true) {
-    const modifyAction = yield take([CHANGESET_MODIFY_HARMFUL]); // scope for multiple actions in future
+    const modifyAction = yield take([
+      CHANGESET_MODIFY_HARMFUL,
+      CHANGESET_MODIFY_TAG
+    ]); // scope for multiple modify actions in future
     const token = yield select((state: RootStateType) =>
       state.auth.get('token')
     ); // TOFIX handle token not existing
@@ -98,6 +118,17 @@ export function* watchModifyChangeset(): any {
           });
           break;
         }
+        case CHANGESET_MODIFY_TAG: {
+          const { tag, remove } = modifyAction;
+          yield call(setTagActions, {
+            changesetId,
+            oldChangeset,
+            token,
+            tag,
+            remove
+          });
+          break;
+        }
         default: {
           continue;
         }
@@ -115,7 +146,6 @@ export function* watchModifyChangeset(): any {
 }
 
 /** Sagas **/
-
 export function* fetchChangesetAction(changesetId: number): Object {
   let changeset = yield select((state: RootStateType) =>
     state.changeset.get('changesets').get(changesetId)
@@ -147,7 +177,7 @@ export function* fetchChangesetAction(changesetId: number): Object {
       })
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
     yield put(
       action(CHANGESET_ERROR, {
         changesetId,
@@ -158,6 +188,7 @@ export function* fetchChangesetAction(changesetId: number): Object {
 }
 
 export function* fetchChangesetMapAction(changesetId: number): Object {
+  let getCMapData;
   let changesetMap = yield select((state: RootStateType) =>
     state.changeset.get('changesetMap').get(changesetId)
   );
@@ -176,6 +207,13 @@ export function* fetchChangesetMapAction(changesetId: number): Object {
     })
   );
   try {
+    if (!getCMapData) {
+      const importPromise = new Promise(resolve =>
+        import('changeset-map').then(module => resolve(module.getChangeset))
+      );
+      const awaitPromise = () => Promise.resolve(importPromise);
+      getCMapData = yield call(awaitPromise);
+    }
     changesetMap = yield call(getCMapData, changesetId);
     yield put(
       action(CHANGESET_MAP_FETCHED, {
@@ -201,8 +239,16 @@ export function* setHarmfulAction({
   harmful
 }: Object): any {
   const newChangeset = oldChangeset
-    .setIn(['properties', 'checked'], true)
-    .setIn(['properties', 'harmful'], harmful);
+    .setIn(
+      ['properties', 'check_user'],
+      harmful === -1 ? null : oldChangeset.getIn(['properties', 'check_user'])
+    )
+    .setIn(
+      ['properties', 'tags'],
+      harmful === -1 ? List() : oldChangeset.getIn(['properties', 'tags'])
+    )
+    .setIn(['properties', 'checked'], harmful === -1 ? false : true)
+    .setIn(['properties', 'harmful'], harmful === -1 ? null : harmful);
   yield put(
     action(CHANGESET_MODIFY, {
       changesetId,
@@ -210,4 +256,47 @@ export function* setHarmfulAction({
     })
   );
   yield call(setHarmful, changesetId, token, harmful);
+}
+
+export function* setTagActions({
+  changesetId,
+  oldChangeset,
+  token,
+  tag,
+  remove
+}: Object): any {
+  if (oldChangeset.getIn(['properties', 'checked'])) {
+    // TOFIX also check for user
+    let newChangeset = oldChangeset;
+    let existingTags: List<*>;
+    if (remove) {
+      existingTags = oldChangeset.getIn(['properties', 'tags']);
+      let key;
+      existingTags.forEach((value, i) => {
+        if (value === tag.value) {
+          key = i;
+        }
+      });
+      newChangeset = oldChangeset.setIn(
+        ['properties', 'tags'],
+        existingTags.delete(key)
+      );
+    } else {
+      existingTags = oldChangeset.getIn(['properties', 'tags']);
+      newChangeset = oldChangeset.setIn(
+        ['properties', 'tags'],
+        existingTags.push(tag.value)
+      );
+    }
+
+    yield put(
+      action(CHANGESET_MODIFY, {
+        changesetId,
+        changeset: newChangeset
+      })
+    );
+    yield call(setTag, changesetId, token, tag, remove);
+  } else {
+    throw new Error('Only allowed on checked changesets');
+  }
 }

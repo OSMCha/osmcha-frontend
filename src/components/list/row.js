@@ -32,9 +32,14 @@ export class Row extends React.PureComponent {
       this.wasOpen = this.props.active;
     }
     return (
-      <Link to={`/changesets/${changesetId}`}>
+      <Link
+        to={{
+          search: window.location.search,
+          pathname: `/changesets/${changesetId}`
+        }}
+      >
         <div
-          className={`${active ? 'bg-green-faint bg-green-faint-on-hover' : ' bg-gray-faint-on-hover '} transition`}
+          className={`${active ? 'bg-green-faint bg-green-faint-on-hover' : 'bg-gray-faint-on-hover '} transition`}
           ref={inputRef}
         >
           <div

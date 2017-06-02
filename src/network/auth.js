@@ -34,7 +34,7 @@ export function postTokensOSMCha(
 }
 
 export function fetchUserDetails(token: string) {
-  return fetch(`${osmChaUrl}/users`, {
+  return fetch(`${osmChaUrl}/users/`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

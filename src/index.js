@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ConnectedRouter } from 'react-router-redux';
@@ -5,15 +6,17 @@ import { Provider } from 'react-redux';
 import debounce from 'lodash.debounce';
 
 import { registerServiceWorker } from './serviceworker';
+import './css/index.css';
 import 'react-tippy/dist/tippy.css';
 import 'animate.css/animate.css';
-import 'changeset-map/public/css/style.css';
-import './css/0.13.0.assembly.min.css';
+import 'react-select/dist/react-select.css';
 import './css/2.1.3.toastr.min.css';
-import './css/index.css';
+import './css/0.13.0.assembly.min.css';
+import './0.13.0.assembly';
 
 import App from './app';
-import { store, history } from './store';
+import { history } from './store/history';
+import { store } from './store';
 
 // if (process.env.NODE_ENV === 'production') {
 //   const {whyDidYouUpdate} = require('why-did-you-update');

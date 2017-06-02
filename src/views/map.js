@@ -1,13 +1,11 @@
 // @flow
 import React from 'react';
 import debounce from 'lodash.debounce';
-import { render } from 'changeset-map';
 import { connect } from 'react-redux';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-
 import { Loading } from '../components/loading';
 import { dispatchEvent } from '../utils/dispatch_event';
-
+import 'changeset-map/public/css/style.css';
 import type { RootStateType } from '../store';
 
 let changesetId;
@@ -15,22 +13,35 @@ let currentChangesetMap;
 let width = 700;
 let height = 500;
 let event;
+let cMapRender;
+
+function importChangesetMap() {
+  if (cMapRender) return Promise.resolve(cMapRender);
+  return import('changeset-map')
+    .then(function(module) {
+      cMapRender = module.render;
+      return cMapRender;
+    })
+    .catch(function(err) {
+      console.error(err);
+      console.log('Failed to load module changeset-map');
+    });
+}
 
 function loadMap() {
   var container = document.getElementById('container');
   if (!container || !currentChangesetMap) return;
-  try {
+  importChangesetMap().then(render => {
+    if (!render) return;
     event = render(container, changesetId, {
       width: width + 'px',
       height: Math.max(400, height) + 'px',
       data: currentChangesetMap
     });
-  } catch (e) {
-    console.log(e);
-  }
+  });
 }
 
-var minDebounce = debounce(loadMap, 200);
+var minDebounce = debounce(loadMap, 250);
 
 class CMap extends React.PureComponent {
   props: {
@@ -55,11 +66,11 @@ class CMap extends React.PureComponent {
       width = parseInt(rect.width, 10);
     }
 
-    loadMap();
+    minDebounce();
   }
   componentWillUnmount() {
-    console.log('unmounting cmpa');
-    event.emit('remove');
+    console.log('unmounting');
+    event && event.emit('remove');
   }
   componentDidUpdate(prevProp: Object) {
     if (this.props.currentChangesetMap !== prevProp.currentChangesetMap) {
@@ -73,7 +84,7 @@ class CMap extends React.PureComponent {
   setDimensions = () => {
     if (!this.ref) return;
     var rect = this.ref.parentNode.getBoundingClientRect();
-    height = parseInt(rect.height - 2 * 55, 10);
+    height = parseInt(window.innerHeight - 2 * 55, 10);
     width = parseInt(rect.width, 10);
     this.setState({
       height,
@@ -94,10 +105,10 @@ class CMap extends React.PureComponent {
     changesetId = this.props.changesetId;
     currentChangesetMap = this.props.currentChangesetMap;
     return (
-      <div className={`wmin480 ${this.props.className}`} ref={this.setRef}>
+      <div className="wmin480 fixed bottom right bg-black" ref={this.setRef}>
         <div
           id="container"
-          className="border border--2 border--gray-dark"
+          className=""
           style={{
             visibility: !(this.props.loadingChangesetMap ||
               this.props.errorChangesetMap)
@@ -110,13 +121,13 @@ class CMap extends React.PureComponent {
           transitionAppearTimeout={300}
           transitionAppear={true}
           transitionEnterTimeout={300}
-          transitionLeaveTimeout={700}
+          transitionLeaveTimeout={1000} // determines the transition to cMap
         >
           {(this.props.loadingChangesetMap || this.props.errorChangesetMap) &&
             <div
               key={0}
               id="placeholder"
-              className={`border border--2 border--gray-dark fixed bottom right 
+              className={` fixed bottom right z0
           ${this.props.errorChangesetMap ? 'bg-red' : 'bg-black'}
           `}
               style={{
@@ -124,10 +135,9 @@ class CMap extends React.PureComponent {
                 width: this.state.width
               }}
             >
-              <Loading />
+              <Loading height={this.state.height} />
             </div>}
         </CSSTransitionGroup>
-
       </div>
     );
   }

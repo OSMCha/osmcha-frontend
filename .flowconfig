@@ -11,6 +11,7 @@ data/
 .*node_modules/load-script/.*
 .*node_modules/hat/.*
 .*node_modules/plur/.*
+.*node_modules/mapbox-gl/src/.*
 .*node_modules/geojsonhint/.*
 .*node_modules/mapbox-gl-style-spec/.*
 .*node_modules/jsonlint-lines-primitives/.*

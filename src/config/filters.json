@@ -1,84 +1,24 @@
 [
   {
-    "name": "comment",
-    "icontains": true,
-    "all": false,
-    "range": false,
-    "display": "Comment",
-    "type": "text",
-    "description": "Here goes one description"
-  },
-  {
-    "name": "source",
-    "icontains": true,
-    "all": false,
-    "range": false,
-    "display": "Source",
-    "type": "text",
-    "description": "Here goes one description"
-  },
-  {
-    "name": "editor",
-    "icontains": true,
-    "all": false,
-    "range": false,
-    "display": "Editor",
-    "type": "text",
-    "description": "Here goes one description"
-  },
-  {
     "name": "date",
     "icontains": false,
     "all": false,
     "range": true,
     "display": "Date",
     "type": "date",
-    "description": "Here goes one description"
+    "description": "Filter changesets whose date is greater or less than the date.",
+    "placeholder": "Changeset's inception date"
   },
   {
-    "name": "check_date",
+    "name": "reasons",
     "icontains": false,
-    "all": false,
-    "range": true,
-    "display": "Check Date",
-    "type": "date",
-    "description": "Here goes one description"
-  },
-  {
-    "name": "create",
-    "icontains": false,
-    "all": false,
-    "range": true,
-    "display": "Create",
-    "type": "number",
-    "description": "Here goes one description"
-  },
-  {
-    "name": "modify",
-    "icontains": false,
-    "all": false,
-    "range": true,
-    "display": "Modify",
-    "type": "number",
-    "description": "Here goes one description"
-  },
-  {
-    "name": "imagery_used",
-    "icontains": true,
-    "all": false,
     "range": false,
-    "display": "Imagery used",
-    "type": "text",
-    "description": "Here goes one description"
-  },
-  {
-    "name": "delete",
-    "icontains": false,
-    "all": false,
-    "range": true,
-    "display": "Delete",
-    "type": "number",
-    "description": "Here goes one description"
+    "all": true,
+    "data_url": "suspicion-reasons",
+    "display": "Reasons",
+    "type": "text_comma",
+    "description": "Filter changesets that have one or more of the Suspicious Reasons. Inform the Suspicion Reasons ids separated by commas.",
+    "placeholder": "Filter changesets with reasons"
   },
   {
     "name": "geometry",
@@ -87,7 +27,108 @@
     "range": false,
     "display": "Geometry",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Geospatial filter of changeset whose bbox intersects with another geometry. You can use any geometry type in this filter.",
+    "placeholder": ""
+  },
+  {
+    "name": "comment",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Comment",
+    "type": "text",
+    "description": "Filter changesets by its comment field using the icontains lookup expression.",
+    "placeholder": "Enter keywords like import, HOT ... "
+  },
+  {
+    "name": "source",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Source",
+    "type": "text",
+    "description": "Filter changesets by its source field using the icontains lookup expression.",
+    "placeholder": ""
+  },
+  {
+    "name": "checked",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Reviewed",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
+    "description": "Filter changesets that were checked or not. Use true/false, 1/0 values.",
+    "placeholder": "Toggle if changeset was checked"
+  },
+  {
+    "name": "editor",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Editor",
+    "type": "text",
+    "description": "Filter changesets by its editor field using the icontains lookup expression.",
+    "placeholder": ""
+  },
+  {
+    "name": "check_date",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Check Date",
+    "type": "date",
+    "description": "Filter changesets whose check_date is greater or less than the dates.",
+    "placeholder": ""
+  },
+  {
+    "name": "create",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Objects Created",
+    "type": "number",
+    "description": "Filter changesets whose number of elements created are greater or less than equal to number.",
+    "placeholder": ""
+  },
+  {
+    "name": "modify",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Objects Modified",
+    "type": "number",
+    "description": "Filter changesets whose number of elements modified are greater or less than equal to number.",
+    "placeholder": ""
+  },
+  {
+    "name": "delete",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Objects Deleted",
+    "type": "number",
+    "description": "Filter changesets whose number of elements deleted are greater or less than equal to number.",
+    "placeholder": ""
+  },
+  {
+    "name": "imagery_used",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Imagery used",
+    "type": "text",
+    "description": "Filter changesets by its imagery_used field using the icontains lookup expression.",
+    "placeholder": ""
   },
   {
     "name": "checked_by",
@@ -95,8 +136,10 @@
     "all": false,
     "range": false,
     "display": "Checked by",
-    "type": "text",
-    "description": "Here goes one description"
+    "cache": true,
+    "type": "text_comma",
+    "description": "Filter changesets that were checked by a user. Use commas to search for more than one user.",
+    "placeholder": "Checked by user"
   },
   {
     "name": "users",
@@ -104,26 +147,20 @@
     "all": false,
     "range": false,
     "display": "Users",
+    "cache": true,
     "type": "text_comma",
-    "description": "Here goes one description"
+    "description": "Filter changesets created by a user. Use commas to search for more than one user.",
+    "placeholder": "Enter OSM usernames"
   },
   {
     "name": "ids",
     "icontains": false,
     "range": false,
     "all": false,
-    "display": "ids",
+    "display": "Changeset IDs",
     "type": "text_comma",
-    "description": "Here goes one description"
-  },
-  {
-    "name": "reasons",
-    "icontains": false,
-    "range": false,
-    "all": true,
-    "display": "Reasons",
-    "type": "text_comma",
-    "description": "Here goes one description"
+    "description": "Filter changesets by its ID. Use commas to search for more than one id.",
+    "placeholder": "Enter Changeset IDs"
   },
   {
     "name": "tags",
@@ -132,16 +169,9 @@
     "all": true,
     "display": "Tags",
     "type": "text_comma",
-    "description": "Here goes one description"
-  },
-  {
-    "name": "checked",
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Checked",
-    "type": "text",
-    "description": "Here goes one description"
+    "data_url": "tags",
+    "description": "Filter changesets that have one or more of the Tags. Inform the Tags ids separated by commas.",
+    "placeholder": "Add tags"
   },
   {
     "name": "harmful",
@@ -149,26 +179,19 @@
     "range": false,
     "all": false,
     "display": "Harmful",
-    "type": "text",
-    "description": "Here goes one description"
-  },
-  {
-    "name": "is_suspect",
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Suspect",
-    "type": "text",
-    "description": "Here goes one description"
-  },
-  {
-    "name": "powerfull_editor",
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Powerful editor",
-    "type": "text",
-    "description": "Here goes one description"
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
+    "description": "Filter changesets that were marked as harmful or not. Use true/false, 1/0 values.",
+    "placeholder": "Toggle harmful"
   },
   {
     "name": "order_by",
@@ -176,8 +199,90 @@
     "range": false,
     "all": false,
     "display": "Order by",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Ascending ID",
+        "value": "+id"
+      },
+      {
+        "label": "Ascending Date",
+        "value": "+date"
+      },
+      {
+        "label": "Ascending check date",
+        "value": "+check_date"
+      },
+      {
+        "label": "Ascending object created",
+        "value": "+create"
+      },
+      {
+        "label": "Ascending object modified",
+        "value": "+modify"
+      },
+      {
+        "label": "Ascending object deleted",
+        "value": "+delete"
+      },
+      {
+        "label": "Descending ID",
+        "value": "-id"
+      },
+      {
+        "label": "Descending Date",
+        "value": "-date"
+      },
+      {
+        "label": "Descending check date",
+        "value": "-check_date"
+      },
+      {
+        "label": "Descending object created",
+        "value": "-create"
+      },
+      {
+        "label": "Descending object modified",
+        "value": "-modify"
+      },
+      {
+        "label": "Descending object deleted",
+        "value": "-delete"
+      }
+    ],
+    "description": "Order the Changesets by one of the following fields: id, date, check_date, create, modify or delete. Use a minus sign (-) before the field name to reverse the ordering. Default ordering is '-id'.",
+    "placeholder": "Asceding/Descending "
+  },
+  {
+    "name": "is_suspect",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Show Flagged",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
+    "description": "Filter changesets that were considered suspect by OSMCHA.",
+    "placeholder": "Toggle Flagged changesets"
+  },
+  {
+    "name": "powerfull_editor",
+    "ignore": true,
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Powerful editor",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Filter changesets that were created using a software editor considered powerfull (those that allow to create, modify or delete data in a batch).",
+    "placeholder": ""
   },
   {
     "name": "hide_whitelist",
@@ -185,7 +290,28 @@
     "range": false,
     "all": false,
     "display": "Hide whitelist",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
+    "description": "If True, it will exclude the changesets created by the users that you whitelisted",
+    "placeholder": "exclude changesets by whitelisted"
+  },
+  {
+    "name": "area_lt",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Bbox size bound",
     "type": "text",
-    "description": "Here goes one description"
+    "description": "Filter changesets that have a bbox area lower than X times the area of your geospatial filter. For example, if the bbox or geometry you defined in your filter has an area of 1 degree and you set 'area_lt=2', it will filter the changesets whose bbox area is lower than 2 degree",
+    "placeholder": "Upper bound of bbox area"
   }
 ]
