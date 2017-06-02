@@ -68,17 +68,17 @@ export class Changeset extends React.PureComponent {
         transitionEnterTimeout={300}
         transitionLeaveTimeout={150}
       >
-        {this.state.discussions &&
-          <Box key={1} className="transition w480 my3 round-tr round-br">
-            <Discussions changesetId={changesetId} properties={properties} />
+        {this.state.details &&
+          <Box key={3} className="transition w480 my3 round-tr round-br">
+            <Header changesetId={changesetId} properties={properties} />
           </Box>}
         {this.state.features &&
           <Box key={2} className="transition w480 my3 round-tr round-br">
             <Features changesetId={changesetId} properties={properties} />
           </Box>}
-        {this.state.details &&
-          <Box key={3} className="transition w480 my3 round-tr round-br">
-            <Header changesetId={changesetId} properties={properties} />
+        {this.state.discussions &&
+          <Box key={1} className="transition w480 my3 round-tr round-br">
+            <Discussions changesetId={changesetId} properties={properties} />
           </Box>}
       </CSSTransitionGroup>
     );
@@ -122,14 +122,8 @@ export class Changeset extends React.PureComponent {
           className="bg-white color-gray border-b border--gray-light border--1"
           title={
             <div className="flex-parent flex-parent--row flex-parent--center-main flex-parent--wrap">
-              <Button active={!this.state.showAll} onClick={this.toggleAll}>
-                {this.state.showAll ? 'Show all' : 'Hide'}
-              </Button>
-              <Button
-                active={this.state.discussions}
-                onClick={this.toggleDiscussions}
-              >
-                Discussions
+              <Button active={this.state.details} onClick={this.toggleDetails}>
+                Details
               </Button>
               <Button
                 active={this.state.features}
@@ -137,8 +131,14 @@ export class Changeset extends React.PureComponent {
               >
                 Suspicious
               </Button>
-              <Button active={this.state.details} onClick={this.toggleDetails}>
-                Details
+              <Button
+                active={this.state.discussions}
+                onClick={this.toggleDiscussions}
+              >
+                Discussions
+              </Button>
+              <Button active={!this.state.showAll} onClick={this.toggleAll}>
+                {this.state.showAll ? 'Show all' : 'Hide all'}
               </Button>
             </div>
           }
