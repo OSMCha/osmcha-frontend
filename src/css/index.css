@@ -219,24 +219,29 @@ body {
   background-color: #CC2C47;
 }
 
-.cmap-custom-table th,
-.cmap-custom-table td {
+.osmcha-custom-table th,
+.osmcha-custom-table td {
    padding: 6px !important;
 }
 
-.cmap-border-color-good {
+.border-color-good {
   border-color: #52EC6D!important;
+  border-width: 4px!important;
 }
 
-.cmap-boder-color-bad {
+.boder-color-bad {
   border-color: #FF0000!important;
+  border-width: 4px!important;
 }
 
-.cmap-light-blue,
-.cmap-light-blue-on-hover:hover {
+.light-blue,
+.light-blue-on-hover:hover {
   background-color: #EEF4FA!important;
 }
 
-.cmap-blue {
-  background-color: #448EE4!important;
+/* OSMCha Custom CSS*/
+
+.border-color-neutral {
+  border-color: #D8D8D8!important;
+  border-width: 4px!important;
 }
