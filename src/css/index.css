@@ -38,11 +38,20 @@ body {
 }
 
 .h55 {
-    height: 55px!important;
+    height: 55px !important;
 }
 .hmin55 {
-    min-height: 55px!important;
+    min-height: 55px !important;
 }
+
+.wmin435 {
+  min-width: 435px !important;
+}
+
+.wmax435 {
+  max-width: 435px !important;
+}
+
 
 
 @media only screen and (max-width: 768px) {
@@ -55,25 +64,41 @@ body {
   height: calc(100vh - 55px);
 }
 
-.filters-bar-enter {
-  opacity: 0.7;
+.changesets-filters {
+  height: 100vh;
 }
 
-.filters-bar-enter.filters-bar-enter-active {
+/* animations */
+
+.filters-appear {
+  opacity: 0.1;
+}
+
+.filters-appear.example-appear-active {
   opacity: 1;
-  animation: 0.3s fadeOutRight ease-out;
-  /*transition: opacity 200ms ease-in;*/
+  transition: opacity .5s ease-in;
+  
 }
 
-.filters-bar-leave {
+.filters-enter {
+  opacity: 0.01;
+}
+
+.filters-enter.filters-enter-active {
+  opacity: 1;
+  /*transition: opacity 500ms ease-out;*/
+  animation: 0.5s slideInDown ease-out;
+}
+
+.filters-leave {
   opacity: 1;
 }
 
-.filters-bar-leave.filters-bar-leave-active {
-  opacity: 0.7;
-  /*transition: opacity 300ms ease-in;*/
-  animation: 0.4s fadeOutRight ease-in;
+.filters-leave.filters-leave-active {
+   opacity: 1; 
+   animation: 0.5s slideOutUp ease-in;
 }
+
 
 .floaters-appear {
   opacity: 0.01;
@@ -99,8 +124,8 @@ body {
 }
 
 .floaters-leave.floaters-leave-active {
-  opacity: 0.01;
-  transition: opacity 100ms ease-in;
+  opacity: 0.01; 
+  transition: opacity 0.2s ease-in;
 }
 
 
@@ -121,7 +146,7 @@ body {
 .map-hide-enter.map-hide-enter-active {
   opacity: 1;
   /*transition: opacity 500ms ease-out;*/
-   animation: 0.3s fadeIn ease-out;
+  animation: 0.3s fadeIn ease-out;
 }
 
 .map-hide-leave {
@@ -129,8 +154,8 @@ body {
 }
 
 .map-hide-leave.map-hide-leave-active {
-  opacity: 0.5;
-  transition: opacity 700ms ease-in;
+  opacity: 0.9;  
+  transition: opacity 1s ease-out;
 }
 
 .tippy-tooltip.osmcha-theme {
@@ -141,8 +166,9 @@ body {
 }
 .tippy-tooltip.osmcha-theme [x-arrow] {
   /* Your arrow styling here. Uses transform: rotate() so no need for CSS triangle shenanigans. */
-    background-color: #f7f7f7;
+    background-color:transparent;
     border: 1px solid #ccc;
+    fill: white;
     border-color: transparent transparent #ccc #ccc; /* same for any position */
 }
 
@@ -188,6 +214,10 @@ body {
   padding: 5px;
   top: inherit !important;
   left: inherit !important;
+}
+
+.cmap-container .cmap-map {
+  background: #000 !important;
 }
 
 .cmap-changeset-section {

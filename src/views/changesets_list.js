@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { List as ImmutableList, Map } from 'immutable';
 import R from 'ramda';
 import Mousetrap from 'mousetrap';
+import { NavLink } from 'react-router-dom';
 
 import type { RootStateType } from '../store';
 import type { ChangesetType } from '../store/changeset_reducer';
 
-import { history } from '../store';
+import { history } from '../store/history';
 import { getChangeset } from '../store/changeset_actions';
 import { getChangesetsPage } from '../store/changesets_page_actions';
 import {
@@ -29,7 +30,7 @@ const RANGE = 6;
 
 class ChangesetsList extends React.PureComponent {
   props: {
-    pathname: string,
+    location: Object,
     loading: boolean,
     error: Object,
     style: Object,
@@ -37,17 +38,18 @@ class ChangesetsList extends React.PureComponent {
     cachedChangesets: Map<string, *>,
     userDetails: Map<string, *>,
     pageIndex: number,
+    activeChangesetId: ?number,
+    oAuthToken: ?string,
+    token: ?string,
     getChangesetsPage: number => mixed, // base 0
     getChangeset: number => mixed, // base 0
     getOAuthToken: () => mixed,
     getFinalToken: () => mixed,
-    logUserOut: () => mixed,
-    activeChangesetId: ?number,
-    oAuthToken: ?string,
-    token: ?string
+    logUserOut: () => mixed
   };
   constructor(props) {
     super(props);
+    console.log('unmounted changeset list');
     this.props.getChangesetsPage(props.pageIndex);
   }
   goUpDownToChangeset = (direction: number) => {
@@ -99,7 +101,7 @@ class ChangesetsList extends React.PureComponent {
 
     return (
       <div
-        className={`flex-parent flex-parent--column changesets-list ${window.innerWidth < 800 ? 'viewport-full' : ''}`}
+        className={`flex-parent flex-parent--column changesets-list bg-white ${window.innerWidth < 800 ? 'viewport-full' : ''}`}
       >
         <header className="hmin55 h55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
           {this.props.userDetails &&
@@ -114,6 +116,19 @@ class ChangesetsList extends React.PureComponent {
               >
                 Auth
               </Button>}
+          <NavLink
+            activeStyle={{
+              fontWeight: 'bold'
+            }}
+            to={{
+              search: this.props.location.search,
+              pathname: this.props.location.pathname.indexOf('/filters') > -1
+                ? '/'
+                : '/filters'
+            }}
+          >
+            Filters
+          </NavLink>
         </header>
         <List
           activeChangesetId={this.props.activeChangesetId}
@@ -155,7 +170,7 @@ class ChangesetsList extends React.PureComponent {
 ChangesetsList = connect(
   (state: RootStateType, props) => ({
     routing: state.routing,
-    pathname: state.routing.location.pathname,
+    location: state.routing.location,
     currentPage: state.changesetsPage.getIn([
       'pages',
       state.changesetsPage.get('pageIndex')

@@ -43,7 +43,12 @@ export class Row extends React.PureComponent {
     backgroundClass += this.wasOpen ? ' bg-darken5' : '';
 
     return (
-      <Link to={`/changesets/${changesetId}`}>
+      <Link
+        to={{
+          search: window.location.search,
+          pathname: `/changesets/${changesetId}`
+        }}
+      >
         <div
           className={`${backgroundClass} ${borderClass} transition`}
           ref={inputRef}

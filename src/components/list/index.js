@@ -28,6 +28,7 @@ export class List extends React.PureComponent {
       r.scrollIntoView({ block: 'end', behavior: 'smooth' });
     }
   };
+  // TOFIX on invalid token handle error
   render() {
     return (
       <ul className="flex-parent flex-parent--column scroll-styled scroll-auto flex-child--grow">

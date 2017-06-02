@@ -8,6 +8,7 @@
     },
     "ignore": [
         "flow-typed",
-        "build"
+        "build",
+        "src/0.13.0.assembly.js"
     ]
 }
