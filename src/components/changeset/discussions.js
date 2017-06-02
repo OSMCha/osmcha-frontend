@@ -56,7 +56,7 @@ export class Discussions extends React.PureComponent<void, Props, State> {
               </div>
 
               <div className="flex-parent flex-parent--column mt6">
-                <p className="txt-break-word">
+                <p>
                   {f.comment}
                 </p>
               </div>
