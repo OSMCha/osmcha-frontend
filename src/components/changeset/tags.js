@@ -15,13 +15,16 @@ export class Tags extends React.PureComponent {
     handleChangesetModifyTag: (number, Map<string, *>, number, boolean) => mixed
   };
   state: {
-    selectedTags: Array<any>,
+    options: Array<any>,
     allTags: Array<any>
   };
   state = {
     allTags: {},
-    selectedTags: []
+    options: []
   };
+  componentDidMount() {
+    this.getAsyncOptions();
+  }
   getAsyncOptions = () => {
     return fetch(`${API_URL}/tags/`)
       .then(response => {
@@ -34,63 +37,61 @@ export class Tags extends React.PureComponent {
         selectData.forEach(d => {
           data[d.name] = { ...d, value: d.id, label: d.name };
         });
-
         this.setState({
-          allTags: data
+          allTags: data,
+          options: selectData.map(d => ({ label: d.name, value: d.id }))
         });
-        return {
-          options: selectData.map(d => ({ label: d.name, value: d.name }))
-        };
       });
   };
-  onSelectChange = (data: Array<any>) => {
+  onAdd = (obj: Object) => {
+    if (!obj) return;
     const {
       changesetId,
       currentChangeset,
       handleChangesetModifyTag
     } = this.props;
-    data = data.map(d => ({ value: d.value, label: d.label }));
-    var newTags = Set(fromJS(data));
-    var oldTags = Set(
-      fromJS(
-        this.props.currentChangeset
-          .getIn(['properties', 'tags'])
-          .toJS()
-          .map(t => ({ label: t, value: t }))
-      )
-    );
-    newTags.subtract(oldTags).forEach(t => {
-      handleChangesetModifyTag(
-        changesetId,
-        currentChangeset,
-        this.state.allTags[t.toJS().label],
-        false
-      );
-    });
-    oldTags.subtract(newTags).forEach(t => {
-      handleChangesetModifyTag(
-        changesetId,
-        currentChangeset,
-        this.state.allTags[t.toJS().label],
-        true
-      );
-    });
+    handleChangesetModifyTag(changesetId, currentChangeset, obj, false);
   };
+  onRemove = (obj: Object) => {
+    if (!obj) return;
+    const {
+      changesetId,
+      currentChangeset,
+      handleChangesetModifyTag
+    } = this.props;
+    handleChangesetModifyTag(changesetId, currentChangeset, obj, true);
+  };
+
   render() {
     if (!this.props.currentChangeset) return null;
-    return (
-      <Dropdown
-        multi
-        disabled={this.props.disabled}
-        className={`${this.props.disabled ? 'cursor-notallowed' : ''}`}
-        value={this.props.currentChangeset
-          .getIn(['properties', 'tags'])
-          .toJS()
-          .map(t => ({ label: t, value: t }))}
-        loadOptions={this.getAsyncOptions}
-        onChange={this.onSelectChange}
-        display="Tags"
-      />
-    );
+    let value = [];
+    const tagIds = this.props.currentChangeset
+      .getIn(['properties', 'tags'])
+      .toJS();
+    this.state.options.forEach(o => {
+      console.log(o, tagIds);
+      if (tagIds.indexOf(o.value) > -1) {
+        value.push(o);
+      }
+    });
+    console.log(value);
+    console.log(this.props.currentChangeset);
+    if (this.state.options) {
+      return (
+        <Dropdown
+          multi
+          onAdd={this.onAdd}
+          onRemove={this.onRemove}
+          disabled={this.props.disabled}
+          className={`${this.props.disabled ? 'cursor-notallowed' : ''}`}
+          value={value}
+          options={this.state.options}
+          onChange={() => {}}
+          display="Tags"
+        />
+      );
+    } else {
+      return null;
+    }
   }
 }

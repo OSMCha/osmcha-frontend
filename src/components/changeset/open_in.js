@@ -5,6 +5,8 @@ export function OpenIn({ changesetId }) {
   return (
     <div className="select-container">
       <Dropdown
+        onAdd={() => {}}
+        onRemove={() => {}}
         value={[]}
         options={[
           {

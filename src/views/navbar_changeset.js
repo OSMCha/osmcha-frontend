@@ -20,28 +20,38 @@ class NavbarChangeset extends React.PureComponent {
     changesetId: number,
     location: Object,
     currentChangeset: Map<string, *>,
+    username: ?string,
     handleChangesetModifyTag: (
       number,
       Map<string, *>,
       number,
       boolean
     ) => mixed,
-    handleChangesetModifyHarmful: (number, Map<string, *>, boolean) => mixed
+    handleChangesetModifyHarmful: (
+      number,
+      Map<string, *>,
+      boolean | -1
+    ) => mixed
   };
   handleVerify = (arr: Array<Object>) => {
-    console.log(arr);
     if (arr.length === 1) {
       this.props.handleChangesetModifyHarmful(
         this.props.changesetId,
         this.props.currentChangeset,
-        arr[0].value === 'true' ? true : false // whether harmful is true or false
+        arr[0].value // whether harmful is true or false
       );
+    } else if (arr.length > 1) {
+      console.log(arr);
+      throw new Error('verify array is big');
     }
-    // this.props.handleChangesetModifyHarmful(
-    //   this.props.changesetId,
-    //   this.props.currentChangeset,
-    //   e.target.value === 'true' ? true : false // whether harmful is true or false
-    // );
+  };
+  handleVerifyClear = () => {
+    console.log('here');
+    this.props.handleChangesetModifyHarmful(
+      this.props.changesetId,
+      this.props.currentChangeset,
+      -1
+    );
   };
   render() {
     const width = window.innerWidth;
@@ -74,6 +84,8 @@ class NavbarChangeset extends React.PureComponent {
                     placeholder="Verify"
                     value={[]}
                     onChange={this.handleVerify}
+                    onClear={this.handleVerifyClear}
+                    username={this.props.username}
                     options={[
                       {
                         value: false,
@@ -99,15 +111,6 @@ class NavbarChangeset extends React.PureComponent {
             </span>
           </div>
         }
-        buttons={
-          <a
-            className={`${false ? 'is-active' : ''} flex-parent-inline btn color-gray-dark color-gray-dark-on-active bg-transparent bg-darken5-on-hover bg-gray-light-on-active txt-s ml3`}
-            href="#"
-            onClick={() => {}}
-          >
-            <svg className="icon"><use xlinkHref="#icon-osm" /></svg>
-          </a>
-        }
       />
     );
   }
@@ -120,7 +123,8 @@ NavbarChangeset = connect(
     currentChangeset: state.changeset.getIn([
       'changesets',
       parseInt(state.changeset.get('changesetId'), 10)
-    ])
+    ]),
+    username: state.auth.getIn(['userDetails', 'username'])
   }),
   { handleChangesetModifyTag, handleChangesetModifyHarmful }
 )(NavbarChangeset);

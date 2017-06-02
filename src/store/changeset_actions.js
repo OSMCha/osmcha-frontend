@@ -37,7 +37,7 @@ export const getChangeset = (changesetId: number) =>
 export const handleChangesetModifyHarmful = (
   changesetId: number,
   changeset: Map<string, *>,
-  harmful: boolean
+  harmful: boolean | -1
 ) =>
   action(CHANGESET_MODIFY_HARMFUL, {
     oldChangeset: changeset,
@@ -239,8 +239,16 @@ export function* setHarmfulAction({
   harmful
 }: Object): any {
   const newChangeset = oldChangeset
-    .setIn(['properties', 'checked'], true)
-    .setIn(['properties', 'harmful'], harmful);
+    .setIn(
+      ['properties', 'check_user'],
+      harmful === -1 ? null : oldChangeset.getIn(['properties', 'check_user'])
+    )
+    .setIn(
+      ['properties', 'tags'],
+      harmful === -1 ? List() : oldChangeset.getIn(['properties', 'tags'])
+    )
+    .setIn(['properties', 'checked'], harmful === -1 ? false : true)
+    .setIn(['properties', 'harmful'], harmful === -1 ? null : harmful);
   yield put(
     action(CHANGESET_MODIFY, {
       changesetId,
@@ -265,7 +273,7 @@ export function* setTagActions({
       existingTags = oldChangeset.getIn(['properties', 'tags']);
       let key;
       existingTags.forEach((value, i) => {
-        if (value === tag.label) {
+        if (value === tag.value) {
           key = i;
         }
       });
@@ -277,7 +285,7 @@ export function* setTagActions({
       existingTags = oldChangeset.getIn(['properties', 'tags']);
       newChangeset = oldChangeset.setIn(
         ['properties', 'tags'],
-        existingTags.push(tag.label)
+        existingTags.push(tag.value)
       );
     }
 

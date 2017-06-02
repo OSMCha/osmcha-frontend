@@ -5,26 +5,27 @@ export class Dropdown extends React.PureComponent {
   props: {
     className: ?string,
     disabled: boolean,
-    loadOptions: () => Promise<any>,
     value: Array<Object>,
     onChange: () => any,
-    options: ?Array<Object>,
+    onAdd: (?Object) => any,
+    onRemove: (?Object) => any,
+    options: Array<Object>,
     display: string,
     multi: boolean
   };
+
   state = {
     display: 'none',
     loadedOptions: null
   };
+
   optionsActiveState = {};
+
   toggleDropdown = () => {
     this.setState({
       display: this.state.display === 'none' ? 'block' : 'none'
     });
   };
-  componentDidMount() {
-    this.setAsyncOptions(this.props.loadOptions);
-  }
   isActive = (obj: Object) => {
     for (let v of this.props.value) {
       if (v.label === obj.label) {
@@ -36,7 +37,7 @@ export class Dropdown extends React.PureComponent {
   renderOptions = data => {
     if (data) {
       return data.map((i, k) => (
-        <span key={k} onClick={this.handleClick} className="cursor-pointer">
+        <span key={k} onClick={this.handleClick}>
           {this.props.multi &&
             <input
               data-label={i.label}
@@ -49,9 +50,7 @@ export class Dropdown extends React.PureComponent {
           <a
             target={i.href ? '_black' : '_self'}
             href={i.href || '#'}
-            className={`${this.isActive(i) ? 'is-active color-red' : ''}`}
-            data-label={i.label}
-            data-payload={JSON.stringify(i)}
+            className={`cursor-pointer ${this.isActive(i) ? 'is-active color-red' : ''}`}
           >
             {i.label}
           </a>
@@ -70,36 +69,40 @@ export class Dropdown extends React.PureComponent {
   };
   handleClick = (e: Event) => {
     if (e.target) {
-      var label = e.target.getAttribute('data-label');
-      if (!this.props.value || !this.props.onChange) return;
-      const propsValue = this.props.value.slice(0).filter(x => x);
-      var valueClone;
-      for (let x = 0; x < propsValue.length; x++) {
-        if (propsValue[x].label === label) {
-          valueClone = propsValue
-            .slice(0, x)
-            .concat(propsValue.slice(x + 1, propsValue.length))
-            .filter(x => x);
-
-          return this.props.onChange(valueClone);
+      var label = e.target.value || e.target.text;
+      if (!label || !this.props.value || !this.props.onChange) return;
+      const options = this.props.options;
+      const value = this.props.value;
+      let ourObj: Object;
+      for (let x = 0; x < options.length; x++) {
+        if (options[x].label === label) {
+          ourObj = options[x];
         }
       }
-      valueClone = propsValue.slice(0);
-      if (valueClone.length === 0) {
-        return this.props.onChange([
-          JSON.parse(e.target.getAttribute('data-payload'))
-        ]);
+      if (!ourObj) return;
+      let isRemove = false;
+      for (let x = 0; x < value.length; x++) {
+        if (value[x].label === label) {
+          isRemove = true;
+          this.props.onRemove(ourObj);
+          this.props.onChange(
+            value.slice(0, x).concat(value.slice(x + 1, value.length))
+          );
+        }
       }
-      valueClone.push(JSON.parse(e.target.getAttribute('data-payload')));
-
-      return this.props.onChange(valueClone.filter(x => x));
+      if (!isRemove) {
+        const newArray = value.slice(0, value.length);
+        newArray.push(ourObj);
+        this.props.onAdd(ourObj);
+        this.props.onChange(newArray);
+      }
     }
   };
   render() {
     return (
       <div className="dropdown">
         <button
-          className={`${this.props.className} btn btn--s round color-gray btn--gray-faint`}
+          className={`${this.props.className} btn btn--pill btn--s mr3`}
           onClick={this.toggleDropdown}
         >
           {this.props.display}
@@ -108,7 +111,7 @@ export class Dropdown extends React.PureComponent {
           className="dropdown-content"
           style={{ display: this.state.display }}
         >
-          {this.renderOptions(this.props.options || this.state.loadedOptions)}
+          {this.renderOptions(this.props.options)}
         </div>
       </div>
     );
