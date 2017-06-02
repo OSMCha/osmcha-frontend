@@ -218,3 +218,8 @@ body {
 .cmap-bg-delete {
   background-color: #CC2C47;
 }
+
+.cmap-custom-table th,
+.cmap-custom-table td {
+   padding: 6px !important;
+}
