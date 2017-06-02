@@ -13,42 +13,19 @@ export function Header({
   properties: Map<string, *>,
   changesetId: number
 }) {
+  const user = properties.get('user');
   const date = properties.get('date');
   const create = properties.get('create');
   const modify = properties.get('modify');
   const destroy = properties.get('delete');
   const reasons = properties.get('reasons');
-  const comment = properties.get('comment');
 
-  const user = properties.get('user');
   return (
-    <div className="p12">
-      <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap border-b border--gray-light">
-        <div className="flex-parent flex-parent--row justify--space-between flex-parent--center-cross">
-          <h2 className="txt-l mr6 txt-bold">{user}</h2>
-          <div
-            className="flex-parent flex-parent--column flex-parent--end-cross"
-            style={{ position: 'relative', right: -24, top: -5 }}
-          >
-            {reasons.map((r, k) => (
-              <span key={k} className="my3">
-                <span className="bg-blue border border--blue-dark color-white px6 py3 txt-s txt-bold border">
-                  {r}
-                </span>
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
-          <span className="">
-            <span className="txt-underline-on-hover txt-em">
-              {changesetId} &nbsp;
-            </span>
-            <span>
-              created &nbsp;{moment(date).fromNow()}
-            </span>
-          </span>
-          <div className="flex-parent flex-parent--column">
+    <div className="p18">
+      <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap">
+        <div className="flex-parent flex-parent--row justify--space-between">
+          <h2 className="txt-l mr6 txt-bold">Changeset Details</h2>
+          <div>
             <CreateDeleteModify
               showZero
               className="mr3 pb3"
@@ -58,9 +35,33 @@ export function Header({
             />
           </div>
         </div>
+        <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
+          <span className="txt-s">
+            By
+            {' '}
+            <span className="txt-underline-on-hover txt-bold">
+              {user}&nbsp;
+            </span>
+            created&nbsp;{moment(date).fromNow()}
+          </span>
+        </div>
       </div>
       <Details changesetId={changesetId} properties={properties} />
-
     </div>
   );
 }
+
+// Reasons
+//
+// <div
+//   className="flex-parent flex-parent--column flex-parent--end-cross"
+//   style={{ position: 'relative', right: -24, top: -5 }}
+// >
+//   {reasons.map((r, k) => (
+//     <span key={k} className="my3">
+//       <span className="bg-blue border border--blue-dark color-white px6 py3 txt-s txt-bold border">
+//         {r}
+//       </span>
+//     </span>
+//   ))}
+// </div>

@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { Map } from 'immutable';
+import moment from 'moment';
 
 type Props = {
   properties: Map<string, *>,
@@ -37,24 +38,33 @@ export class Discussions extends React.PureComponent<void, Props, State> {
   }
   render() {
     return (
-      <div className="p12">
+      <div className="p18">
         <h2 className="txt-l mr6 txt-bold">
           Discussions
         </h2>
-        <div className="ml6">
+        <div className="">
           {this.state.discussions.map((f, k) => (
             <div
               key={k}
-              className="flex-parent flex-parent--row justify--space-between border-b border--gray-light pb3"
+              className="flex-parent flex-parent--column justify--space-between border border--gray-light round p6 my6 mt12"
             >
-              <span className="wmin96 txt-em">{f.userName}&nbsp; -</span>
-              <span className="wmin240 txt-break-word">
-                {f.comment}
-              </span>
+              <div className="flex-parent flex-parent--row justify--space-between txt-s ">
+                <span>
+                  By <span className="txt-bold">{f.userName}&nbsp;</span>
+                </span>
+                <span>{moment(f.date).fromNow()}</span>
+              </div>
+
+              <div className="flex-parent flex-parent--column mt6">
+                <p>
+                  {f.comment}
+                </p>
+              </div>
+
             </div>
           ))}
           {this.state.discussions.length === 0 &&
-            `Nobody discussed for poor ${this.props.changesetId}`}
+            `No discussions for ${this.props.changesetId}.`}
         </div>
       </div>
     );
