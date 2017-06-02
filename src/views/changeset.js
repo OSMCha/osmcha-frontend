@@ -7,10 +7,6 @@ import { Map } from 'immutable';
 
 import { Changeset as ChangesetDumb } from '../components/changeset';
 
-import {
-  handleChangesetModifyHarmful,
-  handleChangesetModifyTag
-} from '../store/changeset_actions';
 import { FILTER_BINDING } from '../config/bindings';
 import { dispatchEvent } from '../utils/dispatch_event';
 
@@ -64,13 +60,6 @@ class Changeset extends React.PureComponent {
       />
     );
   };
-  handleVerify = e => {
-    this.props.handleChangesetModifyHarmful(
-      this.props.changesetId,
-      this.props.currentChangeset,
-      e.target.value === 'true' ? true : false // whether harmful is true or false
-    );
-  };
   render() {
     return (
       <div className="flex-parent flex-parent--column bg-gray-faint clip transition border border-l--0 border--gray-light border--1">
@@ -82,19 +71,16 @@ class Changeset extends React.PureComponent {
   }
 }
 
-Changeset = connect(
-  (state: RootStateType, props) => ({
-    changeset: state.changeset,
-    location: props.location,
-    changesetId: parseInt(props.match.params.id, 10),
-    currentChangeset: state.changeset.getIn([
-      'changesets',
-      parseInt(props.match.params.id, 10)
-    ]),
-    errorChangeset: state.changeset.get('errorChangeset'),
-    loading: state.changeset.get('loading')
-  }),
-  { handleChangesetModifyHarmful }
-)(Changeset);
+Changeset = connect((state: RootStateType, props) => ({
+  changeset: state.changeset,
+  location: props.location,
+  changesetId: parseInt(props.match.params.id, 10),
+  currentChangeset: state.changeset.getIn([
+    'changesets',
+    parseInt(props.match.params.id, 10)
+  ]),
+  errorChangeset: state.changeset.get('errorChangeset'),
+  loading: state.changeset.get('loading')
+}))(Changeset);
 
 export { Changeset };

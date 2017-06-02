@@ -96,7 +96,6 @@ export function* watchModifyChangeset(): any {
       CHANGESET_MODIFY_HARMFUL,
       CHANGESET_MODIFY_TAG
     ]); // scope for multiple modify actions in future
-    console.log('errrr', modifyAction);
     const token = yield select((state: RootStateType) =>
       state.auth.get('token')
     ); // TOFIX handle token not existing
@@ -110,7 +109,6 @@ export function* watchModifyChangeset(): any {
     try {
       switch (modifyAction.type) {
         case CHANGESET_MODIFY_HARMFUL: {
-          console.log('heeee loo');
           const harmful = modifyAction.harmful;
           yield call(setHarmfulAction, {
             changesetId,
@@ -179,7 +177,7 @@ export function* fetchChangesetAction(changesetId: number): Object {
       })
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
     yield put(
       action(CHANGESET_ERROR, {
         changesetId,
@@ -271,7 +269,6 @@ export function* setTagActions({
           key = i;
         }
       });
-      console.log('delete key', key);
       newChangeset = oldChangeset.setIn(
         ['properties', 'tags'],
         existingTags.delete(key)

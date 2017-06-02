@@ -60,7 +60,6 @@ export class Tags extends React.PureComponent {
       )
     );
     newTags.subtract(oldTags).forEach(t => {
-      console.log(t.toJS(), this.state.allTags);
       handleChangesetModifyTag(
         changesetId,
         currentChangeset,
@@ -69,7 +68,6 @@ export class Tags extends React.PureComponent {
       );
     });
     oldTags.subtract(newTags).forEach(t => {
-      console.log(t.toJS());
       handleChangesetModifyTag(
         changesetId,
         currentChangeset,
@@ -78,11 +76,8 @@ export class Tags extends React.PureComponent {
       );
     });
   };
-  componentDidUpdate(prevProps: Object, prevState: Object) {}
   render() {
     if (!this.props.currentChangeset) return null;
-    const { changesetId } = this.props;
-
     return (
       <Dropdown
         multi
@@ -99,17 +94,3 @@ export class Tags extends React.PureComponent {
     );
   }
 }
-
-// <Async
-//       multi
-//       disabled={this.props.disabled}
-//       promptTextCreator={label => `Add ${label} to ${changesetId}`}
-//       className={`wmin240 wmax240 ${this.props.disabled ? 'cursor-notallowed' : ''}`}
-//       loadOptions={this.getAsyncOptions}
-//       value={this.props.currentChangeset
-//         .getIn(['properties', 'tags'])
-//         .toJS()
-//         .map(t => ({ label: t, value: t }))}
-//       onChange={this.onSelectChange} // have to add an identifier for filter name
-//       placeholder="Add tags to this changeset"
-//     />
