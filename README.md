@@ -1,8 +1,9 @@
 # osmcha-frontend
 [![CircleCI](https://circleci.com/gh/mapbox/osmcha-frontend.svg?style=svg)](https://circleci.com/gh/mapbox/osmcha-frontend)
 
-[wip] Frontend for the osmcha-django REST API  
-[wip] API Testing endpoint: https://osmcha-django-api-test.tilestream.net/api-docs/
+- Frontend for the osmcha-django REST API  
+- API Testing endpoint: https://osmcha-django-api-test.tilestream.net/api-docs/
+- API staging http://osmcha-django-staging.tilestream.net/api-docs
 
 Published to Github Pages at https://mapbox.github.io/osmcha-frontend/
 
