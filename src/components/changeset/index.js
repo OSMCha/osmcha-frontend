@@ -7,7 +7,6 @@ import Mousetrap from 'mousetrap';
 import { Navbar } from '../navbar';
 import { Floater } from './floater';
 import { Header } from './header';
-import { Comment } from './comment';
 import { Features } from './features';
 import { Box } from './box';
 import { Discussions } from './discussions';
@@ -18,7 +17,6 @@ export class Changeset extends React.PureComponent {
   state = {
     width: 0,
     left: 0,
-    comment: false,
     discussions: false,
     features: false,
     details: true,
@@ -70,10 +68,6 @@ export class Changeset extends React.PureComponent {
         transitionEnterTimeout={300}
         transitionLeaveTimeout={150}
       >
-        {this.state.comment &&
-          <Box key={0} className="transition w480 my3 round-tr round-br">
-            <Comment changesetId={changesetId} properties={properties} />
-          </Box>}
         {this.state.discussions &&
           <Box key={1} className="transition w480 my3 round-tr round-br">
             <Discussions changesetId={changesetId} properties={properties} />
@@ -94,7 +88,6 @@ export class Changeset extends React.PureComponent {
     this.setState({
       features: this.state.showAll,
       discussions: this.state.showAll,
-      comment: this.state.showAll,
       details: this.state.showAll,
       showAll: !this.state.showAll
     });
@@ -107,11 +100,6 @@ export class Changeset extends React.PureComponent {
   toggleDiscussions = () => {
     this.setState({
       discussions: !this.state.discussions
-    });
-  };
-  toggleComment = () => {
-    this.setState({
-      comment: !this.state.comment
     });
   };
   toggleDetails = () => {
@@ -136,9 +124,6 @@ export class Changeset extends React.PureComponent {
             <div className="flex-parent flex-parent--row flex-parent--center-main flex-parent--wrap">
               <Button active={!this.state.showAll} onClick={this.toggleAll}>
                 {this.state.showAll ? 'Show all' : 'Hide'}
-              </Button>
-              <Button active={this.state.comment} onClick={this.toggleComment}>
-                Comments
               </Button>
               <Button
                 active={this.state.discussions}
