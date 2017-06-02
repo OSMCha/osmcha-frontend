@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import { CreateDeleteModify } from '../create_delete_modify';
-import { Reasons } from '../reasons';
 
 export function Title({ properties, wasOpen }: Object) {
   return (
@@ -12,12 +11,13 @@ export function Title({ properties, wasOpen }: Object) {
         </span>
         <CreateDeleteModify
           showZero
+          className="mr3 pb3"
           create={properties.get('create')}
           modify={properties.get('modify')}
           delete={properties.get('delete')}
         />
       </span>
-      <Reasons reasons={properties.get('reasons')} />
+
     </div>
   );
 }
