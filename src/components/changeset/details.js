@@ -24,30 +24,27 @@ export function Details({
   return (
     <div>
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
-
-        <div className="flex-parent flex-parent--row justify--center flex-parent--wrap">
-          <p className="flex-child txt-subhead txt-em my3 txt-em txt-l ml3">
-            "{comment}"
+        <div className="flex-parent flex-parent--row flex-parent--wrap py12">
+          <p className="flex-child txt-subhead my12 txt-l ml3">
+            {comment}
           </p>
         </div>
       </div>
-      <div className="flex-parent px18 flex-parent--row justify--space-between flex-parent--wrap">
+      <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap pt12 pb6">
         <div className="flex-parent flex-parent--column ">
-          <span className="txt-underline txt-bold ">Source</span>
-          <span className="wmax180 txt-break-word">{source}</span>
+          <span className="txt-s txt-uppercase txt-bold">Source</span>
+          <span className="wmax180 txt-break-word txt-s">{source}</span>
         </div>
         <div className="flex-parent flex-parent--column ">
-          <span className="txt-underline txt-bold">Editor</span>
-          <span className="wmax180 txt-break-word">{editor}</span>
+          <span className="txt-s txt-uppercase txt-bold">Editor</span>
+          <span className="wmax180 txt-break-word txt-s">{editor}</span>
         </div>
         <div className="flex-parent flex-parent--column">
-          <span className="txt-underline txt-bold">Imagery</span>
-          <span className="wmax180 txt-break-word">{imagery}</span>
+          <span className="txt-s txt-uppercase txt-bold">Imagery</span>
+          <span className="wmax180 txt-break-word txt-s">{imagery}</span>
         </div>
-
       </div>
-
-      <div className="border-b border--gray-light border--0" />
+      {comment.length === 0 && `No comments for ${changesetId}.`}
     </div>
   );
 }
