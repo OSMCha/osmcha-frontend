@@ -46,7 +46,7 @@ export class Discussions extends React.PureComponent<void, Props, State> {
           {this.state.discussions.map((f, k) => (
             <div
               key={k}
-              className="flex-parent flex-parent--column justify--space-between border border--gray-light round p6 my6"
+              className="flex-parent flex-parent--column justify--space-between border border--gray-light round p6 my6 mt12"
             >
               <div className="flex-parent flex-parent--row justify--space-between txt-s ">
                 <span>
@@ -64,7 +64,7 @@ export class Discussions extends React.PureComponent<void, Props, State> {
             </div>
           ))}
           {this.state.discussions.length === 0 &&
-            `Nobody discussed for poor ${this.props.changesetId}`}
+            `No discussions for ${this.props.changesetId}.`}
         </div>
       </div>
     );
