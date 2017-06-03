@@ -78,7 +78,14 @@ class NavbarChangeset extends React.PureComponent {
 
               {this.props.currentChangeset &&
                 <span>
-                  <OpenIn changesetId={this.props.changesetId} />
+                  <Tags
+                    changesetId={this.props.changesetId}
+                    currentChangeset={this.props.currentChangeset}
+                    disabled={false}
+                    handleChangesetModifyTag={
+                      this.props.handleChangesetModifyTag
+                    }
+                  />
                   <Verify
                     changeset={this.props.currentChangeset}
                     placeholder="Verify"
@@ -98,14 +105,8 @@ class NavbarChangeset extends React.PureComponent {
                     ]}
                     className="select--s"
                   />
-                  <Tags
-                    changesetId={this.props.changesetId}
-                    currentChangeset={this.props.currentChangeset}
-                    disabled={false}
-                    handleChangesetModifyTag={
-                      this.props.handleChangesetModifyTag
-                    }
-                  />
+                  <OpenIn changesetId={this.props.changesetId} />
+
                 </span>}
 
             </span>

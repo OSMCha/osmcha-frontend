@@ -37,7 +37,11 @@ export class Dropdown extends React.PureComponent {
   renderOptions = data => {
     if (data) {
       return data.map((i, k) => (
-        <span key={k} onClick={this.handleClick}>
+        <span
+          key={k}
+          onClick={this.handleClick}
+          className="flex-parent flex-parent--row flex-parent--center-cross"
+        >
           {this.props.multi &&
             <input
               data-label={i.label}
@@ -50,7 +54,7 @@ export class Dropdown extends React.PureComponent {
           <a
             target={i.href ? '_black' : '_self'}
             href={i.href || '#'}
-            className={`cursor-pointer ${this.isActive(i) ? 'is-active color-red' : ''}`}
+            className={`txt-nowrap cursor-pointer ${this.isActive(i) ? 'is-active color-red' : ''}`}
           >
             {i.label}
           </a>
@@ -108,7 +112,7 @@ export class Dropdown extends React.PureComponent {
           {this.props.display}
         </button>
         <div
-          className="dropdown-content"
+          className="dropdown-content wmin120 wmax240"
           style={{ display: this.state.display }}
         >
           {this.renderOptions(this.props.options)}

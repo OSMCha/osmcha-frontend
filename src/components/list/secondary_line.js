@@ -6,7 +6,7 @@ export function SecondaryLine({ changesetId, date }: Object) {
   return (
     <span className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray">
       <span>
-        Changeset: {changesetId}
+        {changesetId}
       </span>
       <span>
         created &nbsp;{moment(date).fromNow()}

@@ -62,7 +62,7 @@ class CMap extends React.PureComponent {
     currentChangesetMap = this.props.currentChangesetMap;
     if (this.ref) {
       var rect = this.ref.parentNode.getBoundingClientRect();
-      height = parseInt(window.innerHeight - 2 * 55, 10);
+      height = parseInt(window.innerHeight - 1 * 55, 10);
       width = parseInt(rect.width, 10);
     }
 
@@ -84,7 +84,7 @@ class CMap extends React.PureComponent {
   setDimensions = () => {
     if (!this.ref) return;
     var rect = this.ref.parentNode.getBoundingClientRect();
-    height = parseInt(window.innerHeight - 2 * 55, 10);
+    height = parseInt(window.innerHeight - 1 * 55, 10);
     width = parseInt(rect.width, 10);
     this.setState({
       height,

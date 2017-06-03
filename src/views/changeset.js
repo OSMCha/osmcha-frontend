@@ -62,8 +62,8 @@ class Changeset extends React.PureComponent {
   };
   render() {
     return (
-      <div className="flex-parent flex-parent--column bg-gray-faint clip transition border border-l--0 border--gray-light border--1">
-        <div className="flex-parent flex-parent--row justify--center transition">
+      <div>
+        <div className="flex-parent flex-parent--column clip transition">
           {this.showChangeset()}
         </div>
       </div>

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { Map, List, fromJS } from 'immutable';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import CSSGroup from 'react-transition-group/CSSTransitionGroup';
 import Mousetrap from 'mousetrap';
 
 import { Navbar } from '../navbar';
@@ -24,9 +24,7 @@ export class Changeset extends React.PureComponent {
   };
   props: {
     changesetId: number,
-    currentChangeset: Map<string, *>,
-    scrollDown: () => void,
-    scrollUp: () => void
+    currentChangeset: Map<string, *>
   };
   componentDidMount() {
     Mousetrap.bind('ctrl+a', () => {
@@ -44,7 +42,7 @@ export class Changeset extends React.PureComponent {
   }
   setRef = (r: any) => {
     if (!r) return;
-    var rect = r.getBoundingClientRect();
+    var rect = r.parentNode.parentNode.parentNode.getBoundingClientRect();
     this.setState({
       width: parseInt(rect.width, 10),
       left: parseInt(rect.left, 10)
@@ -58,26 +56,27 @@ export class Changeset extends React.PureComponent {
     const properties = currentChangeset.get('properties');
 
     return (
-      <CSSTransitionGroup
+      <CSSGroup
+        name="floaters"
         transitionName="floaters"
         transitionAppearTimeout={300}
         transitionAppear={true}
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={150}
+        transitionEnterTimeout={400}
+        transitionLeaveTimeout={250}
       >
         {this.state.details &&
-          <Box key={3} className="transition w480 my3 round-tr round-br">
+          <Box key={3} className=" w480 round-tr round-br">
             <Header changesetId={changesetId} properties={properties} />
           </Box>}
         {this.state.features &&
-          <Box key={2} className="transition w480 my3 round-tr round-br">
+          <Box key={2} className=" w480 round-tr round-br">
             <Features changesetId={changesetId} properties={properties} />
           </Box>}
         {this.state.discussions &&
-          <Box key={1} className="transition w480 my3 round-tr round-br">
+          <Box key={1} className=" w480  round-tr round-br">
             <Discussions changesetId={changesetId} properties={properties} />
           </Box>}
-      </CSSTransitionGroup>
+      </CSSGroup>
     );
   };
 
@@ -91,56 +90,88 @@ export class Changeset extends React.PureComponent {
   };
   toggleFeatures = () => {
     this.setState({
+      discussions: false,
+      details: false,
+      showAll: false,
       features: !this.state.features
     });
   };
   toggleDiscussions = () => {
     this.setState({
-      discussions: !this.state.discussions
+      discussions: !this.state.discussions,
+      details: false,
+      showAll: false,
+      features: false
     });
   };
   toggleDetails = () => {
     this.setState({
-      details: !this.state.details
+      discussions: false,
+      details: !this.state.details,
+      showAll: false,
+      features: false
     });
   };
   render() {
-    const { changesetId } = this.props;
-
-    // const height = parseInt(window.innerHeight - 55, 10);
-
     return (
-      <div className="flex-child w-full transition clip" ref={this.setRef}>
-        <Navbar
-          className="bg-white color-gray border-b border--gray-light border--1"
-          title={
-            <div className="flex-parent flex-parent--row flex-parent--center-main flex-parent--wrap">
-              <Button active={this.state.details} onClick={this.toggleDetails}>
-                Details
-              </Button>
-              <Button
-                active={this.state.features}
-                onClick={this.toggleFeatures}
-              >
-                Suspicious
-              </Button>
-              <Button
-                active={this.state.discussions}
-                onClick={this.toggleDiscussions}
-              >
-                Discussions
-              </Button>
-              <Button active={!this.state.showAll} onClick={this.toggleAll}>
-                {this.state.showAll ? 'Show all' : 'Hide all'}
-              </Button>
-            </div>
-          }
-        />
+      <div className="flex-child clip" ref={this.setRef}>
         <Floater
           style={{
-            top: 55 * 2,
+            top: 55 * 1.2,
+            width: 80,
+            left: this.state.left - 15
+          }}
+        >
+          <Button
+            active={this.state.details}
+            onClick={this.toggleDetails}
+            bg={'white'}
+            className="unround-r unround-bl"
+          >
+            <svg className="icon inline-block align-middle ">
+              <use xlinkHref="#icon-eye" />
+            </svg>
+          </Button>
+          <Button
+            active={this.state.features}
+            onClick={this.toggleFeatures}
+            bg={'white'}
+            className="unround"
+          >
+            <svg className="icon inline-block align-middle">
+              <use xlinkHref="#icon-bug" />
+            </svg>
+          </Button>
+          <Button
+            active={this.state.discussions}
+            onClick={this.toggleDiscussions}
+            bg={'white'}
+            className="unround"
+          >
+            <svg className="icon inline-block align-middle">
+              <use xlinkHref="#icon-tooltip" />
+            </svg>
+          </Button>
+          <Button
+            active={!this.state.showAll}
+            onClick={this.toggleAll}
+            bg={'white'}
+            className="unround-r unround-tl"
+          >
+            {this.state.showAll
+              ? <svg className="icon inline-block align-middle">
+                  <use xlinkHref="#icon-database" />
+                </svg>
+              : <svg className="icon inline-block align-middle">
+                  <use xlinkHref="#icon-database" />
+                </svg>}
+          </Button>
+        </Floater>
+        <Floater
+          style={{
+            top: 55 * 1.2,
             width: 480,
-            left: this.state.left + (this.state.width - 480) / 2
+            left: 40 + this.state.left
           }}
         >
           {this.showFloaters()}

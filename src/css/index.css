@@ -101,30 +101,30 @@ body {
 
 
 .floaters-appear {
-  opacity: 0.01;
+  opacity: 0.11;
 }
 
-.floaters-appear.example-appear-active {
+.floaters-appear.floaters-appear-active {
   opacity: 1;
-  transition: opacity .5s ease-in;
+  transition: opacity .3s ease-in;
 }
 
 .floaters-enter {
-  opacity: 0.01;
+  opacity: 0.9;
 }
 
 .floaters-enter.floaters-enter-active {
   opacity: 1;
   /*transition: opacity 500ms ease-out;*/
-   animation: 0.3s slideInDown ease-out;
+   animation: 0.4s fadeInLeft ease-out;
 }
 
 .floaters-leave {
-  opacity: 1;
+  opacity: 0;
 }
 
 .floaters-leave.floaters-leave-active {
-  opacity: 0.01;
+  opacity: 0.0;
   transition: opacity 0.2s ease-in;
 }
 

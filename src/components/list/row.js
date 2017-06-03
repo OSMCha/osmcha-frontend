@@ -39,8 +39,12 @@ export class Row extends React.PureComponent {
       borderClass = 'border-l border-l--4 border-color-good';
 
     let backgroundClass = '';
-    backgroundClass = active ? 'light-blue' : 'light-blue-on-hover';
-    backgroundClass += this.wasOpen ? ' bg-darken5' : '';
+
+    backgroundClass += active
+      ? 'light-blue'
+      : this.wasOpen
+          ? ' bg-darken5 light-blue-on-hover'
+          : 'light-blue-on-hover';
 
     return (
       <Link
