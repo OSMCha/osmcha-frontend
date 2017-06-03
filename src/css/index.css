@@ -77,7 +77,7 @@ body {
 .filters-appear.example-appear-active {
   opacity: 1;
   transition: opacity .5s ease-in;
-  
+
 }
 
 .filters-enter {
@@ -95,7 +95,7 @@ body {
 }
 
 .filters-leave.filters-leave-active {
-   opacity: 1; 
+   opacity: 1;
    animation: 0.5s slideOutUp ease-in;
 }
 
@@ -124,7 +124,7 @@ body {
 }
 
 .floaters-leave.floaters-leave-active {
-  opacity: 0.01; 
+  opacity: 0.01;
   transition: opacity 0.2s ease-in;
 }
 
@@ -154,7 +154,7 @@ body {
 }
 
 .map-hide-leave.map-hide-leave-active {
-  opacity: 0.9;  
+  opacity: 0.9;
   transition: opacity 1s ease-out;
 }
 
@@ -249,29 +249,32 @@ body {
   background-color: #CC2C47;
 }
 
+/* OSMCha Custom CSS*/
+
 .osmcha-custom-table th,
 .osmcha-custom-table td {
    padding: 6px !important;
 }
 
-.border-color-good {
-  border-color: #52EC6D!important;
-  border-width: 4px!important;
-}
-
-.boder-color-bad {
-  border-color: #FF0000!important;
-  border-width: 4px!important;
-}
+/* Changeset list color hacks */
 
 .light-blue,
 .light-blue-on-hover:hover {
   background-color: #EEF4FA!important;
 }
 
-/* OSMCha Custom CSS*/
+.changesets-list .border-color-good {
+  border-color: #77CC66!important;
+}
 
-.border-color-neutral {
+.changesets-list .border-color-bad {
+  border-color: #FF0099!important;
+}
+
+.changesets-list .border-color-neutral {
   border-color: #D8D8D8!important;
-  border-width: 4px!important;
+}
+
+.changesets-list .border-l--4 {
+  border-left-width: 4px!important;
 }

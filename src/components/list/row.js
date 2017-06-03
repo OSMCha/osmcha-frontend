@@ -32,11 +32,11 @@ export class Row extends React.PureComponent {
       this.wasOpen = this.props.active;
     }
 
-    let borderClass = 'border-l border-color-neutral';
+    let borderClass = 'border-l border-l--4 border-color-neutral';
     if (properties.get('harmful') === true)
-      borderClass = 'border-l border-color-bad';
+      borderClass = 'border-l border-l--4 border-color-bad';
     if (properties.get('harmful') === false)
-      borderClass = 'border-l border-color-good';
+      borderClass = 'border-l border-l--4 border-color-good';
 
     let backgroundClass = '';
     backgroundClass = active ? 'light-blue' : 'light-blue-on-hover';
@@ -56,7 +56,7 @@ export class Row extends React.PureComponent {
           <div
             {...other}
             className={
-              'ml12 cursor-pointer flex-parent flex-parent--column border-b py6 border-b--1 border--gray-light'
+              'pl12 cursor-pointer flex-parent flex-parent--column border-b py6 border-b--1 border--gray-light'
             }
           >
             <div className="flex-parent flex-parent--column">
