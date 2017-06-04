@@ -7,9 +7,9 @@ export function Reasons({ reasons }: Object) {
       {reasons.map((r, k) => (
         <div
           key={k}
-          className="bg-blue-faint color-blue inline-block px6 py3 mb6 mr3 txt-xs txt-bold round-full"
+          className=" color-gray inline-block px3 txt-mono txt-capitalize mr3 txt-s txt-bold txt-underline round-full"
         >
-          {r}
+          {r.get('name')}
         </div>
       ))}
     </span>

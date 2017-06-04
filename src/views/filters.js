@@ -94,9 +94,12 @@ class Filters extends React.PureComponent {
         className={`flex-parent flex-parent--column changesets-filters bg-gray-faint ${width < 800 ? 'viewport-full' : ''}`}
       >
         <header className="hmin55 h55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
-          some header
+          Filters
         </header>
-        <div className="m12 flex-parent flex-parent--row flex-parent--wrap justify--space-around scroll-auto wmax960 ">
+        <div
+          className="m12 flex-child scroll-auto wmax960 "
+          style={{ alignSelf: 'center' }}
+        >
           {filters
             .filter(f => {
               return !f.ignore;
