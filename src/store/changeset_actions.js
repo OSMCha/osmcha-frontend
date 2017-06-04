@@ -96,10 +96,10 @@ export function* watchModifyChangeset(): any {
       CHANGESET_MODIFY_HARMFUL,
       CHANGESET_MODIFY_TAG
     ]); // scope for multiple modify actions in future
-    const token = yield select((state: RootStateType) =>
-      state.auth.get('token')
-    ); // TOFIX handle token not existing
-
+    const { token, username } = yield select((state: RootStateType) => ({
+      token: state.auth.get('token'),
+      username: state.auth.getIn(['userDetails', 'username'])
+    })); // TOFIX handle token not existing
     // all modify actions should have changesetId, oldChangeset
     const { changesetId, oldChangeset } = modifyAction;
 
@@ -114,7 +114,8 @@ export function* watchModifyChangeset(): any {
             changesetId,
             oldChangeset,
             token,
-            harmful
+            harmful,
+            username
           });
           break;
         }
@@ -236,17 +237,15 @@ export function* setHarmfulAction({
   changesetId,
   oldChangeset,
   token,
-  harmful
+  harmful,
+  username
 }: Object): any {
   const newChangeset = oldChangeset
-    .setIn(
-      ['properties', 'check_user'],
-      harmful === -1 ? null : oldChangeset.getIn(['properties', 'check_user'])
-    )
-    .setIn(
-      ['properties', 'tags'],
-      harmful === -1 ? List() : oldChangeset.getIn(['properties', 'tags'])
-    )
+    .setIn(['properties', 'check_user'], harmful === -1 ? null : username)
+    // .setIn(
+    //   ['properties', 'tags'],
+    //   harmful === -1 ? List() : oldChangeset.getIn(['properties', 'tags'])
+    // )
     .setIn(['properties', 'checked'], harmful === -1 ? false : true)
     .setIn(['properties', 'harmful'], harmful === -1 ? null : harmful);
   yield put(

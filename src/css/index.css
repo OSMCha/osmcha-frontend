@@ -114,7 +114,7 @@ body {
 }
 
 .floaters-enter.floaters-enter-active {
-  opacity: 1;
+  opacity: 0.9;
   /*transition: opacity 500ms ease-out;*/
    animation: 0.4s fadeInLeft ease-out;
 }
@@ -127,8 +127,6 @@ body {
   opacity: 0.0;
   transition: opacity 0.2s ease-in;
 }
-
-
 
 .map-hide-appear {
   opacity: 0.01;

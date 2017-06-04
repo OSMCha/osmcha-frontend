@@ -12,7 +12,7 @@ export class Tags extends React.PureComponent {
     changesetId: number,
     disabled: boolean,
     currentChangeset: Map<string, *>,
-    handleChangesetModifyTag: (number, Map<string, *>, number, boolean) => mixed
+    handleChangesetModifyTag: (number, Map<string, *>, Object, boolean) => mixed
   };
   state: {
     options: Array<any>,
@@ -69,13 +69,10 @@ export class Tags extends React.PureComponent {
       .getIn(['properties', 'tags'])
       .toJS();
     this.state.options.forEach(o => {
-      console.log(o, tagIds);
       if (tagIds.indexOf(o.value) > -1) {
         value.push(o);
       }
     });
-    console.log(value);
-    console.log(this.props.currentChangeset);
     if (this.state.options) {
       return (
         <Dropdown

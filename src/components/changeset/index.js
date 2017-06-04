@@ -10,7 +10,7 @@ import { Header } from './header';
 import { Features } from './features';
 import { Box } from './box';
 import { Discussions } from './discussions';
-import { Button } from '../button';
+import { Button } from './button';
 
 // presentational component for view/changeset.js
 export class Changeset extends React.PureComponent {
@@ -65,15 +65,15 @@ export class Changeset extends React.PureComponent {
         transitionLeaveTimeout={250}
       >
         {this.state.details &&
-          <Box key={3} className=" w480 round-tr round-br">
+          <Box key={3} className=" w420 round-tr round-br">
             <Header changesetId={changesetId} properties={properties} />
           </Box>}
         {this.state.features &&
-          <Box key={2} className=" w480 round-tr round-br">
+          <Box key={2} className=" w420 round-tr round-br">
             <Features changesetId={changesetId} properties={properties} />
           </Box>}
         {this.state.discussions &&
-          <Box key={1} className=" w480  round-tr round-br">
+          <Box key={1} className=" w420  round-tr round-br">
             <Discussions changesetId={changesetId} properties={properties} />
           </Box>}
       </CSSGroup>
@@ -117,7 +117,7 @@ export class Changeset extends React.PureComponent {
       <div className="flex-child clip" ref={this.setRef}>
         <Floater
           style={{
-            top: 55 * 1.2,
+            top: 55 * 1.1,
             width: 80,
             left: this.state.left - 15
           }}
@@ -125,7 +125,7 @@ export class Changeset extends React.PureComponent {
           <Button
             active={this.state.details}
             onClick={this.toggleDetails}
-            bg={'white'}
+            bg={'gray-faint'}
             className="unround-r unround-bl"
           >
             <svg className="icon inline-block align-middle ">
@@ -135,7 +135,7 @@ export class Changeset extends React.PureComponent {
           <Button
             active={this.state.features}
             onClick={this.toggleFeatures}
-            bg={'white'}
+            bg={'gray-faint'}
             className="unround"
           >
             <svg className="icon inline-block align-middle">
@@ -169,8 +169,8 @@ export class Changeset extends React.PureComponent {
         </Floater>
         <Floater
           style={{
-            top: 55 * 1.2,
-            width: 480,
+            top: 55 * 1.1,
+            width: 420,
             left: 40 + this.state.left
           }}
         >

@@ -8,7 +8,8 @@ export function Verify({
   onChange,
   value,
   onClear,
-  username
+  username,
+  checkUser
 }) {
   if (changeset.getIn(['properties', 'checked'])) {
     const isHarmful = changeset.getIn(['properties', 'harmful']);
@@ -17,7 +18,7 @@ export function Verify({
         <button
           className={`btn btn--pill btn--s btn--pill-hl ${isHarmful ? 'bg-orange-faint color-orange-dark' : 'bg-green-faint color-green'}`}
         >
-          {isHarmful ? `👎 ${username}` : `👍 ${username}`}
+          {isHarmful ? `👎 ${checkUser}` : `👍 ${checkUser}`}
         </button>
         <button
           className={`btn btn--pill  pl3 btn--s btn--pill-hr  ${isHarmful ? 'bg-orange-faint color-orange-dark' : 'bg-green-faint color-green'}`}

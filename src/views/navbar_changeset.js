@@ -46,7 +46,6 @@ class NavbarChangeset extends React.PureComponent {
     }
   };
   handleVerifyClear = () => {
-    console.log('here');
     this.props.handleChangesetModifyHarmful(
       this.props.changesetId,
       this.props.currentChangeset,
@@ -93,6 +92,10 @@ class NavbarChangeset extends React.PureComponent {
                     onChange={this.handleVerify}
                     onClear={this.handleVerifyClear}
                     username={this.props.username}
+                    checkUser={this.props.currentChangeset.getIn([
+                      'properties',
+                      'check_user'
+                    ])}
                     options={[
                       {
                         value: false,
