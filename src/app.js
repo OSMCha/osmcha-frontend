@@ -12,6 +12,7 @@ import { Filters } from './views/filters';
 import { ChangesetsList } from './views/changesets_list';
 import { CMap } from './views/map';
 import { NavbarChangeset } from './views/navbar_changeset';
+import { NavbarSidebar } from './views/navbar_sidebar';
 import { Sidebar } from './components/sidebar';
 import { Navbar } from './components/navbar';
 
@@ -55,18 +56,7 @@ class App extends Component {
             <div className="viewport-full clip">
               <div className="grid">
                 <div className="col col--3-mxl col--3-ml bg-white">
-                  <Navbar
-                    className="bg-white border-b border--gray-light border--1"
-                    title={
-                      <span className="txt-fancy color-gray txt-xl">
-                        <span className="color-green txt-bold">
-                          OSM
-                        </span>
-                        {' '}
-                        CHA
-                      </span>
-                    }
-                  />
+                  <NavbarSidebar />
                   <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
                 </div>
                 <div className="col col--9-mxl col--9-ml col--12-mm clip bg-black ">
