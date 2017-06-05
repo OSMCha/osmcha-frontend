@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { Map } from 'immutable';
+import { Reasons } from '../reasons';
 
 export function Details({
   properties,
@@ -24,6 +25,9 @@ export function Details({
   return (
     <div>
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
+        <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
+          <Reasons reasons={reasons} />
+        </div>
         <div className="flex-parent flex-parent--row flex-parent--wrap py12">
           <p className="flex-child txt-subhead my12 txt-l ml3">
             {comment.length === 0 ? `No comments for ${changesetId}.` : comment}

@@ -271,8 +271,8 @@ export function* setTagActions({
     if (remove) {
       existingTags = oldChangeset.getIn(['properties', 'tags']);
       let key;
-      existingTags.forEach((value, i) => {
-        if (value === tag.value) {
+      existingTags.forEach((t, i) => {
+        if (t.get('id') === tag.value) {
           key = i;
         }
       });
@@ -281,10 +281,12 @@ export function* setTagActions({
         existingTags.delete(key)
       );
     } else {
+      // TOFIX consolidate the convention of backend using id and name
+      // and I using label and value.
       existingTags = oldChangeset.getIn(['properties', 'tags']);
       newChangeset = oldChangeset.setIn(
         ['properties', 'tags'],
-        existingTags.push(tag.value)
+        existingTags.push(new Map().set('id', tag.value).set('name', tag.label))
       );
     }
 

@@ -15,6 +15,11 @@ let height = 500;
 let event;
 let cMapRender;
 
+export function selectFeature(id: number) {
+  if (!id || !event) return;
+  event.emit('selectFeature', 'node|way', id);
+}
+
 function importChangesetMap() {
   if (cMapRender) return Promise.resolve(cMapRender);
   return import('changeset-map')
@@ -33,6 +38,7 @@ function loadMap() {
   if (!container || !currentChangesetMap) return;
   importChangesetMap().then(render => {
     if (!render) return;
+    if (event) event.emit('clearFeature');
     event = render(container, changesetId, {
       width: width + 'px',
       height: Math.max(400, height) + 'px',
@@ -69,7 +75,6 @@ class CMap extends React.PureComponent {
     minDebounce();
   }
   componentWillUnmount() {
-    console.log('unmounting');
     event && event.emit('remove');
   }
   componentDidUpdate(prevProp: Object) {

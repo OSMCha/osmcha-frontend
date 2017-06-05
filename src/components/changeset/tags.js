@@ -64,15 +64,13 @@ export class Tags extends React.PureComponent {
 
   render() {
     if (!this.props.currentChangeset) return null;
-    let value = [];
-    const tagIds = this.props.currentChangeset
+    const value = this.props.currentChangeset
       .getIn(['properties', 'tags'])
-      .toJS();
-    this.state.options.forEach(o => {
-      if (tagIds.indexOf(o.value) > -1) {
-        value.push(o);
-      }
-    });
+      .toJS()
+      .map(t => ({
+        value: t.id,
+        label: t.name
+      }));
     if (this.state.options) {
       return (
         <Dropdown
