@@ -76,6 +76,7 @@ export class Row extends React.PureComponent {
               <div>
                 <SecondaryLine
                   changesetId={changesetId}
+                  properties={properties}
                   date={properties.get('date')}
                 />
               </div>

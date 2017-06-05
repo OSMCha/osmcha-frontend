@@ -20,12 +20,29 @@ export class Changeset extends React.PureComponent {
     discussions: false,
     features: false,
     details: true,
-    showAll: true
+    showAll: true,
+    discussionsData: List()
   };
   props: {
     changesetId: number,
     currentChangeset: Map<string, *>
   };
+  getData = (changesetId: number) => {
+    fetch(
+      `https://osm-comments-api.mapbox.com/api/v1/changesets/${changesetId}`
+    )
+      .then(r => r.json())
+      .then(x => {
+        if (x && x.properties && Array.isArray(x.properties.comments)) {
+          this.setState({
+            discussionsData: fromJS(x.properties.comments)
+          });
+        }
+      });
+  };
+  componentWillReceiveProps(nextProps: Props) {
+    this.getData(nextProps.changesetId);
+  }
   componentDidMount() {
     Mousetrap.bind('ctrl+a', () => {
       this.toggleAll();
@@ -39,6 +56,7 @@ export class Changeset extends React.PureComponent {
     Mousetrap.bind('ctrl+o', () => {
       this.toggleDetails();
     });
+    this.getData(this.props.changesetId);
   }
   setRef = (r: any) => {
     if (!r) return;
@@ -74,7 +92,10 @@ export class Changeset extends React.PureComponent {
           </Box>}
         {this.state.discussions &&
           <Box key={1} className=" w420  round-tr round-br">
-            <Discussions changesetId={changesetId} properties={properties} />
+            <Discussions
+              changesetId={changesetId}
+              discussions={this.state.discussionsData}
+            />
           </Box>}
       </CSSGroup>
     );
@@ -138,7 +159,9 @@ export class Changeset extends React.PureComponent {
             bg={'gray-faint'}
             className="unround"
           >
-            <svg className="icon inline-block align-middle">
+            <svg
+              className={`icon inline-block align-middle ${this.state.discussionsData.size > 0 ? 'color-orange' : ''}`}
+            >
               <use xlinkHref="#icon-bug" />
             </svg>
           </Button>
@@ -148,7 +171,11 @@ export class Changeset extends React.PureComponent {
             bg={'white'}
             className="unround"
           >
-            <svg className="icon inline-block align-middle">
+            <svg
+              className={`icon inline-block align-middle ${this.props.currentChangeset.getIn(
+                ['properties', 'features']
+              ).size > 0 ? 'color-orange' : ''}`}
+            >
               <use xlinkHref="#icon-tooltip" />
             </svg>
           </Button>

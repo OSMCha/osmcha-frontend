@@ -3,7 +3,7 @@ import React from 'react';
 import './dropdown.css';
 export class Dropdown extends React.PureComponent {
   props: {
-    className: ?string,
+    className: string,
     disabled: boolean,
     value: Array<Object>,
     onChange: () => any,
@@ -62,15 +62,6 @@ export class Dropdown extends React.PureComponent {
       ));
     }
   };
-  setAsyncOptions = promFunc => {
-    if (promFunc) {
-      promFunc().then(data => {
-        this.setState({
-          loadedOptions: data.options
-        });
-      });
-    }
-  };
   handleClick = (e: Event) => {
     if (e.target) {
       var label = e.target.value || e.target.text;
@@ -104,13 +95,17 @@ export class Dropdown extends React.PureComponent {
   };
   render() {
     return (
-      <div className="dropdown">
-        <button
-          className={`${this.props.className} btn btn--pill btn--s mr3`}
-          onClick={this.toggleDropdown}
-        >
-          {this.props.display}
-        </button>
+      <div className={`dropdown mr3 pointer ${this.props.className}`}>
+        <span onClick={this.toggleDropdown}>
+          {' '}{this.props.displayComponent
+            ? this.props.displayComponent
+            : <span className="btn btn--s bg-white color-gray border border--gray round">
+                <span>{this.props.display}</span>
+                <svg className="icon inline-block align-middle ">
+                  <use xlinkHref="#icon-chevron-down" />
+                </svg>
+              </span>}
+        </span>
         <div
           className="dropdown-content wmin120 wmax240"
           style={{ display: this.state.display }}

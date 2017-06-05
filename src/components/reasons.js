@@ -8,7 +8,7 @@ export function Reasons({ reasons }: { reasons: List<any> }) {
     <span>
       {reasons.map((r, k) => (
         <span key={k}>
-          <span className=" color-gray bg-blue-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline">
+          <span className=" color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline">
             {r.get('name')}
           </span>
           {`${k !== lastIndex ? ', ' : ''}`}

@@ -82,7 +82,7 @@ export class Tags extends React.PureComponent {
           value={value}
           options={this.state.options}
           onChange={() => {}}
-          display="Tags"
+          display={`Tags${value.length > 0 ? ` (${value.length})` : ''}`}
         />
       );
     } else {

@@ -56,10 +56,9 @@ class NavbarChangeset extends React.PureComponent {
     const width = window.innerWidth;
     return (
       <Navbar
-        className="bg-white color-gray border-b border--gray-light border--1 border-t--0"
+        className="bg-white color-gray border border--gray-light border--1"
         title={
           <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
-
             <span>
               {width < 800 &&
                 <Link
@@ -67,11 +66,12 @@ class NavbarChangeset extends React.PureComponent {
                 >
                   {'<  '}
                 </Link>}
-              <span className="txt-l">
+              <span className="txt-l color-gray--dark">
                 Changeset:
                 {' '}
-                <span className="txt-em">{this.props.changesetId}</span>
+                <span className=" txt-underline">{this.props.changesetId}</span>
               </span>
+              <OpenIn changesetId={this.props.changesetId} />
             </span>
             <span>
 
@@ -108,7 +108,6 @@ class NavbarChangeset extends React.PureComponent {
                     ]}
                     className="select--s"
                   />
-                  <OpenIn changesetId={this.props.changesetId} />
 
                 </span>}
 

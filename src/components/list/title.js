@@ -9,15 +9,7 @@ export function Title({ properties, wasOpen }: Object) {
         <span className={`txt-m ${wasOpen ? '' : 'txt-bold'} mt3 mr6`}>
           {properties.get('user')}
         </span>
-        <CreateDeleteModify
-          showZero
-          className="mr3 pb3"
-          create={properties.get('create')}
-          modify={properties.get('modify')}
-          delete={properties.get('delete')}
-        />
       </span>
-
     </div>
   );
 }

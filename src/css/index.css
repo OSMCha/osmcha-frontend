@@ -51,9 +51,9 @@ body {
 .wmax435 {
   max-width: 435px !important;
 }
-
-
-
+.btn--stroke--1 {
+  box-shadow: inset 0 0 0 1px currentColor !important;
+}
 @media only screen and (max-width: 768px) {
   .sidebar {
     display: none !important;

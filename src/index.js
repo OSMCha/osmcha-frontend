@@ -4,8 +4,10 @@ import ReactDOM from 'react-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import debounce from 'lodash.debounce';
+import Raven from 'raven-js';
 
 import { registerServiceWorker } from './serviceworker';
+
 import './css/index.css';
 import 'react-tippy/dist/tippy.css';
 import 'animate.css/animate.css';
@@ -18,10 +20,15 @@ import App from './app';
 import { history } from './store/history';
 import { store } from './store';
 
-// if (process.env.NODE_ENV === 'production') {
-//   const {whyDidYouUpdate} = require('why-did-you-update');
-//   whyDidYouUpdate(React);
-// }
+Raven.config('https://5637ef87f5794e2fb9e1e5fe9119688d@sentry.io/175926', {
+  release: process.env.REACT_APP_VERSION,
+  environment: process.env.NODE_ENV
+}).install();
+
+if (process.env.NODE_ENV === 'production') {
+  // const {whyDidYouUpdate} = require('why-did-you-update');
+  // whyDidYouUpdate(React);
+}
 
 ReactDOM.render(
   <Provider store={store}>

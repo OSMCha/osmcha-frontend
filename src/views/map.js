@@ -38,7 +38,7 @@ function loadMap() {
   if (!container || !currentChangesetMap) return;
   importChangesetMap().then(render => {
     if (!render) return;
-    if (event) event.emit('clearFeature');
+    // if (event) event.emit('clearFeature');
     event = render(container, changesetId, {
       width: width + 'px',
       height: Math.max(400, height) + 'px',
