@@ -28,7 +28,7 @@ export function Header({
           <div>
             <CreateDeleteModify
               showZero
-              className="mr3 pb3"
+              className="mr3"
               create={create}
               modify={modify}
               delete={destroy}

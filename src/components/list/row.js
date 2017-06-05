@@ -15,6 +15,7 @@ export class Row extends React.PureComponent {
     inputRef: ?(any) => any
   };
   shouldComponentUpdate(nextProps: Object) {
+    console.log('hereeee');
     return (
       nextProps.properties !== this.props.properties ||
       this.props.active ||
@@ -65,7 +66,11 @@ export class Row extends React.PureComponent {
           >
             <div className="flex-parent flex-parent--column">
               <div>
-                <Title properties={properties} wasOpen={this.wasOpen} />
+                <Title
+                  properties={properties}
+                  wasOpen={this.wasOpen}
+                  date={properties.get('date')}
+                />
               </div>
               <div>
                 <PrimaryLine

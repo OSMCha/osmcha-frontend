@@ -10,13 +10,11 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
         <span>
           {changesetId}
         </span>
-        <span>
-          created &nbsp;{moment(date).fromNow()}
-        </span>
+
       </span>
       <CreateDeleteModify
         showZero
-        className="mr3 pb3"
+        className="mr3"
         create={properties.get('create')}
         modify={properties.get('modify')}
         delete={properties.get('delete')}
