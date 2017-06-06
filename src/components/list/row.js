@@ -15,7 +15,6 @@ export class Row extends React.PureComponent {
     inputRef: ?(any) => any
   };
   shouldComponentUpdate(nextProps: Object) {
-    console.log('hereeee');
     return (
       nextProps.properties !== this.props.properties ||
       this.props.active ||
@@ -43,9 +42,7 @@ export class Row extends React.PureComponent {
 
     backgroundClass += active
       ? 'light-blue'
-      : this.wasOpen
-          ? ' bg-darken5 light-blue-on-hover'
-          : 'light-blue-on-hover';
+      : this.wasOpen ? ' bg-darken5 ' : '';
 
     return (
       <Link

@@ -10,5 +10,8 @@
         "flow-typed",
         "build",
         "src/0.13.0.assembly.js"
-    ]
+    ],
+    "globals": {
+        "Raven": true
+    }
 }

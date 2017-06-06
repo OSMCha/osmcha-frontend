@@ -8,10 +8,12 @@ import { Details } from './details';
 
 export function Header({
   properties,
-  changesetId
+  changesetId,
+  userEditCount
 }: {
   properties: Map<string, *>,
-  changesetId: number
+  changesetId: number,
+  userEditCount: number
 }) {
   const user = properties.get('user');
   const date = properties.get('date');
@@ -40,7 +42,12 @@ export function Header({
             By
             {' '}
             <span className="txt-underline-on-hover txt-bold">
-              {user}&nbsp;
+              <a
+                target="_blank"
+                href={`https://openstreetmap.org/user/${user}`}
+              >
+                {user}({userEditCount})&nbsp;
+              </a>
             </span>
             created&nbsp;{moment(date).fromNow()}
           </span>

@@ -34,12 +34,12 @@ export class Dropdown extends React.PureComponent {
     }
     return false;
   };
-  renderOptions = data => {
+  renderOptions = (data: Array<*>) => {
     if (data) {
       return data.map((i, k) => (
         <span
           key={k}
-          onClick={this.handleClick}
+          onClick={this.handleClick.bind(null, i)}
           className="flex-parent flex-parent--row flex-parent--center-cross"
         >
           {this.props.multi &&
@@ -52,7 +52,7 @@ export class Dropdown extends React.PureComponent {
               className="cursor-pointer"
             />}
           <a
-            target={i.href ? '_black' : '_self'}
+            target={i.href ? '_blank' : '_self'}
             href={i.href || '#'}
             className={`txt-nowrap cursor-pointer ${this.isActive(i) ? 'is-active color-red' : ''}`}
           >
@@ -62,18 +62,12 @@ export class Dropdown extends React.PureComponent {
       ));
     }
   };
-  handleClick = (e: Event) => {
-    if (e.target) {
-      var label = e.target.value || e.target.text;
+  handleClick = (data: Object) => {
+    if (data) {
+      var label = data.label;
       if (!label || !this.props.value || !this.props.onChange) return;
-      const options = this.props.options;
       const value = this.props.value;
-      let ourObj: Object;
-      for (let x = 0; x < options.length; x++) {
-        if (options[x].label === label) {
-          ourObj = options[x];
-        }
-      }
+      let ourObj = data;
       if (!ourObj) return;
       let isRemove = false;
       for (let x = 0; x < value.length; x++) {

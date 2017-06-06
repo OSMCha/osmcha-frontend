@@ -21,13 +21,56 @@ export class Changeset extends React.PureComponent {
     features: false,
     details: true,
     showAll: true,
-    discussionsData: List()
+    discussionsData: List(),
+    userDetails: new Map()
   };
   props: {
     changesetId: number,
     currentChangeset: Map<string, *>
   };
-  getData = (changesetId: number) => {
+  getData = (changesetId: number, currentChangeset: Map<string, *>) => {
+    const uid: string = currentChangeset.getIn(['properties', 'uid']);
+    const user = {};
+    fetch(
+      `
+      https://api.openstreetmap.org/api/0.6/user/${uid}.json`
+    )
+      .then(r => r.text())
+      .then(r => {
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(r, 'text/xml');
+        xml.getElementsByTagName('osm');
+        const userXml =
+          xml.getElementsByTagName('osm')[0] &&
+          xml.getElementsByTagName('osm')[0].getElementsByTagName('user')[0];
+
+        user.count =
+          userXml.getElementsByTagName('changesets')[0] &&
+          userXml.getElementsByTagName('changesets')[0].getAttribute('count');
+
+        user.uid = userXml.getAttribute('id');
+
+        user.accountCreated = userXml.getAttribute('account_created');
+
+        user.description =
+          userXml.getElementsByTagName('description')[0] &&
+          userXml.getElementsByTagName('description')[0].innerHTML;
+
+        user.img =
+          userXml.getElementsByTagName('img')[0] &&
+          userXml.getElementsByTagName('img')[0].getAttribute('href');
+
+        return user;
+      })
+      .catch(e => {
+        console.error(e);
+        return user;
+      })
+      .then(user => {
+        this.setState({
+          userDetails: fromJS(user)
+        });
+      });
     fetch(
       `https://osm-comments-api.mapbox.com/api/v1/changesets/${changesetId}`
     )
@@ -40,8 +83,9 @@ export class Changeset extends React.PureComponent {
         }
       });
   };
-  componentWillReceiveProps(nextProps: Props) {
-    this.getData(nextProps.changesetId);
+  componentWillReceiveProps(nextProps: Object) {
+    if (this.props.changesetId !== nextProps.changesetId)
+      this.getData(nextProps.changesetId, nextProps.currentChangeset);
   }
   componentDidMount() {
     Mousetrap.bind('ctrl+a', () => {
@@ -56,7 +100,7 @@ export class Changeset extends React.PureComponent {
     Mousetrap.bind('ctrl+o', () => {
       this.toggleDetails();
     });
-    this.getData(this.props.changesetId);
+    this.getData(this.props.changesetId, this.props.currentChangeset);
   }
   setRef = (r: any) => {
     if (!r) return;
@@ -84,7 +128,11 @@ export class Changeset extends React.PureComponent {
       >
         {this.state.details &&
           <Box key={3} className=" w420 round-tr round-br">
-            <Header changesetId={changesetId} properties={properties} />
+            <Header
+              changesetId={changesetId}
+              properties={properties}
+              userEditCount={this.state.userDetails.get('count')}
+            />
           </Box>}
         {this.state.features &&
           <Box key={2} className=" w420 round-tr round-br">
@@ -160,7 +208,9 @@ export class Changeset extends React.PureComponent {
             className="unround"
           >
             <svg
-              className={`icon inline-block align-middle ${this.state.discussionsData.size > 0 ? 'color-orange' : ''}`}
+              className={`icon inline-block align-middle ${this.props.currentChangeset.getIn(
+                ['properties', 'features']
+              ).size > 0 ? 'color-orange' : ''}`}
             >
               <use xlinkHref="#icon-bug" />
             </svg>
@@ -172,9 +222,7 @@ export class Changeset extends React.PureComponent {
             className="unround"
           >
             <svg
-              className={`icon inline-block align-middle ${this.props.currentChangeset.getIn(
-                ['properties', 'features']
-              ).size > 0 ? 'color-orange' : ''}`}
+              className={`icon inline-block align-middle ${this.state.discussionsData.size > 0 ? 'color-orange' : ''}`}
             >
               <use xlinkHref="#icon-tooltip" />
             </svg>
