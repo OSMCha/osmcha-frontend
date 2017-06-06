@@ -33,7 +33,7 @@ export class Changeset extends React.PureComponent {
     const user = {};
     fetch(
       `
-      https://api.openstreetmap.org/api/0.6/user/${uid}.json`
+      https://api.openstreetmap.org/api/0.6/user/${uid}`
     )
       .then(r => r.text())
       .then(r => {

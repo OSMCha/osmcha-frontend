@@ -49,12 +49,12 @@ export class Dropdown extends React.PureComponent {
               type="checkbox"
               checked={this.isActive(i)}
               value={i.label}
-              className="cursor-pointer"
+              className="cursor-pointer  px6 py3"
             />}
           <a
             target={i.href ? '_blank' : '_self'}
             href={i.href || '#'}
-            className={`txt-nowrap cursor-pointer ${this.isActive(i) ? 'is-active color-red' : ''}`}
+            className={` px12 py6 txt-nowrap flex-child--grow cursor-pointer ${this.isActive(i) ? 'is-active color-red' : ''}`}
           >
             {i.label}
           </a>

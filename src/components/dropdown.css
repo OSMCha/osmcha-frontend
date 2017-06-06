@@ -26,10 +26,10 @@ box-shadow: 0px 0px 1px 1px rgba(204,204,204,1);
 /* Links inside the dropdown */
 .dropdown-content span {
     color: black;
-    padding: 6px 12px;
     text-decoration: none;
     display: block;
 }
+
 
 /* Change color of dropdown links on hover */
 .dropdown-content span:hover {background-color: #ccc}
