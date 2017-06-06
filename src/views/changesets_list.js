@@ -104,18 +104,6 @@ class ChangesetsList extends React.PureComponent {
         className={`flex-parent flex-parent--column changesets-list bg-white ${window.innerWidth < 800 ? 'viewport-full' : ''}`}
       >
         <header className="hmin55 h55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
-          {this.props.userDetails &&
-            <span> Hi, {this.props.userDetails.get('username')}</span>}
-          {this.props.token
-            ? <Button onClick={this.props.logUserOut}>
-                Logout
-              </Button>
-            : <Button
-                onClick={this.handleLoginClick}
-                disable={!this.props.oAuthToken}
-              >
-                Auth
-              </Button>}
           <NavLink
             activeStyle={{
               fontWeight: 'bold'

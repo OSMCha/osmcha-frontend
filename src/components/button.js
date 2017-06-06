@@ -1,13 +1,18 @@
 import React from 'react';
 
-export function Button({ active, onClick, children, bg, className }: Object) {
+export function Button({ active, onClick, children, icon, className }: Object) {
   return (
-    <a
-      className={`${className} mx6 cursor-pointer txt-s inline-block txt-bold transition round p6  
-                  ${active ? `bg-white` : `bg-white-on-hover bg-gray-light`}`}
+    <button
       onClick={onClick}
+      className={`btn btn--s color-gray border border--gray round bg-gray-faint bg-white-on-hover ${active ? active : ''}`}
     >
-      {children}
-    </a>
+      <span>
+
+        {children}
+      </span>
+
+      {icon}
+
+    </button>
   );
 }

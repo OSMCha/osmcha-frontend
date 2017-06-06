@@ -3,8 +3,14 @@ import { put, call, take, select } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { fromJS } from 'immutable';
 
-import { postTokensOSMCha, fetchUserDetails } from '../network/auth';
+import {
+  postTokensOSMCha,
+  fetchUserDetails as fetchOsmchaUserDetails
+} from '../network/auth';
 import { setItem, removeItem } from '../utils/safe_storage';
+import {
+  getUserDetails as fetchOsmUserDetails
+} from '../network/openstreetmap';
 
 import type { RootStateType } from './';
 
@@ -44,7 +50,9 @@ export function* watchAuth(): any {
       if (!token) {
         token = yield call(authTokenFlow);
       }
-      const userDetails = fromJS(yield call(fetchUserDetails, token));
+      const userDetails = fromJS(yield call(fetchOsmchaUserDetails, token));
+      // const osmUser = yield call(fetchOsmUserDetails, userDetails.get('id'));
+      // console.log(osmUser);
       yield put(action(USER_DETAILS, { userDetails }));
       yield take(LOGOUT);
     } catch (error) {
