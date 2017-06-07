@@ -36,8 +36,8 @@ export class List extends React.PureComponent {
         {!this.props.currentPage || this.props.loading
           ? <Loading />
           : <div>
-              <span className="px12 py3 pb6 bg-gray-faint flex-child flex-child--grow">
-                <span className="flex-parent flex-parent--row justify--space-between color-gray txt-s">
+              <span className="border-l border-b border-b--1 border-l--4 border-color-neutral px12 py3 bg-gray-faint flex-child flex-child--grow align-items--center">
+                <span className="flex-parent flex-parent--row justify--space-between color-gray txt-s txt-bold">
                   <span>Results: {this.props.currentPage.get('count')}</span>
                   <span onClick={this.props.reloadPage}>
                     <svg className="icon inline-block align-middle pointer">
