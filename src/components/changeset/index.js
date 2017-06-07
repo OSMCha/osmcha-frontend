@@ -126,10 +126,11 @@ export class Changeset extends React.PureComponent {
 
   toggleAll = () => {
     this.setState({
-      features: this.state.showAll,
-      discussions: this.state.showAll,
-      details: this.state.showAll,
-      showAll: !this.state.showAll
+      features: !this.state.showAll,
+      discussions: !this.state.showAll,
+      details: !this.state.showAll,
+      showAll: !this.state.showAll,
+      user: !this.state.showAll
     });
   };
   toggleFeatures = () => {
@@ -137,7 +138,8 @@ export class Changeset extends React.PureComponent {
       discussions: false,
       details: false,
       showAll: false,
-      features: !this.state.features
+      features: !this.state.features,
+      user: false
     });
   };
   toggleDiscussions = () => {
@@ -196,7 +198,9 @@ export class Changeset extends React.PureComponent {
             <svg
               className={`icon inline-block align-middle ${this.props.currentChangeset.getIn(
                 ['properties', 'features']
-              ).size > 0 ? 'color-orange' : ''}`}
+              ).size > 0
+                ? 'color-orange'
+                : ''}`}
             >
               <use xlinkHref="#icon-bug" />
             </svg>
@@ -208,7 +212,10 @@ export class Changeset extends React.PureComponent {
             className="unround"
           >
             <svg
-              className={`icon inline-block align-middle ${this.state.discussionsData.size > 0 ? 'color-orange' : ''}`}
+              className={`icon inline-block align-middle ${this.state
+                .discussionsData.size > 0
+                ? 'color-orange'
+                : ''}`}
             >
               <use xlinkHref="#icon-tooltip" />
             </svg>
@@ -224,7 +231,7 @@ export class Changeset extends React.PureComponent {
             </svg>
           </Button>
           <Button
-            active={!this.state.showAll}
+            active={this.state.showAll}
             onClick={this.toggleAll}
             bg={'white'}
             className="unround-r unround-tl"

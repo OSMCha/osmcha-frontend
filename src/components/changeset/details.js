@@ -31,7 +31,18 @@ export function Details({
         <div className="flex-parent flex-parent--row flex-parent--wrap py12">
           <p className="flex-child txt-subhead my12 txt-l ml3">
             {comment ? comment : `No comments for ${changesetId}.`}
+            <a
+              target="_blank"
+              title="Translate"
+              href={`http://translate.google.com/#auto/en/${comment}`}
+              className="pointer"
+            >
+              <svg className="icon inline-block align-middle ">
+                <use xlinkHref="#icon-share" />
+              </svg>
+            </a>
           </p>
+
         </div>
       </div>
       <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap pt12 pb6">

@@ -26,7 +26,7 @@ export function Header({
     <div className="p18">
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap">
         <div className="flex-parent flex-parent--row justify--space-between">
-          <h2 className="txt-l mr6 txt-bold">Changeset Details</h2>
+          <h2 className="txt-l mr6 txt-bold">Details</h2>
           <div>
             <CreateDeleteModify
               showZero
@@ -39,7 +39,6 @@ export function Header({
         </div>
         <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
           <span className="txt-s">
-
             <span className="txt-underline-on-hover txt-bold">
               <a
                 target="_blank"

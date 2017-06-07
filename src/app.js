@@ -52,14 +52,14 @@ class App extends Component {
     if (width > 800) {
       return (
         <Route
-          render={({ location }) => (
+          render={({ location }) =>
             <div className="viewport-full clip">
               <div className="grid">
-                <div className="col col--3-mxl col--3-ml bg-white clip">
+                <div className="col col--3-mxl col--4-ml bg-white clip">
                   <NavbarSidebar />
                   <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
                 </div>
-                <div className="col col--9-mxl col--9-ml col--12-mm clip bg-black ">
+                <div className="col col--9-mxl col--8-ml col--12-mm clip bg-black ">
                   <Route
                     path="/changesets"
                     // Need to use render to avoid unmounting of
@@ -106,8 +106,7 @@ class App extends Component {
                 toastMessageFactory={ToastMessageFactory}
                 className="toast-top-right"
               />
-            </div>
-          )}
+            </div>}
         />
       );
     } else {

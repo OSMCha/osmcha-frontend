@@ -58,7 +58,7 @@ export class Row extends React.PureComponent {
           <div
             {...other}
             className={
-              'pl12 cursor-pointer flex-parent flex-parent--column border-b py6 border-b--1 border--gray-light'
+              'p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light'
             }
           >
             <div className="flex-parent flex-parent--column">
