@@ -39,8 +39,7 @@ export function Header({
         </div>
         <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
           <span className="txt-s">
-            By
-            {' '}
+
             <span className="txt-underline-on-hover txt-bold">
               <a
                 target="_blank"

@@ -115,9 +115,7 @@ class NavbarChangeset extends React.PureComponent {
                     ]}
                     className="select--s"
                   />
-
                 </span>}
-
             </span>
           </div>
         }

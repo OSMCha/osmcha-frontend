@@ -10,7 +10,7 @@ import { Navbar } from '../components/navbar';
 import { Verify } from '../components/changeset/verify';
 import { Dropdown } from '../components/dropdown';
 import { OpenIn } from '../components/changeset/open_in';
-
+import { Avatar } from '../components/avatar';
 import { osmAuthUrl } from '../config/constants';
 
 import { createPopup } from '../utils/create_popup';
@@ -28,6 +28,7 @@ class NavbarSidebar extends React.PureComponent {
   props: {
     changesetId: number,
     location: Object,
+    avatar: ?string,
     currentChangeset: Map<string, *>,
     username: ?string,
     token: ?string,
@@ -62,6 +63,7 @@ class NavbarSidebar extends React.PureComponent {
   displayDropdown = () => {
     return (
       <div>
+        <Avatar url={this.props.avatar} />
         <div> {this.props.username}</div>
         <Button onClick={this.props.logUserOut} className="bg-white-on-hover">
           Logout
@@ -98,7 +100,7 @@ class NavbarSidebar extends React.PureComponent {
                       className="dropdown-content w240 z6 round p12"
                       style={{
                         display: this.state.isMenuOpen ? 'block' : 'none',
-                        marginLeft: -160,
+                        marginLeft: -90,
                         marginTop: 10
                       }}
                     >
@@ -131,7 +133,7 @@ NavbarSidebar = connect(
     oAuthToken: state.auth.get('oAuthToken'),
     token: state.auth.get('token'),
     username: state.auth.getIn(['userDetails', 'username']),
-    userDetails: state.auth.get('userDetails')
+    avatar: state.auth.getIn(['userDetails', 'avatar'])
   }),
   {
     getOAuthToken,

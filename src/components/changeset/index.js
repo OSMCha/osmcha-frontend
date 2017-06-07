@@ -8,6 +8,7 @@ import { getUserDetails } from '../../network/openstreetmap';
 import { Navbar } from '../navbar';
 import { Floater } from './floater';
 import { Header } from './header';
+import { User } from './user';
 import { Features } from './features';
 import { Box } from './box';
 import { Discussions } from './discussions';
@@ -20,8 +21,10 @@ export class Changeset extends React.PureComponent {
     left: 0,
     discussions: false,
     features: false,
+    user: false,
     details: true,
-    showAll: true,
+    showAll: false,
+    user: false,
     discussionsData: List(),
     userDetails: new Map()
   };
@@ -113,6 +116,10 @@ export class Changeset extends React.PureComponent {
               discussions={this.state.discussionsData}
             />
           </Box>}
+        {this.state.user &&
+          <Box key={1} className=" w420  round-tr round-br">
+            <User userDetails={this.state.userDetails} />
+          </Box>}
       </CSSGroup>
     );
   };
@@ -138,7 +145,8 @@ export class Changeset extends React.PureComponent {
       discussions: !this.state.discussions,
       details: false,
       showAll: false,
-      features: false
+      features: false,
+      user: false
     });
   };
   toggleDetails = () => {
@@ -146,7 +154,17 @@ export class Changeset extends React.PureComponent {
       discussions: false,
       details: !this.state.details,
       showAll: false,
-      features: false
+      features: false,
+      user: false
+    });
+  };
+  toggleUser = () => {
+    this.setState({
+      discussions: false,
+      details: false,
+      showAll: false,
+      features: false,
+      user: !this.state.user
     });
   };
   render() {
@@ -193,6 +211,16 @@ export class Changeset extends React.PureComponent {
               className={`icon inline-block align-middle ${this.state.discussionsData.size > 0 ? 'color-orange' : ''}`}
             >
               <use xlinkHref="#icon-tooltip" />
+            </svg>
+          </Button>
+          <Button
+            active={this.state.user}
+            onClick={this.toggleUser}
+            bg={'white'}
+            className="unround"
+          >
+            <svg className="icon inline-block align-middle">
+              <use xlinkHref="#icon-user" />
             </svg>
           </Button>
           <Button

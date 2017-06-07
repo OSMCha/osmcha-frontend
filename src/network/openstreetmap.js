@@ -30,6 +30,7 @@ export function getUserDetails(uid: number): Map<'string', *> {
       user.img =
         userXml.getElementsByTagName('img')[0] &&
         userXml.getElementsByTagName('img')[0].getAttribute('href');
+      user.name = userXml.getAttribute('display_name');
 
       return user;
     })

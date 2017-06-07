@@ -30,7 +30,7 @@ export function Details({
         </div>
         <div className="flex-parent flex-parent--row flex-parent--wrap py12">
           <p className="flex-child txt-subhead my12 txt-l ml3">
-            {comment.length === 0 ? `No comments for ${changesetId}.` : comment}
+            {comment ? comment : `No comments for ${changesetId}.`}
           </p>
         </div>
       </div>

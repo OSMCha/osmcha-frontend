@@ -74,6 +74,7 @@ export class Tags extends React.PureComponent {
     if (this.state.options) {
       return (
         <Dropdown
+          eventTypes={['click', 'touchend']}
           multi
           onAdd={this.onAdd}
           onRemove={this.onRemove}
