@@ -133,7 +133,7 @@ export class Changeset extends React.PureComponent {
             />
           </Box>}
         {this.state.user &&
-          <Box key={1} className=" w420  round-tr round-br">
+          <Box key={0} className=" w420  round-tr round-br">
             <User userDetails={this.state.userDetails} />
           </Box>}
       </CSSGroup>
