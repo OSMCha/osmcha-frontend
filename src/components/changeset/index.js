@@ -13,7 +13,7 @@ import { Features } from './features';
 import { Box } from './box';
 import { Discussions } from './discussions';
 import { Button } from './button';
-
+import { cancelablePromise } from '../../utils/promise';
 // presentational component for view/changeset.js
 export class Changeset extends React.PureComponent {
   state = {
@@ -24,7 +24,6 @@ export class Changeset extends React.PureComponent {
     user: false,
     details: true,
     showAll: false,
-    user: false,
     discussionsData: List(),
     userDetails: new Map()
   };
@@ -32,28 +31,10 @@ export class Changeset extends React.PureComponent {
     changesetId: number,
     currentChangeset: Map<string, *>
   };
-  getData = (changesetId: number, currentChangeset: Map<string, *>) => {
-    const uid: number = parseInt(
-      currentChangeset.getIn(['properties', 'uid']),
-      10
-    );
-    getUserDetails(uid).then(userDetails => {
-      this.setState({
-        userDetails
-      });
-    });
-    fetch(
-      `https://osm-comments-api.mapbox.com/api/v1/changesets/${changesetId}`
-    )
-      .then(r => r.json())
-      .then(x => {
-        if (x && x.properties && Array.isArray(x.properties.comments)) {
-          this.setState({
-            discussionsData: fromJS(x.properties.comments)
-          });
-        }
-      });
-  };
+  ref = null;
+  getOsmCommentsPromise = null;
+  getUserDetailsPromise = null;
+
   componentWillReceiveProps(nextProps: Object) {
     if (this.props.changesetId !== nextProps.changesetId)
       this.getData(nextProps.changesetId, nextProps.currentChangeset);
@@ -73,6 +54,10 @@ export class Changeset extends React.PureComponent {
     });
     this.getData(this.props.changesetId, this.props.currentChangeset);
   }
+  componentWillUnmount() {
+    this.getOsmCommentsPromise && this.getOsmCommentsPromise.cancel();
+    this.getUserDetailsPromise && this.getUserDetailsPromise.cancel();
+  }
   setRef = (r: any) => {
     if (!r) return;
     var rect = r.parentNode.parentNode.parentNode.getBoundingClientRect();
@@ -81,8 +66,39 @@ export class Changeset extends React.PureComponent {
       left: parseInt(rect.left, 10)
     });
   };
+  getData = (changesetId: number, currentChangeset: Map<string, *>) => {
+    const uid: number = parseInt(
+      currentChangeset.getIn(['properties', 'uid']),
+      10
+    );
 
-  ref = null;
+    const getUserDetailsPromise = cancelablePromise(getUserDetails(uid));
+    const getOsmCommentsPromise = cancelablePromise(
+      fetch(
+        `https://osm-comments-api.mapbox.com/api/v1/changesets/${changesetId}`
+      ).then(r => r.json())
+    );
+    this.getUserDetailsPromise = getUserDetailsPromise;
+    this.getOsmCommentsPromise = getOsmCommentsPromise;
+
+    getUserDetailsPromise.promise
+      .then(userDetails => {
+        this.setState({
+          userDetails
+        });
+      })
+      .catch(e => {});
+
+    getOsmCommentsPromise.promise
+      .then(x => {
+        if (x && x.properties && Array.isArray(x.properties.comments)) {
+          this.setState({
+            discussionsData: fromJS(x.properties.comments)
+          });
+        }
+      })
+      .catch(e => {});
+  };
 
   showFloaters = () => {
     const { changesetId, currentChangeset } = this.props;

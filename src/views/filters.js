@@ -21,7 +21,7 @@ class Filters extends React.PureComponent {
     filters: Object,
     location: Object,
     features: List<Map<string, any>>,
-    applyFilters: (Object, string) => mixed // base 0
+    applyFilters: (Object, string) => mixed
   };
   state = { ...this.props.filters };
   scrollable = null;
@@ -91,7 +91,10 @@ class Filters extends React.PureComponent {
     }
     return (
       <div
-        className={`flex-parent flex-parent--column changesets-filters bg-gray-faint ${width < 800 ? 'viewport-full' : ''}`}
+        className={`flex-parent flex-parent--column changesets-filters bg-gray-faint ${width <
+          800
+          ? 'viewport-full'
+          : ''}`}
       >
         <header className="hmin55 h55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
           Filters
@@ -104,7 +107,7 @@ class Filters extends React.PureComponent {
             .filter(f => {
               return !f.ignore;
             })
-            .map((f, k) => (
+            .map((f, k) =>
               <Filter
                 data={f}
                 value={
@@ -120,19 +123,26 @@ class Filters extends React.PureComponent {
                 onSelectChange={this.handleSelectChange}
                 usersAutofill={usersAutofill}
               />
-            ))}
+            )}
           <span className="flex-child flex-child--grow wmin420 wmax435" />
         </div>
         <div className="flex-parent flex-parent--column justify--space-around  flex-child--grow" />
         <footer className="hmin55 p12 pb24 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
           <Link to={{ search: this.props.location.search, pathname: '/' }}>
-            Close
+            <Button className="bg-white-on-hover">
+              Close
+            </Button>
           </Link>
+
           <a onClick={this.handleClear}>
-            Clear
+            <Button className="bg-white-on-hover">
+              Clear
+            </Button>
           </a>
           <a onClick={this.handleApply}>
-            Apply
+            <Button className="bg-white-on-hover">
+              Apply
+            </Button>
           </a>
         </footer>
       </div>
@@ -144,8 +154,9 @@ Filters = connect(
   (state: RootStateType, props) => ({
     filters: state.changesetsPage.get('filters') || {},
     features: state.changesetsPage.getIn(['pages', 0, 'features']),
-    lastChangesetID: state.changeset.get('changesetId') ||
-      state.changesetsPage.getIn(['pages', 0, 'features', 0, 'id']),
+    lastChangesetID:
+      state.changeset.get('changesetId') ||
+        state.changesetsPage.getIn(['pages', 0, 'features', 0, 'id']),
     location: props.location
   }),
   {

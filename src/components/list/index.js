@@ -31,22 +31,27 @@ export class List extends React.PureComponent {
   // TOFIX on invalid token handle error
   render() {
     return (
-      <ul className="flex-parent flex-parent--column scroll-styled scroll-auto flex-child--grow">
+      <ul className="flex-parent flex-parent--column scroll-auto flex-child--grow">
         {!this.props.currentPage || this.props.loading
           ? <Loading />
-          : this.props.currentPage.get('features').map((f, k) => (
-              <Row
-                active={f.get('id') === this.props.activeChangesetId}
-                properties={f.get('properties')}
-                changesetId={f.get('id')}
-                inputRef={
-                  f.get('id') === this.props.activeChangesetId // only saves the ref of currently active changesetId
-                    ? this.handleScroll
-                    : null
-                }
-                key={k}
-              />
-            ))}
+          : <div>
+              <span className="pl12 py3 pb6 bg-gray-faint flex-child flex-child--grow">
+                Results: {this.props.currentPage.get('count')}
+              </span>
+              {this.props.currentPage.get('features').map((f, k) =>
+                <Row
+                  active={f.get('id') === this.props.activeChangesetId}
+                  properties={f.get('properties')}
+                  changesetId={f.get('id')}
+                  inputRef={
+                    f.get('id') === this.props.activeChangesetId // only saves the ref of currently active changesetId
+                      ? this.handleScroll
+                      : null
+                  }
+                  key={k}
+                />
+              )}
+            </div>}
       </ul>
     );
   }

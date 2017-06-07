@@ -34,7 +34,9 @@ export function Details({
             <a
               target="_blank"
               title="Translate"
-              href={`http://translate.google.com/#auto/en/${comment}`}
+              href={`http://translate.google.com/#auto/en/${encodeURIComponent(
+                comment
+              )}`}
               className="pointer"
             >
               <svg className="icon inline-block align-middle ">

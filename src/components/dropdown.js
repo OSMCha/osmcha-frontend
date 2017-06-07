@@ -19,6 +19,7 @@ class DropdownContent extends React.PureComponent {
       const value = this.props.value;
       let ourObj = data;
       if (!ourObj) return;
+
       let isRemove = false;
       for (let x = 0; x < value.length; x++) {
         if (value[x].label === label) {
@@ -29,12 +30,19 @@ class DropdownContent extends React.PureComponent {
           );
         }
       }
+
       if (!isRemove) {
-        const newArray = value.slice(0, value.length);
+        let newArray = value.slice(0, value.length);
+        if (!this.props.multi) {
+          newArray = [];
+        }
         newArray.push(ourObj);
         this.props.onAdd(ourObj);
         this.props.onChange(newArray);
       }
+    }
+    if (!this.props.multi) {
+      this.props.toggleDropdown();
     }
   };
   render() {
@@ -43,7 +51,7 @@ class DropdownContent extends React.PureComponent {
         className="dropdown-content wmin120 wmax240"
         style={{ display: 'block' }}
       >
-        {this.props.options.map((i, k) => (
+        {this.props.options.map((i, k) =>
           <span
             key={k}
             onClick={this.handleClick.bind(null, i)}
@@ -61,12 +69,16 @@ class DropdownContent extends React.PureComponent {
             <a
               target={i.href ? '_blank' : '_self'}
               href={i.href || '#'}
-              className={` px12 py6 txt-nowrap flex-child--grow cursor-pointer ${this.isActive(i) ? 'is-active color-red' : ''}`}
+              className={` px12 py6 txt-nowrap flex-child--grow cursor-pointer ${this.isActive(
+                i
+              )
+                ? 'is-active color-red'
+                : ''}`}
             >
               {i.label}
             </a>
           </span>
-        ))}
+        )}
       </div>
     );
   }
@@ -110,7 +122,8 @@ export class _Dropdown extends React.PureComponent {
     return (
       <div className={`dropdown mr3 pointer ${this.props.className}`}>
         <span onClick={this.toggleDropdown}>
-          {' '}{this.props.displayComponent
+          {' '}
+          {this.props.displayComponent
             ? this.props.displayComponent
             : <span className="btn btn--s bg-white color-gray border border--gray round">
                 <span>{this.props.display}</span>

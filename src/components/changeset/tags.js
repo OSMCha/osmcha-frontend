@@ -4,9 +4,10 @@ import { Async } from 'react-select';
 import { API_URL } from '../../config';
 import { Map, Set, fromJS } from 'immutable';
 import { Dropdown } from '../dropdown';
-
+import { cancelablePromise } from '../../utils/promise';
 // TOFIX This whole code is a complete shit
 // please rewrite it asap.
+let cacheTagsData;
 export class Tags extends React.PureComponent {
   props: {
     changesetId: number,
@@ -22,14 +23,19 @@ export class Tags extends React.PureComponent {
     allTags: {},
     options: []
   };
+  tagsData = cacheTagsData;
   componentDidMount() {
     this.getAsyncOptions();
   }
   getAsyncOptions = () => {
-    return fetch(`${API_URL}/tags/`)
-      .then(response => {
-        return response.json();
-      })
+    if (!this.tagsData) {
+      this.tagsData = cancelablePromise(
+        fetch(`${API_URL}/tags/`).then(response => {
+          return response.json();
+        })
+      );
+    }
+    return this.tagsData.promise
       .then(json => {
         let data = {};
         let selectData = json.filter(d => d.is_visible && d.for_changeset);
@@ -41,8 +47,15 @@ export class Tags extends React.PureComponent {
           allTags: data,
           options: selectData.map(d => ({ label: d.name, value: d.id }))
         });
-      });
+      })
+      .catch(e => {});
   };
+  componentWillUnmount() {
+    if (this.tagsData) {
+      cacheTagsData = this.tagsData;
+      this.tagsData.cancel();
+    }
+  }
   onAdd = (obj: Object) => {
     if (!obj) return;
     const {

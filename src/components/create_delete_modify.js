@@ -17,7 +17,7 @@ export function CreateDeleteModify(props: Object) {
           {props.modify}
         </div>}
       {(props.delete > -1 || showZero) &&
-        <div className="cmap-bg-delete color-white inline-block px6  mr6 txt-s txt-bold round unround-l">
+        <div className="cmap-bg-delete color-white inline-block px6 txt-s txt-bold round unround-l">
           {props.delete}
         </div>}
     </div>

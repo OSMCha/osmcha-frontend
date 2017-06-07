@@ -12,13 +12,20 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
         </span>
 
       </span>
-      <CreateDeleteModify
-        showZero
-        className="mr3"
-        create={properties.get('create')}
-        modify={properties.get('modify')}
-        delete={properties.get('delete')}
-      />
+      <span className="flex-parent flex-parent--row">
+        <CreateDeleteModify
+          showZero
+          className="mr3"
+          create={properties.get('create')}
+          modify={properties.get('modify')}
+          delete={properties.get('delete')}
+        />
+
+      </span>
     </span>
   );
 }
+
+//  <svg className="icon inline-block align-middle ">
+//       <use xlinkHref="#icon-options" />
+//     </svg>

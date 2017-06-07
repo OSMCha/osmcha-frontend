@@ -24,7 +24,12 @@ export function registerServiceWorker() {
                   // the fresh content will have been added to the cache.
                   // It's the perfect time to display a "New content is
                   // available; please refresh" message in your web app.
-                  console.log('New content is available; please refresh.');
+                  const r = window.confirm(
+                    'New version of OSMCha is available. Would you like to reload?'
+                  );
+                  if (r) {
+                    window.location.reload();
+                  }
                 } else {
                   // At this point, everything has been precached.
                   // It's the perfect time to display a

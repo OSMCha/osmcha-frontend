@@ -5,7 +5,6 @@ export function OpenIn({ changesetId }) {
   return (
     <div className="select-container">
       <Dropdown
-        eventTypes={['click', 'touchend']}
         onAdd={() => {}}
         onRemove={() => {}}
         value={[]}

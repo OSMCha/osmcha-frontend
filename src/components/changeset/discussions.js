@@ -20,7 +20,7 @@ export class Discussions extends React.PureComponent<void, Props, State> {
           Discussions
         </h2>
         <div className="">
-          {this.props.discussions.map((f, k) => (
+          {this.props.discussions.map((f, k) =>
             <div
               key={k}
               className="flex-parent flex-parent--column justify--space-between border border--gray-light round p6 my6 mt12"
@@ -35,11 +35,23 @@ export class Discussions extends React.PureComponent<void, Props, State> {
               <div className="flex-parent flex-parent--column mt6">
                 <p>
                   {f.get('comment')}
+                  <a
+                    target="_blank"
+                    title="Translate"
+                    href={`http://translate.google.com/#auto/en/${encodeURIComponent(
+                      f.get('comment')
+                    )}`}
+                    className="pointer"
+                  >
+                    <svg className="icon inline-block align-middle ">
+                      <use xlinkHref="#icon-share" />
+                    </svg>
+                  </a>
                 </p>
               </div>
 
             </div>
-          ))}
+          )}
           {this.props.discussions.size === 0 &&
             `No discussions for ${this.props.changesetId}.`}
         </div>

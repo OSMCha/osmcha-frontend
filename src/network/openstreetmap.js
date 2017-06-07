@@ -2,10 +2,7 @@ import { fromJS } from 'immutable';
 
 export function getUserDetails(uid: number): Map<'string', *> {
   const user = {};
-  return fetch(
-    `
-      https://api.openstreetmap.org/api/0.6/user/${uid}`
-  )
+  return fetch(`https://api.openstreetmap.org/api/0.6/user/${uid}`)
     .then(r => r.text())
     .then(r => {
       const parser = new DOMParser();
