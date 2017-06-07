@@ -13,7 +13,8 @@ export class List extends React.PureComponent {
     activeChangesetId: ?number,
     cachedChangesets: Map<string, *>,
     pageIndex: number,
-    loading: boolean
+    loading: boolean,
+    reloadPage: () => any
   };
   shouldComponentUpdate(nextProps: Object) {
     return (
@@ -35,8 +36,15 @@ export class List extends React.PureComponent {
         {!this.props.currentPage || this.props.loading
           ? <Loading />
           : <div>
-              <span className="pl12 py3 pb6 bg-gray-faint flex-child flex-child--grow">
-                Results: {this.props.currentPage.get('count')}
+              <span className="px12 py3 pb6 bg-gray-faint flex-child flex-child--grow">
+                <span className="flex-parent flex-parent--row justify--space-between color-gray txt-s">
+                  <span>Results: {this.props.currentPage.get('count')}</span>
+                  <span onClick={this.props.reloadPage}>
+                    <svg className="icon inline-block align-middle pointer">
+                      <use xlinkHref="#icon-rotate" />
+                    </svg>
+                  </span>
+                </span>
               </span>
               {this.props.currentPage.get('features').map((f, k) =>
                 <Row

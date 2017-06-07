@@ -115,6 +115,10 @@ class ChangesetsList extends React.PureComponent {
 
     this.props.applyFilters(mergedFilters);
   };
+
+  reloadCurrentPage = () => {
+    this.props.getChangesetsPage(this.props.pageIndex);
+  };
   render() {
     const { error } = this.props;
     if (error) {
@@ -167,6 +171,7 @@ class ChangesetsList extends React.PureComponent {
           </NavLink>
         </header>
         <List
+          reloadPage={this.reloadCurrentPage}
           activeChangesetId={this.props.activeChangesetId}
           currentPage={currentPage}
           loading={loading}
