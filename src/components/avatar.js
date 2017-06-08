@@ -39,7 +39,7 @@ export class Avatar extends React.PureComponent {
             display: this.state.loaded ? 'block' : 'none'
           }}
           className="round border border-gray--light border--1"
-          src={this.props.url || Placeholder}
+          src={url || Placeholder}
           onLoad={this.handleImageLoaded.bind(this)}
           onError={this.handleImageErrored.bind(this)}
         />
