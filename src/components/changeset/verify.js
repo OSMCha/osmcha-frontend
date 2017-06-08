@@ -8,31 +8,31 @@ export function Verify({
   onChange,
   value,
   onClear,
-  username
+  username,
+  checkUser
 }) {
   if (changeset.getIn(['properties', 'checked'])) {
     const isHarmful = changeset.getIn(['properties', 'harmful']);
     return (
       <div className="flex-parent-inline">
-        <button
-          className={`btn btn--pill btn--s btn--pill-hl ${isHarmful ? 'bg-orange-faint color-orange-dark' : 'bg-green-faint color-green'}`}
+        <span
+          className={`btn btn--s color-gray border border--gray round ${isHarmful ? 'bg-orange-faint' : 'bg-green-faint'}`}
         >
-          {isHarmful ? `👎 ${username}` : `👍 ${username}`}
-        </button>
-        <button
-          className={`btn btn--pill  pl3 btn--s btn--pill-hr  ${isHarmful ? 'bg-orange-faint color-orange-dark' : 'bg-green-faint color-green'}`}
-          onClick={onClear}
-        >
-          <svg className="icon icon--s inline-block align-middle ml3">
+          <span>{isHarmful ? `👎 ${checkUser}` : `👍 ${checkUser}`}</span>
+          <svg
+            onClick={onClear}
+            className="icon inline-block align-middle pointer"
+          >
             <use xlinkHref="#icon-close" />
           </svg>
-        </button>
+        </span>
       </div>
     );
   }
   return (
     <div className="select-container">
       <Dropdown
+        eventTypes={['click', 'touchend']}
         value={[]}
         onAdd={() => {}}
         onRemove={() => {}}

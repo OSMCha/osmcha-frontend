@@ -43,16 +43,14 @@ export class Filter extends React.PureComponent {
     } = this.props.data;
     if (type === 'radio' && options) {
       return (
-        <span className="flex-parent flex-parent--row">
-          <Select
-            name={name}
-            value={this.props.value}
-            options={options}
-            placeholder={placeholder}
-            className="wmin300 wmax300"
-            onChange={this.onSelectChange} // have to add an identifier for filter name
-          />
-        </span>
+        <Select
+          name={name}
+          value={this.props.value}
+          options={options}
+          placeholder={placeholder}
+          className=""
+          onChange={this.onSelectChange} // have to add an identifier for filter name
+        />
       );
     }
     if (type === 'text_comma' && data_url) {
@@ -61,7 +59,7 @@ export class Filter extends React.PureComponent {
           multi
           promptTextCreator={label => `Add ${label} to ${display}`}
           name={name}
-          className="wmin300 wmax300"
+          className=""
           value={this.props.value}
           loadOptions={this.getAsyncOptions}
           onChange={this.onSelectChange} // have to add an identifier for filter name
@@ -75,7 +73,7 @@ export class Filter extends React.PureComponent {
           multi
           promptTextCreator={label => `Add ${label} to ${display}`}
           name={name}
-          className="wmin300 wmax300"
+          className=""
           value={this.props.value}
           options={
             name === 'users' || name === 'checked_by'
@@ -95,14 +93,14 @@ export class Filter extends React.PureComponent {
           value={this.props.value || ''}
           onChange={this.props.onChange}
           type={type}
-          className="input wmin300 wmax300"
+          className="input "
           placeholder={placeholder || display}
         />
       );
     }
     if (range) {
       return (
-        <span className="flex-parent flex-parent--row  wmin300 wmax300">
+        <span className="flex-parent flex-parent--row  ">
           <input
             type={type}
             onChange={this.props.onChange}
@@ -127,8 +125,7 @@ export class Filter extends React.PureComponent {
   };
   render() {
     return (
-      <div className="wmin435 wmax435 ml3 my12 flex-parent flex-parent--row">
-        <span className="flex-child flex-child--grow">&nbsp;</span>
+      <div className="ml3 my12  flex-parent flex-parent--column">
         <span className="flex-parent flex-parent--row flex-parent--center-cross">
           <Tooltip
             position="top"

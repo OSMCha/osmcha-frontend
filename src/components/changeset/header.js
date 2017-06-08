@@ -8,10 +8,12 @@ import { Details } from './details';
 
 export function Header({
   properties,
-  changesetId
+  changesetId,
+  userEditCount
 }: {
   properties: Map<string, *>,
-  changesetId: number
+  changesetId: number,
+  userEditCount: number
 }) {
   const user = properties.get('user');
   const date = properties.get('date');
@@ -24,11 +26,11 @@ export function Header({
     <div className="p18">
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap">
         <div className="flex-parent flex-parent--row justify--space-between">
-          <h2 className="txt-l mr6 txt-bold">Changeset Details</h2>
+          <h2 className="txt-l mr6 txt-bold">Details</h2>
           <div>
             <CreateDeleteModify
               showZero
-              className="mr3 pb3"
+              className="mr3"
               create={create}
               modify={modify}
               delete={destroy}
@@ -37,10 +39,13 @@ export function Header({
         </div>
         <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
           <span className="txt-s">
-            By
-            {' '}
             <span className="txt-underline-on-hover txt-bold">
-              {user}&nbsp;
+              <a
+                target="_blank"
+                href={`https://openstreetmap.org/user/${user}`}
+              >
+                {user}({userEditCount})&nbsp;
+              </a>
             </span>
             created&nbsp;{moment(date).fromNow()}
           </span>

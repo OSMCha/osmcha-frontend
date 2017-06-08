@@ -42,9 +42,7 @@ export class Row extends React.PureComponent {
 
     backgroundClass += active
       ? 'light-blue'
-      : this.wasOpen
-          ? ' bg-darken5 light-blue-on-hover'
-          : 'light-blue-on-hover';
+      : this.wasOpen ? ' bg-darken5 ' : '';
 
     return (
       <Link
@@ -60,12 +58,16 @@ export class Row extends React.PureComponent {
           <div
             {...other}
             className={
-              'pl12 cursor-pointer flex-parent flex-parent--column border-b py6 border-b--1 border--gray-light'
+              'p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light'
             }
           >
             <div className="flex-parent flex-parent--column">
               <div>
-                <Title properties={properties} wasOpen={this.wasOpen} />
+                <Title
+                  properties={properties}
+                  wasOpen={this.wasOpen}
+                  date={properties.get('date')}
+                />
               </div>
               <div>
                 <PrimaryLine
@@ -76,6 +78,7 @@ export class Row extends React.PureComponent {
               <div>
                 <SecondaryLine
                   changesetId={changesetId}
+                  properties={properties}
                   date={properties.get('date')}
                 />
               </div>

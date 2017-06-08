@@ -41,7 +41,11 @@ export function OpenIn({ changesetId }) {
             href: `https://openstreetmap.org/changeset/${changesetId}`
           }
         ]}
-        display="Open in"
+        displayComponent={
+          <svg className="icon inline-block align-middle color-black pointer">
+            <use xlinkHref="#icon-chevron-down" />
+          </svg>
+        }
       />
     </div>
   );

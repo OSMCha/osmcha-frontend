@@ -1,6 +1,5 @@
 // @flow
 import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { createLogger } from 'redux-logger';
 import { Map, Iterable, List } from 'immutable';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { history } from './history';
@@ -40,22 +39,27 @@ const sagaMiddleware = createSagaMiddleware();
 // Middlewares
 const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
+let appliedMiddlewares = applyMiddleware(...middlewares);
 if (process.env.NODE_ENV !== 'production') {
-  const logger = createLogger({
-    stateTransformer: state => {
-      let newState = {};
+  const { createLogger } = require('redux-logger');
 
-      for (var i of Object.keys(state)) {
-        if (Iterable.isIterable(state[i])) {
-          newState[i] = state[i].toJS();
-        } else {
-          newState[i] = state[i];
-        }
-      }
-      return newState;
-    }
-  });
-  middlewares.push(logger);
+  // const logger = createLogger({
+  //   stateTransformer: state => {
+  //     let newState = {};
+
+  //     for (var i of Object.keys(state)) {
+  //       if (Iterable.isIterable(state[i])) {
+  //         newState[i] = state[i].toJS();
+  //       } else {
+  //         newState[i] = state[i];
+  //       }
+  //     }
+  //     return newState;
+  //   }
+  // });
+  // middlewares.push(logger);
+  const { composeWithDevTools } = require('redux-devtools-extension');
+  appliedMiddlewares = composeWithDevTools(appliedMiddlewares);
 }
 
 // Persisted state
@@ -76,11 +80,7 @@ const persistedState = {
 };
 
 // Store
-const store = createStore(
-  reducers,
-  persistedState,
-  applyMiddleware(...middlewares)
-);
+const store = createStore(reducers, persistedState, appliedMiddlewares);
 sagaMiddleware.run(sagas);
 
 export { store };

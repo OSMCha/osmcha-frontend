@@ -46,7 +46,6 @@ class NavbarChangeset extends React.PureComponent {
     }
   };
   handleVerifyClear = () => {
-    console.log('here');
     this.props.handleChangesetModifyHarmful(
       this.props.changesetId,
       this.props.currentChangeset,
@@ -57,10 +56,9 @@ class NavbarChangeset extends React.PureComponent {
     const width = window.innerWidth;
     return (
       <Navbar
-        className="bg-white color-gray border-b border--gray-light border--1 border-t--0"
+        className="bg-white color-gray border border--gray-light border--1"
         title={
           <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
-
             <span>
               {width < 800 &&
                 <Link
@@ -68,11 +66,19 @@ class NavbarChangeset extends React.PureComponent {
                 >
                   {'<  '}
                 </Link>}
-              <span className="txt-l">
+              <span className="txt-l color-gray--dark">
                 Changeset:
                 {' '}
-                <span className="txt-em">{this.props.changesetId}</span>
+                <span className="txt-underline">
+                  <a
+                    href={`https://openstreetmap.org/changeset/${this.props.changesetId}`}
+                    target="_blank"
+                  >
+                    {this.props.changesetId}
+                  </a>
+                </span>
               </span>
+              <OpenIn changesetId={this.props.changesetId} />
             </span>
             <span>
 
@@ -93,6 +99,10 @@ class NavbarChangeset extends React.PureComponent {
                     onChange={this.handleVerify}
                     onClear={this.handleVerifyClear}
                     username={this.props.username}
+                    checkUser={this.props.currentChangeset.getIn([
+                      'properties',
+                      'check_user'
+                    ])}
                     options={[
                       {
                         value: false,
@@ -105,10 +115,7 @@ class NavbarChangeset extends React.PureComponent {
                     ]}
                     className="select--s"
                   />
-                  <OpenIn changesetId={this.props.changesetId} />
-
                 </span>}
-
             </span>
           </div>
         }

@@ -51,9 +51,9 @@ body {
 .wmax435 {
   max-width: 435px !important;
 }
-
-
-
+.btn--stroke--1 {
+  box-shadow: inset 0 0 0 1px currentColor !important;
+}
 @media only screen and (max-width: 768px) {
   .sidebar {
     display: none !important;
@@ -114,7 +114,7 @@ body {
 }
 
 .floaters-enter.floaters-enter-active {
-  opacity: 1;
+  opacity: 0.9;
   /*transition: opacity 500ms ease-out;*/
    animation: 0.4s fadeInLeft ease-out;
 }
@@ -127,8 +127,6 @@ body {
   opacity: 0.0;
   transition: opacity 0.2s ease-in;
 }
-
-
 
 .map-hide-appear {
   opacity: 0.01;
