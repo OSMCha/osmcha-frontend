@@ -11,16 +11,25 @@ export function Details({
   changesetId: number,
   expanded?: boolean
 }) {
-  const source = properties.get('source');
+  let source = properties.get('source');
+  let editor = properties.get('editor');
+  let imagery = properties.get('imagery_used');
   const user = properties.get('user');
-  const editor = properties.get('editor');
-  const imagery = properties.get('imagery_used');
   const date = properties.get('date');
   const create = properties.get('create');
   const modify = properties.get('modify');
   const destroy = properties.get('delete');
   const reasons = properties.get('reasons');
   const comment = properties.get('comment');
+
+  // var regexes = [
+  //   /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:{%}_\+.~#?&//=]*)/gi
+  //   /(http|ftp|https):\/\/([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,{}]*)?/g,
+  // ].forEach(regex => {
+  //   if (source.match(regex)) {
+  //     // source =
+  //   }
+  // });
 
   return (
     <div>

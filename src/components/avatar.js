@@ -2,6 +2,9 @@ import React from 'react';
 import Placeholder from './user.jpg';
 
 export class Avatar extends React.PureComponent {
+  props: {
+    url: string
+  };
   state = {
     loaded: false
   };
@@ -20,6 +23,13 @@ export class Avatar extends React.PureComponent {
     }
   }
   render() {
+    let url: string = Placeholder;
+    if (this.props.url) {
+      url = this.props.url;
+      if (url.indexOf('http://') > -1) {
+        url = url.slice(5);
+      }
+    }
     return (
       <div>
         <img
