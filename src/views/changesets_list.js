@@ -27,7 +27,7 @@ import { PageRange } from '../components/list/page_range';
 import { Dropdown } from '../components/dropdown';
 
 import { NEXT_CHANGESET, PREV_CHANGESET } from '../config/bindings';
-import { osmAuthUrl } from '../config/constants';
+import { osmAuthUrl, PAGE_SIZE } from '../config/constants';
 import { createPopup } from '../utils/create_popup';
 import { handlePopupCallback } from '../utils/handle_popup_callback';
 
@@ -41,7 +41,7 @@ class ChangesetsList extends React.PureComponent {
     loading: boolean,
     error: Object,
     style: Object,
-    currentPage: Map<string, *>,
+    currentPage: ?Map<string, *>,
     cachedChangesets: Map<string, *>,
     userDetails: Map<string, *>,
     pageIndex: number,
@@ -56,9 +56,9 @@ class ChangesetsList extends React.PureComponent {
     filters: Object,
     applyFilters: Object => mixed // base 0
   };
+  maxPageCount = Infinity;
   constructor(props) {
     super(props);
-    console.log('unmounted changeset list');
     this.props.getChangesetsPage(props.pageIndex);
   }
   goUpDownToChangeset = (direction: number) => {
@@ -130,7 +130,21 @@ class ChangesetsList extends React.PureComponent {
       );
     }
     const base = parseInt(this.props.pageIndex / RANGE, 10) * RANGE;
+
     const { currentPage, loading } = this.props;
+    if (
+      this.props.pageIndex === 0 &&
+      currentPage &&
+      !Number.isNaN(currentPage.get('count', 10))
+    ) {
+      const count: number = currentPage.get('count', 10);
+      this.maxPageCount = Math.ceil(count / PAGE_SIZE);
+    }
+    console.log(
+      currentPage && currentPage.get('count', 10),
+      this.maxPageCount,
+      PAGE_SIZE
+    );
     const valueData = [];
     const options = filters.filter(f => f.name === 'order_by')[0].options;
     if (this.props.filters['order_by']) {
@@ -183,10 +197,11 @@ class ChangesetsList extends React.PureComponent {
           <PageRange
             page={'<'}
             pageIndex={this.props.pageIndex - 1}
+            disabled={this.props.pageIndex - 1 === -1}
             active={false}
             getChangesetsPage={this.props.getChangesetsPage}
           />
-          {R.range(base, base + RANGE).map(n =>
+          {R.range(base, Math.min(base + RANGE, this.maxPageCount)).map(n =>
             <PageRange
               key={n}
               page={n}
@@ -197,6 +212,7 @@ class ChangesetsList extends React.PureComponent {
           )}
           <PageRange
             page={'>'}
+            disabled={this.props.pageIndex + 1 >= this.maxPageCount}
             pageIndex={this.props.pageIndex + 1}
             active={false}
             getChangesetsPage={this.props.getChangesetsPage}

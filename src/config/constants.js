@@ -1,5 +1,5 @@
 import { API_URL } from './';
-export const PAGE_SIZE = 65;
+export const PAGE_SIZE = 10;
 export const overpassBase =
   '//overpass-cfn-production.tilestream.net/api/interpreter';
 export const osmBase = '//www.openstreetmap.org/api/0.6/';
