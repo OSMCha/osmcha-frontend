@@ -25,7 +25,10 @@ export function Details({
   const urlRegex = new RegExp(
     /(([\w\.\-\+]+:)\/{2}(([\w\d\.]+):([\w\d\.]+))?@?(([a-zA-Z0-9\.\-_]+)(?::(\d{1,5}))?))?(\/(?:[a-zA-Z0-9{}:\,\.\-\/\+\%]+)?)(?:\?([a-zA-Z0-9=%\-_\.\*&;]+))?(?:#([a-zA-Z0-9\-=,&%;\/\\"'\?]+)?)?/g
   );
+
   let sourceMatch = [];
+  let sourceOrignal = source;
+
   if (source.indexOf('{switch:a,b,c}.') > -1) {
     source = source.replace('{switch:a,b,c}.', '');
   }
@@ -71,7 +74,12 @@ export function Details({
             <span>
               <br />
               {sourceMatch.map((e, k) =>
-                <a href={e} key={k} className="color-blue">
+                <a
+                  href={sourceOrignal}
+                  title={sourceOrignal}
+                  key={k}
+                  className="color-blue"
+                >
                   {Array.isArray(
                     e.match(
                       /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
