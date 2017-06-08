@@ -12,12 +12,12 @@ export function OpenIn({ changesetId }) {
           {
             label: 'JOSM',
             value: 'JOSM',
-            href: `http://127.0.0.1:8111/import?url=http://www.openstreetmap.org/api/0.6/changeset/${changesetId}/download`
+            href: `https://127.0.0.1:8112/import?url=http://www.openstreetmap.org/api/0.6/changeset/${changesetId}/download`
           },
           {
             label: 'iD',
             value: 'iD',
-            href: `http://127.0.0.1:8111/import?url=http://www.openstreetmap.org/api/0.6/changeset/${changesetId}/download`
+            href: `https://127.0.0.1:8112/import?url=http://www.openstreetmap.org/api/0.6/changeset/${changesetId}/download`
           },
           {
             label: 'OSM',
