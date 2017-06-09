@@ -20,16 +20,7 @@ class Changeset extends React.PureComponent {
     currentChangeset: Map<string, *>,
     changesetId: number
   };
-  componentDidMount() {
-    Mousetrap.bind('f', () => {
-      var cmapSidebar = document.getElementsByClassName('cmap-sidebar')[0];
-      if (cmapSidebar) {
-        cmapSidebar.style.visibility = cmapSidebar.style.visibility === 'hidden'
-          ? 'visible'
-          : 'hidden';
-      }
-    });
-  }
+  componentDidMount() {}
   showChangeset = () => {
     const {
       loading,

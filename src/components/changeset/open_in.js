@@ -2,7 +2,6 @@ import React from 'react';
 import { Dropdown } from '../dropdown';
 
 export function OpenIn({ changesetId, coordinates }) {
-  console.log(coordinates);
   return (
     <div className="select-container">
       <Dropdown

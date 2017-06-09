@@ -11,10 +11,11 @@ import { Verify } from '../components/changeset/verify';
 import { Dropdown } from '../components/dropdown';
 import { OpenIn } from '../components/changeset/open_in';
 import { Avatar } from '../components/avatar';
-import { osmAuthUrl } from '../config/constants';
 
 import { createPopup } from '../utils/create_popup';
 import { handlePopupCallback } from '../utils/handle_popup_callback';
+
+import { osmAuthUrl } from '../config/constants';
 
 import {
   getOAuthToken,
@@ -40,6 +41,7 @@ class NavbarSidebar extends React.PureComponent {
   state = {
     isMenuOpen: false
   };
+
   handleLoginClick = () => {
     if (this.props.oAuthToken) {
       const popup = createPopup(

@@ -13,7 +13,17 @@ import { Features } from './features';
 import { Box } from './box';
 import { Discussions } from './discussions';
 import { Button } from './button';
+
 import { cancelablePromise } from '../../utils/promise';
+
+import {
+  CHANGESET_DETAILS_SHOW_ALL,
+  CHANGESET_DETAILS_DETAILS,
+  CHANGESET_DETAILS_SUSPICIOUS,
+  CHANGESET_DETAILS_USER,
+  CHANGESET_DETAILS_DISCUSSIONS
+} from '../../config/bindings';
+
 // presentational component for view/changeset.js
 export class Changeset extends React.PureComponent {
   state = {
@@ -40,17 +50,20 @@ export class Changeset extends React.PureComponent {
       this.getData(nextProps.changesetId, nextProps.currentChangeset);
   }
   componentDidMount() {
-    Mousetrap.bind('ctrl+a', () => {
+    Mousetrap.bind(CHANGESET_DETAILS_SHOW_ALL, () => {
       this.toggleAll();
     });
-    Mousetrap.bind('ctrl+s', () => {
+    Mousetrap.bind(CHANGESET_DETAILS_SUSPICIOUS, () => {
       this.toggleFeatures();
     });
-    Mousetrap.bind('ctrl+d', () => {
+    Mousetrap.bind(CHANGESET_DETAILS_DISCUSSIONS, () => {
       this.toggleDiscussions();
     });
-    Mousetrap.bind('ctrl+o', () => {
+    Mousetrap.bind(CHANGESET_DETAILS_DETAILS, () => {
       this.toggleDetails();
+    });
+    Mousetrap.bind(CHANGESET_DETAILS_USER, () => {
+      this.toggleUser();
     });
     this.getData(this.props.changesetId, this.props.currentChangeset);
   }
