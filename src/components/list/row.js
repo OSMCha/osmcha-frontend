@@ -71,6 +71,7 @@ export class Row extends React.PureComponent {
               <div>
                 <PrimaryLine
                   reasons={properties.get('reasons')}
+                  tags={properties.get('tags')}
                   comment={properties.get('comment')}
                 />
               </div>

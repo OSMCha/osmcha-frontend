@@ -45,7 +45,7 @@ export function Details({
     <div>
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
         <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
-          <Reasons reasons={reasons} />
+          <Reasons reasons={reasons} color="green" />
         </div>
         <div className="flex-parent flex-parent--row flex-parent--wrap py12">
           <p className="flex-child txt-subhead my12 txt-l ml3">
