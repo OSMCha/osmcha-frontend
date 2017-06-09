@@ -1,7 +1,8 @@
 import React from 'react';
 import { Dropdown } from '../dropdown';
 
-export function OpenIn({ changesetId }) {
+export function OpenIn({ changesetId, coordinates }) {
+  console.log(coordinates);
   return (
     <div className="select-container">
       <Dropdown
@@ -17,7 +18,8 @@ export function OpenIn({ changesetId }) {
           {
             label: 'iD',
             value: 'iD',
-            href: `https://127.0.0.1:8112/import?url=http://www.openstreetmap.org/api/0.6/changeset/${changesetId}/download`
+            href: `http://www.openstreetmap.org/edit?changeset=${changesetId}#map=15/${coordinates &&
+              coordinates.get('1')}/${coordinates && coordinates.get('0')}`
           },
           {
             label: 'OSM',
@@ -34,11 +36,6 @@ export function OpenIn({ changesetId }) {
             label: 'OSM-HV',
             value: 'OSM-HV',
             href: `http://osmhv.openstreetmap.de/changeset.jsp?id=${changesetId}`
-          },
-          {
-            label: 'OSM',
-            value: 'OSM',
-            href: `https://openstreetmap.org/changeset/${changesetId}`
           }
         ]}
         displayComponent={

@@ -13,7 +13,7 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
         {properties.get('checked')
           ? <span>
               {properties.get('harmful') ? '👎 ' : '👍'}
-              &nbsp; by &nbsp;{properties.get('check_user')}
+              &nbsp; by&nbsp;{properties.get('check_user')}
             </span>
           : null}
       </span>
