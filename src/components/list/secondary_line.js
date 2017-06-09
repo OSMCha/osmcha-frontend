@@ -10,7 +10,12 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
         <span>
           {changesetId}
         </span>
-
+        {properties.get('checked')
+          ? <span>
+              {properties.get('harmful') ? '👎 ' : '👍'}
+              &nbsp; by &nbsp;{properties.get('check_user')}
+            </span>
+          : null}
       </span>
       <span className="flex-parent flex-parent--row">
         <CreateDeleteModify
@@ -25,7 +30,4 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
     </span>
   );
 }
-
-//  <svg className="icon inline-block align-middle ">
-//       <use xlinkHref="#icon-options" />
-//     </svg>
+//  <svg className="icon inline-block align-middle "> //       <use xlinkHref="#icon-options" /> //     </svg>
