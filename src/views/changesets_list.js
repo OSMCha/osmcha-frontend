@@ -5,6 +5,7 @@ import { List as ImmutableList, Map } from 'immutable';
 import R from 'ramda';
 import Mousetrap from 'mousetrap';
 import { NavLink } from 'react-router-dom';
+import { push } from 'react-router-redux';
 
 import type { RootStateType } from '../store';
 import type { ChangesetType } from '../store/changeset_reducer';
@@ -26,7 +27,11 @@ import { Button } from '../components/button';
 import { PageRange } from '../components/list/page_range';
 import { Dropdown } from '../components/dropdown';
 
-import { NEXT_CHANGESET, PREV_CHANGESET } from '../config/bindings';
+import {
+  NEXT_CHANGESET,
+  PREV_CHANGESET,
+  FILTER_BINDING
+} from '../config/bindings';
 import { osmAuthUrl, PAGE_SIZE } from '../config/constants';
 import { createPopup } from '../utils/create_popup';
 import { handlePopupCallback } from '../utils/handle_popup_callback';
@@ -48,12 +53,13 @@ class ChangesetsList extends React.PureComponent {
     activeChangesetId: ?number,
     oAuthToken: ?string,
     token: ?string,
+    filters: Object,
     getChangesetsPage: number => mixed, // base 0
     getChangeset: number => mixed, // base 0
     getOAuthToken: () => mixed,
     getFinalToken: () => mixed,
     logUserOut: () => mixed,
-    filters: Object,
+    push: object => mixed,
     applyFilters: Object => mixed // base 0
   };
   maxPageCount = Infinity;
@@ -62,6 +68,7 @@ class ChangesetsList extends React.PureComponent {
     this.props.getChangesetsPage(props.pageIndex);
   }
   goUpDownToChangeset = (direction: number) => {
+    if (!this.props.currentPage) return;
     let features = this.props.currentPage.get('features');
     if (features) {
       let index = features.findIndex(
@@ -70,11 +77,30 @@ class ChangesetsList extends React.PureComponent {
       index += direction;
       const nextFeature = features.get(index);
       if (nextFeature) {
-        history.push(`/changesets/${nextFeature.get('id')}`);
+        const location = {
+          ...this.props.location, //  clone it
+          pathname: `/changesets/${nextFeature.get('id')}`
+        };
+        this.props.push(location);
       }
     }
   };
   componentDidMount() {
+    Mousetrap.bind(FILTER_BINDING, () => {
+      if (this.props.location && this.props.location.pathname === '/filters') {
+        const location = {
+          ...this.props.location, //  clone it
+          pathname: '/'
+        };
+        this.props.push(location);
+      } else {
+        const location = {
+          ...this.props.location, //  clone it
+          pathname: '/filters'
+        };
+        this.props.push(location);
+      }
+    });
     Mousetrap.bind(NEXT_CHANGESET, e => {
       e.preventDefault();
       this.goUpDownToChangeset(1);
@@ -244,7 +270,8 @@ ChangesetsList = connect(
     getOAuthToken,
     getFinalToken,
     applyFilters,
-    logUserOut
+    logUserOut,
+    push
   }
 )(ChangesetsList);
 export { ChangesetsList };

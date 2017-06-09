@@ -33,16 +33,6 @@ class App extends Component {
       } else {
         gaPageView('/');
       }
-      Mousetrap.bind('\\', () => {
-        if (
-          this.props.history.location &&
-          this.props.history.location.pathname === '/filters'
-        ) {
-          this.props.history.push('/');
-        } else {
-          this.props.history.push('/filters');
-        }
-      });
     }
   }
   // trigger it via events
