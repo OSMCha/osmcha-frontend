@@ -49,7 +49,6 @@ class NavbarSidebar extends React.PureComponent {
           : '/local-landing.html'
       );
       handlePopupCallback().then(oAuthObj => {
-        console.log('popupgave', oAuthObj);
         this.props.getFinalToken(oAuthObj.oauth_verifier);
       });
     }

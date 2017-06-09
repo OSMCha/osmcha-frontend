@@ -9,12 +9,14 @@ import { Navbar } from '../components/navbar';
 import { Filter } from '../components/filter';
 import { Button } from '../components/button';
 import { getItem, setItem } from '../utils/safe_storage';
+import { gaPageView, gaSendEvent } from '../utils/analytics';
 
 import filters from '../config/filters.json';
 
 import { applyFilters } from '../store/changesets_page_actions';
 
 import type { RootStateType } from '../store';
+
 const USERS_LIMIT = 200;
 class Filters extends React.PureComponent {
   props: {
@@ -25,11 +27,6 @@ class Filters extends React.PureComponent {
   };
   state = { ...this.props.filters };
   scrollable = null;
-  componentDidMount() {
-    // Mousetrap.bind(FILTER_BINDING, () => {
-    //   this.toggleFilter();
-    // });
-  }
   handleSelectChange = (name, obj) => {
     if (Array.isArray(obj)) {
       return this.setState({
@@ -52,6 +49,25 @@ class Filters extends React.PureComponent {
   };
   handleApply = () => {
     this.props.applyFilters(this.state, '/');
+    Object.keys(this.state).forEach(f => {
+      if (Array.isArray(this.state[f])) {
+        this.state[f].forEach((e, i) => {
+          gaSendEvent({
+            category: 'Filters',
+            action: f,
+            value: parseInt(this.state[f][i].value, 10),
+            label: this.state[f][i].label
+          });
+        });
+      } else {
+        gaSendEvent({
+          category: 'Filters',
+          action: f,
+          value: parseInt(this.state[f], 10),
+          label: f
+        });
+      }
+    });
   };
   handleClear = () => {
     var keys = Object.keys(this.state);

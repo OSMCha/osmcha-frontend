@@ -12,7 +12,6 @@ export function handlePopupCallback() {
   // TO-FIX what if it never resolves
   return new Promise((res, rej) => {
     window.authComplete = location => {
-      console.log(location);
       const queryString = location.split('?')[1];
       const creds = parseQueryString(queryString);
       delete window.authComplete;

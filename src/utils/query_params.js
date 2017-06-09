@@ -2,7 +2,6 @@ import { parse, stringify } from 'query-string';
 
 export function getFiltersFromUrl(): Object {
   const parsed = parse(window.location.search);
-  console.log(parsed.filters);
   if (parsed.filters) {
     let filterObj;
     try {

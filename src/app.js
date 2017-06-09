@@ -15,6 +15,8 @@ import { NavbarChangeset } from './views/navbar_changeset';
 import { NavbarSidebar } from './views/navbar_sidebar';
 import { Sidebar } from './components/sidebar';
 import { Navbar } from './components/navbar';
+import { gaPageView } from './utils/analytics';
+import { getFiltersFromUrl } from './utils/query_params';
 
 var ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
@@ -22,6 +24,15 @@ class App extends Component {
   resize = null;
   componentDidMount() {
     if (document && document.body) {
+      var filters = getFiltersFromUrl();
+      if (filters && Object.keys(filters).length > 0) {
+        filters = Object.keys(filters)
+          .sort((a, b) => a.localeCompare(b))
+          .join(',');
+        gaPageView(`/?filters=${filters}`);
+      } else {
+        gaPageView('/');
+      }
       Mousetrap.bind('\\', () => {
         if (
           this.props.history.location &&

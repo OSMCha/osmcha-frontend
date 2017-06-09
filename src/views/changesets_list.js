@@ -94,7 +94,6 @@ class ChangesetsList extends React.PureComponent {
           : '/local-landing.html'
       );
       handlePopupCallback().then(oAuthObj => {
-        console.log('popupgave', oAuthObj);
         this.props.getFinalToken(oAuthObj.oauth_verifier);
       });
     }
@@ -140,11 +139,7 @@ class ChangesetsList extends React.PureComponent {
       const count: number = currentPage.get('count', 10);
       this.maxPageCount = Math.ceil(count / PAGE_SIZE);
     }
-    console.log(
-      currentPage && currentPage.get('count', 10),
-      this.maxPageCount,
-      PAGE_SIZE
-    );
+
     const valueData = [];
     const options = filters.filter(f => f.name === 'order_by')[0].options;
     if (this.props.filters['order_by']) {
