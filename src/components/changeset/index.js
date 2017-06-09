@@ -16,6 +16,7 @@ import { Button } from './button';
 
 import { cancelablePromise } from '../../utils/promise';
 
+import { osmCommentsApi } from '../../config/constants';
 import {
   CHANGESET_DETAILS_SHOW_ALL,
   CHANGESET_DETAILS_DETAILS,
@@ -87,9 +88,7 @@ export class Changeset extends React.PureComponent {
 
     const getUserDetailsPromise = cancelablePromise(getUserDetails(uid));
     const getOsmCommentsPromise = cancelablePromise(
-      fetch(
-        `https://osm-comments-api.mapbox.com/api/v1/changesets/${changesetId}`
-      ).then(r => r.json())
+      fetch(`${osmCommentsApi}/${changesetId}`).then(r => r.json())
     );
     this.getUserDetailsPromise = getUserDetailsPromise;
     this.getOsmCommentsPromise = getOsmCommentsPromise;

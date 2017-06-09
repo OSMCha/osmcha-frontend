@@ -9,6 +9,8 @@ import { getChangesetIdFromLocation } from '../utils/routing';
 
 import type { RootStateType } from './';
 
+import { CHANGESET_PAGE_MODIFY_CHANGESET } from './changesets_page_actions';
+
 export const CHANGESET_GET = 'CHANGESET_GET';
 export const CHANGESET_FETCHED = 'CHANGESET_FETCHED';
 export const CHANGESET_CHANGE = 'CHANGESET_CHANGE';
@@ -106,11 +108,12 @@ export function* watchModifyChangeset(): any {
     if (!oldChangeset || !token) {
       continue;
     }
+    let newChangeset;
     try {
       switch (modifyAction.type) {
         case CHANGESET_MODIFY_HARMFUL: {
           const harmful = modifyAction.harmful;
-          yield call(setHarmfulAction, {
+          newChangeset = yield call(setHarmfulAction, {
             changesetId,
             oldChangeset,
             token,
@@ -121,7 +124,7 @@ export function* watchModifyChangeset(): any {
         }
         case CHANGESET_MODIFY_TAG: {
           const { tag, remove } = modifyAction;
-          yield call(setTagActions, {
+          newChangeset = yield call(setTagActions, {
             changesetId,
             oldChangeset,
             token,
@@ -140,6 +143,15 @@ export function* watchModifyChangeset(): any {
         action(CHANGESET_MODIFY_REVERT, {
           changesetId,
           changeset: oldChangeset
+        })
+      );
+    }
+    // update the change in changeset list also aka changesetP
+    if (newChangeset) {
+      yield put(
+        action(CHANGESET_PAGE_MODIFY_CHANGESET, {
+          changesetId,
+          changeset: newChangeset
         })
       );
     }
@@ -248,6 +260,9 @@ export function* setHarmfulAction({
     // )
     .setIn(['properties', 'checked'], harmful === -1 ? false : true)
     .setIn(['properties', 'harmful'], harmful === -1 ? null : harmful);
+
+  // update changeset list
+
   yield put(
     action(CHANGESET_MODIFY, {
       changesetId,
@@ -255,6 +270,7 @@ export function* setHarmfulAction({
     })
   );
   yield call(setHarmful, changesetId, token, harmful);
+  return newChangeset;
 }
 
 export function* setTagActions({
@@ -297,6 +313,7 @@ export function* setTagActions({
       })
     );
     yield call(setTag, changesetId, token, tag, remove);
+    return newChangeset;
   } else {
     throw new Error('Only allowed on checked changesets');
   }

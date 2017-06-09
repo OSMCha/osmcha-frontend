@@ -1,8 +1,8 @@
 import { fromJS } from 'immutable';
-
+import { apiOSM } from '../config/constants';
 export function getUserDetails(uid: number): Map<'string', *> {
   const user = {};
-  return fetch(`https://api.openstreetmap.org/api/0.6/user/${uid}`)
+  return fetch(`${apiOSM}/user/${uid}`)
     .then(r => r.text())
     .then(r => {
       const parser = new DOMParser();

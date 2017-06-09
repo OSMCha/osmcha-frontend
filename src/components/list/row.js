@@ -43,7 +43,6 @@ export class Row extends React.PureComponent {
     backgroundClass += active
       ? 'light-blue'
       : this.wasOpen ? ' bg-darken5 ' : '';
-
     return (
       <Link
         to={{

@@ -59,7 +59,7 @@ class ChangesetsList extends React.PureComponent {
     getOAuthToken: () => mixed,
     getFinalToken: () => mixed,
     logUserOut: () => mixed,
-    push: object => mixed,
+    push: Object => mixed,
     applyFilters: Object => mixed // base 0
   };
   maxPageCount = Infinity;
@@ -249,10 +249,7 @@ ChangesetsList = connect(
   (state: RootStateType, props) => ({
     routing: state.routing,
     location: state.routing.location,
-    currentPage: state.changesetsPage.getIn([
-      'pages',
-      state.changesetsPage.get('pageIndex')
-    ]),
+    currentPage: state.changesetsPage.get('currentPage'),
     pageIndex: state.changesetsPage.get('pageIndex') || 0,
     filters: state.changesetsPage.get('filters') || {},
     loading: state.changesetsPage.get('loading'),

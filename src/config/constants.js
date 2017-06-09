@@ -8,4 +8,8 @@ export const mapboxAccessToken =
 
 export const osmChaUrl = API_URL;
 export const osmchaSocialTokenUrl = `${osmChaUrl}/social-auth/`;
+
 export const osmAuthUrl = 'https://www.openstreetmap.org/oauth/authorize';
+export const apiOSM = 'https://api.openstreetmap.org/api/0.6';
+export const osmCommentsApi =
+  'https://osm-comments-api.mapbox.com/api/v1/changesets';
