@@ -22,7 +22,8 @@ export function fetchChangesetsPage(
     });
 
   return fetch(
-    `${API_URL}/changesets/?page=${pageIndex + 1}&page_size=${PAGE_SIZE}${flatFilters}`,
+    `${API_URL}/changesets/?page=${pageIndex +
+      1}&page_size=${PAGE_SIZE}${flatFilters}`,
     {
       method: 'GET',
       headers: {
@@ -30,5 +31,12 @@ export function fetchChangesetsPage(
         Authorization: token ? `Token ${token}` : ''
       }
     }
-  ).then(res => res.json());
+  ).then(res => {
+    if (res.status >= 400 && res.status < 600) {
+      throw new Error(
+        'Bad request. Please make sure you are allowed to add tags to this changeset.'
+      );
+    }
+    return res.json();
+  });
 }
