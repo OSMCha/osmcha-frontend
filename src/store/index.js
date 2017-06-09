@@ -12,7 +12,9 @@ import { getFiltersFromUrl } from '../utils/query_params';
 import { authReducer } from './auth_reducer';
 import { changesetsPageReducer } from './changesets_page_reducer';
 import { changesetReducer } from './changeset_reducer';
+import { modalReducer } from './modal_reducer';
 
+import type { ModalType } from './modal_reducer';
 import type { ChangesetsPageType } from './changesets_page_reducer';
 import type { ChangesetType } from './changeset_reducer';
 import type { AuthType } from './auth_reducer';
@@ -24,6 +26,7 @@ export type RootStateType = {
   auth: AuthType,
   changesetsPage: ChangesetsPageType,
   changeset: ChangesetType,
+  modal: ModalType,
   routing: Object
 };
 
@@ -32,7 +35,8 @@ const reducers = combineReducers({
   changesetsPage: changesetsPageReducer,
   changeset: changesetReducer,
   routing: routerReducer,
-  auth: authReducer
+  auth: authReducer,
+  modal: modalReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

@@ -10,6 +10,7 @@ import { getChangesetIdFromLocation } from '../utils/routing';
 import type { RootStateType } from './';
 
 import { CHANGESET_PAGE_MODIFY_CHANGESET } from './changesets_page_actions';
+import { SHOW_MODAL } from './modal_actions';
 
 export const CHANGESET_GET = 'CHANGESET_GET';
 export const CHANGESET_FETCHED = 'CHANGESET_FETCHED';
@@ -235,11 +236,17 @@ export function* fetchChangesetMapAction(changesetId: number): Object {
       })
     );
   } catch (error) {
-    console.error(error);
     yield put(
       action(CHANGESET_MAP_ERROR, {
         changesetId,
         error
+      })
+    );
+    yield put(
+      action(SHOW_MODAL, {
+        error,
+        kind: 'error',
+        description: 'Changeset map failed to load'
       })
     );
   }

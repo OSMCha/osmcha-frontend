@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { ToastContainer, ToastMessage } from 'react-toastr';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Mousetrap from 'mousetrap';
 
@@ -13,12 +12,12 @@ import { ChangesetsList } from './views/changesets_list';
 import { CMap } from './views/map';
 import { NavbarChangeset } from './views/navbar_changeset';
 import { NavbarSidebar } from './views/navbar_sidebar';
+import { Modal } from './views/modal';
+
 import { Sidebar } from './components/sidebar';
 import { Navbar } from './components/navbar';
 import { gaPageView } from './utils/analytics';
 import { getFiltersFromUrl } from './utils/query_params';
-
-var ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
 class App extends Component {
   resize = null;
@@ -102,11 +101,7 @@ class App extends Component {
                   <Route path="/stats" component={Stats} />
                 </div>
               </div>
-              <ToastContainer
-                ref="toastr"
-                toastMessageFactory={ToastMessageFactory}
-                className="toast-top-right"
-              />
+              <Modal />
             </div>}
         />
       );
@@ -128,11 +123,7 @@ class App extends Component {
             <Route path="/stats" component={Stats} />
             <Route path="/filters" component={Filters} />
           </div>
-          <ToastContainer
-            ref="toastr"
-            toastMessageFactory={ToastMessageFactory}
-            className="toast-top-right"
-          />
+          <Modal />
         </div>
       );
     }
