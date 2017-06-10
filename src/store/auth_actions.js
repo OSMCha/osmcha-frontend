@@ -8,9 +8,9 @@ import {
   fetchUserDetails as fetchOsmchaUserDetails
 } from '../network/auth';
 import { setItem, removeItem } from '../utils/safe_storage';
-import {
-  getUserDetails as fetchOsmUserDetails
-} from '../network/openstreetmap';
+import { getUserDetails as fetchOsmUserDetails } from '../network/openstreetmap';
+
+import { INIT_MODAL } from './modal_actions';
 
 import type { RootStateType } from './';
 
@@ -58,6 +58,18 @@ export function* watchAuth(): any {
     } catch (error) {
       yield put(action(LOGIN_ERROR, error));
       yield call(delay, 500);
+      yield put(
+        action(INIT_MODAL, {
+          payload: {
+            error,
+            kind: 'warning',
+            dismiss: true,
+            autoDismiss: 7,
+            title: 'Login Failed',
+            description: 'Please check your credentials and try again'
+          }
+        })
+      );
     } finally {
       token = undefined;
       yield call(removeItem, 'token');

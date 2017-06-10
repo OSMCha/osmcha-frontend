@@ -5,6 +5,8 @@ import { push } from 'react-router-redux';
 import { fetchChangesetsPage } from '../network/changesets_page';
 import { getObjAsQueryParam } from '../utils/query_params';
 
+import { INIT_MODAL } from './modal_actions';
+
 import type { RootStateType } from './';
 
 export const CHANGESET_PAGE_GET = 'CHANGESET_PAGE_GET';
@@ -99,6 +101,21 @@ export function* fetchChangesetsPageAsync({
       action(CHANGESETS_PAGE_ERROR, {
         pageIndex,
         error
+      })
+    );
+    yield put(
+      action(INIT_MODAL, {
+        payload: {
+          error,
+          kind: 'error',
+          dismiss: true,
+          autoDismiss: 0,
+          title: 'Changesets List Failed',
+          description: `Changesets List for page: ${pageIndex} failed to load, please wait for a while or retry.`,
+          callbackLabel: 'Retry'
+        },
+        callback: action,
+        callbackArgs: [CHANGESET_PAGE_GET, { pageIndex }]
       })
     );
   }

@@ -2,31 +2,31 @@ body {
   scroll-behavior: smooth;
 }
 .justify--space-between {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .justify--space-around {
-    justify-content: space-around;
+  justify-content: space-around;
 }
 
 .justify--flex-end {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .justify--flex-start {
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .justify--center {
-    justify-content: center;
+  justify-content: center;
 }
 
 .align-items--center {
-    align-items: center;
+  align-items: center;
 }
 
 .align-items--start {
-    align-items: flex-start;
+  align-items: flex-start;
 }
 
 .left-50-percent {
@@ -38,10 +38,10 @@ body {
 }
 
 .h55 {
-    height: 55px !important;
+  height: 55px !important;
 }
 .hmin55 {
-    min-height: 55px !important;
+  min-height: 55px !important;
 }
 
 .wmin435 {
@@ -77,7 +77,6 @@ body {
 .filters-appear.example-appear-active {
   opacity: 1;
   transition: opacity .5s ease-in;
-
 }
 
 .filters-enter {
@@ -95,10 +94,9 @@ body {
 }
 
 .filters-leave.filters-leave-active {
-   opacity: 1;
-   animation: 0.5s slideOutUp ease-in;
+  opacity: 1;
+  animation: 0.5s slideOutUp ease-in;
 }
-
 
 .floaters-appear {
   opacity: 0.11;
@@ -116,7 +114,7 @@ body {
 .floaters-enter.floaters-enter-active {
   opacity: 0.9;
   /*transition: opacity 500ms ease-out;*/
-   animation: 0.4s fadeInLeft ease-out;
+  animation: 0.4s fadeInLeft ease-out;
 }
 
 .floaters-leave {
@@ -157,17 +155,17 @@ body {
 }
 
 .tippy-tooltip.osmcha-theme {
-    /* Your styling here. Example: */
-    background-color: #f7f7f7;
-    border: 1px solid #ccc;
-    box-shadow: 1px 0px 6px 0px #ccc
+  /* Your styling here. Example: */
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  box-shadow: 1px 0px 6px 0px #ccc;
 }
 .tippy-tooltip.osmcha-theme [x-arrow] {
   /* Your arrow styling here. Uses transform: rotate() so no need for CSS triangle shenanigans. */
-    background-color:transparent;
-    border: 1px solid #ccc;
-    fill: white;
-    border-color: transparent transparent #ccc #ccc; /* same for any position */
+  background-color: transparent;
+  border: 1px solid #ccc;
+  fill: white;
+  border-color: transparent transparent #ccc #ccc; /* same for any position */
 }
 
 /* truncate uptill 2 lines */
@@ -204,7 +202,10 @@ body {
   background: transparent;
 }
 
-
+/*react-notification-system*/
+.notifications-tr {
+  margin-top: 56px;
+}
 /* changeset map*/
 .cmap-container .cmap-sidebar {
   position: fixed !important;
@@ -223,7 +224,7 @@ body {
 }
 
 .cmap-diff {
-   position: fixed !important;
+  position: fixed !important;
   bottom: 0px;
   right: 0px;
   padding: 5px;
@@ -249,30 +250,28 @@ body {
 
 /* OSMCha Custom CSS*/
 
-.osmcha-custom-table th,
-.osmcha-custom-table td {
-   padding: 6px !important;
+.osmcha-custom-table th, .osmcha-custom-table td {
+  padding: 6px !important;
 }
 
 /* Changeset list color hacks */
 
-.light-blue,
-.light-blue-on-hover:hover {
-  background-color: #EEF4FA!important;
+.light-blue, .light-blue-on-hover:hover {
+  background-color: #EEF4FA !important;
 }
 
 .changesets-list .border-color-good {
-  border-color: #77CC66!important;
+  border-color: #77CC66 !important;
 }
 
 .changesets-list .border-color-bad {
-  border-color: #FF0099!important;
+  border-color: #FF0099 !important;
 }
 
 .changesets-list .border-color-neutral {
-  border-color: #D8D8D8!important;
+  border-color: #D8D8D8 !important;
 }
 
 .changesets-list .border-l--4 {
-  border-left-width: 4px!important;
+  border-left-width: 4px !important;
 }

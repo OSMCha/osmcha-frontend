@@ -34,19 +34,6 @@ class App extends Component {
       }
     }
   }
-  // trigger it via events
-  showToast = (event: Object) => {
-    const message = event.detail;
-    const messageType: 'warning' | 'error' | 'success' | 'info' = message.type;
-
-    this.refs.toastr[messageType](message.title, message.content, {
-      timeOut: message.timeOut,
-      extendedTimeOut: 4000,
-      closeButton: true,
-      showAnimation: 'animated slideInDown',
-      hideAnimation: 'animated fadeOut'
-    });
-  };
   render() {
     const width = window.innerWidth;
     if (width > 800) {

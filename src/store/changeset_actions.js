@@ -2,15 +2,17 @@
 import { put, call, take, fork, select, cancel } from 'redux-saga/effects';
 
 import { fromJS, Map, List } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 import { fetchChangeset, setHarmful, setTag } from '../network/changeset';
+import * as errorMessages from '../config/error_messages';
+
 import { getChangesetIdFromLocation } from '../utils/routing';
 
 import type { RootStateType } from './';
 
 import { CHANGESET_PAGE_MODIFY_CHANGESET } from './changesets_page_actions';
-import { SHOW_MODAL } from './modal_actions';
+import { INIT_MODAL } from './modal_actions';
 
 export const CHANGESET_GET = 'CHANGESET_GET';
 export const CHANGESET_FETCHED = 'CHANGESET_FETCHED';
@@ -65,7 +67,7 @@ export const handleChangesetModifyTag = (
 // dispatches the latest one to get changeset
 // and cMap details. It cancels the ongoign tasks
 // if route changes in between.
-export function* watchChangeset(): any {
+export function* watchChangeset(dispatch): any {
   let changesetTask;
   let changesetMapTask;
   while (true) {
@@ -81,14 +83,21 @@ export function* watchChangeset(): any {
     let changesetId = getChangesetIdFromLocation(location);
     if (!changesetId) continue; // skip for non changesets/:id routes
 
-    let oldChangesetId = yield select((state: RootStateType) =>
-      state.changeset.get('changesetId')
+    let oldChangesetId = yield select(
+      (state: RootStateType) =>
+        !state.changeset.get('errorChangeset') &&
+        !state.changeset.get('errorChangesetMap') &&
+        state.changeset.get('changesetId')
     );
 
     if (oldChangesetId !== changesetId) {
       // on forking: https://redux-saga.js.org/docs/advanced/Concurrency.html
       changesetTask = yield fork(fetchChangesetAction, changesetId);
-      changesetMapTask = yield fork(fetchChangesetMapAction, changesetId);
+      changesetMapTask = yield fork(
+        fetchChangesetMapAction,
+        changesetId,
+        dispatch
+      );
     }
   }
 }
@@ -102,11 +111,25 @@ export function* watchModifyChangeset(): any {
     const { token, username } = yield select((state: RootStateType) => ({
       token: state.auth.get('token'),
       username: state.auth.getIn(['userDetails', 'username'])
-    })); // TOFIX handle token not existing
+    }));
+    if (!token) {
+      yield put(
+        action(INIT_MODAL, {
+          payload: {
+            kind: 'warning',
+            dismiss: true,
+            autoDismiss: 5,
+            title: errorMessages.NOT_LOGGED_IN.title,
+            description: errorMessages.NOT_LOGGED_IN.description()
+          }
+        })
+      );
+      continue;
+    }
     // all modify actions should have changesetId, oldChangeset
     const { changesetId, oldChangeset } = modifyAction;
 
-    if (!oldChangeset || !token) {
+    if (!oldChangeset) {
       continue;
     }
     let newChangeset;
@@ -139,11 +162,36 @@ export function* watchModifyChangeset(): any {
         }
       }
     } catch (error) {
-      console.error(error);
       yield put(
         action(CHANGESET_MODIFY_REVERT, {
           changesetId,
           changeset: oldChangeset
+        })
+      );
+      var messageToDisplay;
+      switch (error.message) {
+        case errorMessages.ADD_TAG_TO_UNCHECKED.serverMessage:
+          messageToDisplay = errorMessages.ADD_TAG_TO_UNCHECKED;
+          break;
+        case errorMessages.ADD_TAG_TO_CHECKED_BY_OTHER.serverMessage:
+          messageToDisplay = errorMessages.ADD_TAG_TO_CHECKED_BY_OTHER;
+          break;
+        case errorMessages.ADD_TAG_NO_PERMISSION.serverMessage:
+          messageToDisplay = errorMessages.ADD_TAG_NO_PERMISSION;
+          break;
+        default:
+          messageToDisplay = errorMessages.ADD_TAG_DEFAULT;
+      }
+      yield put(
+        action(INIT_MODAL, {
+          payload: {
+            error,
+            kind: 'error',
+            dismiss: true,
+            autoDismiss: 0,
+            title: messageToDisplay.title,
+            description: messageToDisplay.description(changesetId)
+          }
         })
       );
     }
@@ -191,11 +239,28 @@ export function* fetchChangesetAction(changesetId: number): Object {
       })
     );
   } catch (error) {
-    console.error(error);
     yield put(
       action(CHANGESET_ERROR, {
         changesetId,
         error
+      })
+    );
+    const location = yield select(
+      (state: RootStateType) => state.routing.location
+    );
+    yield put(
+      action(INIT_MODAL, {
+        payload: {
+          error,
+          kind: 'error',
+          dismiss: true,
+          autoDismiss: 0,
+          title: 'Changeset Details Failed',
+          description: `Changeset Details for ID: ${changesetId} failed to load, please wait for a while and click retry.`,
+          callbackLabel: `Retry ${changesetId}`
+        },
+        callback: push,
+        callbackArgs: [location]
       })
     );
   }
@@ -242,11 +307,22 @@ export function* fetchChangesetMapAction(changesetId: number): Object {
         error
       })
     );
+    const location = yield select(
+      (state: RootStateType) => state.routing.location
+    );
     yield put(
-      action(SHOW_MODAL, {
-        error,
-        kind: 'error',
-        description: 'Changeset map failed to load'
+      action(INIT_MODAL, {
+        payload: {
+          error,
+          kind: 'error',
+          dismiss: true,
+          autoDismiss: 0,
+          title: 'Changeset Map Failed',
+          description: `Changeset map for ID: ${changesetId} failed to load, please wait for a while and click retry.`,
+          callbackLabel: `Retry ${changesetId}`
+        },
+        callback: push,
+        callbackArgs: [location]
       })
     );
   }
