@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "animate.css": "^3.5.2",
-    "changeset-map": "1.0.3",
+    "changeset-map": "1.0.7",
     "classnames": "^2.2.5",
     "history": "^4.6.1",
     "immutable": "^3.8.1",

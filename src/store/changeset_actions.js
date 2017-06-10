@@ -113,8 +113,6 @@ export function* watchModifyChangeset(): any {
         action(INIT_MODAL, {
           payload: {
             kind: 'warning',
-            dismiss: true,
-            autoDismiss: 5,
             title: errorMessages.NOT_LOGGED_IN.title,
             description: errorMessages.NOT_LOGGED_IN.description()
           }
@@ -182,8 +180,6 @@ export function* watchModifyChangeset(): any {
         action(INIT_MODAL, {
           payload: {
             error,
-            kind: 'error',
-            dismiss: true,
             autoDismiss: 0,
             title: messageToDisplay.title,
             description: messageToDisplay.description(changesetId)
@@ -197,6 +193,16 @@ export function* watchModifyChangeset(): any {
         action(CHANGESET_PAGE_MODIFY_CHANGESET, {
           changesetId,
           changeset: newChangeset
+        })
+      );
+      yield put(
+        action(INIT_MODAL, {
+          payload: {
+            kind: 'success',
+            autoDismiss: 1,
+            title: 'Success',
+            description: `${changesetId} was modified successfully`
+          }
         })
       );
     }

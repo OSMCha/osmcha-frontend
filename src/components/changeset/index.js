@@ -13,6 +13,7 @@ import { Features } from './features';
 import { Box } from './box';
 import { Discussions } from './discussions';
 import { Button } from './button';
+import { MapOptions } from './map_options';
 
 import { cancelablePromise } from '../../utils/promise';
 
@@ -35,6 +36,7 @@ export class Changeset extends React.PureComponent {
     user: false,
     details: true,
     showAll: false,
+    mapOptions: false,
     discussionsData: List(),
     userDetails: new Map()
   };
@@ -148,6 +150,10 @@ export class Changeset extends React.PureComponent {
           <Box key={0} className=" w420  round-tr round-br">
             <User userDetails={this.state.userDetails} />
           </Box>}
+        {this.state.mapOptions &&
+          <Box key={4} className=" w420  round-tr round-br">
+            <MapOptions />
+          </Box>}
       </CSSGroup>
     );
   };
@@ -158,7 +164,8 @@ export class Changeset extends React.PureComponent {
       discussions: !this.state.showAll,
       details: !this.state.showAll,
       showAll: !this.state.showAll,
-      user: !this.state.showAll
+      user: !this.state.showAll,
+      mapOptions: !this.state.showAll
     });
   };
   toggleFeatures = () => {
@@ -167,6 +174,8 @@ export class Changeset extends React.PureComponent {
       details: false,
       showAll: false,
       features: !this.state.features,
+      mapOptions: false,
+
       user: false
     });
   };
@@ -176,6 +185,8 @@ export class Changeset extends React.PureComponent {
       details: false,
       showAll: false,
       features: false,
+      mapOptions: false,
+
       user: false
     });
   };
@@ -185,6 +196,8 @@ export class Changeset extends React.PureComponent {
       details: !this.state.details,
       showAll: false,
       features: false,
+      mapOptions: false,
+
       user: false
     });
   };
@@ -194,7 +207,19 @@ export class Changeset extends React.PureComponent {
       details: false,
       showAll: false,
       features: false,
+      mapOptions: false,
+
       user: !this.state.user
+    });
+  };
+  toggleMapOptions = () => {
+    this.setState({
+      discussions: false,
+      details: false,
+      showAll: false,
+      features: false,
+      user: false,
+      mapOptions: !this.state.mapOptions
     });
   };
   render() {
@@ -256,6 +281,16 @@ export class Changeset extends React.PureComponent {
           >
             <svg className="icon inline-block align-middle">
               <use xlinkHref="#icon-user" />
+            </svg>
+          </Button>
+          <Button
+            active={this.state.mapOptions}
+            onClick={this.toggleMapOptions}
+            bg={'white'}
+            className="unround"
+          >
+            <svg className="icon inline-block align-middle">
+              <use xlinkHref="#icon-osm" />
             </svg>
           </Button>
           <Button

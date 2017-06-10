@@ -42,7 +42,8 @@ function loadMap() {
     event = render(container, changesetId, {
       width: width + 'px',
       height: Math.max(400, height) + 'px',
-      data: currentChangesetMap
+      data: currentChangesetMap,
+      disableSidebar: true
     });
   });
 }
@@ -115,8 +116,9 @@ class CMap extends React.PureComponent {
           id="container"
           className=""
           style={{
-            visibility: !(this.props.loadingChangesetMap ||
-              this.props.errorChangesetMap)
+            visibility: !(
+              this.props.loadingChangesetMap || this.props.errorChangesetMap
+            )
               ? 'visible'
               : 'hidden'
           }}

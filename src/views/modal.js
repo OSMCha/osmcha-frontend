@@ -20,11 +20,14 @@ class Modal extends React.PureComponent {
     uid: number
   };
   static defaultProps = {
-    autoDismiss: 5
+    title: 'Error',
+    description: 'Oops there was a problem. Please reload the app.',
+    autoDismiss: 5,
+    dismiss: true,
+    kind: 'error'
   };
   ref = null;
   componentWillUpdate(nextProps: Object) {
-    console.log(nextProps.uid);
     if (this.ref) {
       const uid = nextProps.uid;
       this.ref.addNotification({

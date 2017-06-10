@@ -107,8 +107,6 @@ export function* fetchChangesetsPageAsync({
       action(INIT_MODAL, {
         payload: {
           error,
-          kind: 'error',
-          dismiss: true,
           autoDismiss: 0,
           title: 'Changesets List Failed',
           description: `Changesets List for page: ${pageIndex} failed to load, please wait for a while or retry.`,
@@ -129,6 +127,7 @@ export function* modifyChangesetPage({ changesetId, changeset }: Object): any {
       state.changesetsPage.getIn(['currentPage'], Map()),
       state.changesetsPage.getIn(['pageIndex'], 0)
     ]);
+
     let features: List<Map<string, *>> = currentPage.get('features');
     const index = features.findIndex(f => f.get('id') === changesetId);
     if (index > -1) {
