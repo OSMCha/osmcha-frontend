@@ -67,7 +67,7 @@ export const handleChangesetModifyTag = (
 // dispatches the latest one to get changeset
 // and cMap details. It cancels the ongoign tasks
 // if route changes in between.
-export function* watchChangeset(dispatch): any {
+export function* watchChangeset(): any {
   let changesetTask;
   let changesetMapTask;
   while (true) {
@@ -93,11 +93,7 @@ export function* watchChangeset(dispatch): any {
     if (oldChangesetId !== changesetId) {
       // on forking: https://redux-saga.js.org/docs/advanced/Concurrency.html
       changesetTask = yield fork(fetchChangesetAction, changesetId);
-      changesetMapTask = yield fork(
-        fetchChangesetMapAction,
-        changesetId,
-        dispatch
-      );
+      changesetMapTask = yield fork(fetchChangesetMapAction, changesetId);
     }
   }
 }
