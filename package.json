@@ -42,8 +42,8 @@
     "gh-pages": "^1.0.0",
     "husky": "^0.13.4",
     "lint-staged": "^3.6.0",
-    "prettier": "^1.4.2",
-    "prettier-eslint-cli": "^4.0.4",
+    "prettier": "^1.4.4",
+    "prettier-eslint-cli": "^4.1.0",
     "react-scripts": "1.0.7",
     "why-did-you-update": "0.0.8"
   },
