@@ -9,9 +9,7 @@ import { Loading } from '../loading';
 export class List extends React.PureComponent {
   props: {
     currentPage: ?Map<string, *>,
-    getChangeset: number => any,
     activeChangesetId: ?number,
-    cachedChangesets: Map<string, *>,
     pageIndex: number,
     loading: boolean,
     reloadPage: () => any

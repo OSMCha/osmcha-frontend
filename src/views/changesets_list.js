@@ -11,7 +11,6 @@ import type { RootStateType } from '../store';
 import type { ChangesetType } from '../store/changeset_reducer';
 
 import { history } from '../store/history';
-import { getChangeset } from '../store/changeset_actions';
 import {
   getChangesetsPage,
   applyFilters
@@ -47,7 +46,6 @@ class ChangesetsList extends React.PureComponent {
     error: Object,
     style: Object,
     currentPage: ?Map<string, *>,
-    cachedChangesets: Map<string, *>,
     userDetails: Map<string, *>,
     pageIndex: number,
     activeChangesetId: ?number,
@@ -55,9 +53,8 @@ class ChangesetsList extends React.PureComponent {
     token: ?string,
     filters: Object,
     getChangesetsPage: number => mixed, // base 0
-    getChangeset: number => mixed, // base 0
     getOAuthToken: () => mixed,
-    getFinalToken: () => mixed,
+    getFinalToken: string => mixed,
     logUserOut: () => mixed,
     push: Object => mixed,
     applyFilters: Object => mixed // base 0
@@ -210,8 +207,6 @@ class ChangesetsList extends React.PureComponent {
           activeChangesetId={this.props.activeChangesetId}
           currentPage={currentPage}
           loading={loading}
-          cachedChangesets={this.props.cachedChangesets}
-          getChangeset={this.props.getChangeset}
           pageIndex={this.props.pageIndex}
         />
         <footer className="hmin55 p12 pb24 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
@@ -257,13 +252,11 @@ ChangesetsList = connect(
     oAuthToken: state.auth.get('oAuthToken'),
     userDetails: state.auth.get('userDetails'),
     token: state.auth.get('token'),
-    cachedChangesets: state.changeset.get('changesets'),
     activeChangesetId: state.changeset.get('changesetId')
   }),
   {
     // actions
     getChangesetsPage,
-    getChangeset,
     getOAuthToken,
     getFinalToken,
     applyFilters,

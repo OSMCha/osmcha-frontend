@@ -27,7 +27,6 @@
     "react-router-dom": "^4.0.0",
     "react-router-redux": "next",
     "react-select": "^1.0.0-rc.5",
-    "react-test-renderer": "^15.5.4",
     "react-tippy": "^0.14.0",
     "react-transition-group": "^1.1.2",
     "redux": "^3.6.0",
@@ -42,10 +41,13 @@
     "flow-bin": "^0.47.0",
     "gh-pages": "^1.0.0",
     "husky": "^0.13.4",
+    "jest-cli": "^20.0.4",
     "lint-staged": "^3.6.0",
+    "mockdate": "^2.0.1",
     "prettier": "^1.4.4",
     "prettier-eslint-cli": "^4.1.0",
     "react-scripts": "1.0.7",
+    "react-test-renderer": "^15.5.4",
     "why-did-you-update": "0.0.8"
   },
   "scripts": {
