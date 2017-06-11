@@ -2,12 +2,17 @@
 import { put, call, take, fork, select, cancel } from 'redux-saga/effects';
 
 import { fromJS, Map, List } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 import { fetchChangeset, setHarmful, setTag } from '../network/changeset';
+import * as errorMessages from '../config/error_messages';
+
 import { getChangesetIdFromLocation } from '../utils/routing';
 
 import type { RootStateType } from './';
+
+import { CHANGESET_PAGE_MODIFY_CHANGESET } from './changesets_page_actions';
+import { INIT_MODAL } from './modal_actions';
 
 export const CHANGESET_GET = 'CHANGESET_GET';
 export const CHANGESET_FETCHED = 'CHANGESET_FETCHED';
@@ -78,8 +83,11 @@ export function* watchChangeset(): any {
     let changesetId = getChangesetIdFromLocation(location);
     if (!changesetId) continue; // skip for non changesets/:id routes
 
-    let oldChangesetId = yield select((state: RootStateType) =>
-      state.changeset.get('changesetId')
+    let oldChangesetId = yield select(
+      (state: RootStateType) =>
+        !state.changeset.get('errorChangeset') &&
+        !state.changeset.get('errorChangesetMap') &&
+        state.changeset.get('changesetId')
     );
 
     if (oldChangesetId !== changesetId) {
@@ -99,18 +107,31 @@ export function* watchModifyChangeset(): any {
     const { token, username } = yield select((state: RootStateType) => ({
       token: state.auth.get('token'),
       username: state.auth.getIn(['userDetails', 'username'])
-    })); // TOFIX handle token not existing
+    }));
+    if (!token) {
+      yield put(
+        action(INIT_MODAL, {
+          payload: {
+            kind: 'warning',
+            title: errorMessages.NOT_LOGGED_IN.title,
+            description: errorMessages.NOT_LOGGED_IN.description()
+          }
+        })
+      );
+      continue;
+    }
     // all modify actions should have changesetId, oldChangeset
     const { changesetId, oldChangeset } = modifyAction;
 
-    if (!oldChangeset || !token) {
+    if (!oldChangeset) {
       continue;
     }
+    let newChangeset;
     try {
       switch (modifyAction.type) {
         case CHANGESET_MODIFY_HARMFUL: {
           const harmful = modifyAction.harmful;
-          yield call(setHarmfulAction, {
+          newChangeset = yield call(setHarmfulAction, {
             changesetId,
             oldChangeset,
             token,
@@ -121,7 +142,7 @@ export function* watchModifyChangeset(): any {
         }
         case CHANGESET_MODIFY_TAG: {
           const { tag, remove } = modifyAction;
-          yield call(setTagActions, {
+          newChangeset = yield call(setTagActions, {
             changesetId,
             oldChangeset,
             token,
@@ -135,11 +156,53 @@ export function* watchModifyChangeset(): any {
         }
       }
     } catch (error) {
-      console.error(error);
       yield put(
         action(CHANGESET_MODIFY_REVERT, {
           changesetId,
           changeset: oldChangeset
+        })
+      );
+      var messageToDisplay;
+      switch (error.message) {
+        case errorMessages.ADD_TAG_TO_UNCHECKED.serverMessage:
+          messageToDisplay = errorMessages.ADD_TAG_TO_UNCHECKED;
+          break;
+        case errorMessages.ADD_TAG_TO_CHECKED_BY_OTHER.serverMessage:
+          messageToDisplay = errorMessages.ADD_TAG_TO_CHECKED_BY_OTHER;
+          break;
+        case errorMessages.ADD_TAG_NO_PERMISSION.serverMessage:
+          messageToDisplay = errorMessages.ADD_TAG_NO_PERMISSION;
+          break;
+        default:
+          messageToDisplay = errorMessages.ADD_TAG_DEFAULT;
+      }
+      yield put(
+        action(INIT_MODAL, {
+          payload: {
+            error,
+            autoDismiss: 0,
+            title: messageToDisplay.title,
+            description: messageToDisplay.description(changesetId)
+          }
+        })
+      );
+    }
+    // update the change in changeset list also aka changesetP
+    if (newChangeset) {
+      yield put(
+        action(CHANGESET_PAGE_MODIFY_CHANGESET, {
+          changesetId,
+          changeset: newChangeset
+        })
+      );
+      yield put(
+        action(INIT_MODAL, {
+          payload: {
+            kind: 'success',
+            autoDismiss: 1,
+            title: 'Success',
+            description: `${changesetId} was modified successfully`
+          }
         })
       );
     }
@@ -178,11 +241,28 @@ export function* fetchChangesetAction(changesetId: number): Object {
       })
     );
   } catch (error) {
-    console.error(error);
     yield put(
       action(CHANGESET_ERROR, {
         changesetId,
         error
+      })
+    );
+    const location = yield select(
+      (state: RootStateType) => state.routing.location
+    );
+    yield put(
+      action(INIT_MODAL, {
+        payload: {
+          error,
+          kind: 'error',
+          dismiss: true,
+          autoDismiss: 0,
+          title: 'Changeset Details Failed',
+          description: `Changeset Details for ID: ${changesetId} failed to load, please wait for a while and click retry.`,
+          callbackLabel: `Retry ${changesetId}`
+        },
+        callback: push,
+        callbackArgs: [location]
       })
     );
   }
@@ -223,11 +303,28 @@ export function* fetchChangesetMapAction(changesetId: number): Object {
       })
     );
   } catch (error) {
-    console.error(error);
     yield put(
       action(CHANGESET_MAP_ERROR, {
         changesetId,
         error
+      })
+    );
+    const location = yield select(
+      (state: RootStateType) => state.routing.location
+    );
+    yield put(
+      action(INIT_MODAL, {
+        payload: {
+          error,
+          kind: 'error',
+          dismiss: true,
+          autoDismiss: 0,
+          title: 'Changeset Map Failed',
+          description: `Changeset map for ID: ${changesetId} failed to load, please wait for a while and click retry.`,
+          callbackLabel: `Retry ${changesetId}`
+        },
+        callback: push,
+        callbackArgs: [location]
       })
     );
   }
@@ -248,6 +345,9 @@ export function* setHarmfulAction({
     // )
     .setIn(['properties', 'checked'], harmful === -1 ? false : true)
     .setIn(['properties', 'harmful'], harmful === -1 ? null : harmful);
+
+  // update changeset list
+
   yield put(
     action(CHANGESET_MODIFY, {
       changesetId,
@@ -255,6 +355,7 @@ export function* setHarmfulAction({
     })
   );
   yield call(setHarmful, changesetId, token, harmful);
+  return newChangeset;
 }
 
 export function* setTagActions({
@@ -297,6 +398,7 @@ export function* setTagActions({
       })
     );
     yield call(setTag, changesetId, token, tag, remove);
+    return newChangeset;
   } else {
     throw new Error('Only allowed on checked changesets');
   }

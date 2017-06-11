@@ -9,27 +9,25 @@ import { Navbar } from '../components/navbar';
 import { Filter } from '../components/filter';
 import { Button } from '../components/button';
 import { getItem, setItem } from '../utils/safe_storage';
+import { gaPageView, gaSendEvent } from '../utils/analytics';
 
 import filters from '../config/filters.json';
 
 import { applyFilters } from '../store/changesets_page_actions';
 
 import type { RootStateType } from '../store';
+
 const USERS_LIMIT = 200;
 class Filters extends React.PureComponent {
   props: {
     filters: Object,
     location: Object,
     features: List<Map<string, any>>,
+    lastChangesetID: number,
     applyFilters: (Object, string) => mixed
   };
   state = { ...this.props.filters };
   scrollable = null;
-  componentDidMount() {
-    // Mousetrap.bind(FILTER_BINDING, () => {
-    //   this.toggleFilter();
-    // });
-  }
   handleSelectChange = (name, obj) => {
     if (Array.isArray(obj)) {
       return this.setState({
@@ -52,6 +50,25 @@ class Filters extends React.PureComponent {
   };
   handleApply = () => {
     this.props.applyFilters(this.state, '/');
+    Object.keys(this.state).forEach(f => {
+      if (Array.isArray(this.state[f])) {
+        this.state[f].forEach((e, i) => {
+          gaSendEvent({
+            category: 'Filters',
+            action: f,
+            value: parseInt(this.state[f][i].value, 10),
+            label: this.state[f][i].label
+          });
+        });
+      } else {
+        gaSendEvent({
+          category: 'Filters',
+          action: f,
+          value: parseInt(this.state[f], 10),
+          label: f
+        });
+      }
+    });
   };
   handleClear = () => {
     var keys = Object.keys(this.state);
@@ -153,10 +170,10 @@ class Filters extends React.PureComponent {
 Filters = connect(
   (state: RootStateType, props) => ({
     filters: state.changesetsPage.get('filters') || {},
-    features: state.changesetsPage.getIn(['pages', 0, 'features']),
+    features: state.changesetsPage.getIn(['currentPage', 'features']),
     lastChangesetID:
       state.changeset.get('changesetId') ||
-        state.changesetsPage.getIn(['pages', 0, 'features', 0, 'id']),
+        state.changesetsPage.getIn(['currentPage', 'features', 0, 'id']),
     location: props.location
   }),
   {

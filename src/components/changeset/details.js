@@ -22,20 +22,30 @@ export function Details({
   const reasons = properties.get('reasons');
   const comment = properties.get('comment');
 
-  // var regexes = [
-  //   /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:{%}_\+.~#?&//=]*)/gi
-  //   /(http|ftp|https):\/\/([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,{}]*)?/g,
-  // ].forEach(regex => {
-  //   if (source.match(regex)) {
-  //     // source =
-  //   }
-  // });
+  const urlRegex = new RegExp(
+    /(([\w\.\-\+]+:)\/{2}(([\w\d\.]+):([\w\d\.]+))?@?(([a-zA-Z0-9\.\-_]+)(?::(\d{1,5}))?))?(\/(?:[a-zA-Z0-9{}:\,\.\-\/\+\%]+)?)(?:\?([a-zA-Z0-9=%\-_\.\*&;]+))?(?:#([a-zA-Z0-9\-=,&%;\/\\"'\?]+)?)?/g
+  );
 
+  let sourceMatch = [];
+  let sourceOrignal = source;
+
+  if (source.indexOf('{switch:a,b,c}.') > -1) {
+    source = source.replace('{switch:a,b,c}.', '');
+  }
+  if (source.match(urlRegex)) {
+    sourceMatch = source.match(urlRegex);
+    source = source.replace(urlRegex, '');
+  }
+  let imageryMatch = [];
+  if (imagery.match(urlRegex)) {
+    imageryMatch = imagery.match(urlRegex);
+    imagery = imagery.replace(urlRegex, '');
+  }
   return (
     <div>
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
         <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
-          <Reasons reasons={reasons} />
+          <Reasons reasons={reasons} color="green" />
         </div>
         <div className="flex-parent flex-parent--row flex-parent--wrap py12">
           <p className="flex-child txt-subhead my12 txt-l ml3">
@@ -59,7 +69,32 @@ export function Details({
       <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap pt12 pb6">
         <div className="flex-parent flex-parent--column ">
           <span className="txt-s txt-uppercase txt-bold">Source</span>
-          <span className="wmax180 txt-break-word txt-s">{source}</span>
+          <span className="wmax180 txt-break-word txt-s">
+            {source}
+            <span>
+              <br />
+              {sourceMatch.map((e, k) =>
+                <a
+                  href={sourceOrignal}
+                  title={sourceOrignal}
+                  key={k}
+                  className="color-blue"
+                >
+                  {Array.isArray(
+                    e.match(
+                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                    )
+                  )
+                    ? e.match(
+                        /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                      )[0]
+                    : <svg className="icon inline-block align-middle ">
+                        <use xlinkHref="#icon-share" />
+                      </svg>}
+                </a>
+              )}
+            </span>
+          </span>
         </div>
         <div className="flex-parent flex-parent--column ">
           <span className="txt-s txt-uppercase txt-bold">Editor</span>
@@ -67,7 +102,27 @@ export function Details({
         </div>
         <div className="flex-parent flex-parent--column">
           <span className="txt-s txt-uppercase txt-bold">Imagery</span>
-          <span className="wmax180 txt-break-word txt-s">{imagery}</span>
+          <span className="wmax180 txt-break-word txt-s">
+            {imagery}
+            <span>
+              <br />
+              {imageryMatch.map((e, k) =>
+                <a href={e} key={k} className="color-blue">
+                  {Array.isArray(
+                    e.match(
+                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                    )
+                  )
+                    ? e.match(
+                        /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                      )[0]
+                    : <svg className="icon inline-block align-middle ">
+                        <use xlinkHref="#icon-share" />
+                      </svg>}
+                </a>
+              )}
+            </span>
+          </span>
         </div>
       </div>
     </div>

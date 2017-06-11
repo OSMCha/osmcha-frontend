@@ -5,12 +5,12 @@ import { List as ImmutableList, Map } from 'immutable';
 import R from 'ramda';
 import Mousetrap from 'mousetrap';
 import { NavLink } from 'react-router-dom';
+import { push } from 'react-router-redux';
 
 import type { RootStateType } from '../store';
 import type { ChangesetType } from '../store/changeset_reducer';
 
 import { history } from '../store/history';
-import { getChangeset } from '../store/changeset_actions';
 import {
   getChangesetsPage,
   applyFilters
@@ -26,8 +26,12 @@ import { Button } from '../components/button';
 import { PageRange } from '../components/list/page_range';
 import { Dropdown } from '../components/dropdown';
 
-import { NEXT_CHANGESET, PREV_CHANGESET } from '../config/bindings';
-import { osmAuthUrl } from '../config/constants';
+import {
+  NEXT_CHANGESET,
+  PREV_CHANGESET,
+  FILTER_BINDING
+} from '../config/bindings';
+import { osmAuthUrl, PAGE_SIZE } from '../config/constants';
 import { createPopup } from '../utils/create_popup';
 import { handlePopupCallback } from '../utils/handle_popup_callback';
 
@@ -41,27 +45,27 @@ class ChangesetsList extends React.PureComponent {
     loading: boolean,
     error: Object,
     style: Object,
-    currentPage: Map<string, *>,
-    cachedChangesets: Map<string, *>,
+    currentPage: ?Map<string, *>,
     userDetails: Map<string, *>,
     pageIndex: number,
     activeChangesetId: ?number,
     oAuthToken: ?string,
     token: ?string,
-    getChangesetsPage: number => mixed, // base 0
-    getChangeset: number => mixed, // base 0
-    getOAuthToken: () => mixed,
-    getFinalToken: () => mixed,
-    logUserOut: () => mixed,
     filters: Object,
+    getChangesetsPage: number => mixed, // base 0
+    getOAuthToken: () => mixed,
+    getFinalToken: string => mixed,
+    logUserOut: () => mixed,
+    push: Object => mixed,
     applyFilters: Object => mixed // base 0
   };
+  maxPageCount = Infinity;
   constructor(props) {
     super(props);
-    console.log('unmounted changeset list');
     this.props.getChangesetsPage(props.pageIndex);
   }
   goUpDownToChangeset = (direction: number) => {
+    if (!this.props.currentPage) return;
     let features = this.props.currentPage.get('features');
     if (features) {
       let index = features.findIndex(
@@ -70,11 +74,30 @@ class ChangesetsList extends React.PureComponent {
       index += direction;
       const nextFeature = features.get(index);
       if (nextFeature) {
-        history.push(`/changesets/${nextFeature.get('id')}`);
+        const location = {
+          ...this.props.location, //  clone it
+          pathname: `/changesets/${nextFeature.get('id')}`
+        };
+        this.props.push(location);
       }
     }
   };
   componentDidMount() {
+    Mousetrap.bind(FILTER_BINDING, () => {
+      if (this.props.location && this.props.location.pathname === '/filters') {
+        const location = {
+          ...this.props.location, //  clone it
+          pathname: '/'
+        };
+        this.props.push(location);
+      } else {
+        const location = {
+          ...this.props.location, //  clone it
+          pathname: '/filters'
+        };
+        this.props.push(location);
+      }
+    });
     Mousetrap.bind(NEXT_CHANGESET, e => {
       e.preventDefault();
       this.goUpDownToChangeset(1);
@@ -94,7 +117,6 @@ class ChangesetsList extends React.PureComponent {
           : '/local-landing.html'
       );
       handlePopupCallback().then(oAuthObj => {
-        console.log('popupgave', oAuthObj);
         this.props.getFinalToken(oAuthObj.oauth_verifier);
       });
     }
@@ -130,7 +152,17 @@ class ChangesetsList extends React.PureComponent {
       );
     }
     const base = parseInt(this.props.pageIndex / RANGE, 10) * RANGE;
+
     const { currentPage, loading } = this.props;
+    if (
+      this.props.pageIndex === 0 &&
+      currentPage &&
+      !Number.isNaN(currentPage.get('count', 10))
+    ) {
+      const count: number = currentPage.get('count', 10);
+      this.maxPageCount = Math.ceil(count / PAGE_SIZE);
+    }
+
     const valueData = [];
     const options = filters.filter(f => f.name === 'order_by')[0].options;
     if (this.props.filters['order_by']) {
@@ -175,18 +207,17 @@ class ChangesetsList extends React.PureComponent {
           activeChangesetId={this.props.activeChangesetId}
           currentPage={currentPage}
           loading={loading}
-          cachedChangesets={this.props.cachedChangesets}
-          getChangeset={this.props.getChangeset}
           pageIndex={this.props.pageIndex}
         />
         <footer className="hmin55 p12 pb24 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
           <PageRange
             page={'<'}
             pageIndex={this.props.pageIndex - 1}
+            disabled={this.props.pageIndex - 1 === -1}
             active={false}
             getChangesetsPage={this.props.getChangesetsPage}
           />
-          {R.range(base, base + RANGE).map(n =>
+          {R.range(base, Math.min(base + RANGE, this.maxPageCount)).map(n =>
             <PageRange
               key={n}
               page={n}
@@ -197,6 +228,7 @@ class ChangesetsList extends React.PureComponent {
           )}
           <PageRange
             page={'>'}
+            disabled={this.props.pageIndex + 1 >= this.maxPageCount}
             pageIndex={this.props.pageIndex + 1}
             active={false}
             getChangesetsPage={this.props.getChangesetsPage}
@@ -212,10 +244,7 @@ ChangesetsList = connect(
   (state: RootStateType, props) => ({
     routing: state.routing,
     location: state.routing.location,
-    currentPage: state.changesetsPage.getIn([
-      'pages',
-      state.changesetsPage.get('pageIndex')
-    ]),
+    currentPage: state.changesetsPage.get('currentPage'),
     pageIndex: state.changesetsPage.get('pageIndex') || 0,
     filters: state.changesetsPage.get('filters') || {},
     loading: state.changesetsPage.get('loading'),
@@ -223,17 +252,16 @@ ChangesetsList = connect(
     oAuthToken: state.auth.get('oAuthToken'),
     userDetails: state.auth.get('userDetails'),
     token: state.auth.get('token'),
-    cachedChangesets: state.changeset.get('changesets'),
     activeChangesetId: state.changeset.get('changesetId')
   }),
   {
     // actions
     getChangesetsPage,
-    getChangeset,
     getOAuthToken,
     getFinalToken,
     applyFilters,
-    logUserOut
+    logUserOut,
+    push
   }
 )(ChangesetsList);
 export { ChangesetsList };

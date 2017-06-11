@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Map } from 'immutable';
+import { List } from 'immutable';
 import moment from 'moment';
 
 type Props = {

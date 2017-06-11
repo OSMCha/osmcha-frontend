@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import debounce from 'lodash.debounce';
-import Raven from 'raven-js';
 
 import { registerServiceWorker } from './serviceworker';
 
@@ -19,7 +18,20 @@ import './0.13.0.assembly';
 import App from './app';
 import { history } from './store/history';
 import { store } from './store';
+
+var ReactGA = require('react-ga');
+ReactGA.initialize('UA-100686765-1', {
+  debug: true,
+  gaOptions: {
+    anonymizeIp: true,
+    screenResolution: `${window.screen.availWidth}X${window.screen
+      .availHeight}`,
+    appName: process.env.NODE_ENV
+  }
+});
+
 if (process.env.NODE_ENV === 'production') {
+  var Raven = require('raven-js');
   Raven.config('https://5637ef87f5794e2fb9e1e5fe9119688d@sentry.io/175926', {
     release: process.env.REACT_APP_VERSION,
     environment: process.env.NODE_ENV

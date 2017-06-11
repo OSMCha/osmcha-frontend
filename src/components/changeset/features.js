@@ -3,11 +3,11 @@ import React from 'react';
 import { Map, fromJS } from 'immutable';
 import { Reasons } from '../reasons';
 import { selectFeature } from '../../views/map';
-const Feature = ({ data }) => (
+const Feature = ({ data }) =>
   <tr className="txt-s">
     <td>{data.get('osm_id')}</td>
     <td>{data.get('name')}</td>
-    <td><Reasons reasons={data.get('reasons')} /></td>
+    <td><Reasons reasons={data.get('reasons')} color="green" /></td>
     <td>
       <span
         onClick={() => selectFeature(parseInt(data.get('osm_id'), 10))}
@@ -16,11 +16,17 @@ const Feature = ({ data }) => (
         Map
       </span>
       <span className="cursor-pointer txt-bold txt-underline-on-hover">
-        JOSM
+        <a
+          target="_blank"
+          href={`https://localhost:8112/load_object?new_layer=true&objects=n${data.get(
+            'osm_id'
+          )}`}
+        >
+          JOSM
+        </a>
       </span>
     </td>
-  </tr>
-);
+  </tr>;
 
 export function Features({
   properties,

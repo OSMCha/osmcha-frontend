@@ -43,7 +43,6 @@ export class Row extends React.PureComponent {
     backgroundClass += active
       ? 'light-blue'
       : this.wasOpen ? ' bg-darken5 ' : '';
-
     return (
       <Link
         to={{
@@ -72,6 +71,7 @@ export class Row extends React.PureComponent {
               <div>
                 <PrimaryLine
                   reasons={properties.get('reasons')}
+                  tags={properties.get('tags')}
                   comment={properties.get('comment')}
                 />
               </div>

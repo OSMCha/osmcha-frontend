@@ -20,9 +20,7 @@ data/
 .*node_modules/unflowify/.*
 .*node_modules/changeset-map/.*
 .*node_modules/changeset-map/node_modules/mapbox-gl/src/.*
-.*changeset-map/.*
 [include]
 
 [libs]
-changeset-map
 [options]

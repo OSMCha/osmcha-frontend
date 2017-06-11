@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { ToastContainer, ToastMessage } from 'react-toastr';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Mousetrap from 'mousetrap';
 
@@ -13,40 +12,28 @@ import { ChangesetsList } from './views/changesets_list';
 import { CMap } from './views/map';
 import { NavbarChangeset } from './views/navbar_changeset';
 import { NavbarSidebar } from './views/navbar_sidebar';
+import { Modal } from './views/modal';
+
 import { Sidebar } from './components/sidebar';
 import { Navbar } from './components/navbar';
-
-var ToastMessageFactory = React.createFactory(ToastMessage.animation);
+import { gaPageView } from './utils/analytics';
+import { getFiltersFromUrl } from './utils/query_params';
 
 class App extends Component {
   resize = null;
   componentDidMount() {
     if (document && document.body) {
-      Mousetrap.bind('\\', () => {
-        if (
-          this.props.history.location &&
-          this.props.history.location.pathname === '/filters'
-        ) {
-          this.props.history.push('/');
-        } else {
-          this.props.history.push('/filters');
-        }
-      });
+      var filters = getFiltersFromUrl();
+      if (filters && Object.keys(filters).length > 0) {
+        filters = Object.keys(filters)
+          .sort((a, b) => a.localeCompare(b))
+          .join(',');
+        gaPageView(`/?filters=${filters}`);
+      } else {
+        gaPageView('/');
+      }
     }
   }
-  // trigger it via events
-  showToast = (event: Object) => {
-    const message = event.detail;
-    const messageType: 'warning' | 'error' | 'success' | 'info' = message.type;
-
-    this.refs.toastr[messageType](message.title, message.content, {
-      timeOut: message.timeOut,
-      extendedTimeOut: 4000,
-      closeButton: true,
-      showAnimation: 'animated slideInDown',
-      hideAnimation: 'animated fadeOut'
-    });
-  };
   render() {
     const width = window.innerWidth;
     if (width > 800) {
@@ -101,11 +88,7 @@ class App extends Component {
                   <Route path="/stats" component={Stats} />
                 </div>
               </div>
-              <ToastContainer
-                ref="toastr"
-                toastMessageFactory={ToastMessageFactory}
-                className="toast-top-right"
-              />
+              <Modal />
             </div>}
         />
       );
@@ -127,11 +110,7 @@ class App extends Component {
             <Route path="/stats" component={Stats} />
             <Route path="/filters" component={Filters} />
           </div>
-          <ToastContainer
-            ref="toastr"
-            toastMessageFactory={ToastMessageFactory}
-            className="toast-top-right"
-          />
+          <Modal />
         </div>
       );
     }

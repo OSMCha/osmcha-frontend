@@ -32,10 +32,10 @@
     "@turf/helpers" "^3.13.0"
 
 "@turf/bbox-polygon@^4.3.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@turf/bbox-polygon/-/bbox-polygon-4.3.0.tgz#c75ca4159a35454b79dba1090c499f9f01cac95c"
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@turf/bbox-polygon/-/bbox-polygon-4.4.0.tgz#40b17ed063f0722e7407dcd6fad03bfce57b5a15"
   dependencies:
-    "@turf/helpers" "^4.3.0"
+    "@turf/helpers" "^4.4.0"
 
 "@turf/bbox@^3.13.0":
   version "3.14.0"
@@ -47,9 +47,9 @@
   version "3.13.0"
   resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-3.13.0.tgz#d06078a1464cf56cdb7ea624ea1e13a71b88b806"
 
-"@turf/helpers@^4.3.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-4.3.0.tgz#7b2f733aa0eb3ea1f07d467ac02ede00cc6cde0d"
+"@turf/helpers@^4.3.0", "@turf/helpers@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-4.4.0.tgz#c83112f7fbe6ed183c7c0c2f776481b94d1cbd01"
 
 "@turf/meta@^3.14.0":
   version "3.14.0"
@@ -1372,18 +1372,18 @@ chalk@1.1.3, chalk@^1.0.0, chalk@^1.1.0, chalk@^1.1.1, chalk@^1.1.3:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
-changeset-map@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/changeset-map/-/changeset-map-1.0.3.tgz#f16565e546f00bc03018f3a08ff86a23b7b3d486"
+changeset-map@1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/changeset-map/-/changeset-map-1.0.7.tgz#0c439a8deff23e00dc0e88dfdb224cf07fdc1bde"
   dependencies:
     "@turf/bbox-polygon" "^4.3.0"
     "@turf/helpers" "^4.3.0"
+    global "^4.3.2"
     mapbox-gl "^0.37.0"
     moment "^2.18.1"
     osm-adiff-parser-saxjs "^1.0.0"
-    react "^15.5.4"
-    react-dom "^15.5.4"
     real-changesets-parser "^1.2.3"
+    rollup-plugin-uglify "^2.0.1"
     sax "^1.2.2"
     xhr "^2.4.0"
 
@@ -1739,7 +1739,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.5.2, create-react-class@^15.5.3:
+create-react-class@^15.5.1, create-react-class@^15.5.2, create-react-class@^15.5.3:
   version "15.5.3"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.5.3.tgz#fb0f7cae79339e9a179e194ef466efa3923820fe"
   dependencies:
@@ -2149,10 +2149,6 @@ electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.11:
 elegant-spinner@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/elegant-spinner/-/elegant-spinner-1.0.1.tgz#db043521c95d7e303fd8f345bedc3349cfb0729e"
-
-element-class@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/element-class/-/element-class-0.2.2.tgz#9d3bbd0767f9013ef8e1c8ebe722c1402a60050e"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -3016,7 +3012,7 @@ glob@~7.0.6:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-global@~4.3.0:
+global@^4.3.2, global@~4.3.0:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/global/-/global-4.3.2.tgz#e76989268a6c74c38908b1305b10fc0e394e9d0f"
   dependencies:
@@ -4279,7 +4275,7 @@ lodash@4.12.0:
   version "4.12.0"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.12.0.tgz#2bd6dc46a040f59e686c972ed21d93dc59053258"
 
-"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.1, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0:
+"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -5409,9 +5405,9 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier-eslint-cli@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/prettier-eslint-cli/-/prettier-eslint-cli-4.0.4.tgz#778ec4ae06c644f1cfac5cd8677fb881338292d6"
+prettier-eslint-cli@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/prettier-eslint-cli/-/prettier-eslint-cli-4.1.0.tgz#506f5fa63d8bffd3eb48b754223d1223f5cde4ab"
   dependencies:
     arrify "^1.0.1"
     babel-runtime "^6.23.0"
@@ -5445,9 +5441,9 @@ prettier-eslint@^6.0.0:
     pretty-format "^19.0.0"
     require-relative "^0.8.7"
 
-prettier@^1.3.0, prettier@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.4.2.tgz#bcdd95ed1eca434ac7f98ca26ea4d25a2af6a2ac"
+prettier@^1.3.0, prettier@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.4.4.tgz#a8d1447b14c9bf67e6d420dcadd10fb9a4fad65a"
 
 pretty-bytes@^4.0.2:
   version "4.0.2"
@@ -5633,13 +5629,6 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-"react-addons-update@^0.14.0 || ^15.0.0":
-  version "15.5.2"
-  resolved "https://registry.yarnpkg.com/react-addons-update/-/react-addons-update-15.5.2.tgz#0ada50494387b17238999ee9662f9f3fc38f935d"
-  dependencies:
-    fbjs "^0.8.9"
-    object-assign "^4.1.0"
-
 react-click-outside@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/react-click-outside/-/react-click-outside-2.3.1.tgz#318737ebdf081a4a3bcd46825663674cbe9836eb"
@@ -5672,7 +5661,7 @@ react-dev-utils@^3.0.0:
     strip-ansi "3.0.1"
     text-table "0.2.0"
 
-"react-dom@^0.14.0 || ^15.0.0", react-dom@^15.5.3, react-dom@^15.5.4:
+react-dom@^15.5.3:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.5.4.tgz#ba0c28786fd52ed7e4f2135fe0288d462aef93da"
   dependencies:
@@ -5692,6 +5681,14 @@ react-error-overlay@^1.0.7:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
+react-ga@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.2.0.tgz#45235de1356e4d988d9b82214d615a08489c9291"
+  dependencies:
+    create-react-class "^15.5.2"
+    object-assign "^4.0.1"
+    prop-types "^15.5.6"
+
 react-input-autosize@^1.1.3:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.1.4.tgz#cbc45072d4084ddc57806db8e3b34e644b8366ac"
@@ -5706,6 +5703,14 @@ react-measure@^2.0.2:
     get-node-dimensions "^1.2.0"
     prop-types "^15.5.10"
     resize-observer-polyfill "^1.4.2"
+
+react-notification-system@^0.2.14:
+  version "0.2.14"
+  resolved "https://registry.yarnpkg.com/react-notification-system/-/react-notification-system-0.2.14.tgz#21f917f39feee145516864350875041433c4d5c0"
+  dependencies:
+    create-react-class "^15.5.1"
+    object-assign "^4.0.1"
+    prop-types "^15.5.6"
 
 react-redux@^5.0.4:
   version "5.0.5"
@@ -5800,21 +5805,18 @@ react-select@^1.0.0-rc.5:
     prop-types "^15.5.8"
     react-input-autosize "^1.1.3"
 
+react-test-renderer@^15.5.4:
+  version "15.5.4"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-15.5.4.tgz#d4ebb23f613d685ea8f5390109c2d20fbf7c83bc"
+  dependencies:
+    fbjs "^0.8.9"
+    object-assign "^4.1.0"
+
 react-tippy@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/react-tippy/-/react-tippy-0.14.0.tgz#a83cc6fca5edc1dc2acfecc35cea331eb42c2daf"
   dependencies:
     popper.js "^1.5.1"
-
-react-toastr@^2.8.2:
-  version "2.8.2"
-  resolved "https://registry.yarnpkg.com/react-toastr/-/react-toastr-2.8.2.tgz#55bfe8a5b1adc7a09e9fa14ddf428575876f42e1"
-  dependencies:
-    classnames "^2.2.5"
-    element-class "^0.2.2"
-    lodash "^4.16.1"
-    react-addons-update "^0.14.0 || ^15.0.0"
-    react-dom "^0.14.0 || ^15.0.0"
 
 react-transition-group@^1.1.2:
   version "1.1.3"
@@ -5825,7 +5827,7 @@ react-transition-group@^1.1.2:
     prop-types "^15.5.6"
     warning "^3.0.0"
 
-react@^15.5.3, react@^15.5.4:
+react@^15.5.3:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react/-/react-15.5.4.tgz#fa83eb01506ab237cdc1c8c3b1cea8de012bf047"
   dependencies:
@@ -6181,6 +6183,12 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^2.0.0"
     inherits "^2.0.1"
+
+rollup-plugin-uglify@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-uglify/-/rollup-plugin-uglify-2.0.1.tgz#67b37ad1efdafbd83af4c36b40c189ee4866c969"
+  dependencies:
+    uglify-js "^3.0.9"
 
 run-async@^0.1.0:
   version "0.1.0"
@@ -6889,7 +6897,7 @@ ua-parser-js@^0.7.9:
   version "0.7.12"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.12.tgz#04c81a99bdd5dc52263ea29d24c6bf8d4818a4bb"
 
-uglify-js@3.0.x:
+uglify-js@3.0.x, uglify-js@^3.0.9:
   version "3.0.10"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.0.10.tgz#e220e7dbc05ce1f9bb08268b221aa0cf152fb4e2"
   dependencies:

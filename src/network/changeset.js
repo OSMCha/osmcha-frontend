@@ -17,7 +17,9 @@ export function setHarmful(id: number, token: string, harmful: boolean | -1) {
   if (harmful === -1) {
     url = `${API_URL}/changesets/${id}/uncheck/`;
   } else {
-    url = `${API_URL}/changesets/${id}/${harmful ? 'set-harmful' : 'set-good'}/`;
+    url = `${API_URL}/changesets/${id}/${harmful
+      ? 'set-harmful'
+      : 'set-good'}/`;
   }
 
   return fetch(url, {
@@ -28,7 +30,7 @@ export function setHarmful(id: number, token: string, harmful: boolean | -1) {
     }
   }).then(res => {
     if (res.status === 403) {
-      throw new Error('Changeset was already checked!');
+      return res.json().then(r => Promise.reject(r));
     }
     if (res.status >= 400 && res.status < 600) {
       throw new Error('Bad response from server. Please reload');
@@ -66,9 +68,7 @@ export function setTag(
     })
   }).then(res => {
     if (res.status >= 400 && res.status < 600) {
-      throw new Error(
-        'Bad request. Please make sure you are allowed to add tags to this changeset.'
-      );
+      return res.json().then(r => Promise.reject(r));
     }
     return res.json();
   });

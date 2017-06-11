@@ -69,6 +69,7 @@ class DropdownContent extends React.PureComponent {
             <a
               target={i.href ? '_blank' : '_self'}
               href={i.href || '#'}
+              onClick={this.props.toggleDropdown}
               className={` px12 py6 txt-nowrap flex-child--grow cursor-pointer ${this.isActive(
                 i
               )

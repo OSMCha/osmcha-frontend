@@ -6,7 +6,7 @@ export class PageRange extends React.PureComponent {
     return (
       <button
         onClick={this._onClick}
-        disabled={this.props.page === '<' && this.props.pageIndex === -1}
+        disabled={this.props.disabled}
         className={`flex-child btn btn--s color-gray-dark
           ${this.props.active ? 'is-active bg-gray-light' : 'bg-gray-faint'}
           `}

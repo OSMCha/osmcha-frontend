@@ -55,7 +55,7 @@
     "icontains": false,
     "range": false,
     "all": false,
-    "display": "Reviewed",
+    "display": "Checked",
     "type": "radio",
     "options": [
       {

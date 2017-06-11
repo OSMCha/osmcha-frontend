@@ -1,6 +1,7 @@
 // @flow
 import request from 'superagent';
-import { osmchaSocialTokenUrl, osmChaUrl } from '../config/constants';
+import { osmchaSocialTokenUrl } from '../config/constants';
+import { API_URL } from '../config';
 
 export function postTokensOSMCha(
   oauth_token: ?string,
@@ -34,11 +35,18 @@ export function postTokensOSMCha(
 }
 
 export function fetchUserDetails(token: string) {
-  return fetch(`${osmChaUrl}/users/`, {
+  return fetch(`${API_URL}/users/`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
     }
-  }).then(res => res.json());
+  }).then(res => {
+    if (res.status >= 400 && res.status < 600) {
+      throw new Error(
+        'Bad request. Please make sure you are allowed to add tags to this changeset.'
+      );
+    }
+    return res.json();
+  });
 }

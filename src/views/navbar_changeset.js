@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
+import Mousetrap from 'mousetrap';
 
 import { Tags } from '../components/changeset/tags';
 import { Link } from 'react-router-dom';
@@ -9,6 +10,15 @@ import { Navbar } from '../components/navbar';
 import { Verify } from '../components/changeset/verify';
 import { Dropdown } from '../components/dropdown';
 import { OpenIn } from '../components/changeset/open_in';
+
+import {
+  VERIFY_BAD,
+  VERIFY_GOOD,
+  VERIFY_CLEAR,
+  OPEN_IN_JOSM,
+  OPEN_IN_HDYC
+} from '../config/bindings';
+
 import {
   handleChangesetModifyTag,
   handleChangesetModifyHarmful
@@ -33,6 +43,56 @@ class NavbarChangeset extends React.PureComponent {
       boolean | -1
     ) => mixed
   };
+  componentDidMount() {
+    Mousetrap.bind(VERIFY_BAD, () => {
+      this.props.currentChangeset &&
+        this.props.handleChangesetModifyHarmful(
+          this.props.changesetId,
+          this.props.currentChangeset,
+          true
+        );
+    });
+    Mousetrap.bind(VERIFY_CLEAR, () => {
+      this.props.currentChangeset &&
+        this.props.handleChangesetModifyHarmful(
+          this.props.changesetId,
+          this.props.currentChangeset,
+          -1
+        );
+    });
+    Mousetrap.bind(VERIFY_GOOD, () => {
+      this.props.currentChangeset &&
+        this.props.handleChangesetModifyHarmful(
+          this.props.changesetId,
+          this.props.currentChangeset,
+          false
+        );
+    });
+    Mousetrap.bind(OPEN_IN_JOSM, () => {
+      if (!this.props.changesetId) return;
+      const url = `https://127.0.0.1:8112/import?url=http://www.openstreetmap.org/api/0.6/changeset/${this
+        .props.changesetId}/download`;
+      window.open(url, '_blank');
+    });
+    Mousetrap.bind(OPEN_IN_HDYC, () => {
+      if (!this.props.currentChangeset) return;
+      const user: string = this.props.currentChangeset.getIn(
+        ['properties', 'user'],
+        ''
+      );
+      const url = `http://hdyc.neis-one.org/?${user}`;
+      window.open(url, '_blank');
+    });
+  }
+  componentWillUnmount() {
+    [
+      ...VERIFY_BAD,
+      ...VERIFY_GOOD,
+      ...VERIFY_GOOD,
+      ...OPEN_IN_JOSM,
+      ...OPEN_IN_HDYC
+    ].forEach(k => Mousetrap.unbind(k));
+  }
   handleVerify = (arr: Array<Object>) => {
     if (arr.length === 1) {
       this.props.handleChangesetModifyHarmful(
@@ -71,14 +131,26 @@ class NavbarChangeset extends React.PureComponent {
                 {' '}
                 <span className="txt-underline">
                   <a
-                    href={`https://openstreetmap.org/changeset/${this.props.changesetId}`}
+                    href={`https://openstreetmap.org/changeset/${this.props
+                      .changesetId}`}
                     target="_blank"
                   >
                     {this.props.changesetId}
                   </a>
                 </span>
               </span>
-              <OpenIn changesetId={this.props.changesetId} />
+              <OpenIn
+                changesetId={this.props.changesetId}
+                coordinates={
+                  this.props.currentChangeset &&
+                  this.props.currentChangeset.getIn([
+                    'geometry',
+                    'coordinates',
+                    0,
+                    0
+                  ])
+                }
+              />
             </span>
             <span>
 
