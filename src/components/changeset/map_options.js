@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { getMapInstance } from 'changeset-map';
 
 export class MapOptions extends React.PureComponent {
   constructor(props) {
@@ -17,19 +16,39 @@ export class MapOptions extends React.PureComponent {
     // this.toggleMapStyle = this.toggleMapStyle.bind(this);
   }
   onChange = () => {
-    getMapInstance().filterLayers();
+    this.importChangesetMap().then(r => r && r() && r().filterLayers());
   };
   toggleSatellite = () => {
-    getMapInstance().renderMap(
-      'mapbox://styles/rasagy/cizp6lsah00ct2snu6gi3p16q'
+    this.importChangesetMap().then(
+      r =>
+        r &&
+        r() &&
+        r().renderMap('mapbox://styles/rasagy/cizp6lsah00ct2snu6gi3p16q')
     );
   };
   toggleDark = () => {
-    getMapInstance().renderMap('mapbox://styles/mapbox/dark-v9');
+    this.importChangesetMap().then(
+      r => r && r() && r().renderMap('mapbox://styles/mapbox/dark-v9')
+    );
   };
   toggleStreet = () => {
-    getMapInstance().renderMap('mapbox://styles/mapbox/streets-v9');
+    this.importChangesetMap().then(
+      r => r && r() && r().renderMap('mapbox://styles/mapbox/streets-v9')
+    );
   };
+  importChangesetMap() {
+    if (this.getMapInstance) return Promise.resolve(this.getMapInstance);
+    console.log('fetcgubg new cmp');
+    return import('changeset-map')
+      .then(module => {
+        this.getMapInstance = module.getMapInstance;
+        return module.getMapInstance;
+      })
+      .catch(function(err) {
+        console.error(err);
+        console.log('Failed to load module changeset-map');
+      });
+  }
   render() {
     return (
       <div className="p18">

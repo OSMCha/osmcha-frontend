@@ -27,6 +27,7 @@
     "react-router-dom": "^4.0.0",
     "react-router-redux": "next",
     "react-select": "^1.0.0-rc.5",
+    "react-test-renderer": "^15.5.4",
     "react-tippy": "^0.14.0",
     "react-transition-group": "^1.1.2",
     "redux": "^3.6.0",
@@ -52,7 +53,7 @@
     "flow": "flow",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "check-node-version --node '>= 7.0' && npm run flow && react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },

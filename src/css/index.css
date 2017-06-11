@@ -225,7 +225,7 @@ body {
 
 .cmap-diff {
   position: fixed !important;
-  bottom: 0px;
+  bottom: 14px;
   right: 0px;
   padding: 5px;
   top: inherit !important;

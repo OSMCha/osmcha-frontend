@@ -40,6 +40,7 @@ export function* watchAuth(): any {
   // get the token from localStorage.
   // if it exists we just need to wait for
   // logout action.
+  let DELAY = 1000;
   let token = yield select((state: RootStateType) => state.auth.get('token'));
 
   // wrapping it in a for loop allows us to
@@ -54,6 +55,7 @@ export function* watchAuth(): any {
       // const osmUser = yield call(fetchOsmUserDetails, userDetails.get('id'));
       // console.log(osmUser);
       yield put(action(USER_DETAILS, { userDetails }));
+      DELAY = 1000;
       yield take(LOGOUT);
     } catch (error) {
       yield put(action(LOGIN_ERROR, error));
@@ -64,18 +66,20 @@ export function* watchAuth(): any {
             error,
             kind: 'warning',
             dismiss: true,
-            autoDismiss: 7,
+            autoDismiss: 4,
             title: 'Login Failed',
-            description: 'Please check your credentials and try again'
+            description:
+              'Login failed. Please check your credentials and internet connection.'
           }
         })
       );
+      DELAY = 2 * DELAY;
     } finally {
       token = undefined;
       yield call(removeItem, 'token');
       yield call(removeItem, 'oauth_token');
       yield call(removeItem, 'oauth_token_secret');
-      yield call(delay, 500);
+      yield call(delay, DELAY);
       yield put(action(CLEAR_SESSION));
     }
   }
