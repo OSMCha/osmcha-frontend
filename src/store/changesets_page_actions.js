@@ -1,9 +1,12 @@
 // @flow
 import { put, call, takeLatest, select, all } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
+
 import { fromJS, List, Map } from 'immutable';
 import { push } from 'react-router-redux';
 import { fetchChangesetsPage } from '../network/changesets_page';
 import { getObjAsQueryParam } from '../utils/query_params';
+import throttle from 'lodash.debounce';
 
 import { INIT_MODAL } from './modal_actions';
 
@@ -11,6 +14,8 @@ import type { RootStateType } from './';
 import type { InputType } from '../components/filters';
 
 export const CHANGESET_PAGE_GET = 'CHANGESET_PAGE_GET';
+export const CHANGESET_PAGE_UPDATE_CACHE = 'CHANGESET_PAGE_UPDATE_CACHE';
+
 export const CHANGESETS_PAGE_FETCHED = 'CHANGESETS_PAGE_FETCHED';
 export const CHANGESETS_PAGE_LOADING = 'CHANGESETS_PAGE_LOADING';
 export const CHANGESETS_PAGE_ERROR = 'CHANGESETS_PAGE_ERROR';
@@ -23,11 +28,19 @@ export const CHANGESET_PAGE_MODIFY_CHANGESET =
 export function action(type: string, payload: ?Object) {
   return { type, ...payload };
 }
+// service worker cache update after every X interval
+const INTERVAL = 60 * 1000;
 
 // public
 // starting point for react component to start fetch
 export const getChangesetsPage = (pageIndex: number) =>
   action(CHANGESET_PAGE_GET, { pageIndex });
+
+export const updateChangesetPageCache = throttle(
+  () => action(CHANGESET_PAGE_UPDATE_CACHE),
+  5000,
+  { trailing: false }
+);
 
 export const applyFilters = (
   filters: Map<string, List<InputType>>,
@@ -40,7 +53,9 @@ export function* watchChangesetsPage(): any {
   yield all([
     takeLatest(FILTERS_APPLY, filtersSaga),
     takeLatest(CHANGESET_PAGE_GET, fetchChangesetsPageAsync),
-    takeLatest(CHANGESET_PAGE_MODIFY_CHANGESET, modifyChangesetPage)
+    takeLatest(CHANGESET_PAGE_MODIFY_CHANGESET, modifyChangesetPage),
+    takeLatest(CHANGESET_PAGE_UPDATE_CACHE, updateCacheChangesetPage),
+    pollChangesetPage()
   ]);
 }
 
@@ -80,12 +95,19 @@ export function* fetchChangesetsPageAsync({
 }): Object {
   // no need to check if changesetPage exists
   // as service worker caches this api request
-  const filters: Map<
-    string,
-    List<InputType>
-  > = yield select((state: RootStateType) =>
-    state.changesetsPage.get('filters')
-  );
+  const [
+    filters: Map<string, List<InputType>>,
+    oldPageIndex: number
+  ] = yield select((state: RootStateType) => [
+    state.changesetsPage.get('filters'),
+    state.changesetsPage.get('pageIndex')
+  ]);
+
+  if (!Number.isInteger(pageIndex)) {
+    console.log('using oldIndex', oldPageIndex, pageIndex);
+    pageIndex = oldPageIndex;
+  }
+
   yield put(
     action(CHANGESETS_PAGE_LOADING, {
       pageIndex
@@ -143,8 +165,32 @@ export function* modifyChangesetPage({ changesetId, changeset }: Object): any {
           pageIndex
         })
       );
+      yield put(action(CHANGESET_PAGE_UPDATE_CACHE));
     }
   } catch (e) {
     console.error(e);
+  }
+}
+export function* updateCacheChangesetPage() {
+  try {
+    const [
+      filters: Map<string, List<InputType>>,
+      pageIndex: number,
+      token
+    ] = yield select((state: RootStateType) => [
+      state.changesetsPage.get('filters'),
+      state.changesetsPage.get('pageIndex'),
+      state.auth.get('token')
+    ]);
+    yield call(delay, 1000 + Math.random() * 3000);
+    yield call(fetchChangesetsPage, pageIndex, filters, token);
+  } catch (e) {
+    console.error(e);
+  }
+}
+export function* pollChangesetPage(): any {
+  while (true) {
+    yield call(delay, INTERVAL);
+    yield call(updateCacheChangesetPage);
   }
 }

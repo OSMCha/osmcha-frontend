@@ -1,5 +1,5 @@
 let ReactGA;
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV !== 'production') {
   ReactGA = require('react-ga');
 }
 

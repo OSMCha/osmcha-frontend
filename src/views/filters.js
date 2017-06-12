@@ -30,29 +30,18 @@ export class _Filters extends React.PureComponent {
     filters: new Map()
   };
   state = { filters: this.props.filters };
-  scrollable = null;
   handleApply = () => {
     this.props.applyFilters(this.state.filters, '/');
-    const filters = this.state.filters;
-    //  filters.keySeq().forEach(f => {
-    //     if (filters.get(f) && filters.get(f).isOrdered()) {
-    //       filters.get(f).forEach((e, i) => {
-    //         gaSendEvent({
-    //           category: 'Filters',
-    //           action: f,
-    //           value: parseInt(this.state[f][i].value, 10),
-    //           label: this.state[f][i].label
-    //         });
-    //       });
-    //     } else {
-    //       gaSendEvent({
-    //         category: 'Filters',
-    //         action: f,
-    //         value: parseInt(this.state[f], 10),
-    //         label: f
-    //       });
-    //     }
-    //   });
+    const filters: Map<string, List<*>> = this.state.filters;
+    filters.forEach((v, k) => {
+      v.forEach(vv => {
+        gaSendEvent({
+          category: 'Filters',
+          action: k,
+          label: vv.get('label')
+        });
+      });
+    });
   };
   handleChange = (name: string, values: ?List<*>) => {
     if (!values) {
@@ -65,10 +54,6 @@ export class _Filters extends React.PureComponent {
     });
   };
   handleClear = () => {
-    // var keys = this.state.filters.keySeq();
-    // var newState = {};
-    // keys.forEach(k => (newState[k] = undefined));
-    // console.log(newState);
     this.props.applyFilters(
       new Map(),
       '/changesets/' + (this.props.lastChangesetID || 49174123) + ''

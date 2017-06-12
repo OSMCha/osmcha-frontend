@@ -16,7 +16,6 @@ export function fetchChangesetsPage(
       .join(',');
 
     if (filterJoined === '') return;
-    console.log(filterJoined);
     flatFilters += `&${k}=${filterJoined}`;
   });
   Object.keys(filters).forEach(f => {});
