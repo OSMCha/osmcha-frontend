@@ -22,18 +22,16 @@ export class Radio extends React.PureComponent {
     this.props.onChange(this.props.name, fromJS([data])); // always sends 1 size array to keep things consistent with multiselect InputTypes
   };
   render() {
-    const { name, options, placeholder, value, display } = this.props;
+    const { name, options, placeholder, value } = this.props;
     return (
-      <Wrapper display={display}>
-        <Select
-          name={name}
-          value={value && value.get(0) && value.get(0).toJS()} // always takes 1st item array to keep things consistent with multiselect InputTypes
-          options={options}
-          placeholder={placeholder}
-          className=""
-          onChange={this.onChangeLocal}
-        />
-      </Wrapper>
+      <Select
+        name={name}
+        value={value && value.get(0) && value.get(0).toJS()} // always takes 1st item array to keep things consistent with multiselect InputTypes
+        options={options}
+        placeholder={placeholder}
+        className=""
+        onChange={this.onChangeLocal}
+      />
     );
   }
 }

@@ -52,10 +52,57 @@ it('renders correctly with 2 filters', () => {
                 value: 1
               }
             ],
-            checked: {
-              label: 'True',
-              value: 'True'
-            }
+            checked: [
+              {
+                label: 'True',
+                value: 'True'
+              }
+            ]
+          })}
+          location={{ search: '' }}
+          lastChangesetID={49425586}
+          applyFilters={() => {}}
+        />
+      </StaticRouter>
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('renders correctly with 4 filters', () => {
+  const tree = renderer
+    .create(
+      <StaticRouter>
+        <Filters
+          filters={fromJS({
+            reasons: [
+              {
+                label: 'mass modification',
+                value: 1
+              },
+              {
+                label: 'new mapper edits',
+                value: 6
+              }
+            ],
+            checked: [
+              {
+                label: 'True',
+                value: 'True'
+              }
+            ],
+            date__gte: [
+              {
+                label: '2017-06-04',
+                value: '2017-06-04'
+              }
+            ],
+            is_suspect: [
+              {
+                label: 'True',
+                value: 'True'
+              }
+            ]
           })}
           location={{ search: '' }}
           lastChangesetID={49425586}

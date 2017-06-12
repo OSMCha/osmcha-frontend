@@ -38,20 +38,18 @@ exports[`renders correctly with 1 filter 1`] = `
             className="input mr3"
             name="date__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Changeset's inception date"
             type="date"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="date__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Changeset's inception date"
             type="date"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -404,20 +402,18 @@ exports[`renders correctly with 1 filter 1`] = `
             className="input mr3"
             name="check_date__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Check Date"
             type="date"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="check_date__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Check Date"
             type="date"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -442,20 +438,18 @@ exports[`renders correctly with 1 filter 1`] = `
             className="input mr3"
             name="create__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Objects Created"
             type="number"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="create__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Objects Created"
             type="number"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -480,20 +474,18 @@ exports[`renders correctly with 1 filter 1`] = `
             className="input mr3"
             name="modify__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Objects Modified"
             type="number"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="modify__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Objects Modified"
             type="number"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -518,20 +510,18 @@ exports[`renders correctly with 1 filter 1`] = `
             className="input mr3"
             name="delete__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Objects Deleted"
             type="number"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="delete__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Objects Deleted"
             type="number"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -1456,20 +1446,18 @@ exports[`renders correctly with 2 filters 1`] = `
             className="input mr3"
             name="date__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Changeset's inception date"
             type="date"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="date__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Changeset's inception date"
             type="date"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -1488,9 +1476,15 @@ exports[`renders correctly with 2 filters 1`] = `
       </span>
       <span>
         <div
-          className="Select Select--multi is-clearable is-loading is-searchable"
+          className="Select Select--multi is-clearable is-loading is-searchable has-value"
           style={undefined}
         >
+          <input
+            disabled={false}
+            name="reasons"
+            type="hidden"
+            value="1"
+          />
           <div
             className="Select-control"
             onKeyDown={[Function]}
@@ -1505,9 +1499,33 @@ exports[`renders correctly with 2 filters 1`] = `
               id="react-select-22--value"
             >
               <div
-                className="Select-placeholder"
+                className="Select-value"
+                style={undefined}
+                title={undefined}
               >
-                Loading...
+                <span
+                  aria-hidden="true"
+                  className="Select-value-icon"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  ×
+                </span>
+                <span
+                  aria-selected="true"
+                  className="Select-value-label"
+                  id="react-select-22--value-0"
+                  role="option"
+                >
+                  mass modification
+                  <span
+                    className="Select-aria-only"
+                  >
+                     
+                  </span>
+                </span>
               </div>
               <div
                 className="Select-input"
@@ -1665,9 +1683,15 @@ exports[`renders correctly with 2 filters 1`] = `
       </span>
       <span>
         <div
-          className="Select Select--single is-clearable is-searchable"
+          className="Select Select--single is-clearable is-searchable has-value"
           style={undefined}
         >
+          <input
+            disabled={false}
+            name="checked"
+            type="hidden"
+            value="True"
+          />
           <div
             className="Select-control"
             onKeyDown={[Function]}
@@ -1682,9 +1706,18 @@ exports[`renders correctly with 2 filters 1`] = `
               id="react-select-23--value"
             >
               <div
-                className="Select-placeholder"
+                className="Select-value"
+                style={undefined}
+                title={undefined}
               >
-                Toggle if changeset was checked
+                <span
+                  aria-selected="true"
+                  className="Select-value-label"
+                  id="react-select-23--value-item"
+                  role="option"
+                >
+                  True
+                </span>
               </div>
               <div
                 className="Select-input"
@@ -1733,6 +1766,24 @@ exports[`renders correctly with 2 filters 1`] = `
                   
                 </div>
               </div>
+            </span>
+            <span
+              aria-label="Clear value"
+              className="Select-clear-zone"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              title="Clear value"
+            >
+              <span
+                className="Select-clear"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "&times;",
+                  }
+                }
+              />
             </span>
             <span
               className="Select-arrow-zone"
@@ -1792,20 +1843,18 @@ exports[`renders correctly with 2 filters 1`] = `
             className="input mr3"
             name="check_date__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Check Date"
             type="date"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="check_date__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Check Date"
             type="date"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -1830,20 +1879,18 @@ exports[`renders correctly with 2 filters 1`] = `
             className="input mr3"
             name="create__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Objects Created"
             type="number"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="create__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Objects Created"
             type="number"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -1868,20 +1915,18 @@ exports[`renders correctly with 2 filters 1`] = `
             className="input mr3"
             name="modify__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Objects Modified"
             type="number"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="modify__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Objects Modified"
             type="number"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -1906,20 +1951,18 @@ exports[`renders correctly with 2 filters 1`] = `
             className="input mr3"
             name="delete__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Objects Deleted"
             type="number"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="delete__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Objects Deleted"
             type="number"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -2806,6 +2849,1515 @@ exports[`renders correctly with 2 filters 1`] = `
 </div>
 `;
 
+exports[`renders correctly with 4 filters 1`] = `
+<div
+  className="flex-parent flex-parent--column changesets-filters bg-gray-faint "
+>
+  <header
+    className="hmin55 h55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around"
+  >
+    Filters
+  </header>
+  <div
+    className="m12 flex-child scroll-auto wmax960 "
+    style={
+      Object {
+        "alignSelf": "center",
+      }
+    }
+  >
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Date
+          : 
+        </span>
+      </span>
+      <span>
+        <span
+          className="flex-parent flex-parent--row  "
+        >
+          <input
+            className="input mr3"
+            name="date__gte"
+            onChange={[Function]}
+            placeholder="Changeset's inception date"
+            type="date"
+            value="2017-06-04"
+          />
+          <input
+            className="input "
+            name="date__lte"
+            onChange={[Function]}
+            placeholder="Changeset's inception date"
+            type="date"
+            value=""
+          />
+        </span>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Reasons
+          : 
+        </span>
+      </span>
+      <span>
+        <div
+          className="Select Select--multi is-clearable is-loading is-searchable has-value"
+          style={undefined}
+        >
+          <input
+            disabled={false}
+            name="reasons"
+            type="hidden"
+            value="1"
+          />
+          <input
+            disabled={false}
+            name="reasons"
+            type="hidden"
+            value="6"
+          />
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={undefined}
+          >
+            <span
+              className="Select-multi-value-wrapper"
+              id="react-select-32--value"
+            >
+              <div
+                className="Select-value"
+                style={undefined}
+                title={undefined}
+              >
+                <span
+                  aria-hidden="true"
+                  className="Select-value-icon"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  ×
+                </span>
+                <span
+                  aria-selected="true"
+                  className="Select-value-label"
+                  id="react-select-32--value-0"
+                  role="option"
+                >
+                  mass modification
+                  <span
+                    className="Select-aria-only"
+                  >
+                     
+                  </span>
+                </span>
+              </div>
+              <div
+                className="Select-value"
+                style={undefined}
+                title={undefined}
+              >
+                <span
+                  aria-hidden="true"
+                  className="Select-value-icon"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  ×
+                </span>
+                <span
+                  aria-selected="true"
+                  className="Select-value-label"
+                  id="react-select-32--value-1"
+                  role="option"
+                >
+                  new mapper edits
+                  <span
+                    className="Select-aria-only"
+                  >
+                     
+                  </span>
+                </span>
+              </div>
+              <div
+                className="Select-input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-activedescendant="react-select-32--value"
+                  aria-describedby={undefined}
+                  aria-expanded="false"
+                  aria-haspopup="false"
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className={undefined}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  role="combobox"
+                  style={
+                    Object {
+                      "boxSizing": "content-box",
+                      "width": "5px",
+                    }
+                  }
+                  tabIndex={undefined}
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </span>
+            <span
+              aria-hidden="true"
+              className="Select-loading-zone"
+            >
+              <span
+                className="Select-loading"
+              />
+            </span>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Geometry
+          : 
+        </span>
+      </span>
+      <span>
+        <input
+          className="input "
+          name="geometry"
+          onChange={[Function]}
+          placeholder="Geometry"
+          type="text"
+          value=""
+        />
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Comment
+          : 
+        </span>
+      </span>
+      <span>
+        <input
+          className="input "
+          name="comment"
+          onChange={[Function]}
+          placeholder="Enter keywords like import, HOT ... "
+          type="text"
+          value=""
+        />
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Source
+          : 
+        </span>
+      </span>
+      <span>
+        <input
+          className="input "
+          name="source"
+          onChange={[Function]}
+          placeholder="Source"
+          type="text"
+          value=""
+        />
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Checked
+          : 
+        </span>
+      </span>
+      <span>
+        <div
+          className="Select Select--single is-clearable is-searchable has-value"
+          style={undefined}
+        >
+          <input
+            disabled={false}
+            name="checked"
+            type="hidden"
+            value="True"
+          />
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={undefined}
+          >
+            <span
+              className="Select-multi-value-wrapper"
+              id="react-select-33--value"
+            >
+              <div
+                className="Select-value"
+                style={undefined}
+                title={undefined}
+              >
+                <span
+                  aria-selected="true"
+                  className="Select-value-label"
+                  id="react-select-33--value-item"
+                  role="option"
+                >
+                  True
+                </span>
+              </div>
+              <div
+                className="Select-input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-activedescendant="react-select-33--value"
+                  aria-describedby={undefined}
+                  aria-expanded="false"
+                  aria-haspopup="false"
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className={undefined}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  role="combobox"
+                  style={
+                    Object {
+                      "boxSizing": "content-box",
+                      "width": "5px",
+                    }
+                  }
+                  tabIndex={undefined}
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </span>
+            <span
+              aria-label="Clear value"
+              className="Select-clear-zone"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              title="Clear value"
+            >
+              <span
+                className="Select-clear"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "&times;",
+                  }
+                }
+              />
+            </span>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Editor
+          : 
+        </span>
+      </span>
+      <span>
+        <input
+          className="input "
+          name="editor"
+          onChange={[Function]}
+          placeholder="Editor"
+          type="text"
+          value=""
+        />
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Check Date
+          : 
+        </span>
+      </span>
+      <span>
+        <span
+          className="flex-parent flex-parent--row  "
+        >
+          <input
+            className="input mr3"
+            name="check_date__gte"
+            onChange={[Function]}
+            placeholder="Check Date"
+            type="date"
+            value=""
+          />
+          <input
+            className="input "
+            name="check_date__lte"
+            onChange={[Function]}
+            placeholder="Check Date"
+            type="date"
+            value=""
+          />
+        </span>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Created
+          : 
+        </span>
+      </span>
+      <span>
+        <span
+          className="flex-parent flex-parent--row  "
+        >
+          <input
+            className="input mr3"
+            name="create__gte"
+            onChange={[Function]}
+            placeholder="Objects Created"
+            type="number"
+            value=""
+          />
+          <input
+            className="input "
+            name="create__lte"
+            onChange={[Function]}
+            placeholder="Objects Created"
+            type="number"
+            value=""
+          />
+        </span>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Modified
+          : 
+        </span>
+      </span>
+      <span>
+        <span
+          className="flex-parent flex-parent--row  "
+        >
+          <input
+            className="input mr3"
+            name="modify__gte"
+            onChange={[Function]}
+            placeholder="Objects Modified"
+            type="number"
+            value=""
+          />
+          <input
+            className="input "
+            name="modify__lte"
+            onChange={[Function]}
+            placeholder="Objects Modified"
+            type="number"
+            value=""
+          />
+        </span>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Deleted
+          : 
+        </span>
+      </span>
+      <span>
+        <span
+          className="flex-parent flex-parent--row  "
+        >
+          <input
+            className="input mr3"
+            name="delete__gte"
+            onChange={[Function]}
+            placeholder="Objects Deleted"
+            type="number"
+            value=""
+          />
+          <input
+            className="input "
+            name="delete__lte"
+            onChange={[Function]}
+            placeholder="Objects Deleted"
+            type="number"
+            value=""
+          />
+        </span>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Imagery used
+          : 
+        </span>
+      </span>
+      <span>
+        <input
+          className="input "
+          name="imagery_used"
+          onChange={[Function]}
+          placeholder="Imagery used"
+          type="text"
+          value=""
+        />
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Checked by
+          : 
+        </span>
+      </span>
+      <span>
+        <div
+          className="Select Select--multi is-clearable is-searchable"
+          style={undefined}
+        >
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={undefined}
+          >
+            <span
+              className="Select-multi-value-wrapper"
+              id="react-select-34--value"
+            >
+              <div
+                className="Select-placeholder"
+              >
+                Checked by user
+              </div>
+              <div
+                className="Select-input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-activedescendant="react-select-34--value"
+                  aria-describedby={undefined}
+                  aria-expanded="false"
+                  aria-haspopup="false"
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className={undefined}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  role="combobox"
+                  style={
+                    Object {
+                      "boxSizing": "content-box",
+                      "width": "5px",
+                    }
+                  }
+                  tabIndex={undefined}
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </span>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Users
+          : 
+        </span>
+      </span>
+      <span>
+        <div
+          className="Select Select--multi is-clearable is-searchable"
+          style={undefined}
+        >
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={undefined}
+          >
+            <span
+              className="Select-multi-value-wrapper"
+              id="react-select-35--value"
+            >
+              <div
+                className="Select-placeholder"
+              >
+                Enter OSM usernames
+              </div>
+              <div
+                className="Select-input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-activedescendant="react-select-35--value"
+                  aria-describedby={undefined}
+                  aria-expanded="false"
+                  aria-haspopup="false"
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className={undefined}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  role="combobox"
+                  style={
+                    Object {
+                      "boxSizing": "content-box",
+                      "width": "5px",
+                    }
+                  }
+                  tabIndex={undefined}
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </span>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Changeset IDs
+          : 
+        </span>
+      </span>
+      <span>
+        <div
+          className="Select Select--multi is-clearable is-searchable"
+          style={undefined}
+        >
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={undefined}
+          >
+            <span
+              className="Select-multi-value-wrapper"
+              id="react-select-36--value"
+            >
+              <div
+                className="Select-placeholder"
+              >
+                Enter Changeset IDs
+              </div>
+              <div
+                className="Select-input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-activedescendant="react-select-36--value"
+                  aria-describedby={undefined}
+                  aria-expanded="false"
+                  aria-haspopup="false"
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className={undefined}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  role="combobox"
+                  style={
+                    Object {
+                      "boxSizing": "content-box",
+                      "width": "5px",
+                    }
+                  }
+                  tabIndex={undefined}
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </span>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Tags
+          : 
+        </span>
+      </span>
+      <span>
+        <div
+          className="Select Select--multi is-clearable is-loading is-searchable"
+          style={undefined}
+        >
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={undefined}
+          >
+            <span
+              className="Select-multi-value-wrapper"
+              id="react-select-37--value"
+            >
+              <div
+                className="Select-placeholder"
+              >
+                Loading...
+              </div>
+              <div
+                className="Select-input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-activedescendant="react-select-37--value"
+                  aria-describedby={undefined}
+                  aria-expanded="false"
+                  aria-haspopup="false"
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className={undefined}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  role="combobox"
+                  style={
+                    Object {
+                      "boxSizing": "content-box",
+                      "width": "5px",
+                    }
+                  }
+                  tabIndex={undefined}
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </span>
+            <span
+              aria-hidden="true"
+              className="Select-loading-zone"
+            >
+              <span
+                className="Select-loading"
+              />
+            </span>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Harmful
+          : 
+        </span>
+      </span>
+      <span>
+        <div
+          className="Select Select--single is-clearable is-searchable"
+          style={undefined}
+        >
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={undefined}
+          >
+            <span
+              className="Select-multi-value-wrapper"
+              id="react-select-38--value"
+            >
+              <div
+                className="Select-placeholder"
+              >
+                Toggle harmful
+              </div>
+              <div
+                className="Select-input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-activedescendant="react-select-38--value"
+                  aria-describedby={undefined}
+                  aria-expanded="false"
+                  aria-haspopup="false"
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className={undefined}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  role="combobox"
+                  style={
+                    Object {
+                      "boxSizing": "content-box",
+                      "width": "5px",
+                    }
+                  }
+                  tabIndex={undefined}
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </span>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Order by
+          : 
+        </span>
+      </span>
+      <span>
+        <div
+          className="Select Select--single is-clearable is-searchable"
+          style={undefined}
+        >
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={undefined}
+          >
+            <span
+              className="Select-multi-value-wrapper"
+              id="react-select-39--value"
+            >
+              <div
+                className="Select-placeholder"
+              >
+                Asceding/Descending 
+              </div>
+              <div
+                className="Select-input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-activedescendant="react-select-39--value"
+                  aria-describedby={undefined}
+                  aria-expanded="false"
+                  aria-haspopup="false"
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className={undefined}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  role="combobox"
+                  style={
+                    Object {
+                      "boxSizing": "content-box",
+                      "width": "5px",
+                    }
+                  }
+                  tabIndex={undefined}
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </span>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Show Flagged
+          : 
+        </span>
+      </span>
+      <span>
+        <div
+          className="Select Select--single is-clearable is-searchable has-value"
+          style={undefined}
+        >
+          <input
+            disabled={false}
+            name="is_suspect"
+            type="hidden"
+            value="True"
+          />
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={undefined}
+          >
+            <span
+              className="Select-multi-value-wrapper"
+              id="react-select-40--value"
+            >
+              <div
+                className="Select-value"
+                style={undefined}
+                title={undefined}
+              >
+                <span
+                  aria-selected="true"
+                  className="Select-value-label"
+                  id="react-select-40--value-item"
+                  role="option"
+                >
+                  True
+                </span>
+              </div>
+              <div
+                className="Select-input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-activedescendant="react-select-40--value"
+                  aria-describedby={undefined}
+                  aria-expanded="false"
+                  aria-haspopup="false"
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className={undefined}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  role="combobox"
+                  style={
+                    Object {
+                      "boxSizing": "content-box",
+                      "width": "5px",
+                    }
+                  }
+                  tabIndex={undefined}
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </span>
+            <span
+              aria-label="Clear value"
+              className="Select-clear-zone"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              title="Clear value"
+            >
+              <span
+                className="Select-clear"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "&times;",
+                  }
+                }
+              />
+            </span>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Hide whitelist
+          : 
+        </span>
+      </span>
+      <span>
+        <div
+          className="Select Select--single is-clearable is-searchable"
+          style={undefined}
+        >
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={undefined}
+          >
+            <span
+              className="Select-multi-value-wrapper"
+              id="react-select-41--value"
+            >
+              <div
+                className="Select-placeholder"
+              >
+                exclude changesets by whitelisted
+              </div>
+              <div
+                className="Select-input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-activedescendant="react-select-41--value"
+                  aria-describedby={undefined}
+                  aria-expanded="false"
+                  aria-haspopup="false"
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className={undefined}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  role="combobox"
+                  style={
+                    Object {
+                      "boxSizing": "content-box",
+                      "width": "5px",
+                    }
+                  }
+                  tabIndex={undefined}
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </span>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      className="ml3 my12  flex-parent flex-parent--column"
+    >
+      <span
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+      >
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Bbox size bound
+          : 
+        </span>
+      </span>
+      <span>
+        <input
+          className="input "
+          name="area_lt"
+          onChange={[Function]}
+          placeholder="Upper bound of bbox area"
+          type="text"
+          value=""
+        />
+      </span>
+    </div>
+    <span
+      className="flex-child flex-child--grow wmin420 wmax435"
+    />
+  </div>
+  <div
+    className="flex-parent flex-parent--column justify--space-around  flex-child--grow"
+  />
+  <footer
+    className="hmin55 p12 pb24 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around"
+  >
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      <button
+        className="bg-white-on-hover btn btn--s color-gray border border--gray round bg-gray-faint bg-white-on-hover "
+        onClick={undefined}
+      >
+        <span>
+          Close
+        </span>
+      </button>
+    </a>
+    <a
+      onClick={[Function]}
+    >
+      <button
+        className="bg-white-on-hover btn btn--s color-gray border border--gray round bg-gray-faint bg-white-on-hover "
+        onClick={undefined}
+      >
+        <span>
+          Clear
+        </span>
+      </button>
+    </a>
+    <a
+      onClick={[Function]}
+    >
+      <button
+        className="bg-white-on-hover btn btn--s color-gray border border--gray round bg-gray-faint bg-white-on-hover "
+        onClick={undefined}
+      >
+        <span>
+          Apply
+        </span>
+      </button>
+    </a>
+  </footer>
+</div>
+`;
+
 exports[`renders correctly without filter 1`] = `
 <div
   className="flex-parent flex-parent--column changesets-filters bg-gray-faint "
@@ -2844,20 +4396,18 @@ exports[`renders correctly without filter 1`] = `
             className="input mr3"
             name="date__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Changeset's inception date"
             type="date"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="date__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Changeset's inception date"
             type="date"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -3180,20 +4730,18 @@ exports[`renders correctly without filter 1`] = `
             className="input mr3"
             name="check_date__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Check Date"
             type="date"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="check_date__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Check Date"
             type="date"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -3218,20 +4766,18 @@ exports[`renders correctly without filter 1`] = `
             className="input mr3"
             name="create__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Objects Created"
             type="number"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="create__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Objects Created"
             type="number"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -3256,20 +4802,18 @@ exports[`renders correctly without filter 1`] = `
             className="input mr3"
             name="modify__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Objects Modified"
             type="number"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="modify__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Objects Modified"
             type="number"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>
@@ -3294,20 +4838,18 @@ exports[`renders correctly without filter 1`] = `
             className="input mr3"
             name="delete__gte"
             onChange={[Function]}
-            placeholder="min"
+            placeholder="Objects Deleted"
             type="number"
-            value={undefined}
+            value=""
           />
-           
           <input
-            className="input"
+            className="input "
             name="delete__lte"
             onChange={[Function]}
-            placeholder="max"
+            placeholder="Objects Deleted"
             type="number"
-            value={undefined}
+            value=""
           />
-           
         </span>
       </span>
     </div>

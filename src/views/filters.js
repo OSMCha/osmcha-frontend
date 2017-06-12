@@ -5,7 +5,7 @@ import { Map, List, Set, fromJS } from 'immutable';
 import { Link } from 'react-router-dom';
 
 import { Filter } from '../components/filter';
-import { Range, Text, Radio, MultiSelect } from '../components/filters';
+import { Text, Radio, MultiSelect, Wrapper } from '../components/filters';
 
 import { Button } from '../components/button';
 import { getItem, setItem } from '../utils/safe_storage';
@@ -121,57 +121,72 @@ export class _Filters extends React.PureComponent {
             .map((f: Object, k) => {
               if (f.range) {
                 return (
-                  <Range
-                    key={k}
-                    type={f.type}
-                    gte={this.state.filters.get(f.name + '__gte')}
-                    lte={this.state.filters.get(f.name + '__lte')}
-                    name={f.name}
-                    display={f.display}
-                    placeholder={f.placeholder}
-                    onChange={this.handleChange}
-                  />
+                  <Wrapper display={f.display} key={k}>
+                    <span className="flex-parent flex-parent--row  ">
+                      <Text
+                        type={f.type}
+                        className="mr3"
+                        value={this.state.filters.get(f.name + '__gte')}
+                        name={f.name + '__gte'}
+                        display={f.display}
+                        placeholder={f.placeholder}
+                        onChange={this.handleChange}
+                      />
+                      <Text
+                        type={f.type}
+                        value={this.state.filters.get(f.name + '__lte')}
+                        name={f.name + '__lte'}
+                        display={f.display}
+                        placeholder={f.placeholder}
+                        onChange={this.handleChange}
+                      />
+                    </span>
+                  </Wrapper>
                 );
               }
               if (f.type === 'text') {
                 return (
-                  <Text
-                    key={k}
-                    type={f.type}
-                    value={this.state.filters.get(f.name)}
-                    name={f.name}
-                    display={f.display}
-                    placeholder={f.placeholder}
-                    onChange={this.handleChange}
-                  />
+                  <Wrapper display={f.display} key={k}>
+                    <Text
+                      type={f.type}
+                      value={this.state.filters.get(f.name)}
+                      name={f.name}
+                      display={f.display}
+                      placeholder={f.placeholder}
+                      onChange={this.handleChange}
+                    />
+                  </Wrapper>
                 );
               }
               if (f.type === 'radio') {
                 return (
-                  <Radio
-                    key={k}
-                    name={f.name}
-                    type={f.type}
-                    display={f.display}
-                    value={this.state.filters.get(f.name)}
-                    placeholder={f.placeholder}
-                    options={f.options || []}
-                    onChange={this.handleChange}
-                  />
+                  <Wrapper display={f.display} key={k}>
+                    <Radio
+                      name={f.name}
+                      type={f.type}
+                      display={f.display}
+                      value={this.state.filters.get(f.name)}
+                      placeholder={f.placeholder}
+                      options={f.options || []}
+                      onChange={this.handleChange}
+                    />
+                  </Wrapper>
                 );
               }
               if (f.type === 'text_comma')
                 return (
-                  <MultiSelect
-                    key={k}
-                    name={f.name}
-                    display={f.display}
-                    value={this.state.filters.get(f.name)}
-                    placeholder={f.placeholder}
-                    options={f.options || []}
-                    onChange={this.handleChange}
-                    usersAutofill={usersAutofill}
-                  />
+                  <Wrapper display={f.display} key={k}>
+                    <MultiSelect
+                      name={f.name}
+                      display={f.display}
+                      value={this.state.filters.get(f.name)}
+                      placeholder={f.placeholder}
+                      options={f.options || []}
+                      onChange={this.handleChange}
+                      usersAutofill={usersAutofill}
+                      dataURL={f.data_url}
+                    />
+                  </Wrapper>
                 );
             })}
           <span className="flex-child flex-child--grow wmin420 wmax435" />

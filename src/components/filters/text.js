@@ -11,7 +11,11 @@ export class Text extends React.PureComponent {
     type: string,
     placeholder: string,
     value: List<InputType>,
+    className: string,
     onChange: (string, ?List<InputType>) => any
+  };
+  static defaultProps = {
+    className: ''
   };
   handleFormChange = (event: any) => {
     const target = event.target;
@@ -32,18 +36,24 @@ export class Text extends React.PureComponent {
     );
   };
   render() {
-    const { name, onChange, type, placeholder, display, value } = this.props;
+    const {
+      name,
+      onChange,
+      type,
+      placeholder,
+      display,
+      value,
+      className
+    } = this.props;
     return (
-      <Wrapper display={this.props.display}>
-        <input
-          name={name}
-          value={value && value.getIn([0, 'value'])} // allways sends 1 size array to keep things consistent
-          onChange={this.handleFormChange}
-          type={type}
-          className="input "
-          placeholder={placeholder || display}
-        />
-      </Wrapper>
+      <input
+        name={name}
+        className={`input ${className}`}
+        value={(value && value.getIn([0, 'value'])) || ''} // allways sends 1 size array to keep things consistent
+        onChange={this.handleFormChange}
+        type={type}
+        placeholder={placeholder || display}
+      />
     );
   }
 }
