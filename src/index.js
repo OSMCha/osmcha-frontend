@@ -36,13 +36,10 @@ if (process.env.NODE_ENV === 'production') {
     release: process.env.REACT_APP_VERSION,
     environment: process.env.NODE_ENV
   }).install();
-  // window.addEventListener('unhandledrejection', function(event) {
-  //   Raven.captureException(event.reason);
-  // });
 }
 
 if (process.env.NODE_ENV !== 'production') {
-  // const {whyDidYouUpdate} = require('why-did-you-update');
+  // const { whyDidYouUpdate } = require('why-did-you-update');
   // whyDidYouUpdate(React);
 }
 

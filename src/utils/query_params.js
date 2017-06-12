@@ -3,7 +3,7 @@ import { parse, stringify } from 'query-string';
 export function getFiltersFromUrl(): Object {
   const parsed = parse(window.location.search);
   if (parsed.filters) {
-    let filterObj;
+    let filterObj = {};
     try {
       filterObj = JSON.parse(parsed.filters);
     } catch (e) {

@@ -8,6 +8,7 @@ import { getObjAsQueryParam } from '../utils/query_params';
 import { INIT_MODAL } from './modal_actions';
 
 import type { RootStateType } from './';
+import type { InputType } from '../components/filters';
 
 export const CHANGESET_PAGE_GET = 'CHANGESET_PAGE_GET';
 export const CHANGESETS_PAGE_FETCHED = 'CHANGESETS_PAGE_FETCHED';
@@ -28,8 +29,10 @@ export function action(type: string, payload: ?Object) {
 export const getChangesetsPage = (pageIndex: number) =>
   action(CHANGESET_PAGE_GET, { pageIndex });
 
-export const applyFilters = (filters: ?Object, pathname: ?string) =>
-  action(FILTERS_APPLY, { filters, pathname });
+export const applyFilters = (
+  filters: Map<string, List<InputType>>,
+  pathname: ?string
+) => action(FILTERS_APPLY, { filters, pathname });
 
 // watches for CHANGESET_PAGE_GET and only
 // dispatches latest to fetchChangesetsPageAsync
@@ -46,10 +49,10 @@ export function* filtersSaga({
   filters,
   pathname
 }: {
-  filters: Object,
+  filters: Map<string, List<InputType>>,
   pathname: ?Object
 }): Object {
-  const search = getObjAsQueryParam('filters', filters);
+  const search = getObjAsQueryParam('filters', filters.toJS());
   const location = yield select((state: RootStateType) => ({
     ...state.routing.location, // deep clone it
     pathname: pathname || state.routing.location.pathname,
@@ -77,10 +80,12 @@ export function* fetchChangesetsPageAsync({
 }): Object {
   // no need to check if changesetPage exists
   // as service worker caches this api request
-  const filters = yield select((state: RootStateType) =>
+  const filters: Map<
+    string,
+    List<InputType>
+  > = yield select((state: RootStateType) =>
     state.changesetsPage.get('filters')
   );
-
   yield put(
     action(CHANGESETS_PAGE_LOADING, {
       pageIndex

@@ -29,15 +29,15 @@ export function Details({
   let sourceMatch = [];
   let sourceOrignal = source;
 
-  if (source.indexOf('{switch:a,b,c}.') > -1) {
+  if (source && source.indexOf('{switch:a,b,c}.') > -1) {
     source = source.replace('{switch:a,b,c}.', '');
   }
-  if (source.match(urlRegex)) {
+  if (source && source.match(urlRegex)) {
     sourceMatch = source.match(urlRegex);
     source = source.replace(urlRegex, '');
   }
   let imageryMatch = [];
-  if (imagery.match(urlRegex)) {
+  if (imagery && imagery.match(urlRegex)) {
     imageryMatch = imagery.match(urlRegex);
     imagery = imagery.replace(urlRegex, '');
   }

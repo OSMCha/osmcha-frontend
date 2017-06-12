@@ -1,15 +1,15 @@
 // @flow
 import React from 'react';
-import Mousetrap from 'mousetrap';
 import { connect } from 'react-redux';
-import { Map, List, Set } from 'immutable';
+import { Map, List, Set, fromJS } from 'immutable';
 import { Link } from 'react-router-dom';
 
-import { Navbar } from '../components/navbar';
 import { Filter } from '../components/filter';
+import { Range, Text, Radio, MultiSelect } from '../components/filters';
+
 import { Button } from '../components/button';
 import { getItem, setItem } from '../utils/safe_storage';
-import { gaPageView, gaSendEvent } from '../utils/analytics';
+import { gaSendEvent } from '../utils/analytics';
 
 import filters from '../config/filters.json';
 
@@ -18,65 +18,59 @@ import { applyFilters } from '../store/changesets_page_actions';
 import type { RootStateType } from '../store';
 
 const USERS_LIMIT = 200;
-class Filters extends React.PureComponent {
+export class _Filters extends React.PureComponent {
   props: {
-    filters: Object,
+    filters: Map<string, any>,
     location: Object,
-    features: List<Map<string, any>>,
+    features: ?List<Map<string, any>>,
     lastChangesetID: number,
     applyFilters: (Object, string) => mixed
   };
-  state = { ...this.props.filters };
+  static defaultProps = {
+    filters: new Map()
+  };
+  state = { filters: this.props.filters };
   scrollable = null;
-  handleSelectChange = (name, obj) => {
-    if (Array.isArray(obj)) {
+  handleApply = () => {
+    this.props.applyFilters(this.state.filters, '/');
+    const filters = this.state.filters;
+    //  filters.keySeq().forEach(f => {
+    //     if (filters.get(f) && filters.get(f).isOrdered()) {
+    //       filters.get(f).forEach((e, i) => {
+    //         gaSendEvent({
+    //           category: 'Filters',
+    //           action: f,
+    //           value: parseInt(this.state[f][i].value, 10),
+    //           label: this.state[f][i].label
+    //         });
+    //       });
+    //     } else {
+    //       gaSendEvent({
+    //         category: 'Filters',
+    //         action: f,
+    //         value: parseInt(this.state[f], 10),
+    //         label: f
+    //       });
+    //     }
+    //   });
+  };
+  handleChange = (name: string, values: ?List<*>) => {
+    if (!values) {
       return this.setState({
-        [name]: obj.map(o => ({ label: o.label, value: o.value })) || []
+        filters: this.state.filters.delete(name)
       });
     }
     return this.setState({
-      [name]: (obj && obj.value) || ''
-    });
-  };
-  handleFormChange = (event: any) => {
-    let value;
-    let name;
-    const target = event.target;
-    value = target.type === 'checkbox' ? target.checked : target.value;
-    name = target.name;
-    this.setState({
-      [name]: value
-    });
-  };
-  handleApply = () => {
-    this.props.applyFilters(this.state, '/');
-    Object.keys(this.state).forEach(f => {
-      if (Array.isArray(this.state[f])) {
-        this.state[f].forEach((e, i) => {
-          gaSendEvent({
-            category: 'Filters',
-            action: f,
-            value: parseInt(this.state[f][i].value, 10),
-            label: this.state[f][i].label
-          });
-        });
-      } else {
-        gaSendEvent({
-          category: 'Filters',
-          action: f,
-          value: parseInt(this.state[f], 10),
-          label: f
-        });
-      }
+      filters: this.state.filters.set(name, values)
     });
   };
   handleClear = () => {
-    var keys = Object.keys(this.state);
-    var newState = {};
-    keys.forEach(k => (newState[k] = undefined));
-    console.log(newState);
+    // var keys = this.state.filters.keySeq();
+    // var newState = {};
+    // keys.forEach(k => (newState[k] = undefined));
+    // console.log(newState);
     this.props.applyFilters(
-      {},
+      new Map(),
       '/changesets/' + (this.props.lastChangesetID || 49174123) + ''
     );
   };
@@ -124,23 +118,62 @@ class Filters extends React.PureComponent {
             .filter(f => {
               return !f.ignore;
             })
-            .map((f, k) =>
-              <Filter
-                data={f}
-                value={
-                  f.range
-                    ? {
-                        __gte: this.state[f.name + '__gte'],
-                        __lte: this.state[f.name + '__lte']
-                      }
-                    : this.state[f.name]
-                }
-                key={k}
-                onChange={this.handleFormChange}
-                onSelectChange={this.handleSelectChange}
-                usersAutofill={usersAutofill}
-              />
-            )}
+            .map((f: Object, k) => {
+              if (f.range) {
+                return (
+                  <Range
+                    key={k}
+                    type={f.type}
+                    gte={this.state.filters.get(f.name + '__gte')}
+                    lte={this.state.filters.get(f.name + '__lte')}
+                    name={f.name}
+                    display={f.display}
+                    placeholder={f.placeholder}
+                    onChange={this.handleChange}
+                  />
+                );
+              }
+              if (f.type === 'text') {
+                return (
+                  <Text
+                    key={k}
+                    type={f.type}
+                    value={this.state.filters.get(f.name)}
+                    name={f.name}
+                    display={f.display}
+                    placeholder={f.placeholder}
+                    onChange={this.handleChange}
+                  />
+                );
+              }
+              if (f.type === 'radio') {
+                return (
+                  <Radio
+                    key={k}
+                    name={f.name}
+                    type={f.type}
+                    display={f.display}
+                    value={this.state.filters.get(f.name)}
+                    placeholder={f.placeholder}
+                    options={f.options || []}
+                    onChange={this.handleChange}
+                  />
+                );
+              }
+              if (f.type === 'text_comma')
+                return (
+                  <MultiSelect
+                    key={k}
+                    name={f.name}
+                    display={f.display}
+                    value={this.state.filters.get(f.name)}
+                    placeholder={f.placeholder}
+                    options={f.options || []}
+                    onChange={this.handleChange}
+                    usersAutofill={usersAutofill}
+                  />
+                );
+            })}
           <span className="flex-child flex-child--grow wmin420 wmax435" />
         </div>
         <div className="flex-parent flex-parent--column justify--space-around  flex-child--grow" />
@@ -167,9 +200,9 @@ class Filters extends React.PureComponent {
   }
 }
 
-Filters = connect(
+const Filters = connect(
   (state: RootStateType, props) => ({
-    filters: state.changesetsPage.get('filters') || {},
+    filters: state.changesetsPage.get('filters'),
     features: state.changesetsPage.getIn(['currentPage', 'features']),
     lastChangesetID:
       state.changeset.get('changesetId') ||
@@ -179,6 +212,6 @@ Filters = connect(
   {
     applyFilters
   }
-)(Filters);
+)(_Filters);
 
 export { Filters };

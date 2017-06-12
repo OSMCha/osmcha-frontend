@@ -1,25 +1,25 @@
 // @flow
 import { API_URL } from '../config';
 import { PAGE_SIZE } from '../config/constants';
-
+import { List, Map } from 'immutable';
 export function fetchChangesetsPage(
   pageIndex: number,
-  filters: Object = {},
+  filters: Map<string, *>,
   token: ?string
 ) {
   let flatFilters = '';
-  Object.keys(filters)
-    .filter(f => {
-      let filter = filters[f];
-      return filter && filter !== '';
-    })
-    .forEach(f => {
-      let filter: Array<{ name: string, value: string }> | string = filters[f];
-      if (Array.isArray(filter)) {
-        filter = filter.filter(x => x.value).map(x => x.value).join(',');
-      }
-      flatFilters += `&${f}=${filter}`;
-    });
+  filters.forEach((v: List<Object>, k: string) => {
+    let filter = v;
+    let filterJoined = filter
+      .filter(x => x.get && x.get('value') !== '')
+      .map(x => x.get('value'))
+      .join(',');
+
+    if (filterJoined === '') return;
+    console.log(filterJoined);
+    flatFilters += `&${k}=${filterJoined}`;
+  });
+  Object.keys(filters).forEach(f => {});
 
   return fetch(
     `${API_URL}/changesets/?page=${pageIndex +
@@ -34,7 +34,7 @@ export function fetchChangesetsPage(
   ).then(res => {
     if (res.status >= 400 && res.status < 600) {
       throw new Error(
-        'Bad request. Please make sure you are allowed to add tags to this changeset.'
+        'Bad request. Please check filters or your network connection.'
       );
     }
     return res.json();
