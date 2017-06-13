@@ -20,6 +20,8 @@ export const CHANGESETS_PAGE_ERROR = 'CHANGESETS_PAGE_ERROR';
 
 export const CHANGESET_PAGE_UPDATE_CACHE = 'CHANGESET_PAGE_UPDATE_CACHE';
 export const CHANGESETS_PAGE_NEW_CHECK = 'CHANGESETS_PAGE_NEW_CHECK';
+export const CHANGESETS_PAGE_NEW_CHECK_LOADING =
+  'CHANGESETS_PAGE_NEW_CHECK_LOADING';
 
 export const FILTERS_SET = 'FILTERS_SET';
 export const FILTERS_APPLY = 'FILTERS_APPLY';
@@ -187,7 +189,8 @@ export function* updateCacheChangesetPage(): any {
       state.changesetsPage.get('pageIndex'),
       state.auth.get('token')
     ]);
-    yield call(delay, 2000 + Math.random() * 2000);
+    yield put(action(CHANGESETS_PAGE_NEW_CHECK_LOADING));
+    yield call(delay, 5000 + Math.random() * 2000);
     let newData = yield call(fetchChangesetsPage, pageIndex, filters, token);
 
     let oldData = yield select((state: RootStateType) =>

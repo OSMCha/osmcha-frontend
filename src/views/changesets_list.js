@@ -46,6 +46,7 @@ class ChangesetsList extends React.PureComponent {
     currentPage: ?Map<string, *>,
     userDetails: Map<string, *>,
     diff: number,
+    diffLoading: boolean,
     pageIndex: number,
     activeChangesetId: ?number,
     oAuthToken: ?string,
@@ -142,7 +143,7 @@ class ChangesetsList extends React.PureComponent {
     }
     const base = parseInt(this.props.pageIndex / RANGE, 10) * RANGE;
 
-    const { currentPage, loading, diff } = this.props;
+    const { currentPage, loading, diff, diffLoading } = this.props;
     if (
       this.props.pageIndex === 0 &&
       currentPage &&
@@ -203,16 +204,19 @@ class ChangesetsList extends React.PureComponent {
               {' '}
               {this.props.currentPage && this.props.currentPage.get('count')}
             </span>
-            <span
-              onClick={this.reloadCurrentPage}
-              className={`pointer ${diff > 0
-                ? 'bg-yellow-light-on-hover'
-                : 'bg-gray-light-on-hover'} round`}
-            >
-              {diff > 0 ? `${diff} New` : ''}
-              <svg className="icon inline-block align-middle ">
-                <use xlinkHref="#icon-rotate" />
-              </svg>
+            <span className="flex-parent flex-parent--row">
+              {diffLoading && <span className="loading loading--s inline" />}
+              <span
+                onClick={this.reloadCurrentPage}
+                className={`pointer ${diff > 0
+                  ? 'bg-yellow-light-on-hover'
+                  : 'bg-gray-light-on-hover'} round`}
+              >
+                {diff > 0 ? `${diff} New` : ''}
+                <svg className="icon inline-block align-middle ">
+                  <use xlinkHref="#icon-rotate" />
+                </svg>
+              </span>
             </span>
           </span>
         </header>
@@ -259,6 +263,7 @@ ChangesetsList = connect(
     location: state.routing.location,
     currentPage: state.changesetsPage.get('currentPage'),
     pageIndex: state.changesetsPage.get('pageIndex') || 0,
+    diffLoading: state.changesetsPage.get('diffLoading'),
     filters: state.changesetsPage.get('filters') || new Map(),
     diff: state.changesetsPage.get('diff'),
     loading: state.changesetsPage.get('loading'),
