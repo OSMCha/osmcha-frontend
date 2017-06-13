@@ -36,8 +36,8 @@ const INTERVAL = 5 * 60 * 1000;
 
 // public
 // starting point for react component to start fetch
-export const getChangesetsPage = (pageIndex: number) =>
-  action(CHANGESET_PAGE_GET, { pageIndex });
+export const getChangesetsPage = (pageIndex: number, nocache: boolean) =>
+  action(CHANGESET_PAGE_GET, { pageIndex, nocache });
 
 export const applyFilters = (
   filters: Map<string, List<InputType>>,
@@ -90,9 +90,11 @@ export function* filtersSaga({
   }
 }
 export function* fetchChangesetsPageAsync({
-  pageIndex
+  pageIndex,
+  nocache
 }: {
-  pageIndex: number
+  pageIndex: number,
+  nocache: boolean
 }): Object {
   // no need to check if changesetPage exists
   // as service worker caches this api request
@@ -121,7 +123,13 @@ export function* fetchChangesetsPageAsync({
   );
   try {
     let token = yield select((state: RootStateType) => state.auth.get('token'));
-    let thisPage = yield call(fetchChangesetsPage, pageIndex, filters, token);
+    let thisPage = yield call(
+      fetchChangesetsPage,
+      pageIndex,
+      filters,
+      token,
+      nocache
+    );
     yield put(
       action(CHANGESETS_PAGE_FETCHED, {
         data: fromJS(thisPage),
@@ -181,7 +189,7 @@ export function* modifyChangesetPage({ changesetId, changeset }: Object): any {
 export function* updateCacheChangesetPage(): any {
   try {
     yield put(action(CHANGESETS_PAGE_NEW_CHECK_LOADING));
-    yield call(delay, 5000 + Math.random() * 2000);
+    yield call(delay, 6000 + Math.random() * 2000);
     const [
       filters: Map<string, List<InputType>>,
       pageIndex: number,

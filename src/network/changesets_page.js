@@ -5,7 +5,8 @@ import { List, Map } from 'immutable';
 export function fetchChangesetsPage(
   pageIndex: number,
   filters: Map<string, *>,
-  token: ?string
+  token: ?string,
+  nocache: boolean
 ) {
   let flatFilters = '';
   filters.forEach((v: List<Object>, k: string) => {
@@ -21,8 +22,9 @@ export function fetchChangesetsPage(
   Object.keys(filters).forEach(f => {});
 
   return fetch(
-    `${API_URL}/changesets/?page=${pageIndex +
-      1}&page_size=${PAGE_SIZE}${flatFilters}`,
+    `${API_URL}/changesets/?${nocache // for cache busting of this pattern /\/changesets\/#nocache\?page=/
+      ? `page_size=${PAGE_SIZE}&page=${pageIndex + 1}`
+      : `page=${pageIndex + 1}&page_size=${PAGE_SIZE}`}${flatFilters}`,
     {
       method: 'GET',
       headers: {

@@ -52,7 +52,7 @@ class ChangesetsList extends React.PureComponent {
     oAuthToken: ?string,
     token: ?string,
     filters: Map<string, ImmutableList<*>>,
-    getChangesetsPage: number => mixed, // base 0
+    getChangesetsPage: (number, boolean) => mixed, // base 0
     getOAuthToken: () => mixed,
     getFinalToken: string => mixed,
     logUserOut: () => mixed,
@@ -129,7 +129,7 @@ class ChangesetsList extends React.PureComponent {
   };
 
   reloadCurrentPage = () => {
-    this.props.getChangesetsPage(this.props.pageIndex);
+    this.props.getChangesetsPage(this.props.pageIndex, true);
   };
   render() {
     const { error } = this.props;
