@@ -34,21 +34,6 @@ export class List extends React.PureComponent {
         {this.props.loading
           ? <Loading />
           : <div>
-              <span className="border-l border-b border-b--1 border-l--4 border-color-neutral px12 py3 bg-gray-faint flex-child flex-child--grow align-items--center">
-                <span className="flex-parent flex-parent--row justify--space-between color-gray txt-s txt-bold">
-                  <span>
-                    Results:
-                    {' '}
-                    {this.props.currentPage &&
-                      this.props.currentPage.get('count')}
-                  </span>
-                  <span onClick={this.props.reloadPage}>
-                    <svg className="icon inline-block align-middle pointer">
-                      <use xlinkHref="#icon-rotate" />
-                    </svg>
-                  </span>
-                </span>
-              </span>
               {this.props.currentPage &&
                 this.props.currentPage.get('features').map((f, k) =>
                   <Row

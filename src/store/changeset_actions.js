@@ -180,7 +180,7 @@ export function* watchModifyChangeset(): any {
         action(INIT_MODAL, {
           payload: {
             error,
-            autoDismiss: 0,
+            autoDismiss: 10,
             title: messageToDisplay.title,
             description: messageToDisplay.description(changesetId)
           }
@@ -199,7 +199,7 @@ export function* watchModifyChangeset(): any {
         action(INIT_MODAL, {
           payload: {
             kind: 'success',
-            autoDismiss: 1,
+            autoDismiss: 2,
             title: 'Success',
             description: `${changesetId} was modified successfully`
           }
