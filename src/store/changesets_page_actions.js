@@ -180,6 +180,8 @@ export function* modifyChangesetPage({ changesetId, changeset }: Object): any {
 }
 export function* updateCacheChangesetPage(): any {
   try {
+    yield put(action(CHANGESETS_PAGE_NEW_CHECK_LOADING));
+    yield call(delay, 5000 + Math.random() * 2000);
     const [
       filters: Map<string, List<InputType>>,
       pageIndex: number,
@@ -189,10 +191,7 @@ export function* updateCacheChangesetPage(): any {
       state.changesetsPage.get('pageIndex'),
       state.auth.get('token')
     ]);
-    yield put(action(CHANGESETS_PAGE_NEW_CHECK_LOADING));
-    yield call(delay, 5000 + Math.random() * 2000);
     let newData = yield call(fetchChangesetsPage, pageIndex, filters, token);
-
     let oldData = yield select((state: RootStateType) =>
       state.changesetsPage.get('currentPage')
     );
