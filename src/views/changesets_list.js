@@ -156,7 +156,7 @@ class ChangesetsList extends React.PureComponent {
     const options = filters.filter(f => f.name === 'order_by')[0].options;
     if (this.props.filters.get('order_by')) {
       options.forEach(o => {
-        if (this.props.filters.getIn(['order_by', 'value']) === o.value) {
+        if (this.props.filters.getIn(['order_by', 0, 'value']) === o.value) {
           valueData.push(o);
         }
       });
