@@ -1,9 +1,9 @@
 import React from 'react';
 import { Dropdown } from '../dropdown';
 
-export function OpenIn({ changesetId, coordinates }) {
+export function OpenIn({ changesetId, coordinates, className }) {
   return (
-    <div className="select-container">
+    <div className={`select-container ${className}`}>
       <Dropdown
         onAdd={() => {}}
         onRemove={() => {}}
@@ -37,11 +37,7 @@ export function OpenIn({ changesetId, coordinates }) {
             href: `http://osmhv.openstreetmap.de/changeset.jsp?id=${changesetId}`
           }
         ]}
-        displayComponent={
-          <svg className="icon inline-block align-middle color-black pointer">
-            <use xlinkHref="#icon-chevron-down" />
-          </svg>
-        }
+        display="Open In"
       />
     </div>
   );
