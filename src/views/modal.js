@@ -26,27 +26,36 @@ class Modal extends React.PureComponent {
     dismiss: true,
     kind: 'error'
   };
+
+  componentDidMount() {
+    if (this.props.error) {
+      this.sendNotification(this.props);
+    }
+  }
   ref = null;
   componentWillUpdate(nextProps: Object) {
     if (this.ref) {
-      const uid = nextProps.uid;
-      this.ref.addNotification({
-        uid,
-        title: nextProps.title,
-        message: nextProps.description,
-        level: nextProps.kind,
-        autoDismiss: nextProps.autoDismiss,
-        dismissible: nextProps.dismiss,
-        action: nextProps.callbackLabel && {
-          label: nextProps.callbackLabel,
-          callback: () => nextProps.activateModalCallback(uid)
-        },
-        onRemove: () => {
-          nextProps.dismissModalCallback(uid);
-        }
-      });
+      this.sendNotification(nextProps);
     }
   }
+  sendNotification = nextProps => {
+    const uid = nextProps.uid;
+    this.ref.addNotification({
+      uid,
+      title: nextProps.title,
+      message: nextProps.description,
+      level: nextProps.kind,
+      autoDismiss: nextProps.autoDismiss,
+      dismissible: nextProps.dismiss,
+      action: nextProps.callbackLabel && {
+        label: nextProps.callbackLabel,
+        callback: () => nextProps.activateModalCallback(uid)
+      },
+      onRemove: () => {
+        nextProps.dismissModalCallback(uid);
+      }
+    });
+  };
   addRef = r => {
     this.ref = r;
   };

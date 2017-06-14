@@ -1,16 +1,16 @@
 import { parse, stringify } from 'query-string';
 
 export function getFiltersFromUrl(): Object {
-  const parsed = parse(window.location.search);
-  if (parsed.filters) {
-    let filterObj = {};
-    try {
+  try {
+    const parsed = parse(window.location.search);
+    if (parsed.filters) {
+      let filterObj = {};
       filterObj = JSON.parse(parsed.filters);
-    } catch (e) {
-      console.error(e);
-    } finally {
       return filterObj;
     }
+  } catch (e) {
+    window.location.search = '';
+    console.error(e);
   }
 }
 

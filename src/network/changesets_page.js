@@ -1,7 +1,7 @@
 // @flow
 import { API_URL } from '../config';
 import { PAGE_SIZE } from '../config/constants';
-import { List, Map } from 'immutable';
+import { Iterable, List, Map } from 'immutable';
 export function fetchChangesetsPage(
   pageIndex: number,
   filters: Map<string, *>,
@@ -10,9 +10,10 @@ export function fetchChangesetsPage(
 ) {
   let flatFilters = '';
   filters.forEach((v: List<Object>, k: string) => {
+    if (!Iterable.isIterable(v)) return;
     let filter = v;
     let filterJoined = filter
-      .filter(x => x.get && x.get('value') !== '')
+      .filter(x => Iterable.isIterable(x) && x.get('value') !== '')
       .map(x => x.get('value'))
       .join(',');
 

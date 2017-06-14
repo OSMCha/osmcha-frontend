@@ -6,6 +6,7 @@ import { fromJS, List, Map } from 'immutable';
 import { push } from 'react-router-redux';
 import { fetchChangesetsPage } from '../network/changesets_page';
 import { getObjAsQueryParam } from '../utils/query_params';
+import { validateFilters } from '../utils/filters';
 
 import { INIT_MODAL } from './modal_actions';
 
@@ -98,19 +99,33 @@ export function* fetchChangesetsPageAsync({
 }): Object {
   // no need to check if changesetPage exists
   // as service worker caches this api request
-  // const [
-  //   filters: Map<string, List<InputType>>,
-  //   oldPageIndex: number
-  // ] = yield select((state: RootStateType) => [
-  //   state.changesetsPage.get('filters'),
-  //   state.changesetsPage.get('pageIndex')
-  // ]);
 
-  const filters = yield select((state: RootStateType) =>
+  let filters = yield select((state: RootStateType) =>
     state.changesetsPage.get('filters')
   );
+  const valid = validateFilters(filters);
+  if (!valid) {
+    filters = new Map();
+    const location = yield select((state: RootStateType) => ({
+      ...state.routing.location, // deep clone it
+      search: ''
+    }));
+    yield all([
+      put(
+        action(INIT_MODAL, {
+          payload: {
+            error: Error('Invalid filters'),
+            autoDismiss: 5,
+            title: 'Invalid Filters',
+            description: 'The filters that you applied were incorrect.'
+          }
+        })
+      ),
+      put(push(location)),
+      put(action(FILTERS_SET, filters))
+    ]);
+  }
   if (pageIndex === undefined || pageIndex === null) {
-    console.log(pageIndex, 'here');
     pageIndex = yield select((state: RootStateType) =>
       state.changesetsPage.get('pageIndex')
     );
@@ -189,7 +204,7 @@ export function* modifyChangesetPage({ changesetId, changeset }: Object): any {
 export function* updateCacheChangesetPage(): any {
   try {
     yield put(action(CHANGESETS_PAGE_NEW_CHECK_LOADING));
-    yield call(delay, 6000 + Math.random() * 2000);
+    yield call(delay, 5000 + Math.random() * 2000);
     const [
       filters: Map<string, List<InputType>>,
       pageIndex: number,
@@ -199,7 +214,13 @@ export function* updateCacheChangesetPage(): any {
       state.changesetsPage.get('pageIndex'),
       state.auth.get('token')
     ]);
-    let newData = yield call(fetchChangesetsPage, pageIndex, filters, token);
+    let newData = yield call(
+      fetchChangesetsPage,
+      pageIndex,
+      filters,
+      token,
+      true
+    );
     let oldData = yield select((state: RootStateType) =>
       state.changesetsPage.get('currentPage')
     );
@@ -215,7 +236,7 @@ export function* updateCacheChangesetPage(): any {
   }
 }
 export function* pollChangesetPage(): any {
-  yield call(delay, 6 * 1000);
+  yield call(delay, 1000);
   yield put(action(CHANGESET_PAGE_UPDATE_CACHE)); // check for stale data, if cold reload
   while (true) {
     yield call(delay, INTERVAL);

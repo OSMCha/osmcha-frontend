@@ -52,7 +52,7 @@ class ChangesetsList extends React.PureComponent {
     oAuthToken: ?string,
     token: ?string,
     filters: Map<string, ImmutableList<*>>,
-    getChangesetsPage: (number, boolean) => mixed, // base 0
+    getChangesetsPage: (number, ?boolean) => mixed, // base 0
     getOAuthToken: () => mixed,
     getFinalToken: string => mixed,
     logUserOut: () => mixed,
