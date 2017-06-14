@@ -125,6 +125,7 @@ export function* fetchChangesetsPageAsync({
       put(action(FILTERS_SET, filters))
     ]);
   }
+
   if (pageIndex === undefined || pageIndex === null) {
     pageIndex = yield select((state: RootStateType) =>
       state.changesetsPage.get('pageIndex')
@@ -152,7 +153,7 @@ export function* fetchChangesetsPageAsync({
       })
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
     yield put(
       action(CHANGESETS_PAGE_ERROR, {
         pageIndex,
@@ -201,10 +202,10 @@ export function* modifyChangesetPage({ changesetId, changeset }: Object): any {
     console.error(e);
   }
 }
-export function* updateCacheChangesetPage(): any {
+export function* updateCacheChangesetPage({ nocache }): any {
   try {
     yield put(action(CHANGESETS_PAGE_NEW_CHECK_LOADING));
-    yield call(delay, 5000 + Math.random() * 2000);
+    yield call(delay, 3000 + Math.random() * 2000);
     const [
       filters: Map<string, List<InputType>>,
       pageIndex: number,
@@ -219,7 +220,7 @@ export function* updateCacheChangesetPage(): any {
       pageIndex,
       filters,
       token,
-      true
+      nocache
     );
     let oldData = yield select((state: RootStateType) =>
       state.changesetsPage.get('currentPage')
@@ -236,8 +237,8 @@ export function* updateCacheChangesetPage(): any {
   }
 }
 export function* pollChangesetPage(): any {
-  yield call(delay, 1000);
-  yield put(action(CHANGESET_PAGE_UPDATE_CACHE)); // check for stale data, if cold reload
+  yield call(delay, 2000);
+  yield put(action(CHANGESET_PAGE_UPDATE_CACHE, { nocache: true })); // check for stale data, if cold reload
   while (true) {
     yield call(delay, INTERVAL);
     yield put(action(CHANGESET_PAGE_UPDATE_CACHE)); // periodically check for new data

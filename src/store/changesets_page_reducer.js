@@ -17,7 +17,8 @@ export type ChangesetsPageType = Map<
 
 const changesetsInitial: ChangesetsPageType = fromJS({
   pageIndex: 0,
-  currentPage: new Map(),
+  currentPage: {},
+  filters: {},
   loading: false,
   error: null,
   diff: 0, // difference between the number of changesets in cache and the currentPage.
