@@ -23,7 +23,8 @@ import {
   CHANGESET_DETAILS_DETAILS,
   CHANGESET_DETAILS_SUSPICIOUS,
   CHANGESET_DETAILS_USER,
-  CHANGESET_DETAILS_DISCUSSIONS
+  CHANGESET_DETAILS_DISCUSSIONS,
+  CHANGESET_DETAILS_MAP
 } from '../../config/bindings';
 
 // presentational component for view/changeset.js
@@ -67,6 +68,9 @@ export class Changeset extends React.PureComponent {
     });
     Mousetrap.bind(CHANGESET_DETAILS_USER, () => {
       this.toggleUser();
+    });
+    Mousetrap.bind(CHANGESET_DETAILS_MAP, () => {
+      this.toggleMapOptions();
     });
     this.getData(this.props.changesetId, this.props.currentChangeset);
   }

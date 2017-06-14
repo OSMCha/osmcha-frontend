@@ -29,9 +29,8 @@ export class Discussions extends React.PureComponent<void, Props, State> {
                 <span>
                   By <span className="txt-bold">{f.get('userName')}&nbsp;</span>
                 </span>
-                <span>{moment(f.get('date')).fromNow()}</span>
+                <span>{moment(f.get('timestamp')).fromNow()}</span>
               </div>
-
               <div className="flex-parent flex-parent--column mt6">
                 <p>
                   {f.get('comment')}
