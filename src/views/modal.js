@@ -17,6 +17,7 @@ class Modal extends React.PureComponent {
     dismissModalCallback: () => any,
     activateModalCallback: () => any,
     callbackLabel: ?string,
+    error: Object,
     uid: number
   };
   static defaultProps = {
@@ -43,7 +44,8 @@ class Modal extends React.PureComponent {
     this.ref.addNotification({
       uid,
       title: nextProps.title,
-      message: nextProps.description,
+      message:
+        (nextProps.error && nextProps.error.message) || nextProps.description,
       level: nextProps.kind,
       autoDismiss: nextProps.autoDismiss,
       dismissible: nextProps.dismiss,
