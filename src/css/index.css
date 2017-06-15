@@ -154,6 +154,33 @@ body {
   transition: opacity 1s ease-out;
 }
 
+.filters-desc-appear {
+  opacity: 0.01;
+}
+
+.filters-desc-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .3s ease-in;
+}
+
+.filters-desc-enter {
+  opacity: 0.01;
+}
+
+.filters-desc-enter.filters-desc-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-out;
+}
+
+.filters-desc-leave {
+  opacity: 1;
+}
+
+.filters-desc-leave.filters-desc-leave-active {
+  opacity: 0.1;
+  transition: opacity 200ms ease-out;
+}
+
 .tippy-tooltip.osmcha-theme {
   /* Your styling here. Example: */
   background-color: #f7f7f7;

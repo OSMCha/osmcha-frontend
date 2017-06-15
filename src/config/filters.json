@@ -10,17 +10,6 @@
     "placeholder": "Changeset's inception date"
   },
   {
-    "name": "reasons",
-    "icontains": false,
-    "range": false,
-    "all": true,
-    "data_url": "suspicion-reasons",
-    "display": "Reasons",
-    "type": "text_comma",
-    "description": "Filter changesets that have one or more of the Suspicious Reasons. Inform the Suspicion Reasons ids separated by commas.",
-    "placeholder": "Filter changesets with reasons"
-  },
-  {
     "name": "geometry",
     "icontains": false,
     "all": false,
@@ -39,6 +28,17 @@
     "type": "text",
     "description": "Filter changesets by its comment field using the icontains lookup expression.",
     "placeholder": "Enter keywords like import, HOT ... "
+  },
+  {
+    "name": "reasons",
+    "icontains": false,
+    "range": false,
+    "all": true,
+    "data_url": "suspicion-reasons",
+    "display": "Reasons",
+    "type": "text_comma",
+    "description": "Filter changesets that have one or more of the Suspicious Reasons. Inform the Suspicion Reasons ids separated by commas.",
+    "placeholder": "Filter changesets with reasons"
   },
   {
     "name": "source",

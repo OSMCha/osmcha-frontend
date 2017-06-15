@@ -3,16 +3,11 @@ import React from 'react';
 import { List } from 'immutable';
 import moment from 'moment';
 
-type Props = {
-  discussions: List<*>,
-  changesetId: number
-};
-
-type State = {
-  discussions: Array<Object>
-};
-
-export class Discussions extends React.PureComponent<void, Props, State> {
+export class Discussions extends React.PureComponent {
+  props: {
+    discussions: List<*>,
+    changesetId: number
+  };
   render() {
     return (
       <div className="p18">

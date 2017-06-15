@@ -7,7 +7,7 @@ import Mousetrap from 'mousetrap';
 import { NavLink } from 'react-router-dom';
 import { push } from 'react-router-redux';
 
-import type { RootStateType } from '../store';
+// import type { RootStateType } from '../store';
 
 import {
   getChangesetsPage,

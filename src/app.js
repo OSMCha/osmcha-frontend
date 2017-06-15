@@ -42,7 +42,7 @@ class App extends Component {
           render={({ location }) =>
             <div className="viewport-full clip">
               <div className="grid">
-                <div className="col col--3-mxl col--4-ml bg-white clip">
+                <div className="col col--3-mxl col--4-ml bg-white clip border-r border--gray-light border--1 ">
                   <NavbarSidebar />
                   <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
                 </div>

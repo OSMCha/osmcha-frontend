@@ -64,9 +64,3 @@ export class MultiSelect extends React.PureComponent {
     );
   }
 }
-
-//  options={
-//             name === 'users' || name === 'checked_by'
-//               ? this.props.usersAutofill
-//               : []
-//           }

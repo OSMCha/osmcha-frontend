@@ -227,6 +227,10 @@ export class Changeset extends React.PureComponent {
     });
   };
   render() {
+    const features = this.props.currentChangeset.getIn([
+      'properties',
+      'features'
+    ]);
     return (
       <div className="flex-child clip" ref={this.setRef}>
         <Floater
@@ -253,9 +257,8 @@ export class Changeset extends React.PureComponent {
             className="unround"
           >
             <svg
-              className={`icon inline-block align-middle ${this.props.currentChangeset.getIn(
-                ['properties', 'features']
-              ).size > 0
+              className={`icon inline-block align-middle ${features &&
+                features.size > 0
                 ? 'color-orange'
                 : ''}`}
             >

@@ -3,8 +3,14 @@ import { Map, fromJS } from 'immutable';
 import { SHOW_MODAL } from './modal_actions';
 
 export type ModalType = Map<
-  'error' | 'kind' | 'duration' | 'title' | 'description' | 'callback',
-  'callbackLabel' | 'dismiss',
+  | 'error'
+  | 'kind'
+  | 'duration'
+  | 'title'
+  | 'description'
+  | 'callback'
+  | 'callbackLabel'
+  | 'dismiss',
   any
 >; // osmcha uses this
 

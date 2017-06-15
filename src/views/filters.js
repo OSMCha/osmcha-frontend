@@ -17,6 +17,9 @@ import { applyFilters } from '../store/changesets_page_actions';
 
 import type { RootStateType } from '../store';
 
+var filtersData = filters.filter(f => {
+  return !f.ignore;
+});
 const USERS_LIMIT = 200;
 export class _Filters extends React.PureComponent {
   props: {
@@ -29,7 +32,15 @@ export class _Filters extends React.PureComponent {
   static defaultProps = {
     filters: new Map()
   };
-  state = { filters: this.props.filters };
+  state = {
+    filters: this.props.filters,
+    active: filtersData[0].name
+  };
+  handleFocus = (name: string) => {
+    this.setState({
+      active: name
+    });
+  };
   handleApply = () => {
     this.props.applyFilters(this.state.filters, '/');
     const filters: Map<string, List<*>> = this.state.filters;
@@ -59,6 +70,101 @@ export class _Filters extends React.PureComponent {
       '/changesets/' + (this.props.lastChangesetID || 49174123) + ''
     );
   };
+  renderFilters = (f: Object, k: number) => {
+    if (f.range) {
+      return (
+        <Wrapper
+          name={f.name}
+          handleFocus={this.handleFocus}
+          display={f.display}
+          key={k}
+          description={this.state.active === f.name && f.description}
+        >
+          <span className="flex-parent flex-parent--row  ">
+            <Text
+              type={f.type}
+              className="mr3"
+              value={this.state.filters.get(f.name + '__gte')}
+              name={f.name + '__gte'}
+              display={f.display}
+              placeholder={'from'}
+              onChange={this.handleChange}
+            />
+            <Text
+              type={f.type}
+              value={this.state.filters.get(f.name + '__lte')}
+              name={f.name + '__lte'}
+              display={f.display}
+              placeholder={'to'}
+              onChange={this.handleChange}
+            />
+          </span>
+        </Wrapper>
+      );
+    }
+    if (f.type === 'text') {
+      return (
+        <Wrapper
+          display={f.display}
+          key={k}
+          name={f.name}
+          handleFocus={this.handleFocus}
+          description={this.state.active === f.name && f.description}
+        >
+          <Text
+            type={f.type}
+            value={this.state.filters.get(f.name)}
+            name={f.name}
+            display={f.display}
+            placeholder={f.placeholder}
+            onChange={this.handleChange}
+          />
+        </Wrapper>
+      );
+    }
+    if (f.type === 'radio') {
+      return (
+        <Wrapper
+          display={f.display}
+          key={k}
+          name={f.name}
+          handleFocus={this.handleFocus}
+          description={this.state.active === f.name && f.description}
+        >
+          <Radio
+            name={f.name}
+            type={f.type}
+            display={f.display}
+            value={this.state.filters.get(f.name)}
+            placeholder={f.placeholder}
+            options={f.options || []}
+            onChange={this.handleChange}
+          />
+        </Wrapper>
+      );
+    }
+    if (f.type === 'text_comma') {
+      return (
+        <Wrapper
+          display={f.display}
+          key={k}
+          name={f.name}
+          handleFocus={this.handleFocus}
+          description={this.state.active === f.name && f.description}
+        >
+          <MultiSelect
+            name={f.name}
+            display={f.display}
+            value={this.state.filters.get(f.name)}
+            placeholder={f.placeholder}
+            options={f.options || []}
+            onChange={this.handleChange}
+            dataURL={f.data_url}
+          />
+        </Wrapper>
+      );
+    }
+  };
   render() {
     const width = window.innerWidth;
     let usersAutofill;
@@ -87,114 +193,58 @@ export class _Filters extends React.PureComponent {
     }
     return (
       <div
-        className={`flex-parent flex-parent--column changesets-filters bg-gray-faint ${width <
+        className={`flex-parent flex-parent--column changesets-filters bg-white ${width <
           800
           ? 'viewport-full'
           : ''}`}
       >
-        <header className="hmin55 h55 p12 pb24 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
-          Filters
+        <header className="h55 hmin55 flex-parent px12 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
+          <span className="txt-l color-gray--dark">
+            Filters{' '}
+            <a
+              onClick={this.handleClear}
+              className="pointer mx6 txt-s txt-underline"
+            >
+              Reset
+            </a>
+          </span>
+          <span className="txt-l color-gray--dark">
+            <a onClick={this.handleApply} className="mx6 ">
+              <Button className="bg-white-on-hover">
+                Apply
+              </Button>
+            </a>
+            <Link
+              to={{ search: this.props.location.search, pathname: '/' }}
+              className="mx6"
+            >
+              <svg className="icon icon--l inline-block align-middle color-gray-dark-on-hover ">
+                <use xlinkHref="#icon-close" />
+              </svg>
+            </Link>
+          </span>
         </header>
-        <div
-          className="m12 flex-child scroll-auto wmax960 "
-          style={{ alignSelf: 'center' }}
-        >
-          {filters
-            .filter(f => {
-              return !f.ignore;
-            })
-            .map((f: Object, k) => {
-              if (f.range) {
-                return (
-                  <Wrapper display={f.display} key={k}>
-                    <span className="flex-parent flex-parent--row  ">
-                      <Text
-                        type={f.type}
-                        className="mr3"
-                        value={this.state.filters.get(f.name + '__gte')}
-                        name={f.name + '__gte'}
-                        display={f.display}
-                        placeholder={f.placeholder}
-                        onChange={this.handleChange}
-                      />
-                      <Text
-                        type={f.type}
-                        value={this.state.filters.get(f.name + '__lte')}
-                        name={f.name + '__lte'}
-                        display={f.display}
-                        placeholder={f.placeholder}
-                        onChange={this.handleChange}
-                      />
-                    </span>
-                  </Wrapper>
-                );
-              }
-              if (f.type === 'text') {
-                return (
-                  <Wrapper display={f.display} key={k}>
-                    <Text
-                      type={f.type}
-                      value={this.state.filters.get(f.name)}
-                      name={f.name}
-                      display={f.display}
-                      placeholder={f.placeholder}
-                      onChange={this.handleChange}
-                    />
-                  </Wrapper>
-                );
-              }
-              if (f.type === 'radio') {
-                return (
-                  <Wrapper display={f.display} key={k}>
-                    <Radio
-                      name={f.name}
-                      type={f.type}
-                      display={f.display}
-                      value={this.state.filters.get(f.name)}
-                      placeholder={f.placeholder}
-                      options={f.options || []}
-                      onChange={this.handleChange}
-                    />
-                  </Wrapper>
-                );
-              }
-              if (f.type === 'text_comma')
-                return (
-                  <Wrapper display={f.display} key={k}>
-                    <MultiSelect
-                      name={f.name}
-                      display={f.display}
-                      value={this.state.filters.get(f.name)}
-                      placeholder={f.placeholder}
-                      options={f.options || []}
-                      onChange={this.handleChange}
-                      usersAutofill={usersAutofill}
-                      dataURL={f.data_url}
-                    />
-                  </Wrapper>
-                );
-            })}
+
+        <div className="pl24 flex-child scroll-auto">
+          <h2 className="txt-l mr6 txt-bold mt24   border-b border--gray-light border--1">
+            Basic
+          </h2>
+          {filtersData
+            .slice(0, 3)
+            .map((f: Object, k) => this.renderFilters(f, k))}
+          <h2 className="txt-l mr6 txt-bold mt30  border-b border--gray-light border--1">
+            Validation
+          </h2>
+          {filtersData
+            .slice(3, 6)
+            .map((f: Object, k) => this.renderFilters(f, k))}
+          <span className="flex-child flex-child--grow wmin420 wmax435" />
+          <h2 className="txt-l mr6 txt-bold mt30  border-b border--gray-light border--1">
+            Changeset Data
+          </h2>
+          {filtersData.slice(6).map((f: Object, k) => this.renderFilters(f, k))}
           <span className="flex-child flex-child--grow wmin420 wmax435" />
         </div>
-        <div className="flex-parent flex-parent--column justify--space-around  flex-child--grow" />
-        <footer className="hmin55 p12 pb24 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
-          <Link to={{ search: this.props.location.search, pathname: '/' }}>
-            <Button className="bg-white-on-hover">
-              Close
-            </Button>
-          </Link>
-
-          <a onClick={this.handleClear}>
-            <Button className="bg-white-on-hover">
-              Clear
-            </Button>
-          </a>
-          <a onClick={this.handleApply}>
-            <Button className="bg-white-on-hover">
-              Apply
-            </Button>
-          </a>
-        </footer>
       </div>
     );
   }
