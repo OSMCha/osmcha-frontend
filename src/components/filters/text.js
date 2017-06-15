@@ -12,6 +12,7 @@ export class Text extends React.PureComponent {
     placeholder: string,
     value: List<InputType>,
     className: string,
+    disabled: ?boolean,
     onChange: (string, ?List<InputType>) => any
   };
   static defaultProps = {
@@ -43,11 +44,13 @@ export class Text extends React.PureComponent {
       placeholder,
       display,
       value,
-      className
+      className,
+      disabled
     } = this.props;
     return (
       <input
         name={name}
+        disabled={disabled}
         className={`input ${className}`}
         value={(value && value.getIn([0, 'value'])) || ''} // allways sends 1 size array to keep things consistent
         onChange={this.handleFormChange}

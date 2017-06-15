@@ -24,6 +24,7 @@ function importChangesetMap() {
   if (cMapRender) return Promise.resolve(cMapRender);
   return import('changeset-map')
     .then(function(module) {
+      console.log(module);
       cMapRender = module.render;
       return cMapRender;
     })

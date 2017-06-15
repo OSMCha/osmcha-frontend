@@ -302,3 +302,10 @@ body {
 .changesets-list .border-l--4 {
   border-left-width: 4px !important;
 }
+
+/* bbox map*/
+.bbox-map-clear {
+  position: relative;
+  top: 28px;
+  right: 1px;
+}

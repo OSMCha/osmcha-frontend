@@ -20,6 +20,16 @@
     "placeholder": ""
   },
   {
+    "name": "in_bbox",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "BBox",
+    "type": "map",
+    "description": "Scroll",
+    "placeholder": "Pan to the location of interest in the map"
+  },
+  {
     "name": "comment",
     "icontains": true,
     "all": false,

@@ -8,6 +8,8 @@ import { Filter } from '../components/filter';
 import { Text, Radio, MultiSelect, Wrapper } from '../components/filters';
 
 import { Button } from '../components/button';
+import { BBoxPicker } from '../components/bbox_picker';
+
 import { getItem, setItem } from '../utils/safe_storage';
 import { gaSendEvent } from '../utils/analytics';
 
@@ -160,6 +162,33 @@ export class _Filters extends React.PureComponent {
             options={f.options || []}
             onChange={this.handleChange}
             dataURL={f.data_url}
+          />
+        </Wrapper>
+      );
+    }
+    if (f.type === 'map') {
+      return (
+        <Wrapper
+          display={f.display}
+          key={k}
+          name={f.name}
+          handleFocus={this.handleFocus}
+          description={
+            this.state.active === f.name &&
+            <BBoxPicker
+              onChange={this.handleChange}
+              name={f.name}
+              value={this.state.filters.get(f.name)}
+            />
+          }
+        >
+          <Text
+            type={f.type}
+            value={this.state.filters.get(f.name)}
+            name={f.name}
+            display={f.display}
+            placeholder={f.placeholder}
+            onChange={this.handleChange}
           />
         </Wrapper>
       );
