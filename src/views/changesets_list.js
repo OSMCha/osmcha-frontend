@@ -2,12 +2,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { List as ImmutableList, Map, fromJS } from 'immutable';
-import R from 'ramda';
 import Mousetrap from 'mousetrap';
 import { NavLink } from 'react-router-dom';
 import { push } from 'react-router-redux';
 
-// import type { RootStateType } from '../store';
+import type { RootStateType } from '../store';
 
 import {
   getChangesetsPage,
@@ -37,6 +36,9 @@ import filters from '../config/filters.json';
 
 const RANGE = 6;
 
+function range(start, end) {
+  return Array.from(Array(end - start).keys()).map(k => k + start);
+}
 class ChangesetsList extends React.PureComponent {
   props: {
     location: Object,
@@ -234,7 +236,7 @@ class ChangesetsList extends React.PureComponent {
             active={false}
             getChangesetsPage={this.props.getChangesetsPage}
           />
-          {R.range(base, Math.min(base + RANGE, this.maxPageCount)).map(n =>
+          {range(base, Math.min(base + RANGE, this.maxPageCount)).map(n =>
             <PageRange
               key={n}
               page={n}

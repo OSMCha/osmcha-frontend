@@ -9,7 +9,6 @@ function importChangesetMap() {
   if (mapboxgl) return Promise.resolve(mapboxgl);
   return import('changeset-map')
     .then(function(module) {
-      console.log(module);
       mapboxgl = module.getGL();
       return mapboxgl;
     })
@@ -53,10 +52,11 @@ export class BBoxPicker extends React.Component {
         center: [-122.4237, 37.7682],
         zoom: 4
       });
-
-      this.map.on('dragend', this.update);
-      this.map.on('zoomend', this.update);
-      this.map.on('touchend', this.update);
+      if (this.map) {
+        this.map.on('dragend', this.update);
+        this.map.on('zoomend', this.update);
+        this.map.on('touchend', this.update);
+      }
     });
   }
   componentWillUnmount() {

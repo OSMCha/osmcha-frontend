@@ -309,3 +309,13 @@ body {
   top: 28px;
   right: 1px;
 }
+
+.about-page h2 {
+  font-size: 18px;
+  line-height: 30px;
+}
+
+.about-page h3 {
+  font-size: 14px;
+  line-height: 24px;
+}

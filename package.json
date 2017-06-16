@@ -36,6 +36,7 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.1",
     "redux-saga": "^0.15.3",
+    "showdown": "^1.7.1",
     "superagent": "^3.5.2",
     "workbox-sw": "^1.0.0"
   },
@@ -51,6 +52,7 @@
     "prettier-eslint-cli": "^4.1.1",
     "react-scripts": "1.0.7",
     "react-test-renderer": "^15.6.1",
+    "webpack-bundle-analyzer": "^2.8.2",
     "why-did-you-update": "0.0.8"
   },
   "scripts": {
@@ -64,6 +66,7 @@
     "build-oh": "REACT_APP_DEPLOY_TARGET=DOTCOM react-scripts build",
     "deploy-oh": "REACT_APP_DEPLOY_TARGET=DOTCOM gh-pages -d build -b oh-pages"
   },
+  "xhomepage": "https://mapbox.github.io/osmcha-frontend/",
   "lint-staged": {
     "*.js": [
       "prettier --write --single-quote",
