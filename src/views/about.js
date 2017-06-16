@@ -63,11 +63,13 @@ export class About extends React.PureComponent {
     markdown: null
   };
   componentDidMount() {
-    fetch(
-      'https://raw.githubusercontent.com/mapbox/osmcha-frontend/master/ABOUT.md'
-    )
-      .then(r => r.text())
-      .then(markdown => this.setState({ markdown }));
+    setTimeout(() => {
+      fetch(
+        'https://raw.githubusercontent.com/mapbox/osmcha-frontend/master/ABOUT.md'
+      )
+        .then(r => r.text())
+        .then(markdown => this.setState({ markdown }));
+    }, 1000);
   }
   render() {
     return (

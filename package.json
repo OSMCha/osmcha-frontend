@@ -59,14 +59,14 @@
     "precommit": "lint-staged",
     "flow": "flow",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\"  react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build",
     "build-oh": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_DEPLOY_TARGET=DOTCOM react-scripts build",
     "deploy-oh": "REACT_APP_DEPLOY_TARGET=DOTCOM gh-pages -d build -b oh-pages"
   },
-  "xhomepage": "https://mapbox.github.io/osmcha-frontend/",
+  "homepage": "https://mapbox.github.io/osmcha-frontend/",
   "lint-staged": {
     "*.js": [
       "prettier --write --single-quote",
