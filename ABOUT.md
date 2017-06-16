@@ -51,7 +51,7 @@ OSMCha is short for OpenStreetMap Changeset Analyser. OSMCha is a web tool to he
 
 - Any changeset on OSM can be reviewed by the community to confirm the quality of the edit. You can 👍 for edits that improve the map, and 👎 for those that reduce the overall quality of the data.
 
-- This data is collected to help improve the compare functions in OSM-Compare project more efficient and robust by testing against a verified database of good and bad changesets. 
+- This data is collected to help improve the compare functions in OSM-Compare project more efficient and robust by testing against a verified database of good and bad changesets.
 
 - Consistent categorisation of changesets also helps to build an open source database for use in ventures related to machine learning or automating the detection process for bad edits instead of writing rule based compare functions for all possible scenarios of bad edits.
 
@@ -69,17 +69,17 @@ OSMCha is short for OpenStreetMap Changeset Analyser. OSMCha is a web tool to he
 
 ## How to review a changeset?
 
-OSMCha offers an interface similar to OpenStreetMap but with additional tools such as changeset-map to visualise the edits on the map, information about the mapper, other information related to the changeset and OSM user history that can help the reviewer identify a problematic edit on OSM. For a deep-dive into what a problematic edit is on OSM, please refer to our guide on Validating OpenStreetMap. 
+OSMCha offers an interface similar to OpenStreetMap but with additional tools such as changeset-map to visualise the edits on the map, information about the mapper, other information related to the changeset and OSM user history that can help the reviewer identify a problematic edit on OSM. For a deep-dive into what a problematic edit is on OSM, please refer to our guide on Validating OpenStreetMap.
 
 
 It is important that the reviewer has the necessary information about the changeset and the mapper to understand the changes in a particular changeset.
 
 ### Changeset and Mapper details
 
-  
+
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497440261785_image.png)
 
-- The details panel on OSMCha gives information of the changeset and the mapper. 
+- The details panel on OSMCha gives information of the changeset and the mapper.
 - In the top right corner of the panel, in blue, yellow and red, number of additions, modifications and deletions of the changeset are presented.
 - The details panels includes the username of the mapper, number of changesets the mapper has contributed on OSM, chnageset comment and further details like the editor and imagery used in making the edits on OSM.
 
@@ -89,16 +89,16 @@ It is important that the reviewer has the necessary information about the change
 
 
 
-    
+
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497443028688_image.png)
 
 <nicer screenshot on discussion>
-    
+
 - Similarly if there is a discussion on the changeset on OpenStreetMap, OSMCha presents the discussion under the discussion tab.
 
 
 <screenshot on user profile>
-  
+
 - More details on the mapper can be found under the profile tab. This gives a good background information about the user for the reviewer for context including his history and pattern of contribution to OpenStreetMap.
 
 
@@ -117,7 +117,7 @@ It is important that the reviewer has the necessary information about the change
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497444833373_image.png)
 
 - Open the changeset in a preferred editor or a tool to inspect the changeset
-  
+
 - Using OSMCha by spotting a changeset on OSM
 
 - If you come across a changeset on OSM while browsing through the history tab or a particular user’s changeset, it is sometimes necessary to see the changes that happened in a changeset visually.
@@ -150,7 +150,7 @@ Filters tab on OSMCha provides a variety of search parameters to fetch a specifi
 History tab on OpenStreetMap offers a very basic area based retrieval of changesets. It allows a user to zoom in to a specific area on the map and all the changesets in that area are shown on the sidebar in the order of newest first. OSMCha filters expands this feature with much more metadata based search.
 
 
-These include - 
+These include -
 - Changeset comment mentioned in the changeset by the mapper
 - Changeset date based on the time the edits uploaded on OpenStreetMap
 - Number of features added, modified and deleted in a changeset
@@ -167,7 +167,7 @@ These include -
 
 
 
-  
+
 **Null island edits**
 
 - New mappers tend to add fictional data on OpenStreetMap at 0, 0 coordinates. This is because OpenStreetMap opens at 0.0 coordinates by default and new mappers sometimes add fictional data here due to lack of practice/knowledge on OSM workflow, coordinates on the map and for test mapping.
@@ -203,7 +203,7 @@ These include -
 
 ### How can I login into OSMCha?
 
-- A reviewer on OSMCha can sign using their OpenStreetMap account on OSMCha. A reviewer needs to be signed in to input Good/Bad review on OSMCha. For only viewing without review, authentication is not necessary.
+- A reviewer on OSMCha can sign using their OpenStreetMap account on OSMCha. A reviewer needs to be signed in to input Good/Bad [review](#how-to-review-a-changeset) on OSMCha. For only viewing without review, authentication is not necessary.
 
 
 ### How do I logout of OSMCha?
@@ -216,6 +216,7 @@ These include -
 - No. Rule based detectors on OSM-Compare are inefficient in understanding context of an edit, place and mapping activity. This is the disadvantage and reason that these detections are false positives 80% of the time based on the compare function written.
 
 - Ex: A place deleted compare function detects even when an experienced mapper has deleted a fake city previously added by another user. This context is unavailable to the rule based detector for better analysis.
+
 
 ### Are there keyboard shortcuts in OSMCha?
 
@@ -272,4 +273,3 @@ Down - To go to next changeset in the sidebar changeset list
 
 - To files bugs, feature requests on OSMCha - please file issues at https://github.com/mapbox/osmcha-frontend/
 - To files bugs, feature requests on OSMCha - please file issues at https://github.com/osmlab/changeset-map/issues
-
