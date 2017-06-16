@@ -40,13 +40,13 @@ class App extends Component {
       return (
         <Route
           render={({ location }) =>
-            <div className="viewport-full clip">
+            <div className="viewport-full">
               <div className="grid">
-                <div className="col col--3-mxl col--4-ml bg-white clip border-r border--gray-light border--1 ">
+                <div className="col col--3-mxl col--4-ml bg-white border-r border--gray-light border--1 ">
                   <NavbarSidebar />
                   <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
                 </div>
-                <div className="col col--9-mxl col--8-ml col--12-mm clip bg-black ">
+                <div className="col col--9-mxl col--8-ml col--12-mm  bg-black ">
                   <CSSTransitionGroup
                     transitionName="filters"
                     transitionAppearTimeout={500}
@@ -79,6 +79,7 @@ class App extends Component {
                   />
                   <Route path="/changesets/:id" component={Changeset} />
                   <Route path="/about" component={About} />
+                  <Route path="/" component={About} />
                   <Route path="/stats" component={Stats} />
                 </div>
               </div>
@@ -88,8 +89,8 @@ class App extends Component {
       );
     } else {
       return (
-        <div className="viewport-full clip">
-          <div className="col clip">
+        <div className="viewport-full">
+          <div className="col">
             <Route exact path="/" component={ChangesetsList} />
             <Route
               path="/changesets"

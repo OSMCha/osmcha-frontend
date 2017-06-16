@@ -89,6 +89,11 @@ class NavbarSidebar extends React.PureComponent {
           }
           buttons={
             <div>
+              <Link className="pr3 pointer" to="/about">
+                <svg className="icon icon--m inline-block align-middle color-gray-dark-on-hover ">
+                  <use xlinkHref="#icon-question" />
+                </svg>
+              </Link>
               {this.props.token
                 ? <div className="dropdown mr3 pointer">
                     <span onClick={this.openMenu}>
