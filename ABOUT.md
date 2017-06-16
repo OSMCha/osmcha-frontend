@@ -1,5 +1,5 @@
-# OSMCha About Me Draft.md
 
+## Table Of Contents
 <!-- toc -->
 
 - [Introduction to OSMCha](#introduction-to-osmcha)
