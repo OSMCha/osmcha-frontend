@@ -3,76 +3,77 @@
 <!-- toc -->
 
 - [Introduction to OSMCha](#introduction-to-osmcha)
-  * [Why use OSMCha?](#why-use-osmcha)
-  * [What is vandalism?](#what-is-vandalism)
-  * [What are flagged changesets and how are they automatically flagged?](#what-are-flagged-changesets-and-how-are-they-automatically-flagged)
-  * [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad-%F0%9F%91%8D--%F0%9F%91%8E-)
-  * [Future of OSMCha and validation using OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
-- [How to review a changeset?](#how-to-review-a-changeset)
-  * [Changeset and Mapper details](#changeset-and-mapper-details)
-  * [Using Changeset-map](#using-changeset-map)
-- [Filters](#filters)
-  * [Basic filters](#basic-filters)
-  * [Applications for edit based search](#applications-for-edit-based-search)
+    + [Why use OSMCha?](#why-use-osmcha)
+    + [What is vandalism?](#what-is-vandalism)
+    + [What are flagged changesets and how are they automatically flagged?](#what-are-flagged-changesets-and-how-are-they-automatically-flagged)
+    + [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad-%F0%9F%91%8D--%F0%9F%91%8E-)
+    + [Future of OSMCha and validation using OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
+- [Usage](#usage)
+  * [How to review a changeset?](#how-to-review-a-changeset)
+    + [Changeset and Mapper details](#changeset-and-mapper-details)
+    + [Using Changeset-map](#using-changeset-map)
+    + [Reviewing changesets in OSMCha from OpenStreetMap](#reviewing-changesets-in-osmcha-from-openstreetmap)
+  * [Filters](#filters)
+    + [Basic filters](#basic-filters)
+    + [Applications for edit based search](#applications-for-edit-based-search)
 - [FAQ](#faq)
-  * [How are the changesets presented?](#how-are-the-changesets-presented)
-  * [How can I login into OSMCha?](#how-can-i-login-into-osmcha)
-  * [How do I logout of OSMCha?](#how-do-i-logout-of-osmcha)
-  * [My changeset has been flagged by a reason, am I a bad mapper?](#my-changeset-has-been-flagged-by-a-reason-am-i-a-bad-mapper)
-  * [Are there keyboard shortcuts in OSMCha?](#are-there-keyboard-shortcuts-in-osmcha)
-  * [What are tags on OSMCha?](#what-are-tags-on-osmcha)
-- [References](#references)
-- [Other tools for validation](#other-tools-for-validation)
-- [Feedback](#feedback)
+    + [How are the changesets presented?](#how-are-the-changesets-presented)
+    + [How can I login into OSMCha?](#how-can-i-login-into-osmcha)
+    + [How do I logout of OSMCha?](#how-do-i-logout-of-osmcha)
+    + [My changeset has been flagged by a reason, am I a bad mapper?](#my-changeset-has-been-flagged-by-a-reason-am-i-a-bad-mapper)
+    + [Are there keyboard shortcuts in OSMCha?](#are-there-keyboard-shortcuts-in-osmcha)
+    + [What are tags on OSMCha?](#what-are-tags-on-osmcha)
+  * [References](#references)
+  * [Other tools for validation](#other-tools-for-validation)
+  * [Feedback](#feedback)
 
 <!-- tocstop -->
 
-## Introduction to OSMCha
+# Introduction to OSMCha
 
-OSMCha is short for OpenStreetMap Changeset Analyser. OSMCha is a web tool to help  visualise and analyse edits made by other mappers on OpenStreetMap(OSM). OSMCha was originally written by [Wille Marcel](https://www.openstreetmap.org/user/wille) in 2015 to validate changesets on OSM. In collaboration with Wille, this global instance is hosted by Mapbox as an additional data Quality Analysis tool for the OpenStreetMap(OSM) community.
+OSMCha is short for OpenStreetMap Changeset Analyser. OSMCha is a web tool to help visualise and analyse edits made by mappers on OpenStreetMap(OSM). OSMCha was originally written by [Wille Marcel](https://www.openstreetmap.org/user/wille) in 2015 to validate changesets. In collaboration with Wille, this global instance is hosted by Mapbox as an additional data Quality Analysis tool for the community.
 
 ### Why use OSMCha?
 
 - OSM is a crowdsourced project, and it is necessary to have user friendly tools for the community to guide new contributors to make a great map.
-- Any given day, around 30,000 changesets containing additions, modifications, and deletions to the data make their way into OSM, which is driven by a strong community. With new users signing up on OSM every day, it is likely that the mapping guides on tagging scheme, general practices are not uniformly followed by every user, resulting in accidental edits and in rare cases bad edits that breaks the map.
-- OSMCha is designed to be an integrated tool that can address various validation requirements of the community. OSMCha is also supported by an open source edit recognition project called [OSM-Compare](https://github.com/mapbox/osm-compare) which can be used for suggesting manual verification.
+- Any given day, around 30,000 changesets containing additions, modifications, and deletions to the data make their way into OSM, which is driven by a strong community.
+- With new users signing up on OSM every day, it is likely that the mapping guides/wikis on tagging scheme, general practices are not uniformly followed by every contributor, resulting in accidental edits, and in rare cases [intentional vandalism](#what-is-vandalism) that breaks the map.
+- OSMCha is designed to be an integrated tool that can address various [validation requirements](#how-to-review-a-changeset) of the community. OSMCha is also supported by an open source edit recognition project called [OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare) which can be used for suggesting manual verification.
+- This tool offers advanced filtering options that can help you [filter changesets](#filters) based on various attributes. (Ex: All changesets with hashtags, user specific changesets, etc)
 
 ### What is vandalism?
 
-- [Vandalism](https://wiki.openstreetmap.org/wiki/Vandalism) with respect to OpenStreetMap refers to deliberate acts of destruction or damage to the map data. These are intentional edits to the map data that causes visible breakages to the map and also breaking of crucial data such as route relations, boundaries, turn restrictions that is not visible but very important.
+[Vandalism](https://wiki.openstreetmap.org/wiki/Vandalism) with respect to OpenStreetMap refers to deliberate acts of destruction or damage to the map data. These include, intentional edits that causes visible breakages on the map and also break other crucial map data such as route relations, boundaries, turn restrictions, etc.
 
 ### What are flagged changesets and how are they automatically flagged?
 
-- Flagged changesets are changesets on OpenStreetMap that are flagged by OSM-Compare for specific edit behaviours. _Ex: Deletion of valid data, incompatible data errors e.g. a swimming pool tagged as `natural=water`_
+- Flagged changesets are changesets that are flagged by [OSM-Compare](https://github.com/mapbox/osm-compare) for specific edit behaviour. Like deletion of valid data, incompatible data errors example a swimming pool tagged as `natural=water`
 
-- OSMCha is supported by an edit detection pipeline called OSM-Compare. OSM-Compare is an open collection of compare functions written in Javascript that automatically checks for suspicous changes on OSM and push them into OSMCha to different categories of identifiable edit behaviours. Currently, there are compare functions in OSM-Compare for flagging deletions of cities and overlap between features.
+- OSMCha is supported by an edit detection pipeline called OSM-Compare. It is an open collection of compare functions written in Javascript that automatically checks for suspicious changes on OSM and pushes them into OSMCha to different categories of identifiable edit behaviour. Currently, there are compare functions in OSM-Compare for flagging deletions of cities and overlap between features.
 
 ### Why to review a changeset as Good/Bad 👍 / 👎 ?
 
-- Any changeset on OSM can be reviewed by the community to confirm the quality of the edit. You can 👍 for edits that improve the map, and 👎 for those that reduce the overall quality of the data.
+- Any changeset on OSM can be reviewed by the community to confirm the quality of the edit. You can 👍 for edits that do not cause any damage to the map, and 👎 for those that may break map data or is invalid data.
 
-- This data is collected to help improve the compare functions in OSM-Compare project more efficient and robust by testing against a verified database of good and bad changesets.
+- This data is collected to help improve the compare functions in OSM-Compare project. Thus helping it become more efficient and robust by testing it against a verified database of good and bad changesets.
 
 - Consistent categorisation of changesets also helps to build an open source database for use in ventures related to machine learning or automating the detection process for bad edits instead of writing rule based compare functions for all possible scenarios of bad edits.
 
 
-
 ### Future of OSMCha and validation using OSM-Compare
 
-- Machine learning based detection methods replace rule based edit detections. This makes it easier for analysis, automates maintenance and has prospects for better for detection rates to catch bad edits on OpenStreetMaps.
-- OSMCha will continue to be an OpenStreetMap validation tool that gets feeds from OSM-Compare with constant maintenance, with features towards an easier user experience for validation of edits on OpenStreetMap.
+- Machine learning based detection methods replace rule based edit detections. This makes it easier for analysis, automates maintenance and has prospects for better for detection rates to catch bad edits on OpenStreetMap.
+- OSMCha will continue to be an OpenStreetMap validation tool that get feeds from [OSM-Compare](https://github.com/mapbox/osm-compare) with constant maintenance, with features towards an easier user experience for validation of edits on OpenStreetMap.
 
 
-----------
-
-> Split into usage.md
+# Usage
 
 ## How to review a changeset?
 
-OSMCha offers an interface similar to OpenStreetMap but with additional tools such as changeset-map to visualise the edits on the map, information about the mapper, other information related to the changeset and OSM user history that can help the reviewer identify a problematic edit on OSM. For a deep-dive into what a problematic edit is on OSM, please refer to our guide on Validating OpenStreetMap.
+It is important that the reviewer has the necessary information about the changeset and the mapper to understand a particular changeset.
 
+For this purpose, OSMCha offers an interface similar to OpenStreetMap but with additional tools such as changeset-map to visualise the edits, information about the mapper, other information related to the changeset and OSM user history that can help the reviewer identify a problematic edits on OSM. For a deep-dive into what a problematic edit is on OSM, please refer to our guide on [Validating OpenStreetMap](https://www.mapbox.com/mapping/validating-osm/).
 
-It is important that the reviewer has the necessary information about the changeset and the mapper to understand the changes in a particular changeset.
 
 ### Changeset and Mapper details
 
@@ -85,9 +86,7 @@ It is important that the reviewer has the necessary information about the change
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497440902765_image.png)
 
-- When an edit is detected through a compare function on OSM-Compare, it is shown on the suspicious features tab. The reviewer can click on Map to view the edit on the changeset map or open it directly on JOSM for detailed review.
-
-
+- When an edit is [detected through a compare function](#why-to-review-a-changeset-as-goodbad-%F0%9F%91%8D--%F0%9F%91%8E-) on OSM-Compare, it is shown on the suspicious features tab. The reviewer can click on Map to view the edit on the changeset map or open it directly on JOSM for detailed review.
 
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497443028688_image.png)
@@ -99,7 +98,7 @@ It is important that the reviewer has the necessary information about the change
 
 <screenshot on user profile>
 
-- More details on the mapper can be found under the profile tab. This gives a good background information about the user for the reviewer for context including his history and pattern of contribution to OpenStreetMap.
+- More details on the mapper can be found under the `profile tab`. This gives more context to the reviewer about the user history and their pattern of contribution to OpenStreetMap
 
 
 ### Using Changeset-map
@@ -107,24 +106,20 @@ It is important that the reviewer has the necessary information about the change
 - Changeset-map is a changeset visualiser for OSM. It helps the reviewer understand the edits of a changeset both in terms of geometry and feature properties.
 
 
-
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497443481288_image.png)
 
 - The reviewer can click on any particular feature edited in that changeset and see the additions, deletions and modifications made to the feature to have an informed decision on quality of the edits.
 
-- Click on map from Suspicious features tab and visualise it in changeset map.
+- Click on map from `Suspicious features tab` and visualise it in changeset map.
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497444833373_image.png)
 
 - Open the changeset in a preferred editor or a tool to inspect the changeset
 
-- Using OSMCha by spotting a changeset on OSM
+### Reviewing changesets in OSMCha from OpenStreetMap
 
 - If you come across a changeset on OSM while browsing through the history tab or a particular user’s changeset, it is sometimes necessary to see the changes that happened in a changeset visually.
-  - In these cases, you can copy the changeset ID and open it in OSMCha for visualisation and easily spotting errors in a changeset.
-
-
-
+- In these cases, you can copy the changeset ID and open it in OSMCha for visualisation and easily spotting errors in a changeset.
 
 
 ## Filters
@@ -184,12 +179,7 @@ These include -
   - Ex: iD editor changesets that have deleted a lot of features
   - Ex: Mass additions of data by new mappers
 
-
-----------
-
-> Split into FAq.md
-
-## FAQ
+# FAQ
 
 ### How are the changesets presented?
 
