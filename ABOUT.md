@@ -8,6 +8,7 @@
     + [What are flagged changesets and how are they automatically flagged?](#what-are-flagged-changesets-and-how-are-they-automatically-flagged)
     + [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad-%F0%9F%91%8D--%F0%9F%91%8E-)
     + [Future of OSMCha and validation using OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
+    + [Whats new in Osmcha](#whats-new-in-OSMCHA)
 - [Usage](#usage)
   * [How to review a changeset?](#how-to-review-a-changeset)
     + [Changeset and Mapper details](#changeset-and-mapper-details)
@@ -59,6 +60,8 @@ OSMCha is short for OpenStreetMap Changeset Analyser. OSMCha is a web tool to he
 
 - Consistent categorisation of changesets also helps to build an open source database for use in ventures related to machine learning or automating the detection process for bad edits instead of writing rule based compare functions for all possible scenarios of bad edits.
 
+### Whats new in OSMCHA?
+- A lot of things
 
 ### Future of OSMCha and validation using OSM-Compare
 
