@@ -227,6 +227,7 @@ export class Changeset extends React.PureComponent {
     });
   };
   render() {
+    console.log(this.props.currentChangeset.toJS());
     const features = this.props.currentChangeset.getIn([
       'properties',
       'features'

@@ -61,9 +61,9 @@
     "test": "react-scripts test --env=jsdom",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build",
+    "build-oh": "REACT_APP_DEPLOY_TARGET=DOTCOM react-scripts build",
     "deploy-oh": "REACT_APP_DEPLOY_TARGET=DOTCOM gh-pages -d build -b oh-pages"
   },
-  "homepage": "https://mapbox.github.io/osmcha-frontend",
   "lint-staged": {
     "*.js": [
       "prettier --write --single-quote",
