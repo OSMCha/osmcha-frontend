@@ -1,39 +1,31 @@
 # OSMCha About Me Draft.md
 
+<!-- toc -->
 
+- [Introduction to OSMCha](#introduction-to-osmcha)
+  * [Why use OSMCha?](#why-use-osmcha)
+  * [What is vandalism?](#what-is-vandalism)
+  * [What are flagged changesets and how are they automatically flagged?](#what-are-flagged-changesets-and-how-are-they-automatically-flagged)
+  * [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad-%F0%9F%91%8D--%F0%9F%91%8E-)
+  * [Future of OSMCha and validation using OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
+- [How to review a changeset?](#how-to-review-a-changeset)
+  * [Changeset and Mapper details](#changeset-and-mapper-details)
+  * [Using Changeset-map](#using-changeset-map)
+- [Filters](#filters)
+  * [Basic filters](#basic-filters)
+  * [Applications for edit based search](#applications-for-edit-based-search)
+- [FAQ](#faq)
+  * [How are the changesets presented?](#how-are-the-changesets-presented)
+  * [How can I login into OSMCha?](#how-can-i-login-into-osmcha)
+  * [How do I logout of OSMCha?](#how-do-i-logout-of-osmcha)
+  * [My changeset has been flagged by a reason, am I a bad mapper?](#my-changeset-has-been-flagged-by-a-reason-am-i-a-bad-mapper)
+  * [Are there keyboard shortcuts in OSMCha?](#are-there-keyboard-shortcuts-in-osmcha)
+  * [What are tags on OSMCha?](#what-are-tags-on-osmcha)
+- [References](#references)
+- [Other tools for validation](#other-tools-for-validation)
+- [Feedback](#feedback)
 
-# Table of contents
-
-- Introduction to OSMCha
-  - Why use OSMCha?
-  - What is vandalism?
-  - What are flagged changesets and how are they automatically flagged?
-  - When to review a changeset as Good/Bad 👍 / 👎 ?
-  - Future of OSMCha and validation using OSM-Compare
-- How to review a changeset?
-  - Changeset and Mapper details
-  - Using Changeset-map
-- Filters
-  - Basic filters
-  - Applications for edit based search
-    - Null island edits
-    - Edit count based search
-    - Using multiple filters on OSMCha
-- FAQ
-  - How are the changesets presented?
-  - How can I login into OSMCha?
-  - How do I logout of OSMCha?
-  - My changeset has been flagged by a reason, am I a bad mapper?
-  - Are there keyboard shortcuts in OSMCha?
-  - What are tags on OSMCha?
-- Resources
-  - Wikis
-  - Related Projects
-- Other tools for validation
-- Feedback
-
-
-
+<!-- tocstop -->
 
 ## Introduction to OSMCha
 
