@@ -82,7 +82,9 @@ class NavbarSidebar extends React.PureComponent {
               <span className="color-green txt-bold">
                 OSM
               </span>
-              Cha
+              Cha<span className="txt-xs">
+                v{process.env.REACT_APP_VERSION || ''}
+              </span>
             </span>
           }
           buttons={
