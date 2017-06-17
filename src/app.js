@@ -47,6 +47,7 @@ class App extends Component {
                   <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
                 </div>
                 <div className="col col--9-mxl col--8-ml col--12-mm  bg-black ">
+                  <Route exact path="/" component={About} />
                   <CSSTransitionGroup
                     transitionName="filters"
                     transitionAppearTimeout={500}
@@ -79,7 +80,6 @@ class App extends Component {
                   />
                   <Route path="/changesets/:id" component={Changeset} />
                   <Route path="/about" component={About} />
-                  <Route path="/" component={About} />
                   <Route path="/stats" component={Stats} />
                 </div>
               </div>
