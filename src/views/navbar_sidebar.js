@@ -74,22 +74,27 @@ class NavbarSidebar extends React.PureComponent {
     );
   };
   render() {
+    let username = this.props.username;
+    username = 'geohackerll';
     return (
       <div>
         <Navbar
           className="bg-white border-b border--gray-light border--1"
           title={
-            <span className="txt-fancy color-gray txt-xl">
-              <span className="color-green txt-bold">
-                OSM
+            <span>
+              <span className="txt-fancy color-gray txt-xl">
+                <span className="color-green txt-bold">
+                  OSM
+                </span>
+                Cha
               </span>
-              Cha<span className="txt-xs">
+              <span className="txt-xs fixed" style={{ top: 37, left: 18 }}>
                 v{process.env.REACT_APP_VERSION || ''}
               </span>
             </span>
           }
           buttons={
-            <div>
+            <div className="flex-parent flex-parent--row">
               <Link className="pr3 pointer" to="/about">
                 <svg className="icon icon--m inline-block align-middle color-gray-dark-on-hover ">
                   <use xlinkHref="#icon-question" />
@@ -99,7 +104,11 @@ class NavbarSidebar extends React.PureComponent {
                 ? <div className="dropdown mr3 pointer">
                     <span onClick={this.openMenu}>
                       <span className="btn btn--s bg-white color-gray border border--gray round">
-                        <span>{this.props.username}</span>
+                        <span>
+                          {username && username.length > 10
+                            ? `${username.slice(0, 10)}..`
+                            : username}
+                        </span>
                         <svg className="icon inline-block align-middle ">
                           <use xlinkHref="#icon-chevron-down" />
                         </svg>
