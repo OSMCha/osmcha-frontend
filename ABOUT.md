@@ -1,5 +1,5 @@
-
 ## Table Of Contents
+
 <!-- toc -->
 
 - [Introduction to OSMCha](#introduction-to-osmcha)
@@ -7,8 +7,8 @@
     + [What is vandalism?](#what-is-vandalism)
     + [What are flagged changesets and how are they automatically flagged?](#what-are-flagged-changesets-and-how-are-they-automatically-flagged)
     + [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad-%F0%9F%91%8D--%F0%9F%91%8E-)
+    + [Whats new in OSMCHA?](#whats-new-in-osmcha)
     + [Future of OSMCha and validation using OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
-    + [Whats new in Osmcha](#whats-new-in-osmcha)
 - [Usage](#usage)
   * [How to review a changeset?](#how-to-review-a-changeset)
     + [Changeset and Mapper details](#changeset-and-mapper-details)
@@ -19,14 +19,36 @@
     + [Applications for edit based search](#applications-for-edit-based-search)
 - [FAQ](#faq)
     + [How are the changesets presented?](#how-are-the-changesets-presented)
-    + [How can I login into OSMCha?](#how-can-i-login-into-osmcha)
+    + [How can I sign-in into OSMCha?](#how-can-i-sign-in-into-osmcha)
+    + [Can I view the changesets and use filters without logging into OSMCha?](#can-i-view-the-changesets-and-use-filters-without-logging-into-osmcha)
     + [How do I logout of OSMCha?](#how-do-i-logout-of-osmcha)
-    + [My changeset has been flagged by a reason, am I a bad mapper?](#my-changeset-has-been-flagged-by-a-reason-am-i-a-bad-mapper)
+    + [My changeset has been flagged by a reason, am I doing something wrong?](#my-changeset-has-been-flagged-by-a-reason-am-i-doing-something-wrong)
     + [Are there keyboard shortcuts in OSMCha?](#are-there-keyboard-shortcuts-in-osmcha)
     + [What are tags on OSMCha?](#what-are-tags-on-osmcha)
-  * [References](#references)
-  * [Other tools for validation](#other-tools-for-validation)
-  * [Feedback](#feedback)
+    + [What if I want to change my review for a changeset?](#what-if-i-want-to-change-my-review-for-a-changeset)
+    + [Can I review my own changesets?](#can-i-review-my-own-changesets)
+- [Frequent error messages](#frequent-error-messages)
+  * [Changeset views error messages](#changeset-views-error-messages)
+    + [Changeset was already checked.](#changeset-was-already-checked)
+    + [User can not check his own changeset.](#user-can-not-check-his-own-changeset)
+    + [Changeset is not checked.](#changeset-is-not-checked)
+    + [User does not have permission to uncheck this changeset.](#user-does-not-have-permission-to-uncheck-this-changeset)
+    + [User can not add tags to his own changeset.](#user-can-not-add-tags-to-his-own-changeset)
+    + [User can not add tags to a changeset checked by another user.](#user-can-not-add-tags-to-a-changeset-checked-by-another-user)
+    + [User can not remove tags from his own changeset.](#user-can-not-remove-tags-from-his-own-changeset)
+    + [User can not remove tags from a changeset checked by another user.](#user-can-not-remove-tags-from-a-changeset-checked-by-another-user)
+  * [Feature views error messages](#feature-views-error-messages)
+    + [Feature was already checked.](#feature-was-already-checked)
+    + [User can not check his own feature.](#user-can-not-check-his-own-feature)
+    + [Feature is not checked.](#feature-is-not-checked)
+    + [User does not have permission to uncheck this feature.](#user-does-not-have-permission-to-uncheck-this-feature)
+    + [User can not add tags to his own feature.](#user-can-not-add-tags-to-his-own-feature)
+    + [User can not add tags to a feature checked by another user.](#user-can-not-add-tags-to-a-feature-checked-by-another-user)
+    + [User can not remove tags from his own feature.](#user-can-not-remove-tags-from-his-own-feature)
+    + [User can not remove tags from a feature checked by another user.](#user-can-not-remove-tags-from-a-feature-checked-by-another-user)
+- [References](#references)
+- [Other tools for validation](#other-tools-for-validation)
+- [Feedback](#feedback)
 
 <!-- tocstop -->
 
