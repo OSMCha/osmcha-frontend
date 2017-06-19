@@ -42,7 +42,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #maproulette Self-Intersecting_ways
                 </p>
@@ -130,7 +130,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   openings tijden
                 </p>
@@ -227,7 +227,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Potsdam Golm Hausnummern Am Golmer Weinberg
                 </p>
@@ -315,7 +315,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Fixed a footpath that ends in some stairs, kind of.
                 </p>
@@ -412,7 +412,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Tuyến 110kv Đức Trọng - Đa Dâng 2
                 </p>
@@ -500,7 +500,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   added Surveillance Camera
                 </p>
@@ -588,7 +588,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Duplicate nodes fixed
                 </p>
@@ -685,7 +685,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   added Surveillance Camera
                 </p>
@@ -782,7 +782,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
@@ -870,7 +870,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Grundrisse korrigiert.
                 </p>
@@ -958,7 +958,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Added  house
                 </p>
@@ -1046,7 +1046,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Sapienza University indoor mapping
                 </p>
@@ -1134,7 +1134,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   details from survey
                 </p>
@@ -1222,7 +1222,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Umbenennung in Günzburger Str. und einige Häuser
                 </p>
@@ -1310,7 +1310,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   FR38 LA MORTE  Rapprochement BANO + Landuse et autres ajouts
                 </p>
@@ -1398,7 +1398,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Дороги, проїзди
                 </p>
@@ -1486,7 +1486,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Pleubian
                 </p>
@@ -1574,7 +1574,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
@@ -1662,7 +1662,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Created a place_of_worship
                 </p>
@@ -1759,7 +1759,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   neue Objekte
                 </p>
@@ -1847,7 +1847,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Ajout d'un acacia
                 </p>
@@ -1935,7 +1935,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Ruianized buildings
                 </p>
@@ -2032,7 +2032,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Add recycling centre
                 </p>
@@ -2129,7 +2129,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Burkina Faso, réseau routier consolidé vs gROADS#hotosm-project-1245
                 </p>
@@ -2235,7 +2235,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   +
                 </p>
@@ -2332,7 +2332,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Created a caravan_site and a government office
                 </p>
@@ -2438,7 +2438,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   +
                 </p>
@@ -2535,7 +2535,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
@@ -2623,7 +2623,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3100 #MissingMaps #Malawi #rodekruis #redcross #has20170606 #kragten20170608
                 </p>
@@ -2711,7 +2711,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   osmose corrections
                 </p>
@@ -2799,7 +2799,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   keepright fixes in NW Victoria
                 </p>
@@ -2896,7 +2896,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   улица
                 </p>
@@ -2984,7 +2984,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   added road geoetry and name
                 </p>
@@ -3072,7 +3072,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3144 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
@@ -3160,7 +3160,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Mise à jour d'information
                 </p>
@@ -3248,7 +3248,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
@@ -3336,7 +3336,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3144 #MissingMaps #EliminateMalaria #Zimbabwe #TeamGoodMappers #danielzyt
                 </p>
@@ -3424,7 +3424,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Fix wandelnetwerk: typos
                 </p>
@@ -3521,7 +3521,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   highway: name added
                 </p>
@@ -3609,7 +3609,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-task-313, #YouthMappers#scfuta
                 </p>
@@ -3697,7 +3697,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   incrocio con fosso
                 </p>
@@ -3785,7 +3785,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Rajshahi University of Engineering and Technology (RUET)
                 </p>
@@ -3873,7 +3873,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Adding houses, sidewalks, vegetation, businesses, roads and other pertinent information.
                 </p>
@@ -3961,7 +3961,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Precisions
                 </p>
@@ -4058,7 +4058,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Updated a nightclub
                 </p>
@@ -4146,7 +4146,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   По ГИС ФГБУ «Национальный парк «Смоленское Поозерье»
                 </p>
@@ -4234,7 +4234,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Minor roads
                 </p>
@@ -4322,7 +4322,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   keepright fixes in NW Victoria
                 </p>
@@ -4419,7 +4419,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   ё
                 </p>
@@ -4507,7 +4507,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Modification de lieux
                 </p>
@@ -4595,7 +4595,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3133 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
@@ -4683,7 +4683,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   corrected road name
                 </p>
@@ -4771,7 +4771,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
@@ -4859,7 +4859,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   added Post Box
                 </p>
@@ -4947,7 +4947,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   בניין
                 </p>
@@ -5035,7 +5035,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   POI NEW
                 </p>
@@ -5123,7 +5123,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Žymėjimo tvarkymai
                 </p>
@@ -5211,7 +5211,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Irak, Mosul, #hotosm-task-562: added buildings
                   source=Bing
@@ -5300,7 +5300,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   oneway:except=psv durch oneway:psv=no ersetzt; oneway:bicycle=no gelöscht wo cycleway=opposite getagged ist
                 </p>
@@ -5388,7 +5388,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-2768
                 </p>
@@ -5476,7 +5476,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   change of large building tag to industrial
                 </p>
@@ -5581,7 +5581,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #TanzaniaDevelopmentTrust #Tanzania #missingmaps #hotosm-project-2609
                 </p>
@@ -5678,7 +5678,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Osmose, BD Ortho IGN, Cadastre
                 </p>
@@ -5775,7 +5775,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-1945 #maplesotho #mlmstask
                 </p>
@@ -5880,7 +5880,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Улучшаю
                 </p>
@@ -5977,7 +5977,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Красный Яр
                 </p>
@@ -6082,7 +6082,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3132 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
@@ -6170,7 +6170,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Road created
                 </p>
@@ -6258,7 +6258,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-task-366 #OSMBD #BHOOT #MissingMaps #HOT #Mapillary #Dhaka_Mapathon #Pathao
                 </p>
@@ -6363,7 +6363,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3132 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
@@ -6476,7 +6476,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-2333 #MissingMaps #Ouahigouya #BurkinaFaso #DigitalGlobe #NextView
                 </p>
@@ -6597,7 +6597,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   колонки уже демонтированы
                 </p>
@@ -6685,7 +6685,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-task-366 #OSMBD #BHOOT #MissingMaps #HOT #Mapillary #Pathao
                 </p>
@@ -6782,7 +6782,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   По снимкам bing
                 </p>
@@ -6887,7 +6887,7 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Прорисовка района
                 </p>
