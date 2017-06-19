@@ -3,6 +3,7 @@ import React from 'react';
 import { Map } from 'immutable';
 import AnchorifyText from 'react-anchorify-text';
 import AssemblyAnchor from '../assembly_anchor';
+import TranslateButton from './translate_button';
 import { Reasons } from '../reasons';
 
 export function Details({
@@ -56,19 +57,7 @@ export function Details({
           </p>
         </div>
         <div className="flex-parent">
-          <a
-            target="_blank"
-            title="Translate"
-            href={`http://translate.google.com/#auto/en/${encodeURIComponent(
-              comment
-            )}`}
-            className="btn btn--xs bg-white color-gray border border--gray bg-blue-on-hover color-white-on-hover border--blue-on-hover transition"
-          >
-            Translate
-            <svg className="icon inline-block align-middle pb3 pl3">
-              <use xlinkHref="#icon-share" />
-            </svg>
-          </a>
+          <TranslateButton text={comment} />
         </div>
       </div>
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">

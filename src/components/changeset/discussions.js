@@ -4,6 +4,7 @@ import { List } from 'immutable';
 import moment from 'moment';
 import AnchorifyText from 'react-anchorify-text';
 import AssemblyAnchor from '../assembly_anchor';
+import TranslateButton from './translate_button';
 
 export class Discussions extends React.PureComponent {
   props: {
@@ -11,53 +12,59 @@ export class Discussions extends React.PureComponent {
     changesetId: number
   };
   render() {
+    const { discussions, changesetId } = this.props;
     return (
       <div className="px12 py6">
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
           Discussions
         </h2>
-        <div className="">
-          {this.props.discussions.map((f, k) =>
-            <div
-              key={k}
-              className="flex-parent flex-parent--column justify--space-between border border--gray-light round p6 my6 mt12"
-            >
-              <div className="flex-parent flex-parent--row justify--space-between txt-s ">
-                <span>
-                  By <span className="txt-bold">{f.get('userName')}&nbsp;</span>
-                </span>
-                <span>{moment(f.get('timestamp')).fromNow()}</span>
-              </div>
-              <div className="flex-parent flex-parent--column mt6">
-                <p className="txt-break-url">
-                  <AnchorifyText text={f.get('comment')}>
-                    <AssemblyAnchor />
-                  </AnchorifyText>
-                  <a
-                    target="_blank"
-                    title="Translate"
-                    href={`http://translate.google.com/#auto/en/${encodeURIComponent(
-                      f.get('comment')
-                    )}`}
-                    className="pointer"
-                  >
-                    <svg className="icon inline-block align-middle ">
-                      <use xlinkHref="#icon-share" />
-                    </svg>
-                  </a>
-                </p>
-              </div>
-
-            </div>
-          )}
-          {this.props.discussions.size === 0 &&
-            <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
+        {discussions.size === 0
+          ? <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
               <svg className="icon icon--xxl color-darken25">
                 <use xlinkHref="#icon-contact" />
               </svg>
-              <p className="txt-m">{`No discussions found for ${this.props
-                .changesetId}.`}</p>
+              <p className="txt-m">{`No discussions found for ${changesetId}.`}</p>
+            </div>
+          : <div className="">
+              {discussions.map((f, k) =>
+                <div
+                  key={k}
+                  className="flex-parent flex-parent--column justify--space-between border border--gray-light round p6 my6 mt12"
+                >
+                  <div className="flex-parent flex-parent--row justify--space-between txt-s ">
+                    <span>
+                      By{' '}
+                      <span className="txt-bold">
+                        {f.get('userName')}&nbsp;
+                      </span>
+                    </span>
+                    <span>{moment(f.get('timestamp')).fromNow()}</span>
+                  </div>
+                  <div className="flex-parent flex-parent--column mt6 mb3">
+                    <p className="txt-break-url">
+                      <AnchorifyText text={f.get('comment')}>
+                        <AssemblyAnchor />
+                      </AnchorifyText>
+                    </p>
+                  </div>
+                  <div className="flex-parent justify--flex-end">
+                    <TranslateButton text={f.get('comment')} />
+                  </div>
+                </div>
+              )}
             </div>}
+        <div className="flex-parent flex-parent--center-main my12">
+          <a
+            target="_blank"
+            title="Add a comment on OSM"
+            href={`https://openstreetmap.org/changeset/${changesetId}`}
+            className="btn btn--s color-gray border border--gray round bg-gray-faint bg-white-on-hover"
+          >
+            Add a comment on OSM
+            <svg className="icon inline-block align-middle pb3 pl3">
+              <use xlinkHref="#icon-share" />
+            </svg>
+          </a>
         </div>
       </div>
     );
