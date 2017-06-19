@@ -14,8 +14,8 @@ class Modal extends React.PureComponent {
     kind: 'error' | 'success',
     dismiss: ?boolean,
     autoDismiss: ?boolean,
-    dismissModalCallback: () => any,
-    activateModalCallback: () => any,
+    dismissModalCallback: number => any,
+    activateModalCallback: number => any,
     callbackLabel: ?string,
     error: Object,
     uid: number

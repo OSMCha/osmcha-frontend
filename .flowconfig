@@ -18,8 +18,8 @@ data/
 .*node_modules/expect-jsx/.*
 .*node_modules/jsonlint-lines/test/.*
 .*node_modules/unflowify/.*
-.*node_modules/changeset-map/.*
-.*node_modules/changeset-map/node_modules/mapbox-gl/src/.*
+.*/node_modules/changeset-map/*.
+
 [include]
 
 [libs]

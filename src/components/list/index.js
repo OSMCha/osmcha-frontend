@@ -10,8 +10,7 @@ export class List extends React.PureComponent {
     currentPage: ?Map<string, *>,
     activeChangesetId: ?number,
     pageIndex: number,
-    loading: boolean,
-    reloadPage: () => any
+    loading: boolean
   };
   shouldComponentUpdate(nextProps: Object) {
     return (

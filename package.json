@@ -59,14 +59,18 @@
     "precommit": "lint-staged",
     "flow": "flow",
     "start": "react-scripts start",
-    "build": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\"  react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build",
-    "build-oh": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_DEPLOY_TARGET=DOTCOM react-scripts build",
-    "deploy-oh": "REACT_APP_DEPLOY_TARGET=DOTCOM gh-pages -d build -b oh-pages"
+    "build:staging": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=STAGING react-scripts build",
+    "deploy:staging": "gh-pages -d build -b oh-pages",
+    "build-oh": "npm run oh-env && react-scripts build",
+    "deploy-oh": "REACT_APP_DEPLOY_TARGET=DOTCOM gh-pages -d build -b oh-pages",
+    "homepage-dev": "REACT_APP_HOMEPAGE=https://mapbox.github.io/osmcha-frontend node scripts/fix_homepage.js",
+    "homepage-oh": "REACT_APP_HOMEPAGE=https://osmcha-django-staging.tilestream.net node scripts/fix_homepage.js"
   },
-  "homepage": "https://mapbox.github.io/osmcha-frontend/",
+  "homepage": "https://osmcha-django-staging.tilestream.net",
   "lint-staged": {
     "*.js": [
       "prettier --write --single-quote",

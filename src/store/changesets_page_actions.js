@@ -202,7 +202,11 @@ export function* modifyChangesetPage({ changesetId, changeset }: Object): any {
     console.error(e);
   }
 }
-export function* updateCacheChangesetPage({ nocache }): any {
+export function* updateCacheChangesetPage({
+  nocache
+}: {
+  nocache: boolean
+}): any {
   try {
     yield put(action(CHANGESETS_PAGE_NEW_CHECK_LOADING));
     yield call(delay, 3000 + Math.random() * 2000);

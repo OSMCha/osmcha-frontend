@@ -1,8 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import Mousetrap from 'mousetrap';
 
 import { Changeset } from './views/changeset';
 import { About } from './views/about';
@@ -14,8 +13,6 @@ import { NavbarChangeset } from './views/navbar_changeset';
 import { NavbarSidebar } from './views/navbar_sidebar';
 import { Modal } from './views/modal';
 
-import { Sidebar } from './components/sidebar';
-import { Navbar } from './components/navbar';
 import { gaPageView } from './utils/analytics';
 import { getFiltersFromUrl } from './utils/query_params';
 

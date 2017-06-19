@@ -33,7 +33,7 @@ class NavbarChangeset extends React.PureComponent {
     handleChangesetModifyTag: (
       number,
       Map<string, *>,
-      number,
+      Object,
       boolean
     ) => mixed,
     handleChangesetModifyHarmful: (

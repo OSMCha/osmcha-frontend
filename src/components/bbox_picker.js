@@ -20,7 +20,15 @@ function importChangesetMap() {
 
 export class BBoxPicker extends React.Component {
   update = debounce(() => {
-    let bounds = this.map && this.map.getBounds(); // ne, sw / lat, lng
+    if (!this.map) return;
+    let bounds: {
+      getSouth: () => number,
+      getWest: () => number,
+      getNorth: () => number,
+      getEast: () => number
+    } =
+      this.map && this.map.getBounds(); // ne, sw / lat, lng
+
     let s = bounds.getSouth().toFixed(4);
     let w = bounds.getWest().toFixed(4);
     let n = bounds.getNorth().toFixed(4);
@@ -46,17 +54,16 @@ export class BBoxPicker extends React.Component {
       if (this.props.value) {
         let bbox = this.props.value.getIn(['0', 'value'], '').split(',');
       }
-      this.map = new mapboxgl.Map({
+      const map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/light-v9',
         center: [-122.4237, 37.7682],
         zoom: 4
       });
-      if (this.map) {
-        this.map.on('dragend', this.update);
-        this.map.on('zoomend', this.update);
-        this.map.on('touchend', this.update);
-      }
+      map.on('dragend', this.update);
+      map.on('zoomend', this.update);
+      map.on('touchend', this.update);
+      this.map = map;
     });
   }
   componentWillUnmount() {

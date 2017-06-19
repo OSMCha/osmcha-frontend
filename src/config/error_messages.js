@@ -1,7 +1,7 @@
 // @flow
 export const ADD_TAG_DEFAULT = {
   title: 'Action Failed',
-  description: () => 'Please try again later'
+  description: (changesetId: number) => 'Please try again later'
 };
 
 export const ADD_TAG_TO_UNCHECKED = {
@@ -30,5 +30,6 @@ export const ADD_TAG_NO_PERMISSION = {
 
 export const NOT_LOGGED_IN = {
   title: 'Login required',
-  description: () => 'This action requires you to login first.'
+  description: (changesetId: number) =>
+    'This action requires you to login first.'
 };
