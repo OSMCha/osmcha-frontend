@@ -106,7 +106,7 @@ class NavbarSidebar extends React.PureComponent {
                       <span className="btn btn--s bg-white color-gray border border--gray round">
                         <span>
                           {username && username.length > 10
-                            ? `${username.slice(0, 9)}..`
+                            ? `${username.slice(0, 10)}..`
                             : username}
                         </span>
                         <svg className="icon inline-block align-middle ">
