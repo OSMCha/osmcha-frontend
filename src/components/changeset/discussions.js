@@ -2,6 +2,8 @@
 import React from 'react';
 import { List } from 'immutable';
 import moment from 'moment';
+import AnchorifyText from 'react-anchorify-text';
+import AssemblyAnchor from '../assembly_anchor';
 
 export class Discussions extends React.PureComponent {
   props: {
@@ -27,8 +29,10 @@ export class Discussions extends React.PureComponent {
                 <span>{moment(f.get('timestamp')).fromNow()}</span>
               </div>
               <div className="flex-parent flex-parent--column mt6">
-                <p>
-                  {f.get('comment')}
+                <p className="txt-break-word">
+                  <AnchorifyText text={f.get('comment')}>
+                    <AssemblyAnchor />
+                  </AnchorifyText>
                   <a
                     target="_blank"
                     title="Translate"

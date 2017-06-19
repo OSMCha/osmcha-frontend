@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
 import { Map } from 'immutable';
+import AnchorifyText from 'react-anchorify-text';
+import AssemblyAnchor from '../assembly_anchor';
 import { Reasons } from '../reasons';
 
 export function Details({
@@ -49,7 +51,11 @@ export function Details({
         </div>
         <div className="flex-parent flex-parent--row flex-parent--wrap py12">
           <p className="flex-child txt-subhead my12 txt-l txt-break-word ml3">
-            {comment ? comment : `No comments for ${changesetId}.`}
+            <AnchorifyText
+              text={comment ? comment : `No comments for ${changesetId}.`}
+            >
+              <AssemblyAnchor />
+            </AnchorifyText>
             <a
               target="_blank"
               title="Translate"
