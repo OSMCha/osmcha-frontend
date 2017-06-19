@@ -56,14 +56,7 @@ export class App extends Component {
                       component={Filters}
                       key={location.key}
                     />
-                    <Route
-                      path="/changesets"
-                      // Need to use render to avoid unmounting of
-                      // CMap Ref: https://reacttraining.com/react-router/web/api/Route/render-func
-                      // CMap and views/changeset.js are clubbed so they can be
-                      // loaded on demand in future.
-                      component={NavbarChangeset}
-                    />
+                    <Route path="/changesets" component={NavbarChangeset} />
                     <Route
                       path="/changesets"
                       // Need to use render to avoid unmounting of

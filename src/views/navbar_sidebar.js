@@ -133,7 +133,16 @@ class NavbarSidebar extends React.PureComponent {
 
 NavbarSidebar = connect(
   (state: RootStateType, props) => ({
-    state
+    location: props.location,
+    changesetId: parseInt(state.changeset.get('changesetId'), 10),
+    currentChangeset: state.changeset.getIn([
+      'changesets',
+      parseInt(state.changeset.get('changesetId'), 10)
+    ]),
+    oAuthToken: state.auth.get('oAuthToken'),
+    token: state.auth.get('token'),
+    username: state.auth.getIn(['userDetails', 'username']),
+    avatar: state.auth.getIn(['userDetails', 'avatar'])
   }),
   {
     getOAuthToken,

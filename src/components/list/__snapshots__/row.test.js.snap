@@ -5,7 +5,7 @@ exports[`renders PrimaryLine correctly 1`] = `
   className="flex-parent flex-parent--column"
 >
   <p
-    className="flex-child truncate-3-lines my6"
+    className="flex-child truncate-3-lines my6 txt-break-url"
   >
     #hotosm-project-2999 #MissingMaps #EndMalaria #Mali
   </p>
@@ -86,7 +86,7 @@ exports[`renders active row properly 1`] = `
             className="flex-parent flex-parent--column"
           >
             <p
-              className="flex-child truncate-3-lines my6"
+              className="flex-child truncate-3-lines my6 txt-break-url"
             >
               #hotosm-project-2999 #MissingMaps #EndMalaria #Mali
             </p>
@@ -211,7 +211,7 @@ exports[`renders inactive row properly 1`] = `
             className="flex-parent flex-parent--column"
           >
             <p
-              className="flex-child truncate-3-lines my6"
+              className="flex-child truncate-3-lines my6 txt-break-url"
             >
               #hotosm-project-2999 #MissingMaps #EndMalaria #Mali
             </p>

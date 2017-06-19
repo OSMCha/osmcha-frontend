@@ -2,7 +2,6 @@
 
 # dependencies
 /node_modules
-flow-typed
 
 # testing
 /coverage
