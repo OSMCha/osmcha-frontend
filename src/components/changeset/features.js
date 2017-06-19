@@ -1,32 +1,37 @@
 // @flow
 import React from 'react';
-import { Map, fromJS } from 'immutable';
+import { Map, fromJS, List } from 'immutable';
 import { Reasons } from '../reasons';
 import { selectFeature } from '../../views/map';
-const Feature = ({ data }) =>
-  <tr className="txt-s">
-    <td>{data.get('osm_id')}</td>
-    <td>{data.get('name')}</td>
-    <td><Reasons reasons={data.get('reasons')} color="green" /></td>
-    <td>
-      <span
-        onClick={() => selectFeature(parseInt(data.get('osm_id'), 10))}
-        className="cursor-pointer txt-bold txt-underline-on-hover mr6"
-      >
-        Map
-      </span>
-      <span className="cursor-pointer txt-bold txt-underline-on-hover">
-        <a
-          target="_blank"
-          href={`https://localhost:8112/load_object?new_layer=true&objects=n${data.get(
-            'osm_id'
-          )}`}
+
+const Feature = ({ data }: { data: Map<string, any> }) => {
+  const Li = data.get('reasons');
+  return (
+    <tr className="txt-s">
+      <td>{data.get('osm_id')}</td>
+      <td>{data.get('name')}</td>
+      <td><Reasons reasons={data.get('reasons')} color="green" /></td>
+      <td>
+        <span
+          onClick={() => selectFeature(parseInt(data.get('osm_id'), 10))}
+          className="cursor-pointer txt-bold txt-underline-on-hover mr6"
         >
-          JOSM
-        </a>
-      </span>
-    </td>
-  </tr>;
+          Map
+        </span>
+        <span className="cursor-pointer txt-bold txt-underline-on-hover">
+          <a
+            target="_blank"
+            href={`https://localhost:8112/load_object?new_layer=true&objects=${data
+              .getIn(['url'], '')
+              .charAt(0)}${data.get('osm_id')}`}
+          >
+            JOSM
+          </a>
+        </span>
+      </td>
+    </tr>
+  );
+};
 
 export function Features({
   properties,
@@ -35,7 +40,7 @@ export function Features({
   properties: Map<string, *>,
   changesetId: number
 }) {
-  const features = properties.get('features');
+  const features: List<Map<string, *>> = properties.get('features');
   return (
     <div className="p18">
       <div>

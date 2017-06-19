@@ -1,10 +1,8 @@
-// @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { Map, List, Set, fromJS } from 'immutable';
+import { Map, List, Set } from 'immutable';
 import { Link } from 'react-router-dom';
 
-import { Filter } from '../components/filter';
 import { Text, Radio, MultiSelect, Wrapper } from '../components/filters';
 
 import { Button } from '../components/button';
@@ -22,6 +20,7 @@ import type { RootStateType } from '../store';
 var filtersData = filters.filter(f => {
   return !f.ignore;
 });
+
 const USERS_LIMIT = 200;
 export class _Filters extends React.PureComponent {
   props: {

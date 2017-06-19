@@ -11,7 +11,13 @@ import {
 } from './changesets_page_actions';
 
 export type ChangesetsPageType = Map<
-  'currentPage' | 'pageIndex' | 'loading' | 'error' | 'filters' | 'diff',
+  | 'currentPage'
+  | 'pageIndex'
+  | 'loading'
+  | 'error'
+  | 'filters'
+  | 'diff'
+  | 'diffLoading',
   any
 >;
 

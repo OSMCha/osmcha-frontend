@@ -10,7 +10,9 @@ export type ModalType = Map<
   | 'description'
   | 'callback'
   | 'callbackLabel'
-  | 'dismiss',
+  | 'dismiss'
+  | 'uid'
+  | 'autoDismiss',
   any
 >; // osmcha uses this
 

@@ -9,18 +9,19 @@ import { Details } from './details';
 export function Header({
   properties,
   changesetId,
-  userEditCount
+  userEditCount,
+  toggleUser
 }: {
   properties: Map<string, *>,
   changesetId: number,
-  userEditCount: number
+  userEditCount: number,
+  toggleUser: () => mixed
 }) {
   const user = properties.get('user');
   const date = properties.get('date');
   const create = properties.get('create');
   const modify = properties.get('modify');
   const destroy = properties.get('delete');
-  const reasons = properties.get('reasons');
 
   return (
     <div className="p18">
@@ -39,14 +40,15 @@ export function Header({
         </div>
         <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
           <span className="txt-s">
-            <span className="txt-underline-on-hover txt-bold">
-              <a
-                target="_blank"
-                href={`https://openstreetmap.org/user/${user}`}
-              >
-                {user}({userEditCount})&nbsp;
+            <span className="txt-underline-on-hover pointer txt-bold">
+              <a onClick={toggleUser}>
+                {user}
               </a>
             </span>
+            &nbsp;
+            <span className="txt-kbd">
+              {userEditCount}
+            </span>&nbsp;
             created&nbsp;{moment(date).fromNow()}
           </span>
         </div>
@@ -55,18 +57,3 @@ export function Header({
     </div>
   );
 }
-
-// Reasons
-//
-// <div
-//   className="flex-parent flex-parent--column flex-parent--end-cross"
-//   style={{ position: 'relative', right: -24, top: -5 }}
-// >
-//   {reasons.map((r, k) => (
-//     <span key={k} className="my3">
-//       <span className="bg-blue border border--blue-dark color-white px6 py3 txt-s txt-bold border">
-//         {r}
-//       </span>
-//     </span>
-//   ))}
-// </div>

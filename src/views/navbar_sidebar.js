@@ -35,7 +35,7 @@ class NavbarSidebar extends React.PureComponent {
     token: ?string,
     oAuthToken: ?string,
     getOAuthToken: () => mixed,
-    getFinalToken: () => mixed,
+    getFinalToken: string => mixed,
     logUserOut: () => mixed
   };
   state = {
@@ -43,11 +43,12 @@ class NavbarSidebar extends React.PureComponent {
   };
 
   handleLoginClick = () => {
-    if (this.props.oAuthToken) {
+    var oAuthToken = this.props.oAuthToken;
+    if (oAuthToken) {
       const popup = createPopup(
         'oauth_popup',
         process.env.NODE_ENV === 'production'
-          ? `${osmAuthUrl}?oauth_token=${this.props.oAuthToken}`
+          ? `${osmAuthUrl}?oauth_token=${oAuthToken}`
           : '/local-landing.html'
       );
       handlePopupCallback().then(oAuthObj => {
@@ -132,16 +133,7 @@ class NavbarSidebar extends React.PureComponent {
 
 NavbarSidebar = connect(
   (state: RootStateType, props) => ({
-    location: props.location,
-    changesetId: parseInt(state.changeset.get('changesetId'), 10),
-    currentChangeset: state.changeset.getIn([
-      'changesets',
-      parseInt(state.changeset.get('changesetId'), 10)
-    ]),
-    oAuthToken: state.auth.get('oAuthToken'),
-    token: state.auth.get('token'),
-    username: state.auth.getIn(['userDetails', 'username']),
-    avatar: state.auth.getIn(['userDetails', 'avatar'])
+    state
   }),
   {
     getOAuthToken,

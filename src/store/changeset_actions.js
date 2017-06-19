@@ -229,7 +229,7 @@ export function* watchModifyChangeset(): any {
 /** Sagas **/
 export function* fetchChangesetAction(changesetId: number): Object {
   let changeset = yield select((state: RootStateType) =>
-    state.changeset.get('changesets').get(changesetId)
+    state.changeset.getIn(['changesets', changesetId])
   );
   // check if the changeset already exists
   // if it does make it active and exit
@@ -288,7 +288,7 @@ export function* fetchChangesetAction(changesetId: number): Object {
 export function* fetchChangesetMapAction(changesetId: number): Object {
   let getCMapData;
   let changesetMap = yield select((state: RootStateType) =>
-    state.changeset.get('changesetMap').get(changesetId)
+    state.changeset.getIn(['changesetMap', changesetId])
   );
   if (changesetMap) {
     yield put(

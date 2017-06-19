@@ -54,7 +54,7 @@ exports[`renders active row properly 1`] = `
   onClick={[Function]}
 >
   <div
-    className="light-blue border-l border-l--4 border-color-bad transition"
+    className="light-blue border-l border-l--4 border-color-bad"
   >
     <div
       className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -179,7 +179,7 @@ exports[`renders inactive row properly 1`] = `
   onClick={[Function]}
 >
   <div
-    className=" border-l border-l--4 border-color-bad transition"
+    className=" border-l border-l--4 border-color-bad"
   >
     <div
       className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"

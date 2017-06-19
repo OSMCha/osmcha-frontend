@@ -5,7 +5,6 @@ import CSSGroup from 'react-transition-group/CSSTransitionGroup';
 import Mousetrap from 'mousetrap';
 
 import { getUserDetails } from '../../network/openstreetmap';
-import { Navbar } from '../navbar';
 import { Floater } from './floater';
 import { Header } from './header';
 import { User } from './user';
@@ -128,12 +127,13 @@ export class Changeset extends React.PureComponent {
         transitionName="floaters"
         transitionAppearTimeout={300}
         transitionAppear={true}
-        transitionEnterTimeout={400}
+        transitionEnterTimeout={300}
         transitionLeaveTimeout={250}
       >
         {this.state.details &&
           <Box key={3} className=" w420 round-tr round-br">
             <Header
+              toggleUser={this.toggleUser}
               changesetId={changesetId}
               properties={properties}
               userEditCount={this.state.userDetails.get('count')}

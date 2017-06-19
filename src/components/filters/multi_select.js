@@ -15,7 +15,7 @@ export class MultiSelect extends React.PureComponent {
     placeholder: string,
     options: Array<Object>,
     dataURL: ?string,
-    onChange: (string, List<InputType>) => any
+    onChange: (string, ?List<InputType>) => any
   };
   getAsyncOptions = () => {
     if (!this.props.dataURL) return;
