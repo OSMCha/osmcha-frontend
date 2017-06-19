@@ -118,9 +118,6 @@ export class About extends React.PureComponent {
                 Contribute
               </a>
             </button>
-            <button className="btn mx6">
-              <a href="#whats-new-in-osmcha">Whats New</a>
-            </button>
           </div>
           <div className="flex-parent flex-parent--column  flex-child--grow">
             <div
