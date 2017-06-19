@@ -146,7 +146,8 @@ For this purpose, OSMCha offers an interface similar to OpenStreetMap but with a
 ## Filters
 
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497508625051_image.png)
+![image](https://user-images.githubusercontent.com/8921295/27292247-7e0ac782-5530-11e7-8ebc-2b6726f03e9a.png)
+
 
 Filters tab on OSMCha provides a variety of search parameters to fetch a specific list of changesets the reviewer is interested in. One can filter changesets based on a date range, new mapper edits, mass deletions, text in the source field, Bbox, editor used, etc.
 
@@ -160,7 +161,7 @@ _Hot project edits are a specific example for which a changeset comment with the
 
 <full screenshot of filters>
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497509281015_image.png)
+![image](https://user-images.githubusercontent.com/8921295/27292289-a5942d84-5530-11e7-8c9c-2eff5a9748ef.png)
 
 The [history tab](https://www.openstreetmap.org/history#map=2/46.6/16.9) on OpenStreetMap offers a very basic area based retrieval of changesets. It allows a user to zoom in to a specific area on the map and all the changesets in that area are shown on the sidebar in the order of newest first. OSMCha filters expands this feature with much more metadata based search.
 
@@ -239,19 +240,24 @@ For Ex: A place deleted compare function flags an experienced mapper's changeset
 
 Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of changesets quickly. Here are the available shortcuts:
 
-| Description                                      | Shortcut          |
-| ------------------------------------------------ | ----------------- |
-| **Navigating changeset list**                    |                   |
-| Go to previous changeset (in the changeset list) | ` ↑ `             |
-| Go to next changeset (in the changeset list)     | ` ↓ ` or ` Space `|
-| **Changeset detail view**                        |                   |
-| Open changeset in JOSM                           | ` J `             |
-| Review changeset as good                         | ` G `             |
-| Review changeset as bad                          | ` B `             |
-| Undo changeset review                            | ` U `             |
-| **Other**                                        |                   |
-| Show shortcuts list                              | ` ? `             |
-
+| Description                                      | Shortcut           |
+|--------------------------------------------------|--------------------|
+| **Navigating changeset list**                    |                    |
+| Go to previous changeset (in the changeset list) | ` ↑ `              |
+| Go to next changeset (in the changeset list)     | ` ↓ ` or ` Space ` |
+| **Changeset detail view**                        |                    |
+| Open changeset in JOSM                           | ` J `              |
+| Review changeset as good                         | ` G `              |
+| Review changeset as bad                          | ` B `              |
+| Undo changeset review                            | ` U `              |
+| **Details panel**                                |                    |
+| Changeset details                                | 1                  |
+| Suspicious Reasons                               | 2                  |
+| Changeset discussions                            | 3                  |
+| User profile                                     | 4                  |
+| Filter by feature and style changer              | 5                  |
+| **Other**                                        |                    |
+| Show shortcuts list                              | ` ? `              |
 
 
 ### What are tags on OSMCha?
