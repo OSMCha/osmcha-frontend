@@ -48,7 +48,7 @@ export function Details({
           <Reasons reasons={reasons} color="green" />
         </div>
         <div className="flex-parent flex-parent--row flex-parent--wrap py12">
-          <p className="flex-child txt-subhead my12 txt-l ml3">
+          <p className="flex-child txt-subhead my12 txt-l txt-break-word ml3">
             {comment ? comment : `No comments for ${changesetId}.`}
             <a
               target="_blank"
