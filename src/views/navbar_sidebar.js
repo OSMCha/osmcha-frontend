@@ -75,7 +75,6 @@ class NavbarSidebar extends React.PureComponent {
   };
   render() {
     let username = this.props.username;
-    username = 'geohackerll';
     return (
       <div>
         <Navbar
