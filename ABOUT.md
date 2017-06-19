@@ -48,7 +48,7 @@ OSMCha is short for OpenStreetMap Changeset Analyser. OSMCha is a web tool to he
 
 ### What are flagged changesets and how are they automatically flagged?
 
-- Flagged changesets are changesets that are flagged by [OSM-Compare](https://github.com/mapbox/osm-compare) for specific edit behaviour. Like deletion of valid data, incompatible data errors example a swimming pool tagged as `natural=water`
+- `Flagged changesets` are changesets that are flagged by [OSM-Compare](https://github.com/mapbox/osm-compare) for specific edit behaviour. Like deletion of valid data, incompatible data errors example a swimming pool tagged as `natural=water`
 
 - OSMCha is supported by an edit detection pipeline called OSM-Compare. It is an open collection of compare functions written in Javascript that automatically checks for suspicious changes on OSM and pushes them into OSMCha to different categories of identifiable edit behaviour. Currently, there are compare functions in OSM-Compare for flagging deletions of cities and overlap between features.
 
@@ -130,12 +130,11 @@ For this purpose, OSMCha offers an interface similar to OpenStreetMap but with a
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497508625051_image.png)
 
-
-Filters tab on OSMCha provides a variety of search parameters to fetch a specific list of changesets the reviewer is interested in. Hot project edits are a specific example for which a changeset comment with the associated hashtag can be used to retrieve all the changesets contributed for the task.
-
+Filters tab on OSMCha provides a variety of search parameters to fetch a specific list of changesets the reviewer is interested in. One can filter changesets based on a date range, new mapper edits, mass deletions, text in the source field, Bbox, editor used, etc.
 
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497509089383_image.png)
+_Hot project edits are a specific example for which a changeset comment with the associated hashtag can be used to retrieve all the changesets contributed for the task._
 
 
 
@@ -145,18 +144,17 @@ Filters tab on OSMCha provides a variety of search parameters to fetch a specifi
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497509281015_image.png)
 
-History tab on OpenStreetMap offers a very basic area based retrieval of changesets. It allows a user to zoom in to a specific area on the map and all the changesets in that area are shown on the sidebar in the order of newest first. OSMCha filters expands this feature with much more metadata based search.
+The [history tab](https://www.openstreetmap.org/history#map=2/46.6/16.9) on OpenStreetMap offers a very basic area based retrieval of changesets. It allows a user to zoom in to a specific area on the map and all the changesets in that area are shown on the sidebar in the order of newest first. OSMCha filters expands this feature with much more metadata based search.
 
+These include:
 
-These include -
-- Changeset comment mentioned in the changeset by the mapper
-- Changeset date based on the time the edits uploaded on OpenStreetMap
+- Words in a changeset comment or changeset comment used by the mapper, for example: #hotosm-project #MissingMaps
+- Changeset date based on the time the edits were uploaded on OpenStreetMap
 - Number of features added, modified and deleted in a changeset
-- Changeset area on OpenStreetMap using a bounding box filter
-- Geospatial filter for searching for changesets whose bounding box intersects with given geometry
-- Changesets that are flagged by compare functions for edit behaviour through reason feed from OSM-Compare
-- Source, Imagery mentioned in a changeset by the mapper
-- Changeset comment mentioned Ex: #hotosm-project #MissingMaps
+- Changeset area on OpenStreetMap using the **Bbox** filter
+- Geospatial filter for searching changesets whose bounding box intersects with a given geometry
+- Changesets that are flagged by compare functions for edit behaviour through reason feed from [OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
+- Source or imagery mentioned in a changeset by the mapper
 - Specific editor based search
 
 ### Applications for edit based search
@@ -164,16 +162,14 @@ These include -
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497513545989_image.png)
 
 
-
-
 **Null island edits**
 
-- New mappers tend to add fictional data on OpenStreetMap at 0, 0 coordinates. This is because OpenStreetMap opens at 0.0 coordinates by default and new mappers sometimes add fictional data here due to lack of practice/knowledge on OSM workflow, coordinates on the map and for test mapping.
+- New mappers tend to add fictional data at 0, 0 coordinates as OpenStreetMap by default opens at these coordinates. Mappers being new, tend to test map and add non existent data due to lack of practice and knowledge of the workflow involved.
+
 
 **Edit count based search**
 
-- Mass addition, mass modifications and mass deletions of features based on the number of edits made in a changeset.
-
+- One can filter changesets based on mass additions, mass modifications, mass deletions and the number of edits made in a changeset.
 
 
 **Using multiple filters on OSMCha**
@@ -186,29 +182,38 @@ These include -
 
 ### How are the changesets presented?
 
-- OSMCha reads all changesets from OpenStreetMap. They are presented in the order of newest first based on the filters applied by the OSMCha reviewer.
+OSMCha reads all changesets from OpenStreetMap. By default they are presented in the order of the newest first based on the [filters](#filters) applied by the OSMCha reviewer.
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497513993362_image.png)
+_The list of changesets are presented on the sidebar._
 
-- The list of changesets are presented on the sidebar.
+You can select the changeset from the changeset review panel and can view the edits associated to it using the changeset map that appears on the right hand side.
 
-- The reviewer can select each changeset to view the details of the changeset on the changeset panel and edits in the changeset map.
+### How can I sign-in into OSMCha?
 
-### How can I login into OSMCha?
+You can sign-in on OSMCha using their OpenStreetMap account. On clicking on `sign-in`, a window (_like the one below_) appears, click on `Grant Access` and you will be singed-in on OSMCha.
 
-- A reviewer on OSMCha can sign using their OpenStreetMap account on OSMCha. A reviewer needs to be signed in to input Good/Bad [review](#how-to-review-a-changeset) on OSMCha. For only viewing without review, authentication is not necessary.
+![image](https://user-images.githubusercontent.com/4470913/27281939-9daf9100-550b-11e7-80c6-eedb0514d276.png)
+
+Note: It **is** necessary to be signed-in in-order to [review](#how-to-review-a-changeset) a changeset as `Good` or `Bad`
+
+
+### Can I view the changesets and use filters without logging into OSMCha?
+
+- You **must** be signed in-order to [review](#how-to-review-a-changeset) a changeset as good or bad. Authentication in not required if you are only viewing the changesets.
 
 
 ### How do I logout of OSMCha?
 
-- After authentication, the sign-in button on OSMCha shows the reviewer OpenStreetMap user name. The reviewer can sign out at anytime using logout button available on the dropdown beside the username.
+ After the authentication, the sign-in button on OSMCha shows your OpenStreetMap username. When you click on your username, a dropdown appears, by clicking on the `logout` button you can sign-out of OSMCha.
 
-### My changeset has been flagged by a reason, am I a bad mapper?
+### My changeset has been flagged by a reason, am I doing something wrong?
 
+No, not at all! These changesets are automatically flagged by [OSM-Compare](https://github.com/mapbox/osm-compare) for specific edit behaviour. We are working towards making this [detection](#future-of-osmcha-and-validation-using-osm-compare) better over time.
 
-- No. Rule based detectors on OSM-Compare are inefficient in understanding context of an edit, place and mapping activity. This is the disadvantage and reason that these detections are false positives 80% of the time based on the compare function written.
+The rule based detectors in OSM-Compare are inefficient in understanding context of an edit, place and mapping activity. This is the disadvantage and reason that these detections are false positives 80% of the time based on the compare function written.
 
-- Ex: A place deleted compare function detects even when an experienced mapper has deleted a fake city previously added by another user. This context is unavailable to the rule based detector for better analysis.
+For Ex: A place deleted compare function flags an experienced mapper's changeset even if he/she has deleted a fake city previously added by another user. This context is unavailable to the rule based detector for better analysis.
 
 
 ### Are there keyboard shortcuts in OSMCha?
@@ -231,20 +236,103 @@ Down - To go to next changeset in the sidebar changeset list
 
 <Tags screenshot>
 
+The button `Tags` will only appear when you review a changeset good or bad, but it's recommended and essentially used to describe the details of the changeset that was found to be bad. Here are the different tags that can be used:
 
-- Tags on OSMCha provide the reviewer to give a more detailed review on a changeset based on review. Tags are recommended to be used only when a changeset is found to be bad.
-  - Severity - Critical, High, Low to estimate how badly edits on a changeset affect OpenStreetMap data
-  - Unresolved - To input action taken by the reviewer on a changeset. It is unresolved when the reviewer has commented on the changeset to inform the mapper for corrections or no action has been taken by the reviewer to correct the map data.
-  - DWG - When a changeset needs to be reported to the Data Working Group
+- **Severity**: **Critical**, **High** or **Low**, to estimate how bad do these edits on a changeset affect OpenStreetMap data
+- **Unresolved**: To input action taken by the you (reviewer) on a changeset. It is unresolved when the you (reviewer) have commented on the changeset to inform the mapper for corrections or no action has been taken by the you (reviewer) to correct the map data.
+- **DWG**: When a changeset needs to be reported to the Data Working Group
 
-## References
+### What if I want to change my review for a changeset?
 
-- Wiki’s
+Yes, it is possible to change the review for a changeset from `Good` to `Bad` or vise versa. You can also unreview a changeset by clicking on the
+
+![changeset](https://user-images.githubusercontent.com/4470913/27284905-449db04e-5518-11e7-9d25-610c9ce6bcaf.gif)
+
+### Can I review my own changesets?
+
+No, you cannot review your own changesets, but you can view your changesets.
+
+
+# Frequent error messages
+
+## Changeset views error messages
+
+### Changeset was already checked.
+
+This is raised when someone tries to check a changeset that was already checked
+
+### User can not check his own changeset.
+
+This is raised when someone tries to check a changeset that was created by him/her
+
+### Changeset is not checked.
+
+This is raised when someone tries to uncheck a changeset that is not checked
+
+### User does not have permission to uncheck this changeset.
+
+This is raised when someone tries to uncheck a changeset that another user checked
+
+### User can not add tags to his own changeset.
+
+This is raised when someone tries to add tags to their own changesets
+
+### User can not add tags to a changeset checked by another user.
+
+This is raised when someone tries to add tags to a changeset reviewed by someone else.
+
+### User can not remove tags from his own changeset.
+
+This is raised when someone tries to remove tags from their own changeset.
+
+### User can not remove tags from a changeset checked by another user.
+
+This is raised when someone tries to remove tags in a changeset that are added by the other users.
+
+
+## Feature views error messages
+
+### Feature was already checked.
+
+This is raised when someone tries to check a feature that was already checked
+
+### User can not check his own feature.
+
+This is raised when someone tries to check a feature that was created by him/her.
+
+### Feature is not checked.
+
+This is raised when someone tries to uncheck a feature that is not checked
+
+### User does not have permission to uncheck this feature.
+
+This is raised when someone tries to uncheck a feature that another user checked
+
+### User can not add tags to his own feature.
+
+This is raised when someone tries to add tags to their own features
+
+### User can not add tags to a feature checked by another user.
+
+This is raised when someone tries to add tags to a feature reviewed by someone else
+
+### User can not remove tags from his own feature.
+
+This is raised when someone tries to remove a tag from his/her own feature
+
+### User can not remove tags from a feature checked by another user.
+
+This is raised when someone tries to remove tags in a feature that are added by the other users.
+
+
+# References
+
+- Wikis
   - [Vandalism on OSM](https://wiki.openstreetmap.org/wiki/Vandalism)
   - [Detect vandalism](https://wiki.openstreetmap.org/wiki/Detect_Vandalism)
   - [Quality Assurance on OpenStreetMap](https://wiki.openstreetmap.org/wiki/Quality_assurance)
 
-- Projects related
+- Related Projects
 
   - [OSMCha-frontend](https://github.com/mapbox/osmcha-frontend/)
   - [OSM-Compare](https://github.com/mapbox/osm-compare)
@@ -252,7 +340,7 @@ Down - To go to next changeset in the sidebar changeset list
   - [MapRoulette](http://www.maproulette.org/)
 
 
-## Other tools for validation
+# Other tools for validation
 
 - [OSM-Comments](https://www.mapbox.com/osm-comments/)
 - [To-Fix](https://osmlab.github.io/to-fix/)
@@ -262,7 +350,7 @@ Down - To go to next changeset in the sidebar changeset list
 - [Who’s That](whosthat.osmz.ru)
 - [Result Maps](http://resultmaps.neis-one.org/)
 
-## Feedback
+# Feedback
 
-- To files bugs, feature requests on OSMCha - please file issues at https://github.com/mapbox/osmcha-frontend/
-- To files bugs, feature requests on OSMCha - please file issues at https://github.com/osmlab/changeset-map/issues
+- To file bugs, feature requests on OSMCha - please file issues at https://github.com/mapbox/osmcha-frontend/
+- To file bugs, feature requests on Changeset map - please file issues at https://github.com/osmlab/changeset-map/issues
