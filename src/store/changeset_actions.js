@@ -7,7 +7,10 @@ import { LOCATION_CHANGE, push } from 'react-router-redux';
 import { fetchChangeset, setHarmful, setTag } from '../network/changeset';
 import * as errorMessages from '../config/error_messages';
 
-import { getChangesetIdFromLocation } from '../utils/routing';
+import {
+  getChangesetIdFromLocation,
+  checkForLegacyURL
+} from '../utils/routing';
 
 import type { RootStateType } from './';
 
@@ -76,6 +79,20 @@ export function* watchChangeset(): any {
     // even if it doesnt change to `changesets/:id`
     // we anway would like to suspend the ongoing task
     // to save resouces
+
+    // checks for the old osmcha style urls
+    // eg osmcha.mapbox.com/34354242 and redirects them
+    // to osmcha.mapbox.com/changesets/3432434
+    const legacy = checkForLegacyURL(location);
+    if (legacy) {
+      yield put(
+        push({
+          ...location,
+          pathname: 'changesets/' + legacy
+        })
+      );
+      continue;
+    }
     if (changesetTask) yield cancel(changesetTask);
     if (changesetMapTask) yield cancel(changesetMapTask);
 
@@ -180,7 +197,7 @@ export function* watchModifyChangeset(): any {
         action(INIT_MODAL, {
           payload: {
             error,
-            autoDismiss: 0,
+            autoDismiss: 10,
             title: messageToDisplay.title,
             description: messageToDisplay.description(changesetId)
           }
@@ -199,7 +216,7 @@ export function* watchModifyChangeset(): any {
         action(INIT_MODAL, {
           payload: {
             kind: 'success',
-            autoDismiss: 1,
+            autoDismiss: 2,
             title: 'Success',
             description: `${changesetId} was modified successfully`
           }

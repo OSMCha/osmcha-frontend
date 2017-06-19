@@ -14,3 +14,11 @@ export function getChangesetIdFromLocation(location: Object) {
   }
   return changesetId;
 }
+
+export function checkForLegacyURL(location: Object) {
+  const changesetId = parseInt(getParam('id', location, '/:id'), 10);
+  if (!changesetId || Number.isNaN(changesetId)) {
+    return null;
+  }
+  return changesetId;
+}

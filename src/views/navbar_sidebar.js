@@ -82,11 +82,18 @@ class NavbarSidebar extends React.PureComponent {
               <span className="color-green txt-bold">
                 OSM
               </span>
-              Cha
+              Cha<span className="txt-xs">
+                v{process.env.REACT_APP_VERSION || ''}
+              </span>
             </span>
           }
           buttons={
             <div>
+              <Link className="pr3 pointer" to="/about">
+                <svg className="icon icon--m inline-block align-middle color-gray-dark-on-hover ">
+                  <use xlinkHref="#icon-question" />
+                </svg>
+              </Link>
               {this.props.token
                 ? <div className="dropdown mr3 pointer">
                     <span onClick={this.openMenu}>

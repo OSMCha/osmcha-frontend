@@ -1,8 +1,7 @@
 // @flow
 import React from 'react';
-import { Async } from 'react-select';
 import { API_URL } from '../../config';
-import { Map, Set, fromJS } from 'immutable';
+import { Map } from 'immutable';
 import { Dropdown } from '../dropdown';
 import { cancelablePromise } from '../../utils/promise';
 // TOFIX This whole code is a complete shit
@@ -13,7 +12,7 @@ export class Tags extends React.PureComponent {
     changesetId: number,
     disabled: boolean,
     currentChangeset: Map<string, *>,
-    handleChangesetModifyTag: (number, Map<string, *>, Object, boolean) => mixed
+    handleChangesetModifyTag: number => mixed
   };
   state: {
     options: Array<any>,

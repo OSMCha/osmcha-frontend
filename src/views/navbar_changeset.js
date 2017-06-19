@@ -8,7 +8,6 @@ import { Tags } from '../components/changeset/tags';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../components/navbar';
 import { Verify } from '../components/changeset/verify';
-import { Dropdown } from '../components/dropdown';
 import { OpenIn } from '../components/changeset/open_in';
 
 import {
@@ -116,10 +115,10 @@ class NavbarChangeset extends React.PureComponent {
     const width = window.innerWidth;
     return (
       <Navbar
-        className="bg-white color-gray border border--gray-light border--1"
+        className="bg-gray-faint color-gray border-b border--gray-light border--1"
         title={
           <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
-            <span>
+            <span className="flex-parent align-items--center">
               {width < 800 &&
                 <Link
                   to={{ search: this.props.location.search, pathname: '/' }}
@@ -134,6 +133,7 @@ class NavbarChangeset extends React.PureComponent {
                     href={`https://openstreetmap.org/changeset/${this.props
                       .changesetId}`}
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     {this.props.changesetId}
                   </a>
@@ -141,6 +141,7 @@ class NavbarChangeset extends React.PureComponent {
               </span>
               <OpenIn
                 changesetId={this.props.changesetId}
+                className="ml3"
                 coordinates={
                   this.props.currentChangeset &&
                   this.props.currentChangeset.getIn([
@@ -153,17 +154,20 @@ class NavbarChangeset extends React.PureComponent {
               />
             </span>
             <span>
-
               {this.props.currentChangeset &&
                 <span>
-                  <Tags
-                    changesetId={this.props.changesetId}
-                    currentChangeset={this.props.currentChangeset}
-                    disabled={false}
-                    handleChangesetModifyTag={
-                      this.props.handleChangesetModifyTag
-                    }
-                  />
+                  {this.props.currentChangeset.getIn([
+                    'properties',
+                    'check_user'
+                  ]) &&
+                    <Tags
+                      changesetId={this.props.changesetId}
+                      currentChangeset={this.props.currentChangeset}
+                      disabled={false}
+                      handleChangesetModifyTag={
+                        this.props.handleChangesetModifyTag
+                      }
+                    />}
                   <Verify
                     changeset={this.props.currentChangeset}
                     placeholder="Verify"
@@ -178,11 +182,11 @@ class NavbarChangeset extends React.PureComponent {
                     options={[
                       {
                         value: false,
-                        label: 'Good'
+                        label: '👍 Good'
                       },
                       {
                         value: true,
-                        label: 'Bad'
+                        label: '👎 Bad'
                       }
                     ]}
                     className="select--s"
@@ -195,7 +199,6 @@ class NavbarChangeset extends React.PureComponent {
     );
   }
 }
-
 NavbarChangeset = connect(
   (state: RootStateType, props) => ({
     location: props.location,
@@ -208,5 +211,4 @@ NavbarChangeset = connect(
   }),
   { handleChangesetModifyTag, handleChangesetModifyHarmful }
 )(NavbarChangeset);
-
 export { NavbarChangeset };

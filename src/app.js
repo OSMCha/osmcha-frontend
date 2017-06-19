@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Mousetrap from 'mousetrap';
 
@@ -40,21 +40,14 @@ class App extends Component {
       return (
         <Route
           render={({ location }) =>
-            <div className="viewport-full clip">
+            <div className="viewport-full">
               <div className="grid">
-                <div className="col col--3-mxl col--4-ml bg-white clip">
+                <div className="col col--3-mxl col--4-ml bg-white border-r border--gray-light border--1 ">
                   <NavbarSidebar />
                   <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
                 </div>
-                <div className="col col--9-mxl col--8-ml col--12-mm clip bg-black ">
-                  <Route
-                    path="/changesets"
-                    // Need to use render to avoid unmounting of
-                    // CMap Ref: https://reacttraining.com/react-router/web/api/Route/render-func
-                    // CMap and views/changeset.js are clubbed so they can be
-                    // loaded on demand in future.
-                    component={NavbarChangeset}
-                  />
+                <div className="col col--9-mxl col--8-ml col--12-mm  bg-black ">
+                  <Route exact path="/" component={About} />
                   <CSSTransitionGroup
                     transitionName="filters"
                     transitionAppearTimeout={500}
@@ -69,11 +62,13 @@ class App extends Component {
                       key={location.key}
                     />
                   </CSSTransitionGroup>
-
                   <Route
-                    exact
-                    path="/"
-                    render={() => <div> please select changeset</div>}
+                    path="/changesets"
+                    // Need to use render to avoid unmounting of
+                    // CMap Ref: https://reacttraining.com/react-router/web/api/Route/render-func
+                    // CMap and views/changeset.js are clubbed so they can be
+                    // loaded on demand in future.
+                    component={NavbarChangeset}
                   />
                   <Route
                     path="/changesets"
@@ -83,7 +78,7 @@ class App extends Component {
                     // loaded on demand in future.
                     render={() => <CMap className="z0 fixed bottom right" />}
                   />
-                  <Route path={'/changesets/:id'} component={Changeset} />
+                  <Route path="/changesets/:id" component={Changeset} />
                   <Route path="/about" component={About} />
                   <Route path="/stats" component={Stats} />
                 </div>
@@ -94,8 +89,8 @@ class App extends Component {
       );
     } else {
       return (
-        <div className="viewport-full clip">
-          <div className="col clip">
+        <div className="viewport-full">
+          <div className="col">
             <Route exact path="/" component={ChangesetsList} />
             <Route
               path="/changesets"

@@ -1,6 +1,6 @@
 // @flow
 import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { Map, Iterable, List } from 'immutable';
+import { Map, List, fromJS } from 'immutable';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { history } from './history';
 import createSagaMiddleware from 'redux-saga';
@@ -75,7 +75,7 @@ const persistedState = {
     error: null
   }),
   changesetsPage: Map({
-    filters: getFiltersFromUrl(),
+    filters: fromJS(getFiltersFromUrl()),
     pageIndex: 0,
     pages: new List(),
     loading: false,

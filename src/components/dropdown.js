@@ -48,7 +48,7 @@ class DropdownContent extends React.PureComponent {
   render() {
     return (
       <div
-        className="dropdown-content wmin120 wmax240"
+        className="dropdown-content wmin120 round wmax240"
         style={{ display: 'block' }}
       >
         {this.props.options.map((i, k) =>

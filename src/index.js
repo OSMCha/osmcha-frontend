@@ -30,19 +30,15 @@ ReactGA.initialize('UA-100686765-1', {
   }
 });
 
-if (process.env.NODE_ENV === 'production') {
-  var Raven = require('raven-js');
-  Raven.config('https://5637ef87f5794e2fb9e1e5fe9119688d@sentry.io/175926', {
-    release: process.env.REACT_APP_VERSION,
-    environment: process.env.NODE_ENV
-  }).install();
-  // window.addEventListener('unhandledrejection', function(event) {
-  //   Raven.captureException(event.reason);
-  // });
-}
+var Raven = require('raven-js');
+Raven.config('https://5637ef87f5794e2fb9e1e5fe9119688d@sentry.io/175926', {
+  release: process.env.REACT_APP_VERSION,
+  environment: process.env.NODE_ENV,
+  debug: process.env.NODE_ENV === 'production' ? true : true // TOFIX remove this
+}).install();
 
 if (process.env.NODE_ENV !== 'production') {
-  // const {whyDidYouUpdate} = require('why-did-you-update');
+  // const { whyDidYouUpdate } = require('why-did-you-update');
   // whyDidYouUpdate(React);
 }
 

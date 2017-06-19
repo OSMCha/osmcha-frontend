@@ -3,16 +3,11 @@ import React from 'react';
 import { List } from 'immutable';
 import moment from 'moment';
 
-type Props = {
-  discussions: List<*>,
-  changesetId: number
-};
-
-type State = {
-  discussions: Array<Object>
-};
-
-export class Discussions extends React.PureComponent<void, Props, State> {
+export class Discussions extends React.PureComponent {
+  props: {
+    discussions: List<*>,
+    changesetId: number
+  };
   render() {
     return (
       <div className="p18">
@@ -29,9 +24,8 @@ export class Discussions extends React.PureComponent<void, Props, State> {
                 <span>
                   By <span className="txt-bold">{f.get('userName')}&nbsp;</span>
                 </span>
-                <span>{moment(f.get('date')).fromNow()}</span>
+                <span>{moment(f.get('timestamp')).fromNow()}</span>
               </div>
-
               <div className="flex-parent flex-parent--column mt6">
                 <p>
                   {f.get('comment')}

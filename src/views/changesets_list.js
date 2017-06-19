@@ -1,16 +1,13 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { List as ImmutableList, Map } from 'immutable';
-import R from 'ramda';
+import { List as ImmutableList, Map, fromJS } from 'immutable';
 import Mousetrap from 'mousetrap';
 import { NavLink } from 'react-router-dom';
 import { push } from 'react-router-redux';
 
 import type { RootStateType } from '../store';
-import type { ChangesetType } from '../store/changeset_reducer';
 
-import { history } from '../store/history';
 import {
   getChangesetsPage,
   applyFilters
@@ -39,6 +36,9 @@ import filters from '../config/filters.json';
 
 const RANGE = 6;
 
+function range(start, end) {
+  return Array.from(Array(end - start).keys()).map(k => k + start);
+}
 class ChangesetsList extends React.PureComponent {
   props: {
     location: Object,
@@ -47,17 +47,19 @@ class ChangesetsList extends React.PureComponent {
     style: Object,
     currentPage: ?Map<string, *>,
     userDetails: Map<string, *>,
+    diff: number,
+    diffLoading: boolean,
     pageIndex: number,
     activeChangesetId: ?number,
     oAuthToken: ?string,
     token: ?string,
-    filters: Object,
-    getChangesetsPage: number => mixed, // base 0
+    filters: Map<string, ImmutableList<*>>,
+    getChangesetsPage: (number, ?boolean) => mixed, // base 0
     getOAuthToken: () => mixed,
     getFinalToken: string => mixed,
     logUserOut: () => mixed,
     push: Object => mixed,
-    applyFilters: Object => mixed // base 0
+    applyFilters: (Map<string, ImmutableList<*>>) => mixed // base 0
   };
   maxPageCount = Infinity;
   constructor(props) {
@@ -123,23 +125,13 @@ class ChangesetsList extends React.PureComponent {
   };
   handleFilterOrderBy = (selected: Array<*>) => {
     let mergedFilters;
-    if (selected.length === 0) {
-      mergedFilters = {
-        ...this.props.filters
-      };
-      delete mergedFilters['order_by'];
-    } else {
-      mergedFilters = {
-        ...this.props.filters,
-        order_by: selected[0].value
-      };
-    }
+    mergedFilters = this.props.filters.set('order_by', fromJS(selected));
 
     this.props.applyFilters(mergedFilters);
   };
 
   reloadCurrentPage = () => {
-    this.props.getChangesetsPage(this.props.pageIndex);
+    this.props.getChangesetsPage(this.props.pageIndex, true);
   };
   render() {
     const { error } = this.props;
@@ -153,7 +145,7 @@ class ChangesetsList extends React.PureComponent {
     }
     const base = parseInt(this.props.pageIndex / RANGE, 10) * RANGE;
 
-    const { currentPage, loading } = this.props;
+    const { currentPage, loading, diff, diffLoading } = this.props;
     if (
       this.props.pageIndex === 0 &&
       currentPage &&
@@ -165,9 +157,9 @@ class ChangesetsList extends React.PureComponent {
 
     const valueData = [];
     const options = filters.filter(f => f.name === 'order_by')[0].options;
-    if (this.props.filters['order_by']) {
+    if (this.props.filters.get('order_by')) {
       options.forEach(o => {
-        if (this.props.filters['order_by'] === o.value) {
+        if (this.props.filters.getIn(['order_by', 0, 'value']) === o.value) {
           valueData.push(o);
         }
       });
@@ -202,8 +194,35 @@ class ChangesetsList extends React.PureComponent {
             <Button className="mx3">Filters</Button>
           </NavLink>
         </header>
+        <header
+          className={`border-l border-b border-b--1 transition border-l--4 border-color-neutral px12 py3 ${diff >
+            0
+            ? 'bg-yellow-faint'
+            : 'bg-gray-faint'} flex-child align-items--center`}
+        >
+          <span className="flex-parent flex-parent--row justify--space-between color-gray txt-s txt-bold">
+            <span>
+              Results:
+              {' '}
+              {this.props.currentPage && this.props.currentPage.get('count')}
+            </span>
+            <span className="flex-parent flex-parent--row">
+              {diffLoading && <span className="loading loading--s inline" />}
+              <span
+                onClick={this.reloadCurrentPage}
+                className={`pointer ${diff > 0
+                  ? 'bg-yellow-light-on-hover'
+                  : 'bg-gray-light-on-hover'} round`}
+              >
+                {diff > 0 ? `${diff} New` : ''}
+                <svg className="icon inline-block align-middle ">
+                  <use xlinkHref="#icon-rotate" />
+                </svg>
+              </span>
+            </span>
+          </span>
+        </header>
         <List
-          reloadPage={this.reloadCurrentPage}
           activeChangesetId={this.props.activeChangesetId}
           currentPage={currentPage}
           loading={loading}
@@ -217,7 +236,7 @@ class ChangesetsList extends React.PureComponent {
             active={false}
             getChangesetsPage={this.props.getChangesetsPage}
           />
-          {R.range(base, Math.min(base + RANGE, this.maxPageCount)).map(n =>
+          {range(base, Math.min(base + RANGE, this.maxPageCount)).map(n =>
             <PageRange
               key={n}
               page={n}
@@ -246,7 +265,9 @@ ChangesetsList = connect(
     location: state.routing.location,
     currentPage: state.changesetsPage.get('currentPage'),
     pageIndex: state.changesetsPage.get('pageIndex') || 0,
-    filters: state.changesetsPage.get('filters') || {},
+    diffLoading: state.changesetsPage.get('diffLoading'),
+    filters: state.changesetsPage.get('filters') || new Map(),
+    diff: state.changesetsPage.get('diff'),
     loading: state.changesetsPage.get('loading'),
     error: state.changesetsPage.get('error'),
     oAuthToken: state.auth.get('oAuthToken'),
