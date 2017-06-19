@@ -29,7 +29,7 @@ export class Discussions extends React.PureComponent {
                 <span>{moment(f.get('timestamp')).fromNow()}</span>
               </div>
               <div className="flex-parent flex-parent--column mt6">
-                <p className="txt-break-word">
+                <p className="txt-break-url">
                   <AnchorifyText text={f.get('comment')}>
                     <AssemblyAnchor />
                   </AnchorifyText>

@@ -46,8 +46,8 @@ export function Header({
               </a>
             </span>
             &nbsp;
-            <span className="txt-kbd">
-              {userEditCount}
+            <span className="txt-s txt-em">
+              ({userEditCount} edits)
             </span>&nbsp;
             created&nbsp;{moment(date).fromNow()}
           </span>
