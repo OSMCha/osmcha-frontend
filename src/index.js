@@ -20,7 +20,6 @@ import './assets/0.13.0.assembly';
 import { App } from './app';
 
 ReactGA.initialize('UA-100686765-1', {
-  debug: true,
   gaOptions: {
     anonymizeIp: true,
     screenResolution: `${window.screen.availWidth}X${window.screen
