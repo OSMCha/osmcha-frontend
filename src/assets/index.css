@@ -328,3 +328,8 @@ body {
   word-wrap: break-word;
   word-break: break-word;
 }
+
+.icon--xxl {
+  height: 144px !important;
+  width: 144px !important;
+}

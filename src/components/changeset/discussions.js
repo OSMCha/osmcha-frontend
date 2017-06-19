@@ -12,8 +12,8 @@ export class Discussions extends React.PureComponent {
   };
   render() {
     return (
-      <div className="p18">
-        <h2 className="txt-l mr6 txt-bold">
+      <div className="px12 py6">
+        <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
           Discussions
         </h2>
         <div className="">
@@ -51,7 +51,13 @@ export class Discussions extends React.PureComponent {
             </div>
           )}
           {this.props.discussions.size === 0 &&
-            `No discussions for ${this.props.changesetId}.`}
+            <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
+              <svg className="icon icon--xxl color-darken25">
+                <use xlinkHref="#icon-contact" />
+              </svg>
+              <p className="txt-m">{`No discussions found for ${this.props
+                .changesetId}.`}</p>
+            </div>}
         </div>
       </div>
     );

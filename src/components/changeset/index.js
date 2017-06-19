@@ -35,7 +35,6 @@ export class Changeset extends React.PureComponent {
     features: false,
     user: false,
     details: true,
-    showAll: false,
     mapOptions: false,
     discussionsData: List(),
     userDetails: new Map()
@@ -53,9 +52,6 @@ export class Changeset extends React.PureComponent {
       this.getData(nextProps.changesetId, nextProps.currentChangeset);
   }
   componentDidMount() {
-    Mousetrap.bind(CHANGESET_DETAILS_SHOW_ALL, () => {
-      this.toggleAll();
-    });
     Mousetrap.bind(CHANGESET_DETAILS_SUSPICIOUS, () => {
       this.toggleFeatures();
     });
@@ -161,22 +157,10 @@ export class Changeset extends React.PureComponent {
       </CSSGroup>
     );
   };
-
-  toggleAll = () => {
-    this.setState({
-      features: !this.state.showAll,
-      discussions: !this.state.showAll,
-      details: !this.state.showAll,
-      showAll: !this.state.showAll,
-      user: !this.state.showAll,
-      mapOptions: !this.state.showAll
-    });
-  };
   toggleFeatures = () => {
     this.setState({
       discussions: false,
       details: false,
-      showAll: false,
       features: !this.state.features,
       mapOptions: false,
 
@@ -187,7 +171,6 @@ export class Changeset extends React.PureComponent {
     this.setState({
       discussions: !this.state.discussions,
       details: false,
-      showAll: false,
       features: false,
       mapOptions: false,
 
@@ -198,7 +181,6 @@ export class Changeset extends React.PureComponent {
     this.setState({
       discussions: false,
       details: !this.state.details,
-      showAll: false,
       features: false,
       mapOptions: false,
 
@@ -209,7 +191,6 @@ export class Changeset extends React.PureComponent {
     this.setState({
       discussions: false,
       details: false,
-      showAll: false,
       features: false,
       mapOptions: false,
 
@@ -220,7 +201,6 @@ export class Changeset extends React.PureComponent {
     this.setState({
       discussions: false,
       details: false,
-      showAll: false,
       features: false,
       user: false,
       mapOptions: !this.state.mapOptions
@@ -262,7 +242,7 @@ export class Changeset extends React.PureComponent {
                 ? 'color-orange'
                 : ''}`}
             >
-              <use xlinkHref="#icon-bug" />
+              <use xlinkHref="#icon-alert" />
             </svg>
           </Button>
           <Button
@@ -277,7 +257,7 @@ export class Changeset extends React.PureComponent {
                 ? 'color-orange'
                 : ''}`}
             >
-              <use xlinkHref="#icon-tooltip" />
+              <use xlinkHref="#icon-contact" />
             </svg>
           </Button>
           <Button
@@ -294,25 +274,11 @@ export class Changeset extends React.PureComponent {
             active={this.state.mapOptions}
             onClick={this.toggleMapOptions}
             bg={'white'}
-            className="unround"
-          >
-            <svg className="icon inline-block align-middle">
-              <use xlinkHref="#icon-osm" />
-            </svg>
-          </Button>
-          <Button
-            active={this.state.showAll}
-            onClick={this.toggleAll}
-            bg={'white'}
             className="unround-r unround-tl"
           >
-            {this.state.showAll
-              ? <svg className="icon inline-block align-middle">
-                  <use xlinkHref="#icon-database" />
-                </svg>
-              : <svg className="icon inline-block align-middle">
-                  <use xlinkHref="#icon-database" />
-                </svg>}
+            <svg className="icon inline-block align-middle">
+              <use xlinkHref="#icon-map" />
+            </svg>
           </Button>
         </Floater>
         <Floater

@@ -24,14 +24,14 @@ export function Header({
   const destroy = properties.get('delete');
 
   return (
-    <div className="p18">
+    <div className="px12 py6">
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap">
         <div className="flex-parent flex-parent--row justify--space-between">
-          <h2 className="txt-l mr6 txt-bold">Details</h2>
+          <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">Details</h2>
           <div>
             <CreateDeleteModify
               showZero
-              className="mr3"
+              className="mr3 mt3"
               create={create}
               modify={modify}
               delete={destroy}

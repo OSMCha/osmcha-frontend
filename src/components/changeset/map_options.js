@@ -45,7 +45,10 @@ export class MapOptions extends React.PureComponent {
   }
   render() {
     return (
-      <div className="p18">
+      <div className="px12 py6">
+        <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
+          Map Controls
+        </h2>
         <section className="cmap-filter-action-section cmap-pt3">
           <h6 className="cmap-heading pointer txt-bold">
             Filter by actions

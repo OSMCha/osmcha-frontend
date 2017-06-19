@@ -9,7 +9,7 @@ export function PrimaryLine({ reasons, comment, tags }: Object) {
         {comment}
       </p>
       <Reasons reasons={tags} color="red" />
-      <Reasons reasons={reasons} color="green" />
+      <Reasons reasons={reasons} color="blue" />
     </span>
   );
 }
