@@ -241,7 +241,7 @@ For Ex: A place deleted compare function flags an experienced mapper's changeset
 ### Are there keyboard shortcuts in OSMCha?
 
 
-Yes. Keyboard shortcuts on OSMCha go through changesets help the reviewer go through a list of changesets quickly. Here are the available shortcuts on OSMCha currently
+Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of changesets quickly. Here are the available shortcuts:
 
 | Description                                      | Shortcut          |
 | ------------------------------------------------ | ----------------- |
