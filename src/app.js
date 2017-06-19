@@ -41,7 +41,7 @@ export class App extends Component {
               <NavbarSidebar />
               <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
             </div>
-            <div className="col col--9-mxl col--8-ml col--12-mm  bg-black ">
+            <div className="col col--9-mxl col--8-ml col--12-mm">
               <Route
                 render={({ location }) =>
                   <CSSTransitionGroup

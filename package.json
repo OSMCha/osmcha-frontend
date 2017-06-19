@@ -56,7 +56,7 @@
     "build:dev": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version + ' Dev')\")\" REACT_APP_STACK=DEV react-scripts build",
     "deploy:dev": "gh-pages -d build",
     "prebuild:staging": "npm run homepage-staging",
-    "build:staging": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version + ' Staging')\")\" REACT_APP_STACK=STAGING react-scripts build",
+    "build:staging": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version + ' S')\")\" REACT_APP_STACK=STAGING react-scripts build",
     "deploy:staging": "gh-pages -d build -b oh-pages",
     "prebuild:prod": "npm run homepage-prod",
     "build:prod": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=PRODUCTION react-scripts build",
@@ -65,7 +65,7 @@
     "homepage-staging": "REACT_APP_HOMEPAGE=https://osmcha-django-staging.tilestream.net node scripts/fix_homepage.js",
     "homepage-prod": "REACT_APP_HOMEPAGE=https://osmcha.mapbox.com node scripts/fix_homepage.js"
   },
-  "homepage": "https://mapbox.github.io/osmcha-frontend",
+  "homepage": "https://osmcha-django-staging.tilestream.net",
   "lint-staged": {
     "*.js": [
       "prettier --write --single-quote",
