@@ -14,7 +14,7 @@ export function User({ userDetails }) {
           <br />
           UID: {userDetails.get('uid')}<br />
           Edits: {userDetails.get('count')}<br />
-          Desc: {userDetails.get('description') || '-'} <br />
+          Bio: {userDetails.get('description') || '-'} <br />
           Age: {moment(userDetails.get('accountCreated')).fromNow(true)} <br />
         </p>
       </div>
