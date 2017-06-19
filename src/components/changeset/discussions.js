@@ -51,7 +51,13 @@ export class Discussions extends React.PureComponent {
             </div>
           )}
           {this.props.discussions.size === 0 &&
-            `No discussions for ${this.props.changesetId}.`}
+            <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
+              <svg className="icon icon--xxl color-darken25">
+                <use xlinkHref="#icon-contact" />
+              </svg>
+              <p className="txt-m">{`No discussions found for ${this.props
+                .changesetId}.`}</p>
+            </div>}
         </div>
       </div>
     );

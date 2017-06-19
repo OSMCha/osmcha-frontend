@@ -242,7 +242,7 @@ export class Changeset extends React.PureComponent {
                 ? 'color-orange'
                 : ''}`}
             >
-              <use xlinkHref="#icon-bug" />
+              <use xlinkHref="#icon-alert" />
             </svg>
           </Button>
           <Button
@@ -257,7 +257,7 @@ export class Changeset extends React.PureComponent {
                 ? 'color-orange'
                 : ''}`}
             >
-              <use xlinkHref="#icon-tooltip" />
+              <use xlinkHref="#icon-contact" />
             </svg>
           </Button>
           <Button
@@ -277,7 +277,7 @@ export class Changeset extends React.PureComponent {
             className="unround-r unround-tl"
           >
             <svg className="icon inline-block align-middle">
-              <use xlinkHref="#icon-osm" />
+              <use xlinkHref="#icon-map" />
             </svg>
           </Button>
         </Floater>

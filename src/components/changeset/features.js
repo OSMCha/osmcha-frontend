@@ -45,10 +45,15 @@ export function Features({
     <div className="px12 py6">
       <div>
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
-          Suspicious Features ({features.size})
+          Flagged Features {features.size !== 0 ? features.size : ''}
         </h2>
         {features.size === 0
-          ? `No suspicious features for ${changesetId}.`
+          ? <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
+              <svg className="icon icon--xxl color-darken25">
+                <use xlinkHref="#icon-alert" />
+              </svg>
+              <p className="txt-m">{`No features were flagged for ${changesetId}.`}</p>
+            </div>
           : <table className="table osmcha-custom-table mt12">
               <thead>
                 <tr className="txt-s txt-uppercase">
