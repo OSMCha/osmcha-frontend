@@ -30,6 +30,6 @@ export const ADD_TAG_NO_PERMISSION = {
 
 export const NOT_LOGGED_IN = {
   title: 'Login required',
-  description: (changesetId: number) =>
+  description: (changesetId?: number) =>
     'This action requires you to login first.'
 };

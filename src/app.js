@@ -16,7 +16,7 @@ import { Modal } from './views/modal';
 import { gaPageView } from './utils/analytics';
 import { getFiltersFromUrl } from './utils/query_params';
 
-class App extends Component {
+export class App extends Component {
   resize = null;
   componentDidMount() {
     if (document && document.body) {
@@ -35,54 +35,52 @@ class App extends Component {
     const width = window.innerWidth;
     if (width > 800) {
       return (
-        <Route
-          render={({ location }) =>
-            <div className="viewport-full">
-              <div className="grid">
-                <div className="col col--3-mxl col--4-ml bg-white border-r border--gray-light border--1 ">
-                  <NavbarSidebar />
-                  <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
-                </div>
-                <div className="col col--9-mxl col--8-ml col--12-mm  bg-black ">
-                  <Route exact path="/" component={About} />
+        <div className="viewport-full">
+          <div className="grid">
+            <div className="col col--3-mxl col--4-ml bg-white border-r border--gray-light border--1 ">
+              <NavbarSidebar />
+              <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
+            </div>
+            <div className="col col--9-mxl col--8-ml col--12-mm  bg-black ">
+              <Route
+                render={({ location }) =>
                   <CSSTransitionGroup
                     transitionName="filters"
-                    transitionAppearTimeout={500}
-                    transitionAppear={true}
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={400}
+                    transitionEnterTimeout={300}
+                    transitionLeaveTimeout={300}
                   >
+                    <Route exact path="/" component={About} />
                     <Route
                       location={location}
                       path="/filters"
-                      render={({ location }) => <Filters location={location} />}
+                      component={Filters}
                       key={location.key}
                     />
-                  </CSSTransitionGroup>
-                  <Route
-                    path="/changesets"
-                    // Need to use render to avoid unmounting of
-                    // CMap Ref: https://reacttraining.com/react-router/web/api/Route/render-func
-                    // CMap and views/changeset.js are clubbed so they can be
-                    // loaded on demand in future.
-                    component={NavbarChangeset}
-                  />
-                  <Route
-                    path="/changesets"
-                    // Need to use render to avoid unmounting of
-                    // CMap Ref: https://reacttraining.com/react-router/web/api/Route/render-func
-                    // CMap and views/changeset.js are clubbed so they can be
-                    // loaded on demand in future.
-                    render={() => <CMap className="z0 fixed bottom right" />}
-                  />
-                  <Route path="/changesets/:id" component={Changeset} />
-                  <Route path="/about" component={About} />
-                  <Route path="/stats" component={Stats} />
-                </div>
-              </div>
-              <Modal />
-            </div>}
-        />
+                    <Route
+                      path="/changesets"
+                      // Need to use render to avoid unmounting of
+                      // CMap Ref: https://reacttraining.com/react-router/web/api/Route/render-func
+                      // CMap and views/changeset.js are clubbed so they can be
+                      // loaded on demand in future.
+                      component={NavbarChangeset}
+                    />
+                    <Route
+                      path="/changesets"
+                      // Need to use render to avoid unmounting of
+                      // CMap Ref: https://reacttraining.com/react-router/web/api/Route/render-func
+                      // CMap and views/changeset.js are clubbed so they can be
+                      // loaded on demand in future.
+                      render={() => <CMap className="z0 fixed bottom right" />}
+                    />
+                    <Route path="/changesets/:id" component={Changeset} />
+                    <Route path="/about" component={About} />
+                    <Route path="/stats" component={Stats} />
+                  </CSSTransitionGroup>}
+              />
+            </div>
+          </div>
+          <Modal />
+        </div>
       );
     } else {
       return (
@@ -108,5 +106,3 @@ class App extends Component {
     }
   }
 }
-
-export default App;

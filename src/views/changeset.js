@@ -1,13 +1,10 @@
 // @flow
 import React from 'react';
-import Mousetrap from 'mousetrap';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 
 import { Changeset as ChangesetDumb } from '../components/changeset';
 
-import { FILTER_BINDING } from '../config/bindings';
 import { dispatchEvent } from '../utils/dispatch_event';
 
 import type { RootStateType } from '../store';
@@ -20,7 +17,6 @@ class Changeset extends React.PureComponent {
     currentChangeset: Map<string, *>,
     changesetId: number
   };
-  componentDidMount() {}
   showChangeset = () => {
     const {
       loading,
@@ -28,7 +24,6 @@ class Changeset extends React.PureComponent {
       currentChangeset,
       changesetId
     } = this.props;
-
     if (loading || !currentChangeset) {
       return null;
     }
@@ -54,7 +49,7 @@ class Changeset extends React.PureComponent {
   render() {
     return (
       <div>
-        <div className="flex-parent flex-parent--column clip transition">
+        <div className="flex-parent flex-parent--column clip">
           {this.showChangeset()}
         </div>
       </div>

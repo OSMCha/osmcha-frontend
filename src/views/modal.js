@@ -2,11 +2,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Notify from 'react-notification-system';
+
 import type { RootStateType } from '../store';
+
 import {
   dismissModalCallback,
   activateModalCallback
 } from '../store/modal_actions';
+
 class Modal extends React.PureComponent {
   props: {
     title: ?string,
@@ -27,20 +30,18 @@ class Modal extends React.PureComponent {
     dismiss: true,
     kind: 'error'
   };
-
+  ref = null;
   componentDidMount() {
     if (this.props.error) {
       this.sendNotification(this.props);
     }
   }
-  ref = null;
   componentWillUpdate(nextProps: Object) {
-    if (this.ref) {
-      this.sendNotification(nextProps);
-    }
+    this.sendNotification(nextProps);
   }
   sendNotification = nextProps => {
     const uid = nextProps.uid;
+    if (!this.ref) return;
     this.ref.addNotification({
       uid,
       title: nextProps.title,
@@ -66,7 +67,7 @@ class Modal extends React.PureComponent {
   }
 }
 Modal = connect(
-  (state: RootStateType, props) => ({
+  (state: RootStateType) => ({
     error: state.modal.get('error'),
     callback: state.modal.get('callback'),
     callbackLabel: state.modal.get('callbackLabel'),

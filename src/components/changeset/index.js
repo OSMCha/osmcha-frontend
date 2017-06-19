@@ -127,7 +127,7 @@ export class Changeset extends React.PureComponent {
         transitionName="floaters"
         transitionAppearTimeout={300}
         transitionAppear={true}
-        transitionEnterTimeout={400}
+        transitionEnterTimeout={300}
         transitionLeaveTimeout={250}
       >
         {this.state.details &&

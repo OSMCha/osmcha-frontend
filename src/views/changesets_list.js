@@ -195,7 +195,7 @@ class ChangesetsList extends React.PureComponent {
           </NavLink>
         </header>
         <header
-          className={`border-l border-b border-b--1 transition border-l--4 border-color-neutral px12 py3 ${diff >
+          className={`border-l border-b border-b--1 border-l--4 border-color-neutral px12 py3 ${diff >
             0
             ? 'bg-yellow-faint'
             : 'bg-gray-faint'} flex-child align-items--center`}

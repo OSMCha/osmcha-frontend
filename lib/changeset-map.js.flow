@@ -1,0 +1,7 @@
+declare module 'changeset-map' {
+  declare export function getChangeset(): any;
+  declare export function render(): any;
+  declare export function getMapInstance(): any;
+  declare export function getGL(): any;
+  declare export function query(): any;
+}

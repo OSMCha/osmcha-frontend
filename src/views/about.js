@@ -1,6 +1,7 @@
 import React from 'react';
 import showdown from 'showdown';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { cancelablePromise } from '../utils/promise';
 
 const converter = new showdown.Converter({
   // simpleLineBreaks: true,
@@ -57,19 +58,30 @@ function myext() {
     }
   ];
 }
+function timer(time) {
+  return new Promise(res => setTimeout(res, time));
+}
 
 export class About extends React.PureComponent {
   state = {
     markdown: null
   };
   componentDidMount() {
-    setTimeout(() => {
-      fetch(
-        'https://raw.githubusercontent.com/mapbox/osmcha-frontend/master/ABOUT.md'
-      )
+    this.cancellablePromise = cancelablePromise(
+      timer(1000)
+        .then(() =>
+          fetch(
+            'https://raw.githubusercontent.com/mapbox/osmcha-frontend/master/ABOUT.md'
+          )
+        )
         .then(r => r.text())
-        .then(markdown => this.setState({ markdown }));
-    }, 1000);
+    );
+    this.cancellablePromise.promise
+      .then(markdown => this.setState({ markdown }))
+      .catch(e => {});
+  }
+  componentWillUnmount() {
+    this.cancellablePromise && this.cancellablePromise.cancel();
   }
   render() {
     return (

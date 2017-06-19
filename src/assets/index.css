@@ -83,32 +83,23 @@ body {
 
 /* animations */
 
-.filters-appear {
-  opacity: 0.1;
-}
-
-.filters-appear.example-appear-active {
-  opacity: 1;
-  transition: opacity .5s ease-in;
-}
-
 .filters-enter {
   opacity: 0.01;
 }
 
 .filters-enter.filters-enter-active {
   opacity: 1;
-  /*transition: opacity 500ms ease-out;*/
-  animation: 0.5s slideInDown ease-out;
+  animation: 0.3s fadeIn ease-out;
 }
 
 .filters-leave {
-  opacity: 1;
+  opacity: 0.0;
+  height: 0px;
 }
 
 .filters-leave.filters-leave-active {
   opacity: 1;
-  animation: 0.5s slideOutUp ease-in;
+  animation: 0.3s fadeOut ease-out;
 }
 
 .floaters-appear {
@@ -121,13 +112,12 @@ body {
 }
 
 .floaters-enter {
-  opacity: 0.9;
+  opacity: 0.1;
 }
 
 .floaters-enter.floaters-enter-active {
-  opacity: 0.9;
-  /*transition: opacity 500ms ease-out;*/
-  animation: 0.4s fadeInLeft ease-out;
+  opacity: 1;
+  animation: 0.4s fadeIn ease-in;
 }
 
 .floaters-leave {
