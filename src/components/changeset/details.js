@@ -45,32 +45,34 @@ export function Details({
   }
   return (
     <div>
-      <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
-        <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
-          <Reasons reasons={reasons} color="green" />
-        </div>
-        <div className="flex-parent flex-parent--row flex-parent--wrap py12">
-          <p className="flex-child txt-subhead my12 txt-l txt-break-url ml3">
+      <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap py12">
+        <div className="flex-parent flex-parent--row flex-parent--wrap mb3">
+          <p className="flex-child txt-subhead txt-l txt-break-url">
             <AnchorifyText
               text={comment ? comment : `No comments for ${changesetId}.`}
             >
               <AssemblyAnchor />
             </AnchorifyText>
-            <a
-              target="_blank"
-              title="Translate"
-              href={`http://translate.google.com/#auto/en/${encodeURIComponent(
-                comment
-              )}`}
-              className="pointer"
-            >
-              <svg className="icon inline-block align-middle ">
-                <use xlinkHref="#icon-share" />
-              </svg>
-            </a>
           </p>
-
         </div>
+        <div className="flex-parent">
+          <a
+            target="_blank"
+            title="Translate"
+            href={`http://translate.google.com/#auto/en/${encodeURIComponent(
+              comment
+            )}`}
+            className="btn btn--xs bg-white color-gray border border--gray bg-blue-on-hover color-white-on-hover border--blue-on-hover transition"
+          >
+            Translate
+            <svg className="icon inline-block align-middle pb3 pl3">
+              <use xlinkHref="#icon-share" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
+        <Reasons reasons={reasons} color="blue" />
       </div>
       <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap pt12 pb6">
         <div className="flex-parent flex-parent--column ">
