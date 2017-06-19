@@ -3,9 +3,11 @@ import { Avatar } from '../avatar';
 import moment from 'moment';
 export function User({ userDetails }) {
   return (
-    <div className="p12 ">
+    <div className="px12 py6">
       <div>
-        <h2 className="txt-l mr6 txt-bold">User: {userDetails.get('name')}</h2>
+        <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
+          User: {userDetails.get('name')}
+        </h2>
         <Avatar url={userDetails.get('img')} />
         <p className="flex-child txt-subhead my3  ml6">
           <a

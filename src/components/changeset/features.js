@@ -42,9 +42,9 @@ export function Features({
 }) {
   const features: List<Map<string, *>> = properties.get('features');
   return (
-    <div className="p18">
+    <div className="px12 py6">
       <div>
-        <h2 className="txt-l mr6 txt-bold">
+        <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
           Suspicious Features ({features.size})
         </h2>
         {features.size === 0
