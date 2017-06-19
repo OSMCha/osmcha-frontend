@@ -1,1 +1,1 @@
-export const API_URL = 'https://osmcha-django-staging.tilestream.net/api/v1';
+export const API_URL = 'https://osmcha.mapbox.com/api/v1';
