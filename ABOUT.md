@@ -243,14 +243,17 @@ For Ex: A place deleted compare function flags an experienced mapper's changeset
 
 Yes. Keyboard shortcuts on OSMCha go through changesets help the reviewer go through a list of changesets quickly. Here are the available shortcuts on OSMCha currently
 
+| **Navigating changeset list**                    |                   |
+| Go to previous changeset (in the changeset list) | ` ↑ `             |
+| Go to next changeset (in the changeset list)     | ` ↓ ` or ` Space `|
+| **Changeset detail view**                        |                   |
+| Open changeset in JOSM                           | ` J `             |
+| Review changeset as good                         | ` G `             |
+| Review changeset as bad                          | ` B `             |
+| Undo changeset review                            | ` U `             |
+| **Other**                                        |                   |
+| Show shortcuts list                              | ` ? `             |
 
-G - Good review input
-B - Bad review input
-U - Undo review
-J - Open changeset in JOSM
-Space - To go to next changeset in sidebar changeset list
-Up - To go to previous changeset in the sidebar changeset list
-Down - To go to next changeset in the sidebar changeset list
 
 
 ### What are tags on OSMCha?
