@@ -5,14 +5,16 @@ exports[`renders PrimaryLine correctly 1`] = `
   className="flex-parent flex-parent--column"
 >
   <p
-    className="flex-child truncate-3-lines my6"
+    className="flex-child truncate-3-lines my6 txt-break-url"
   >
     #hotosm-project-2999 #MissingMaps #EndMalaria #Mali
   </p>
-  <span>
+  <span
+    className="mb3"
+  >
     <span>
       <span
-        className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+        className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
       >
         intentional
       </span>
@@ -20,17 +22,19 @@ exports[`renders PrimaryLine correctly 1`] = `
     </span>
     <span>
       <span
-        className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+        className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
       >
         unintentional
       </span>
       
     </span>
   </span>
-  <span>
+  <span
+    className="mb3"
+  >
     <span>
       <span
-        className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+        className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
       >
         mass deletion
       </span>
@@ -38,7 +42,7 @@ exports[`renders PrimaryLine correctly 1`] = `
     </span>
     <span>
       <span
-        className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+        className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
       >
         Randomized flag
       </span>
@@ -54,7 +58,7 @@ exports[`renders active row properly 1`] = `
   onClick={[Function]}
 >
   <div
-    className="light-blue border-l border-l--4 border-color-bad transition"
+    className="light-blue border-l border-l--4 border-color-bad"
   >
     <div
       className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -86,14 +90,16 @@ exports[`renders active row properly 1`] = `
             className="flex-parent flex-parent--column"
           >
             <p
-              className="flex-child truncate-3-lines my6"
+              className="flex-child truncate-3-lines my6 txt-break-url"
             >
               #hotosm-project-2999 #MissingMaps #EndMalaria #Mali
             </p>
-            <span>
+            <span
+              className="mb3"
+            >
               <span>
                 <span
-                  className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                  className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                 >
                   intentional
                 </span>
@@ -101,17 +107,19 @@ exports[`renders active row properly 1`] = `
               </span>
               <span>
                 <span
-                  className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                  className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                 >
                   unintentional
                 </span>
                 
               </span>
             </span>
-            <span>
+            <span
+              className="mb3"
+            >
               <span>
                 <span
-                  className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                  className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                 >
                   mass deletion
                 </span>
@@ -119,7 +127,7 @@ exports[`renders active row properly 1`] = `
               </span>
               <span>
                 <span
-                  className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                  className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
                 >
                   Randomized flag
                 </span>
@@ -179,7 +187,7 @@ exports[`renders inactive row properly 1`] = `
   onClick={[Function]}
 >
   <div
-    className=" border-l border-l--4 border-color-bad transition"
+    className=" border-l border-l--4 border-color-bad"
   >
     <div
       className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -211,14 +219,16 @@ exports[`renders inactive row properly 1`] = `
             className="flex-parent flex-parent--column"
           >
             <p
-              className="flex-child truncate-3-lines my6"
+              className="flex-child truncate-3-lines my6 txt-break-url"
             >
               #hotosm-project-2999 #MissingMaps #EndMalaria #Mali
             </p>
-            <span>
+            <span
+              className="mb3"
+            >
               <span>
                 <span
-                  className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                  className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                 >
                   intentional
                 </span>
@@ -226,17 +236,19 @@ exports[`renders inactive row properly 1`] = `
               </span>
               <span>
                 <span
-                  className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                  className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                 >
                   unintentional
                 </span>
                 
               </span>
             </span>
-            <span>
+            <span
+              className="mb3"
+            >
               <span>
                 <span
-                  className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                  className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                 >
                   mass deletion
                 </span>
@@ -244,7 +256,7 @@ exports[`renders inactive row properly 1`] = `
               </span>
               <span>
                 <span
-                  className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                  className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
                 >
                   Randomized flag
                 </span>

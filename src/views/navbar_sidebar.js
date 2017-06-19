@@ -35,7 +35,7 @@ class NavbarSidebar extends React.PureComponent {
     token: ?string,
     oAuthToken: ?string,
     getOAuthToken: () => mixed,
-    getFinalToken: () => mixed,
+    getFinalToken: string => mixed,
     logUserOut: () => mixed
   };
   state = {
@@ -43,11 +43,12 @@ class NavbarSidebar extends React.PureComponent {
   };
 
   handleLoginClick = () => {
-    if (this.props.oAuthToken) {
+    var oAuthToken = this.props.oAuthToken;
+    if (oAuthToken) {
       const popup = createPopup(
         'oauth_popup',
         process.env.NODE_ENV === 'production'
-          ? `${osmAuthUrl}?oauth_token=${this.props.oAuthToken}`
+          ? `${osmAuthUrl}?oauth_token=${oAuthToken}`
           : '/local-landing.html'
       );
       handlePopupCallback().then(oAuthObj => {
@@ -82,11 +83,18 @@ class NavbarSidebar extends React.PureComponent {
               <span className="color-green txt-bold">
                 OSM
               </span>
-              Cha
+              Cha<span className="txt-xs">
+                v{process.env.REACT_APP_VERSION || ''}
+              </span>
             </span>
           }
           buttons={
             <div>
+              <Link className="pr3 pointer" to="/about">
+                <svg className="icon icon--m inline-block align-middle color-gray-dark-on-hover ">
+                  <use xlinkHref="#icon-question" />
+                </svg>
+              </Link>
               {this.props.token
                 ? <div className="dropdown mr3 pointer">
                     <span onClick={this.openMenu}>

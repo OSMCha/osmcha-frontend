@@ -6,8 +6,8 @@
     "range": true,
     "display": "Date",
     "type": "date",
-    "description": "Filter changesets whose date is greater or less than the date.",
-    "placeholder": "Changeset's inception date"
+    "description": "Set the date range to view changesets created during that duration.",
+    "placeholder": "YYYY-MM-DD"
   },
   {
     "name": "reasons",
@@ -17,11 +17,12 @@
     "data_url": "suspicion-reasons",
     "display": "Reasons",
     "type": "text_comma",
-    "description": "Filter changesets that have one or more of the Suspicious Reasons. Inform the Suspicion Reasons ids separated by commas.",
-    "placeholder": "Filter changesets with reasons"
+    "description": " Select one or multiple reasons that a changeset might be flagged for.",
+    "placeholder": "Start typing to pick reasons"
   },
   {
     "name": "geometry",
+    "ignore": true,
     "icontains": false,
     "all": false,
     "range": false,
@@ -31,14 +32,24 @@
     "placeholder": ""
   },
   {
+    "name": "in_bbox",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "BBox",
+    "type": "map",
+    "description": "Scroll",
+    "placeholder": "Pan to the location of interest in the map"
+  },
+  {
     "name": "comment",
     "icontains": true,
     "all": false,
     "range": false,
     "display": "Comment",
     "type": "text",
-    "description": "Filter changesets by its comment field using the icontains lookup expression.",
-    "placeholder": "Enter keywords like import, HOT ... "
+    "description": " Filter changesets that mention a particular keyword it in the comment. This is not case-sensitive.",
+    "placeholder": "Enter a keyword like hotosm, import or fixme"
   },
   {
     "name": "source",
@@ -47,8 +58,8 @@
     "range": false,
     "display": "Source",
     "type": "text",
-    "description": "Filter changesets by its source field using the icontains lookup expression.",
-    "placeholder": ""
+    "description": "Filter changesets by text in its source field. This is not case-sensitive.",
+    "placeholder": "eg. Bing, Local"
   },
   {
     "name": "checked",
@@ -67,7 +78,7 @@
         "value": "False"
       }
     ],
-    "description": "Filter changesets that were checked or not. Use true/false, 1/0 values.",
+    "description": "Filter for changesets that have been manually checked and marked (either harmful or not harmful)",
     "placeholder": "Toggle if changeset was checked"
   },
   {
@@ -77,8 +88,8 @@
     "range": false,
     "display": "Editor",
     "type": "text",
-    "description": "Filter changesets by its editor field using the icontains lookup expression.",
-    "placeholder": ""
+    "description": "Filter changesets by text in its source field. This is not case-sensitive.",
+    "placeholder": "eg. iD, JOSM"
   },
   {
     "name": "check_date",
@@ -87,8 +98,8 @@
     "range": true,
     "display": "Check Date",
     "type": "date",
-    "description": "Filter changesets whose check_date is greater or less than the dates.",
-    "placeholder": ""
+    "description": "Set the date range to view changesets reviewed within that duration.",
+    "placeholder": "YYYY-MM-DD"
   },
   {
     "name": "create",
@@ -98,7 +109,7 @@
     "display": "Objects Created",
     "type": "number",
     "description": "Filter changesets whose number of elements created are greater or less than equal to number.",
-    "placeholder": ""
+    "placeholder": "eg. 500"
   },
   {
     "name": "modify",
@@ -108,7 +119,7 @@
     "display": "Objects Modified",
     "type": "number",
     "description": "Filter changesets whose number of elements modified are greater or less than equal to number.",
-    "placeholder": ""
+    "placeholder": "eg. 500"
   },
   {
     "name": "delete",
@@ -118,7 +129,7 @@
     "display": "Objects Deleted",
     "type": "number",
     "description": "Filter changesets whose number of elements deleted are greater or less than equal to number.",
-    "placeholder": ""
+    "placeholder": "eg. 500"
   },
   {
     "name": "imagery_used",
@@ -127,8 +138,8 @@
     "range": false,
     "display": "Imagery used",
     "type": "text",
-    "description": "Filter changesets by its imagery_used field using the icontains lookup expression.",
-    "placeholder": ""
+    "description": "Filter changesets by text in its imagery_used field. This is not case-sensitive.",
+    "placeholder": "eg. Bing, Mapbox"
   },
   {
     "name": "checked_by",
@@ -138,8 +149,8 @@
     "display": "Checked by",
     "cache": true,
     "type": "text_comma",
-    "description": "Filter changesets that were checked by a user. Use commas to search for more than one user.",
-    "placeholder": "Checked by user"
+    "description": "Filter changesets that were checked by a user. Start typing to select one or more users.",
+    "placeholder": "Enter OSM usernames"
   },
   {
     "name": "users",
@@ -149,7 +160,7 @@
     "display": "Users",
     "cache": true,
     "type": "text_comma",
-    "description": "Filter changesets created by a user. Use commas to search for more than one user.",
+    "description": "Filter changesets created by a user. Start typing to select one or more users.",
     "placeholder": "Enter OSM usernames"
   },
   {
@@ -170,7 +181,7 @@
     "display": "Tags",
     "type": "text_comma",
     "data_url": "tags",
-    "description": "Filter changesets that have one or more of the Tags. Inform the Tags ids separated by commas.",
+    "description": "Filter changesets that have one or more manually assigned Tags. Start typing to select tags.",
     "placeholder": "Add tags"
   },
   {
@@ -188,9 +199,13 @@
       {
         "label": "No",
         "value": "False"
+      },
+      {
+        "label": "Show All",
+        "value": "default"
       }
     ],
-    "description": "Filter changesets that were marked as harmful or not. Use true/false, 1/0 values.",
+    "description": "Filter changesets that were marked as harmful or not.",
     "placeholder": "Toggle harmful"
   },
   {
@@ -268,10 +283,14 @@
       {
         "label": "No",
         "value": "False"
+      },
+      {
+        "label": "Show All",
+        "value": "default"
       }
     ],
-    "description": "Filter changesets that were considered suspect by OSMCHA.",
-    "placeholder": "Toggle Flagged changesets"
+    "description": "Choose to view only changesets that have been flagged, not flagged, or all. Read more about automated flagging on our About page.",
+    "placeholder": ""
   },
   {
     "name": "powerfull_editor",
@@ -281,7 +300,7 @@
     "all": false,
     "display": "Powerful editor",
     "type": "text",
-    "description": "Filter changesets that were created using a software editor considered powerfull (those that allow to create, modify or delete data in a batch).",
+    "description": "Filter changesets that were created using a software editor considered powerful (those that allow to create, modify or delete data in a batch).",
     "placeholder": ""
   },
   {

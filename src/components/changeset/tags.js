@@ -1,8 +1,7 @@
 // @flow
 import React from 'react';
-import { Async } from 'react-select';
 import { API_URL } from '../../config';
-import { Map, Set, fromJS } from 'immutable';
+import { Map } from 'immutable';
 import { Dropdown } from '../dropdown';
 import { cancelablePromise } from '../../utils/promise';
 // TOFIX This whole code is a complete shit
@@ -74,16 +73,18 @@ export class Tags extends React.PureComponent {
     } = this.props;
     handleChangesetModifyTag(changesetId, currentChangeset, obj, true);
   };
-
+  defaultValue = new Map();
   render() {
     if (!this.props.currentChangeset) return null;
+
     const value = this.props.currentChangeset
-      .getIn(['properties', 'tags'])
+      .getIn(['properties', 'tags'], this.defaultValue)
       .toJS()
       .map(t => ({
         value: t.id,
         label: t.name
       }));
+
     if (this.state.options) {
       return (
         <Dropdown

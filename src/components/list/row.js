@@ -50,10 +50,7 @@ export class Row extends React.PureComponent {
           pathname: `/changesets/${changesetId}`
         }}
       >
-        <div
-          className={`${backgroundClass} ${borderClass} transition`}
-          ref={inputRef}
-        >
+        <div className={`${backgroundClass} ${borderClass}`} ref={inputRef}>
           <div
             {...other}
             className={

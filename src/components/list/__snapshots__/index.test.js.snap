@@ -5,36 +5,12 @@ exports[`renders correctly 1`] = `
   className="flex-parent flex-parent--column scroll-auto flex-child--grow"
 >
   <div>
-    <span
-      className="border-l border-b border-b--1 border-l--4 border-color-neutral px12 py3 bg-gray-faint flex-child flex-child--grow align-items--center"
-    >
-      <span
-        className="flex-parent flex-parent--row justify--space-between color-gray txt-s txt-bold"
-      >
-        <span>
-          Results:
-           
-          3371
-        </span>
-        <span
-          onClick={[Function]}
-        >
-          <svg
-            className="icon inline-block align-middle pointer"
-          >
-            <use
-              xlinkHref="#icon-rotate"
-            />
-          </svg>
-        </span>
-      </span>
-    </span>
     <a
       href="/changesets/49434773"
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -66,12 +42,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #maproulette Self-Intersecting_ways
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -122,7 +102,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -154,21 +134,25 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   openings tijden
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -219,7 +203,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -251,12 +235,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Potsdam Golm Hausnummern Am Golmer Weinberg
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -307,7 +295,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -339,15 +327,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Fixed a footpath that ends in some stairs, kind of.
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       suspect_word
                     </span>
@@ -404,7 +396,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className="light-blue border-l border-l--4 border-color-bad transition"
+        className="light-blue border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -436,12 +428,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Tuyến 110kv Đức Trọng - Đa Dâng 2
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -492,7 +488,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -524,12 +520,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   added Surveillance Camera
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -580,7 +580,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -612,15 +612,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Duplicate nodes fixed
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       suspect_word
                     </span>
@@ -677,7 +681,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -709,21 +713,25 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   added Surveillance Camera
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -774,7 +782,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -806,12 +814,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -862,7 +874,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -894,12 +906,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Grundrisse korrigiert.
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -950,7 +966,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -982,12 +998,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Added  house
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1038,7 +1058,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1070,12 +1090,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Sapienza University indoor mapping
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1126,7 +1150,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1158,12 +1182,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   details from survey
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1214,7 +1242,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1246,12 +1274,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Umbenennung in Günzburger Str. und einige Häuser
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1302,7 +1334,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1334,12 +1366,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   FR38 LA MORTE  Rapprochement BANO + Landuse et autres ajouts
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1390,7 +1426,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1422,12 +1458,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Дороги, проїзди
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1478,7 +1518,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1510,12 +1550,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Pleubian
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1566,7 +1610,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1598,12 +1642,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1654,7 +1702,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1686,15 +1734,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Created a place_of_worship
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       New mapper
                     </span>
@@ -1751,7 +1803,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1783,12 +1835,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   neue Objekte
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1839,7 +1895,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1871,12 +1927,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Ajout d'un acacia
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1927,7 +1987,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1959,15 +2019,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Ruianized buildings
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       mass modification
                     </span>
@@ -2024,7 +2088,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2056,21 +2120,25 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Add recycling centre
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       notfixed
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2121,7 +2189,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2153,24 +2221,28 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Burkina Faso, réseau routier consolidé vs gROADS#hotosm-project-1245
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
                     
                   </span>
                 </span>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       possible import
                     </span>
@@ -2227,7 +2299,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2259,21 +2331,25 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   +
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2324,7 +2400,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2356,24 +2432,28 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Created a caravan_site and a government office
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       very-severe
                     </span>
                     
                   </span>
                 </span>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       New mapper
                     </span>
@@ -2430,7 +2510,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2462,21 +2542,25 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   +
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2527,7 +2611,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2559,12 +2643,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2615,7 +2703,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2647,12 +2735,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3100 #MissingMaps #Malawi #rodekruis #redcross #has20170606 #kragten20170608
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2703,7 +2795,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2735,12 +2827,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   osmose corrections
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2791,7 +2887,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2823,15 +2919,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   keepright fixes in NW Victoria
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       suspect_word
                     </span>
@@ -2888,7 +2988,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2920,12 +3020,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   улица
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2976,7 +3080,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3008,12 +3112,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   added road geoetry and name
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3064,7 +3172,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3096,12 +3204,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3144 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3152,7 +3264,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3184,12 +3296,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Mise à jour d'information
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3240,7 +3356,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3272,12 +3388,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3328,7 +3448,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3360,12 +3480,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3144 #MissingMaps #EliminateMalaria #Zimbabwe #TeamGoodMappers #danielzyt
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3416,7 +3540,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3448,15 +3572,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Fix wandelnetwerk: typos
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       suspect_word
                     </span>
@@ -3513,7 +3641,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3545,12 +3673,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   highway: name added
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3601,7 +3733,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3633,12 +3765,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-task-313, #YouthMappers#scfuta
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3689,7 +3825,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3721,12 +3857,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   incrocio con fosso
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3777,7 +3917,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3809,12 +3949,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Rajshahi University of Engineering and Technology (RUET)
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3865,7 +4009,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3897,12 +4041,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Adding houses, sidewalks, vegetation, businesses, roads and other pertinent information.
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3953,7 +4101,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3985,15 +4133,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Precisions
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       Unknown iD instance
                     </span>
@@ -4050,7 +4202,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4082,12 +4234,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Updated a nightclub
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4138,7 +4294,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4170,12 +4326,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   По ГИС ФГБУ «Национальный парк «Смоленское Поозерье»
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4226,7 +4386,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4258,12 +4418,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Minor roads
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4314,7 +4478,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4346,15 +4510,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   keepright fixes in NW Victoria
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       suspect_word
                     </span>
@@ -4411,7 +4579,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4443,12 +4611,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   ё
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4499,7 +4671,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4531,12 +4703,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Modification de lieux
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4587,7 +4763,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4619,12 +4795,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3133 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4675,7 +4855,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4707,12 +4887,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   corrected road name
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4763,7 +4947,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4795,12 +4979,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4851,7 +5039,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4883,12 +5071,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   added Post Box
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4939,7 +5131,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4971,12 +5163,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   בניין
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5027,7 +5223,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5059,12 +5255,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   POI NEW
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5115,7 +5315,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5147,12 +5347,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Žymėjimo tvarkymai
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5203,7 +5407,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5235,13 +5439,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Irak, Mosul, #hotosm-task-562: added buildings
                   source=Bing
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5292,7 +5500,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5324,12 +5532,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   oneway:except=psv durch oneway:psv=no ersetzt; oneway:bicycle=no gelöscht wo cycleway=opposite getagged ist
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5380,7 +5592,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5412,12 +5624,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-2768
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5468,7 +5684,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5500,14 +5716,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   change of large building tag to industrial
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
@@ -5515,14 +5733,16 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                     >
                       very-severe
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5573,7 +5793,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5605,15 +5825,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #TanzaniaDevelopmentTrust #Tanzania #missingmaps #hotosm-project-2609
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -5670,7 +5894,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5702,15 +5926,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Osmose, BD Ortho IGN, Cadastre
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -5767,7 +5995,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5799,15 +6027,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-1945 #maplesotho #mlmstask
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       possible import
                     </span>
@@ -5815,7 +6047,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -5872,7 +6104,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5904,15 +6136,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Улучшаю
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -5969,7 +6205,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6001,15 +6237,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Красный Яр
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       possible import
                     </span>
@@ -6017,7 +6257,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -6074,7 +6314,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6106,12 +6346,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3132 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6162,7 +6406,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6194,12 +6438,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Road created
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6250,7 +6498,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6282,15 +6530,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-task-366 #OSMBD #BHOOT #MissingMaps #HOT #Mapillary #Dhaka_Mapathon #Pathao
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       possible import
                     </span>
@@ -6298,7 +6550,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -6355,7 +6607,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6387,14 +6639,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3132 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
@@ -6402,7 +6656,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                     >
                       very-severe
                     </span>
@@ -6410,14 +6664,16 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                     >
                       unintentional
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6468,7 +6724,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6500,14 +6756,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-2333 #MissingMaps #Ouahigouya #BurkinaFaso #DigitalGlobe #NextView
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       unintentional
                     </span>
@@ -6515,7 +6773,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                     >
                       intentional
                     </span>
@@ -6523,7 +6781,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                     >
                       very-severe
                     </span>
@@ -6531,14 +6789,16 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                     >
                       notfixed
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6589,7 +6849,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6621,12 +6881,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   колонки уже демонтированы
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6677,7 +6941,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6709,15 +6973,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-task-366 #OSMBD #BHOOT #MissingMaps #HOT #Mapillary #Pathao
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -6774,7 +7042,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6806,15 +7074,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   По снимкам bing
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       possible import
                     </span>
@@ -6822,7 +7094,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -6879,7 +7151,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6911,15 +7183,19 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Прорисовка района
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       Randomized flag
                     </span>

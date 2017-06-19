@@ -2,19 +2,13 @@
 import React from 'react';
 
 export class MapOptions extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      actions: true,
-      type: true,
-      mapStyle: true,
-      user: true
-    };
-    // this.toggleUser = this.toggleUser.bind(this);
-    // this.toggleActions = this.toggleActions.bind(this);
-    // this.toggleType = this.toggleType.bind(this);
-    // this.toggleMapStyle = this.toggleMapStyle.bind(this);
-  }
+  state = {
+    actions: true,
+    type: true,
+    mapStyle: true,
+    user: true
+  };
+  getMapInstance = null;
   onChange = () => {
     this.importChangesetMap().then(r => r && r() && r().filterLayers());
   };
@@ -51,7 +45,10 @@ export class MapOptions extends React.PureComponent {
   }
   render() {
     return (
-      <div className="p18">
+      <div className="px12 py6">
+        <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
+          Map Controls
+        </h2>
         <section className="cmap-filter-action-section cmap-pt3">
           <h6 className="cmap-heading pointer txt-bold">
             Filter by actions
@@ -108,10 +105,7 @@ export class MapOptions extends React.PureComponent {
           </ul>
         </section>
         <section className="cmap-filter-type-section">
-          <h6
-            className="cmap-heading pointer txt-bold"
-            onClick={this.toggleType}
-          >
+          <h6 className="cmap-heading pointer txt-bold">
             Filter by type
           </h6>
           <ul className="cmap-hlist">
@@ -160,10 +154,7 @@ export class MapOptions extends React.PureComponent {
           </ul>
         </section>
         <section className="cmap-map-style-section cmap-pb3">
-          <h6
-            className="cmap-heading pointer txt-bold"
-            onClick={this.toggleMapStyle}
-          >
+          <h6 className="cmap-heading pointer txt-bold">
             Map style
           </h6>
 

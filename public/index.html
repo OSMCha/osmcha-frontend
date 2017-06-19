@@ -20,7 +20,9 @@
     // the correct url will be waiting in the browser's history for
     // the single page app to route accordingly.
     (function (l) {
-      if (l.search) {
+
+
+      if (l.search && l.host.indexOf('osmcha-django-staging') === -1) {
         var q = {};
         l.search.slice(1).split('&').forEach(function (v) {
           var a = v.split('=');

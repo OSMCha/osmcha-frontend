@@ -1,5 +1,5 @@
 /* @flow */
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 
 import {
   CHANGESET_CHANGE,
@@ -15,18 +15,17 @@ import {
 } from './changeset_actions';
 
 export type ChangesetType = Map<
-
-    | 'changesets'
-    | 'changesetId' // of the currentChangeset
-    | 'loading'
-    | 'loadingChangesetMap'
-    | 'changesetMap'
-    | 'errorChangesetMap'
-    | 'errorChangeset',
+  | 'changesets'
+  | 'changesetId' // of the currentChangeset
+  | 'loading'
+  | 'loadingChangesetMap'
+  | 'changesetMap'
+  | 'errorChangesetMap'
+  | 'errorChangeset',
   any
 >;
 
-const initial: ChangesetType = new Map({
+const initial: ChangesetType = fromJS({
   changesetId: null,
   changesets: new Map(),
   loading: false,

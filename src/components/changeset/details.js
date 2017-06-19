@@ -1,6 +1,9 @@
 // @flow
 import React from 'react';
 import { Map } from 'immutable';
+import AnchorifyText from 'react-anchorify-text';
+import AssemblyAnchor from '../assembly_anchor';
+import TranslateButton from './translate_button';
 import { Reasons } from '../reasons';
 
 export function Details({
@@ -29,42 +32,36 @@ export function Details({
   let sourceMatch = [];
   let sourceOrignal = source;
 
-  if (source.indexOf('{switch:a,b,c}.') > -1) {
+  if (source && source.indexOf('{switch:a,b,c}.') > -1) {
     source = source.replace('{switch:a,b,c}.', '');
   }
-  if (source.match(urlRegex)) {
+  if (source && source.match(urlRegex)) {
     sourceMatch = source.match(urlRegex);
     source = source.replace(urlRegex, '');
   }
   let imageryMatch = [];
-  if (imagery.match(urlRegex)) {
+  if (imagery && imagery.match(urlRegex)) {
     imageryMatch = imagery.match(urlRegex);
     imagery = imagery.replace(urlRegex, '');
   }
   return (
     <div>
-      <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
-        <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
-          <Reasons reasons={reasons} color="green" />
-        </div>
-        <div className="flex-parent flex-parent--row flex-parent--wrap py12">
-          <p className="flex-child txt-subhead my12 txt-l ml3">
-            {comment ? comment : `No comments for ${changesetId}.`}
-            <a
-              target="_blank"
-              title="Translate"
-              href={`http://translate.google.com/#auto/en/${encodeURIComponent(
-                comment
-              )}`}
-              className="pointer"
+      <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap py12">
+        <div className="flex-parent flex-parent--row flex-parent--wrap mb3">
+          <p className="flex-child txt-subhead txt-l txt-break-url">
+            <AnchorifyText
+              text={comment ? comment : `No comments for ${changesetId}.`}
             >
-              <svg className="icon inline-block align-middle ">
-                <use xlinkHref="#icon-share" />
-              </svg>
-            </a>
+              <AssemblyAnchor />
+            </AnchorifyText>
           </p>
-
         </div>
+        <div className="flex-parent">
+          <TranslateButton text={comment} />
+        </div>
+      </div>
+      <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
+        <Reasons reasons={reasons} color="blue" />
       </div>
       <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap pt12 pb6">
         <div className="flex-parent flex-parent--column ">

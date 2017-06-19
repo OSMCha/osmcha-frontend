@@ -25,9 +25,7 @@ class DropdownContent extends React.PureComponent {
         if (value[x].label === label) {
           isRemove = true;
           this.props.onRemove(ourObj);
-          this.props.onChange(
-            value.slice(0, x).concat(value.slice(x + 1, value.length))
-          );
+          this.props.onChange(value.slice(0, x).concat(value.slice(x + 1)));
         }
       }
 
@@ -48,7 +46,7 @@ class DropdownContent extends React.PureComponent {
   render() {
     return (
       <div
-        className="dropdown-content wmin120 wmax240"
+        className="dropdown-content wmin120 round wmax240"
         style={{ display: 'block' }}
       >
         {this.props.options.map((i, k) =>
@@ -90,7 +88,7 @@ export class _Dropdown extends React.PureComponent {
     className: string,
     disabled: boolean,
     value: Array<Object>,
-    onChange: () => any,
+    onChange: (Array<Object>) => any,
     onAdd: (?Object) => any,
     onRemove: (?Object) => any,
     options: Array<Object>,
