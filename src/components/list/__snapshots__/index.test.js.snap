@@ -46,8 +46,12 @@ exports[`renders correctly 1`] = `
                 >
                   #maproulette Self-Intersecting_ways
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -134,17 +138,21 @@ exports[`renders correctly 1`] = `
                 >
                   openings tijden
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -231,8 +239,12 @@ exports[`renders correctly 1`] = `
                 >
                   Potsdam Golm Hausnummern Am Golmer Weinberg
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -319,11 +331,15 @@ exports[`renders correctly 1`] = `
                 >
                   Fixed a footpath that ends in some stairs, kind of.
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       suspect_word
                     </span>
@@ -416,8 +432,12 @@ exports[`renders correctly 1`] = `
                 >
                   Tuyến 110kv Đức Trọng - Đa Dâng 2
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -504,8 +524,12 @@ exports[`renders correctly 1`] = `
                 >
                   added Surveillance Camera
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -592,11 +616,15 @@ exports[`renders correctly 1`] = `
                 >
                   Duplicate nodes fixed
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       suspect_word
                     </span>
@@ -689,17 +717,21 @@ exports[`renders correctly 1`] = `
                 >
                   added Surveillance Camera
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -786,8 +818,12 @@ exports[`renders correctly 1`] = `
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -874,8 +910,12 @@ exports[`renders correctly 1`] = `
                 >
                   Grundrisse korrigiert.
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -962,8 +1002,12 @@ exports[`renders correctly 1`] = `
                 >
                   Added  house
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1050,8 +1094,12 @@ exports[`renders correctly 1`] = `
                 >
                   Sapienza University indoor mapping
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1138,8 +1186,12 @@ exports[`renders correctly 1`] = `
                 >
                   details from survey
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1226,8 +1278,12 @@ exports[`renders correctly 1`] = `
                 >
                   Umbenennung in Günzburger Str. und einige Häuser
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1314,8 +1370,12 @@ exports[`renders correctly 1`] = `
                 >
                   FR38 LA MORTE  Rapprochement BANO + Landuse et autres ajouts
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1402,8 +1462,12 @@ exports[`renders correctly 1`] = `
                 >
                   Дороги, проїзди
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1490,8 +1554,12 @@ exports[`renders correctly 1`] = `
                 >
                   Pleubian
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1578,8 +1646,12 @@ exports[`renders correctly 1`] = `
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1666,11 +1738,15 @@ exports[`renders correctly 1`] = `
                 >
                   Created a place_of_worship
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       New mapper
                     </span>
@@ -1763,8 +1839,12 @@ exports[`renders correctly 1`] = `
                 >
                   neue Objekte
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1851,8 +1931,12 @@ exports[`renders correctly 1`] = `
                 >
                   Ajout d'un acacia
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1939,11 +2023,15 @@ exports[`renders correctly 1`] = `
                 >
                   Ruianized buildings
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       mass modification
                     </span>
@@ -2036,17 +2124,21 @@ exports[`renders correctly 1`] = `
                 >
                   Add recycling centre
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       notfixed
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2133,20 +2225,24 @@ exports[`renders correctly 1`] = `
                 >
                   Burkina Faso, réseau routier consolidé vs gROADS#hotosm-project-1245
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
                     
                   </span>
                 </span>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       possible import
                     </span>
@@ -2239,17 +2335,21 @@ exports[`renders correctly 1`] = `
                 >
                   +
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2336,20 +2436,24 @@ exports[`renders correctly 1`] = `
                 >
                   Created a caravan_site and a government office
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       very-severe
                     </span>
                     
                   </span>
                 </span>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       New mapper
                     </span>
@@ -2442,17 +2546,21 @@ exports[`renders correctly 1`] = `
                 >
                   +
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2539,8 +2647,12 @@ exports[`renders correctly 1`] = `
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2627,8 +2739,12 @@ exports[`renders correctly 1`] = `
                 >
                   #hotosm-project-3100 #MissingMaps #Malawi #rodekruis #redcross #has20170606 #kragten20170608
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2715,8 +2831,12 @@ exports[`renders correctly 1`] = `
                 >
                   osmose corrections
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2803,11 +2923,15 @@ exports[`renders correctly 1`] = `
                 >
                   keepright fixes in NW Victoria
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       suspect_word
                     </span>
@@ -2900,8 +3024,12 @@ exports[`renders correctly 1`] = `
                 >
                   улица
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2988,8 +3116,12 @@ exports[`renders correctly 1`] = `
                 >
                   added road geoetry and name
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3076,8 +3208,12 @@ exports[`renders correctly 1`] = `
                 >
                   #hotosm-project-3144 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3164,8 +3300,12 @@ exports[`renders correctly 1`] = `
                 >
                   Mise à jour d'information
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3252,8 +3392,12 @@ exports[`renders correctly 1`] = `
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3340,8 +3484,12 @@ exports[`renders correctly 1`] = `
                 >
                   #hotosm-project-3144 #MissingMaps #EliminateMalaria #Zimbabwe #TeamGoodMappers #danielzyt
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3428,11 +3576,15 @@ exports[`renders correctly 1`] = `
                 >
                   Fix wandelnetwerk: typos
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       suspect_word
                     </span>
@@ -3525,8 +3677,12 @@ exports[`renders correctly 1`] = `
                 >
                   highway: name added
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3613,8 +3769,12 @@ exports[`renders correctly 1`] = `
                 >
                   #hotosm-task-313, #YouthMappers#scfuta
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3701,8 +3861,12 @@ exports[`renders correctly 1`] = `
                 >
                   incrocio con fosso
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3789,8 +3953,12 @@ exports[`renders correctly 1`] = `
                 >
                   Rajshahi University of Engineering and Technology (RUET)
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3877,8 +4045,12 @@ exports[`renders correctly 1`] = `
                 >
                   Adding houses, sidewalks, vegetation, businesses, roads and other pertinent information.
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3965,11 +4137,15 @@ exports[`renders correctly 1`] = `
                 >
                   Precisions
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       Unknown iD instance
                     </span>
@@ -4062,8 +4238,12 @@ exports[`renders correctly 1`] = `
                 >
                   Updated a nightclub
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4150,8 +4330,12 @@ exports[`renders correctly 1`] = `
                 >
                   По ГИС ФГБУ «Национальный парк «Смоленское Поозерье»
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4238,8 +4422,12 @@ exports[`renders correctly 1`] = `
                 >
                   Minor roads
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4326,11 +4514,15 @@ exports[`renders correctly 1`] = `
                 >
                   keepright fixes in NW Victoria
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       suspect_word
                     </span>
@@ -4423,8 +4615,12 @@ exports[`renders correctly 1`] = `
                 >
                   ё
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4511,8 +4707,12 @@ exports[`renders correctly 1`] = `
                 >
                   Modification de lieux
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4599,8 +4799,12 @@ exports[`renders correctly 1`] = `
                 >
                   #hotosm-project-3133 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4687,8 +4891,12 @@ exports[`renders correctly 1`] = `
                 >
                   corrected road name
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4775,8 +4983,12 @@ exports[`renders correctly 1`] = `
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4863,8 +5075,12 @@ exports[`renders correctly 1`] = `
                 >
                   added Post Box
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4951,8 +5167,12 @@ exports[`renders correctly 1`] = `
                 >
                   בניין
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5039,8 +5259,12 @@ exports[`renders correctly 1`] = `
                 >
                   POI NEW
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5127,8 +5351,12 @@ exports[`renders correctly 1`] = `
                 >
                   Žymėjimo tvarkymai
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5216,8 +5444,12 @@ exports[`renders correctly 1`] = `
                   Irak, Mosul, #hotosm-task-562: added buildings
                   source=Bing
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5304,8 +5536,12 @@ exports[`renders correctly 1`] = `
                 >
                   oneway:except=psv durch oneway:psv=no ersetzt; oneway:bicycle=no gelöscht wo cycleway=opposite getagged ist
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5392,8 +5628,12 @@ exports[`renders correctly 1`] = `
                 >
                   #hotosm-project-2768
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5480,10 +5720,12 @@ exports[`renders correctly 1`] = `
                 >
                   change of large building tag to industrial
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
@@ -5491,14 +5733,16 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                     >
                       very-severe
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5585,11 +5829,15 @@ exports[`renders correctly 1`] = `
                 >
                   #TanzaniaDevelopmentTrust #Tanzania #missingmaps #hotosm-project-2609
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -5682,11 +5930,15 @@ exports[`renders correctly 1`] = `
                 >
                   Osmose, BD Ortho IGN, Cadastre
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -5779,11 +6031,15 @@ exports[`renders correctly 1`] = `
                 >
                   #hotosm-project-1945 #maplesotho #mlmstask
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       possible import
                     </span>
@@ -5791,7 +6047,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -5884,11 +6140,15 @@ exports[`renders correctly 1`] = `
                 >
                   Улучшаю
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -5981,11 +6241,15 @@ exports[`renders correctly 1`] = `
                 >
                   Красный Яр
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       possible import
                     </span>
@@ -5993,7 +6257,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -6086,8 +6350,12 @@ exports[`renders correctly 1`] = `
                 >
                   #hotosm-project-3132 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6174,8 +6442,12 @@ exports[`renders correctly 1`] = `
                 >
                   Road created
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6262,11 +6534,15 @@ exports[`renders correctly 1`] = `
                 >
                   #hotosm-task-366 #OSMBD #BHOOT #MissingMaps #HOT #Mapillary #Dhaka_Mapathon #Pathao
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       possible import
                     </span>
@@ -6274,7 +6550,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -6367,10 +6643,12 @@ exports[`renders correctly 1`] = `
                 >
                   #hotosm-project-3132 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       intentional
                     </span>
@@ -6378,7 +6656,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                     >
                       very-severe
                     </span>
@@ -6386,14 +6664,16 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                     >
                       unintentional
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6480,10 +6760,12 @@ exports[`renders correctly 1`] = `
                 >
                   #hotosm-project-2333 #MissingMaps #Ouahigouya #BurkinaFaso #DigitalGlobe #NextView
                 </p>
-                <span>
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
                     >
                       unintentional
                     </span>
@@ -6491,7 +6773,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                     >
                       intentional
                     </span>
@@ -6499,7 +6781,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                     >
                       very-severe
                     </span>
@@ -6507,14 +6789,16 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
                     >
                       notfixed
                     </span>
                     
                   </span>
                 </span>
-                <span />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6601,8 +6885,12 @@ exports[`renders correctly 1`] = `
                 >
                   колонки уже демонтированы
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6689,11 +6977,15 @@ exports[`renders correctly 1`] = `
                 >
                   #hotosm-task-366 #OSMBD #BHOOT #MissingMaps #HOT #Mapillary #Pathao
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -6786,11 +7078,15 @@ exports[`renders correctly 1`] = `
                 >
                   По снимкам bing
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       possible import
                     </span>
@@ -6798,7 +7094,7 @@ exports[`renders correctly 1`] = `
                   </span>
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
@@ -6891,11 +7187,15 @@ exports[`renders correctly 1`] = `
                 >
                   Прорисовка района
                 </p>
-                <span />
-                <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
                   <span>
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
                     >
                       Randomized flag
                     </span>

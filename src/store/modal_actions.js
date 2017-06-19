@@ -13,6 +13,52 @@ export const DISMISS_MODAL = 'DISMISS_MODAL';
 // public
 // starting point for react component to start fetch
 
+export function modal({
+  kind = 'error',
+  error,
+  title,
+  autoDismiss = 5,
+  dismiss = true,
+  description = 'Please reload the application. If it still doesnt work please refer to usage guide.',
+  callback,
+  callbackArgs,
+  callbackLabel
+}: {
+  kind?: string,
+  error?: Error,
+  title?: string,
+  dismiss?: boolean,
+  autoDismiss?: number,
+  description?: string,
+  callback?: Function,
+  callbackArgs?: Array<any>,
+  callbackLabel?: string
+}) {
+  if (error && error.message) {
+    description = error.message;
+  }
+  if (error && error.name) {
+    title = error.name;
+  }
+  if (kind === 'error') {
+    autoDismiss = 10;
+  }
+  return {
+    type: 'INIT_MODAL',
+    payload: {
+      kind,
+      error,
+      callbackLabel,
+      title,
+      autoDismiss,
+      dismiss,
+      description
+    },
+    callback,
+    callbackArgs
+  };
+}
+
 export function action(type: string, payload: ?Object) {
   return { type, ...payload };
 }

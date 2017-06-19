@@ -134,15 +134,6 @@ class ChangesetsList extends React.PureComponent {
     this.props.getChangesetsPage(this.props.pageIndex, true);
   };
   render() {
-    const { error } = this.props;
-    if (error) {
-      return (
-        <div>
-          error {JSON.stringify(error.stack)}
-          {' '}
-        </div>
-      );
-    }
     const base = parseInt(this.props.pageIndex / RANGE, 10) * RANGE;
 
     const { currentPage, loading, diff, diffLoading } = this.props;
@@ -253,7 +244,6 @@ class ChangesetsList extends React.PureComponent {
             getChangesetsPage={this.props.getChangesetsPage}
           />
         </footer>
-
       </div>
     );
   }

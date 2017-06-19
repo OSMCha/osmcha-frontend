@@ -9,11 +9,10 @@ export function fetchChangeset(id: number, token: ?string) {
       Authorization: token ? `Token ${token}` : ''
     }
   }).then(res => {
-    if (res.status === 403) {
-      return res.json().then(r => Promise.reject(r));
-    }
     if (res.status >= 400 && res.status < 600) {
-      throw new Error('Bad response from server. Please reload');
+      return res.json().then(r => {
+        throw new Error(r && r.detail);
+      });
     }
     return res.json();
   });
@@ -37,11 +36,10 @@ export function setHarmful(id: number, token: string, harmful: boolean | -1) {
       Authorization: token ? `Token ${token}` : ''
     }
   }).then(res => {
-    if (res.status === 403) {
-      return res.json().then(r => Promise.reject(r));
-    }
     if (res.status >= 400 && res.status < 600) {
-      throw new Error('Bad response from server. Please reload');
+      return res.json().then(r => {
+        throw new Error(r && r.detail);
+      });
     }
     return res.json();
   });
@@ -76,7 +74,9 @@ export function setTag(
     })
   }).then(res => {
     if (res.status >= 400 && res.status < 600) {
-      return res.json().then(r => Promise.reject(r));
+      return res.json().then(r => {
+        throw new Error(r && r.detail);
+      });
     }
     return res.json();
   });

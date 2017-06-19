@@ -8,7 +8,7 @@ import { fetchChangesetsPage } from '../network/changesets_page';
 import { getObjAsQueryParam } from '../utils/query_params';
 import { validateFilters } from '../utils/filters';
 
-import { INIT_MODAL } from './modal_actions';
+import { modal } from './modal_actions';
 
 import type { RootStateType } from './';
 import type { InputType } from '../components/filters';
@@ -100,9 +100,10 @@ export function* fetchChangesetsPageAsync({
   // no need to check if changesetPage exists
   // as service worker caches this api request
 
-  let filters = yield select((state: RootStateType) =>
-    state.changesetsPage.get('filters')
-  );
+  let [filters, oldPageIndex] = yield select((state: RootStateType) => [
+    state.changesetsPage.get('filters'),
+    state.changesetsPage.get('pageIndex')
+  ]);
   const valid = validateFilters(filters);
   if (!valid) {
     filters = new Map();
@@ -112,13 +113,8 @@ export function* fetchChangesetsPageAsync({
     }));
     yield all([
       put(
-        action(INIT_MODAL, {
-          payload: {
-            error: Error('Invalid filters'),
-            autoDismiss: 5,
-            title: 'Invalid Filters',
-            description: 'The filters that you applied were incorrect.'
-          }
+        modal({
+          error: Error('The filters that you applied were not correct.')
         })
       ),
       put(push(location)),
@@ -126,12 +122,10 @@ export function* fetchChangesetsPageAsync({
     ]);
   }
 
-  if (pageIndex === undefined || pageIndex === null) {
-    pageIndex = yield select((state: RootStateType) =>
-      state.changesetsPage.get('pageIndex')
-    );
+  if (pageIndex == null) {
+    // to check both undefined and null
+    pageIndex = oldPageIndex;
   }
-
   yield put(
     action(CHANGESETS_PAGE_LOADING, {
       pageIndex
@@ -153,23 +147,18 @@ export function* fetchChangesetsPageAsync({
       })
     );
   } catch (error) {
-    console.error(error);
     yield put(
       action(CHANGESETS_PAGE_ERROR, {
-        pageIndex,
+        pageIndex: oldPageIndex,
         error
       })
     );
+    error.name = `Failed to load page ${pageIndex}`;
     yield put(
-      action(INIT_MODAL, {
-        payload: {
-          error,
-          autoDismiss: 10,
-          title: 'Changesets List Failed',
-          description: `Changesets List for page: ${pageIndex} failed to load, please wait for a while or retry.`,
-          callbackLabel: 'Retry'
-        },
+      modal({
+        error,
         callback: action,
+        callbackLabel: 'Retry',
         callbackArgs: [CHANGESET_PAGE_GET, { pageIndex }]
       })
     );
