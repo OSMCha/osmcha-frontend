@@ -1750,7 +1750,7 @@ cross-spawn@4.0.2, cross-spawn@^4.0.0:
     lru-cache "^4.0.1"
     which "^1.2.9"
 
-cross-spawn@^5.0.1:
+cross-spawn@^5.0.1, cross-spawn@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
   dependencies:
@@ -2104,7 +2104,7 @@ dot-prop@^3.0.0:
   dependencies:
     is-obj "^1.0.0"
 
-dotenv@4.0.0:
+dotenv@4.0.0, dotenv@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
 
@@ -5692,6 +5692,13 @@ react-anchorify-text@^2.1.0:
     react "^15.5.4"
     react-dom "^15.5.4"
     tlds "^1.145.0"
+
+react-app-rewired@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-app-rewired/-/react-app-rewired-1.0.5.tgz#9ae7e0d01ffcb89ce8ae53043a16336a72d54032"
+  dependencies:
+    cross-spawn "^5.1.0"
+    dotenv "^4.0.0"
 
 react-click-outside@^2.3.1:
   version "2.3.1"
