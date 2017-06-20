@@ -40,7 +40,8 @@ yarn test
 
 2. (optional) before deploy, you might want to increment the version number of application.
     * We use `minor` for all non-drastic changes.
-    * The `patch` is reserved for tagging the release for the server (backend) to consume. More on this
+    * The `patch` is reserved for minor changes. 
+    * We try to stick to sem-ver.
 ```bash
 npm version minor
 ```
@@ -61,8 +62,8 @@ yarn deploy:<stack>
     * `gh-pages` branch handles the build for `dev` stack.
 
 
-5. (optional) If you want to see the new changes on a `staging` or `prod` stack. You will need to draft a new github release. Increment the patch number to indicate the server for change.
-    * for eg. if the version npm module version was `v0.16.0`.
-    * draft a github release with a tag `v0.16.1`. (Note the increment)
-    * supply this version number to the server.
+5. (optional) If you want to see the new changes on a `staging` or `prod` stack. You will need to draft a new github release. We use a convention to append `-server` to the current version tag for the server to consume the build and separate concerns.
+    * for eg. if the version npm module version was `v0.16.3`.
+    * draft a github release with a tag `v0.16.3-server`. (Note the -server part)
+    * supply this version tag to the server.
     * Refer to githubs [article](https://help.github.com/articles/creating-releases/) for creating releases.
