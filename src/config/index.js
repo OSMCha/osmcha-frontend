@@ -12,4 +12,7 @@ if (isProd) {
   url = 'https://osmcha.mapbox.com/api/v1';
 }
 
+window.debug_info = () =>
+  `isDev${isDev} isStaging${isStaging} isProd${isProd} isLocal${isLocal} stack${stack} appVersion${appVersion} url${url}`;
+
 export const API_URL = url;
