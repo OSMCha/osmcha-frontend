@@ -1,10 +1,6 @@
 {
   "name": "osmcha-frontend",
-<<<<<<< HEAD
-  "version": "0.21.1",
-=======
-  "version": "0.22.0",
->>>>>>> 0.22.0
+  "version": "0.23.2",
   "engines": {
     "node": ">=7.0"
   },
@@ -51,14 +47,11 @@
     "jest-cli": "^20.0.4",
     "lint-staged": "^3.6.1",
     "mockdate": "^2.0.1",
-    "nock": "^9.0.13",
     "prettier": "^1.4.4",
     "prettier-eslint-cli": "^4.1.1",
     "react-app-rewired": "^1.0.5",
     "react-scripts": "1.0.7",
     "react-test-renderer": "^15.6.1",
-    "redux-mock-store": "^1.2.3",
-    "redux-saga-test-plan": "^3.1.0",
     "webpack-bundle-analyzer": "^2.8.2",
     "why-did-you-update": "0.0.8"
   },
@@ -66,17 +59,14 @@
     "precommit": "lint-staged",
     "flow": "flow",
     "start": "react-app-rewired start",
-    "test": "react-app-rewired test --env=jsdom",
+    "test": "flow && react-app-rewired test --env=jsdom",
     "build": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV react-app-rewired build",
     "build:dev": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV PUBLIC_URL=https://mapbox.github.io/osmcha-frontend react-app-rewired build",
     "deploy:dev": "gh-pages -d build",
     "build:staging": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=STAGING PUBLIC_URL=https://osmcha-django-staging.tilestream.net react-app-rewired build",
     "deploy:staging": "gh-pages -d build -b oh-pages",
     "build:prod": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=PRODUCTION PUBLIC_URL=https://osmcha.mapbox.com react-app-rewired build",
-    "deploy:prod": "gh-pages -d build -b oh-pages",
-    "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin && git push origin --tags",
-    "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin && git push origin --tags",
-    "release:patch": "changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin && git push origin --tags"
+    "deploy:prod": "gh-pages -d build -b oh-pages"
   },
   "lint-staged": {
     "*.js": [

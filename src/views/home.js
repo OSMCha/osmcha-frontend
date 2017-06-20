@@ -12,7 +12,7 @@ export function Home() {
       <div className="flex-child flex-child--grow">&nbsp;</div>
       <div className="flex-parent flex-parent--column flex-parent--center-cross ">
         <img src={banner} style={{ width: '40vw' }} />
-        <img src={work_flow} style={{ width: '35vw' }} />
+        <img src={work_flow} style={{ width: '35vw' }} className="pt36" />
       </div>
       <div className="flex-child flex-child--grow">&nbsp;</div>
       <div className="flex-parent flex-parent--column align-center txt-l">
