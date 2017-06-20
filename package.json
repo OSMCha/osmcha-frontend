@@ -65,7 +65,7 @@
     "homepage-staging": "REACT_APP_HOMEPAGE=https://osmcha-django-staging.tilestream.net node scripts/fix_homepage.js",
     "homepage-prod": "REACT_APP_HOMEPAGE=https://osmcha.mapbox.com node scripts/fix_homepage.js"
   },
-  "homepage": "https://osmcha-django-staging.tilestream.net",
+  "homepage": "https://mapbox.github.io/osmcha-frontend",
   "lint-staged": {
     "*.js": [
       "prettier --write --single-quote",

@@ -22,7 +22,7 @@
     (function (l) {
 
 
-      if (l.search && l.host.indexOf('osmcha-django-staging') === -1) {
+      if (l.search && l.host.indexOf('osmcha.mapbox') === -1 && l.host.indexOf('osmcha-django-staging') === -1) {
         var q = {};
         l.search.slice(1).split('&').forEach(function (v) {
           var a = v.split('=');
