@@ -54,6 +54,16 @@ const RUNTIME_CACHING = [
         name: 'filters-reasons-cache'
       }
     }
+  },
+  {
+    urlPattern: /osmcha-frontend\/master\/ABOUT/,
+    handler: 'fastest',
+    options: {
+      cache: {
+        maxEntries: 2,
+        name: 'about-page-cache'
+      }
+    }
   }
 ];
 

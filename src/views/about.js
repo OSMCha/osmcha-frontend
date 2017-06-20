@@ -1,18 +1,16 @@
+// @flow
 import React from 'react';
 import showdown from 'showdown';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { cancelablePromise } from '../utils/promise';
 
 const converter = new showdown.Converter({
-  // simpleLineBreaks: true,
-  // flavour: 'github'
   ghCompatibleHeaderId: true,
-  extensions: myext()
+  extensions: formatMarkdown()
 });
 
 converter.setFlavor('github');
 
-function myext() {
+function formatMarkdown() {
   return [
     {
       type: 'output',
@@ -58,6 +56,7 @@ function myext() {
     }
   ];
 }
+
 function timer(time) {
   return new Promise(res => setTimeout(res, time));
 }
@@ -66,9 +65,10 @@ export class About extends React.PureComponent {
   state = {
     markdown: null
   };
+  cancellablePromise = null;
   componentDidMount() {
     this.cancellablePromise = cancelablePromise(
-      timer(1000)
+      timer(200)
         .then(() =>
           fetch(
             'https://raw.githubusercontent.com/mapbox/osmcha-frontend/master/ABOUT.md'
