@@ -24,6 +24,8 @@ Open http://localhost:3000 to view it in the browser.
 
 ### Prerequisite
 - Make sure your node version is 7.
+- Install `yarn` globally using `brew install yarn`.
+- Install `watchman` globally with `brew install watchman`.
 
 ### Deploy/Release
 - There are three stacks to deploy to
@@ -33,7 +35,7 @@ Open http://localhost:3000 to view it in the browser.
 
 1. Test the application before commiting any changes by
 ```bash
-yarn test 
+yarn test
 ```
 
 2. (optional) before deploy, you might want to increment the version number of application.
@@ -55,7 +57,7 @@ yarn build:<stack>
 yarn deploy:<stack>
 ```
     * here stack could be `dev`, `staging`, `prod`. Refer to package.json for more info.
-    * `oh-pages` branch handles the build for `staging`, `prod` stacks. 
+    * `oh-pages` branch handles the build for `staging`, `prod` stacks.
     * `gh-pages` branch handles the build for `dev` stack.
 
 
@@ -64,4 +66,3 @@ yarn deploy:<stack>
     * draft a github release with a tag `v0.16.1`. (Note the increment)
     * supply this version number to the server.
     * Refer to githubs [article](https://help.github.com/articles/creating-releases/) for creating releases.
-
