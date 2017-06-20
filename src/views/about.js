@@ -63,7 +63,7 @@ function timer(time) {
 
 export class About extends React.PureComponent {
   state = {
-    markdown: null
+    about: null
   };
   cancellablePromise = null;
   componentDidMount() {
@@ -77,7 +77,7 @@ export class About extends React.PureComponent {
         .then(r => r.text())
     );
     this.cancellablePromise.promise
-      .then(markdown => this.setState({ markdown }))
+      .then(markdown => this.setState({ about: converter.makeHtml(markdown) }))
       .catch(e => {});
   }
   componentWillUnmount() {
@@ -124,7 +124,7 @@ export class About extends React.PureComponent {
               id="guide"
               className="pb36 px12 wmax720"
               dangerouslySetInnerHTML={{
-                __html: converter.makeHtml(this.state.markdown)
+                __html: this.state.about
               }}
             />
           </div>

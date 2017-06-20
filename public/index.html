@@ -20,9 +20,8 @@
     // the correct url will be waiting in the browser's history for
     // the single page app to route accordingly.
     (function (l) {
-
-
-      if (l.search && l.host.indexOf('osmcha.mapbox') === -1 && l.host.indexOf('osmcha-django-staging') === -1) {
+      console.log(l.host.indexOf('github.io'));
+      if (l.search && l.host.indexOf('github.io') > -1) {
         var q = {};
         l.search.slice(1).split('&').forEach(function (v) {
           var a = v.split('=');
