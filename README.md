@@ -52,7 +52,7 @@ yarn build:<stack>
 ```
     * here stack could be `dev`, `staging`, `prod`. Refer to package.json for more info.
 
-4. The next step involves deploying the `build` folder to github.
+4. The next step involves deploying the `build` folder to github. If you get an error like this `error: failed to push some refs to 'git'` while doing the deploy step. Run `rm -rf node_modules/gh-pages/.cache/`.
 ```
 yarn deploy:<stack>
 ```
