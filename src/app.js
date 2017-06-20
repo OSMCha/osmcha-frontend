@@ -11,6 +11,7 @@ import { ChangesetsList } from './views/changesets_list';
 import { CMap } from './views/map';
 import { NavbarChangeset } from './views/navbar_changeset';
 import { NavbarSidebar } from './views/navbar_sidebar';
+import { Home } from './views/home';
 import { Modal } from './views/modal';
 
 import { gaPageView } from './utils/analytics';
@@ -49,7 +50,7 @@ export class App extends Component {
                     transitionEnterTimeout={300}
                     transitionLeaveTimeout={300}
                   >
-                    <Route exact path="/" component={About} />
+                    <Route exact path="/" component={Home} />
                     <Route
                       location={location}
                       path="/filters"
