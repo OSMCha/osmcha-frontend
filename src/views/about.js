@@ -86,6 +86,17 @@ export class About extends React.PureComponent {
   }
   render() {
     return (
+      <div className="scroll-auto about-page-height flex-parent flex-parent--column pb12 flex-parent--center-cross">
+        <div
+          id="guide"
+          className="pb36 px12 wmax720"
+          dangerouslySetInnerHTML={{
+            __html: this.state.about
+          }}
+        />
+      </div>
+    );
+    return (
       <div className="bg-white clip">
         <div className="scroll-auto about-page-height flex-parent flex-parent--column pb12 flex-parent--center-cross">
           <div className="half-body-margin-top">
