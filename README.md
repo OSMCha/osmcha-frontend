@@ -62,7 +62,7 @@ yarn deploy:<stack>
 
 
 5. (optional) If you want to see the new changes on a `staging` or `prod` stack. You will need to draft a new github release. Increment the patch number to indicate the server for change.
-    * for eg. if the version was `v0.16.0`.
+    * for eg. if the version npm module version was `v0.16.0`.
     * draft a github release with a tag `v0.16.1`. (Note the increment)
     * supply this version number to the server.
     * Refer to githubs [article](https://help.github.com/articles/creating-releases/) for creating releases.
