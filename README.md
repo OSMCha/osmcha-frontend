@@ -33,7 +33,8 @@ Open http://localhost:3000 to view it in the browser.
 - `yarn deploy:staging` deploys it to `osmcha-django-staging.tilestream.net`
 - `yarn deploy:prod` deploys it to `osmcha.mapbox.com`
 
-1. Test the application before commiting any changes by
+1. Test the application before commiting any changes. If you encounter any error make sure you have `watchman` installed. [Installation Guide](https://facebook.github.io/watchman/docs/install.html).
+
 ```bash
 yarn test
 ```
