@@ -5,23 +5,25 @@ import { fromJS } from 'immutable';
 
 import {
   postTokensOSMCha,
-  fetchUserDetails as fetchOsmchaUserDetails
+  postFinalTokensOSMCha,
+  fetchUserDetails
 } from '../network/auth';
 import { setItem, removeItem } from '../utils/safe_storage';
-import { getUserDetails as fetchOsmUserDetails } from '../network/openstreetmap';
 
 import { modal } from './modal_actions';
 
 import type { RootStateType } from './';
 
-export const POST_SOCIAL_TOKEN = 'POST_SOCIAL_TOKEN';
-export const SAVE_OAUTH_OBJ = 'SAVE_OAUTH_OBJ';
-export const GET_FINAL_TOKEN = 'GET_FINAL_TOKEN';
-export const SAVE_TOKEN = 'SAVE_TOKEN';
-export const LOGOUT = 'LOGOUT';
-export const CLEAR_SESSION = 'CLEAR_SESSION';
-export const LOGIN_ERROR = 'LOGIN_ERROR';
-export const USER_DETAILS = 'USER_DETAILS';
+export const AUTH = {
+  postSocialToken: 'AUTH_POST_SOCIAL_TOKEN',
+  saveOAuth: 'AUTH_SAVE_OAUTH_OBJ',
+  getFinalToken: 'AUTH_GET_FINAL_TOKEN',
+  saveToken: 'AUTH_SAVE_TOKEN',
+  logout: 'AUTH_LOGOUT',
+  clearSession: 'AUTH_CLEAR_SESSION',
+  loginError: 'AUTH_LOGIN_ERROR',
+  userDetails: 'AUTH_USER_DETAILS'
+};
 
 export function action(type: string, payload: ?Object) {
   return { type, ...payload };
@@ -29,20 +31,21 @@ export function action(type: string, payload: ?Object) {
 
 // public
 // starting point for react component to start fetch
-export const getOAuthToken = () => action(POST_SOCIAL_TOKEN);
+export const getOAuthToken = () => action(AUTH.postSocialToken);
 
 export const getFinalToken = (oauth_verifier: string) =>
-  action(GET_FINAL_TOKEN, { oauth_verifier });
+  action(AUTH.getFinalToken, { oauth_verifier });
 
-export const logUserOut = () => action(LOGOUT);
+export const logUserOut = () => action(AUTH.logout);
 
+export const getTokenSelector = (state: RootStateType) =>
+  state.auth.get('token');
 export function* watchAuth(): any {
   // get the token from localStorage.
   // if it exists we just need to wait for
   // logout action.
   let DELAY = 1000;
-  let token = yield select((state: RootStateType) => state.auth.get('token'));
-
+  let token = yield select(getTokenSelector);
   // wrapping it in a for loop allows us to
   // pause or resume our auth workflow
   // info: https://redux-saga.js.org/docs/advanced/NonBlockingCalls.html
@@ -51,14 +54,13 @@ export function* watchAuth(): any {
       if (!token) {
         token = yield call(authTokenFlow);
       }
-      const userDetails = fromJS(yield call(fetchOsmchaUserDetails, token));
-      // const osmUser = yield call(fetchOsmUserDetails, userDetails.get('id'));
-      // console.log(osmUser);
-      yield put(action(USER_DETAILS, { userDetails }));
+      const userDetails = fromJS(yield call(fetchUserDetails, token));
+      yield put(action(AUTH.userDetails, { userDetails }));
+
+      yield take(AUTH.logout);
       DELAY = 1000;
-      yield take(LOGOUT);
     } catch (error) {
-      yield put(action(LOGIN_ERROR, error));
+      yield put(action(AUTH.loginError, error));
       yield call(delay, 500);
       error.name = 'Login Failed';
       yield put(
@@ -67,14 +69,14 @@ export function* watchAuth(): any {
           kind: 'warning'
         })
       );
-      DELAY = 2 * DELAY;
+      DELAY = 4 * DELAY;
     } finally {
       token = undefined;
       yield call(removeItem, 'token');
       yield call(removeItem, 'oauth_token');
       yield call(removeItem, 'oauth_token_secret');
+      yield put(action(AUTH.clearSession));
       yield call(delay, DELAY);
-      yield put(action(CLEAR_SESSION));
     }
   }
 }
@@ -82,7 +84,7 @@ export function* watchAuth(): any {
 export function* authTokenFlow(): any {
   const { oauth_token, oauth_token_secret } = yield call(postTokensOSMCha);
   yield put(
-    action(SAVE_OAUTH_OBJ, {
+    action(AUTH.saveOAuth, {
       oauth_token,
       oauth_token_secret
     })
@@ -91,9 +93,9 @@ export function* authTokenFlow(): any {
   // to emit and resume the flow. next in action would
   // be to wait for the action `GET_FINAL_TOKEN`
   // and resume the flow
-  const { oauth_verifier } = yield take(GET_FINAL_TOKEN);
+  const { oauth_verifier } = yield take(AUTH.getFinalToken);
   const { token } = yield call(
-    postTokensOSMCha,
+    postFinalTokensOSMCha,
     oauth_token,
     oauth_token_secret,
     oauth_verifier
@@ -105,7 +107,7 @@ export function* authTokenFlow(): any {
   yield call(setItem, 'oauth_token', oauth_token);
   yield call(setItem, 'oauth_token_secret', oauth_token_secret);
   yield put(
-    action(SAVE_TOKEN, {
+    action(AUTH.saveToken, {
       token,
       oauth_verifier
     })
