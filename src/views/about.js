@@ -58,10 +58,6 @@ function formatMarkdown() {
   ];
 }
 
-function timer(time) {
-  return new Promise(res => setTimeout(res, time));
-}
-
 export class About extends React.PureComponent {
   state = {
     about: null
@@ -69,13 +65,9 @@ export class About extends React.PureComponent {
   cancellablePromise = null;
   componentDidMount() {
     this.cancellablePromise = cancelablePromise(
-      timer(200)
-        .then(() =>
-          fetch(
-            'https://raw.githubusercontent.com/mapbox/osmcha-frontend/master/ABOUT.md'
-          )
-        )
-        .then(r => r.text())
+      fetch(
+        'https://raw.githubusercontent.com/mapbox/osmcha-frontend/master/ABOUT.md'
+      ).then(r => r.text())
     );
     this.cancellablePromise.promise
       .then(markdown => this.setState({ about: converter.makeHtml(markdown) }))
@@ -94,54 +86,6 @@ export class About extends React.PureComponent {
             __html: this.state.about
           }}
         />
-      </div>
-    );
-    return (
-      <div className="bg-white clip">
-        <div className="scroll-auto about-page-height flex-parent flex-parent--column pb12 flex-parent--center-cross">
-          <div className="half-body-margin-top">
-            <span className="txt-fancy color-gray txt-jumbo">
-              <span className="color-green txt-bold">
-                OSM
-              </span>
-              Cha<span className="txt-s">
-                v{appVersion}{isDev && ' Dev'}
-                {isStaging && ' Staging'}
-              </span>
-            </span>
-          </div>
-          <div className="mb300 pb60">
-            <button className="btn mx6"><a href="#guide">Guide</a></button>
-            <button className="btn mx6">
-              <a href="#are-there-keyboard-shortcuts-in-osmcha">Shortcuts</a>
-            </button>
-            <button className="btn mx6">
-              <a
-                target="__blank"
-                href="https://github.com/mapbox/osmcha-frontend/issues"
-              >
-                Bugs
-              </a>
-            </button>
-            <button className="btn mx6">
-              <a
-                target="__blank"
-                href="https://github.com/mapbox/osmcha-frontend/blob/master/CONTRIBUTING.md"
-              >
-                Contribute
-              </a>
-            </button>
-          </div>
-          <div className="flex-parent flex-parent--column  flex-child--grow">
-            <div
-              id="guide"
-              className="pb36 px12 wmax720"
-              dangerouslySetInnerHTML={{
-                __html: this.state.about
-              }}
-            />
-          </div>
-        </div>
       </div>
     );
   }
