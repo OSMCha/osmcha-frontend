@@ -113,7 +113,7 @@ export class About extends React.PureComponent {
             <button className="btn mx6">
               <a
                 target="__blank"
-                href="https://github.com/mapbox/osmcha-frontend"
+                href="https://github.com/mapbox/osmcha-frontend/blob/master/CONTRIBUTING.md"
               >
                 Contribute
               </a>
