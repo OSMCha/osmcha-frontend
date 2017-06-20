@@ -63,3 +63,5 @@ yarn deploy:<stack>
     * for eg. if the version was `v0.16.0`.
     * draft a github release with a tag `v0.16.1`. (Note the increment)
     * supply this version number to the server.
+    * Refer to githubs [article](https://help.github.com/articles/creating-releases/) for creating releases.
+
