@@ -160,6 +160,7 @@ Filters tab on OSMCha provides a variety of search parameters to fetch a specifi
 
 
 ![osmcha-is-hot](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497509089383_image.png)
+
 _Hot project edits are a specific example for which a changeset comment with the associated hashtag can be used to retrieve all the changesets contributed for the task._
 
 
@@ -231,7 +232,7 @@ You can sign-in on OSMCha using their OpenStreetMap account. On clicking on `sig
 
 ### Can I view the changesets and use filters without logging into OSMCha?
 
-- You **must** be signed in-order to [review](#how-to-review-a-changeset) a changeset as good or bad. Authentication in not required if you are only viewing the changesets.
+ You **must** be signed in-order to [review](#how-to-review-a-changeset) a changeset as good or bad. Authentication in not required if you are only viewing the changesets.
 
 
 ### How do I logout of OSMCha?
@@ -279,10 +280,13 @@ Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of chan
 
 <Tags screenshot>
 
+![osmcha-tags](https://user-images.githubusercontent.com/8921295/27322174-b0561022-55ba-11e7-81e9-3507278d4f58.png)
+
 The button `Tags` will only appear when you review a changeset good or bad, but it's recommended and essentially used to describe the details of the changeset that was found to be bad. Here are the different tags that can be used:
 
 - **Severity**: **Critical**, **High** or **Low**, to estimate how bad do these edits on a changeset affect OpenStreetMap data
 - **Unresolved**: To input action taken by the you (reviewer) on a changeset. It is unresolved when the you (reviewer) have commented on the changeset to inform the mapper for corrections or no action has been taken by the you (reviewer) to correct the map data.
+- **Intent**: **Intentional** or **Unintentional** to capture the intent of the user. This is contextual information subjective to the edits and users.
 - **DWG**: When a changeset needs to be reported to the Data Working Group
 
 ### What if I want to change my review for a changeset?
@@ -303,70 +307,70 @@ No, you cannot review your own changesets, but you can view your changesets.
 
 ### Changeset was already checked.
 
-- This is raised when someone tries to check a changeset that was already checked
+This is raised when someone tries to check a changeset that was already checked
 
 ### User can not check his own changeset.
 
-- This is raised when someone tries to check a changeset that was created by him/her
+This is raised when someone tries to check a changeset that was created by him/her
 
 ### Changeset is not checked.
 
-- This is raised when someone tries to uncheck a changeset that is not checked
+This is raised when someone tries to uncheck a changeset that is not checked
 
 ### User does not have permission to uncheck this changeset.
 
-- This is raised when someone tries to uncheck a changeset that another user checked
+This is raised when someone tries to uncheck a changeset that another user checked
 
 ### User can not add tags to his own changeset.
 
-- This is raised when someone tries to add tags to their own changesets
+This is raised when someone tries to add tags to their own changesets
 
 ### User can not add tags to a changeset checked by another user.
 
-- This is raised when someone tries to add tags to a changeset reviewed by someone else.
+This is raised when someone tries to add tags to a changeset reviewed by someone else.
 
 ### User can not remove tags from his own changeset.
 
-- This is raised when someone tries to remove tags from their own changeset.
+This is raised when someone tries to remove tags from their own changeset.
 
 ### User can not remove tags from a changeset checked by another user.
 
-- This is raised when someone tries to remove tags in a changeset that are added by the other users.
+This is raised when someone tries to remove tags in a changeset that are added by the other users.
 
 
 ## Feature views error messages
 
 ### Feature was already checked.
 
-- This is raised when someone tries to check a feature that was already checked
+This is raised when someone tries to check a feature that was already checked
 
 ### User can not check his own feature.
 
-- This is raised when someone tries to check a feature that was created by him/her.
+This is raised when someone tries to check a feature that was created by him/her.
 
 ### Feature is not checked.
 
-- This is raised when someone tries to uncheck a feature that is not checked
+This is raised when someone tries to uncheck a feature that is not checked
 
 ### User does not have permission to uncheck this feature.
 
-- This is raised when someone tries to uncheck a feature that another user checked
+This is raised when someone tries to uncheck a feature that another user checked
 
 ### User can not add tags to his own feature.
 
-- This is raised when someone tries to add tags to their own features
+This is raised when someone tries to add tags to their own features
 
 ### User can not add tags to a feature checked by another user.
 
-- This is raised when someone tries to add tags to a feature reviewed by someone else
+This is raised when someone tries to add tags to a feature reviewed by someone else
 
 ### User can not remove tags from his own feature.
 
-- This is raised when someone tries to remove a tag from his/her own feature
+This is raised when someone tries to remove a tag from his/her own feature
 
 ### User can not remove tags from a feature checked by another user.
 
-- This is raised when someone tries to remove tags in a feature that are added by the other users.
+This is raised when someone tries to remove tags in a feature that are added by the other users.
 
 
 # References
