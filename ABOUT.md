@@ -262,11 +262,11 @@ Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of chan
 | Go to previous changeset (in the changeset list) | ` ↑ `              |
 | Go to next changeset (in the changeset list)     | ` ↓ ` or ` Space ` |
 | **Changeset detail view**                        |                    |
-| Open changeset in `J`OSM                         | ` J `              |
-| Open user profile in `H`DYC                      | ` H `              |
-| Review changeset as `g`ood                       | ` G `              |
-| Review changeset as `b`ad                        | ` B `              |
-| `U`ndo or `C`lear changeset review               | ` U ` or ` C `     |
+| Open changeset in JOSM                           | ` J `              |
+| Open user profile in HDYC                        | ` H `              |
+| Review changeset as good                         | ` G `              |
+| Review changeset as bad                          | ` B `              |
+| Undo or clear changeset review                   | ` U ` or ` C `     |
 | **Changeset panels**                             |                    |
 | Toggle Changeset details                         | ` 1 `              |
 | Toggle Flagged features                          | ` 2 `              |
