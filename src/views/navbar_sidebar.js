@@ -27,7 +27,7 @@ import type { RootStateType } from '../store';
 
 class NavbarSidebar extends React.PureComponent {
   props: {
-    changesetId: number,
+    changesetId: ?number,
     location: Object,
     avatar: ?string,
     currentChangeset: Map<string, *>,
@@ -44,6 +44,7 @@ class NavbarSidebar extends React.PureComponent {
 
   handleLoginClick = () => {
     var oAuthToken = this.props.oAuthToken;
+    if (!oAuthToken) return;
     let url = `${osmAuthUrl}?oauth_token=${oAuthToken}`;
     if (isDev) {
       url = 'osmcha-frontend/local-landing.html';
