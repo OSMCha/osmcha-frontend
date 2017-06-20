@@ -10,7 +10,7 @@ const Feature = ({ data }: { data: Map<string, any> }) => {
     <tr className="txt-s">
       <td>{data.get('osm_id')}</td>
       <td>{data.get('name')}</td>
-      <td><Reasons reasons={data.get('reasons')} color="green" /></td>
+      <td><Reasons reasons={data.get('reasons')} color="blue" /></td>
       <td>
         <span
           onClick={() => selectFeature(parseInt(data.get('osm_id'), 10))}
