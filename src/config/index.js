@@ -13,6 +13,7 @@ if (isProd) {
 }
 
 window.debug_info = () =>
-  `isDev${isDev} isStaging${isStaging} isProd${isProd} isLocal${isLocal} stack${stack} appVersion${appVersion} url${url}`;
+  `isDev=${isDev.toString()} isStaging=${isStaging.toString()} isProd=${isProd.toString()} isLocal=${isLocal.toString()} stack=${stack ||
+    'null'} appVersion=${appVersion || 'null'} url=${url}`;
 
 export const API_URL = url;

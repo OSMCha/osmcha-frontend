@@ -15,7 +15,7 @@ import { Avatar } from '../components/avatar';
 import { createPopup } from '../utils/create_popup';
 import { handlePopupCallback } from '../utils/handle_popup_callback';
 import { osmAuthUrl } from '../config/constants';
-import { appVersion, isDev, isProd, isStaging, isLocal } from '../config';
+import { appVersion, isDev, isStaging, isLocal } from '../config';
 
 import {
   getOAuthToken,
@@ -44,13 +44,15 @@ class NavbarSidebar extends React.PureComponent {
 
   handleLoginClick = () => {
     var oAuthToken = this.props.oAuthToken;
+    let url = `${osmAuthUrl}?oauth_token=${oAuthToken}`;
+    if (isDev) {
+      url = 'osmcha-frontend/local-landing.html';
+    }
+    if (isLocal) {
+      url = '/local-landing.html';
+    }
     if (oAuthToken) {
-      const popup = createPopup(
-        'oauth_popup',
-        isProd || isStaging
-          ? `${osmAuthUrl}?oauth_token=${oAuthToken}`
-          : '/local-landing.html'
-      );
+      const popup = createPopup('oauth_popup', url);
       handlePopupCallback().then(oAuthObj => {
         this.props.getFinalToken(oAuthObj.oauth_verifier);
       });

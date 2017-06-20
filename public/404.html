@@ -11,9 +11,8 @@
     // ----------------------------------------------------------------------
     var segmentCount = 1;
     var l = window.location;
-    console.log(l.host.indexOf('github.io'));
+    console.log(l.host.indexOf('github.io'), l && l.host.indexOf('github.io') > -1);
     if (l && l.host.indexOf('github.io') > -1) {
-    } else {
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
         l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?p=/' +
