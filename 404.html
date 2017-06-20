@@ -11,7 +11,8 @@
     // ----------------------------------------------------------------------
     var segmentCount = 1;
     var l = window.location;
-    if (l && l.host.indexOf('osmcha-django-staging') > -1) {
+    console.log(l.host.indexOf('github.io'));
+    if (l && l.host.indexOf('github.io') > -1) {
     } else {
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
