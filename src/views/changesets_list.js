@@ -218,9 +218,9 @@ class ChangesetsList extends React.PureComponent {
           loading={loading}
           pageIndex={this.props.pageIndex}
         />
-        <footer className="hmin55 p12 pb24 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
+        <footer className="hmin55 p12 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
           <PageRange
-            page={'<'}
+            page={'arrow-left'}
             pageIndex={this.props.pageIndex - 1}
             disabled={this.props.pageIndex - 1 === -1}
             active={false}
@@ -236,7 +236,7 @@ class ChangesetsList extends React.PureComponent {
             />
           )}
           <PageRange
-            page={'>'}
+            page={'arrow-right'}
             disabled={this.props.pageIndex + 1 >= this.maxPageCount}
             pageIndex={this.props.pageIndex + 1}
             active={false}
