@@ -11,7 +11,9 @@ export class PageRange extends React.PureComponent {
           ${this.props.active ? 'is-active bg-gray-light' : 'bg-gray-faint'}
           `}
       >
-        {this.props.page}
+        {typeof this.props.page === 'number'
+          ? this.props.page + 1
+          : this.props.page}
       </button>
     );
   }
