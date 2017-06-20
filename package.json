@@ -52,13 +52,10 @@
     "flow": "flow",
     "start": "react-app-rewired start",
     "test": "flow && react-app-rewired test --env=jsdom",
-    "prebuild": "npm run homepage-dev",
     "build": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version + ' Dev')\")\" REACT_APP_STACK=DEV PUBLIC_URL=https://mapbox.github.io/osmcha-frontend react-app-rewired build",
     "deploy": "gh-pages -d build",
-    "prebuild:staging": "npm run homepage-staging",
     "build:staging": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version + ' Staging')\")\" REACT_APP_STACK=STAGING PUBLIC_URL=https://osmcha-django-staging.tilestream.net react-app-rewired build",
     "deploy:staging": "gh-pages -d build -b oh-pages",
-    "prebuild:prod": "npm run homepage-prod",
     "build:prod": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=PRODUCTION PUBLIC_URL=https://osmcha.mapbox.com react-app-rewired build",
     "deploy:prod": "gh-pages -d build -b oh-pages"
   },
