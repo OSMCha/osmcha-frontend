@@ -8,6 +8,7 @@ import ReactGA from 'react-ga';
 import Raven from 'raven-js';
 import { history } from './store/history';
 import { store } from './store';
+import { isDev, stack, appVersion } from './config';
 
 import { registerServiceWorker } from './serviceworker';
 
@@ -24,20 +25,20 @@ ReactGA.initialize('UA-100686765-1', {
     anonymizeIp: true,
     screenResolution: `${window.screen.availWidth}X${window.screen
       .availHeight}`,
-    appName: process.env.NODE_ENV
+    appName: stack
   }
 });
 
 Raven.config('https://5637ef87f5794e2fb9e1e5fe9119688d@sentry.io/175926', {
-  release: process.env.REACT_APP_VERSION,
+  release: appVersion,
   environment: process.env.NODE_ENV,
-  debug: process.env.NODE_ENV === 'production' ? true : true // TOFIX remove this
+  debug: isDev
 }).install();
 
-if (process.env.NODE_ENV !== 'production') {
-  // const { whyDidYouUpdate } = require('why-did-you-update');
-  // whyDidYouUpdate(React);
-}
+// if (process.env.NODE_ENV !== 'production') {
+// const { whyDidYouUpdate } = require('why-did-you-update');
+// whyDidYouUpdate(React);
+// }
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>

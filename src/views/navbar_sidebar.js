@@ -14,8 +14,8 @@ import { Avatar } from '../components/avatar';
 
 import { createPopup } from '../utils/create_popup';
 import { handlePopupCallback } from '../utils/handle_popup_callback';
-
 import { osmAuthUrl } from '../config/constants';
+import { appVersion, isDev, isProd, isStaging, isLocal } from '../config';
 
 import {
   getOAuthToken,
@@ -47,7 +47,7 @@ class NavbarSidebar extends React.PureComponent {
     if (oAuthToken) {
       const popup = createPopup(
         'oauth_popup',
-        process.env.NODE_ENV === 'production'
+        isProd || isStaging
           ? `${osmAuthUrl}?oauth_token=${oAuthToken}`
           : '/local-landing.html'
       );
@@ -88,7 +88,8 @@ class NavbarSidebar extends React.PureComponent {
                 Cha
               </span>
               <span className="txt-xs fixed" style={{ top: 37, left: 18 }}>
-                v{process.env.REACT_APP_VERSION || ''}
+                v{appVersion}{isDev && ' Dev'}{isLocal && ' Local'}
+                {isStaging && ' Staging'}
               </span>
             </span>
           }

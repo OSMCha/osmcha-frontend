@@ -1,5 +1,7 @@
+import { isProd } from '../config';
 let ReactGA;
-if (process.env.NODE_ENV === 'production') {
+
+if (isProd) {
   ReactGA = require('react-ga');
 }
 

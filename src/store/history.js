@@ -1,10 +1,7 @@
 import createHistory from 'history/createBrowserHistory';
-
+import { isDev } from '../config';
 let historyConfig = {};
-if (
-  process.env.NODE_ENV === 'production' &&
-  process.env.REACT_APP_STACK !== 'STAGING'
-) {
+if (isDev) {
   historyConfig.basename = '/osmcha-frontend';
 }
 

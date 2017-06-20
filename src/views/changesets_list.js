@@ -28,9 +28,7 @@ import {
   PREV_CHANGESET,
   FILTER_BINDING
 } from '../config/bindings';
-import { osmAuthUrl, PAGE_SIZE } from '../config/constants';
-import { createPopup } from '../utils/create_popup';
-import { handlePopupCallback } from '../utils/handle_popup_callback';
+import { PAGE_SIZE } from '../config/constants';
 
 import filters from '../config/filters.json';
 
@@ -109,20 +107,6 @@ class ChangesetsList extends React.PureComponent {
       this.goUpDownToChangeset(-1);
     });
   }
-
-  handleLoginClick = () => {
-    if (this.props.oAuthToken) {
-      const popup = createPopup(
-        'oauth_popup',
-        process.env.NODE_ENV === 'production'
-          ? `${osmAuthUrl}?oauth_token=${this.props.oAuthToken}`
-          : '/local-landing.html'
-      );
-      handlePopupCallback().then(oAuthObj => {
-        this.props.getFinalToken(oAuthObj.oauth_verifier);
-      });
-    }
-  };
   handleFilterOrderBy = (selected: Array<*>) => {
     let mergedFilters;
     mergedFilters = this.props.filters.set('order_by', fromJS(selected));

@@ -1,3 +1,4 @@
+//@flow
 import { API_URL } from './';
 
 export const PAGE_SIZE = 75;

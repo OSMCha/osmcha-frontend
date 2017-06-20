@@ -2,6 +2,7 @@
 import React from 'react';
 import showdown from 'showdown';
 import { cancelablePromise } from '../utils/promise';
+import { appVersion, isDev, isStaging } from '../config';
 
 const converter = new showdown.Converter({
   ghCompatibleHeaderId: true,
@@ -93,7 +94,8 @@ export class About extends React.PureComponent {
                 OSM
               </span>
               Cha<span className="txt-s">
-                v{process.env.REACT_APP_VERSION || ''}
+                v{appVersion}{isDev && ' Dev'}
+                {isStaging && ' Staging'}
               </span>
             </span>
           </div>
