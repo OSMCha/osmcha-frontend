@@ -255,22 +255,24 @@ For example, a place deleted compare function flags an experienced mapper's chan
 
 Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of changesets quickly. Here are the available shortcuts:
 
-| Description                                      | Shortcut           |
+
+| _Description_                                    | _Shortcut_         |
 |--------------------------------------------------|--------------------|
 | **Navigating changeset list**                    |                    |
 | Go to previous changeset (in the changeset list) | ` ↑ `              |
 | Go to next changeset (in the changeset list)     | ` ↓ ` or ` Space ` |
 | **Changeset detail view**                        |                    |
-| Open changeset in JOSM                           | ` J `              |
-| Review changeset as good                         | ` G `              |
-| Review changeset as bad                          | ` B `              |
-| Undo changeset review                            | ` U `              |
-| **Details panel**                                |                    |
-| Changeset details                                | 1                  |
-| Suspicious Reasons                               | 2                  |
-| Changeset discussions                            | 3                  |
-| User profile                                     | 4                  |
-| Filter by feature and style changer              | 5                  |
+| Open changeset in `J`OSM                         | ` J `              |
+| Open user profile in `H`DYC                      | ` H `              |
+| Review changeset as `g`ood                       | ` G `              |
+| Review changeset as `b`ad                        | ` B `              |
+| `U`ndo or `C`lear changeset review               | ` U ` or ` C `     |
+| **Changeset panels**                             |                    |
+| Toggle Changeset details                         | ` 1 `              |
+| Toggle Flagged features                          | ` 2 `              |
+| Toggle Changeset discussions                     | ` 3 `              |
+| Toggle User profile                              | ` 4 `              |
+| Toggle Map controls                              | ` 5 `              |
 | **Other**                                        |                    |
 | Show shortcuts list                              | ` ? `              |
 
