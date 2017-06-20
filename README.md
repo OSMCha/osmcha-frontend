@@ -63,7 +63,7 @@ yarn deploy:<stack>
     * `gh-pages` branch handles the build for `dev` stack.
 
 
-5. (optional) If you want to see the new changes on a `staging` or `prod` stack. You will need to draft a new github release. We use a convention to append `-server` to the current version tag for the server to consume the build and separate concerns.
+5. (optional) If you want to see the new changes on a `staging` or `prod` stack. You will need to draft a new github release. The convention is to append `-server` to the current version tag for the server to consume the build and separate concerns.
     * for eg. if the version npm module version was `v0.16.3`.
     * draft a github release with a tag `v0.16.3-server`. (Note the -server part)
     * supply this version tag to the server.
