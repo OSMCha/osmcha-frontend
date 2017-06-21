@@ -1,5 +1,6 @@
 // @flow
 import { put, call, take, fork, select, cancel } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
 import { fromJS, Map, List } from 'immutable';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
@@ -90,6 +91,7 @@ export function* watchChangeset(): any {
           pathname: 'changesets/' + legacy
         })
       );
+      yield call(delay, 4000);
       continue;
     }
     if (changesetTask) yield cancel(changesetTask);

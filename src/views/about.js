@@ -87,7 +87,7 @@ export class About extends React.PureComponent {
   render() {
     return (
       <div className="bg-white clip">
-        <div className="scroll-auto about-page-height justify--center flex-parent flex-parent--column pb12 flex-parent--center-cross">
+        <div className="scroll-auto about-page-height flex-parent flex-parent--column pb12 flex-parent--center-cross">
           <div className="half-body-margin-top">
             <span className="txt-fancy color-gray txt-jumbo">
               <span className="color-green txt-bold">
