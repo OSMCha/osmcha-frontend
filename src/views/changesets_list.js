@@ -5,6 +5,7 @@ import { List as ImmutableList, Map, fromJS } from 'immutable';
 import Mousetrap from 'mousetrap';
 import { NavLink } from 'react-router-dom';
 import { push } from 'react-router-redux';
+import numberWithCommas from '../utils/number_with_commas';
 
 import type { RootStateType } from '../store';
 
@@ -169,31 +170,29 @@ class ChangesetsList extends React.PureComponent {
             <Button className="mx3">Filters</Button>
           </NavLink>
         </header>
-        <header
-          className={`border-l border-b border-b--1 border-l--4 border-color-neutral px12 py3 ${diff >
-            0
-            ? 'bg-yellow-faint'
-            : 'bg-gray-faint'} flex-child align-items--center`}
-        >
+        <header className="px12 py6 bg-darken10 flex-child align-items--center">
           <span className="flex-parent flex-parent--row justify--space-between color-gray txt-s txt-bold">
             <span>
-              Results:
+              {this.props.currentPage && this.props.currentPage.get('count')
+                ? numberWithCommas(this.props.currentPage.get('count'))
+                : 0}
               {' '}
-              {this.props.currentPage && this.props.currentPage.get('count')}
+              changesets.
             </span>
             <span className="flex-parent flex-parent--row">
-              {diffLoading && <span className="loading loading--s inline" />}
-              <span
-                onClick={this.reloadCurrentPage}
-                className={`pointer ${diff > 0
-                  ? 'bg-yellow-light-on-hover'
-                  : 'bg-gray-light-on-hover'} round`}
-              >
-                {diff > 0 ? `${diff} New` : ''}
-                <svg className="icon inline-block align-middle ">
-                  <use xlinkHref="#icon-rotate" />
-                </svg>
+              <span className="px6">
+                {diffLoading && <span className="loading loading--s inline" />}
+                {diff > 0 ? `${diff} new` : ''}
               </span>
+              <button
+                onClick={this.reloadCurrentPage}
+                className="btn btn--s color-gray border border--gray round bg-gray-faint bg-white-on-hover"
+              >
+                Refresh
+                <svg className="icon icon--s inline-block align-middle ">
+                  <use xlinkHref="#icon-refresh" />
+                </svg>
+              </button>
             </span>
           </span>
         </header>
@@ -203,9 +202,9 @@ class ChangesetsList extends React.PureComponent {
           loading={loading}
           pageIndex={this.props.pageIndex}
         />
-        <footer className="hmin55 p12 pb24 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
+        <footer className="hmin55 p12 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
           <PageRange
-            page={'<'}
+            page={'arrow-left'}
             pageIndex={this.props.pageIndex - 1}
             disabled={this.props.pageIndex - 1 === -1}
             active={false}
@@ -221,7 +220,7 @@ class ChangesetsList extends React.PureComponent {
             />
           )}
           <PageRange
-            page={'>'}
+            page={'arrow-right'}
             disabled={this.props.pageIndex + 1 >= this.maxPageCount}
             pageIndex={this.props.pageIndex + 1}
             active={false}

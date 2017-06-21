@@ -6,7 +6,7 @@ it('renders correctly', () => {
   const tree = renderer
     .create(
       <PageRange
-        page={'<'}
+        page={'arrow-left'}
         pageIndex={0}
         disabled={false}
         active={false}
