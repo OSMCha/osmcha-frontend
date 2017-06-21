@@ -1,6 +1,6 @@
 // @flow
 import { put, call, take, select } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import { delay as delayPromise } from 'redux-saga';
 import { fromJS } from 'immutable';
 
 import {
@@ -40,11 +40,14 @@ export const logUserOut = () => action(AUTH.logout);
 
 export const getTokenSelector = (state: RootStateType) =>
   state.auth.get('token');
+
+const delay = process.env.NODE_ENV === 'test' ? () => {} : delayPromise;
+const DELAY = 1000;
 export function* watchAuth(): any {
   // get the token from localStorage.
   // if it exists we just need to wait for
   // logout action.
-  let DELAY = 1000;
+  let delayBy = 1000;
   let token = yield select(getTokenSelector);
   // wrapping it in a for loop allows us to
   // pause or resume our auth workflow
@@ -58,10 +61,10 @@ export function* watchAuth(): any {
       yield put(action(AUTH.userDetails, { userDetails }));
 
       yield take(AUTH.logout);
-      DELAY = 1000;
+      delayBy = DELAY;
     } catch (error) {
       yield put(action(AUTH.loginError, error));
-      yield call(delay, 500);
+      yield call(delay, delayBy / 2);
       error.name = 'Login Failed';
       yield put(
         modal({
@@ -69,14 +72,14 @@ export function* watchAuth(): any {
           kind: 'warning'
         })
       );
-      DELAY = 4 * DELAY;
+      delayBy = 4 * delayBy;
     } finally {
       token = undefined;
       yield call(removeItem, 'token');
       yield call(removeItem, 'oauth_token');
       yield call(removeItem, 'oauth_token_secret');
       yield put(action(AUTH.clearSession));
-      yield call(delay, DELAY);
+      yield call(delay, delayBy);
     }
   }
 }

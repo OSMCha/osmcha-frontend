@@ -1,12 +1,14 @@
-import { expectSaga } from 'redux-saga-test-plan';
-// import { delay } from 'redux-saga';
-
-import * as matchers from 'redux-saga-test-plan/matchers';
 import { call, select } from 'redux-saga/effects';
+import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import { throwError } from 'redux-saga-test-plan/providers';
+import { fromJS } from 'immutable';
+import { delay } from 'redux-saga';
+import { modal } from './modal_actions';
+
+import nock from 'nock';
 
 import { setItem, removeItem } from '../utils/safe_storage';
-
-import { fromJS } from 'immutable';
 
 import {
   postTokensOSMCha,
@@ -18,26 +20,20 @@ import {
   watchAuth,
   authTokenFlow,
   AUTH,
+  action,
   getTokenSelector
 } from './auth_actions';
 import { authReducer } from './auth_reducer';
-import nock from 'nock';
-const delay = time =>
-  new Promise(resolve => {
-    setTimeout(resolve, time);
-  });
+
 const token = '2d2289bd78985b2b46af29607ee50fa37cb1723a';
 const oauth_verifier = 'xbiZdWS1EYS608suvHrL';
 const oauth_token_secret = 'C2l9h7YEC1AzSyCi1aTKmsOi0WmEU7DMolabWrPZ';
 const oauth_token = 'zi2Lu2r5H1z5ZTbQ2YIjZJHRnwmOHKpBfvWu83ZG';
 
 describe('auth actions testing', () => {
-  beforeEach(() => {});
-  afterEach(() => {
-    nock.cleanAll();
-  });
   it('test authTokenFlow ', async () => {
     const result = await expectSaga(authTokenFlow)
+      .withReducer(authReducer)
       .provide([
         [
           matchers.call.fn(postTokensOSMCha),
@@ -67,7 +63,7 @@ describe('auth actions testing', () => {
         oauth_verifier
       })
       .run();
-    const { effects } = result;
+    const { effects, storeState } = result;
     expect(effects.call).toHaveLength(5);
     expect(effects.put).toHaveLength(1);
     expect(effects.call[0]).toEqual(call(postTokensOSMCha));
@@ -79,8 +75,17 @@ describe('auth actions testing', () => {
         oauth_verifier
       )
     );
+    const finalStore = fromJS({
+      oAuthToken: oauth_token,
+      oAuthTokenSecret: oauth_token_secret,
+      error: null,
+      token,
+      userDetails: null
+    });
+    expect(storeState).toEqual(finalStore);
     expect(result.toJSON()).toMatchSnapshot();
   });
+
   it('test watchAuth with token', async () => {
     const userDetails = {
       id: 33,
@@ -106,16 +111,15 @@ describe('auth actions testing', () => {
       .put({
         type: AUTH.clearSession
       })
-      .delay(100)
       .dispatch({ type: AUTH.logout })
-      .silentRun(2000);
+      .silentRun(500);
 
     const { effects } = result;
     expect(effects.call[0]).toEqual(call(fetchUserDetails, token));
     expect(effects.select.length).toEqual(1);
     expect(effects.put).toHaveLength(2);
   });
-  it('test watchAuth error', async () => {
+  it('test watchAuth without token', async () => {
     const userDetails = {
       id: 33,
       uid: '3563274',
@@ -128,25 +132,50 @@ describe('auth actions testing', () => {
     };
     const result = await expectSaga(watchAuth)
       .provide([
-        [select(getTokenSelector), token],
+        [select(getTokenSelector), null],
         [matchers.call.fn(fetchUserDetails), userDetails],
         [matchers.call.fn(removeItem)],
         [matchers.call.fn(authTokenFlow), token]
       ])
-      .put({
-        type: AUTH.userDetails,
-        userDetails: fromJS(userDetails)
+      .silentRun(500);
+    const { effects } = result;
+    expect(effects.call[0]).toEqual(call(authTokenFlow));
+  });
+  it('test watchauth should handle errors', async () => {
+    const userDetails = {
+      id: 33,
+      uid: '3563274',
+      username: 'kepta',
+      is_staff: true,
+      is_active: true,
+      email: '',
+      avatar:
+        'http://www.gravatar.com/avatar/8be7bdc2d8cde52fb8900c8d0c813faf.jpg?s=256&d…large-afe7442b856c223cca92b1a16d96a3266ec0c86cac8031269e90ef93562adb72.png'
+    };
+    const error = new Error('didnt work :(');
+    const result = await expectSaga(watchAuth)
+      .provide({
+        call(effect, next) {
+          if (effect.fn === fetchUserDetails) {
+            throw error;
+          }
+          if (effect.fn === removeItem) {
+            return null;
+          }
+          return next();
+        },
+        select({ selector }, next) {
+          if (selector === getTokenSelector) {
+            return token;
+          }
+          return next();
+        }
       })
-      .put({
-        type: AUTH.clearSession
-      })
-      .delay(100)
-      .dispatch({ type: AUTH.logout })
-      .silentRun(2000);
-
+      .put.actionType(AUTH.loginError)
+      .put.actionType('INIT_MODAL')
+      .put.actionType(AUTH.clearSession)
+      .silentRun(600);
     const { effects } = result;
     expect(effects.call[0]).toEqual(call(fetchUserDetails, token));
-    expect(effects.select.length).toEqual(1);
-    expect(effects.put).toHaveLength(2);
   });
 });
