@@ -3,7 +3,7 @@ import { put, call, take, fork, select, cancel } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 
 import { fromJS, Map, List } from 'immutable';
-import { LOCATION_CHANGE, push } from 'react-router-redux';
+import { LOCATION_CHANGE, replace, push } from 'react-router-redux';
 import notifications from '../config/notifications';
 
 import { fetchChangeset, setHarmful, setTag } from '../network/changeset';
@@ -74,7 +74,7 @@ export function* watchChangeset(): any {
   let changesetTask;
   let changesetMapTask;
   while (true) {
-    const location = yield take(LOCATION_CHANGE);
+    const { payload: location } = yield take(LOCATION_CHANGE);
     // cancel any existing changeset tasks,
     // even if it doesnt change to `changesets/:id`
     // we anway would like to suspend the ongoing task
@@ -86,12 +86,12 @@ export function* watchChangeset(): any {
     const legacy = checkForLegacyURL(location);
     if (legacy) {
       yield put(
-        push({
+        replace({
           ...location,
-          pathname: 'changesets/' + legacy
+          pathname: '/changesets/' + legacy
         })
       );
-      yield call(delay, 4000);
+      yield call(delay, 100);
       continue;
     }
     if (changesetTask) yield cancel(changesetTask);
