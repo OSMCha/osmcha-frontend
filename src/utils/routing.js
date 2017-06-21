@@ -2,7 +2,7 @@
 import { matchPath } from 'react-router';
 
 export function getParam(param: string, location: Object, path: string) {
-  const match = matchPath(location.payload.pathname, path);
+  const match = matchPath(location.pathname, path);
   if (!match) return null;
   return match.params[param];
 }

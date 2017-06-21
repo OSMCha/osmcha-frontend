@@ -20,7 +20,7 @@ export function User({ userDetails }) {
           <a
             target="_blank"
             className="pointer"
-            href={`https://openstreetmap.org/user/${userDetails.get('uid')}`}
+            href={`https://openstreetmap.org/user/${userDetails.get('name')}`}
           >
             OSM
           </a>
