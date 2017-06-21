@@ -91,7 +91,6 @@ export function* watchChangeset(): any {
           pathname: '/changesets/' + legacy
         })
       );
-      yield call(delay, 100);
       continue;
     }
     if (changesetTask) yield cancel(changesetTask);
