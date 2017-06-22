@@ -14,7 +14,6 @@ import { getItem, setItem } from '../utils/safe_storage';
 import { gaSendEvent } from '../utils/analytics';
 
 import filters from '../config/filters.json';
-import { DEFAULT_FROM_DATE } from '../config/constants';
 import { applyFilters } from '../store/changesets_page_actions';
 
 import type { RootStateType } from '../store';
@@ -32,7 +31,8 @@ export class _Filters extends React.PureComponent {
     applyFilters: (Object, string) => mixed
   };
   static defaultProps = {
-    filters: new Map()
+    filters: new Map(),
+    toggleAll: new Map()
   };
   state = {
     filters: this.props.filters,
@@ -74,23 +74,29 @@ export class _Filters extends React.PureComponent {
       filters: this.state.filters.set(name, values)
     });
   };
+  handleToggleAll = (name: string, values: ?List<*>) => {
+    let filters = this.state.filters;
+    const isAll = name.slice(0, 4) === 'all_';
+    //  delete the opposite value
+    if (isAll) {
+      filters = filters.delete(name.slice(4));
+    } else {
+      filters = filters.delete('all_' + name);
+    }
+    // regularly handle change
+    if (!values) {
+      return this.setState({
+        filters: filters.delete(name)
+      });
+    }
+    return this.setState({ filters: filters.set(name, values) });
+  };
   handleMetaChange = filters => {
     this.setState({ filters });
   };
   handleClear = () => {
-    const defaultDate = moment()
-      .subtract(DEFAULT_FROM_DATE, 'days')
-      .format('YYYY-MM-DD');
     this.props.applyFilters(
-      new Map().set(
-        'date__gte',
-        fromJS([
-          {
-            label: defaultDate,
-            value: defaultDate
-          }
-        ])
-      ),
+      new Map(),
       '/changesets/' + (this.props.lastChangesetID || 49174123) + ''
     );
   };
@@ -170,9 +176,29 @@ export class _Filters extends React.PureComponent {
       );
     }
     if (f.type === 'text_comma') {
+      let { name, value, onChange } = propsToSend;
+      if (f.all) {
+        onChange = this.handleToggleAll;
+      }
+      if (f.all && this.state.filters.has(`all_${f.name}`)) {
+        name = `all_${f.name}`;
+        value = this.state.filters.get(name);
+      }
+
       return (
-        <Wrapper {...wrapperProps}>
-          <MultiSelect {...propsToSend} />
+        <Wrapper
+          {...wrapperProps}
+          name={name}
+          hasValue={this.state.filters.has(name)}
+          description={this.state.active === f.name && f.description}
+        >
+          <MultiSelect
+            {...propsToSend}
+            name={name}
+            value={value}
+            onChange={onChange}
+            showAllToggle={f.all}
+          />
         </Wrapper>
       );
     }

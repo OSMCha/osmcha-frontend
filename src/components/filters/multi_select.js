@@ -15,7 +15,11 @@ export class MultiSelect extends React.PureComponent {
     placeholder: string,
     options: Array<Object>,
     dataURL: ?string,
-    onChange: (string, ?List<InputType>) => any
+    onChange: (string, ?List<InputType>) => any,
+    showAllToggle: boolean
+  };
+  state = {
+    allToggle: this.props.name.slice(0, 4) === 'all_'
   };
   getAsyncOptions = () => {
     if (!this.props.dataURL) return;
@@ -31,12 +35,26 @@ export class MultiSelect extends React.PureComponent {
       });
   };
   onChangeLocal = (data: ?Array<Object>) => {
+    let name = this.props.name.slice(0, 4) === 'all_'
+      ? this.props.name.slice(4)
+      : this.props.name;
+
+    name = `${this.state.allToggle ? 'all_' : ''}${name}`;
+    console.log(name);
     if (!Array.isArray(data)) return;
-    if (data.length === 0) return this.props.onChange(this.props.name, null);
-    var processed = data.map(o => ({ label: o.label, value: o.value })); // remove any bogus keys
-    this.props.onChange(this.props.name, fromJS(processed));
+    this.sendData(this.state.allToggle, data);
   };
-  render() {
+  sendData = (allToggle: boolean, data: Array<Object>) => {
+    let name = this.props.name.slice(0, 4) === 'all_'
+      ? this.props.name.slice(4)
+      : this.props.name;
+
+    name = `${allToggle ? 'all_' : ''}${name}`;
+    if (data.length === 0) return this.props.onChange(name, null);
+    var processed = data.map(o => ({ label: o.label, value: o.value })); // remove any bogus keys
+    this.props.onChange(name, fromJS(processed));
+  };
+  renderSelect = () => {
     const { name, options, placeholder, value, display, dataURL } = this.props;
     if (dataURL)
       return (
@@ -61,6 +79,48 @@ export class MultiSelect extends React.PureComponent {
         onChange={this.onChangeLocal}
         placeholder={placeholder}
       />
+    );
+  };
+  handleToggle = (e: Event) => {
+    let { value } = this.props;
+    value = value && value.toJS();
+    if (value) {
+      this.sendData(!this.state.allToggle, value);
+    }
+    this.setState({
+      allToggle: !this.state.allToggle
+    });
+  };
+  render() {
+    return (
+      <div className="">
+        {this.props.showAllToggle &&
+          <span className="relative fr">
+            <span className="absolute" style={{ left: -95, top: -30 }}>
+              <div className="toggle-group mr18">
+                <label className="toggle-container">
+                  <input
+                    checked={!this.state.allToggle}
+                    name={`toggle${this.props.name}`}
+                    type="radio"
+                    onClick={this.handleToggle}
+                  />
+                  <div className="toggle">OR</div>
+                </label>
+                <label className="toggle-container">
+                  <input
+                    name={`toggle${this.props.name}`}
+                    type="radio"
+                    checked={this.state.allToggle}
+                    onClick={this.handleToggle}
+                  />
+                  <div className="toggle">AND</div>
+                </label>
+              </div>
+            </span>
+          </span>}
+        {this.renderSelect()}
+      </div>
     );
   }
 }
