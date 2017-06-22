@@ -403,7 +403,7 @@ exports[`renders correctly with 1 filter 1`] = `
                 }
               >
                 <div
-                  className="toggle-group mr18"
+                  className="toggle-group txt-s mr18"
                 >
                   <label
                     className="toggle-container"
@@ -415,7 +415,7 @@ exports[`renders correctly with 1 filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       OR
                     </div>
@@ -430,7 +430,7 @@ exports[`renders correctly with 1 filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       AND
                     </div>
@@ -922,7 +922,7 @@ exports[`renders correctly with 1 filter 1`] = `
                 }
               >
                 <div
-                  className="toggle-group mr18"
+                  className="toggle-group txt-s mr18"
                 >
                   <label
                     className="toggle-container"
@@ -934,7 +934,7 @@ exports[`renders correctly with 1 filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       OR
                     </div>
@@ -949,7 +949,7 @@ exports[`renders correctly with 1 filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       AND
                     </div>
@@ -2329,7 +2329,7 @@ exports[`renders correctly with 2 filters 1`] = `
                 }
               >
                 <div
-                  className="toggle-group mr18"
+                  className="toggle-group txt-s mr18"
                 >
                   <label
                     className="toggle-container"
@@ -2341,7 +2341,7 @@ exports[`renders correctly with 2 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       OR
                     </div>
@@ -2356,7 +2356,7 @@ exports[`renders correctly with 2 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       AND
                     </div>
@@ -2895,7 +2895,7 @@ exports[`renders correctly with 2 filters 1`] = `
                 }
               >
                 <div
-                  className="toggle-group mr18"
+                  className="toggle-group txt-s mr18"
                 >
                   <label
                     className="toggle-container"
@@ -2907,7 +2907,7 @@ exports[`renders correctly with 2 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       OR
                     </div>
@@ -2922,7 +2922,7 @@ exports[`renders correctly with 2 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       AND
                     </div>
@@ -4363,7 +4363,7 @@ exports[`renders correctly with 4 filters 1`] = `
                 }
               >
                 <div
-                  className="toggle-group mr18"
+                  className="toggle-group txt-s mr18"
                 >
                   <label
                     className="toggle-container"
@@ -4375,7 +4375,7 @@ exports[`renders correctly with 4 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       OR
                     </div>
@@ -4390,7 +4390,7 @@ exports[`renders correctly with 4 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       AND
                     </div>
@@ -4964,7 +4964,7 @@ exports[`renders correctly with 4 filters 1`] = `
                 }
               >
                 <div
-                  className="toggle-group mr18"
+                  className="toggle-group txt-s mr18"
                 >
                   <label
                     className="toggle-container"
@@ -4976,7 +4976,7 @@ exports[`renders correctly with 4 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       OR
                     </div>
@@ -4991,7 +4991,7 @@ exports[`renders correctly with 4 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       AND
                     </div>
@@ -6357,7 +6357,7 @@ exports[`renders correctly without filter 1`] = `
                 }
               >
                 <div
-                  className="toggle-group mr18"
+                  className="toggle-group txt-s mr18"
                 >
                   <label
                     className="toggle-container"
@@ -6369,7 +6369,7 @@ exports[`renders correctly without filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       OR
                     </div>
@@ -6384,7 +6384,7 @@ exports[`renders correctly without filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       AND
                     </div>
@@ -6846,7 +6846,7 @@ exports[`renders correctly without filter 1`] = `
                 }
               >
                 <div
-                  className="toggle-group mr18"
+                  className="toggle-group txt-s mr18"
                 >
                   <label
                     className="toggle-container"
@@ -6858,7 +6858,7 @@ exports[`renders correctly without filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       OR
                     </div>
@@ -6873,7 +6873,7 @@ exports[`renders correctly without filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle"
+                      className="toggle toggle--gray"
                     >
                       AND
                     </div>
