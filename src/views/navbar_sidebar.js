@@ -96,7 +96,13 @@ class NavbarSidebar extends React.PureComponent {
           }
           buttons={
             <div className="flex-parent flex-parent--row">
-              <Link className="pr3 pointer" to="/about">
+              <Link
+                className="pr3 pointer"
+                to={{
+                  search: window.location.search,
+                  pathname: '/about'
+                }}
+              >
                 <svg className="icon icon--m inline-block align-middle color-gray-dark-on-hover ">
                   <use xlinkHref="#icon-question" />
                 </svg>

@@ -40,7 +40,6 @@ export class MultiSelect extends React.PureComponent {
       : this.props.name;
 
     name = `${this.state.allToggle ? 'all_' : ''}${name}`;
-    console.log(name);
     if (!Array.isArray(data)) return;
     this.sendData(this.state.allToggle, data);
   };
@@ -97,7 +96,7 @@ export class MultiSelect extends React.PureComponent {
         {this.props.showAllToggle &&
           <span className="relative fr">
             <span className="absolute" style={{ left: -95, top: -30 }}>
-              <div className="toggle-group mr18">
+              <div className="toggle-group txt-s mr18">
                 <label className="toggle-container">
                   <input
                     checked={!this.state.allToggle}
@@ -105,7 +104,7 @@ export class MultiSelect extends React.PureComponent {
                     type="radio"
                     onClick={this.handleToggle}
                   />
-                  <div className="toggle">OR</div>
+                  <div className="toggle toggle--gray">OR</div>
                 </label>
                 <label className="toggle-container">
                   <input
@@ -114,7 +113,7 @@ export class MultiSelect extends React.PureComponent {
                     checked={this.state.allToggle}
                     onClick={this.handleToggle}
                   />
-                  <div className="toggle">AND</div>
+                  <div className="toggle toggle--gray">AND</div>
                 </label>
               </div>
             </span>
