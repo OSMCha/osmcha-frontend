@@ -65,9 +65,11 @@ class NavbarSidebar extends React.PureComponent {
   };
   displayDropdown = () => {
     return (
-      <div>
-        <Avatar url={this.props.avatar} />
-        <div> {this.props.username}</div>
+      <div className="flex-parent flex-parent--column align-items--center justify--space-between">
+        <div className="mb12">
+          <Avatar url={this.props.avatar} />
+          <div className="txt-s txt-bold color-gray">{this.props.username}</div>
+        </div>
         <Button onClick={this.props.logUserOut} className="bg-white-on-hover">
           Logout
         </Button>
@@ -112,10 +114,10 @@ class NavbarSidebar extends React.PureComponent {
                         : username}
                     </Button>
                     <div
-                      className="dropdown-content w240 z6 round p12"
+                      className="dropdown-content w120 z6 round px24 py12"
                       style={{
                         display: this.state.isMenuOpen ? 'block' : 'none',
-                        marginLeft: -90,
+                        marginLeft: -14,
                         marginTop: 10
                       }}
                     >
