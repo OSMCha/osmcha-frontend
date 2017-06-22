@@ -2,6 +2,7 @@
 import React from 'react';
 import './dropdown.css';
 import onClickOutside from 'react-click-outside';
+import { Button } from './button';
 
 class DropdownContent extends React.PureComponent {
   isActive = (obj: Object) => {
@@ -68,10 +69,10 @@ class DropdownContent extends React.PureComponent {
               target={i.href ? '_blank' : '_self'}
               href={i.href || '#'}
               onClick={this.props.toggleDropdown}
-              className={` px12 py6 txt-nowrap flex-child--grow cursor-pointer ${this.isActive(
+              className={` px12 py6 txt-nowrap flex-child--grow cursor-pointer color-gray ${this.isActive(
                 i
               )
-                ? 'is-active color-red'
+                ? 'is-active txt-bold'
                 : ''}`}
             >
               {i.label}
@@ -120,17 +121,9 @@ export class _Dropdown extends React.PureComponent {
   render() {
     return (
       <div className={`dropdown mr3 pointer ${this.props.className}`}>
-        <span onClick={this.toggleDropdown}>
-          {' '}
-          {this.props.displayComponent
-            ? this.props.displayComponent
-            : <span className="btn btn--s bg-white color-gray border border--gray round">
-                <span>{this.props.display}</span>
-                <svg className="icon inline-block align-middle ">
-                  <use xlinkHref="#icon-chevron-down" />
-                </svg>
-              </span>}
-        </span>
+        <Button iconName="chevron-down" onClick={this.toggleDropdown}>
+          <span>{this.props.display}</span>
+        </Button>
         {this.state.display &&
           <DropdownContent
             {...this.props}
