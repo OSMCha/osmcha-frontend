@@ -27,8 +27,8 @@ export function OpenIn({ changesetId, coordinates, className }) {
           },
 
           {
-            label: 'achavi',
-            value: 'achavi',
+            label: 'Achavi',
+            value: 'Achavi',
             href: `https://overpass-api.de/achavi/?changeset=${changesetId}`
           },
           {
@@ -37,7 +37,7 @@ export function OpenIn({ changesetId, coordinates, className }) {
             href: `http://osmhv.openstreetmap.de/changeset.jsp?id=${changesetId}`
           }
         ]}
-        display="Open In"
+        display="Open with"
       />
     </div>
   );

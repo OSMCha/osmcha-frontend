@@ -4,8 +4,9 @@ import { API_URL } from '../../config';
 import { Map } from 'immutable';
 import { Dropdown } from '../dropdown';
 import { cancelablePromise } from '../../utils/promise';
-// TOFIX This whole code is a complete shit
-// please rewrite it asap.
+
+// TOFIX Needs cleanup.
+
 let cacheTagsData;
 export class Tags extends React.PureComponent {
   props: {

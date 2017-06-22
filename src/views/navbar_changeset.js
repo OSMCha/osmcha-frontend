@@ -128,7 +128,7 @@ class NavbarChangeset extends React.PureComponent {
               <span className="txt-l color-gray--dark">
                 Changeset:
                 {' '}
-                <span className="txt-underline">
+                <span className="txt-underline mr12">
                   <a
                     href={`https://openstreetmap.org/changeset/${this.props
                       .changesetId}`}
@@ -182,11 +182,11 @@ class NavbarChangeset extends React.PureComponent {
                     options={[
                       {
                         value: false,
-                        label: '👍 Good'
+                        label: 'Good'
                       },
                       {
                         value: true,
-                        label: '👎 Bad'
+                        label: 'Bad'
                       }
                     ]}
                     className="select--s"
@@ -199,6 +199,7 @@ class NavbarChangeset extends React.PureComponent {
     );
   }
 }
+
 NavbarChangeset = connect(
   (state: RootStateType, props) => ({
     location: props.location,
