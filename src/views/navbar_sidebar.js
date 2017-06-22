@@ -27,7 +27,7 @@ import type { RootStateType } from '../store';
 
 class NavbarSidebar extends React.PureComponent {
   props: {
-    changesetId: number,
+    changesetId: ?number,
     location: Object,
     avatar: ?string,
     currentChangeset: Map<string, *>,

@@ -1,8 +1,15 @@
 {
   "name": "osmcha-frontend",
-  "version": "0.22.0",
+  "version": "0.23.2",
   "engines": {
     "node": ">=7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mapbox/osmcha-frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mapbox/osmcha-frontend/issues"
   },
   "dependencies": {
     "animate.css": "^3.5.2",
@@ -32,22 +39,19 @@
     "superagent": "^3.5.2"
   },
   "devDependencies": {
+    "changelog": "^1.3.0",
     "check-node-version": "^2.0.1",
-    "enzyme": "^2.8.2",
     "flow-bin": "^0.48.0",
     "gh-pages": "^1.0.0",
     "husky": "^0.13.4",
     "jest-cli": "^20.0.4",
     "lint-staged": "^3.6.1",
     "mockdate": "^2.0.1",
-    "nock": "^9.0.13",
     "prettier": "^1.4.4",
     "prettier-eslint-cli": "^4.1.1",
     "react-app-rewired": "^1.0.5",
     "react-scripts": "1.0.7",
     "react-test-renderer": "^15.6.1",
-    "redux-mock-store": "^1.2.3",
-    "redux-saga-test-plan": "^3.1.0",
     "webpack-bundle-analyzer": "^2.8.2",
     "why-did-you-update": "0.0.8"
   },
@@ -55,7 +59,7 @@
     "precommit": "lint-staged",
     "flow": "flow",
     "start": "react-app-rewired start",
-    "test": "react-app-rewired test --env=jsdom",
+    "test": "flow && react-app-rewired test --env=jsdom",
     "build": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV react-app-rewired build",
     "build:dev": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV PUBLIC_URL=https://mapbox.github.io/osmcha-frontend react-app-rewired build",
     "deploy:dev": "gh-pages -d build",

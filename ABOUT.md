@@ -1,4 +1,4 @@
-## Table Of Contents
+## OSMCHA Guide
 
 <!-- toc -->
 
