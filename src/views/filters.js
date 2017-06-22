@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Map, List, Set } from 'immutable';
+import { Map, List, Set, fromJS } from 'immutable';
+import moment from 'moment';
+
 import { Link } from 'react-router-dom';
 
 import { Text, Radio, MultiSelect, Wrapper, Meta } from '../components/filters';
@@ -12,7 +14,7 @@ import { getItem, setItem } from '../utils/safe_storage';
 import { gaSendEvent } from '../utils/analytics';
 
 import filters from '../config/filters.json';
-
+import { DEFAULT_FROM_DATE } from '../config/constants';
 import { applyFilters } from '../store/changesets_page_actions';
 
 import type { RootStateType } from '../store';
@@ -56,6 +58,14 @@ export class _Filters extends React.PureComponent {
   };
   handleChange = (name: string, values: ?List<*>) => {
     if (!values) {
+      if (name === 'date__gte') {
+        return this.setState({
+          filters: this.state.filters.set(
+            name,
+            fromJS([{ label: '', value: null }])
+          )
+        });
+      }
       return this.setState({
         filters: this.state.filters.delete(name)
       });
@@ -68,8 +78,19 @@ export class _Filters extends React.PureComponent {
     this.setState({ filters });
   };
   handleClear = () => {
+    const defaultDate = moment()
+      .subtract(DEFAULT_FROM_DATE, 'days')
+      .format('YYYY-MM-DD');
     this.props.applyFilters(
-      new Map(),
+      new Map().set(
+        'date__gte',
+        fromJS([
+          {
+            label: defaultDate,
+            value: defaultDate
+          }
+        ])
+      ),
       '/changesets/' + (this.props.lastChangesetID || 49174123) + ''
     );
   };
@@ -87,13 +108,20 @@ export class _Filters extends React.PureComponent {
     const wrapperProps = {
       name: f.name,
       handleFocus: this.handleFocus,
+      hasValue: this.state.filters.has(f.name),
       display: f.display,
       key: k,
       description: this.state.active === f.name && f.description
     };
     if (f.range) {
       return (
-        <Wrapper {...wrapperProps}>
+        <Wrapper
+          {...wrapperProps}
+          hasValue={
+            this.state.filters.has(f.name + '__gte') ||
+            this.state.filters.has(f.name + '__lte')
+          }
+        >
           <span className="flex-parent flex-parent--row  ">
             <Text
               {...propsToSend}
@@ -128,13 +156,15 @@ export class _Filters extends React.PureComponent {
     }
     if (f.type === 'meta') {
       return (
-        <Wrapper {...wrapperProps}>
+        <Wrapper
+          {...wrapperProps}
+          hasValue={f.metaOf.find(fi => this.state.filters.has(fi))}
+        >
           <Meta
             {...propsToSend}
             onChange={this.handleMetaChange}
             metaOf={f.metaOf}
             activeFilters={this.state.filters}
-            filters={filters}
           />
         </Wrapper>
       );
@@ -173,8 +203,8 @@ export class _Filters extends React.PureComponent {
           ? 'viewport-full'
           : ''}`}
       >
-        <header className="h55 hmin55 flex-parent px12 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
-          <span className="txt-l color-gray--dark">
+        <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
+          <span className="txt-xl txt-bold color-gray--dark">
             Filters{' '}
             <a
               onClick={this.handleClear}
@@ -200,28 +230,28 @@ export class _Filters extends React.PureComponent {
           </span>
         </header>
 
-        <div className="pl24 flex-child scroll-auto">
-          <h2 className="txt-l mr6 txt-bold mt24   border-b border--gray-light border--1">
+        <div className="pl30 flex-child scroll-auto">
+          <h2 className="txt-xl mr6 txt-bold mt24   border-b border--gray-light border--1">
             Basic
           </h2>
           {filtersData
             .slice(0, 3)
             .map((f: Object, k) => this.renderFilters(f, k))}
-          <h2 className="txt-l mr6 txt-bold mt30  border-b border--gray-light border--1">
+          <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
             Flags
           </h2>
           {filtersData
             .slice(3, 5)
             .map((f: Object, k) => this.renderFilters(f, k))}
           <span className="flex-child flex-child--grow wmin420 wmax435" />
-          <h2 className="txt-l mr6 txt-bold mt30  border-b border--gray-light border--1">
+          <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
             Review
           </h2>
           {filtersData
             .slice(5, 9)
             .map((f: Object, k) => this.renderFilters(f, k))}
           <span className="flex-child flex-child--grow wmin420 wmax435" />
-          <h2 className="txt-l mr6 txt-bold mt30  border-b border--gray-light border--1">
+          <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
             Changeset Details
           </h2>
           {filtersData.slice(9).map((f: Object, k) => this.renderFilters(f, k))}

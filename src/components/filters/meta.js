@@ -6,28 +6,13 @@ import Select, { Creatable, Async } from 'react-select';
 export class Meta extends React.PureComponent {
   options: Array<*>;
   props: {
+    placeholder: string,
+    name: string,
     activeFilters: Map<string, *>,
     metaOf: Array<string>,
     options: Array<Object>,
     onChange: (Map<string, *>) => {}
   };
-  constructor(props: Object) {
-    super(props);
-    // this.options = props.metaOf.reduce((a, o) => {
-    //   const targetValue = this.props.filters.find(f => f.name === o);
-    //   if (!targetValue || !targetValue.options) {
-    //     throw new Error("cant match the meta filter's options to filter");
-    //   }
-    //   return a.concat(
-    //     targetValue.options.map(v => ({
-    //       label: v.label,
-    //       filter: o,
-    //       value: v.value
-    //     }))
-    //   );
-    // }, []);
-    console.log(this.options);
-  }
   handleChange = (data: Object) => {
     let { activeFilters } = this.props;
     if (!activeFilters) activeFilters = new Map();
