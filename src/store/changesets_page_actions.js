@@ -10,6 +10,9 @@ import { validateFilters } from '../utils/filters';
 
 import { modal } from './modal_actions';
 
+import { DEFAULT_FROM_DATE } from '../config/constants';
+import moment from 'moment';
+
 import type { RootStateType } from './';
 import type { InputType } from '../components/filters';
 
@@ -67,11 +70,27 @@ export function* filtersSaga({
 }): Object {
   try {
     const search = getObjAsQueryParam('filters', filters.toJS());
+
     const location = yield select((state: RootStateType) => ({
       ...state.routing.location, // deep clone it
       pathname: pathname || state.routing.location.pathname,
       search // update the search
     }));
+
+    if (filters && filters.size === 0) {
+      const defaultDate = moment()
+        .subtract(DEFAULT_FROM_DATE, 'days')
+        .format('YYYY-MM-DD');
+      filters = filters.set(
+        'date__gte',
+        fromJS([
+          {
+            label: defaultDate,
+            value: defaultDate
+          }
+        ])
+      );
+    }
     // documentation is spotty about push,
     // I could find one comment on `push(location)` in the readme
     // ref: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux

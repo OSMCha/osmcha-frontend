@@ -1,6 +1,6 @@
 {
   "name": "osmcha-frontend",
-  "version": "0.21.1",
+  "version": "0.22.0",
   "engines": {
     "node": ">=7.0"
   },
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "check-node-version": "^2.0.1",
+    "enzyme": "^2.8.2",
     "flow-bin": "^0.48.0",
     "gh-pages": "^1.0.0",
     "husky": "^0.13.4",
