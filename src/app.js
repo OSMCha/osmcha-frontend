@@ -37,7 +37,7 @@ export class App extends Component {
       return (
         <div className="viewport-full">
           <div className="grid">
-            <div className="col col--3-mxl col--4-ml bg-white border-r border--gray-light border--1 ">
+            <div className="col col--3-mxl col--4-ml bg-white border-r border--gray-light border--1">
               <NavbarSidebar />
               <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
             </div>

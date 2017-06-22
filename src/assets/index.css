@@ -291,11 +291,11 @@ body {
 }
 
 .changesets-list .border-color-good {
-  border-color: #77CC66 !important;
+  border-color: rgba(57, 219, 192, 0.75) !important;
 }
 
 .changesets-list .border-color-bad {
-  border-color: #FF0099 !important;
+  border-color: rgba(204, 44, 71, 0.75) !important;
 }
 
 .changesets-list .border-color-neutral {

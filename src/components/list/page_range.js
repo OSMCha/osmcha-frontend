@@ -7,11 +7,15 @@ export class PageRange extends React.PureComponent {
       <button
         onClick={this._onClick}
         disabled={this.props.disabled}
-        className={`flex-child btn btn--s color-gray-dark
-          ${this.props.active ? 'is-active bg-gray-light' : 'bg-gray-faint'}
+        className={`flex-child btn btn--s color-gray round bg-gray-faint bg-darken10-on-active bg-darken5-on-hover
+          ${this.props.active && 'is-active '}
           `}
       >
-        {this.props.page}
+        {typeof this.props.page === 'number'
+          ? this.props.page + 1
+          : <svg className="icon icon--s inline-block align-middle ">
+              <use xlinkHref={`#icon-${this.props.page}`} />
+            </svg>}
       </button>
     );
   }
