@@ -239,8 +239,8 @@ export class Changeset extends React.PureComponent {
             <svg
               className={`icon inline-block align-middle ${features &&
                 features.size == 0
-                ? 'color-darken50'
-                : 'color-darken75'}`}
+                ? 'color-darken25'
+                : 'color-black'}`}
             >
               <use xlinkHref="#icon-alert" />
             </svg>
@@ -254,8 +254,8 @@ export class Changeset extends React.PureComponent {
             <svg
               className={`icon inline-block align-middle ${this.state
                 .discussionsData.size == 0
-                ? 'color-darken50'
-                : 'color-darken75'}`}
+                ? 'color-darken25'
+                : 'color-black'}`}
             >
               <use xlinkHref="#icon-contact" />
             </svg>
