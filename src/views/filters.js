@@ -230,26 +230,17 @@ export class _Filters extends React.PureComponent {
           : ''}`}
       >
         <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
-          <span className="txt-xl txt-bold color-gray--dark">
-            Filters{' '}
-            <a
-              onClick={this.handleClear}
-              className="pointer mx6 txt-s txt-underline"
-            >
-              Reset
-            </a>
+          <span className="txt-l txt-bold color-gray--dark">
+            Filters
           </span>
           <span className="txt-l color-gray--dark">
-            <a onClick={this.handleApply} className="mx6 ">
-              <Button className="bg-white-on-hover">
-                Apply
-              </Button>
-            </a>
+            <Button onClick={this.handleClear} className="mx3">Reset</Button>
+            <Button onClick={this.handleApply} className="mx3">Apply</Button>
             <Link
               to={{ search: this.props.location.search, pathname: '/' }}
-              className="mx6"
+              className="mx3 pointer"
             >
-              <svg className="icon icon--l inline-block align-middle color-gray-dark-on-hover ">
+              <svg className="icon icon--m inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
                 <use xlinkHref="#icon-close" />
               </svg>
             </Link>
@@ -303,3 +294,27 @@ const Filters = connect(
 )(_Filters);
 
 export { Filters };
+
+/*
+<div className="flex-parent flex-parent--column align-items--center justify--space-between">
+  <div className="mb12">
+    <Avatar url={this.props.avatar} />
+    <div className="txt-s txt-bold color-gray">{this.props.username}</div>
+  </div>
+  <Button onClick={this.props.logUserOut} className="bg-white-on-hover">
+    Logout
+  </Button>
+</div>
+
+<a
+  target="_blank"
+  title="Add a comment on OSM"
+  href={`https://openstreetmap.org/changeset/${changesetId}`}
+  className="btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition pl12 pr6"
+>
+  Add a comment on OSM
+  <svg className="icon inline-block align-middle pl3 pb3">
+    <use xlinkHref="#icon-share" />
+  </svg>
+</a>
+*/

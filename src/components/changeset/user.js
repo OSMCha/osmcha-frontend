@@ -54,27 +54,3 @@ export function User({ userDetails }) {
     </div>
   );
 }
-
-/*
-<div className="flex-parent flex-parent--column align-items--center justify--space-between">
-  <div className="mb12">
-    <Avatar url={this.props.avatar} />
-    <div className="txt-s txt-bold color-gray">{this.props.username}</div>
-  </div>
-  <Button onClick={this.props.logUserOut} className="bg-white-on-hover">
-    Logout
-  </Button>
-</div>
-
-<a
-  target="_blank"
-  title="Add a comment on OSM"
-  href={`https://openstreetmap.org/changeset/${changesetId}`}
-  className="btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition pl12 pr6"
->
-  Add a comment on OSM
-  <svg className="icon inline-block align-middle pl3 pb3">
-    <use xlinkHref="#icon-share" />
-  </svg>
-</a>
-*/
