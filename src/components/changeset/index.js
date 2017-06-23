@@ -40,6 +40,7 @@ export class Changeset extends React.PureComponent {
     userDetails: new Map()
   };
   props: {
+    filterChangesetsByUser: () => any,
     changesetId: number,
     currentChangeset: Map<string, *>
   };
@@ -148,7 +149,10 @@ export class Changeset extends React.PureComponent {
           </Box>}
         {this.state.user &&
           <Box key={0} className=" w420  round-tr round-br">
-            <User userDetails={this.state.userDetails} />
+            <User
+              userDetails={this.state.userDetails}
+              filterChangesetsByUser={this.props.filterChangesetsByUser}
+            />
           </Box>}
         {this.state.mapOptions &&
           <Box key={4} className=" w420  round-tr round-br">

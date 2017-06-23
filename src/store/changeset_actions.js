@@ -189,12 +189,6 @@ export function* watchModifyChangeset(): any {
           changeset: newChangeset
         })
       );
-      yield put(
-        modal({
-          ...notifications.MODIFY_SUCCESS,
-          description: notifications.MODIFY_SUCCESS.description(changesetId)
-        })
-      );
     }
   }
 }

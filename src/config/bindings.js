@@ -15,3 +15,4 @@ export const VERIFY_BAD = ['B', 'b'];
 export const VERIFY_CLEAR = ['C', 'c', 'u', 'U'];
 export const OPEN_IN_JOSM = ['J', 'j'];
 export const OPEN_IN_HDYC = ['H', 'h'];
+export const FILTER_BY_USER = ['A', 'a'];

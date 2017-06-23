@@ -50,15 +50,12 @@ export class BBoxPicker extends React.Component {
     importChangesetMap().then((mapboxgl: any) => {
       mapboxgl.accessToken =
         'pk.eyJ1IjoicGxhbmVtYWQiLCJhIjoiemdYSVVLRSJ9.g3lbg_eN0kztmsfIPxa9MQ';
-      let center = [-122.4237, 37.7682];
       if (this.props.value) {
         let bbox = this.props.value.getIn(['0', 'value'], '').split(',');
       }
       const map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/light-v9',
-        center: [-122.4237, 37.7682],
-        zoom: 4
+        style: 'mapbox://styles/mapbox/light-v9'
       });
       map.on('dragend', this.update);
       map.on('zoomend', this.update);
