@@ -15,4 +15,6 @@ export const apiOSM = 'https://api.openstreetmap.org/api/0.6';
 export const osmCommentsApi =
   'https://osm-comments-api.mapbox.com/api/v1/changesets';
 
+export const whosThat = 'http://whosthat.osmz.ru/whosthat.php?action=names&q=';
+
 export const DEFAULT_FROM_DATE = 7;

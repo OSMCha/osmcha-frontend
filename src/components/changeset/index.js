@@ -16,7 +16,7 @@ import { MapOptions } from './map_options';
 
 import { cancelablePromise } from '../../utils/promise';
 
-import { osmCommentsApi } from '../../config/constants';
+import { osmCommentsApi, whosThat } from '../../config/constants';
 import {
   CHANGESET_DETAILS_SHOW_ALL,
   CHANGESET_DETAILS_DETAILS,
@@ -45,9 +45,9 @@ export class Changeset extends React.PureComponent {
     currentChangeset: Map<string, *>
   };
   ref = null;
-  getOsmCommentsPromise = null;
-  getUserDetailsPromise = null;
-
+  getOsmCommentsPromise: Promise<*>;
+  getUserDetailsPromise: Promise<*>;
+  getWhosThatPromise: Promise<*>;
   componentWillReceiveProps(nextProps: Object) {
     if (this.props.changesetId !== nextProps.changesetId)
       this.getData(nextProps.changesetId, nextProps.currentChangeset);
@@ -87,18 +87,23 @@ export class Changeset extends React.PureComponent {
       currentChangeset.getIn(['properties', 'uid']),
       10
     );
-
+    const user: string = currentChangeset.getIn(['properties', 'user']);
     const getUserDetailsPromise = cancelablePromise(getUserDetails(uid));
     const getOsmCommentsPromise = cancelablePromise(
       fetch(`${osmCommentsApi}/${changesetId}`).then(r => r.json())
     );
+    const getWhosThatPromise = cancelablePromise(
+      fetch(`${whosThat}${user}`).then(r => r.json())
+    );
+
     this.getUserDetailsPromise = getUserDetailsPromise;
     this.getOsmCommentsPromise = getOsmCommentsPromise;
+    this.getWhosThatPromise = getWhosThatPromise;
 
     getUserDetailsPromise.promise
       .then(userDetails => {
         this.setState({
-          userDetails
+          userDetails: this.state.userDetails.merge(userDetails)
         });
       })
       .catch(e => {});
@@ -112,6 +117,17 @@ export class Changeset extends React.PureComponent {
         }
       })
       .catch(e => {});
+
+    getWhosThatPromise.promise.then(d => {
+      console.log(d);
+      if (Array.isArray(d) && d[0] && d[0].names) {
+        let userDetails = new Map();
+        userDetails = userDetails.set('otherNames', fromJS(d[0].names));
+        this.setState({
+          userDetails: this.state.userDetails.merge(userDetails)
+        });
+      }
+    });
   };
 
   showFloaters = () => {

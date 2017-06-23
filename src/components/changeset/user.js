@@ -57,6 +57,15 @@ export function User({ userDetails, filterChangesetsByUser }) {
           </a>
 
         </div>
+        {userDetails.has('otherNames') &&
+          userDetails.get('otherNames').size > 1 &&
+          <div className="txt-s color-gray">
+            Past Names: &nbsp;
+            {userDetails
+              .get('otherNames')
+              .slice(0, -1)
+              .map((e, k) => <span key={k} className="txt-em">{e}&nbsp;</span>)}
+          </div>}
         <div className="mt12">
           <p className="txt-subhead txt-s txt-break-url">
             <AnchorifyText text={userDetails.get('description') || ''}>
