@@ -31,14 +31,14 @@ export class Avatar extends React.PureComponent {
       }
     }
     return (
-      <div>
+      <div className="p6">
         <img
           style={{
             maxWidth: this.props.size || 64,
             maxHeight: this.props.size || 64,
             display: this.state.loaded ? 'block' : 'none'
           }}
-          className="round-full"
+          className="round-full border border--gray border--2"
           src={url || Placeholder}
           onLoad={this.handleImageLoaded.bind(this)}
           onError={this.handleImageErrored.bind(this)}
@@ -49,7 +49,7 @@ export class Avatar extends React.PureComponent {
             maxHeight: this.props.size || 64,
             display: !this.state.loaded ? 'block' : 'none'
           }}
-          className="round-full border border-gray--light border--1"
+          className="round-full border border--gray border--2"
           src={Placeholder}
         />
       </div>

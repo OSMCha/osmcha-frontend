@@ -19,8 +19,8 @@ export function Verify({
       <div className="flex-parent-inline">
         <span
           className={`btn btn--s border border--1 round color-gray transition pl12 pr6 ${isHarmful
-            ? 'bg-red-faint border--red-light'
-            : 'bg-green-faint border--green-light'}`}
+            ? 'bg-lighten50 border--red-light'
+            : 'bg-lighten50 border--green-light'}`}
         >
           <span>
             <img

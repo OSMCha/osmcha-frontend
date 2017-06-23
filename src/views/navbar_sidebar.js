@@ -68,7 +68,9 @@ class NavbarSidebar extends React.PureComponent {
       <div className="flex-parent flex-parent--column align-items--center justify--space-between">
         <div className="mb12">
           <Avatar url={this.props.avatar} />
-          <div className="txt-s txt-bold color-gray">{this.props.username}</div>
+          <div className="txt txt-bold color-gray align-center">
+            {this.props.username}
+          </div>
         </div>
         <Button onClick={this.props.logUserOut} className="bg-white-on-hover">
           Logout

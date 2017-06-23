@@ -5,16 +5,6 @@ import AnchorifyText from 'react-anchorify-text';
 import { Button } from '../button';
 import AssemblyAnchor from '../assembly_anchor';
 
-const DetailsFromOSMCha = ({ userDetails, filterChangesetsByUser }) =>
-  <span>
-    changesets in osmcha: {userDetails.get('changesets_in_osmcha')} <br />
-    harmful: {userDetails.get('harmful_changesets')} <br />
-    reviewed: {userDetails.get('checked_changesets')} <br />
-    <Button onClick={filterChangesetsByUser} className="button">
-      Filter by this user
-    </Button>
-  </span>;
-
 export function User({ userDetails, filterChangesetsByUser }) {
   return (
     <div className="px12 py6">
@@ -23,8 +13,8 @@ export function User({ userDetails, filterChangesetsByUser }) {
       </h2>
       <div className="flex-parent flex-parent--column align-items--center justify--space-between mb6">
         <div>
-          <Avatar url={userDetails.get('img')} />
-          <div className="txt-s txt-bold color-gray align-center">
+          <Avatar size={128} url={userDetails.get('img')} />
+          <div className="mt6 txt-bold color-gray align-center">
             {userDetails.get('name')}
           </div>
         </div>
@@ -34,7 +24,19 @@ export function User({ userDetails, filterChangesetsByUser }) {
             | {userDetails.get('count')} edits
           </p>
         </div>
+        <div>
+          <p className="txt-s color-gray align-center">
+            {userDetails.get('harmful_changesets')} Bad
+            and &nbsp;
+            {userDetails.get('checked_changesets') -
+              userDetails.get('harmful_changesets')}{' '}
+            Good Changesets
+          </p>
+        </div>
         <div className="mt6">
+          <Button onClick={filterChangesetsByUser} className="button">
+            OSMCha
+          </Button>
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -53,6 +55,7 @@ export function User({ userDetails, filterChangesetsByUser }) {
           >
             OSM
           </a>
+
         </div>
         <div className="mt12">
           <p className="txt-subhead txt-s txt-break-url">
@@ -61,10 +64,6 @@ export function User({ userDetails, filterChangesetsByUser }) {
             </AnchorifyText>
           </p>
         </div>
-        <DetailsFromOSMCha
-          userDetails={userDetails}
-          filterChangesetsByUser={filterChangesetsByUser}
-        />
       </div>
     </div>
   );
