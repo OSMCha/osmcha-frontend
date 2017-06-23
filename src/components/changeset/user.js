@@ -4,6 +4,12 @@ import moment from 'moment';
 import AnchorifyText from 'react-anchorify-text';
 import AssemblyAnchor from '../assembly_anchor';
 
+const DetailsFromOSMCha = ({ userDetails }) =>
+  <span>
+    changesets in osmcha: {userDetails.get('changesets_in_osmcha')} <br />
+    harmful: {userDetails.get('harmful_changesets')} <br />
+    reviewed: {userDetails.get('checked_changesets')} <br />
+  </span>;
 export function User({ userDetails }) {
   return (
     <div className="px12 py6">
@@ -50,6 +56,7 @@ export function User({ userDetails }) {
             </AnchorifyText>
           </p>
         </div>
+        <DetailsFromOSMCha userDetails={userDetails} />
       </div>
     </div>
   );

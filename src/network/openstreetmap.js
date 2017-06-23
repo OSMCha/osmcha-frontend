@@ -1,8 +1,10 @@
-import { fromJS } from 'immutable';
+import { fromJS, Map } from 'immutable';
 import { apiOSM } from '../config/constants';
+import { API_URL } from '../config';
+
 export function getUserDetails(uid: number): Map<'string', *> {
   const user = {};
-  return fetch(`${apiOSM}/user/${uid}`)
+  const fromOSM = fetch(`${apiOSM}/user/${uid}`)
     .then(r => r.text())
     .then(r => {
       const parser = new DOMParser();
@@ -33,4 +35,11 @@ export function getUserDetails(uid: number): Map<'string', *> {
     })
     .catch(e => user)
     .then(user => fromJS(user));
+
+  const fromOSMCha = fetch(`${API_URL}/user-stats/${uid}`)
+    .then(r => r.json())
+    .then(r => fromJS(r))
+    .catch(e => new Map());
+
+  return Promise.all([fromOSMCha, fromOSM]).then(([r1, r2]) => r1.merge(r2));
 }
