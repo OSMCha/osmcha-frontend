@@ -104,7 +104,7 @@ export class MultiSelect extends React.PureComponent {
                     type="radio"
                     onClick={this.handleToggle}
                   />
-                  <div className="toggle toggle--gray">OR</div>
+                  <div className="toggle toggle--gray-light">OR</div>
                 </label>
                 <label className="toggle-container">
                   <input
@@ -113,7 +113,7 @@ export class MultiSelect extends React.PureComponent {
                     checked={this.state.allToggle}
                     onClick={this.handleToggle}
                   />
-                  <div className="toggle toggle--gray">AND</div>
+                  <div className="toggle toggle--gray-light">AND</div>
                 </label>
               </div>
             </span>

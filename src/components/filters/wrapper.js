@@ -16,19 +16,17 @@ export function Wrapper({
       onFocus={() => handleFocus(name)}
     >
       <div className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 ">
-        <span>
-          <span className="relative">
-            {hasValue &&
-              <svg
-                style={{ left: -20, top: 3 }}
-                className="absolute icon inline-block align-middle color-blue"
-              >
-                <use xlinkHref="#icon-circle" />
-              </svg>}
-          </span>
-          <span className="txt-bold txt-truncate pointer">
-            {display}&nbsp;
-          </span>
+        <span className="relative">
+          {hasValue &&
+            <svg
+              style={{ left: -18, top: -9 }}
+              className="absolute icon inline-block align-middle color-blue"
+            >
+              <use xlinkHref="#icon-circle" />
+            </svg>}
+        </span>
+        <span className="txt-bold txt-truncate pointer">
+          {display}&nbsp;
         </span>
       </div>
       <div className="grid">

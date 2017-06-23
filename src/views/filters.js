@@ -234,7 +234,12 @@ export class _Filters extends React.PureComponent {
             Filters
           </span>
           <span className="txt-l color-gray--dark">
-            <Button onClick={this.handleClear} className="mx3">Reset</Button>
+            <Button
+              className="border--0 bg-transparent"
+              onClick={this.handleClear}
+            >
+              Reset
+            </Button>
             <Button onClick={this.handleApply} className="mx3">Apply</Button>
             <Link
               to={{ search: this.props.location.search, pathname: '/' }}

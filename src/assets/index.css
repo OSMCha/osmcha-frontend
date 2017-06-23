@@ -8,6 +8,14 @@ img {
   image-rendering: crisp-edges;
   -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
 }
+
+::-webkit-input-placeholder {
+  color: #aaa !important;
+}
+::-moz-placeholder {
+  color: #aaa !important;
+}
+
 .justify--space-between {
   justify-content: space-between;
 }
