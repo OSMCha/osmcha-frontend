@@ -306,6 +306,7 @@
   },
   {
     "name": "hide_whitelist",
+    "ignore": true,
     "icontains": false,
     "range": false,
     "all": false,
