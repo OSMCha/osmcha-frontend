@@ -36,7 +36,7 @@ import filters from '../config/filters.json';
 const RANGE = 6;
 
 function range(start, end) {
-  return Array.from(Array(end - start).keys()).map(k => k + start);
+  return Array.from(new Array(end - start)).map((k, i) => i + start);
 }
 class ChangesetsList extends React.PureComponent {
   props: {

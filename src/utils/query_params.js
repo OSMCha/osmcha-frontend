@@ -1,6 +1,7 @@
 import { parse, stringify } from 'query-string';
 import moment from 'moment';
-const DAYS = 7;
+import { DEFAULT_FROM_DATE } from '../config/constants';
+
 export function getFiltersFromUrl(): Object {
   let filterObj = {};
   try {
@@ -13,7 +14,9 @@ export function getFiltersFromUrl(): Object {
     console.error(e);
   }
   if (!filterObj['date__gte'] && !filterObj['date__lte']) {
-    let lastDate = moment().subtract(DAYS, 'days').format('YYYY-MM-DD');
+    let lastDate = moment()
+      .subtract(DEFAULT_FROM_DATE, 'days')
+      .format('YYYY-MM-DD');
     filterObj['date__gte'] = [
       {
         label: lastDate,

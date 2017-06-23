@@ -49,7 +49,7 @@ export class Avatar extends React.PureComponent {
             maxHeight: this.props.size || 64,
             display: !this.state.loaded ? 'block' : 'none'
           }}
-          className="round border border-gray--light border--1"
+          className="round-full border border-gray--light border--1"
           src={Placeholder}
         />
       </div>

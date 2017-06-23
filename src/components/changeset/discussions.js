@@ -56,12 +56,13 @@ export class Discussions extends React.PureComponent {
         <div className="flex-parent flex-parent--center-main my12">
           <a
             target="_blank"
+            rel="noopener noreferrer"
             title="Add a comment on OSM"
             href={`https://openstreetmap.org/changeset/${changesetId}`}
-            className="btn btn--s color-gray border border--gray round bg-gray-faint bg-white-on-hover"
+            className="btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition pl12 pr6"
           >
             Add a comment on OSM
-            <svg className="icon inline-block align-middle pb3 pl3">
+            <svg className="icon inline-block align-middle pl3 pb3">
               <use xlinkHref="#icon-share" />
             </svg>
           </a>
