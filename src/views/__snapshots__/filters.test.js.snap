@@ -8,40 +8,32 @@ exports[`renders correctly with 1 filter 1`] = `
     className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1"
   >
     <span
-      className="txt-xl txt-bold color-gray--dark"
+      className="txt-l txt-bold color-gray--dark"
     >
       Filters
-       
-      <a
-        className="pointer mx6 txt-s txt-underline"
-        onClick={[Function]}
-      >
-        Reset
-      </a>
     </span>
     <span
       className="txt-l color-gray--dark"
     >
-      <a
-        className="mx6 "
+      <button
+        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
         onClick={[Function]}
       >
-        <button
-          className="bg-white-on-hover btn btn--s color-gray border border--gray round bg-gray-faint bg-white-on-hover "
-          onClick={undefined}
-        >
-          <span>
-            Apply
-          </span>
-        </button>
-      </a>
+        Reset
+      </button>
+      <button
+        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
+        onClick={[Function]}
+      >
+        Apply
+      </button>
       <a
-        className="mx6"
+        className="mx3 pointer"
         href="/"
         onClick={[Function]}
       >
         <svg
-          className="icon icon--l inline-block align-middle color-gray-dark-on-hover "
+          className="icon icon--m inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition"
         >
           <use
             xlinkHref="#icon-close"
@@ -1934,40 +1926,32 @@ exports[`renders correctly with 2 filters 1`] = `
     className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1"
   >
     <span
-      className="txt-xl txt-bold color-gray--dark"
+      className="txt-l txt-bold color-gray--dark"
     >
       Filters
-       
-      <a
-        className="pointer mx6 txt-s txt-underline"
-        onClick={[Function]}
-      >
-        Reset
-      </a>
     </span>
     <span
       className="txt-l color-gray--dark"
     >
-      <a
-        className="mx6 "
+      <button
+        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
         onClick={[Function]}
       >
-        <button
-          className="bg-white-on-hover btn btn--s color-gray border border--gray round bg-gray-faint bg-white-on-hover "
-          onClick={undefined}
-        >
-          <span>
-            Apply
-          </span>
-        </button>
-      </a>
+        Reset
+      </button>
+      <button
+        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
+        onClick={[Function]}
+      >
+        Apply
+      </button>
       <a
-        className="mx6"
+        className="mx3 pointer"
         href="/"
         onClick={[Function]}
       >
         <svg
-          className="icon icon--l inline-block align-middle color-gray-dark-on-hover "
+          className="icon icon--m inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition"
         >
           <use
             xlinkHref="#icon-close"
@@ -3907,40 +3891,32 @@ exports[`renders correctly with 4 filters 1`] = `
     className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1"
   >
     <span
-      className="txt-xl txt-bold color-gray--dark"
+      className="txt-l txt-bold color-gray--dark"
     >
       Filters
-       
-      <a
-        className="pointer mx6 txt-s txt-underline"
-        onClick={[Function]}
-      >
-        Reset
-      </a>
     </span>
     <span
       className="txt-l color-gray--dark"
     >
-      <a
-        className="mx6 "
+      <button
+        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
         onClick={[Function]}
       >
-        <button
-          className="bg-white-on-hover btn btn--s color-gray border border--gray round bg-gray-faint bg-white-on-hover "
-          onClick={undefined}
-        >
-          <span>
-            Apply
-          </span>
-        </button>
-      </a>
+        Reset
+      </button>
+      <button
+        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
+        onClick={[Function]}
+      >
+        Apply
+      </button>
       <a
-        className="mx6"
+        className="mx3 pointer"
         href="/"
         onClick={[Function]}
       >
         <svg
-          className="icon icon--l inline-block align-middle color-gray-dark-on-hover "
+          className="icon icon--m inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition"
         >
           <use
             xlinkHref="#icon-close"
@@ -5976,40 +5952,32 @@ exports[`renders correctly without filter 1`] = `
     className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1"
   >
     <span
-      className="txt-xl txt-bold color-gray--dark"
+      className="txt-l txt-bold color-gray--dark"
     >
       Filters
-       
-      <a
-        className="pointer mx6 txt-s txt-underline"
-        onClick={[Function]}
-      >
-        Reset
-      </a>
     </span>
     <span
       className="txt-l color-gray--dark"
     >
-      <a
-        className="mx6 "
+      <button
+        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
         onClick={[Function]}
       >
-        <button
-          className="bg-white-on-hover btn btn--s color-gray border border--gray round bg-gray-faint bg-white-on-hover "
-          onClick={undefined}
-        >
-          <span>
-            Apply
-          </span>
-        </button>
-      </a>
+        Reset
+      </button>
+      <button
+        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
+        onClick={[Function]}
+      >
+        Apply
+      </button>
       <a
-        className="mx6"
+        className="mx3 pointer"
         href="/"
         onClick={[Function]}
       >
         <svg
-          className="icon icon--l inline-block align-middle color-gray-dark-on-hover "
+          className="icon icon--m inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition"
         >
           <use
             xlinkHref="#icon-close"
