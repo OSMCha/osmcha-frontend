@@ -2,9 +2,20 @@ import React from 'react';
 import { Avatar } from '../avatar';
 import moment from 'moment';
 import AnchorifyText from 'react-anchorify-text';
+import { Button } from '../button';
 import AssemblyAnchor from '../assembly_anchor';
 
-export function User({ userDetails }) {
+const DetailsFromOSMCha = ({ userDetails, filterChangesetsByUser }) =>
+  <span>
+    changesets in osmcha: {userDetails.get('changesets_in_osmcha')} <br />
+    harmful: {userDetails.get('harmful_changesets')} <br />
+    reviewed: {userDetails.get('checked_changesets')} <br />
+    <Button onClick={filterChangesetsByUser} className="button">
+      Filter by this user
+    </Button>
+  </span>;
+
+export function User({ userDetails, filterChangesetsByUser }) {
   return (
     <div className="px12 py6">
       <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
@@ -50,6 +61,10 @@ export function User({ userDetails }) {
             </AnchorifyText>
           </p>
         </div>
+        <DetailsFromOSMCha
+          userDetails={userDetails}
+          filterChangesetsByUser={filterChangesetsByUser}
+        />
       </div>
     </div>
   );

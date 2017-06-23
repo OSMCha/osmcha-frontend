@@ -18,10 +18,8 @@ export function fetchChangesetsPage(
       .join(',');
 
     if (filterJoined === '') return;
-    flatFilters += `&${k}=${filterJoined}`;
+    flatFilters += `&${k}=${encodeURIComponent(filterJoined)}`;
   });
-  Object.keys(filters).forEach(f => {});
-
   return fetch(
     `${API_URL}/changesets/?${nocache // for cache busting of this pattern /\/changesets\/#nocache\?page=/
       ? `page_size=${PAGE_SIZE}&page=${pageIndex + 1}`

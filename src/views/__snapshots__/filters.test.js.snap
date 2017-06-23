@@ -261,7 +261,7 @@ exports[`renders correctly with 1 filter 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-11--value"
+                id="react-select-10--value"
               >
                 <div
                   className="Select-placeholder"
@@ -277,7 +277,7 @@ exports[`renders correctly with 1 filter 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-11--value"
+                    aria-activedescendant="react-select-10--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -451,7 +451,7 @@ exports[`renders correctly with 1 filter 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-12--value"
+                  id="react-select-11--value"
                 >
                   <div
                     className="Select-value"
@@ -471,7 +471,7 @@ exports[`renders correctly with 1 filter 1`] = `
                     <span
                       aria-selected="true"
                       className="Select-value-label"
-                      id="react-select-12--value-0"
+                      id="react-select-11--value-0"
                       role="option"
                     >
                       mass modification
@@ -491,7 +491,7 @@ exports[`renders correctly with 1 filter 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-12--value"
+                      aria-activedescendant="react-select-11--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -611,7 +611,7 @@ exports[`renders correctly with 1 filter 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-13--value"
+                id="react-select-12--value"
               >
                 <div
                   className="Select-placeholder"
@@ -627,7 +627,7 @@ exports[`renders correctly with 1 filter 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-13--value"
+                    aria-activedescendant="react-select-12--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -793,7 +793,7 @@ exports[`renders correctly with 1 filter 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-14--value"
+                  id="react-select-13--value"
                 >
                   <div
                     className="Select-placeholder"
@@ -809,7 +809,7 @@ exports[`renders correctly with 1 filter 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-14--value"
+                      aria-activedescendant="react-select-13--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -964,7 +964,7 @@ exports[`renders correctly with 1 filter 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-15--value"
+                  id="react-select-14--value"
                 >
                   <div
                     className="Select-placeholder"
@@ -980,7 +980,7 @@ exports[`renders correctly with 1 filter 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-15--value"
+                      aria-activedescendant="react-select-14--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -1074,7 +1074,7 @@ exports[`renders correctly with 1 filter 1`] = `
           <span
             className="txt-bold txt-truncate pointer"
           >
-            Creators
+            Users
              
           </span>
         </span>
@@ -1103,7 +1103,7 @@ exports[`renders correctly with 1 filter 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-16--value"
+                  id="react-select-15--value"
                 >
                   <div
                     className="Select-placeholder"
@@ -1119,7 +1119,7 @@ exports[`renders correctly with 1 filter 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-16--value"
+                      aria-activedescendant="react-select-15--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -1226,7 +1226,7 @@ exports[`renders correctly with 1 filter 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-17--value"
+                  id="react-select-16--value"
                 >
                   <div
                     className="Select-placeholder"
@@ -1242,7 +1242,7 @@ exports[`renders correctly with 1 filter 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-17--value"
+                      aria-activedescendant="react-select-16--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -1667,7 +1667,7 @@ exports[`renders correctly with 1 filter 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-18--value"
+                id="react-select-17--value"
               >
                 <div
                   className="Select-placeholder"
@@ -1683,126 +1683,7 @@ exports[`renders correctly with 1 filter 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-18--value"
-                    aria-describedby={undefined}
-                    aria-expanded="false"
-                    aria-haspopup="false"
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
-                    aria-owns=""
-                    className={undefined}
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    onFocus={[Function]}
-                    required={false}
-                    role="combobox"
-                    style={
-                      Object {
-                        "boxSizing": "content-box",
-                        "width": "5px",
-                      }
-                    }
-                    tabIndex={undefined}
-                    value=""
-                  />
-                  <div
-                    style={
-                      Object {
-                        "height": 0,
-                        "left": 0,
-                        "overflow": "scroll",
-                        "position": "absolute",
-                        "top": 0,
-                        "visibility": "hidden",
-                        "whiteSpace": "pre",
-                      }
-                    }
-                  >
-                    
-                  </div>
-                </div>
-              </span>
-              <span
-                className="Select-arrow-zone"
-                onMouseDown={[Function]}
-              >
-                <span
-                  className="Select-arrow"
-                  onMouseDown={[Function]}
-                />
-              </span>
-            </div>
-          </div>
-        </span>
-        <span
-          className="col col--3-mxl col--3-ml col--1-mm"
-        >
-          <span
-            className="desc block relative ml12 wmin120"
-          >
-            <span />
-          </span>
-        </span>
-      </div>
-    </div>
-    <div
-      className="ml3 my12 flex-parent flex-parent--column"
-      onClick={[Function]}
-      onFocus={[Function]}
-    >
-      <div
-        className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
-      >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Hide whitelist
-             
-          </span>
-        </span>
-      </div>
-      <div
-        className="grid"
-      >
-        <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
-        >
-          <div
-            className="Select Select--single is-clearable is-searchable"
-            style={undefined}
-          >
-            <div
-              className="Select-control"
-              onKeyDown={[Function]}
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              style={undefined}
-            >
-              <span
-                className="Select-multi-value-wrapper"
-                id="react-select-19--value"
-              >
-                <div
-                  className="Select-placeholder"
-                >
-                  exclude changesets by whitelisted
-                </div>
-                <div
-                  className="Select-input"
-                  style={
-                    Object {
-                      "display": "inline-block",
-                    }
-                  }
-                >
-                  <input
-                    aria-activedescendant="react-select-19--value"
+                    aria-activedescendant="react-select-17--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -2179,7 +2060,7 @@ exports[`renders correctly with 2 filters 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-20--value"
+                id="react-select-18--value"
               >
                 <div
                   className="Select-placeholder"
@@ -2195,7 +2076,7 @@ exports[`renders correctly with 2 filters 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-20--value"
+                    aria-activedescendant="react-select-18--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -2369,7 +2250,7 @@ exports[`renders correctly with 2 filters 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-21--value"
+                  id="react-select-19--value"
                 >
                   <div
                     className="Select-value"
@@ -2389,7 +2270,7 @@ exports[`renders correctly with 2 filters 1`] = `
                     <span
                       aria-selected="true"
                       className="Select-value-label"
-                      id="react-select-21--value-0"
+                      id="react-select-19--value-0"
                       role="option"
                     >
                       mass modification
@@ -2409,7 +2290,7 @@ exports[`renders correctly with 2 filters 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-21--value"
+                      aria-activedescendant="react-select-19--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -2549,7 +2430,7 @@ exports[`renders correctly with 2 filters 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-22--value"
+                id="react-select-20--value"
               >
                 <div
                   className="Select-value"
@@ -2559,7 +2440,7 @@ exports[`renders correctly with 2 filters 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-22--value-item"
+                    id="react-select-20--value-item"
                     role="option"
                   >
                     Both Good or Bad
@@ -2574,7 +2455,7 @@ exports[`renders correctly with 2 filters 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-22--value"
+                    aria-activedescendant="react-select-20--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -2758,7 +2639,7 @@ exports[`renders correctly with 2 filters 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-23--value"
+                  id="react-select-21--value"
                 >
                   <div
                     className="Select-placeholder"
@@ -2774,7 +2655,7 @@ exports[`renders correctly with 2 filters 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-23--value"
+                      aria-activedescendant="react-select-21--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -2929,7 +2810,7 @@ exports[`renders correctly with 2 filters 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-24--value"
+                  id="react-select-22--value"
                 >
                   <div
                     className="Select-placeholder"
@@ -2945,7 +2826,7 @@ exports[`renders correctly with 2 filters 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-24--value"
+                      aria-activedescendant="react-select-22--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -3039,7 +2920,7 @@ exports[`renders correctly with 2 filters 1`] = `
           <span
             className="txt-bold txt-truncate pointer"
           >
-            Creators
+            Users
              
           </span>
         </span>
@@ -3068,7 +2949,7 @@ exports[`renders correctly with 2 filters 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-25--value"
+                  id="react-select-23--value"
                 >
                   <div
                     className="Select-placeholder"
@@ -3084,7 +2965,7 @@ exports[`renders correctly with 2 filters 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-25--value"
+                      aria-activedescendant="react-select-23--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -3191,7 +3072,7 @@ exports[`renders correctly with 2 filters 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-26--value"
+                  id="react-select-24--value"
                 >
                   <div
                     className="Select-placeholder"
@@ -3207,7 +3088,7 @@ exports[`renders correctly with 2 filters 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-26--value"
+                      aria-activedescendant="react-select-24--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -3632,7 +3513,7 @@ exports[`renders correctly with 2 filters 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-27--value"
+                id="react-select-25--value"
               >
                 <div
                   className="Select-placeholder"
@@ -3648,126 +3529,7 @@ exports[`renders correctly with 2 filters 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-27--value"
-                    aria-describedby={undefined}
-                    aria-expanded="false"
-                    aria-haspopup="false"
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
-                    aria-owns=""
-                    className={undefined}
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    onFocus={[Function]}
-                    required={false}
-                    role="combobox"
-                    style={
-                      Object {
-                        "boxSizing": "content-box",
-                        "width": "5px",
-                      }
-                    }
-                    tabIndex={undefined}
-                    value=""
-                  />
-                  <div
-                    style={
-                      Object {
-                        "height": 0,
-                        "left": 0,
-                        "overflow": "scroll",
-                        "position": "absolute",
-                        "top": 0,
-                        "visibility": "hidden",
-                        "whiteSpace": "pre",
-                      }
-                    }
-                  >
-                    
-                  </div>
-                </div>
-              </span>
-              <span
-                className="Select-arrow-zone"
-                onMouseDown={[Function]}
-              >
-                <span
-                  className="Select-arrow"
-                  onMouseDown={[Function]}
-                />
-              </span>
-            </div>
-          </div>
-        </span>
-        <span
-          className="col col--3-mxl col--3-ml col--1-mm"
-        >
-          <span
-            className="desc block relative ml12 wmin120"
-          >
-            <span />
-          </span>
-        </span>
-      </div>
-    </div>
-    <div
-      className="ml3 my12 flex-parent flex-parent--column"
-      onClick={[Function]}
-      onFocus={[Function]}
-    >
-      <div
-        className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
-      >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Hide whitelist
-             
-          </span>
-        </span>
-      </div>
-      <div
-        className="grid"
-      >
-        <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
-        >
-          <div
-            className="Select Select--single is-clearable is-searchable"
-            style={undefined}
-          >
-            <div
-              className="Select-control"
-              onKeyDown={[Function]}
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              style={undefined}
-            >
-              <span
-                className="Select-multi-value-wrapper"
-                id="react-select-28--value"
-              >
-                <div
-                  className="Select-placeholder"
-                >
-                  exclude changesets by whitelisted
-                </div>
-                <div
-                  className="Select-input"
-                  style={
-                    Object {
-                      "display": "inline-block",
-                    }
-                  }
-                >
-                  <input
-                    aria-activedescendant="react-select-28--value"
+                    aria-activedescendant="react-select-25--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -4178,7 +3940,7 @@ exports[`renders correctly with 4 filters 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-29--value"
+                id="react-select-26--value"
               >
                 <div
                   className="Select-value"
@@ -4188,7 +3950,7 @@ exports[`renders correctly with 4 filters 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-29--value-item"
+                    id="react-select-26--value-item"
                     role="option"
                   >
                     True
@@ -4203,7 +3965,7 @@ exports[`renders correctly with 4 filters 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-29--value"
+                    aria-activedescendant="react-select-26--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -4401,7 +4163,7 @@ exports[`renders correctly with 4 filters 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-30--value"
+                  id="react-select-27--value"
                 >
                   <div
                     className="Select-value"
@@ -4421,7 +4183,7 @@ exports[`renders correctly with 4 filters 1`] = `
                     <span
                       aria-selected="true"
                       className="Select-value-label"
-                      id="react-select-30--value-0"
+                      id="react-select-27--value-0"
                       role="option"
                     >
                       mass modification
@@ -4450,7 +4212,7 @@ exports[`renders correctly with 4 filters 1`] = `
                     <span
                       aria-selected="true"
                       className="Select-value-label"
-                      id="react-select-30--value-1"
+                      id="react-select-27--value-1"
                       role="option"
                     >
                       new mapper edits
@@ -4470,7 +4232,7 @@ exports[`renders correctly with 4 filters 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-30--value"
+                      aria-activedescendant="react-select-27--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -4610,7 +4372,7 @@ exports[`renders correctly with 4 filters 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-31--value"
+                id="react-select-28--value"
               >
                 <div
                   className="Select-value"
@@ -4620,7 +4382,7 @@ exports[`renders correctly with 4 filters 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-31--value-item"
+                    id="react-select-28--value-item"
                     role="option"
                   >
                     Both Good or Bad
@@ -4635,7 +4397,7 @@ exports[`renders correctly with 4 filters 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-31--value"
+                    aria-activedescendant="react-select-28--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -4819,7 +4581,7 @@ exports[`renders correctly with 4 filters 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-32--value"
+                  id="react-select-29--value"
                 >
                   <div
                     className="Select-placeholder"
@@ -4835,7 +4597,7 @@ exports[`renders correctly with 4 filters 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-32--value"
+                      aria-activedescendant="react-select-29--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -4990,7 +4752,7 @@ exports[`renders correctly with 4 filters 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-33--value"
+                  id="react-select-30--value"
                 >
                   <div
                     className="Select-placeholder"
@@ -5006,7 +4768,7 @@ exports[`renders correctly with 4 filters 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-33--value"
+                      aria-activedescendant="react-select-30--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -5100,7 +4862,7 @@ exports[`renders correctly with 4 filters 1`] = `
           <span
             className="txt-bold txt-truncate pointer"
           >
-            Creators
+            Users
              
           </span>
         </span>
@@ -5129,7 +4891,7 @@ exports[`renders correctly with 4 filters 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-34--value"
+                  id="react-select-31--value"
                 >
                   <div
                     className="Select-placeholder"
@@ -5145,7 +4907,7 @@ exports[`renders correctly with 4 filters 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-34--value"
+                      aria-activedescendant="react-select-31--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -5252,7 +5014,7 @@ exports[`renders correctly with 4 filters 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-35--value"
+                  id="react-select-32--value"
                 >
                   <div
                     className="Select-placeholder"
@@ -5268,7 +5030,7 @@ exports[`renders correctly with 4 filters 1`] = `
                     }
                   >
                     <input
-                      aria-activedescendant="react-select-35--value"
+                      aria-activedescendant="react-select-32--value"
                       aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
@@ -5693,7 +5455,7 @@ exports[`renders correctly with 4 filters 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-36--value"
+                id="react-select-33--value"
               >
                 <div
                   className="Select-placeholder"
@@ -5709,126 +5471,7 @@ exports[`renders correctly with 4 filters 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-36--value"
-                    aria-describedby={undefined}
-                    aria-expanded="false"
-                    aria-haspopup="false"
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
-                    aria-owns=""
-                    className={undefined}
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    onFocus={[Function]}
-                    required={false}
-                    role="combobox"
-                    style={
-                      Object {
-                        "boxSizing": "content-box",
-                        "width": "5px",
-                      }
-                    }
-                    tabIndex={undefined}
-                    value=""
-                  />
-                  <div
-                    style={
-                      Object {
-                        "height": 0,
-                        "left": 0,
-                        "overflow": "scroll",
-                        "position": "absolute",
-                        "top": 0,
-                        "visibility": "hidden",
-                        "whiteSpace": "pre",
-                      }
-                    }
-                  >
-                    
-                  </div>
-                </div>
-              </span>
-              <span
-                className="Select-arrow-zone"
-                onMouseDown={[Function]}
-              >
-                <span
-                  className="Select-arrow"
-                  onMouseDown={[Function]}
-                />
-              </span>
-            </div>
-          </div>
-        </span>
-        <span
-          className="col col--3-mxl col--3-ml col--1-mm"
-        >
-          <span
-            className="desc block relative ml12 wmin120"
-          >
-            <span />
-          </span>
-        </span>
-      </div>
-    </div>
-    <div
-      className="ml3 my12 flex-parent flex-parent--column"
-      onClick={[Function]}
-      onFocus={[Function]}
-    >
-      <div
-        className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
-      >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Hide whitelist
-             
-          </span>
-        </span>
-      </div>
-      <div
-        className="grid"
-      >
-        <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
-        >
-          <div
-            className="Select Select--single is-clearable is-searchable"
-            style={undefined}
-          >
-            <div
-              className="Select-control"
-              onKeyDown={[Function]}
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              style={undefined}
-            >
-              <span
-                className="Select-multi-value-wrapper"
-                id="react-select-37--value"
-              >
-                <div
-                  className="Select-placeholder"
-                >
-                  exclude changesets by whitelisted
-                </div>
-                <div
-                  className="Select-input"
-                  style={
-                    Object {
-                      "display": "inline-block",
-                    }
-                  }
-                >
-                  <input
-                    aria-activedescendant="react-select-37--value"
+                    aria-activedescendant="react-select-33--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -6974,7 +6617,7 @@ exports[`renders correctly without filter 1`] = `
           <span
             className="txt-bold txt-truncate pointer"
           >
-            Creators
+            Users
              
           </span>
         </span>
@@ -7584,125 +7227,6 @@ exports[`renders correctly without filter 1`] = `
                 >
                   <input
                     aria-activedescendant="react-select-9--value"
-                    aria-describedby={undefined}
-                    aria-expanded="false"
-                    aria-haspopup="false"
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
-                    aria-owns=""
-                    className={undefined}
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    onFocus={[Function]}
-                    required={false}
-                    role="combobox"
-                    style={
-                      Object {
-                        "boxSizing": "content-box",
-                        "width": "5px",
-                      }
-                    }
-                    tabIndex={undefined}
-                    value=""
-                  />
-                  <div
-                    style={
-                      Object {
-                        "height": 0,
-                        "left": 0,
-                        "overflow": "scroll",
-                        "position": "absolute",
-                        "top": 0,
-                        "visibility": "hidden",
-                        "whiteSpace": "pre",
-                      }
-                    }
-                  >
-                    
-                  </div>
-                </div>
-              </span>
-              <span
-                className="Select-arrow-zone"
-                onMouseDown={[Function]}
-              >
-                <span
-                  className="Select-arrow"
-                  onMouseDown={[Function]}
-                />
-              </span>
-            </div>
-          </div>
-        </span>
-        <span
-          className="col col--3-mxl col--3-ml col--1-mm"
-        >
-          <span
-            className="desc block relative ml12 wmin120"
-          >
-            <span />
-          </span>
-        </span>
-      </div>
-    </div>
-    <div
-      className="ml3 my12 flex-parent flex-parent--column"
-      onClick={[Function]}
-      onFocus={[Function]}
-    >
-      <div
-        className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
-      >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Hide whitelist
-             
-          </span>
-        </span>
-      </div>
-      <div
-        className="grid"
-      >
-        <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
-        >
-          <div
-            className="Select Select--single is-clearable is-searchable"
-            style={undefined}
-          >
-            <div
-              className="Select-control"
-              onKeyDown={[Function]}
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              style={undefined}
-            >
-              <span
-                className="Select-multi-value-wrapper"
-                id="react-select-10--value"
-              >
-                <div
-                  className="Select-placeholder"
-                >
-                  exclude changesets by whitelisted
-                </div>
-                <div
-                  className="Select-input"
-                  style={
-                    Object {
-                      "display": "inline-block",
-                    }
-                  }
-                >
-                  <input
-                    aria-activedescendant="react-select-10--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
