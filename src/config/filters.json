@@ -157,7 +157,7 @@
     "icontains": false,
     "all": false,
     "range": false,
-    "display": "Creators",
+    "display": "Users",
     "cache": true,
     "type": "text_comma",
     "description": "Show changesets created by the users. Start typing to select one or more users.",
