@@ -115,7 +115,7 @@ class NavbarChangeset extends React.PureComponent {
     const width = window.innerWidth;
     return (
       <Navbar
-        className="bg-gray-faint color-gray border-b border--gray-light border--1 px12"
+        className="bg-gray-faint color-gray border-b border--gray-light border--1 px30"
         title={
           <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
             <span className="flex-parent align-items--center">
