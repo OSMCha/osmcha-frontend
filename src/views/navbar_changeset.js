@@ -115,7 +115,7 @@ class NavbarChangeset extends React.PureComponent {
     const width = window.innerWidth;
     return (
       <Navbar
-        className="bg-gray-faint color-gray border-b border--gray-light border--1"
+        className="bg-gray-faint color-gray border-b border--gray-light border--1 px30"
         title={
           <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
             <span className="flex-parent align-items--center">
@@ -126,9 +126,9 @@ class NavbarChangeset extends React.PureComponent {
                   {'<  '}
                 </Link>}
               <span className="txt-l color-gray--dark">
-                Changeset:
+                <span className="txt-bold">Changeset:</span>
                 {' '}
-                <span className="txt-underline">
+                <span className="txt-underline mr12">
                   <a
                     href={`https://openstreetmap.org/changeset/${this.props
                       .changesetId}`}
@@ -182,11 +182,11 @@ class NavbarChangeset extends React.PureComponent {
                     options={[
                       {
                         value: false,
-                        label: '👍 Good'
+                        label: 'Good'
                       },
                       {
                         value: true,
-                        label: '👎 Bad'
+                        label: 'Bad'
                       }
                     ]}
                     className="select--s"
@@ -199,6 +199,7 @@ class NavbarChangeset extends React.PureComponent {
     );
   }
 }
+
 NavbarChangeset = connect(
   (state: RootStateType, props) => ({
     location: props.location,

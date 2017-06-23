@@ -12,41 +12,45 @@ exports[`renders PrimaryLine correctly 1`] = `
   <span
     className="mb3"
   >
-    <span>
+    <span
+      className="mr6"
+    >
       <span
-        className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
+        className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
       >
-        intentional
+        mass deletion
       </span>
-      , 
     </span>
-    <span>
+    <span
+      className="mr6"
+    >
       <span
-        className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
+        className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
       >
-        unintentional
+        Randomized flag
       </span>
-      
     </span>
   </span>
   <span
     className="mb3"
   >
-    <span>
+    <span
+      className="mr6"
+    >
       <span
-        className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+        className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
       >
-        mass deletion
+        intentional
       </span>
-      , 
     </span>
-    <span>
+    <span
+      className="mr6"
+    >
       <span
-        className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
+        className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
       >
-        Randomized flag
+        unintentional
       </span>
-      
     </span>
   </span>
 </span>
@@ -72,7 +76,7 @@ exports[`renders active row properly 1`] = `
               className="flex-parent flex-parent--row justify--space-between align-items--center"
             >
               <span
-                className="txt-m  mt3 mr6"
+                className="txt-m txt-bold mt3 mr6"
               >
                 DaryR
               </span>
@@ -97,41 +101,45 @@ exports[`renders active row properly 1`] = `
             <span
               className="mb3"
             >
-              <span>
+              <span
+                className="mr6"
+              >
                 <span
-                  className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
+                  className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                 >
-                  intentional
+                  mass deletion
                 </span>
-                , 
               </span>
-              <span>
+              <span
+                className="mr6"
+              >
                 <span
-                  className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
+                  className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                 >
-                  unintentional
+                  Randomized flag
                 </span>
-                
               </span>
             </span>
             <span
               className="mb3"
             >
-              <span>
+              <span
+                className="mr6"
+              >
                 <span
-                  className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                  className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                 >
-                  mass deletion
+                  intentional
                 </span>
-                , 
               </span>
-              <span>
+              <span
+                className="mr6"
+              >
                 <span
-                  className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
+                  className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                 >
-                  Randomized flag
+                  unintentional
                 </span>
-                
               </span>
             </span>
           </span>
@@ -141,11 +149,17 @@ exports[`renders active row properly 1`] = `
             className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
           >
             <span>
-              <span>
+              <span
+                className="mr6"
+              >
                 49328744
               </span>
               <span>
-                👎 
+                <img
+                  alt="Marked as bad"
+                  className="icon inline-block"
+                  src="thumbs-down.svg"
+                />
                   by 
                 nammala
               </span>
@@ -226,41 +240,45 @@ exports[`renders inactive row properly 1`] = `
             <span
               className="mb3"
             >
-              <span>
+              <span
+                className="mr6"
+              >
                 <span
-                  className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
+                  className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                 >
-                  intentional
+                  mass deletion
                 </span>
-                , 
               </span>
-              <span>
+              <span
+                className="mr6"
+              >
                 <span
-                  className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
+                  className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                 >
-                  unintentional
+                  Randomized flag
                 </span>
-                
               </span>
             </span>
             <span
               className="mb3"
             >
-              <span>
+              <span
+                className="mr6"
+              >
                 <span
-                  className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                  className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                 >
-                  mass deletion
+                  intentional
                 </span>
-                , 
               </span>
-              <span>
+              <span
+                className="mr6"
+              >
                 <span
-                  className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
+                  className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                 >
-                  Randomized flag
+                  unintentional
                 </span>
-                
               </span>
             </span>
           </span>
@@ -270,11 +288,17 @@ exports[`renders inactive row properly 1`] = `
             className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
           >
             <span>
-              <span>
+              <span
+                className="mr6"
+              >
                 49328744
               </span>
               <span>
-                👎 
+                <img
+                  alt="Marked as bad"
+                  className="icon inline-block"
+                  src="thumbs-down.svg"
+                />
                   by 
                 nammala
               </span>

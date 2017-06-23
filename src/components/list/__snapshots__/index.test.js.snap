@@ -2,7 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <ul
-  className="flex-parent flex-parent--column scroll-auto flex-child--grow"
+  className="flex-parent flex-parent--column scroll-styled scroll-auto flex-child--grow"
 >
   <div>
     <a
@@ -59,11 +59,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49434773
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -140,19 +146,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
+                />
+                <span
+                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    
                   </span>
                 </span>
-                <span
-                  className="mb3"
-                />
               </span>
             </div>
             <div>
@@ -160,11 +167,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425589
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -252,11 +265,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425588
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -333,19 +352,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       suspect_word
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -353,11 +373,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425587
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -410,7 +436,7 @@ exports[`renders correctly 1`] = `
                   className="flex-parent flex-parent--row justify--space-between align-items--center"
                 >
                   <span
-                    className="txt-m  mt3 mr6"
+                    className="txt-m txt-bold mt3 mr6"
                   >
                     khuc tinh ca
                   </span>
@@ -445,11 +471,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425586
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -537,11 +569,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425585
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -618,19 +656,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       suspect_word
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -638,11 +677,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425584
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -719,19 +764,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
+                />
+                <span
+                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    
                   </span>
                 </span>
-                <span
-                  className="mb3"
-                />
               </span>
             </div>
             <div>
@@ -739,11 +785,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425583
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -831,11 +883,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425580
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -923,11 +981,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425579
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1015,11 +1079,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425578
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1107,11 +1177,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425321
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1199,11 +1275,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425320
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1291,11 +1373,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422408
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1383,11 +1471,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422407
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1475,11 +1569,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422406
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1567,11 +1667,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422404
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1659,11 +1765,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422403
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1740,19 +1852,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       New mapper
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1760,11 +1873,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422402
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1852,11 +1971,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422401
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1944,11 +2069,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49415911
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2025,19 +2156,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       mass modification
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2045,11 +2177,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49415909
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2126,19 +2264,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
+                />
+                <span
+                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       notfixed
                     </span>
-                    
                   </span>
                 </span>
-                <span
-                  className="mb3"
-                />
               </span>
             </div>
             <div>
@@ -2146,11 +2285,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49415333
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2228,25 +2373,27 @@ exports[`renders correctly 1`] = `
                 <span
                   className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
-                      intentional
+                      possible import
                     </span>
-                    
                   </span>
                 </span>
                 <span
                   className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
-                      possible import
+                      intentional
                     </span>
-                    
                   </span>
                 </span>
               </span>
@@ -2256,11 +2403,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49395399
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2337,19 +2490,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
+                />
+                <span
+                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    
                   </span>
                 </span>
-                <span
-                  className="mb3"
-                />
               </span>
             </div>
             <div>
@@ -2357,11 +2511,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394957
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2439,25 +2599,27 @@ exports[`renders correctly 1`] = `
                 <span
                   className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
-                      very-severe
+                      New mapper
                     </span>
-                    
                   </span>
                 </span>
                 <span
                   className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
-                      New mapper
+                      very-severe
                     </span>
-                    
                   </span>
                 </span>
               </span>
@@ -2467,11 +2629,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394955
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2548,19 +2716,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
+                />
+                <span
+                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    
                   </span>
                 </span>
-                <span
-                  className="mb3"
-                />
               </span>
             </div>
             <div>
@@ -2568,11 +2737,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394218
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2660,11 +2835,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394216
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2752,11 +2933,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394193
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2844,11 +3031,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394192
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2925,19 +3118,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       suspect_word
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2945,11 +3139,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394191
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3037,11 +3237,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394190
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3129,11 +3335,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394054
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3221,11 +3433,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394053
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3313,11 +3531,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394052
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3405,11 +3629,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394051
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3497,11 +3727,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394050
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3578,19 +3814,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       suspect_word
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3598,11 +3835,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394006
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3690,11 +3933,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49393772
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3782,11 +4031,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49393771
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3874,11 +4129,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49392269
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3966,11 +4227,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49392165
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -4058,11 +4325,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49389572
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -4139,19 +4412,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Unknown iD instance
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4159,11 +4433,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49389571
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -4251,11 +4531,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49388715
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -4343,11 +4629,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49388188
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -4435,11 +4727,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49366826
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -4516,19 +4814,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       suspect_word
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4536,11 +4835,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49366696
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     wille
                   </span>
@@ -4628,11 +4933,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49362633
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     andygol
                   </span>
@@ -4720,11 +5031,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49359048
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -4812,11 +5129,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358871
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -4904,11 +5227,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358870
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -4996,11 +5325,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358869
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5088,11 +5423,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358868
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5180,11 +5521,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358867
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5272,11 +5619,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358865
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5364,11 +5717,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358864
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5457,11 +5816,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358863
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5549,11 +5914,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358862
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5641,11 +6012,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358861
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5722,27 +6099,29 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
+                />
+                <span
+                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       very-severe
                     </span>
-                    
                   </span>
                 </span>
-                <span
-                  className="mb3"
-                />
               </span>
             </div>
             <div>
@@ -5750,11 +6129,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49354335
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -5831,19 +6216,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5851,11 +6237,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49349235
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5932,19 +6324,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5952,11 +6345,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49338301
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -6033,27 +6432,29 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       possible import
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6061,11 +6462,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49331026
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -6142,19 +6549,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6162,11 +6570,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49330639
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -6243,27 +6657,29 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       possible import
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6271,11 +6687,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49330579
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -6363,11 +6785,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49330260
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -6455,11 +6883,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329865
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -6536,27 +6970,29 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       possible import
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6564,11 +7000,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329798
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -6645,35 +7087,38 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
+                />
+                <span
+                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       very-severe
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       unintentional
                     </span>
-                    
                   </span>
                 </span>
-                <span
-                  className="mb3"
-                />
               </span>
             </div>
             <div>
@@ -6681,11 +7126,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329486
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -6762,43 +7213,47 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
+                />
+                <span
+                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6  txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       unintentional
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       very-severe
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark inline-block bg-red-faint px6 mr3 txt-s txt-bold"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       notfixed
                     </span>
-                    
                   </span>
                 </span>
-                <span
-                  className="mb3"
-                />
               </span>
             </div>
             <div>
@@ -6806,11 +7261,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329485
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -6898,11 +7359,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329484
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -6979,19 +7446,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6999,11 +7467,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329182
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -7080,27 +7554,29 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       possible import
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6 mr3 txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -7108,11 +7584,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329158
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -7189,19 +7671,20 @@ exports[`renders correctly 1`] = `
                 </p>
                 <span
                   className="mb3"
-                />
-                <span
-                  className="mb3"
                 >
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-blue-dark inline-block bg-blue-faint px6  txt-s txt-bold"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -7209,11 +7692,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49328955
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -7253,7 +7742,7 @@ exports[`renders correctly 1`] = `
 
 exports[`renders loading correctly 1`] = `
 <ul
-  className="flex-parent flex-parent--column scroll-auto flex-child--grow"
+  className="flex-parent flex-parent--column scroll-styled scroll-auto flex-child--grow"
 >
   <div
     className="undefined flex-parent flex-parent--column flex-parent--center-cross flex-parent--center-main flex-child--grow"

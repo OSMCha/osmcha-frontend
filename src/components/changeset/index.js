@@ -11,7 +11,7 @@ import { User } from './user';
 import { Features } from './features';
 import { Box } from './box';
 import { Discussions } from './discussions';
-import { Button } from './button';
+import { Control } from './control';
 import { MapOptions } from './map_options';
 
 import { cancelablePromise } from '../../utils/promise';
@@ -220,7 +220,7 @@ export class Changeset extends React.PureComponent {
             left: this.state.left - 15
           }}
         >
-          <Button
+          <Control
             active={this.state.details}
             onClick={this.toggleDetails}
             bg={'gray-faint'}
@@ -229,8 +229,8 @@ export class Changeset extends React.PureComponent {
             <svg className="icon inline-block align-middle ">
               <use xlinkHref="#icon-eye" />
             </svg>
-          </Button>
-          <Button
+          </Control>
+          <Control
             active={this.state.features}
             onClick={this.toggleFeatures}
             bg={'gray-faint'}
@@ -238,14 +238,14 @@ export class Changeset extends React.PureComponent {
           >
             <svg
               className={`icon inline-block align-middle ${features &&
-                features.size > 0
-                ? 'color-orange'
-                : ''}`}
+                features.size == 0
+                ? 'color-darken50'
+                : 'color-darken75'}`}
             >
               <use xlinkHref="#icon-alert" />
             </svg>
-          </Button>
-          <Button
+          </Control>
+          <Control
             active={this.state.discussions}
             onClick={this.toggleDiscussions}
             bg={'white'}
@@ -253,14 +253,14 @@ export class Changeset extends React.PureComponent {
           >
             <svg
               className={`icon inline-block align-middle ${this.state
-                .discussionsData.size > 0
-                ? 'color-orange'
-                : ''}`}
+                .discussionsData.size == 0
+                ? 'color-darken50'
+                : 'color-darken75'}`}
             >
               <use xlinkHref="#icon-contact" />
             </svg>
-          </Button>
-          <Button
+          </Control>
+          <Control
             active={this.state.user}
             onClick={this.toggleUser}
             bg={'white'}
@@ -269,8 +269,8 @@ export class Changeset extends React.PureComponent {
             <svg className="icon inline-block align-middle">
               <use xlinkHref="#icon-user" />
             </svg>
-          </Button>
-          <Button
+          </Control>
+          <Control
             active={this.state.mapOptions}
             onClick={this.toggleMapOptions}
             bg={'white'}
@@ -279,7 +279,7 @@ export class Changeset extends React.PureComponent {
             <svg className="icon inline-block align-middle">
               <use xlinkHref="#icon-map" />
             </svg>
-          </Button>
+          </Control>
         </Floater>
         <Floater
           style={{

@@ -65,9 +65,11 @@ class NavbarSidebar extends React.PureComponent {
   };
   displayDropdown = () => {
     return (
-      <div>
-        <Avatar url={this.props.avatar} />
-        <div> {this.props.username}</div>
+      <div className="flex-parent flex-parent--column align-items--center justify--space-between">
+        <div className="mb12">
+          <Avatar url={this.props.avatar} />
+          <div className="txt-s txt-bold color-gray">{this.props.username}</div>
+        </div>
         <Button onClick={this.props.logUserOut} className="bg-white-on-hover">
           Logout
         </Button>
@@ -81,14 +83,17 @@ class NavbarSidebar extends React.PureComponent {
         <Navbar
           className="bg-white border-b border--gray-light border--1"
           title={
-            <span>
-              <span className="txt-fancy color-gray txt-xl">
-                <span className="color-green txt-bold">
+            <span className="color-gray">
+              <span className="txt-xl">
+                <span className="color-blue txt-bold">
                   OSM
                 </span>
                 Cha
               </span>
-              <span className="txt-xs fixed" style={{ top: 37, left: 18 }}>
+              <span
+                className="txt-xs txt-mono fixed"
+                style={{ top: 36, left: 16 }}
+              >
                 v{appVersion}{isDev && ' Dev'}{isLocal && ' Local'}
                 {isStaging && ' Staging'}
               </span>
@@ -103,29 +108,22 @@ class NavbarSidebar extends React.PureComponent {
                   pathname: '/about'
                 }}
               >
-                <svg className="icon icon--m inline-block align-middle color-gray-dark-on-hover ">
+                <svg className="icon icon--m inline-block align-middle bg-white color-darken25 color-darken50-on-hover transition">
                   <use xlinkHref="#icon-question" />
                 </svg>
               </Link>
               {this.props.token
                 ? <div className="dropdown mr3 pointer">
-                    <span onClick={this.openMenu}>
-                      <span className="btn btn--s bg-white color-gray border border--gray round">
-                        <span>
-                          {username && username.length > 10
-                            ? `${username.slice(0, 10)}..`
-                            : username}
-                        </span>
-                        <svg className="icon inline-block align-middle ">
-                          <use xlinkHref="#icon-chevron-down" />
-                        </svg>
-                      </span>
-                    </span>
+                    <Button onClick={this.openMenu} iconName="chevron-down">
+                      {username && username.length > 10
+                        ? `${username.slice(0, 10)}..`
+                        : username}
+                    </Button>
                     <div
-                      className="dropdown-content w240 z6 round p12"
+                      className="dropdown-content w120 z6 round px24 py12"
                       style={{
                         display: this.state.isMenuOpen ? 'block' : 'none',
-                        marginLeft: -90,
+                        marginLeft: -14,
                         marginTop: 10
                       }}
                     >
@@ -135,8 +133,9 @@ class NavbarSidebar extends React.PureComponent {
                 : <Button
                     onClick={this.handleLoginClick}
                     disable={!this.props.oAuthToken}
+                    iconName="osm"
                   >
-                    Sign In
+                    Sign in
                   </Button>}
             </div>
           }

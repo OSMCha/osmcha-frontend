@@ -1,20 +1,24 @@
 import React from 'react';
 
-export function Button({ active, onClick, children, icon, className }: Object) {
+export function Button({ onClick, children, iconName, className }: Object) {
   return (
     <button
       onClick={onClick}
-      className={`${className} btn btn--s color-gray border border--gray round bg-gray-faint bg-white-on-hover ${active
-        ? active
+      className={`${className ||
+        ''} btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition ${iconName &&
+        children
+        ? 'pl12 pr6'
         : ''}`}
     >
-      <span>
-
-        {children}
-      </span>
-
-      {icon}
-
+      {children}
+      {iconName &&
+        <svg
+          className={`icon inline-block align-middle ${children
+            ? 'pl3 pb3'
+            : 'pb3'}`}
+        >
+          <use xlinkHref={`#icon-${iconName}`} />
+        </svg>}
     </button>
   );
 }

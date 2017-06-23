@@ -45,7 +45,7 @@ export function Features({
     <div className="px12 py6">
       <div>
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
-          Flagged Features {features.size !== 0 ? features.size : ''}
+          Flagged Features {features.size !== 0 ? `(${features.size})` : ''}
         </h2>
         {features.size === 0
           ? <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
@@ -54,7 +54,7 @@ export function Features({
               </svg>
               <p className="txt-m">{`No features were flagged for ${changesetId}.`}</p>
             </div>
-          : <table className="table osmcha-custom-table mt12">
+          : <table className="table osmcha-custom-table my12">
               <thead>
                 <tr className="txt-s txt-uppercase">
                   <th>OSM Id</th>
