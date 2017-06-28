@@ -13,7 +13,7 @@ export function User({ userDetails, filterChangesetsByUser }) {
       </h2>
       <div className="flex-parent flex-parent--column align-items--center justify--space-between mb6">
         <div>
-          <Avatar size={128} url={userDetails.get('img')} />
+          <Avatar size={96} url={userDetails.get('img')} />
           <div className="mt6 txt-bold color-gray align-center">
             {userDetails.get('name')}
           </div>

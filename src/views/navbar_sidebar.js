@@ -67,7 +67,7 @@ class NavbarSidebar extends React.PureComponent {
     return (
       <div className="flex-parent flex-parent--column align-items--center justify--space-between">
         <div className="mb12">
-          <Avatar url={this.props.avatar} />
+          <Avatar size={72} url={this.props.avatar} />
           <div className="txt txt-bold color-gray align-center">
             {this.props.username}
           </div>
