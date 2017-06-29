@@ -2,8 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
-import Mousetrap from 'mousetrap';
 
+import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
 import { Tags } from '../components/changeset/tags';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../components/navbar';
@@ -42,55 +42,57 @@ class NavbarChangeset extends React.PureComponent {
       boolean | -1
     ) => mixed
   };
-  componentDidMount() {
-    Mousetrap.bind(VERIFY_BAD, () => {
-      this.props.currentChangeset &&
-        this.props.handleChangesetModifyHarmful(
-          this.props.changesetId,
-          this.props.currentChangeset,
-          true
-        );
-    });
-    Mousetrap.bind(VERIFY_CLEAR, () => {
-      this.props.currentChangeset &&
-        this.props.handleChangesetModifyHarmful(
-          this.props.changesetId,
-          this.props.currentChangeset,
-          -1
-        );
-    });
-    Mousetrap.bind(VERIFY_GOOD, () => {
-      this.props.currentChangeset &&
-        this.props.handleChangesetModifyHarmful(
-          this.props.changesetId,
-          this.props.currentChangeset,
-          false
-        );
-    });
-    Mousetrap.bind(OPEN_IN_JOSM, () => {
+  componentWillReceiveProps(nextProps) {
+    const bindingsState = this.props.bindingsState;
+    const nextBindingsState = nextProps.bindingsState;
+
+    if (!this.props.currentChangeset) return;
+    if (
+      bindingsState.get(VERIFY_BAD.label) !==
+      nextBindingsState.get(VERIFY_BAD.label)
+    ) {
+      this.props.handleChangesetModifyHarmful(
+        this.props.changesetId,
+        this.props.currentChangeset,
+        true
+      );
+    } else if (
+      bindingsState.get(VERIFY_CLEAR.label) !==
+      nextBindingsState.get(VERIFY_CLEAR.label)
+    ) {
+      this.props.handleChangesetModifyHarmful(
+        this.props.changesetId,
+        this.props.currentChangeset,
+        -1
+      );
+    } else if (
+      bindingsState.get(VERIFY_GOOD.label) !==
+      nextBindingsState.get(VERIFY_GOOD.label)
+    ) {
+      this.props.handleChangesetModifyHarmful(
+        this.props.changesetId,
+        this.props.currentChangeset,
+        false
+      );
+    } else if (
+      bindingsState.get(OPEN_IN_JOSM.label) !==
+      nextBindingsState.get(OPEN_IN_JOSM.label)
+    ) {
       if (!this.props.changesetId) return;
       const url = `https://127.0.0.1:8112/import?url=http://www.openstreetmap.org/api/0.6/changeset/${this
         .props.changesetId}/download`;
       window.open(url, '_blank');
-    });
-    Mousetrap.bind(OPEN_IN_HDYC, () => {
-      if (!this.props.currentChangeset) return;
+    } else if (
+      bindingsState.get(OPEN_IN_HDYC.label) !==
+      nextBindingsState.get(OPEN_IN_HDYC.label)
+    ) {
       const user: string = this.props.currentChangeset.getIn(
         ['properties', 'user'],
         ''
       );
       const url = `http://hdyc.neis-one.org/?${user}`;
       window.open(url, '_blank');
-    });
-  }
-  componentWillUnmount() {
-    [
-      ...VERIFY_BAD,
-      ...VERIFY_GOOD,
-      ...VERIFY_GOOD,
-      ...OPEN_IN_JOSM,
-      ...OPEN_IN_HDYC
-    ].forEach(k => Mousetrap.unbind(k));
+    }
   }
   handleVerify = (arr: Array<Object>) => {
     if (arr.length === 1) {
@@ -199,6 +201,12 @@ class NavbarChangeset extends React.PureComponent {
     );
   }
 }
+
+NavbarChangeset = keyboardToggleEnhancer(
+  false,
+  [VERIFY_BAD, VERIFY_GOOD, VERIFY_CLEAR, OPEN_IN_JOSM, OPEN_IN_HDYC],
+  NavbarChangeset
+);
 
 NavbarChangeset = connect(
   (state: RootStateType, props) => ({

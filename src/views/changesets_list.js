@@ -2,7 +2,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { List as ImmutableList, Map, fromJS } from 'immutable';
-import Mousetrap from 'mousetrap';
 import { NavLink } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import numberWithCommas from '../utils/number_with_commas.js';
@@ -13,22 +12,19 @@ import {
   getChangesetsPage,
   applyFilters
 } from '../store/changesets_page_actions';
-import {
-  getOAuthToken,
-  getFinalToken,
-  logUserOut
-} from '../store/auth_actions';
 
 import { List } from '../components/list';
 import { Button } from '../components/button';
 import { PageRange } from '../components/list/page_range';
 import { Dropdown } from '../components/dropdown';
+import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
 
 import {
   NEXT_CHANGESET,
   PREV_CHANGESET,
   FILTER_BINDING
 } from '../config/bindings';
+
 import { PAGE_SIZE } from '../config/constants';
 
 import filters from '../config/filters.json';
@@ -43,20 +39,14 @@ class ChangesetsList extends React.PureComponent {
     location: Object,
     loading: boolean,
     error: Object,
-    style: Object,
     currentPage: ?Map<string, *>,
-    userDetails: Map<string, *>,
     diff: number,
     diffLoading: boolean,
     pageIndex: number,
     activeChangesetId: ?number,
-    oAuthToken: ?string,
-    token: ?string,
     filters: Map<string, ImmutableList<*>>,
+    bindingsState: Map<string, *>,
     getChangesetsPage: (number, ?boolean) => mixed, // base 0
-    getOAuthToken: () => mixed,
-    getFinalToken: string => mixed,
-    logUserOut: () => mixed,
     push: Object => mixed,
     applyFilters: (Map<string, ImmutableList<*>>) => mixed // base 0
   };
@@ -65,6 +55,7 @@ class ChangesetsList extends React.PureComponent {
     super(props);
     this.props.getChangesetsPage(props.pageIndex);
   }
+
   goUpDownToChangeset = (direction: number) => {
     if (!this.props.currentPage) return;
     let features = this.props.currentPage.get('features');
@@ -83,8 +74,14 @@ class ChangesetsList extends React.PureComponent {
       }
     }
   };
-  componentDidMount() {
-    Mousetrap.bind(FILTER_BINDING, () => {
+
+  componentWillReceiveProps(nextProps) {
+    const bindingsState = this.props.bindingsState;
+    const nextBindingsState = nextProps.bindingsState;
+    if (
+      bindingsState.get(FILTER_BINDING.label) !==
+      nextBindingsState.get(FILTER_BINDING.label)
+    ) {
       if (this.props.location && this.props.location.pathname === '/filters') {
         const location = {
           ...this.props.location, //  clone it
@@ -98,16 +95,21 @@ class ChangesetsList extends React.PureComponent {
         };
         this.props.push(location);
       }
-    });
-    Mousetrap.bind(NEXT_CHANGESET, e => {
-      e.preventDefault();
+    }
+    if (
+      bindingsState.get(NEXT_CHANGESET.label) !==
+      nextBindingsState.get(NEXT_CHANGESET.label)
+    ) {
       this.goUpDownToChangeset(1);
-    });
-    Mousetrap.bind(PREV_CHANGESET, e => {
-      e.preventDefault();
+    }
+    if (
+      bindingsState.get(PREV_CHANGESET.label) !==
+      nextBindingsState.get(PREV_CHANGESET.label)
+    ) {
       this.goUpDownToChangeset(-1);
-    });
+    }
   }
+
   handleFilterOrderBy = (selected: Array<*>) => {
     let mergedFilters;
     mergedFilters = this.props.filters.set('order_by', fromJS(selected));
@@ -232,29 +234,28 @@ class ChangesetsList extends React.PureComponent {
   }
 }
 
+ChangesetsList = keyboardToggleEnhancer(
+  false,
+  [NEXT_CHANGESET, PREV_CHANGESET, FILTER_BINDING],
+  ChangesetsList
+);
+
 ChangesetsList = connect(
   (state: RootStateType, props) => ({
-    routing: state.routing,
     location: state.routing.location,
-    currentPage: state.changesetsPage.get('currentPage'),
-    pageIndex: state.changesetsPage.get('pageIndex') || 0,
-    diffLoading: state.changesetsPage.get('diffLoading'),
-    filters: state.changesetsPage.get('filters') || new Map(),
-    diff: state.changesetsPage.get('diff'),
     loading: state.changesetsPage.get('loading'),
     error: state.changesetsPage.get('error'),
-    oAuthToken: state.auth.get('oAuthToken'),
-    userDetails: state.auth.get('userDetails'),
-    token: state.auth.get('token'),
-    activeChangesetId: state.changeset.get('changesetId')
+    currentPage: state.changesetsPage.get('currentPage'),
+    diff: state.changesetsPage.get('diff'),
+    diffLoading: state.changesetsPage.get('diffLoading'),
+    pageIndex: state.changesetsPage.get('pageIndex') || 0,
+    activeChangesetId: state.changeset.get('changesetId'),
+    filters: state.changesetsPage.get('filters') || Map()
   }),
   {
     // actions
     getChangesetsPage,
-    getOAuthToken,
-    getFinalToken,
     applyFilters,
-    logUserOut,
     push
   }
 )(ChangesetsList);

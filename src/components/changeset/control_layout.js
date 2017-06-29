@@ -1,0 +1,95 @@
+import React from 'react';
+import { Map, List } from 'immutable';
+
+import { Control } from './control';
+import { Floater } from './floater';
+
+import {
+  CHANGESET_DETAILS_DETAILS,
+  CHANGESET_DETAILS_SUSPICIOUS,
+  CHANGESET_DETAILS_USER,
+  CHANGESET_DETAILS_DISCUSSIONS,
+  CHANGESET_DETAILS_MAP
+} from '../../config/bindings';
+
+export function ControlLayout({
+  bindingsState,
+  features,
+  left,
+  discussions,
+  toggleDetails,
+  toggleFeatures,
+  toggleDiscussions,
+  toggleUser,
+  toggleMapOptions
+}) {
+  return (
+    <Floater
+      style={{
+        top: 55 * 1.1,
+        width: 80,
+        left: left - 15
+      }}
+    >
+      <Control
+        active={bindingsState.get(CHANGESET_DETAILS_DETAILS.label)}
+        onClick={toggleDetails}
+        bg={'gray-faint'}
+        className="unround-r unround-bl"
+      >
+        <svg className="icon inline-block align-middle ">
+          <use xlinkHref="#icon-eye" />
+        </svg>
+      </Control>
+      <Control
+        active={bindingsState.get(CHANGESET_DETAILS_SUSPICIOUS.label)}
+        onClick={toggleFeatures}
+        bg={'gray-faint'}
+        className="unround"
+      >
+        <svg
+          className={`icon inline-block align-middle ${features &&
+            features.size == 0
+            ? 'color-darken25'
+            : 'color-black'}`}
+        >
+          <use xlinkHref="#icon-alert" />
+        </svg>
+      </Control>
+      <Control
+        active={bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label)}
+        onClick={toggleDiscussions}
+        bg={'white'}
+        className="unround"
+      >
+        <svg
+          className={`icon inline-block align-middle ${discussions.size == 0
+            ? 'color-darken25'
+            : 'color-black'}`}
+        >
+          <use xlinkHref="#icon-contact" />
+        </svg>
+      </Control>
+      <Control
+        active={bindingsState.get(CHANGESET_DETAILS_USER.label)}
+        onClick={toggleUser}
+        bg={'white'}
+        className="unround"
+      >
+        <svg className="icon inline-block align-middle">
+          <use xlinkHref="#icon-user" />
+        </svg>
+      </Control>
+      <Control
+        active={bindingsState.get(CHANGESET_DETAILS_MAP.label)}
+        onClick={toggleMapOptions}
+        bg={'white'}
+        className="unround-r unround-tl"
+      >
+        <svg className="icon inline-block align-middle">
+          <use xlinkHref="#icon-map" />
+        </svg>
+      </Control>
+    </Floater>
+  );
+}

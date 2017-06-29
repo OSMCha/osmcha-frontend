@@ -1,7 +1,6 @@
 // @flow
-export function cancelablePromise(
-  promise: Promise<*>
-): { promise: Promise<*>, cancel: () => any } {
+export type cancelablePromiseType = { promise: Promise<*>, cancel: () => any };
+export function cancelablePromise(promise: Promise<*>): cancelablePromiseType {
   let hasCanceled_ = false;
 
   const wrappedPromise = new Promise((resolve, reject) => {
