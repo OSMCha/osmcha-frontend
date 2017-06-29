@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { List as ImmutableList, Map, fromJS } from 'immutable';
+import { is, List as ImmutableList, Map, fromJS } from 'immutable';
 import { NavLink } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import numberWithCommas from '../utils/number_with_commas.js';
@@ -45,7 +45,7 @@ class ChangesetsList extends React.PureComponent {
     pageIndex: number,
     activeChangesetId: ?number,
     filters: Map<string, ImmutableList<*>>,
-    bindingsState: Map<string, *>,
+    lastKeyStroke: Map<string, *>,
     getChangesetsPage: (number, ?boolean) => mixed, // base 0
     push: Object => mixed,
     applyFilters: (Map<string, ImmutableList<*>>) => mixed // base 0
@@ -74,39 +74,41 @@ class ChangesetsList extends React.PureComponent {
       }
     }
   };
-
+  toggleFilters() {
+    if (this.props.location && this.props.location.pathname === '/filters') {
+      const location = {
+        ...this.props.location, //  clone it
+        pathname: '/'
+      };
+      this.props.push(location);
+    } else {
+      const location = {
+        ...this.props.location, //  clone it
+        pathname: '/filters'
+      };
+      this.props.push(location);
+    }
+  }
   componentWillReceiveProps(nextProps) {
-    const bindingsState = this.props.bindingsState;
-    const nextBindingsState = nextProps.bindingsState;
-    if (
-      bindingsState.get(FILTER_BINDING.label) !==
-      nextBindingsState.get(FILTER_BINDING.label)
-    ) {
-      if (this.props.location && this.props.location.pathname === '/filters') {
-        const location = {
-          ...this.props.location, //  clone it
-          pathname: '/'
-        };
-        this.props.push(location);
-      } else {
-        const location = {
-          ...this.props.location, //  clone it
-          pathname: '/filters'
-        };
-        this.props.push(location);
+    const lastKeyStroke: Map<string, *> = nextProps.lastKeyStroke;
+    if (is(this.props.lastKeyStroke, lastKeyStroke)) return;
+    var string = lastKeyStroke.keySeq().first();
+    switch (string) {
+      case FILTER_BINDING.label: {
+        this.toggleFilters();
+        break;
       }
-    }
-    if (
-      bindingsState.get(NEXT_CHANGESET.label) !==
-      nextBindingsState.get(NEXT_CHANGESET.label)
-    ) {
-      this.goUpDownToChangeset(1);
-    }
-    if (
-      bindingsState.get(PREV_CHANGESET.label) !==
-      nextBindingsState.get(PREV_CHANGESET.label)
-    ) {
-      this.goUpDownToChangeset(-1);
+      case NEXT_CHANGESET.label: {
+        this.goUpDownToChangeset(1);
+        break;
+      }
+      case PREV_CHANGESET.label: {
+        this.goUpDownToChangeset(-1);
+        break;
+      }
+      default: {
+        return;
+      }
     }
   }
 

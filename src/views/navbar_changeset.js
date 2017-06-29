@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { Map } from 'immutable';
+import { is, Map } from 'immutable';
 
 import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
 import { Tags } from '../components/changeset/tags';
@@ -30,6 +30,7 @@ class NavbarChangeset extends React.PureComponent {
     location: Object,
     currentChangeset: Map<string, *>,
     username: ?string,
+    lastKeyStroke: Map<string, *>,
     handleChangesetModifyTag: (
       number,
       Map<string, *>,
@@ -43,55 +44,53 @@ class NavbarChangeset extends React.PureComponent {
     ) => mixed
   };
   componentWillReceiveProps(nextProps) {
-    const bindingsState = this.props.bindingsState;
-    const nextBindingsState = nextProps.bindingsState;
-
     if (!this.props.currentChangeset) return;
-    if (
-      bindingsState.get(VERIFY_BAD.label) !==
-      nextBindingsState.get(VERIFY_BAD.label)
-    ) {
-      this.props.handleChangesetModifyHarmful(
-        this.props.changesetId,
-        this.props.currentChangeset,
-        true
-      );
-    } else if (
-      bindingsState.get(VERIFY_CLEAR.label) !==
-      nextBindingsState.get(VERIFY_CLEAR.label)
-    ) {
-      this.props.handleChangesetModifyHarmful(
-        this.props.changesetId,
-        this.props.currentChangeset,
-        -1
-      );
-    } else if (
-      bindingsState.get(VERIFY_GOOD.label) !==
-      nextBindingsState.get(VERIFY_GOOD.label)
-    ) {
-      this.props.handleChangesetModifyHarmful(
-        this.props.changesetId,
-        this.props.currentChangeset,
-        false
-      );
-    } else if (
-      bindingsState.get(OPEN_IN_JOSM.label) !==
-      nextBindingsState.get(OPEN_IN_JOSM.label)
-    ) {
-      if (!this.props.changesetId) return;
-      const url = `https://127.0.0.1:8112/import?url=http://www.openstreetmap.org/api/0.6/changeset/${this
-        .props.changesetId}/download`;
-      window.open(url, '_blank');
-    } else if (
-      bindingsState.get(OPEN_IN_HDYC.label) !==
-      nextBindingsState.get(OPEN_IN_HDYC.label)
-    ) {
-      const user: string = this.props.currentChangeset.getIn(
-        ['properties', 'user'],
-        ''
-      );
-      const url = `http://hdyc.neis-one.org/?${user}`;
-      window.open(url, '_blank');
+    const lastKeyStroke: Map<string, *> = nextProps.lastKeyStroke;
+    if (is(this.props.lastKeyStroke, lastKeyStroke)) return;
+    switch (lastKeyStroke.keySeq().first()) {
+      case VERIFY_BAD.label: {
+        this.props.handleChangesetModifyHarmful(
+          this.props.changesetId,
+          this.props.currentChangeset,
+          true
+        );
+        break;
+      }
+      case VERIFY_CLEAR.label: {
+        this.props.handleChangesetModifyHarmful(
+          this.props.changesetId,
+          this.props.currentChangeset,
+          -1
+        );
+        break;
+      }
+      case VERIFY_GOOD.label: {
+        this.props.handleChangesetModifyHarmful(
+          this.props.changesetId,
+          this.props.currentChangeset,
+          false
+        );
+        break;
+      }
+      case OPEN_IN_JOSM.label: {
+        if (!this.props.changesetId) return;
+        const url = `https://127.0.0.1:8112/import?url=http://www.openstreetmap.org/api/0.6/changeset/${this
+          .props.changesetId}/download`;
+        window.open(url, '_blank');
+        break;
+      }
+      case OPEN_IN_HDYC.label: {
+        const user: string = this.props.currentChangeset.getIn(
+          ['properties', 'user'],
+          ''
+        );
+        const url = `http://hdyc.neis-one.org/?${user}`;
+        window.open(url, '_blank');
+        break;
+      }
+      default: {
+        return;
+      }
     }
   }
   handleVerify = (arr: Array<Object>) => {
