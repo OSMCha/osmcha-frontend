@@ -27,7 +27,7 @@ export function keyboardToggleEnhancer(
     }
 
     // allow toggling the state of a particular key
-    toggleKey = label => {
+    toggleKey = (label: string) => {
       let prev = this.state.bindings;
       let lastKeyStroke = Map().set(label, !prev.get(label));
       prev = prev.set(label, !prev.get(label));

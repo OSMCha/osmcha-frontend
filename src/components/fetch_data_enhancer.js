@@ -25,12 +25,12 @@ export function withFetchDataSilent(
       this.initFetching(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: Object) {
       if (onUpdate(nextProps, this.props)) {
         this.initFetching(nextProps);
       }
     }
-    initFetching(props) {
+    initFetching(props: Object) {
       console.log('initialize fetching');
       const keys = Object.keys(dataToFetch);
       // Collect array of promises, one for each api request
