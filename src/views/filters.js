@@ -110,7 +110,9 @@ export class _Filters extends React.PureComponent {
       placeholder: f.placeholder,
       options: f.options || [],
       onChange: this.handleChange,
-      dataURL: f.data_url
+      dataURL: f.data_url,
+      min: f.min,
+      max: f.max
     };
     const wrapperProps = {
       name: f.name,
@@ -121,6 +123,9 @@ export class _Filters extends React.PureComponent {
       description: this.state.active === f.name && f.description
     };
     if (f.range) {
+      const gteValue = this.state.filters.get(f.name + '__gte');
+      const lteValue = this.state.filters.get(f.name + '__lte');
+      const today = moment().format('YYYY-MM-DD');
       return (
         <Wrapper
           {...wrapperProps}
@@ -134,14 +139,21 @@ export class _Filters extends React.PureComponent {
               {...propsToSend}
               className="mr3"
               name={f.name + '__gte'}
-              value={this.state.filters.get(f.name + '__gte')}
+              value={gteValue}
               placeholder={'from'}
+              min={f.type === 'number' && 0}
+              max={
+                (lteValue && lteValue.getIn([0, 'value'])) ||
+                (f.type === 'date' && today)
+              }
             />
             <Text
               {...propsToSend}
               name={f.name + '__lte'}
-              value={this.state.filters.get(f.name + '__lte')}
+              value={lteValue}
               placeholder={'to'}
+              min={gteValue && gteValue.getIn([0, 'value'])}
+              max={f.type === 'date' && today}
             />
           </span>
         </Wrapper>

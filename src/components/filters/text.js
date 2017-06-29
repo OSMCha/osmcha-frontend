@@ -13,7 +13,9 @@ export class Text extends React.PureComponent {
     value: List<InputType>,
     className: string,
     disabled: ?boolean,
-    onChange: (string, ?List<InputType>) => any
+    onChange: (string, ?List<InputType>) => any,
+    min: ?string,
+    max: ?string
   };
   static defaultProps = {
     className: ''
@@ -45,7 +47,9 @@ export class Text extends React.PureComponent {
       display,
       value,
       className,
-      disabled
+      disabled,
+      min,
+      max
     } = this.props;
     return (
       <input
@@ -56,6 +60,8 @@ export class Text extends React.PureComponent {
         onChange={this.handleFormChange}
         type={type}
         placeholder={placeholder || display}
+        min={min}
+        max={max}
       />
     );
   }
