@@ -60,7 +60,7 @@ export function User({ userDetails, filterChangesetsByUser }) {
         {userDetails.has('otherNames') &&
           userDetails.get('otherNames').size > 1 &&
           <div className="txt-s color-gray">
-            Past Names: &nbsp;
+            Past usernames: &nbsp;
             {userDetails
               .get('otherNames')
               .slice(0, -1)
