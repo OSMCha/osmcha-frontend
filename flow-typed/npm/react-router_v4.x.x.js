@@ -1,5 +1,5 @@
-// flow-typed signature: 6754d868bed664ee0e73f1799c67e2a1
-// flow-typed version: 777f182c85/react-router_v4.x.x/flow_>=v0.38.x
+// flow-typed signature: adb142abf7ee0f170d31ca569b5e94a7
+// flow-typed version: 02d9734356/react-router_v4.x.x/flow_>=v0.38.x
 
 declare module 'react-router' {
   // NOTE: many of these are re-exported by react-router-dom and
@@ -44,7 +44,7 @@ declare module 'react-router' {
   };
 
   declare export type Match = {
-    params: Object,
+    params: { [key: string]: ?string },
     isExact: boolean,
     path: string,
     url: string
