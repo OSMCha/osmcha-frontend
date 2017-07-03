@@ -1,18 +1,21 @@
 // @flow
 import { put, call, take, fork, select, cancel } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
 import { fromJS, Map, List } from 'immutable';
-import { LOCATION_CHANGE, push } from 'react-router-redux';
+import { LOCATION_CHANGE, replace, push } from 'react-router-redux';
+import notifications from '../config/notifications';
 
 import { fetchChangeset, setHarmful, setTag } from '../network/changeset';
-import * as errorMessages from '../config/error_messages';
 
-import { getChangesetIdFromLocation } from '../utils/routing';
+import {
+  getChangesetIdFromLocation,
+  checkForLegacyURL
+} from '../utils/routing';
 
 import type { RootStateType } from './';
-
+import { modal } from './modal_actions';
 import { CHANGESET_PAGE_MODIFY_CHANGESET } from './changesets_page_actions';
-import { INIT_MODAL } from './modal_actions';
 
 export const CHANGESET_GET = 'CHANGESET_GET';
 export const CHANGESET_FETCHED = 'CHANGESET_FETCHED';
@@ -71,11 +74,25 @@ export function* watchChangeset(): any {
   let changesetTask;
   let changesetMapTask;
   while (true) {
-    const location = yield take(LOCATION_CHANGE);
+    const { payload: location } = yield take(LOCATION_CHANGE);
     // cancel any existing changeset tasks,
     // even if it doesnt change to `changesets/:id`
     // we anway would like to suspend the ongoing task
     // to save resouces
+
+    // checks for the old osmcha style urls
+    // eg osmcha.mapbox.com/34354242 and redirects them
+    // to osmcha.mapbox.com/changesets/3432434
+    const legacy = checkForLegacyURL(location);
+    if (legacy) {
+      yield put(
+        replace({
+          ...location,
+          pathname: '/changesets/' + legacy
+        })
+      );
+      continue;
+    }
     if (changesetTask) yield cancel(changesetTask);
     if (changesetMapTask) yield cancel(changesetMapTask);
 
@@ -110,12 +127,8 @@ export function* watchModifyChangeset(): any {
     }));
     if (!token) {
       yield put(
-        action(INIT_MODAL, {
-          payload: {
-            kind: 'warning',
-            title: errorMessages.NOT_LOGGED_IN.title,
-            description: errorMessages.NOT_LOGGED_IN.description()
-          }
+        modal({
+          ...notifications.NOT_LOGGED_IN
         })
       );
       continue;
@@ -162,28 +175,9 @@ export function* watchModifyChangeset(): any {
           changeset: oldChangeset
         })
       );
-      var messageToDisplay;
-      switch (error.message) {
-        case errorMessages.ADD_TAG_TO_UNCHECKED.serverMessage:
-          messageToDisplay = errorMessages.ADD_TAG_TO_UNCHECKED;
-          break;
-        case errorMessages.ADD_TAG_TO_CHECKED_BY_OTHER.serverMessage:
-          messageToDisplay = errorMessages.ADD_TAG_TO_CHECKED_BY_OTHER;
-          break;
-        case errorMessages.ADD_TAG_NO_PERMISSION.serverMessage:
-          messageToDisplay = errorMessages.ADD_TAG_NO_PERMISSION;
-          break;
-        default:
-          messageToDisplay = errorMessages.ADD_TAG_DEFAULT;
-      }
       yield put(
-        action(INIT_MODAL, {
-          payload: {
-            error,
-            autoDismiss: 0,
-            title: messageToDisplay.title,
-            description: messageToDisplay.description(changesetId)
-          }
+        modal({
+          error
         })
       );
     }
@@ -195,16 +189,6 @@ export function* watchModifyChangeset(): any {
           changeset: newChangeset
         })
       );
-      yield put(
-        action(INIT_MODAL, {
-          payload: {
-            kind: 'success',
-            autoDismiss: 1,
-            title: 'Success',
-            description: `${changesetId} was modified successfully`
-          }
-        })
-      );
     }
   }
 }
@@ -212,7 +196,7 @@ export function* watchModifyChangeset(): any {
 /** Sagas **/
 export function* fetchChangesetAction(changesetId: number): Object {
   let changeset = yield select((state: RootStateType) =>
-    state.changeset.get('changesets').get(changesetId)
+    state.changeset.getIn(['changesets', changesetId])
   );
   // check if the changeset already exists
   // if it does make it active and exit
@@ -250,19 +234,13 @@ export function* fetchChangesetAction(changesetId: number): Object {
     const location = yield select(
       (state: RootStateType) => state.routing.location
     );
+    error.name = `Changeset:${changesetId} failed`;
     yield put(
-      action(INIT_MODAL, {
-        payload: {
-          error,
-          kind: 'error',
-          dismiss: true,
-          autoDismiss: 0,
-          title: 'Changeset Details Failed',
-          description: `Changeset Details for ID: ${changesetId} failed to load, please wait for a while and click retry.`,
-          callbackLabel: `Retry ${changesetId}`
-        },
+      modal({
+        error,
         callback: push,
-        callbackArgs: [location]
+        callbackArgs: [location],
+        callbackLabel: 'Retry'
       })
     );
   }
@@ -271,7 +249,7 @@ export function* fetchChangesetAction(changesetId: number): Object {
 export function* fetchChangesetMapAction(changesetId: number): Object {
   let getCMapData;
   let changesetMap = yield select((state: RootStateType) =>
-    state.changeset.get('changesetMap').get(changesetId)
+    state.changeset.getIn(['changesetMap', changesetId])
   );
   if (changesetMap) {
     yield put(
@@ -312,19 +290,13 @@ export function* fetchChangesetMapAction(changesetId: number): Object {
     const location = yield select(
       (state: RootStateType) => state.routing.location
     );
+    error.name = `Changeset:${changesetId} Map failed`;
     yield put(
-      action(INIT_MODAL, {
-        payload: {
-          error,
-          kind: 'error',
-          dismiss: true,
-          autoDismiss: 0,
-          title: 'Changeset Map Failed',
-          description: `Changeset map for ID: ${changesetId} failed to load, please wait for a while and click retry.`,
-          callbackLabel: `Retry ${changesetId}`
-        },
+      modal({
+        error,
         callback: push,
-        callbackArgs: [location]
+        callbackArgs: [location],
+        callbackLabel: 'Retry'
       })
     );
   }

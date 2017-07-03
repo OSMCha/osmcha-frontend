@@ -2,39 +2,15 @@
 
 exports[`renders correctly 1`] = `
 <ul
-  className="flex-parent flex-parent--column scroll-auto flex-child--grow"
+  className="flex-parent flex-parent--column scroll-styled scroll-auto flex-child--grow"
 >
   <div>
-    <span
-      className="border-l border-b border-b--1 border-l--4 border-color-neutral px12 py3 bg-gray-faint flex-child flex-child--grow align-items--center"
-    >
-      <span
-        className="flex-parent flex-parent--row justify--space-between color-gray txt-s txt-bold"
-      >
-        <span>
-          Results:
-           
-          3371
-        </span>
-        <span
-          onClick={[Function]}
-        >
-          <svg
-            className="icon inline-block align-middle pointer"
-          >
-            <use
-              xlinkHref="#icon-rotate"
-            />
-          </svg>
-        </span>
-      </span>
-    </span>
     <a
       href="/changesets/49434773"
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -66,12 +42,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #maproulette Self-Intersecting_ways
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -79,11 +59,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49434773
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -122,7 +108,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -154,21 +140,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   openings tijden
                 </p>
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    
                   </span>
                 </span>
-                <span />
               </span>
             </div>
             <div>
@@ -176,11 +167,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425589
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -219,7 +216,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -251,12 +248,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Potsdam Golm Hausnummern Am Golmer Weinberg
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -264,11 +265,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425588
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -307,7 +314,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -339,21 +346,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Fixed a footpath that ends in some stairs, kind of.
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       suspect_word
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -361,11 +373,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425587
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -404,7 +422,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className="light-blue border-l border-l--4 border-color-bad transition"
+        className="light-blue border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -418,7 +436,7 @@ exports[`renders correctly 1`] = `
                   className="flex-parent flex-parent--row justify--space-between align-items--center"
                 >
                   <span
-                    className="txt-m  mt3 mr6"
+                    className="txt-m txt-bold mt3 mr6"
                   >
                     khuc tinh ca
                   </span>
@@ -436,12 +454,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Tuyến 110kv Đức Trọng - Đa Dâng 2
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -449,11 +471,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425586
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -492,7 +520,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -524,12 +552,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   added Surveillance Camera
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -537,11 +569,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425585
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -580,7 +618,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -612,21 +650,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Duplicate nodes fixed
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       suspect_word
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -634,11 +677,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425584
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -677,7 +726,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -709,21 +758,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   added Surveillance Camera
                 </p>
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    
                   </span>
                 </span>
-                <span />
               </span>
             </div>
             <div>
@@ -731,11 +785,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425583
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -774,7 +834,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -806,12 +866,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -819,11 +883,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425580
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -862,7 +932,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -894,12 +964,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Grundrisse korrigiert.
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -907,11 +981,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425579
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -950,7 +1030,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -982,12 +1062,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Added  house
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -995,11 +1079,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425578
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1038,7 +1128,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1070,12 +1160,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Sapienza University indoor mapping
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1083,11 +1177,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425321
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1126,7 +1226,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1158,12 +1258,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   details from survey
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1171,11 +1275,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49425320
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1214,7 +1324,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1246,12 +1356,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Umbenennung in Günzburger Str. und einige Häuser
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1259,11 +1373,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422408
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1302,7 +1422,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1334,12 +1454,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   FR38 LA MORTE  Rapprochement BANO + Landuse et autres ajouts
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1347,11 +1471,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422407
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1390,7 +1520,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1422,12 +1552,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Дороги, проїзди
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1435,11 +1569,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422406
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1478,7 +1618,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1510,12 +1650,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Pleubian
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1523,11 +1667,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422404
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1566,7 +1716,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1598,12 +1748,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1611,11 +1765,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422403
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1654,7 +1814,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1686,21 +1846,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Created a place_of_worship
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       New mapper
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1708,11 +1873,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422402
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1751,7 +1922,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1783,12 +1954,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   neue Objekte
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1796,11 +1971,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49422401
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1839,7 +2020,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1871,12 +2052,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Ajout d'un acacia
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1884,11 +2069,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49415911
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -1927,7 +2118,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -1959,21 +2150,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Ruianized buildings
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       mass modification
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -1981,11 +2177,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49415909
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2024,7 +2226,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2056,21 +2258,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Add recycling centre
                 </p>
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       notfixed
                     </span>
-                    
                   </span>
                 </span>
-                <span />
               </span>
             </div>
             <div>
@@ -2078,11 +2285,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49415333
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2121,7 +2334,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2153,28 +2366,34 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Burkina Faso, réseau routier consolidé vs gROADS#hotosm-project-1245
                 </p>
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
-                    >
-                      intentional
-                    </span>
-                    
-                  </span>
-                </span>
-                <span>
-                  <span>
-                    <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       possible import
                     </span>
-                    
+                  </span>
+                </span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
+                    <span
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
+                    >
+                      intentional
+                    </span>
                   </span>
                 </span>
               </span>
@@ -2184,11 +2403,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49395399
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2227,7 +2452,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2259,21 +2484,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   +
                 </p>
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    
                   </span>
                 </span>
-                <span />
               </span>
             </div>
             <div>
@@ -2281,11 +2511,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394957
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2324,7 +2560,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2356,28 +2592,34 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Created a caravan_site and a government office
                 </p>
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
-                    >
-                      very-severe
-                    </span>
-                    
-                  </span>
-                </span>
-                <span>
-                  <span>
-                    <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       New mapper
                     </span>
-                    
+                  </span>
+                </span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
+                    <span
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
+                    >
+                      very-severe
+                    </span>
                   </span>
                 </span>
               </span>
@@ -2387,11 +2629,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394955
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2430,7 +2678,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2462,21 +2710,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   +
                 </p>
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    
                   </span>
                 </span>
-                <span />
               </span>
             </div>
             <div>
@@ -2484,11 +2737,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394218
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2527,7 +2786,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2559,12 +2818,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2572,11 +2835,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394216
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2615,7 +2884,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2647,12 +2916,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3100 #MissingMaps #Malawi #rodekruis #redcross #has20170606 #kragten20170608
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2660,11 +2933,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394193
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2703,7 +2982,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2735,12 +3014,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   osmose corrections
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2748,11 +3031,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394192
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2791,7 +3080,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2823,21 +3112,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   keepright fixes in NW Victoria
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       suspect_word
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2845,11 +3139,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394191
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2888,7 +3188,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -2920,12 +3220,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   улица
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -2933,11 +3237,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394190
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -2976,7 +3286,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3008,12 +3318,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   added road geoetry and name
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3021,11 +3335,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394054
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3064,7 +3384,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3096,12 +3416,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3144 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3109,11 +3433,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394053
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3152,7 +3482,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3184,12 +3514,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Mise à jour d'information
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3197,11 +3531,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394052
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3240,7 +3580,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3272,12 +3612,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3285,11 +3629,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394051
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3328,7 +3678,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3360,12 +3710,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3144 #MissingMaps #EliminateMalaria #Zimbabwe #TeamGoodMappers #danielzyt
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3373,11 +3727,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394050
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3416,7 +3776,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3448,21 +3808,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Fix wandelnetwerk: typos
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       suspect_word
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3470,11 +3835,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49394006
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3513,7 +3884,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3545,12 +3916,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   highway: name added
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3558,11 +3933,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49393772
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3601,7 +3982,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3633,12 +4014,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-task-313, #YouthMappers#scfuta
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3646,11 +4031,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49393771
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3689,7 +4080,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3721,12 +4112,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   incrocio con fosso
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3734,11 +4129,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49392269
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3777,7 +4178,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3809,12 +4210,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Rajshahi University of Engineering and Technology (RUET)
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3822,11 +4227,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49392165
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3865,7 +4276,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3897,12 +4308,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Adding houses, sidewalks, vegetation, businesses, roads and other pertinent information.
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -3910,11 +4325,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49389572
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -3953,7 +4374,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -3985,21 +4406,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Precisions
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Unknown iD instance
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4007,11 +4433,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49389571
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -4050,7 +4482,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4082,12 +4514,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Updated a nightclub
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4095,11 +4531,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49388715
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -4138,7 +4580,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4170,12 +4612,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   По ГИС ФГБУ «Национальный парк «Смоленское Поозерье»
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4183,11 +4629,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49388188
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -4226,7 +4678,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4258,12 +4710,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Minor roads
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4271,11 +4727,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49366826
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -4314,7 +4776,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4346,21 +4808,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   keepright fixes in NW Victoria
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       suspect_word
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4368,11 +4835,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49366696
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     wille
                   </span>
@@ -4411,7 +4884,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4443,12 +4916,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   ё
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4456,11 +4933,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49362633
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     andygol
                   </span>
@@ -4499,7 +4982,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4531,12 +5014,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Modification de lieux
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4544,11 +5031,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49359048
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -4587,7 +5080,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4619,12 +5112,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3133 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4632,11 +5129,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358871
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -4675,7 +5178,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4707,12 +5210,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   corrected road name
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4720,11 +5227,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358870
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -4763,7 +5276,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4795,12 +5308,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Not reported
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4808,11 +5325,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358869
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -4851,7 +5374,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4883,12 +5406,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   added Post Box
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4896,11 +5423,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358868
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -4939,7 +5472,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -4971,12 +5504,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   בניין
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -4984,11 +5521,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358867
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5027,7 +5570,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5059,12 +5602,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   POI NEW
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5072,11 +5619,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358865
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5115,7 +5668,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5147,12 +5700,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Žymėjimo tvarkymai
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5160,11 +5717,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358864
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5203,7 +5766,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5235,13 +5798,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Irak, Mosul, #hotosm-task-562: added buildings
                   source=Bing
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5249,11 +5816,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358863
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5292,7 +5865,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5324,12 +5897,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   oneway:except=psv durch oneway:psv=no ersetzt; oneway:bicycle=no gelöscht wo cycleway=opposite getagged ist
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5337,11 +5914,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358862
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5380,7 +5963,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5412,12 +5995,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-2768
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5425,11 +6012,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49358861
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5468,7 +6061,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5500,29 +6093,35 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   change of large building tag to industrial
                 </p>
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       very-severe
                     </span>
-                    
                   </span>
                 </span>
-                <span />
               </span>
             </div>
             <div>
@@ -5530,11 +6129,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49354335
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -5573,7 +6178,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5605,21 +6210,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #TanzaniaDevelopmentTrust #Tanzania #missingmaps #hotosm-project-2609
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5627,11 +6237,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49349235
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5670,7 +6286,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5702,21 +6318,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Osmose, BD Ortho IGN, Cadastre
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5724,11 +6345,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49338301
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5767,7 +6394,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5799,29 +6426,35 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-1945 #maplesotho #mlmstask
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       possible import
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5829,11 +6462,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49331026
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5872,7 +6511,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -5904,21 +6543,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Улучшаю
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -5926,11 +6570,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49330639
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -5969,7 +6619,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6001,29 +6651,35 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Красный Яр
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       possible import
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6031,11 +6687,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49330579
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -6074,7 +6736,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6106,12 +6768,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3132 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6119,11 +6785,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49330260
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -6162,7 +6834,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-bad transition"
+        className=" border-l border-l--4 border-color-bad"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6194,12 +6866,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Road created
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6207,11 +6883,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329865
                   </span>
                   <span>
-                    👎 
+                    <img
+                      alt="Marked as bad"
+                      className="icon inline-block"
+                      src="thumbs-down.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -6250,7 +6932,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6282,29 +6964,35 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-task-366 #OSMBD #BHOOT #MissingMaps #HOT #Mapillary #Dhaka_Mapathon #Pathao
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       possible import
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6312,11 +7000,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329798
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -6355,7 +7049,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6387,37 +7081,44 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-3132 #MissingMaps #EliminateMalaria #Zimbabwe
                 </p>
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       very-severe
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       unintentional
                     </span>
-                    
                   </span>
                 </span>
-                <span />
               </span>
             </div>
             <div>
@@ -6425,11 +7126,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329486
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -6468,7 +7175,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6500,45 +7207,53 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-project-2333 #MissingMaps #Ouahigouya #BurkinaFaso #DigitalGlobe #NextView
                 </p>
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       unintentional
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       intentional
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       very-severe
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-red-dark bg-red-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
                     >
                       notfixed
                     </span>
-                    
                   </span>
                 </span>
-                <span />
               </span>
             </div>
             <div>
@@ -6546,11 +7261,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329485
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -6589,7 +7310,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6621,12 +7342,16 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   колонки уже демонтированы
                 </p>
-                <span />
-                <span />
+                <span
+                  className="mb3"
+                />
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6634,11 +7359,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329484
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     kepta
                   </span>
@@ -6677,7 +7408,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6709,21 +7440,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   #hotosm-task-366 #OSMBD #BHOOT #MissingMaps #HOT #Mapillary #Pathao
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6731,11 +7467,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329182
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -6774,7 +7516,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6806,29 +7548,35 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   По снимкам bing
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       possible import
                     </span>
-                    , 
                   </span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6836,11 +7584,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49329158
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -6879,7 +7633,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     >
       <div
-        className=" border-l border-l--4 border-color-good transition"
+        className=" border-l border-l--4 border-color-good"
       >
         <div
           className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light"
@@ -6911,21 +7665,26 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--column"
               >
                 <p
-                  className="flex-child truncate-3-lines my6"
+                  className="flex-child truncate-3-lines my6 txt-break-url"
                 >
                   Прорисовка района
                 </p>
-                <span />
-                <span>
-                  <span>
+                <span
+                  className="mb3"
+                >
+                  <span
+                    className="mr6"
+                  >
                     <span
-                      className="color-green-dark bg-green-faint inline-block px3 txt-mono mr3 txt-s txt-bold txt-underline"
+                      className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
                     >
                       Randomized flag
                     </span>
-                    
                   </span>
                 </span>
+                <span
+                  className="mb3"
+                />
               </span>
             </div>
             <div>
@@ -6933,11 +7692,17 @@ exports[`renders correctly 1`] = `
                 className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
               >
                 <span>
-                  <span>
+                  <span
+                    className="mr6"
+                  >
                     49328955
                   </span>
                   <span>
-                    👍
+                    <img
+                      alt="Marked as good"
+                      className="icon inline-block"
+                      src="thumbs-up.svg"
+                    />
                       by 
                     nammala
                   </span>
@@ -6977,7 +7742,7 @@ exports[`renders correctly 1`] = `
 
 exports[`renders loading correctly 1`] = `
 <ul
-  className="flex-parent flex-parent--column scroll-auto flex-child--grow"
+  className="flex-parent flex-parent--column scroll-styled scroll-auto flex-child--grow"
 >
   <div
     className="undefined flex-parent flex-parent--column flex-parent--center-cross flex-parent--center-main flex-child--grow"

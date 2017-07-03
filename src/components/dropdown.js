@@ -2,6 +2,7 @@
 import React from 'react';
 import './dropdown.css';
 import onClickOutside from 'react-click-outside';
+import { Button } from './button';
 
 class DropdownContent extends React.PureComponent {
   isActive = (obj: Object) => {
@@ -25,9 +26,7 @@ class DropdownContent extends React.PureComponent {
         if (value[x].label === label) {
           isRemove = true;
           this.props.onRemove(ourObj);
-          this.props.onChange(
-            value.slice(0, x).concat(value.slice(x + 1, value.length))
-          );
+          this.props.onChange(value.slice(0, x).concat(value.slice(x + 1)));
         }
       }
 
@@ -48,14 +47,14 @@ class DropdownContent extends React.PureComponent {
   render() {
     return (
       <div
-        className="dropdown-content wmin120 wmax240"
+        className="dropdown-content wmin96 round wmax240"
         style={{ display: 'block' }}
       >
         {this.props.options.map((i, k) =>
           <span
             key={k}
             onClick={this.handleClick.bind(null, i)}
-            className="flex-parent flex-parent--row flex-parent--center-cross"
+            className="flex-parent flex-parent--row flex-parent--center-cross py6 px12"
           >
             {this.props.multi &&
               <input
@@ -64,16 +63,16 @@ class DropdownContent extends React.PureComponent {
                 type="checkbox"
                 checked={this.isActive(i)}
                 value={i.label}
-                className="cursor-pointer  px6 py3"
+                className="cursor-pointer mt6"
               />}
             <a
               target={i.href ? '_blank' : '_self'}
               href={i.href || '#'}
               onClick={this.props.toggleDropdown}
-              className={` px12 py6 txt-nowrap flex-child--grow cursor-pointer ${this.isActive(
+              className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${this.isActive(
                 i
               )
-                ? 'is-active color-red'
+                ? 'is-active txt-bold'
                 : ''}`}
             >
               {i.label}
@@ -90,7 +89,7 @@ export class _Dropdown extends React.PureComponent {
     className: string,
     disabled: boolean,
     value: Array<Object>,
-    onChange: () => any,
+    onChange: (Array<Object>) => any,
     onAdd: (?Object) => any,
     onRemove: (?Object) => any,
     options: Array<Object>,
@@ -121,18 +120,14 @@ export class _Dropdown extends React.PureComponent {
   };
   render() {
     return (
-      <div className={`dropdown mr3 pointer ${this.props.className}`}>
-        <span onClick={this.toggleDropdown}>
-          {' '}
-          {this.props.displayComponent
-            ? this.props.displayComponent
-            : <span className="btn btn--s bg-white color-gray border border--gray round">
-                <span>{this.props.display}</span>
-                <svg className="icon inline-block align-middle ">
-                  <use xlinkHref="#icon-chevron-down" />
-                </svg>
-              </span>}
-        </span>
+      <div className={`dropdown mr3 pointer ${this.props.className || ''}`}>
+        <Button
+          iconName="chevron-down"
+          onClick={this.toggleDropdown}
+          className="wmin96"
+        >
+          <span>{this.props.display}</span>
+        </Button>
         {this.state.display &&
           <DropdownContent
             {...this.props}

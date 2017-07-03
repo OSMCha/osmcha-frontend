@@ -1,17 +1,30 @@
 import { parse, stringify } from 'query-string';
+import moment from 'moment';
+import { DEFAULT_FROM_DATE } from '../config/constants';
 
 export function getFiltersFromUrl(): Object {
-  const parsed = parse(window.location.search);
-  if (parsed.filters) {
-    let filterObj;
-    try {
+  let filterObj = {};
+  try {
+    const parsed = parse(window.location.search);
+    if (parsed.filters) {
       filterObj = JSON.parse(parsed.filters);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      return filterObj;
     }
+  } catch (e) {
+    window.location.search = '';
+    console.error(e);
   }
+  if (!filterObj['date__gte'] && !filterObj['date__lte']) {
+    let lastDate = moment()
+      .subtract(DEFAULT_FROM_DATE, 'days')
+      .format('YYYY-MM-DD');
+    filterObj['date__gte'] = [
+      {
+        label: lastDate,
+        value: lastDate
+      }
+    ];
+  }
+  return filterObj;
 }
 
 export function getObjAsQueryParam(key: string, obj: Object) {

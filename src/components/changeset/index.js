@@ -5,25 +5,25 @@ import CSSGroup from 'react-transition-group/CSSTransitionGroup';
 import Mousetrap from 'mousetrap';
 
 import { getUserDetails } from '../../network/openstreetmap';
-import { Navbar } from '../navbar';
 import { Floater } from './floater';
 import { Header } from './header';
 import { User } from './user';
 import { Features } from './features';
 import { Box } from './box';
 import { Discussions } from './discussions';
-import { Button } from './button';
+import { Control } from './control';
 import { MapOptions } from './map_options';
 
 import { cancelablePromise } from '../../utils/promise';
 
-import { osmCommentsApi } from '../../config/constants';
+import { osmCommentsApi, whosThat } from '../../config/constants';
 import {
   CHANGESET_DETAILS_SHOW_ALL,
   CHANGESET_DETAILS_DETAILS,
   CHANGESET_DETAILS_SUSPICIOUS,
   CHANGESET_DETAILS_USER,
-  CHANGESET_DETAILS_DISCUSSIONS
+  CHANGESET_DETAILS_DISCUSSIONS,
+  CHANGESET_DETAILS_MAP
 } from '../../config/bindings';
 
 // presentational component for view/changeset.js
@@ -35,27 +35,24 @@ export class Changeset extends React.PureComponent {
     features: false,
     user: false,
     details: true,
-    showAll: false,
     mapOptions: false,
     discussionsData: List(),
     userDetails: new Map()
   };
   props: {
+    filterChangesetsByUser: () => any,
     changesetId: number,
     currentChangeset: Map<string, *>
   };
   ref = null;
-  getOsmCommentsPromise = null;
-  getUserDetailsPromise = null;
-
+  getOsmCommentsPromise: Promise<*>;
+  getUserDetailsPromise: Promise<*>;
+  getWhosThatPromise: Promise<*>;
   componentWillReceiveProps(nextProps: Object) {
     if (this.props.changesetId !== nextProps.changesetId)
       this.getData(nextProps.changesetId, nextProps.currentChangeset);
   }
   componentDidMount() {
-    Mousetrap.bind(CHANGESET_DETAILS_SHOW_ALL, () => {
-      this.toggleAll();
-    });
     Mousetrap.bind(CHANGESET_DETAILS_SUSPICIOUS, () => {
       this.toggleFeatures();
     });
@@ -67,6 +64,9 @@ export class Changeset extends React.PureComponent {
     });
     Mousetrap.bind(CHANGESET_DETAILS_USER, () => {
       this.toggleUser();
+    });
+    Mousetrap.bind(CHANGESET_DETAILS_MAP, () => {
+      this.toggleMapOptions();
     });
     this.getData(this.props.changesetId, this.props.currentChangeset);
   }
@@ -87,18 +87,23 @@ export class Changeset extends React.PureComponent {
       currentChangeset.getIn(['properties', 'uid']),
       10
     );
-
+    const user: string = currentChangeset.getIn(['properties', 'user']);
     const getUserDetailsPromise = cancelablePromise(getUserDetails(uid));
     const getOsmCommentsPromise = cancelablePromise(
       fetch(`${osmCommentsApi}/${changesetId}`).then(r => r.json())
     );
+    const getWhosThatPromise = cancelablePromise(
+      fetch(`${whosThat}${user}`).then(r => r.json())
+    );
+
     this.getUserDetailsPromise = getUserDetailsPromise;
     this.getOsmCommentsPromise = getOsmCommentsPromise;
+    this.getWhosThatPromise = getWhosThatPromise;
 
     getUserDetailsPromise.promise
       .then(userDetails => {
         this.setState({
-          userDetails
+          userDetails: this.state.userDetails.merge(userDetails)
         });
       })
       .catch(e => {});
@@ -112,6 +117,17 @@ export class Changeset extends React.PureComponent {
         }
       })
       .catch(e => {});
+
+    getWhosThatPromise.promise.then(d => {
+      console.log(d);
+      if (Array.isArray(d) && d[0] && d[0].names) {
+        let userDetails = new Map();
+        userDetails = userDetails.set('otherNames', fromJS(d[0].names));
+        this.setState({
+          userDetails: this.state.userDetails.merge(userDetails)
+        });
+      }
+    });
   };
 
   showFloaters = () => {
@@ -124,12 +140,13 @@ export class Changeset extends React.PureComponent {
         transitionName="floaters"
         transitionAppearTimeout={300}
         transitionAppear={true}
-        transitionEnterTimeout={400}
+        transitionEnterTimeout={300}
         transitionLeaveTimeout={250}
       >
         {this.state.details &&
           <Box key={3} className=" w420 round-tr round-br">
             <Header
+              toggleUser={this.toggleUser}
               changesetId={changesetId}
               properties={properties}
               userEditCount={this.state.userDetails.get('count')}
@@ -148,7 +165,10 @@ export class Changeset extends React.PureComponent {
           </Box>}
         {this.state.user &&
           <Box key={0} className=" w420  round-tr round-br">
-            <User userDetails={this.state.userDetails} />
+            <User
+              userDetails={this.state.userDetails}
+              filterChangesetsByUser={this.props.filterChangesetsByUser}
+            />
           </Box>}
         {this.state.mapOptions &&
           <Box key={4} className=" w420  round-tr round-br">
@@ -157,22 +177,10 @@ export class Changeset extends React.PureComponent {
       </CSSGroup>
     );
   };
-
-  toggleAll = () => {
-    this.setState({
-      features: !this.state.showAll,
-      discussions: !this.state.showAll,
-      details: !this.state.showAll,
-      showAll: !this.state.showAll,
-      user: !this.state.showAll,
-      mapOptions: !this.state.showAll
-    });
-  };
   toggleFeatures = () => {
     this.setState({
       discussions: false,
       details: false,
-      showAll: false,
       features: !this.state.features,
       mapOptions: false,
 
@@ -183,7 +191,6 @@ export class Changeset extends React.PureComponent {
     this.setState({
       discussions: !this.state.discussions,
       details: false,
-      showAll: false,
       features: false,
       mapOptions: false,
 
@@ -194,7 +201,6 @@ export class Changeset extends React.PureComponent {
     this.setState({
       discussions: false,
       details: !this.state.details,
-      showAll: false,
       features: false,
       mapOptions: false,
 
@@ -205,7 +211,6 @@ export class Changeset extends React.PureComponent {
     this.setState({
       discussions: false,
       details: false,
-      showAll: false,
       features: false,
       mapOptions: false,
 
@@ -216,13 +221,16 @@ export class Changeset extends React.PureComponent {
     this.setState({
       discussions: false,
       details: false,
-      showAll: false,
       features: false,
       user: false,
       mapOptions: !this.state.mapOptions
     });
   };
   render() {
+    const features = this.props.currentChangeset.getIn([
+      'properties',
+      'features'
+    ]);
     return (
       <div className="flex-child clip" ref={this.setRef}>
         <Floater
@@ -232,7 +240,7 @@ export class Changeset extends React.PureComponent {
             left: this.state.left - 15
           }}
         >
-          <Button
+          <Control
             active={this.state.details}
             onClick={this.toggleDetails}
             bg={'gray-faint'}
@@ -241,24 +249,23 @@ export class Changeset extends React.PureComponent {
             <svg className="icon inline-block align-middle ">
               <use xlinkHref="#icon-eye" />
             </svg>
-          </Button>
-          <Button
+          </Control>
+          <Control
             active={this.state.features}
             onClick={this.toggleFeatures}
             bg={'gray-faint'}
             className="unround"
           >
             <svg
-              className={`icon inline-block align-middle ${this.props.currentChangeset.getIn(
-                ['properties', 'features']
-              ).size > 0
-                ? 'color-orange'
-                : ''}`}
+              className={`icon inline-block align-middle ${features &&
+                features.size == 0
+                ? 'color-darken25'
+                : 'color-black'}`}
             >
-              <use xlinkHref="#icon-bug" />
+              <use xlinkHref="#icon-alert" />
             </svg>
-          </Button>
-          <Button
+          </Control>
+          <Control
             active={this.state.discussions}
             onClick={this.toggleDiscussions}
             bg={'white'}
@@ -266,14 +273,14 @@ export class Changeset extends React.PureComponent {
           >
             <svg
               className={`icon inline-block align-middle ${this.state
-                .discussionsData.size > 0
-                ? 'color-orange'
-                : ''}`}
+                .discussionsData.size == 0
+                ? 'color-darken25'
+                : 'color-black'}`}
             >
-              <use xlinkHref="#icon-tooltip" />
+              <use xlinkHref="#icon-contact" />
             </svg>
-          </Button>
-          <Button
+          </Control>
+          <Control
             active={this.state.user}
             onClick={this.toggleUser}
             bg={'white'}
@@ -282,31 +289,17 @@ export class Changeset extends React.PureComponent {
             <svg className="icon inline-block align-middle">
               <use xlinkHref="#icon-user" />
             </svg>
-          </Button>
-          <Button
+          </Control>
+          <Control
             active={this.state.mapOptions}
             onClick={this.toggleMapOptions}
             bg={'white'}
-            className="unround"
-          >
-            <svg className="icon inline-block align-middle">
-              <use xlinkHref="#icon-osm" />
-            </svg>
-          </Button>
-          <Button
-            active={this.state.showAll}
-            onClick={this.toggleAll}
-            bg={'white'}
             className="unround-r unround-tl"
           >
-            {this.state.showAll
-              ? <svg className="icon inline-block align-middle">
-                  <use xlinkHref="#icon-database" />
-                </svg>
-              : <svg className="icon inline-block align-middle">
-                  <use xlinkHref="#icon-database" />
-                </svg>}
-          </Button>
+            <svg className="icon inline-block align-middle">
+              <use xlinkHref="#icon-map" />
+            </svg>
+          </Control>
         </Floater>
         <Floater
           style={{

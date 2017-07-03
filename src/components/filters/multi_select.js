@@ -1,0 +1,125 @@
+// @flow
+import React from 'react';
+import { List, fromJS, Map } from 'immutable';
+import { Creatable, Async } from 'react-select';
+import { Wrapper } from './wrapper';
+import type { InputType } from './';
+import { API_URL } from '../../config';
+
+export class MultiSelect extends React.PureComponent {
+  props: {
+    name: string,
+    display: string,
+    value: List<InputType>,
+    type: string,
+    placeholder: string,
+    options: Array<Object>,
+    dataURL: ?string,
+    onChange: (string, ?List<InputType>) => any,
+    showAllToggle: boolean
+  };
+  state = {
+    allToggle: this.props.name.slice(0, 4) === 'all_'
+  };
+  getAsyncOptions = () => {
+    if (!this.props.dataURL) return;
+    return fetch(`${API_URL}/${this.props.dataURL}/`)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        const data = json
+          .filter(d => d.is_visible && d.for_changeset)
+          .map(d => ({ ...d, label: d.name, value: d.id }));
+        return { options: data };
+      });
+  };
+  onChangeLocal = (data: ?Array<Object>) => {
+    let name = this.props.name.slice(0, 4) === 'all_'
+      ? this.props.name.slice(4)
+      : this.props.name;
+
+    name = `${this.state.allToggle ? 'all_' : ''}${name}`;
+    if (!Array.isArray(data)) return;
+    this.sendData(this.state.allToggle, data);
+  };
+  sendData = (allToggle: boolean, data: Array<Object>) => {
+    let name = this.props.name.slice(0, 4) === 'all_'
+      ? this.props.name.slice(4)
+      : this.props.name;
+
+    name = `${allToggle ? 'all_' : ''}${name}`;
+    if (data.length === 0) return this.props.onChange(name, null);
+    var processed = data.map(o => ({ label: o.label, value: o.value })); // remove any bogus keys
+    this.props.onChange(name, fromJS(processed));
+  };
+  renderSelect = () => {
+    const { name, options, placeholder, value, display, dataURL } = this.props;
+    if (dataURL)
+      return (
+        <Async
+          multi
+          promptTextCreator={label => `Add ${label} to ${display}`}
+          name={name}
+          className=""
+          value={value && value.toJS()}
+          loadOptions={this.getAsyncOptions}
+          onChange={this.onChangeLocal} // have to add an identifier for filter name
+          placeholder={placeholder}
+        />
+      );
+    return (
+      <Creatable
+        multi
+        promptTextCreator={label => `Add ${label} to ${display}`}
+        name={name}
+        value={value && value.toJS()}
+        options={options}
+        onChange={this.onChangeLocal}
+        placeholder={placeholder}
+      />
+    );
+  };
+  handleToggle = (e: Event) => {
+    let { value } = this.props;
+    value = value && value.toJS();
+    if (value) {
+      this.sendData(!this.state.allToggle, value);
+    }
+    this.setState({
+      allToggle: !this.state.allToggle
+    });
+  };
+  render() {
+    return (
+      <div className="">
+        {this.props.showAllToggle &&
+          <span className="relative fr">
+            <span className="absolute" style={{ left: -95, top: -30 }}>
+              <div className="toggle-group txt-s mr18">
+                <label className="toggle-container">
+                  <input
+                    checked={!this.state.allToggle}
+                    name={`toggle${this.props.name}`}
+                    type="radio"
+                    onClick={this.handleToggle}
+                  />
+                  <div className="toggle toggle--gray-light">OR</div>
+                </label>
+                <label className="toggle-container">
+                  <input
+                    name={`toggle${this.props.name}`}
+                    type="radio"
+                    checked={this.state.allToggle}
+                    onClick={this.handleToggle}
+                  />
+                  <div className="toggle toggle--gray-light">AND</div>
+                </label>
+              </div>
+            </span>
+          </span>}
+        {this.renderSelect()}
+      </div>
+    );
+  }
+}

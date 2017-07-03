@@ -6,29 +6,18 @@
     "range": true,
     "display": "Date",
     "type": "date",
-    "description": "Filter changesets whose date is greater or less than the date.",
-    "placeholder": "Changeset's inception date"
+    "description": "Set the date range to view changesets created during that duration.",
+    "placeholder": "YYYY-MM-DD"
   },
   {
-    "name": "reasons",
-    "icontains": false,
-    "range": false,
-    "all": true,
-    "data_url": "suspicion-reasons",
-    "display": "Reasons",
-    "type": "text_comma",
-    "description": "Filter changesets that have one or more of the Suspicious Reasons. Inform the Suspicion Reasons ids separated by commas.",
-    "placeholder": "Filter changesets with reasons"
-  },
-  {
-    "name": "geometry",
+    "name": "in_bbox",
     "icontains": false,
     "all": false,
     "range": false,
-    "display": "Geometry",
-    "type": "text",
-    "description": "Geospatial filter of changeset whose bbox intersects with another geometry. You can use any geometry type in this filter.",
-    "placeholder": ""
+    "display": "BBox",
+    "type": "map",
+    "description": "Scroll",
+    "placeholder": "Pan to the location of interest in the map"
   },
   {
     "name": "comment",
@@ -37,25 +26,15 @@
     "range": false,
     "display": "Comment",
     "type": "text",
-    "description": "Filter changesets by its comment field using the icontains lookup expression.",
-    "placeholder": "Enter keywords like import, HOT ... "
+    "description": " Filter changesets that mention a particular keyword it in the comment. This is not case-sensitive.",
+    "placeholder": "Enter a keyword like hotosm, import or fixme"
   },
   {
-    "name": "source",
-    "icontains": true,
-    "all": false,
-    "range": false,
-    "display": "Source",
-    "type": "text",
-    "description": "Filter changesets by its source field using the icontains lookup expression.",
-    "placeholder": ""
-  },
-  {
-    "name": "checked",
+    "name": "is_suspect",
     "icontains": false,
     "range": false,
     "all": false,
-    "display": "Checked",
+    "display": "Show Flagged",
     "type": "radio",
     "options": [
       {
@@ -67,79 +46,111 @@
         "value": "False"
       }
     ],
-    "description": "Filter changesets that were checked or not. Use true/false, 1/0 values.",
-    "placeholder": "Toggle if changeset was checked"
+    "description": "Choose to view only changesets that have been flagged, not flagged, or all. Read more about automated flagging on our About page.",
+    "placeholder": "yes / no"
   },
   {
-    "name": "editor",
-    "icontains": true,
-    "all": false,
+    "name": "reasons",
+    "icontains": false,
     "range": false,
-    "display": "Editor",
-    "type": "text",
-    "description": "Filter changesets by its editor field using the icontains lookup expression.",
-    "placeholder": ""
+    "all": true,
+    "data_url": "suspicion-reasons",
+    "display": "Reasons for Flagging",
+    "type": "text_comma",
+    "description": " Select one or multiple reasons that a changeset might be flagged for.",
+    "placeholder": "Start typing to pick reasons"
+  },
+  {
+    "name": "checked_&_harmful",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Review Status",
+    "type": "meta",
+    "metaOf": [
+      "harmful",
+      "checked"
+    ],
+    "options": [
+      {
+        "label": "Bad only",
+        "value": {
+          "harmful": [
+            {
+              "label": "Show Bad only",
+              "value": "True"
+            }
+          ]
+        }
+      },
+      {
+        "label": "Good only",
+        "value": {
+          "harmful": [
+            {
+              "label": "Show Good only",
+              "value": "False"
+            }
+          ]
+        }
+      },
+      {
+        "label": "Both Good or Bad",
+        "value": {
+          "checked": [
+            {
+              "label": "Both Good or Bad",
+              "value": "True"
+            }
+          ]
+        }
+      },
+      {
+        "label": "Not Reviewed",
+        "value": {
+          "checked": [
+            {
+              "label": "Not Reviewed",
+              "value": "False"
+            }
+          ]
+        }
+      }
+    ],
+    "placeholder": "Filter by the type of review",
+    "description": "Filter for changesets that have been manually reviewed and marked (either good or bad)"
   },
   {
     "name": "check_date",
     "icontains": false,
     "all": false,
     "range": true,
-    "display": "Check Date",
+    "display": "Review Date",
     "type": "date",
-    "description": "Filter changesets whose check_date is greater or less than the dates.",
-    "placeholder": ""
-  },
-  {
-    "name": "create",
-    "icontains": false,
-    "all": false,
-    "range": true,
-    "display": "Objects Created",
-    "type": "number",
-    "description": "Filter changesets whose number of elements created are greater or less than equal to number.",
-    "placeholder": ""
-  },
-  {
-    "name": "modify",
-    "icontains": false,
-    "all": false,
-    "range": true,
-    "display": "Objects Modified",
-    "type": "number",
-    "description": "Filter changesets whose number of elements modified are greater or less than equal to number.",
-    "placeholder": ""
-  },
-  {
-    "name": "delete",
-    "icontains": false,
-    "all": false,
-    "range": true,
-    "display": "Objects Deleted",
-    "type": "number",
-    "description": "Filter changesets whose number of elements deleted are greater or less than equal to number.",
-    "placeholder": ""
-  },
-  {
-    "name": "imagery_used",
-    "icontains": true,
-    "all": false,
-    "range": false,
-    "display": "Imagery used",
-    "type": "text",
-    "description": "Filter changesets by its imagery_used field using the icontains lookup expression.",
-    "placeholder": ""
+    "description": "Set the date range to view changesets reviewed within that duration.",
+    "placeholder": "YYYY-MM-DD"
   },
   {
     "name": "checked_by",
     "icontains": false,
     "all": false,
     "range": false,
-    "display": "Checked by",
+    "display": "Reviewed by",
     "cache": true,
     "type": "text_comma",
-    "description": "Filter changesets that were checked by a user. Use commas to search for more than one user.",
-    "placeholder": "Checked by user"
+    "description": "Filter changesets that were checked by a user. Start typing to select one or more users.",
+    "placeholder": "Enter OSM usernames"
+  },
+  {
+    "name": "tags",
+    "icontains": false,
+    "range": false,
+    "all": true,
+    "display": "Tags",
+    "type": "text_comma",
+    "data_url": "tags",
+    "description": "Filter changesets that have one or more manually assigned Tags. Start typing to select tags.",
+    "placeholder": "Add tags"
   },
   {
     "name": "users",
@@ -149,7 +160,7 @@
     "display": "Users",
     "cache": true,
     "type": "text_comma",
-    "description": "Filter changesets created by a user. Use commas to search for more than one user.",
+    "description": "Show changesets created by the users. Start typing to select one or more users.",
     "placeholder": "Enter OSM usernames"
   },
   {
@@ -163,35 +174,64 @@
     "placeholder": "Enter Changeset IDs"
   },
   {
-    "name": "tags",
+    "name": "create",
     "icontains": false,
-    "range": false,
-    "all": true,
-    "display": "Tags",
-    "type": "text_comma",
-    "data_url": "tags",
-    "description": "Filter changesets that have one or more of the Tags. Inform the Tags ids separated by commas.",
-    "placeholder": "Add tags"
+    "all": false,
+    "range": true,
+    "display": "Objects Created",
+    "type": "number",
+    "description": "Filter changesets whose number of elements created are greater or less than equal to number.",
+    "placeholder": "eg. 500"
   },
   {
-    "name": "harmful",
+    "name": "modify",
     "icontains": false,
-    "range": false,
     "all": false,
-    "display": "Harmful",
-    "type": "radio",
-    "options": [
-      {
-        "label": "Yes",
-        "value": "True"
-      },
-      {
-        "label": "No",
-        "value": "False"
-      }
-    ],
-    "description": "Filter changesets that were marked as harmful or not. Use true/false, 1/0 values.",
-    "placeholder": "Toggle harmful"
+    "range": true,
+    "display": "Objects Modified",
+    "type": "number",
+    "description": "Filter changesets whose number of elements modified are greater or less than equal to number.",
+    "placeholder": "eg. 500"
+  },
+  {
+    "name": "delete",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Objects Deleted",
+    "type": "number",
+    "description": "Filter changesets whose number of elements deleted are greater or less than equal to number.",
+    "placeholder": "eg. 500"
+  },
+  {
+    "name": "source",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Source",
+    "type": "text",
+    "description": "Filter changesets by text in its source field. This is not case-sensitive.",
+    "placeholder": "eg. Bing, Local"
+  },
+  {
+    "name": "editor",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Editor",
+    "type": "text",
+    "description": "Filter changesets by text in its source field. This is not case-sensitive.",
+    "placeholder": "eg. iD, JOSM"
+  },
+  {
+    "name": "imagery_used",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Imagery used",
+    "type": "text",
+    "description": "Filter changesets by text in its imagery_used field. This is not case-sensitive.",
+    "placeholder": "eg. Bing, Mapbox"
   },
   {
     "name": "order_by",
@@ -203,27 +243,27 @@
     "options": [
       {
         "label": "Ascending ID",
-        "value": "+id"
+        "value": "id"
       },
       {
         "label": "Ascending Date",
-        "value": "+date"
+        "value": "date"
       },
       {
         "label": "Ascending check date",
-        "value": "+check_date"
+        "value": "check_date"
       },
       {
         "label": "Ascending object created",
-        "value": "+create"
+        "value": "create"
       },
       {
         "label": "Ascending object modified",
-        "value": "+modify"
+        "value": "modify"
       },
       {
         "label": "Ascending object deleted",
-        "value": "+delete"
+        "value": "delete"
       },
       {
         "label": "Descending ID",
@@ -254,26 +294,6 @@
     "placeholder": "Asceding/Descending "
   },
   {
-    "name": "is_suspect",
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Show Flagged",
-    "type": "radio",
-    "options": [
-      {
-        "label": "Yes",
-        "value": "True"
-      },
-      {
-        "label": "No",
-        "value": "False"
-      }
-    ],
-    "description": "Filter changesets that were considered suspect by OSMCHA.",
-    "placeholder": "Toggle Flagged changesets"
-  },
-  {
     "name": "powerfull_editor",
     "ignore": true,
     "icontains": false,
@@ -281,11 +301,12 @@
     "all": false,
     "display": "Powerful editor",
     "type": "text",
-    "description": "Filter changesets that were created using a software editor considered powerfull (those that allow to create, modify or delete data in a batch).",
+    "description": "Filter changesets that were created using a software editor considered powerful (those that allow to create, modify or delete data in a batch).",
     "placeholder": ""
   },
   {
     "name": "hide_whitelist",
+    "ignore": true,
     "icontains": false,
     "range": false,
     "all": false,
@@ -313,5 +334,58 @@
     "type": "text",
     "description": "Filter changesets that have a bbox area lower than X times the area of your geospatial filter. For example, if the bbox or geometry you defined in your filter has an area of 1 degree and you set 'area_lt=2', it will filter the changesets whose bbox area is lower than 2 degree",
     "placeholder": "Upper bound of bbox area"
+  },
+  {
+    "name": "geometry",
+    "ignore": true,
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Geometry",
+    "type": "text",
+    "description": "Geospatial filter of changeset whose bbox intersects with another geometry. You can use any geometry type in this filter.",
+    "placeholder": ""
+  },
+  {
+    "name": "checked",
+    "ignore": "true",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Checked",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Show Both Good or Bad",
+        "value": "True"
+      },
+      {
+        "label": "Show not reviewed",
+        "value": "False"
+      }
+    ],
+    "description": "Filter for changesets that have been manually checked and marked (either harmful or not harmful)",
+    "placeholder": "Toggle if changeset was checked"
+  },
+  {
+    "name": "harmful",
+    "ignore": "true",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Harmful",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Show Bad only",
+        "value": "True"
+      },
+      {
+        "label": "Show Good only",
+        "value": "False"
+      }
+    ],
+    "description": "Filter changesets that were marked as harmful or not.",
+    "placeholder": "Toggle harmful"
   }
 ]

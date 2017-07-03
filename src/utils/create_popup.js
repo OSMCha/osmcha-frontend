@@ -14,5 +14,6 @@ export function createPopup(
     .join(',');
 
   const popup = window.open('about:blank', title, settings);
+  if (!popup) return;
   popup.location = location;
 }

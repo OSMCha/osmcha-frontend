@@ -11,7 +11,6 @@ export class Avatar extends React.PureComponent {
   handleImageLoaded() {
     this.setState({ loaded: true });
   }
-
   handleImageErrored() {
     this.setState({ loaded: false });
   }
@@ -31,26 +30,22 @@ export class Avatar extends React.PureComponent {
       }
     }
     return (
-      <div>
-        <img
+      <div className="p6 flex-parent flex-parent--center-main">
+        <span
           style={{
-            maxWidth: this.props.size || 64,
-            maxHeight: this.props.size || 64,
-            display: this.state.loaded ? 'block' : 'none'
+            background: `url(${this.state.loaded
+              ? this.props.url
+              : Placeholder}) center center / ${this.props.size}px no-repeat`
           }}
-          className="round border border-gray--light border--1"
-          src={url || Placeholder}
-          onLoad={this.handleImageLoaded.bind(this)}
-          onError={this.handleImageErrored.bind(this)}
+          className={`flex-child flex-child--no-shrink border border--2 border--gray h${this
+            .props.size} w${this.props.size} bg-darken25 clip round-full`}
         />
         <img
-          style={{
-            maxWidth: this.props.size || 64,
-            maxHeight: this.props.size || 64,
-            display: !this.state.loaded ? 'block' : 'none'
-          }}
-          className="round border border-gray--light border--1"
-          src={Placeholder}
+          alt=""
+          className="none"
+          src={this.props.url}
+          onLoad={this.handleImageLoaded.bind(this)}
+          onError={this.handleImageErrored.bind(this)}
         />
       </div>
     );

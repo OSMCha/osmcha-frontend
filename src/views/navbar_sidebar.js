@@ -14,8 +14,8 @@ import { Avatar } from '../components/avatar';
 
 import { createPopup } from '../utils/create_popup';
 import { handlePopupCallback } from '../utils/handle_popup_callback';
-
 import { osmAuthUrl } from '../config/constants';
+import { appVersion, isDev, isStaging, isLocal } from '../config';
 
 import {
   getOAuthToken,
@@ -27,7 +27,7 @@ import type { RootStateType } from '../store';
 
 class NavbarSidebar extends React.PureComponent {
   props: {
-    changesetId: number,
+    changesetId: ?number,
     location: Object,
     avatar: ?string,
     currentChangeset: Map<string, *>,
@@ -35,7 +35,7 @@ class NavbarSidebar extends React.PureComponent {
     token: ?string,
     oAuthToken: ?string,
     getOAuthToken: () => mixed,
-    getFinalToken: () => mixed,
+    getFinalToken: string => mixed,
     logUserOut: () => mixed
   };
   state = {
@@ -43,13 +43,15 @@ class NavbarSidebar extends React.PureComponent {
   };
 
   handleLoginClick = () => {
-    if (this.props.oAuthToken) {
-      const popup = createPopup(
-        'oauth_popup',
-        process.env.NODE_ENV === 'production'
-          ? `${osmAuthUrl}?oauth_token=${this.props.oAuthToken}`
-          : '/local-landing.html'
-      );
+    var oAuthToken = this.props.oAuthToken;
+    if (!oAuthToken) return;
+    let url = `${osmAuthUrl}?oauth_token=${oAuthToken}`;
+    if (isDev || isLocal) {
+      url = '/local-landing.html';
+    }
+
+    if (oAuthToken) {
+      const popup = createPopup('oauth_popup', url);
       handlePopupCallback().then(oAuthObj => {
         this.props.getFinalToken(oAuthObj.oauth_verifier);
       });
@@ -63,9 +65,13 @@ class NavbarSidebar extends React.PureComponent {
   };
   displayDropdown = () => {
     return (
-      <div>
-        <Avatar url={this.props.avatar} />
-        <div> {this.props.username}</div>
+      <div className="flex-parent flex-parent--column align-items--center justify--space-between">
+        <div className="mb12">
+          <Avatar size={72} url={this.props.avatar} />
+          <div className="txt txt-bold color-gray align-center">
+            {this.props.username}
+          </div>
+        </div>
         <Button onClick={this.props.logUserOut} className="bg-white-on-hover">
           Logout
         </Button>
@@ -73,35 +79,53 @@ class NavbarSidebar extends React.PureComponent {
     );
   };
   render() {
+    let username = this.props.username;
     return (
       <div>
         <Navbar
           className="bg-white border-b border--gray-light border--1"
           title={
-            <span className="txt-fancy color-gray txt-xl">
-              <span className="color-green txt-bold">
-                OSM
+            <span className="color-gray">
+              <span className="txt-xl">
+                <span className="color-blue txt-bold">
+                  OSM
+                </span>
+                Cha
               </span>
-              Cha
+              <span
+                className="txt-xs txt-mono fixed"
+                style={{ top: 36, left: 16 }}
+              >
+                v{appVersion}{isDev && ' Dev'}{isLocal && ' Local'}
+                {isStaging && ' Staging'}
+              </span>
             </span>
           }
           buttons={
-            <div>
+            <div className="flex-parent flex-parent--row">
+              <Link
+                className="pr3 pointer"
+                to={{
+                  search: window.location.search,
+                  pathname: '/about'
+                }}
+              >
+                <svg className="icon icon--m inline-block align-middle bg-white color-darken25 color-darken50-on-hover transition">
+                  <use xlinkHref="#icon-question" />
+                </svg>
+              </Link>
               {this.props.token
                 ? <div className="dropdown mr3 pointer">
-                    <span onClick={this.openMenu}>
-                      <span className="btn btn--s bg-white color-gray border border--gray round">
-                        <span>{this.props.username}</span>
-                        <svg className="icon inline-block align-middle ">
-                          <use xlinkHref="#icon-chevron-down" />
-                        </svg>
-                      </span>
-                    </span>
+                    <Button onClick={this.openMenu} iconName="chevron-down">
+                      {username && username.length > 10
+                        ? `${username.slice(0, 10)}..`
+                        : username}
+                    </Button>
                     <div
-                      className="dropdown-content w240 z6 round p12"
+                      className="dropdown-content w120 z6 round px24 py12"
                       style={{
                         display: this.state.isMenuOpen ? 'block' : 'none',
-                        marginLeft: -90,
+                        marginLeft: -14,
                         marginTop: 10
                       }}
                     >
@@ -111,8 +135,9 @@ class NavbarSidebar extends React.PureComponent {
                 : <Button
                     onClick={this.handleLoginClick}
                     disable={!this.props.oAuthToken}
+                    iconName="osm"
                   >
-                    Sign In
+                    Sign in
                   </Button>}
             </div>
           }

@@ -1,4 +1,4 @@
-## Table Of Contents
+## OSMCHA Guide
 
 <!-- toc -->
 
@@ -7,7 +7,6 @@
     + [What is vandalism?](#what-is-vandalism)
     + [What are flagged changesets and how are they automatically flagged?](#what-are-flagged-changesets-and-how-are-they-automatically-flagged)
     + [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad-%F0%9F%91%8D--%F0%9F%91%8E-)
-    + [Whats new in OSMCHA?](#whats-new-in-osmcha)
     + [Future of OSMCha and validation using OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
 - [Usage](#usage)
   * [How to review a changeset?](#how-to-review-a-changeset)
@@ -41,21 +40,21 @@ OSMCha is short for OpenStreetMap Changeset Analyser. OSMCha is a web tool to he
 
 ### Why use OSMCha?
 
-- OSM is a crowdsourced project, and it is necessary to have user friendly tools for the community to guide new contributors to make a great map.
+- OSM is a crowdsourced project, and it is necessary to have user friendly tools for the community, to guide new contributors to make a great map.
 - Any given day, around 30,000 changesets containing additions, modifications, and deletions to the data make their way into OSM, which is driven by a strong community.
 - With new users signing up on OSM every day, it is likely that the mapping guides/wikis on tagging scheme, general practices are not uniformly followed by every contributor, resulting in accidental edits, and in rare cases [intentional vandalism](#what-is-vandalism) that breaks the map.
-- OSMCha is designed to be an integrated tool that can address various [validation requirements](#how-to-review-a-changeset) of the community. OSMCha is also supported by an open source edit recognition project called [OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare) which can be used for suggesting manual verification.
-- This tool offers advanced filtering options that can help you [filter changesets](#filters) based on various attributes. (Ex: All changesets with hashtags, user specific changesets, etc)
+- OSMCha is designed to be an integrated tool that can address various [validation requirements](#how-to-review-a-changeset) of the community. OSMCha is also supported by an open source edit recognition project called [OSM-Compare](https://github.com/mapbox/osm-compare) which can be used for suggesting manual verification.
+- This tool offers advanced filtering options that can help you [filter changesets](#filters) based on various attributes. (Ex: All changesets with hashtags, user specific changesets, etc.)
 
 ### What is vandalism?
 
-[Vandalism](https://wiki.openstreetmap.org/wiki/Vandalism) with respect to OpenStreetMap refers to deliberate acts of destruction or damage to the map data. These include, intentional edits that causes visible breakages on the map and also break other crucial map data such as route relations, boundaries, turn restrictions, etc.
+[Vandalism](https://wiki.openstreetmap.org/wiki/Vandalism) with respect to OpenStreetMap refers to deliberate acts of destruction or damage to the map data. These include, intentional edits that causes visible breakages on the map and also break other crucial map data such as route relations, boundaries, turn restrictions, land use etc.
 
 ### What are flagged changesets and how are they automatically flagged?
 
-- `Flagged changesets` are changesets that are flagged by [OSM-Compare](https://github.com/mapbox/osm-compare) for specific edit behaviour. Like deletion of valid data, incompatible data errors example a swimming pool tagged as `natural=water`
+- `Flagged changesets` are changesets that are flagged by [OSM-Compare](https://github.com/mapbox/osm-compare) for specific edit behaviour. Like deletion of valid data, incompatible data errors. Example - A swimming pool tagged as `natural=water`.
 
-- OSMCha is supported by an edit detection pipeline called OSM-Compare. It is an open collection of compare functions written in Javascript that automatically checks for suspicious changes on OSM and pushes them into OSMCha to different categories of identifiable edit behaviour. Currently, there are compare functions in OSM-Compare for flagging deletions of cities and overlap between features.
+- OSMCha is supported by an edit detection pipeline called OSM-Compare. It is an open collection of compare functions written in Javascript that automatically check for suspicious changes on OSM and pushes them into OSMCha to different categories of identifiable edit behaviour. Currently, there are compare functions in OSM-Compare for flagging deletions of cities, overlap between features, and similar rule based scenarios.
 
 ### Why to review a changeset as Good/Bad 👍 / 👎 ?
 
@@ -64,9 +63,6 @@ OSMCha is short for OpenStreetMap Changeset Analyser. OSMCha is a web tool to he
 - This data is collected to help improve the compare functions in OSM-Compare project. Thus helping it become more efficient and robust by testing it against a verified database of good and bad changesets.
 
 - Consistent categorisation of changesets also helps to build an open source database for use in ventures related to machine learning or automating the detection process for bad edits instead of writing rule based compare functions for all possible scenarios of bad edits.
-
-### Whats new in OSMCHA?
-- A lot of things
 
 ### Future of OSMCha and validation using OSM-Compare
 
@@ -86,22 +82,28 @@ For this purpose, OSMCha offers an interface similar to OpenStreetMap but with a
 ### Changeset and Mapper details
 
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497440261785_image.png)
+![osmcha-details](https://user-images.githubusercontent.com/8921295/27320562-72ecbf8e-55b4-11e7-9d01-1e6e97247dae.png)
+
 
 - The details panel on OSMCha gives information of the changeset and the mapper.
 - In the top right corner of the panel, in blue, yellow and red, number of additions, modifications and deletions of the changeset are presented.
 - The details panels includes the username of the mapper, number of changesets the mapper has contributed on OSM, chnageset comment and further details like the editor and imagery used in making the edits on OSM.
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497440902765_image.png)
-
-- When an edit is [detected through a compare function](#why-to-review-a-changeset-as-goodbad-%F0%9F%91%8D--%F0%9F%91%8E-) on OSM-Compare, it is shown on the suspicious features tab. The reviewer can click on Map to view the edit on the changeset map or open it directly on JOSM for detailed review.
+![osmcha-flagged](https://user-images.githubusercontent.com/8921295/27320646-c8a33dcc-55b4-11e7-87d3-b7adfe9c9c54.png)
 
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497443028688_image.png)
+- When an edit is [detected through a compare function](#why-to-review-a-changeset-as-goodbad-%F0%9F%91%8D--%F0%9F%91%8E-) on OSM-Compare, it is shown on the `Flagged features` tab. The reviewer can click on Map to view the edit on the changeset map or open it directly on JOSM for detailed review.
+
+
+![osmcha-discussions](https://user-images.githubusercontent.com/8921295/27320827-7a156300-55b5-11e7-824a-c32db44c5c43.png)
+
 
 <nicer screenshot on discussion>
 
 - Similarly if there is a discussion on the changeset on OpenStreetMap, OSMCha presents the discussion under the discussion tab.
+
+
+![osmcha-users](https://user-images.githubusercontent.com/8921295/27320897-c2d00c30-55b5-11e7-8912-2d2642fe70f9.png)
 
 
 <screenshot on user profile>
@@ -114,13 +116,13 @@ For this purpose, OSMCha offers an interface similar to OpenStreetMap but with a
 - Changeset-map is a changeset visualiser for OSM. It helps the reviewer understand the edits of a changeset both in terms of geometry and feature properties.
 
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497443481288_image.png)
+![osmcha-changesetmap](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497443481288_image.png)
 
 - The reviewer can click on any particular feature edited in that changeset and see the additions, deletions and modifications made to the feature to have an informed decision on quality of the edits.
 
-- Click on map from `Suspicious features tab` and visualise it in changeset map.
+- Click on map from `Flagged features tab` and visualise it in changeset map.
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497444833373_image.png)
+![osmcha-flagged](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497444833373_image.png)
 
 - Open the changeset in a preferred editor or a tool to inspect the changeset
 
@@ -133,12 +135,15 @@ For this purpose, OSMCha offers an interface similar to OpenStreetMap but with a
 ## Filters
 
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497508625051_image.png)
+![osmcha-filters](https://user-images.githubusercontent.com/8921295/27320952-00283b7a-55b6-11e7-81c1-bc24d62b0d61.png)
+
+
 
 Filters tab on OSMCha provides a variety of search parameters to fetch a specific list of changesets the reviewer is interested in. One can filter changesets based on a date range, new mapper edits, mass deletions, text in the source field, Bbox, editor used, etc.
 
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497509089383_image.png)
+![osmcha-is-hot](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497509089383_image.png)
+
 _Hot project edits are a specific example for which a changeset comment with the associated hashtag can be used to retrieve all the changesets contributed for the task._
 
 
@@ -147,9 +152,9 @@ _Hot project edits are a specific example for which a changeset comment with the
 
 <full screenshot of filters>
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497509281015_image.png)
+![osmcha-basic](https://user-images.githubusercontent.com/8921295/27292289-a5942d84-5530-11e7-8c9c-2eff5a9748ef.png)
 
-The [history tab](https://www.openstreetmap.org/history#map=2/46.6/16.9) on OpenStreetMap offers a very basic area based retrieval of changesets. It allows a user to zoom in to a specific area on the map and all the changesets in that area are shown on the sidebar in the order of newest first. OSMCha filters expands this feature with much more metadata based search.
+The [history tab](https://www.openstreetmap.org/history) on OpenStreetMap offers a very basic area based retrieval of changesets. It allows a user to zoom in to a specific area on the map and all the changesets in that area are shown on the sidebar in the order of newest first. OSMCha filters expands this feature with much more metadata based search.
 
 These include:
 
@@ -164,7 +169,8 @@ These include:
 
 ### Applications for edit based search
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497513545989_image.png)
+![osmcha-context](https://user-images.githubusercontent.com/8921295/27321085-91233242-55b6-11e7-997e-32f82b3255a1.png)
+
 
 
 **Null island edits**
@@ -187,31 +193,45 @@ These include:
 
 ### Can I view the changesets and use filters without logging into OSMCha?
 
-- You **must** be signed in-order to [review](#how-to-review-a-changeset) a changeset as good or bad. Authentication in not required if you are only viewing the changesets.
+ You **must** be signed in-order to [review](#how-to-review-a-changeset) a changeset as good or bad. Authentication in not required if you are only viewing the changesets.
 
 
 ### My changeset has been flagged by a reason, am I doing something wrong?
 
 No, not at all! These changesets are automatically flagged by [OSM-Compare](https://github.com/mapbox/osm-compare) for specific edit behaviour. We are working towards making this [detection](#future-of-osmcha-and-validation-using-osm-compare) better over time.
 
-The rule based detectors in OSM-Compare are inefficient in understanding context of an edit, place and mapping activity. This is the disadvantage and reason that these detections are false positives 80% of the time based on the compare function written.
 
-For Ex: A place deleted compare function flags an experienced mapper's changeset even if he/she has deleted a fake city previously added by another user. This context is unavailable to the rule based detector for better analysis.
+The rule based detectors in OSM-Compare are inefficient in understanding context of an edit, place and mapping activity. This is the disadvantage and reason that these detections are false positives 80% of the time, based on the compare function written.
+
+
+For example, a place deleted compare function flags an experienced mapper's changeset even if he/she has deleted a fake city previously added by another user. This context is unavailable to the rule based detector for better analysis.
 
 
 ### Are there keyboard shortcuts in OSMCha?
 
 
-Yes. Keyboard shortcuts on OSMCha go through changesets help the reviewer go through a list of changesets quickly. Here are the available shortcuts on OSMCha currently
+Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of changesets quickly. Here are the available shortcuts:
 
 
-G - Good review input
-B - Bad review input
-U - Undo review
-J - Open changeset in JOSM
-Space - To go to next changeset in sidebar changeset list
-Up - To go to previous changeset in the sidebar changeset list
-Down - To go to next changeset in the sidebar changeset list
+| _Description_                                    | _Shortcut_         |
+|--------------------------------------------------|--------------------|
+| **Navigating changeset list**                    |                    |
+| Go to previous changeset (in the changeset list) | ` ↑ `              |
+| Go to next changeset (in the changeset list)     | ` ↓ ` or ` Space ` |
+| **Changeset detail view**                        |                    |
+| Open changeset in JOSM                           | ` J `              |
+| Open user profile in HDYC                        | ` H `              |
+| Review changeset as good                         | ` G `              |
+| Review changeset as bad                          | ` B `              |
+| Undo or clear changeset review                   | ` U ` or ` C `     |
+| **Changeset panels**                             |                    |
+| Toggle Changeset details                         | ` 1 `              |
+| Toggle Flagged features                          | ` 2 `              |
+| Toggle Changeset discussions                     | ` 3 `              |
+| Toggle User profile                              | ` 4 `              |
+| Toggle Map controls                              | ` 5 `              |
+| **Other**                                        |                    |
+| Show shortcuts list                              | ` ? `              |
 
 
 ### What are tags on OSMCha?
@@ -219,17 +239,21 @@ Down - To go to next changeset in the sidebar changeset list
 
 <Tags screenshot>
 
+![osmcha-tags](https://user-images.githubusercontent.com/8921295/27322174-b0561022-55ba-11e7-81e9-3507278d4f58.png)
+
 The button `Tags` will only appear when you review a changeset good or bad, but it's recommended and essentially used to describe the details of the changeset that was found to be bad. Here are the different tags that can be used:
 
 - **Severity**: **Critical**, **High** or **Low**, to estimate how bad do these edits on a changeset affect OpenStreetMap data
 - **Unresolved**: To input action taken by the you (reviewer) on a changeset. It is unresolved when the you (reviewer) have commented on the changeset to inform the mapper for corrections or no action has been taken by the you (reviewer) to correct the map data.
+- **Intent**: **Intentional** or **Unintentional** to capture the intent of the user. This is contextual information subjective to the edits and users.
 - **DWG**: When a changeset needs to be reported to the Data Working Group
 
 ### What if I want to change my review for a changeset?
 
 Yes, it is possible to change the review for a changeset from `Good` to `Bad` or vise versa. You can also unreview a changeset by clicking on the
 
-![changeset](https://user-images.githubusercontent.com/4470913/27284905-449db04e-5518-11e7-9d25-610c9ce6bcaf.gif)
+![osmcha-undo](https://user-images.githubusercontent.com/8921295/27321404-bdcee81c-55b7-11e7-8114-86a53f642d99.gif)
+
 
 ### Can I review my own changesets?
 
