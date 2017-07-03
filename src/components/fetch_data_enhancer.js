@@ -6,25 +6,24 @@ import { cancelablePromise } from '../utils/promise';
 import { getDisplayName } from '../utils/component';
 
 // If any network request fails it silents it
-// It also set states on first come first serve
-// basis.
-// @onUpdate a function which is equivalent to shouldComponentUpdate
-// on which fetching should rework
+// It also sets state on first come first serve basis.
+// @onUpdate a function to be passed by the invoker
+// which decides whether to reload the network
+// requests.
 export function withFetchDataSilent(
   dataToFetch: Object,
-  onUpdate: (nextProps: Object, props: Object) => boolean,
-  WrappedComponent: Class<React.PureComponent<*, *, *>>
+  onUpdate: (Object, Object) => boolean,
+  WrappedComponent: any
 ) {
-  class FetchDataEnhancer extends React.PureComponent {
+  return class FetchDataEnhancer extends React.PureComponent {
+    static displayName = `HOCFetchData${getDisplayName(WrappedComponent)}`;
     state = {
       data: Map()
     };
-    static displayName = `HOCFetchData${getDisplayName(WrappedComponent)}`;
     promises: Array<*>;
     componentDidMount() {
       this.initFetching(this.props);
     }
-
     componentWillReceiveProps(nextProps: Object) {
       if (onUpdate(nextProps, this.props)) {
         this.initFetching(nextProps);
@@ -40,7 +39,6 @@ export function withFetchDataSilent(
       this.promises.forEach((p, i) => {
         p.promise
           .then(x => {
-            console.log('zappening', keys[i]);
             let data = this.state.data;
             data = data.set(keys[i], fromJS(x));
             this.setState({ data });
@@ -49,13 +47,10 @@ export function withFetchDataSilent(
       });
     }
     componentWillUnmount() {
-      console.log('unmounting');
       this.promises.forEach(p => p && p.cancel());
     }
     render() {
       return <WrappedComponent {...this.props} data={this.state.data} />;
     }
-  }
-
-  return FetchDataEnhancer;
+  };
 }

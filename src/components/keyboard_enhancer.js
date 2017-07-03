@@ -1,10 +1,15 @@
 // @flow
 import React from 'react';
-import { Map, OrderedMap } from 'immutable';
-
 import Mousetrap from 'mousetrap';
+import { Map } from 'immutable';
+
 import { getDisplayName } from '../utils/component';
-window.O = OrderedMap;
+
+/**
+ * @param exclusive - flag to toggle one key and switch off all other keys
+ * @prop `bindingsState` - immutable Map containing toggleState(true/false) for each of the bindings. 
+ * @prop `lastKeyStroke` - immutable Map containg the state of last key pressed only.
+ */
 export function keyboardToggleEnhancer(
   exclusive: boolean,
   bindings: Array<{ label: string, bindings: Array<string> }>,
@@ -12,6 +17,7 @@ export function keyboardToggleEnhancer(
 ) {
   return class wrapper extends React.PureComponent {
     static displayName = `HOCKeyboard${getDisplayName(WrappedComponent)}`;
+
     state = { bindings: Map(), lastKeyStroke: Map() };
 
     componentDidMount() {
@@ -24,6 +30,11 @@ export function keyboardToggleEnhancer(
           this.toggleKey(item.label);
         })
       );
+    }
+
+    componentWillUnmount() {
+      // unbind all bindings
+      bindings.forEach(item => item.bindings.forEach(b => Mousetrap.unbind(b)));
     }
 
     // allow toggling the state of a particular key
@@ -42,17 +53,12 @@ export function keyboardToggleEnhancer(
       let newBindingState = Map();
       const prevBindingValue = this.state.bindings.get(label);
       newBindingState = newBindingState.set(label, !prevBindingValue);
-      // !replaces the entire binding state
       this.setState({
         bindings: newBindingState,
-        lastKeyStroke: newBindingState // since it will be a Map of 1 recent key stroke
+        lastKeyStroke: newBindingState // will be same as state.bindings as size=1
       });
     };
 
-    componentWillUnmount() {
-      // unbind all bindings
-      bindings.forEach(item => item.bindings.forEach(b => Mousetrap.unbind(b)));
-    }
     render() {
       return (
         <WrappedComponent

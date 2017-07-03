@@ -14,8 +14,8 @@ import {
 } from '../store/changesets_page_actions';
 
 import { List } from '../components/list';
+import { Footer } from '../components/list/footer';
 import { Button } from '../components/button';
-import { PageRange } from '../components/list/page_range';
 import { Dropdown } from '../components/dropdown';
 import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
 
@@ -25,15 +25,8 @@ import {
   FILTER_BINDING
 } from '../config/bindings';
 
-import { PAGE_SIZE } from '../config/constants';
-
 import filters from '../config/filters.json';
 
-const RANGE = 6;
-
-function range(start, end) {
-  return Array.from(new Array(end - start)).map((k, i) => i + start);
-}
 class ChangesetsList extends React.PureComponent {
   props: {
     location: Object,
@@ -92,8 +85,7 @@ class ChangesetsList extends React.PureComponent {
   componentWillReceiveProps(nextProps) {
     const lastKeyStroke: Map<string, *> = nextProps.lastKeyStroke;
     if (is(this.props.lastKeyStroke, lastKeyStroke)) return;
-    var string = lastKeyStroke.keySeq().first();
-    switch (string) {
+    switch (lastKeyStroke.keySeq().first()) {
       case FILTER_BINDING.label: {
         this.toggleFilters();
         break;
@@ -111,7 +103,6 @@ class ChangesetsList extends React.PureComponent {
       }
     }
   }
-
   handleFilterOrderBy = (selected: Array<*>) => {
     let mergedFilters;
     mergedFilters = this.props.filters.set('order_by', fromJS(selected));
@@ -123,17 +114,15 @@ class ChangesetsList extends React.PureComponent {
     this.props.getChangesetsPage(this.props.pageIndex, true);
   };
   render() {
-    const base = parseInt(this.props.pageIndex / RANGE, 10) * RANGE;
-
     const { currentPage, loading, diff, diffLoading } = this.props;
-    if (
-      this.props.pageIndex === 0 &&
-      currentPage &&
-      !Number.isNaN(currentPage.get('count', 10))
-    ) {
-      const count: number = currentPage.get('count', 10);
-      this.maxPageCount = Math.ceil(count / PAGE_SIZE);
-    }
+    // if (
+    //   this.props.pageIndex === 0 &&
+    //   currentPage &&
+    //   !Number.isNaN(currentPage.get('count', 10))
+    // ) {
+    //   const count: number = currentPage.get('count', 10);
+    //   this.maxPageCount = Math.ceil(count / PAGE_SIZE);
+    // }
 
     const valueData = [];
     const options = filters.filter(f => f.name === 'order_by')[0].options;
@@ -206,31 +195,11 @@ class ChangesetsList extends React.PureComponent {
           loading={loading}
           pageIndex={this.props.pageIndex}
         />
-        <footer className="hmin55 p12 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
-          <PageRange
-            page={'arrow-left'}
-            pageIndex={this.props.pageIndex - 1}
-            disabled={this.props.pageIndex - 1 === -1}
-            active={false}
-            getChangesetsPage={this.props.getChangesetsPage}
-          />
-          {range(base, Math.min(base + RANGE, this.maxPageCount)).map(n =>
-            <PageRange
-              key={n}
-              page={n}
-              pageIndex={n}
-              active={n === this.props.pageIndex}
-              getChangesetsPage={this.props.getChangesetsPage}
-            />
-          )}
-          <PageRange
-            page={'arrow-right'}
-            disabled={this.props.pageIndex + 1 >= this.maxPageCount}
-            pageIndex={this.props.pageIndex + 1}
-            active={false}
-            getChangesetsPage={this.props.getChangesetsPage}
-          />
-        </footer>
+        <Footer
+          pageIndex={this.props.pageIndex}
+          getChangesetsPage={this.props.getChangesetsPage}
+          count={currentPage && currentPage.get('count')}
+        />
       </div>
     );
   }
