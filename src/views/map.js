@@ -14,6 +14,7 @@ let height = 500;
 let event;
 let cMapRender;
 
+let getMapInstance;
 export function selectFeature(id: number) {
   if (!id || !event) return;
   event.emit('selectFeature', 'node|way', id);
@@ -24,6 +25,7 @@ function importChangesetMap() {
   return import('changeset-map')
     .then(function(module) {
       cMapRender = module.render;
+      getMapInstance = module.getMapInstance;
       return cMapRender;
     })
     .catch(function(err) {
@@ -71,10 +73,11 @@ class CMap extends React.PureComponent {
       height = parseInt(window.innerHeight - 1 * 55, 10);
       width = parseInt(rect.width, 10);
     }
-
+    window.onresize = debounce(this.setDimensions, 100);
     minDebounce();
   }
   componentWillUnmount() {
+    window.onresize = null;
     event && event.emit('remove');
   }
   componentDidUpdate(prevProp: Object) {
@@ -95,6 +98,9 @@ class CMap extends React.PureComponent {
       height,
       width
     });
+    if (getMapInstance) {
+      getMapInstance().map.resize();
+    }
   };
   render() {
     if (this.props.errorChangesetMap) {
@@ -115,6 +121,8 @@ class CMap extends React.PureComponent {
           id="container"
           className=""
           style={{
+            height: this.state.height,
+            width: this.state.width,
             visibility: !(
               this.props.loadingChangesetMap || this.props.errorChangesetMap
             )
