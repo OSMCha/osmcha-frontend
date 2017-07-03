@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { Map, List, fromJS } from 'immutable';
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import CSSGroup from 'react-transition-group/CSSTransitionGroup';
 
 import { getUserDetails } from '../../network/openstreetmap';
@@ -26,9 +27,6 @@ import {
 
 // presentational component for view/changeset.js
 class Changeset extends React.PureComponent {
-  state = {
-    left: 0
-  };
   static defaultProps = {
     data: Map()
   };
@@ -40,20 +38,9 @@ class Changeset extends React.PureComponent {
     bindingsState: Map<string, ?boolean>,
     exclusiveKeyToggle: (label: string) => any
   };
-  ref = null;
-
   componentDidMount() {
     this.toggleDetails();
   }
-
-  setRef = (r: any) => {
-    if (!r) return;
-    var rect = r.parentNode.parentNode.parentNode.getBoundingClientRect();
-    this.setState({
-      left: parseInt(rect.left, 10)
-    });
-  };
-
   showFloaters = () => {
     const { changesetId, currentChangeset } = this.props;
     const bindingsState = this.props.bindingsState;
@@ -93,8 +80,7 @@ class Changeset extends React.PureComponent {
         {bindingsState.get(CHANGESET_DETAILS_USER.label) &&
           <Box key={0} className=" w420  round-tr round-br">
             <User
-              userDetails={this.props.data.get('userDetails')}
-              osmComments={this.props.data.get('osmComments')}
+              userDetails={this.props.data.getIn(['userDetails'], Map())}
               whosThat={this.props.data.getIn(['whosThat', 0, 'names'], List())}
               filterChangesetsByUser={this.props.filterChangesetsByUser}
             />
@@ -130,7 +116,7 @@ class Changeset extends React.PureComponent {
     ]);
 
     return (
-      <div className="flex-child clip" ref={this.setRef}>
+      <div className="flex-child clip">
         <ControlLayout
           toggleDetails={this.toggleDetails}
           toggleFeatures={this.toggleFeatures}
@@ -138,7 +124,6 @@ class Changeset extends React.PureComponent {
           toggleUser={this.toggleUser}
           toggleMapOptions={this.toggleMapOptions}
           features={features}
-          left={this.state.left}
           bindingsState={this.props.bindingsState}
           discussions={this.props.data.getIn(
             ['osmComments', 'properties', 'comments'],
@@ -147,9 +132,8 @@ class Changeset extends React.PureComponent {
         />
         <Floater
           style={{
-            top: 55 * 1.1,
-            width: 420,
-            left: 40 + this.state.left
+            marginTop: 5,
+            marginLeft: 41
           }}
         >
           {this.showFloaters()}
@@ -158,7 +142,6 @@ class Changeset extends React.PureComponent {
     );
   }
 }
-
 Changeset = keyboardToggleEnhancer(
   true,
   [
