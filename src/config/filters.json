@@ -243,27 +243,27 @@
     "options": [
       {
         "label": "Ascending ID",
-        "value": "+id"
+        "value": "id"
       },
       {
         "label": "Ascending Date",
-        "value": "+date"
+        "value": "date"
       },
       {
         "label": "Ascending check date",
-        "value": "+check_date"
+        "value": "check_date"
       },
       {
         "label": "Ascending object created",
-        "value": "+create"
+        "value": "create"
       },
       {
         "label": "Ascending object modified",
-        "value": "+modify"
+        "value": "modify"
       },
       {
         "label": "Ascending object deleted",
-        "value": "+delete"
+        "value": "delete"
       },
       {
         "label": "Descending ID",
