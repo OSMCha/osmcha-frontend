@@ -48,5 +48,3 @@ ReactDOM.render(
   document.getElementById('root')
 );
 registerServiceWorker();
-const reload = debounce(() => window.location.reload(), 400);
-window.onresize = reload;
