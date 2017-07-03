@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Map, List, Set, fromJS } from 'immutable';
-import moment from 'moment';
+import { Map, List, fromJS } from 'immutable';
 import 'date-input-polyfill';
 
 import { Link } from 'react-router-dom';

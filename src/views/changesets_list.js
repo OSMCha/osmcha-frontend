@@ -2,9 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { is, List as ImmutableList, Map, fromJS } from 'immutable';
-import { NavLink } from 'react-router-dom';
 import { push } from 'react-router-redux';
-import numberWithCommas from '../utils/number_with_commas.js';
 
 import type { RootStateType } from '../store';
 
@@ -15,8 +13,7 @@ import {
 
 import { List } from '../components/list';
 import { Footer } from '../components/list/footer';
-import { Button } from '../components/button';
-import { Dropdown } from '../components/dropdown';
+import { Header } from '../components/list/header';
 import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
 
 import {
@@ -24,8 +21,6 @@ import {
   PREV_CHANGESET,
   FILTER_BINDING
 } from '../config/bindings';
-
-import filters from '../config/filters.json';
 
 class ChangesetsList extends React.PureComponent {
   props: {
@@ -103,10 +98,10 @@ class ChangesetsList extends React.PureComponent {
       }
     }
   }
+
   handleFilterOrderBy = (selected: Array<*>) => {
     let mergedFilters;
     mergedFilters = this.props.filters.set('order_by', fromJS(selected));
-
     this.props.applyFilters(mergedFilters);
   };
 
@@ -114,25 +109,17 @@ class ChangesetsList extends React.PureComponent {
     this.props.getChangesetsPage(this.props.pageIndex, true);
   };
   render() {
-    const { currentPage, loading, diff, diffLoading } = this.props;
-    // if (
-    //   this.props.pageIndex === 0 &&
-    //   currentPage &&
-    //   !Number.isNaN(currentPage.get('count', 10))
-    // ) {
-    //   const count: number = currentPage.get('count', 10);
-    //   this.maxPageCount = Math.ceil(count / PAGE_SIZE);
-    // }
-
-    const valueData = [];
-    const options = filters.filter(f => f.name === 'order_by')[0].options;
-    if (this.props.filters.get('order_by')) {
-      options.forEach(o => {
-        if (this.props.filters.getIn(['order_by', 0, 'value']) === o.value) {
-          valueData.push(o);
-        }
-      });
-    }
+    const {
+      filters,
+      currentPage,
+      loading,
+      location,
+      diff,
+      diffLoading,
+      activeChangesetId,
+      pageIndex,
+      getChangesetsPage
+    } = this.props;
     return (
       <div
         className={`flex-parent flex-parent--column changesets-list bg-white ${window.innerWidth <
@@ -140,64 +127,24 @@ class ChangesetsList extends React.PureComponent {
           ? 'viewport-full'
           : ''}`}
       >
-        <header className="px12 hmin36 border-b border--gray-light bg-gray-faint txt-s flex-parent justify--space-between align-items--center">
-          <Dropdown
-            onAdd={() => {}}
-            onRemove={() => {}}
-            onChange={this.handleFilterOrderBy}
-            value={valueData}
-            options={filters.filter(f => f.name === 'order_by')[0].options}
-            display={(valueData[0] && valueData[0].label) || 'Order by'}
-          />
-          <NavLink
-            activeStyle={{
-              fontWeight: 'bold'
-            }}
-            to={{
-              search: this.props.location.search,
-              pathname: this.props.location.pathname.indexOf('/filters') > -1
-                ? '/'
-                : '/filters'
-            }}
-          >
-            <Button className="mx3">Filters</Button>
-          </NavLink>
-        </header>
-        <header
-          className={`px12 border-l border-b border-b--1 border--gray-light px12 py6 ${diff >
-            0
-            ? 'bg-darken10'
-            : 'bg-gray-faint'} flex-child align-items--center`}
-        >
-          <span className="flex-parent flex-parent--row justify--space-between color-gray txt-s txt-bold">
-            <span>
-              {(this.props.currentPage &&
-                numberWithCommas(this.props.currentPage.get('count'))) ||
-                0}{' '}
-              changesets.
-            </span>
-            <span className="flex-parent flex-parent--row">
-              {diffLoading
-                ? <span className="loading loading--s inline" />
-                : <Button
-                    className="mx3 btn--xs"
-                    iconName="rotate"
-                    onClick={this.reloadCurrentPage}
-                  >
-                    {diff > 0 ? `${diff} new` : ''}
-                  </Button>}
-            </span>
-          </span>
-        </header>
-        <List
-          activeChangesetId={this.props.activeChangesetId}
+        <Header
+          filters={filters}
+          handleFilterOrderBy={this.handleFilterOrderBy}
+          location={location}
           currentPage={currentPage}
+          diff={diff}
+          diffLoading={diffLoading}
+          reloadCurrentPage={this.reloadCurrentPage}
+        />
+        <List
+          activeChangesetId={activeChangesetId}
           loading={loading}
-          pageIndex={this.props.pageIndex}
+          currentPage={currentPage}
+          pageIndex={pageIndex}
         />
         <Footer
-          pageIndex={this.props.pageIndex}
-          getChangesetsPage={this.props.getChangesetsPage}
+          pageIndex={pageIndex}
+          getChangesetsPage={getChangesetsPage}
           count={currentPage && currentPage.get('count')}
         />
       </div>

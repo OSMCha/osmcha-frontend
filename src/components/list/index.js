@@ -1,9 +1,8 @@
 // @flow
 import React from 'react';
-import { List as ImmutableList, Map } from 'immutable';
+import { Map, List as ImmutableList } from 'immutable';
 import { Row } from './row';
 import { elementInViewport } from '../../utils/element_in_view';
-import { Loading } from '../loading';
 import { loadingEnhancer } from '../loading_enhancer';
 
 class List extends React.PureComponent {
@@ -24,7 +23,6 @@ class List extends React.PureComponent {
       r.scrollIntoView({ block: 'end', behavior: 'smooth' });
     }
   };
-  // TOFIX on invalid token handle error
   render() {
     return (
       <ul className="flex-parent flex-parent--column scroll-styled scroll-auto flex-child--grow">

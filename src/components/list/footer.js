@@ -25,7 +25,6 @@ export function Footer({
   if (count && !Number.isNaN(count)) {
     maxPageCount = Math.ceil(count / PAGE_SIZE);
   }
-  console.log(pageIndex, count, maxPageCount, base);
   return (
     <footer className="hmin55 p12 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
       <PageRange

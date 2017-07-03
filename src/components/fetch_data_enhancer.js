@@ -14,13 +14,13 @@ export function withFetchDataSilent(
   dataToFetch: Object,
   onUpdate: (Object, Object) => boolean,
   WrappedComponent: any
-) {
-  return class FetchDataEnhancer extends React.PureComponent {
+): any {
+  class FetchDataEnhancer extends React.PureComponent<*, *, *> {
     static displayName = `HOCFetchData${getDisplayName(WrappedComponent)}`;
     state = {
       data: Map()
     };
-    promises: Array<*>;
+    promises: Array<Object>;
     componentDidMount() {
       this.initFetching(this.props);
     }
@@ -52,5 +52,6 @@ export function withFetchDataSilent(
     render() {
       return <WrappedComponent {...this.props} data={this.state.data} />;
     }
-  };
+  }
+  return FetchDataEnhancer;
 }
