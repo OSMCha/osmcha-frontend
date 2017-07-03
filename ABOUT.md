@@ -27,25 +27,8 @@
     + [What are tags on OSMCha?](#what-are-tags-on-osmcha)
     + [What if I want to change my review for a changeset?](#what-if-i-want-to-change-my-review-for-a-changeset)
     + [Can I review my own changesets?](#can-i-review-my-own-changesets)
-- [Frequent error messages](#frequent-error-messages)
+- [Why did I get this error message](#why-did-i-get-this-error-message)
   * [Changeset views error messages](#changeset-views-error-messages)
-    + [Changeset was already checked.](#changeset-was-already-checked)
-    + [User can not check his own changeset.](#user-can-not-check-his-own-changeset)
-    + [Changeset is not checked.](#changeset-is-not-checked)
-    + [User does not have permission to uncheck this changeset.](#user-does-not-have-permission-to-uncheck-this-changeset)
-    + [User can not add tags to his own changeset.](#user-can-not-add-tags-to-his-own-changeset)
-    + [User can not add tags to a changeset checked by another user.](#user-can-not-add-tags-to-a-changeset-checked-by-another-user)
-    + [User can not remove tags from his own changeset.](#user-can-not-remove-tags-from-his-own-changeset)
-    + [User can not remove tags from a changeset checked by another user.](#user-can-not-remove-tags-from-a-changeset-checked-by-another-user)
-  * [Feature views error messages](#feature-views-error-messages)
-    + [Feature was already checked.](#feature-was-already-checked)
-    + [User can not check his own feature.](#user-can-not-check-his-own-feature)
-    + [Feature is not checked.](#feature-is-not-checked)
-    + [User does not have permission to uncheck this feature.](#user-does-not-have-permission-to-uncheck-this-feature)
-    + [User can not add tags to his own feature.](#user-can-not-add-tags-to-his-own-feature)
-    + [User can not add tags to a feature checked by another user.](#user-can-not-add-tags-to-a-feature-checked-by-another-user)
-    + [User can not remove tags from his own feature.](#user-can-not-remove-tags-from-his-own-feature)
-    + [User can not remove tags from a feature checked by another user.](#user-can-not-remove-tags-from-a-feature-checked-by-another-user)
 - [References](#references)
 - [Other tools for validation](#other-tools-for-validation)
 - [Feedback](#feedback)
@@ -202,32 +185,10 @@ These include:
 
 # FAQ
 
-### How are the changesets presented?
-
-OSMCha reads all changesets from OpenStreetMap. By default they are presented in the order of the newest first based on the [filters](#filters) applied by the OSMCha reviewer.
-
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497513993362_image.png)
-_The list of changesets are presented on the sidebar._
-
-You can select the changeset from the changeset review panel and can view the edits associated to it using the changeset map that appears on the right hand side.
-
-### How can I sign-in into OSMCha?
-
-You can sign-in on OSMCha using their OpenStreetMap account. On clicking on `sign-in`, a window (_like the one below_) appears, click on `Grant Access` and you will be singed-in on OSMCha.
-
-![image](https://user-images.githubusercontent.com/4470913/27281939-9daf9100-550b-11e7-80c6-eedb0514d276.png)
-
-Note: It **is** necessary to be signed-in in-order to [review](#how-to-review-a-changeset) a changeset as `Good` or `Bad`
-
-
 ### Can I view the changesets and use filters without logging into OSMCha?
 
 - You **must** be signed in-order to [review](#how-to-review-a-changeset) a changeset as good or bad. Authentication in not required if you are only viewing the changesets.
 
-
-### How do I logout of OSMCha?
-
- After the authentication, the sign-in button on OSMCha shows your OpenStreetMap username. When you click on your username, a dropdown appears, by clicking on the `logout` button you can sign-out of OSMCha.
 
 ### My changeset has been flagged by a reason, am I doing something wrong?
 
@@ -275,76 +236,50 @@ Yes, it is possible to change the review for a changeset from `Good` to `Bad` or
 No, you cannot review your own changesets, but you can view your changesets.
 
 
-# Frequent error messages
+# Why did I get this error message
 
 ## Changeset views error messages
 
-### Changeset was already checked.
+- This changeset is already reviewed!
 
-This is raised when someone tries to check a changeset that was already checked
+You cannot review a changeset which was already reviewed by another user. Please choose a different changeset.
 
-### User can not check his own changeset.
+- You cannot check your own changeset!
 
-This is raised when someone tries to check a changeset that was created by him/her
+You cannot review your own changesets.
 
-### Changeset is not checked.
+- This changeset is not reviewed yet!
 
-This is raised when someone tries to uncheck a changeset that is not checked
+You cannot undo a review for a changeset if it's not reviewed before. Please go ahead and review the changeset.
 
-### User does not have permission to uncheck this changeset.
+- You do not have the permission to undo a review for this changeset.
 
-This is raised when someone tries to uncheck a changeset that another user checked
+You cannot undo a review for a changeset which is reviewed by another user. You have the permission to undo a review for changesets that are reviewed **only** by you.
 
-### User can not add tags to his own changeset.
+- You cannot add tags to your own changeset.
 
-This is raised when someone tries to add tags to their own changesets
+You do not have the permission to add tags or review your own changesets.
 
-### User can not add tags to a changeset checked by another user.
+- You cannot add tags to a changeset that is reviewed by another user.
 
-This is raised when someone tries to add tags to a changeset reviewed by someone else.
-
-### User can not remove tags from his own changeset.
-
-This is raised when someone tries to remove tags from their own changeset.
-
-### User can not remove tags from a changeset checked by another user.
-
-This is raised when someone tries to remove tags in a changeset that are added by the other users.
+You cannot perform any actions on changesets that are reviewed by other users.
 
 
-## Feature views error messages
+- You can not remove tags from your own changeset.
 
-### Feature was already checked.
+If your changeset is reviewed by others and has some tags associated with it, you don't have permissions to remove or alter these tags.
 
-This is raised when someone tries to check a feature that was already checked
+- You can not remove tags from a changeset reviewed by another user.
 
-### User can not check his own feature.
+You don't have permission to remove or alter tags of changesets that are reviewed by other users.
 
-This is raised when someone tries to check a feature that was created by him/her.
+- Sign in error
 
-### Feature is not checked.
+You get this error, when you have not signed-in into OSMCha. Please sign-in using your OpenStreetMap name.
 
-This is raised when someone tries to uncheck a feature that is not checked
+- Changeset map error
 
-### User does not have permission to uncheck this feature.
-
-This is raised when someone tries to uncheck a feature that another user checked
-
-### User can not add tags to his own feature.
-
-This is raised when someone tries to add tags to their own features
-
-### User can not add tags to a feature checked by another user.
-
-This is raised when someone tries to add tags to a feature reviewed by someone else
-
-### User can not remove tags from his own feature.
-
-This is raised when someone tries to remove a tag from his/her own feature
-
-### User can not remove tags from a feature checked by another user.
-
-This is raised when someone tries to remove tags in a feature that are added by the other users.
+<need more info on this>
 
 
 # References
