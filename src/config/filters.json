@@ -255,7 +255,7 @@
       },
       {
         "label": "Ascending object created",
-        "value": "+create"
+        "value": "create"
       },
       {
         "label": "Ascending object modified",
