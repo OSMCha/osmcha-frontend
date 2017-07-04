@@ -1,10 +1,10 @@
 {
-  "main.css": "static/css/main.fc493679.css",
-  "main.css.map": "static/css/main.fc493679.css.map",
-  "main.js": "static/js/main.5920ff23.js",
-  "main.js.map": "static/js/main.5920ff23.js.map",
-  "static/js/0.a298d325.chunk.js": "static/js/0.a298d325.chunk.js",
-  "static/js/0.a298d325.chunk.js.map": "static/js/0.a298d325.chunk.js.map",
+  "main.css": "static/css/main.becbbd7f.css",
+  "main.css.map": "static/css/main.becbbd7f.css.map",
+  "main.js": "static/js/main.56e64372.js",
+  "main.js.map": "static/js/main.56e64372.js.map",
+  "static/js/0.3db840fc.chunk.js": "static/js/0.3db840fc.chunk.js",
+  "static/js/0.3db840fc.chunk.js.map": "static/js/0.3db840fc.chunk.js.map",
   "static/media/banner.png": "static/media/banner.f6fa788b.png",
   "static/media/opensans-bold.woff": "static/media/opensans-bold.fd23d4aa.woff",
   "static/media/opensans-bold.woff2": "static/media/opensans-bold.2698b92b.woff2",
@@ -16,5 +16,7 @@
   "static/media/opensans-light.woff2": "static/media/opensans-light.da346807.woff2",
   "static/media/opensans-regular.woff": "static/media/opensans-regular.b765ab2c.woff",
   "static/media/opensans-regular.woff2": "static/media/opensans-regular.3872b8ed.woff2",
+  "static/media/thumbs-down.svg": "static/media/thumbs-down.7e04a82a.svg",
+  "static/media/thumbs-up.svg": "static/media/thumbs-up.13d765c5.svg",
   "static/media/work_flow.png": "static/media/work_flow.195ff4f9.png"
 }
