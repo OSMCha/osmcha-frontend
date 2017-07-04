@@ -5,7 +5,12 @@ import AnchorifyText from 'react-anchorify-text';
 import { Button } from '../button';
 import AssemblyAnchor from '../assembly_anchor';
 
-export function User({ userDetails, filterChangesetsByUser }) {
+export function User({
+  userDetails,
+  osmComments,
+  whosThat,
+  filterChangesetsByUser
+}) {
   return (
     <div className="px12 py6">
       <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
@@ -57,12 +62,10 @@ export function User({ userDetails, filterChangesetsByUser }) {
           </a>
 
         </div>
-        {userDetails.has('otherNames') &&
-          userDetails.get('otherNames').size > 1 &&
+        {whosThat &&
           <div className="txt-s color-gray">
             Past usernames: &nbsp;
-            {userDetails
-              .get('otherNames')
+            {whosThat
               .slice(0, -1)
               .map((e, k) => <span key={k} className="txt-em">{e}&nbsp;</span>)}
           </div>}

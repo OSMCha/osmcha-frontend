@@ -9,7 +9,6 @@ import Raven from 'raven-js';
 import { history } from './store/history';
 import { store } from './store';
 import { isDev, stack, appVersion } from './config';
-
 import { registerServiceWorker } from './serviceworker';
 
 import './assets/index.css';

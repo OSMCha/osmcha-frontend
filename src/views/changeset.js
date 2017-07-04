@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { List as ImmutableList, Map, fromJS } from 'immutable';
+import { Map, fromJS } from 'immutable';
 import Mousetrap from 'mousetrap';
 
 import { Changeset as ChangesetDumb } from '../components/changeset';
@@ -22,10 +22,10 @@ class Changeset extends React.PureComponent {
     applyFilters: (Map<string, *>) => mixed // base 0
   };
   componentDidMount() {
-    Mousetrap.bind(FILTER_BY_USER, this.filterChangesetsByUser);
+    Mousetrap.bind(FILTER_BY_USER.bindings, this.filterChangesetsByUser);
   }
   componentWillUnmount() {
-    FILTER_BY_USER.forEach(k => Mousetrap.unbind(k));
+    FILTER_BY_USER.bindings.forEach(k => Mousetrap.unbind(k));
   }
   filterChangesetsByUser = () => {
     if (this.props.currentChangeset) {
@@ -69,6 +69,8 @@ class Changeset extends React.PureComponent {
     }
     return (
       <ChangesetDumb
+        uid={parseInt(currentChangeset.getIn(['properties', 'uid'], null), 10)}
+        user={currentChangeset.getIn(['properties', 'user'], null)}
         changesetId={changesetId}
         currentChangeset={currentChangeset}
         errorChangeset={errorChangeset}
