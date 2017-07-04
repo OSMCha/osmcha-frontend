@@ -86,12 +86,19 @@ class NavbarSidebar extends React.PureComponent {
           className="navbar-logo bg-white border-b border--gray-light border--1"
           title={
             <span className="color-gray">
-              <span className="txt-xl">
-                <span className="color-blue txt-bold">
-                  OSM
+              <Link
+                to={{
+                  search: window.location.search,
+                  pathname: '/'
+                }}
+              >
+                <span className="txt-xl">
+                  <span className="color-blue txt-bold">
+                    OSM
+                  </span>
+                  Cha
                 </span>
-                Cha
-              </span>
+              </Link>
               <span className="relative">
                 <span
                   className="txt-xs txt-mono absolute w72"
