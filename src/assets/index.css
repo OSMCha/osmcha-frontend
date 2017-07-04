@@ -89,6 +89,7 @@ img {
 @media only screen and (max-width: 768px) {
   .responsive-box {
     width: 75vw !important;
+    max-width: 420px !important;
   }
 }
 .responsive-box {

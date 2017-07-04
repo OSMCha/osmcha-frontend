@@ -237,6 +237,7 @@ export function* updateCacheChangesetPage({
     let oldData = yield select((state: RootStateType) =>
       state.changesetsPage.get('currentPage')
     );
+    if (!oldData) return;
     newData = fromJS(newData.features.map(f => f.id)).toSet();
     oldData = oldData.get('features').map(f => f.get('id')).toSet();
     yield put(
