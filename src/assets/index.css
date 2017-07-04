@@ -1,5 +1,6 @@
 body {
   scroll-behavior: smooth;
+  overflow: auto;
 }
 /*html, body {
   position: fixed;
@@ -351,7 +352,11 @@ img {
   font-size: 14px;
   line-height: 24px;
 }*/
-
+.filters-scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
 .txt-break-url {
   overflow-wrap: break-word;
   word-wrap: break-word;

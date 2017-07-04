@@ -264,7 +264,7 @@ export class _Filters extends React.PureComponent {
           </span>
         </header>
 
-        <div className="pl30 flex-child scroll-auto">
+        <div className="pl30 flex-child filters-scroll">
           <h2 className="txt-xl mr6 txt-bold mt24   border-b border--gray-light border--1">
             Basic
           </h2>
