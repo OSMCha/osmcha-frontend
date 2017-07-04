@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import { Map, List, fromJS } from 'immutable';
-import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import CSSGroup from 'react-transition-group/CSSTransitionGroup';
 
 import { getUserDetails } from '../../network/openstreetmap';

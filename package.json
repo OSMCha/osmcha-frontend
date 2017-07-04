@@ -74,6 +74,9 @@
     "deploy:prod": "gh-pages -d build -b oh-pages"
   },
   "lint-staged": {
-    "*.js": ["prettier --write --single-quote", "git add"]
+    "*.js": [
+      "prettier --write --single-quote",
+      "git add"
+    ]
   }
 }
