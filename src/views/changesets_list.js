@@ -122,10 +122,7 @@ class ChangesetsList extends React.PureComponent {
     } = this.props;
     return (
       <div
-        className={`flex-parent flex-parent--column changesets-list bg-white ${window.innerWidth <
-          800
-          ? 'viewport-full'
-          : ''}`}
+        className={`flex-parent flex-parent--column changesets-list bg-white`}
       >
         <Header
           filters={filters}

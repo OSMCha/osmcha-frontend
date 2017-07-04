@@ -36,11 +36,11 @@ export class App extends Component {
     const width = window.innerWidth;
     if (width > 800) {
       return (
-        <div className="viewport-full">
+        <div>
           <div className="grid">
             <div className="col col--3-mxl col--4-ml bg-white border-r border--gray-light border--1">
               <NavbarSidebar />
-              <ChangesetsList style={{ height: 'calc(vh - 55px)' }} />
+              <ChangesetsList />
             </div>
             <div className="col col--9-mxl col--8-ml col--12-mm">
               <Route
@@ -78,8 +78,9 @@ export class App extends Component {
       );
     } else {
       return (
-        <div className="viewport-full">
+        <div>
           <div className="col">
+            <NavbarSidebar />
             <Route exact path="/" component={ChangesetsList} />
             <Route
               path="/changesets"

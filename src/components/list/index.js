@@ -25,7 +25,7 @@ class List extends React.PureComponent {
   };
   render() {
     return (
-      <ul className="flex-parent flex-parent--column scroll-styled scroll-auto flex-child--grow">
+      <ul className="flex-parent flex-parent--column scroll-styled flex-child--grow">
         <div>
           {this.props.currentPage &&
             this.props.currentPage.get('features').map((f, k) =>
