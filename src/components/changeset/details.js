@@ -48,9 +48,15 @@ export function Details({
     <div>
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap py12">
         <div className="flex-parent flex-parent--row flex-parent--wrap mb3">
-          <p className="flex-child txt-subhead txt-l txt-break-url">
+          <p
+            className={`flex-child txt-subhead txt-l txt-break-url ${!comment
+              ? 'color-gray txt-em'
+              : ''}`}
+          >
             <AnchorifyText
-              text={comment ? comment : `No comments for ${changesetId}.`}
+              text={
+                comment ? comment : `${changesetId} does not have a comment.`
+              }
             >
               <AssemblyAnchor />
             </AnchorifyText>
@@ -95,7 +101,9 @@ export function Details({
         </div>
         <div className="flex-parent flex-parent--column ">
           <span className="txt-s txt-uppercase txt-bold">Editor</span>
-          <span className="wmax180 txt-break-word txt-s">{editor}</span>
+          <span className="wmax180 txt-break-word txt-s">
+            {editor}
+          </span>
         </div>
         <div className="flex-parent flex-parent--column">
           <span className="txt-s txt-uppercase txt-bold">Imagery</span>

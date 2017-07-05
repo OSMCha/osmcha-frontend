@@ -83,7 +83,7 @@ class NavbarSidebar extends React.PureComponent {
     return (
       <div>
         <Navbar
-          className="navbar-logo bg-white border-b border--gray-light border--1"
+          className="navbar-logo bg-gray-faint border-b border--gray-light border--1"
           title={
             <span className="color-gray">
               <Link
@@ -93,9 +93,7 @@ class NavbarSidebar extends React.PureComponent {
                 }}
               >
                 <span className="txt-xl">
-                  <span className="color-blue txt-bold">
-                    OSM
-                  </span>
+                  <span className="color-blue txt-bold">OSM</span>
                   Cha
                 </span>
               </Link>
@@ -104,7 +102,9 @@ class NavbarSidebar extends React.PureComponent {
                   className="txt-xs txt-mono absolute w72"
                   style={{ top: 17, left: -118 }}
                 >
-                  v{appVersion}{isDev && ' Dev'}{isLocal && ' Local'}
+                  v{appVersion}
+                  {isDev && ' Dev'}
+                  {isLocal && ' Local'}
                   {isStaging && ' Staging'}
                 </span>
               </span>
@@ -119,7 +119,7 @@ class NavbarSidebar extends React.PureComponent {
                   pathname: '/about'
                 }}
               >
-                <svg className="icon icon--m inline-block align-middle bg-white color-darken25 color-darken50-on-hover transition">
+                <svg className="icon icon--m inline-block align-middle color-darken25 color-darken50-on-hover transition">
                   <use xlinkHref="#icon-question" />
                 </svg>
               </Link>
@@ -151,7 +151,6 @@ class NavbarSidebar extends React.PureComponent {
             </div>
           }
         />
-
       </div>
     );
   }

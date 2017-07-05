@@ -157,7 +157,7 @@ Changeset = withFetchDataSilent(
     userDetails: props => getUserDetails(props.uid),
     osmComments: props =>
       fetch(`${osmCommentsApi}/${props.changesetId}`).then(r => r.json()),
-    whosThat: props => fetch(`${whosThat}${props.user}`).then(r => r.json())
+    whosThat: props => fetch(`${whosThat}${props.uid}`).then(r => r.json())
   },
   (nextProps, props) => props.changesetId !== nextProps.changesetId,
   Changeset
