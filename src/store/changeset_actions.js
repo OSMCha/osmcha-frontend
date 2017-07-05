@@ -1,6 +1,5 @@
 // @flow
 import { put, call, take, fork, select, cancel } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 
 import { fromJS, Map, List } from 'immutable';
 import { LOCATION_CHANGE, replace, push } from 'react-router-redux';

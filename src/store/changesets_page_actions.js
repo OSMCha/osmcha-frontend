@@ -210,6 +210,7 @@ export function* modifyChangesetPage({ changesetId, changeset }: Object): any {
     console.error(e);
   }
 }
+
 export function* updateCacheChangesetPage({
   nocache
 }: {
@@ -249,6 +250,7 @@ export function* updateCacheChangesetPage({
     console.error(e);
   }
 }
+
 export function* pollChangesetPage(): any {
   yield call(delay, 2000);
   yield put(action(CHANGESET_PAGE_UPDATE_CACHE, { nocache: true })); // check for stale data, if cold reload
