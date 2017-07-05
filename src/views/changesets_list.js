@@ -7,6 +7,7 @@ import type { RootStateType } from '../store';
 
 import {
   getChangesetsPage,
+  checkForNewChangesets,
   applyFilters
 } from '../store/changesets_page_actions';
 
@@ -14,14 +15,13 @@ import { List } from '../components/list';
 import { Footer } from '../components/list/footer';
 import { Header } from '../components/list/header';
 import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
-
+import { delayPromise } from '../utils/promise';
 import {
   NEXT_CHANGESET,
   PREV_CHANGESET,
   FILTER_BINDING
 } from '../config/bindings';
 
-window.Map = Map;
 class ChangesetsList extends React.PureComponent {
   props: {
     location: Object,
@@ -35,15 +35,22 @@ class ChangesetsList extends React.PureComponent {
     filters: Map<string, ImmutableList<*>>,
     lastKeyStroke: Map<string, *>,
     getChangesetsPage: (number, ?boolean) => mixed, // base 0
+    checkForNewChangesets: boolean => any,
     push: Object => mixed,
     applyFilters: (Map<string, ImmutableList<*>>) => mixed // base 0
   };
+  checkUpdate;
   maxPageCount = Infinity;
+
   constructor(props) {
     super(props);
     this.props.getChangesetsPage(props.pageIndex);
+    this.checkUpdate = delayPromise(2000);
+    this.checkUpdate.promise.then(() => this.props.checkForNewChangesets(true));
   }
-
+  componentWillUnmount() {
+    this.checkUpdate && this.checkUpdate.cancel();
+  }
   goUpDownToChangeset = (direction: number) => {
     if (!this.props.currentPage) return;
     let features = this.props.currentPage.get('features');
@@ -122,9 +129,7 @@ class ChangesetsList extends React.PureComponent {
       getChangesetsPage
     } = this.props;
     return (
-      <div
-        className={`flex-parent flex-parent--column changesets-list bg-white`}
-      >
+      <div className={`flex-parent flex-parent--column changesets-list`}>
         <Header
           filters={filters}
           handleFilterOrderBy={this.handleFilterOrderBy}
@@ -171,6 +176,7 @@ ChangesetsList = connect(
   {
     // actions
     getChangesetsPage,
+    checkForNewChangesets,
     applyFilters,
     push
   }

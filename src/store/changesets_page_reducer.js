@@ -1,14 +1,7 @@
 /* @flow */
 import { List, Map, fromJS } from 'immutable';
 
-import {
-  CHANGESETS_PAGE_FETCHED,
-  CHANGESETS_PAGE_LOADING,
-  CHANGESETS_PAGE_ERROR,
-  CHANGESETS_PAGE_NEW_CHECK,
-  CHANGESETS_PAGE_NEW_CHECK_LOADING,
-  FILTERS_SET
-} from './changesets_page_actions';
+import { CHANGESETS_PAGE, FILTERS } from './changesets_page_actions';
 
 export type ChangesetsPageType = Map<
   | 'currentPage'
@@ -36,16 +29,16 @@ export function changesetsPageReducer(
   action: Object
 ): ChangesetsPageType {
   switch (action.type) {
-    case FILTERS_SET: {
+    case FILTERS.set: {
       return state.set('filters', action.filters);
     }
-    case CHANGESETS_PAGE_NEW_CHECK: {
+    case CHANGESETS_PAGE.updateNewCount: {
       return state.set('diff', action.diff).set('diffLoading', false);
     }
-    case CHANGESETS_PAGE_NEW_CHECK_LOADING: {
+    case CHANGESETS_PAGE.checkNewLoading: {
       return state.set('diffLoading', true);
     }
-    case CHANGESETS_PAGE_LOADING: {
+    case CHANGESETS_PAGE.loading: {
       return state
         .set('pageIndex', action.pageIndex)
         .set('loading', true)
@@ -53,14 +46,14 @@ export function changesetsPageReducer(
         .set('diffLoading', false)
         .set('error', null);
     }
-    case CHANGESETS_PAGE_FETCHED: {
+    case CHANGESETS_PAGE.fetched: {
       return state
         .set('currentPage', action.data)
         .set('pageIndex', action.pageIndex)
         .set('loading', false)
         .set('error', null);
     }
-    case CHANGESETS_PAGE_ERROR: {
+    case CHANGESETS_PAGE.error: {
       return state
         .set('pageIndex', action.pageIndex)
         .set('diff', 0)

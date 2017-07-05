@@ -1,5 +1,5 @@
 // @flow
-// export type cancelablePromiseType = { promise: Promise<*>, cancel: () => any };
+export type cancelablePromiseType = { promise: Promise<*>, cancel: () => any };
 export function cancelablePromise(promise: Promise<*>) {
   let hasCanceled_ = false;
 
@@ -18,4 +18,10 @@ export function cancelablePromise(promise: Promise<*>) {
       hasCanceled_ = true;
     }
   };
+}
+
+export function delayPromise(
+  interval: number
+): { promise: Promise<*>, cancel: () => any } {
+  return cancelablePromise(new Promise(res => setTimeout(res, interval)));
 }

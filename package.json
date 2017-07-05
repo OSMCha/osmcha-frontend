@@ -45,6 +45,7 @@
   "devDependencies": {
     "changelog": "^1.3.0",
     "check-node-version": "^2.0.1",
+    "enzyme": "^2.9.1",
     "flow-bin": "^0.49.1",
     "gh-pages": "^1.0.0",
     "husky": "^0.14.2",

@@ -14,7 +14,8 @@ import {
 
 import type { RootStateType } from './';
 import { modal } from './modal_actions';
-import { CHANGESET_PAGE_MODIFY_CHANGESET } from './changesets_page_actions';
+
+import { CHANGESETS_PAGE } from './changesets_page_actions';
 
 export const CHANGESET_GET = 'CHANGESET_GET';
 export const CHANGESET_FETCHED = 'CHANGESET_FETCHED';
@@ -183,7 +184,7 @@ export function* watchModifyChangeset(): any {
     // update the change in changeset list also aka changesetP
     if (newChangeset) {
       yield put(
-        action(CHANGESET_PAGE_MODIFY_CHANGESET, {
+        action(CHANGESETS_PAGE.modify, {
           changesetId,
           changeset: newChangeset
         })
