@@ -6,12 +6,9 @@ import { fromJS, List, Map } from 'immutable';
 import { push } from 'react-router-redux';
 import { fetchChangesetsPage } from '../network/changesets_page';
 import { getObjAsQueryParam } from '../utils/query_params';
-import { validateFilters } from '../utils/filters';
+import { validateFilters, getDefaultFromDate } from '../utils/filters';
 
 import { modal } from './modal_actions';
-
-import { DEFAULT_FROM_DATE } from '../config/constants';
-import moment from 'moment';
 
 import type { RootStateType } from './';
 import type { InputType } from '../components/filters';
@@ -77,19 +74,9 @@ export function* filtersSaga({
       search // update the search
     }));
 
+    // fill the empty Obj with default from date
     if (filters && filters.size === 0) {
-      const defaultDate = moment()
-        .subtract(DEFAULT_FROM_DATE, 'days')
-        .format('YYYY-MM-DD');
-      filters = filters.set(
-        'date__gte',
-        fromJS([
-          {
-            label: defaultDate,
-            value: defaultDate
-          }
-        ])
-      );
+      filters = filters.set('date__gte', fromJS(getDefaultFromDate()));
     }
     // documentation is spotty about push,
     // I could find one comment on `push(location)` in the readme
@@ -109,6 +96,7 @@ export function* filtersSaga({
     console.error(e);
   }
 }
+
 export function* fetchChangesetsPageAsync({
   pageIndex,
   nocache
@@ -118,18 +106,17 @@ export function* fetchChangesetsPageAsync({
 }): Object {
   // no need to check if changesetPage exists
   // as service worker caches this api request
-
   let [filters, oldPageIndex] = yield select((state: RootStateType) => [
     state.changesetsPage.get('filters'),
     state.changesetsPage.get('pageIndex')
   ]);
   const valid = validateFilters(filters);
   if (!valid) {
-    filters = new Map();
-    const location = yield select((state: RootStateType) => ({
-      ...state.routing.location, // deep clone it
-      search: ''
-    }));
+    filters = Map();
+    const location = yield select(
+      (state: RootStateType) => state.routing.location
+    );
+    location.search = '';
     yield all([
       put(
         modal({
@@ -141,8 +128,8 @@ export function* fetchChangesetsPageAsync({
     ]);
   }
 
+  // checks both undefined and null
   if (pageIndex == null) {
-    // to check both undefined and null
     pageIndex = oldPageIndex;
   }
   yield put(

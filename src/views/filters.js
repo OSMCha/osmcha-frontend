@@ -19,7 +19,6 @@ import {
 import { Button } from '../components/button';
 import { BBoxPicker } from '../components/bbox_picker';
 
-import { getItem, setItem } from '../utils/safe_storage';
 import { gaSendEvent } from '../utils/analytics';
 
 import filters from '../config/filters.json';

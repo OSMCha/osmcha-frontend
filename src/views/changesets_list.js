@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { is, List as ImmutableList, Map, fromJS } from 'immutable';
 import { push } from 'react-router-redux';
-
 import type { RootStateType } from '../store';
 
 import {
@@ -22,6 +21,7 @@ import {
   FILTER_BINDING
 } from '../config/bindings';
 
+window.Map = Map;
 class ChangesetsList extends React.PureComponent {
   props: {
     location: Object,
@@ -108,6 +108,7 @@ class ChangesetsList extends React.PureComponent {
   reloadCurrentPage = () => {
     this.props.getChangesetsPage(this.props.pageIndex, true);
   };
+
   render() {
     const {
       filters,

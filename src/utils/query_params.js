@@ -1,6 +1,5 @@
 import { parse, stringify } from 'query-string';
-import moment from 'moment';
-import { DEFAULT_FROM_DATE } from '../config/constants';
+import { getDefaultFromDate } from './filters';
 
 export function getFiltersFromUrl(): Object {
   let filterObj = {};
@@ -14,15 +13,7 @@ export function getFiltersFromUrl(): Object {
     console.error(e);
   }
   if (!filterObj['date__gte'] && !filterObj['date__lte']) {
-    let lastDate = moment()
-      .subtract(DEFAULT_FROM_DATE, 'days')
-      .format('YYYY-MM-DD');
-    filterObj['date__gte'] = [
-      {
-        label: lastDate,
-        value: lastDate
-      }
-    ];
+    filterObj['date__gte'] = getDefaultFromDate();
   }
   return filterObj;
 }
