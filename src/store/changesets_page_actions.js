@@ -62,6 +62,7 @@ export function* watchChangesetsPage(): any {
 
 export const locationSelector = (state: RootStateType) =>
   state.routing.location;
+
 /** Sagas **/
 export function* filtersSaga({
   filters,
@@ -102,13 +103,11 @@ export function* filtersSaga({
   }
 }
 
-function* validateFiltersSaga(filters) {
+export function* validateFiltersSaga(filters) {
   const valid = validateFilters(filters);
   if (!valid) {
-    filters = Map();
-    const location = yield select(
-      (state: RootStateType) => state.routing.location
-    );
+    filters = getDefaultFromDate();
+    const location = yield select(locationSelector);
     location.search = '';
     yield all([
       put(
@@ -123,6 +122,11 @@ function* validateFiltersSaga(filters) {
   return filters;
 }
 
+export const filtersAndPageIndexSelector = (state: RootStateType) => [
+  state.changesetsPage.get('filters'),
+  state.changesetsPage.get('pageIndex')
+];
+export const tokenSelector = (state: RootStateType) => state.auth.get('token');
 export function* fetchChangesetsPageSaga({
   pageIndex,
   nocache
@@ -130,10 +134,7 @@ export function* fetchChangesetsPageSaga({
   pageIndex: number,
   nocache: boolean
 }): Object {
-  let [filters, oldPageIndex] = yield select((state: RootStateType) => [
-    state.changesetsPage.get('filters'),
-    state.changesetsPage.get('pageIndex')
-  ]);
+  let [filters, oldPageIndex] = yield select(filtersAndPageIndexSelector);
 
   filters = yield call(validateFiltersSaga, filters);
 
@@ -147,7 +148,7 @@ export function* fetchChangesetsPageSaga({
     })
   );
   try {
-    let token = yield select((state: RootStateType) => state.auth.get('token'));
+    let token = yield select(tokenSelector);
     let thisPage = yield call(
       fetchChangesetsPage,
       pageIndex,
@@ -180,6 +181,10 @@ export function* fetchChangesetsPageSaga({
   }
 }
 
+export const currentPageAndIndexSelector = (state: RootStateType) => [
+  state.changesetsPage.getIn(['currentPage'], Map()),
+  state.changesetsPage.getIn(['pageIndex'], 0)
+];
 export function* modifyChangesetPageSaga({
   changesetId,
   changeset
@@ -187,10 +192,7 @@ export function* modifyChangesetPageSaga({
   try {
     // try to modify the changeset inside the page
     // to reflect any kind of changes in the changesetList
-    let [currentPage, pageIndex] = yield select((state: RootStateType) => [
-      state.changesetsPage.getIn(['currentPage'], Map()),
-      state.changesetsPage.getIn(['pageIndex'], 0)
-    ]);
+    let [currentPage, pageIndex] = yield select(currentPageAndIndexSelector);
 
     let features: List<Map<string, *>> = currentPage.get('features');
 

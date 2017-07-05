@@ -30,7 +30,6 @@ export function withFetchDataSilent(
       }
     }
     initFetching(props: Object) {
-      console.log('initialize fetching');
       const keys = Object.keys(dataToFetch);
       // Collect array of promises, one for each api request
       this.promises = keys.map(key =>
