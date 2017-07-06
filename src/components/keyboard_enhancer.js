@@ -13,12 +13,15 @@ import { getDisplayName } from '../utils/component';
 export function keyboardToggleEnhancer(
   exclusive: boolean,
   bindings: Array<{ label: string, bindings: Array<string> }>,
-  WrappedComponent: Class<React.PureComponent<*, *, *>>
+  WrappedComponent: any
 ) {
-  return class wrapper extends React.PureComponent {
+  return class wrapper extends React.PureComponent<*, *, *> {
     static displayName = `HOCKeyboard${getDisplayName(WrappedComponent)}`;
 
-    state = { bindings: Map(), lastKeyStroke: Map() };
+    state = {
+      bindings: Map(),
+      lastKeyStroke: Map()
+    };
 
     componentDidMount() {
       bindings.forEach(item =>

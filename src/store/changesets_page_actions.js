@@ -103,7 +103,7 @@ export function* filtersSaga({
   }
 }
 
-export function* validateFiltersSaga(filters) {
+export function* validateFiltersSaga(filters: Map<string, *>): any {
   const valid = validateFilters(filters);
   if (!valid) {
     filters = getDefaultFromDate();

@@ -3,7 +3,17 @@ import { _Filters as Filters } from './filters';
 import renderer from 'react-test-renderer';
 import { fromJS } from 'immutable';
 import { StaticRouter } from 'react-router';
-it('renders correctly without filter', () => {
+import MockDate from 'mockdate';
+
+beforeEach(() => {
+  MockDate.set(1499224971614);
+});
+
+afterEach(() => {
+  MockDate.reset();
+});
+
+test('renders correctly without filter', () => {
   const tree = renderer
     .create(
       <StaticRouter>
@@ -18,7 +28,7 @@ it('renders correctly without filter', () => {
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
-it('renders correctly with 1 filter', () => {
+test('renders correctly with 1 filter', () => {
   const tree = renderer
     .create(
       <StaticRouter>
@@ -40,7 +50,7 @@ it('renders correctly with 1 filter', () => {
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
-it('renders correctly with 2 filters', () => {
+test('renders correctly with 2 filters', () => {
   const tree = renderer
     .create(
       <StaticRouter>
@@ -69,7 +79,7 @@ it('renders correctly with 2 filters', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('renders correctly with 4 filters', () => {
+test('renders correctly with 4 filters', () => {
   const tree = renderer
     .create(
       <StaticRouter>
