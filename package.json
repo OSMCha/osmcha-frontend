@@ -64,7 +64,7 @@
     "precommit": "lint-staged",
     "flow": "flow",
     "start": "HTTPS=true react-app-rewired start",
-    "test": "flow && react-app-rewired test --env=jsdom",
+    "test": " react-app-rewired test --env=jsdom",
     "build": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV react-app-rewired build",
     "build:dev": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV PUBLIC_URL=https://mapbox.github.io/osmcha-frontend react-app-rewired build",
     "deploy:dev": "gh-pages -d build",

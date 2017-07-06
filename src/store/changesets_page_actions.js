@@ -210,6 +210,7 @@ export function* modifyChangesetPage({ changesetId, changeset }: Object): any {
     console.error(e);
   }
 }
+
 export function* updateCacheChangesetPage({
   nocache
 }: {
@@ -237,6 +238,7 @@ export function* updateCacheChangesetPage({
     let oldData = yield select((state: RootStateType) =>
       state.changesetsPage.get('currentPage')
     );
+    if (!oldData) return;
     newData = fromJS(newData.features.map(f => f.id)).toSet();
     oldData = oldData.get('features').map(f => f.get('id')).toSet();
     yield put(
@@ -248,6 +250,7 @@ export function* updateCacheChangesetPage({
     console.error(e);
   }
 }
+
 export function* pollChangesetPage(): any {
   yield call(delay, 2000);
   yield put(action(CHANGESET_PAGE_UPDATE_CACHE, { nocache: true })); // check for stale data, if cold reload

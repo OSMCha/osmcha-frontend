@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Map, List, Set, fromJS } from 'immutable';
+import { Map, List, fromJS } from 'immutable';
 import moment from 'moment';
+
 import 'date-input-polyfill';
 
 import { Link } from 'react-router-dom';
@@ -96,10 +97,7 @@ export class _Filters extends React.PureComponent {
     this.setState({ filters });
   };
   handleClear = () => {
-    this.props.applyFilters(
-      new Map(),
-      '/changesets/' + (this.props.lastChangesetID || 49174123) + ''
-    );
+    this.props.applyFilters(new Map(), '/');
   };
   renderFilters = (f: Object, k: number) => {
     const propsToSend = {
@@ -265,7 +263,7 @@ export class _Filters extends React.PureComponent {
           </span>
         </header>
 
-        <div className="pl30 flex-child scroll-auto">
+        <div className="px30 flex-child filters-scroll">
           <h2 className="txt-xl mr6 txt-bold mt24   border-b border--gray-light border--1">
             Basic
           </h2>

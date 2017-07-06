@@ -30,28 +30,29 @@ export function Wrapper({
         </span>
       </div>
       <div className="grid">
-        <span className="col col--6-mxl col--6-ml col--6-mm col--8">
+        <span className="col col--6-mxl col--6-ml col--12-mm col--12">
           {children}
         </span>
-        <span className="col col--3-mxl col--3-ml col--1-mm">
-          <span className="desc block relative ml12 wmin120">
-            <CSSTransitionGroup
-              transitionName="filters-desc"
-              transitionAppearTimeout={300}
-              transitionEnterTimeout={300}
-              transitionLeaveTimeout={200}
-            >
-              {description &&
-                <span
-                  key={0}
-                  className="absolute wmin300"
-                  style={{ marginTop: -5 }}
-                >
-                  {description}
-                </span>}
-            </CSSTransitionGroup>
-          </span>
-        </span>
+        {window.innerWidth > 800 &&
+          <span className="col col--3-mxl col--3-ml col--1-mm">
+            <span className="desc block relative ml12 wmin120">
+              <CSSTransitionGroup
+                transitionName="filters-desc"
+                transitionAppearTimeout={300}
+                transitionEnterTimeout={300}
+                transitionLeaveTimeout={200}
+              >
+                {description &&
+                  <span
+                    key={0}
+                    className="absolute wmin300"
+                    style={{ marginTop: -5 }}
+                  >
+                    {description}
+                  </span>}
+              </CSSTransitionGroup>
+            </span>
+          </span>}
       </div>
     </div>
   );

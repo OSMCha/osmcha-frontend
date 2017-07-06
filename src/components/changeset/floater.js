@@ -4,10 +4,12 @@ export class Floater extends React.PureComponent {
   render() {
     return (
       <div
-        className={`fixed h-auto  mt3 scroll-auto ${this.props.className}`}
-        style={this.props.style}
+        className={`relative h-auto mt3 scroll-auto ${this.props.className}`}
       >
-        <div className="flex-parent flex-parent--column pb12 flex-parent--center-cross ">
+        <div
+          style={this.props.style}
+          className="fixed block flex-parent flex-parent--column pb12 flex-parent--center-cross "
+        >
           {this.props.children}
         </div>
       </div>

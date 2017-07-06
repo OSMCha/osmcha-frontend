@@ -16,7 +16,7 @@ exports[`renders correctly with 1 filter 1`] = `
       className="txt-l color-gray--dark"
     >
       <button
-        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
+        className="border--0 bg-transparent btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
         onClick={[Function]}
       >
         Reset
@@ -58,16 +58,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Date
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Date
+           
         </span>
       </div>
       <div
@@ -129,16 +127,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            BBox
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          BBox
+           
         </span>
       </div>
       <div
@@ -176,16 +172,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Comment
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Comment
+           
         </span>
       </div>
       <div
@@ -228,16 +222,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Show Flagged
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Show Flagged
+           
         </span>
       </div>
       <div
@@ -347,30 +339,28 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          >
-            <svg
-              className="absolute icon inline-block align-middle color-blue"
-              style={
-                Object {
-                  "left": -20,
-                  "top": 3,
-                }
+        <span
+          className="relative"
+        >
+          <svg
+            className="absolute icon inline-block align-middle color-blue"
+            style={
+              Object {
+                "left": -18,
+                "top": -9,
               }
-            >
-              <use
-                xlinkHref="#icon-circle"
-              />
-            </svg>
-          </span>
-          <span
-            className="txt-bold txt-truncate pointer"
+            }
           >
-            Reasons for Flagging
-             
-          </span>
+            <use
+              xlinkHref="#icon-circle"
+            />
+          </svg>
+        </span>
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Reasons for Flagging
+           
         </span>
       </div>
       <div
@@ -407,7 +397,7 @@ exports[`renders correctly with 1 filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       OR
                     </div>
@@ -422,7 +412,7 @@ exports[`renders correctly with 1 filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       AND
                     </div>
@@ -578,16 +568,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Review Status
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Review Status
+           
         </span>
       </div>
       <div
@@ -697,16 +685,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Review Date
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Review Date
+           
         </span>
       </div>
       <div
@@ -757,16 +743,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Reviewed by
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Reviewed by
+           
         </span>
       </div>
       <div
@@ -880,16 +864,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Tags
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Tags
+           
         </span>
       </div>
       <div
@@ -926,7 +908,7 @@ exports[`renders correctly with 1 filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       OR
                     </div>
@@ -941,7 +923,7 @@ exports[`renders correctly with 1 filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       AND
                     </div>
@@ -1067,16 +1049,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Users
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Users
+           
         </span>
       </div>
       <div
@@ -1190,16 +1170,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Changeset IDs
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Changeset IDs
+           
         </span>
       </div>
       <div
@@ -1313,16 +1291,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Objects Created
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Created
+           
         </span>
       </div>
       <div
@@ -1373,16 +1349,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Objects Modified
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Modified
+           
         </span>
       </div>
       <div
@@ -1433,16 +1407,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Objects Deleted
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Deleted
+           
         </span>
       </div>
       <div
@@ -1493,16 +1465,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Source
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Source
+           
         </span>
       </div>
       <div
@@ -1540,16 +1510,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Editor
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Editor
+           
         </span>
       </div>
       <div
@@ -1587,16 +1555,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Imagery used
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Imagery used
+           
         </span>
       </div>
       <div
@@ -1634,16 +1600,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Order by
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Order by
+           
         </span>
       </div>
       <div
@@ -1753,16 +1717,14 @@ exports[`renders correctly with 1 filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Bbox size bound
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Bbox size bound
+           
         </span>
       </div>
       <div
@@ -1815,7 +1777,7 @@ exports[`renders correctly with 2 filters 1`] = `
       className="txt-l color-gray--dark"
     >
       <button
-        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
+        className="border--0 bg-transparent btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
         onClick={[Function]}
       >
         Reset
@@ -1857,16 +1819,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Date
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Date
+           
         </span>
       </div>
       <div
@@ -1928,16 +1888,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            BBox
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          BBox
+           
         </span>
       </div>
       <div
@@ -1975,16 +1933,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Comment
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Comment
+           
         </span>
       </div>
       <div
@@ -2027,16 +1983,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Show Flagged
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Show Flagged
+           
         </span>
       </div>
       <div
@@ -2146,30 +2100,28 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          >
-            <svg
-              className="absolute icon inline-block align-middle color-blue"
-              style={
-                Object {
-                  "left": -20,
-                  "top": 3,
-                }
+        <span
+          className="relative"
+        >
+          <svg
+            className="absolute icon inline-block align-middle color-blue"
+            style={
+              Object {
+                "left": -18,
+                "top": -9,
               }
-            >
-              <use
-                xlinkHref="#icon-circle"
-              />
-            </svg>
-          </span>
-          <span
-            className="txt-bold txt-truncate pointer"
+            }
           >
-            Reasons for Flagging
-             
-          </span>
+            <use
+              xlinkHref="#icon-circle"
+            />
+          </svg>
+        </span>
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Reasons for Flagging
+           
         </span>
       </div>
       <div
@@ -2206,7 +2158,7 @@ exports[`renders correctly with 2 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       OR
                     </div>
@@ -2221,7 +2173,7 @@ exports[`renders correctly with 2 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       AND
                     </div>
@@ -2377,30 +2329,28 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          >
-            <svg
-              className="absolute icon inline-block align-middle color-blue"
-              style={
-                Object {
-                  "left": -20,
-                  "top": 3,
-                }
+        <span
+          className="relative"
+        >
+          <svg
+            className="absolute icon inline-block align-middle color-blue"
+            style={
+              Object {
+                "left": -18,
+                "top": -9,
               }
-            >
-              <use
-                xlinkHref="#icon-circle"
-              />
-            </svg>
-          </span>
-          <span
-            className="txt-bold txt-truncate pointer"
+            }
           >
-            Review Status
-             
-          </span>
+            <use
+              xlinkHref="#icon-circle"
+            />
+          </svg>
+        </span>
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Review Status
+           
         </span>
       </div>
       <div
@@ -2543,16 +2493,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Review Date
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Review Date
+           
         </span>
       </div>
       <div
@@ -2603,16 +2551,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Reviewed by
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Reviewed by
+           
         </span>
       </div>
       <div
@@ -2726,16 +2672,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Tags
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Tags
+           
         </span>
       </div>
       <div
@@ -2772,7 +2716,7 @@ exports[`renders correctly with 2 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       OR
                     </div>
@@ -2787,7 +2731,7 @@ exports[`renders correctly with 2 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       AND
                     </div>
@@ -2913,16 +2857,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Users
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Users
+           
         </span>
       </div>
       <div
@@ -3036,16 +2978,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Changeset IDs
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Changeset IDs
+           
         </span>
       </div>
       <div
@@ -3159,16 +3099,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Objects Created
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Created
+           
         </span>
       </div>
       <div
@@ -3219,16 +3157,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Objects Modified
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Modified
+           
         </span>
       </div>
       <div
@@ -3279,16 +3215,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Objects Deleted
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Deleted
+           
         </span>
       </div>
       <div
@@ -3339,16 +3273,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Source
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Source
+           
         </span>
       </div>
       <div
@@ -3386,16 +3318,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Editor
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Editor
+           
         </span>
       </div>
       <div
@@ -3433,16 +3363,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Imagery used
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Imagery used
+           
         </span>
       </div>
       <div
@@ -3480,16 +3408,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Order by
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Order by
+           
         </span>
       </div>
       <div
@@ -3599,16 +3525,14 @@ exports[`renders correctly with 2 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Bbox size bound
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Bbox size bound
+           
         </span>
       </div>
       <div
@@ -3661,7 +3585,7 @@ exports[`renders correctly with 4 filters 1`] = `
       className="txt-l color-gray--dark"
     >
       <button
-        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
+        className="border--0 bg-transparent btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
         onClick={[Function]}
       >
         Reset
@@ -3703,30 +3627,28 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          >
-            <svg
-              className="absolute icon inline-block align-middle color-blue"
-              style={
-                Object {
-                  "left": -20,
-                  "top": 3,
-                }
+        <span
+          className="relative"
+        >
+          <svg
+            className="absolute icon inline-block align-middle color-blue"
+            style={
+              Object {
+                "left": -18,
+                "top": -9,
               }
-            >
-              <use
-                xlinkHref="#icon-circle"
-              />
-            </svg>
-          </span>
-          <span
-            className="txt-bold txt-truncate pointer"
+            }
           >
-            Date
-             
-          </span>
+            <use
+              xlinkHref="#icon-circle"
+            />
+          </svg>
+        </span>
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Date
+           
         </span>
       </div>
       <div
@@ -3788,16 +3710,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            BBox
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          BBox
+           
         </span>
       </div>
       <div
@@ -3835,16 +3755,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Comment
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Comment
+           
         </span>
       </div>
       <div
@@ -3887,30 +3805,28 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          >
-            <svg
-              className="absolute icon inline-block align-middle color-blue"
-              style={
-                Object {
-                  "left": -20,
-                  "top": 3,
-                }
+        <span
+          className="relative"
+        >
+          <svg
+            className="absolute icon inline-block align-middle color-blue"
+            style={
+              Object {
+                "left": -18,
+                "top": -9,
               }
-            >
-              <use
-                xlinkHref="#icon-circle"
-              />
-            </svg>
-          </span>
-          <span
-            className="txt-bold txt-truncate pointer"
+            }
           >
-            Show Flagged
-             
-          </span>
+            <use
+              xlinkHref="#icon-circle"
+            />
+          </svg>
+        </span>
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Show Flagged
+           
         </span>
       </div>
       <div
@@ -4053,30 +3969,28 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          >
-            <svg
-              className="absolute icon inline-block align-middle color-blue"
-              style={
-                Object {
-                  "left": -20,
-                  "top": 3,
-                }
+        <span
+          className="relative"
+        >
+          <svg
+            className="absolute icon inline-block align-middle color-blue"
+            style={
+              Object {
+                "left": -18,
+                "top": -9,
               }
-            >
-              <use
-                xlinkHref="#icon-circle"
-              />
-            </svg>
-          </span>
-          <span
-            className="txt-bold txt-truncate pointer"
+            }
           >
-            Reasons for Flagging
-             
-          </span>
+            <use
+              xlinkHref="#icon-circle"
+            />
+          </svg>
+        </span>
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Reasons for Flagging
+           
         </span>
       </div>
       <div
@@ -4113,7 +4027,7 @@ exports[`renders correctly with 4 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       OR
                     </div>
@@ -4128,7 +4042,7 @@ exports[`renders correctly with 4 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       AND
                     </div>
@@ -4319,30 +4233,28 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          >
-            <svg
-              className="absolute icon inline-block align-middle color-blue"
-              style={
-                Object {
-                  "left": -20,
-                  "top": 3,
-                }
+        <span
+          className="relative"
+        >
+          <svg
+            className="absolute icon inline-block align-middle color-blue"
+            style={
+              Object {
+                "left": -18,
+                "top": -9,
               }
-            >
-              <use
-                xlinkHref="#icon-circle"
-              />
-            </svg>
-          </span>
-          <span
-            className="txt-bold txt-truncate pointer"
+            }
           >
-            Review Status
-             
-          </span>
+            <use
+              xlinkHref="#icon-circle"
+            />
+          </svg>
+        </span>
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Review Status
+           
         </span>
       </div>
       <div
@@ -4485,16 +4397,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Review Date
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Review Date
+           
         </span>
       </div>
       <div
@@ -4545,16 +4455,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Reviewed by
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Reviewed by
+           
         </span>
       </div>
       <div
@@ -4668,16 +4576,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Tags
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Tags
+           
         </span>
       </div>
       <div
@@ -4714,7 +4620,7 @@ exports[`renders correctly with 4 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       OR
                     </div>
@@ -4729,7 +4635,7 @@ exports[`renders correctly with 4 filters 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       AND
                     </div>
@@ -4855,16 +4761,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Users
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Users
+           
         </span>
       </div>
       <div
@@ -4978,16 +4882,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Changeset IDs
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Changeset IDs
+           
         </span>
       </div>
       <div
@@ -5101,16 +5003,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Objects Created
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Created
+           
         </span>
       </div>
       <div
@@ -5161,16 +5061,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Objects Modified
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Modified
+           
         </span>
       </div>
       <div
@@ -5221,16 +5119,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Objects Deleted
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Deleted
+           
         </span>
       </div>
       <div
@@ -5281,16 +5177,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Source
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Source
+           
         </span>
       </div>
       <div
@@ -5328,16 +5222,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Editor
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Editor
+           
         </span>
       </div>
       <div
@@ -5375,16 +5267,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Imagery used
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Imagery used
+           
         </span>
       </div>
       <div
@@ -5422,16 +5312,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Order by
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Order by
+           
         </span>
       </div>
       <div
@@ -5541,16 +5429,14 @@ exports[`renders correctly with 4 filters 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Bbox size bound
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Bbox size bound
+           
         </span>
       </div>
       <div
@@ -5603,7 +5489,7 @@ exports[`renders correctly without filter 1`] = `
       className="txt-l color-gray--dark"
     >
       <button
-        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
+        className="border--0 bg-transparent btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition "
         onClick={[Function]}
       >
         Reset
@@ -5645,16 +5531,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Date
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Date
+           
         </span>
       </div>
       <div
@@ -5716,16 +5600,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            BBox
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          BBox
+           
         </span>
       </div>
       <div
@@ -5763,16 +5645,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Comment
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Comment
+           
         </span>
       </div>
       <div
@@ -5815,16 +5695,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Show Flagged
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Show Flagged
+           
         </span>
       </div>
       <div
@@ -5934,16 +5812,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Reasons for Flagging
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Reasons for Flagging
+           
         </span>
       </div>
       <div
@@ -5980,7 +5856,7 @@ exports[`renders correctly without filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       OR
                     </div>
@@ -5995,7 +5871,7 @@ exports[`renders correctly without filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       AND
                     </div>
@@ -6121,16 +5997,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Review Status
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Review Status
+           
         </span>
       </div>
       <div
@@ -6240,16 +6114,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Review Date
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Review Date
+           
         </span>
       </div>
       <div
@@ -6300,16 +6172,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Reviewed by
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Reviewed by
+           
         </span>
       </div>
       <div
@@ -6423,16 +6293,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Tags
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Tags
+           
         </span>
       </div>
       <div
@@ -6469,7 +6337,7 @@ exports[`renders correctly without filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       OR
                     </div>
@@ -6484,7 +6352,7 @@ exports[`renders correctly without filter 1`] = `
                       type="radio"
                     />
                     <div
-                      className="toggle toggle--gray"
+                      className="toggle toggle--gray-light"
                     >
                       AND
                     </div>
@@ -6610,16 +6478,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Users
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Users
+           
         </span>
       </div>
       <div
@@ -6733,16 +6599,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Changeset IDs
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Changeset IDs
+           
         </span>
       </div>
       <div
@@ -6856,16 +6720,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Objects Created
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Created
+           
         </span>
       </div>
       <div
@@ -6916,16 +6778,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Objects Modified
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Modified
+           
         </span>
       </div>
       <div
@@ -6976,16 +6836,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Objects Deleted
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Objects Deleted
+           
         </span>
       </div>
       <div
@@ -7036,16 +6894,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Source
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Source
+           
         </span>
       </div>
       <div
@@ -7083,16 +6939,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Editor
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Editor
+           
         </span>
       </div>
       <div
@@ -7130,16 +6984,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Imagery used
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Imagery used
+           
         </span>
       </div>
       <div
@@ -7177,16 +7029,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Order by
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Order by
+           
         </span>
       </div>
       <div
@@ -7296,16 +7146,14 @@ exports[`renders correctly without filter 1`] = `
       <div
         className="flex-parent flex-parent--row flex-parent--center-cross mt12 mb6 "
       >
-        <span>
-          <span
-            className="relative"
-          />
-          <span
-            className="txt-bold txt-truncate pointer"
-          >
-            Bbox size bound
-             
-          </span>
+        <span
+          className="relative"
+        />
+        <span
+          className="txt-bold txt-truncate pointer"
+        >
+          Bbox size bound
+           
         </span>
       </div>
       <div

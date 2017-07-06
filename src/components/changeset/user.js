@@ -5,12 +5,7 @@ import AnchorifyText from 'react-anchorify-text';
 import { Button } from '../button';
 import AssemblyAnchor from '../assembly_anchor';
 
-export function User({
-  userDetails,
-  osmComments,
-  whosThat,
-  filterChangesetsByUser
-}) {
+export function User({ userDetails, whosThat, filterChangesetsByUser }) {
   return (
     <div className="px12 py6">
       <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">

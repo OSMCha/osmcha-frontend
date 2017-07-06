@@ -26,9 +26,6 @@ import {
 
 // presentational component for view/changeset.js
 class Changeset extends React.PureComponent {
-  state = {
-    left: 0
-  };
   static defaultProps = {
     data: Map()
   };
@@ -40,20 +37,9 @@ class Changeset extends React.PureComponent {
     bindingsState: Map<string, ?boolean>,
     exclusiveKeyToggle: (label: string) => any
   };
-  ref = null;
-
   componentDidMount() {
     this.toggleDetails();
   }
-
-  setRef = (r: any) => {
-    if (!r) return;
-    var rect = r.parentNode.parentNode.parentNode.getBoundingClientRect();
-    this.setState({
-      left: parseInt(rect.left, 10)
-    });
-  };
-
   showFloaters = () => {
     const { changesetId, currentChangeset } = this.props;
     const bindingsState = this.props.bindingsState;
@@ -68,7 +54,7 @@ class Changeset extends React.PureComponent {
         transitionLeaveTimeout={250}
       >
         {bindingsState.get(CHANGESET_DETAILS_DETAILS.label) &&
-          <Box key={3} className=" w420 round-tr round-br">
+          <Box key={3} className=" responsive-box round-tr round-br">
             <Header
               toggleUser={this.toggleUser}
               changesetId={changesetId}
@@ -77,11 +63,11 @@ class Changeset extends React.PureComponent {
             />
           </Box>}
         {bindingsState.get(CHANGESET_DETAILS_SUSPICIOUS.label) &&
-          <Box key={2} className=" w420 round-tr round-br">
+          <Box key={2} className=" responsive-box round-tr round-br">
             <Features changesetId={changesetId} properties={properties} />
           </Box>}
         {bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label) &&
-          <Box key={1} className=" w420  round-tr round-br">
+          <Box key={1} className=" responsive-box  round-tr round-br">
             <Discussions
               changesetId={changesetId}
               discussions={this.props.data.getIn(
@@ -91,16 +77,15 @@ class Changeset extends React.PureComponent {
             />
           </Box>}
         {bindingsState.get(CHANGESET_DETAILS_USER.label) &&
-          <Box key={0} className=" w420  round-tr round-br">
+          <Box key={0} className=" responsive-box  round-tr round-br">
             <User
-              userDetails={this.props.data.get('userDetails')}
-              osmComments={this.props.data.get('osmComments')}
+              userDetails={this.props.data.getIn(['userDetails'], Map())}
               whosThat={this.props.data.getIn(['whosThat', 0, 'names'], List())}
               filterChangesetsByUser={this.props.filterChangesetsByUser}
             />
           </Box>}
         {bindingsState.get(CHANGESET_DETAILS_MAP.label) &&
-          <Box key={4} className=" w420  round-tr round-br">
+          <Box key={4} className=" responsive-box  round-tr round-br">
             <MapOptions />
           </Box>}
       </CSSGroup>
@@ -130,7 +115,7 @@ class Changeset extends React.PureComponent {
     ]);
 
     return (
-      <div className="flex-child clip" ref={this.setRef}>
+      <div className="flex-child clip">
         <ControlLayout
           toggleDetails={this.toggleDetails}
           toggleFeatures={this.toggleFeatures}
@@ -138,7 +123,6 @@ class Changeset extends React.PureComponent {
           toggleUser={this.toggleUser}
           toggleMapOptions={this.toggleMapOptions}
           features={features}
-          left={this.state.left}
           bindingsState={this.props.bindingsState}
           discussions={this.props.data.getIn(
             ['osmComments', 'properties', 'comments'],
@@ -147,9 +131,8 @@ class Changeset extends React.PureComponent {
         />
         <Floater
           style={{
-            top: 55 * 1.1,
-            width: 420,
-            left: 40 + this.state.left
+            marginTop: 5,
+            marginLeft: 41
           }}
         >
           {this.showFloaters()}
@@ -158,7 +141,6 @@ class Changeset extends React.PureComponent {
     );
   }
 }
-
 Changeset = keyboardToggleEnhancer(
   true,
   [

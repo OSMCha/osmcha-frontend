@@ -83,21 +83,30 @@ class NavbarSidebar extends React.PureComponent {
     return (
       <div>
         <Navbar
-          className="bg-white border-b border--gray-light border--1"
+          className="navbar-logo bg-white border-b border--gray-light border--1"
           title={
             <span className="color-gray">
-              <span className="txt-xl">
-                <span className="color-blue txt-bold">
-                  OSM
-                </span>
-                Cha
-              </span>
-              <span
-                className="txt-xs txt-mono fixed"
-                style={{ top: 36, left: 16 }}
+              <Link
+                to={{
+                  search: window.location.search,
+                  pathname: '/'
+                }}
               >
-                v{appVersion}{isDev && ' Dev'}{isLocal && ' Local'}
-                {isStaging && ' Staging'}
+                <span className="txt-xl">
+                  <span className="color-blue txt-bold">
+                    OSM
+                  </span>
+                  Cha
+                </span>
+              </Link>
+              <span className="relative">
+                <span
+                  className="txt-xs txt-mono absolute w72"
+                  style={{ top: 17, left: -118 }}
+                >
+                  v{appVersion}{isDev && ' Dev'}{isLocal && ' Local'}
+                  {isStaging && ' Staging'}
+                </span>
               </span>
             </span>
           }

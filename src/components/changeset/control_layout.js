@@ -15,7 +15,6 @@ import {
 export function ControlLayout({
   bindingsState,
   features,
-  left,
   discussions,
   toggleDetails,
   toggleFeatures,
@@ -26,9 +25,8 @@ export function ControlLayout({
   return (
     <Floater
       style={{
-        top: 55 * 1.1,
-        width: 80,
-        left: left - 15
+        marginTop: 8,
+        marginLeft: 5
       }}
     >
       <Control
