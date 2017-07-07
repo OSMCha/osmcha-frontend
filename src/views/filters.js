@@ -7,7 +7,14 @@ import 'date-input-polyfill';
 
 import { Link } from 'react-router-dom';
 
-import { Text, Radio, MultiSelect, Wrapper, Meta } from '../components/filters';
+import {
+  Text,
+  Radio,
+  MultiSelect,
+  Wrapper,
+  Meta,
+  Date
+} from '../components/filters';
 
 import { Button } from '../components/button';
 import { BBoxPicker } from '../components/bbox_picker';
@@ -120,10 +127,9 @@ export class _Filters extends React.PureComponent {
       key: k,
       description: this.state.active === f.name && f.description
     };
-    if (f.range) {
+    if (f.range && f.type === 'number') {
       const gteValue = this.state.filters.get(f.name + '__gte');
       const lteValue = this.state.filters.get(f.name + '__lte');
-      const today = moment().format('YYYY-MM-DD');
       return (
         <Wrapper
           {...wrapperProps}
@@ -139,11 +145,8 @@ export class _Filters extends React.PureComponent {
               name={f.name + '__gte'}
               value={gteValue}
               placeholder={'from'}
-              min={f.type === 'number' && 0}
-              max={
-                (lteValue && lteValue.getIn([0, 'value'])) ||
-                (f.type === 'date' && today)
-              }
+              min={0}
+              max={lteValue && lteValue.getIn([0, 'value'])}
             />
             <Text
               {...propsToSend}
@@ -151,7 +154,38 @@ export class _Filters extends React.PureComponent {
               value={lteValue}
               placeholder={'to'}
               min={gteValue && gteValue.getIn([0, 'value'])}
-              max={f.type === 'date' && today}
+            />
+          </span>
+        </Wrapper>
+      );
+    }
+    if (f.range && f.type === 'date') {
+      const gteValue = this.state.filters.get(f.name + '__gte');
+      const lteValue = this.state.filters.get(f.name + '__lte');
+      const today = moment().format('YYYY-MM-DD');
+      return (
+        <Wrapper
+          {...wrapperProps}
+          hasValue={
+            this.state.filters.has(f.name + '__gte') ||
+            this.state.filters.has(f.name + '__lte')
+          }
+        >
+          <span className="flex-parent flex-parent--row h36">
+            <Date
+              {...propsToSend}
+              name={f.name + '__gte'}
+              value={gteValue}
+              placeholder={'From'}
+              max={(lteValue && lteValue.getIn([0, 'value'])) || today}
+            />
+            <Date
+              {...propsToSend}
+              name={f.name + '__lte'}
+              value={lteValue}
+              placeholder={'To'}
+              min={gteValue && gteValue.getIn([0, 'value'])}
+              max={today}
             />
           </span>
         </Wrapper>

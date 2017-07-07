@@ -24,6 +24,7 @@
     "react": "^15.6.1",
     "react-anchorify-text": "^2.1.0",
     "react-click-outside": "^2.3.1",
+    "react-datepicker": "^0.48.0",
     "react-dom": "^15.6.1",
     "react-ga": "^2.2.0",
     "react-notification-system": "^0.2.14",
