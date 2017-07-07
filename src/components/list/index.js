@@ -1,17 +1,18 @@
 // @flow
 import React from 'react';
-import { Map, List as ImmutableList } from 'immutable';
+import { Map } from 'immutable';
 import { Row } from './row';
 import { elementInViewport } from '../../utils/element_in_view';
 import { loadingEnhancer } from '../loading_enhancer';
 
-class List extends React.PureComponent {
-  props: {
-    currentPage: ?Map<string, *>,
-    activeChangesetId: ?number,
-    pageIndex: number
-  };
-  shouldComponentUpdate(nextProps: Object) {
+type propTypes = {
+  currentPage: ?Map<string, *>,
+  activeChangesetId: ?number,
+  pageIndex: number
+};
+
+class List extends React.PureComponent<void, propTypes, *> {
+  shouldComponentUpdate(nextProps: propTypes) {
     return (
       nextProps.activeChangesetId !== this.props.activeChangesetId ||
       nextProps.currentPage !== this.props.currentPage

@@ -4,7 +4,9 @@ import moment from 'moment';
 
 import { DEFAULT_FROM_DATE } from '../config/constants';
 
-export function validateFilters(filters: Map<string, *>): boolean {
+export function validateFilters(
+  filters: Map<string, List<Map<string, *>>>
+): boolean {
   if (!Map.isMap(filters)) return false;
   let valid = true;
   filters.forEach((v, k) => {

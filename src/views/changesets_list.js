@@ -22,27 +22,28 @@ import {
   FILTER_BINDING
 } from '../config/bindings';
 
-class ChangesetsList extends React.PureComponent {
-  props: {
-    location: Object,
-    loading: boolean,
-    error: Object,
-    currentPage: ?Map<string, *>,
-    diff: number,
-    diffLoading: boolean,
-    pageIndex: number,
-    activeChangesetId: ?number,
-    filters: Map<string, ImmutableList<*>>,
-    lastKeyStroke: Map<string, *>,
-    getChangesetsPage: (number, ?boolean) => mixed, // base 0
-    checkForNewChangesets: boolean => any,
-    push: Object => mixed,
-    applyFilters: (Map<string, ImmutableList<*>>) => mixed // base 0
-  };
-  checkUpdate;
+type propsType = {
+  location: Object,
+  loading: boolean,
+  error: Object,
+  currentPage: ?Map<string, *>,
+  diff: number,
+  diffLoading: boolean,
+  pageIndex: number,
+  activeChangesetId: ?number,
+  filters: Map<string, ImmutableList<*>>,
+  lastKeyStroke: Map<string, *>,
+  getChangesetsPage: (number, ?boolean) => mixed, // base 0
+  checkForNewChangesets: boolean => any,
+  push: Object => mixed,
+  applyFilters: (Map<string, ImmutableList<*>>) => mixed // base 0
+};
+
+class ChangesetsList extends React.PureComponent<void, propsType, *> {
+  checkUpdate = null;
   maxPageCount = Infinity;
 
-  constructor(props) {
+  constructor(props: propsType) {
     super(props);
     this.props.getChangesetsPage(props.pageIndex);
     this.checkUpdate = delayPromise(2000);
@@ -84,7 +85,7 @@ class ChangesetsList extends React.PureComponent {
       this.props.push(location);
     }
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: propsType) {
     const lastKeyStroke: Map<string, *> = nextProps.lastKeyStroke;
     if (is(this.props.lastKeyStroke, lastKeyStroke)) return;
     switch (lastKeyStroke.keySeq().first()) {
@@ -129,7 +130,7 @@ class ChangesetsList extends React.PureComponent {
       getChangesetsPage
     } = this.props;
     return (
-      <div className={`flex-parent flex-parent--column changesets-list`}>
+      <div className="flex-parent flex-parent--column changesets-list">
         <Header
           filters={filters}
           handleFilterOrderBy={this.handleFilterOrderBy}

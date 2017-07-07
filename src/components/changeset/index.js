@@ -2,6 +2,7 @@
 import React from 'react';
 import { Map, List, fromJS } from 'immutable';
 import CSSGroup from 'react-transition-group/CSSTransitionGroup';
+import { cancelablePromise, cancelableFetchJSON } from '../../utils/promise';
 
 import { getUserDetails } from '../../network/openstreetmap';
 import { Floater } from './floater';
@@ -24,25 +25,30 @@ import {
   CHANGESET_DETAILS_MAP
 } from '../../config/bindings';
 
+// | denote strict props
+type propsType = {|
+  filterChangesetsByUser: () => any,
+  changesetId: number,
+  currentChangeset: Map<string, any>,
+  // The props below come from HOCs, they are not optional!
+  // to circumvent the $Diff bug  ref: https://github.com/facebook/flow/issues/1601
+  // have to make them optional for flow to not throw error.
+  data?: Map<string, *>,
+  bindingsState?: Map<string, ?boolean>,
+  exclusiveKeyToggle?: (label: string) => any
+|};
+
 // presentational component for view/changeset.js
-class Changeset extends React.PureComponent {
+export class _Changeset extends React.PureComponent<*, propsType, *> {
   static defaultProps = {
     data: Map()
-  };
-  props: {
-    data: Map<string, *>,
-    filterChangesetsByUser: () => any,
-    changesetId: number,
-    currentChangeset: Map<string, any>,
-    bindingsState: Map<string, ?boolean>,
-    exclusiveKeyToggle: (label: string) => any
   };
   componentDidMount() {
     this.toggleDetails();
   }
   showFloaters = () => {
-    const { changesetId, currentChangeset } = this.props;
-    const bindingsState = this.props.bindingsState;
+    const { changesetId, currentChangeset, bindingsState, data } = this.props;
+    if (!bindingsState || !data) return;
     const properties = currentChangeset.get('properties');
     return (
       <CSSGroup
@@ -59,7 +65,7 @@ class Changeset extends React.PureComponent {
               toggleUser={this.toggleUser}
               changesetId={changesetId}
               properties={properties}
-              userEditCount={this.props.data.getIn(['userDetails', 'count'], 0)}
+              userEditCount={data.getIn(['userDetails', 'count'], 0)}
             />
           </Box>}
         {bindingsState.get(CHANGESET_DETAILS_SUSPICIOUS.label) &&
@@ -70,7 +76,7 @@ class Changeset extends React.PureComponent {
           <Box key={1} className=" responsive-box  round-tr round-br">
             <Discussions
               changesetId={changesetId}
-              discussions={this.props.data.getIn(
+              discussions={data.getIn(
                 ['osmComments', 'properties', 'comments'],
                 List()
               )}
@@ -79,8 +85,8 @@ class Changeset extends React.PureComponent {
         {bindingsState.get(CHANGESET_DETAILS_USER.label) &&
           <Box key={0} className=" responsive-box  round-tr round-br">
             <User
-              userDetails={this.props.data.getIn(['userDetails'], Map())}
-              whosThat={this.props.data.getIn(['whosThat', 0, 'names'], List())}
+              userDetails={data.getIn(['userDetails'], Map())}
+              whosThat={data.getIn(['whosThat', 0, 'names'], List())}
               filterChangesetsByUser={this.props.filterChangesetsByUser}
             />
           </Box>}
@@ -93,27 +99,29 @@ class Changeset extends React.PureComponent {
   };
 
   toggleFeatures = () => {
-    this.props.exclusiveKeyToggle(CHANGESET_DETAILS_SUSPICIOUS.label);
+    this.props.exclusiveKeyToggle &&
+      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_SUSPICIOUS.label);
   };
   toggleDiscussions = () => {
-    this.props.exclusiveKeyToggle(CHANGESET_DETAILS_DISCUSSIONS.label);
+    this.props.exclusiveKeyToggle &&
+      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_DISCUSSIONS.label);
   };
   toggleDetails = () => {
-    this.props.exclusiveKeyToggle(CHANGESET_DETAILS_DETAILS.label);
+    this.props.exclusiveKeyToggle &&
+      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_DETAILS.label);
   };
   toggleUser = () => {
-    this.props.exclusiveKeyToggle(CHANGESET_DETAILS_USER.label);
+    this.props.exclusiveKeyToggle &&
+      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_USER.label);
   };
   toggleMapOptions = () => {
-    this.props.exclusiveKeyToggle(CHANGESET_DETAILS_MAP.label);
+    this.props.exclusiveKeyToggle &&
+      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_MAP.label);
   };
 
   render() {
-    const features = this.props.currentChangeset.getIn([
-      'properties',
-      'features'
-    ]);
-
+    const { data, bindingsState, currentChangeset } = this.props;
+    const features = currentChangeset.getIn(['properties', 'features']);
     return (
       <div className="flex-child clip">
         <ControlLayout
@@ -123,11 +131,11 @@ class Changeset extends React.PureComponent {
           toggleUser={this.toggleUser}
           toggleMapOptions={this.toggleMapOptions}
           features={features}
-          bindingsState={this.props.bindingsState}
-          discussions={this.props.data.getIn(
-            ['osmComments', 'properties', 'comments'],
-            List()
-          )}
+          bindingsState={bindingsState}
+          discussions={
+            data &&
+            data.getIn(['osmComments', 'properties', 'comments'], List())
+          }
         />
         <Floater
           style={{
@@ -141,7 +149,8 @@ class Changeset extends React.PureComponent {
     );
   }
 }
-Changeset = keyboardToggleEnhancer(
+
+let Changeset = keyboardToggleEnhancer(
   true,
   [
     CHANGESET_DETAILS_DETAILS,
@@ -150,16 +159,24 @@ Changeset = keyboardToggleEnhancer(
     CHANGESET_DETAILS_DISCUSSIONS,
     CHANGESET_DETAILS_MAP
   ],
-  Changeset
+  _Changeset
 );
+
+/**
+ * Never use props not required by the Basecomponent in HOCs
+ */
 Changeset = withFetchDataSilent(
-  {
-    userDetails: props => getUserDetails(props.uid),
-    osmComments: props =>
-      fetch(`${osmCommentsApi}/${props.changesetId}`).then(r => r.json()),
-    whosThat: props => fetch(`${whosThat}${props.uid}`).then(r => r.json())
-  },
-  (nextProps, props) => props.changesetId !== nextProps.changesetId,
+  (props: propsType) => ({
+    userDetails: cancelablePromise(
+      getUserDetails(props.currentChangeset.getIn(['properties', 'uid'], null))
+    ),
+    osmComments: cancelableFetchJSON(`${osmCommentsApi}/${props.changesetId}`),
+    whosThat: cancelableFetchJSON(
+      `${whosThat}${props.currentChangeset.getIn(['properties', 'uid'], '')}`
+    )
+  }),
+  (nextProps: propsType, props: propsType) =>
+    props.changesetId !== nextProps.changesetId,
   Changeset
 );
 
