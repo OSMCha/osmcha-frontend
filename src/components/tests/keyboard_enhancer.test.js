@@ -23,7 +23,7 @@ jest.mock('mousetrap', () => ({
 
 var moustrap = require('mousetrap');
 
-describe('test fetch_data_enhancer HOC', () => {
+describe('test keyboard_enhancer HOC', () => {
   var TestComponent = () =>
     <div>
       <div>Test Component</div>
