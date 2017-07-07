@@ -75,43 +75,50 @@ export function* watchChangeset(): any {
   let changesetMapTask;
   while (true) {
     const { payload: location } = yield take(LOCATION_CHANGE);
-    // cancel any existing changeset tasks,
-    // even if it doesnt change to `changesets/:id`
-    // we anway would like to suspend the ongoing task
-    // to save resouces
+    const changesetId = yield call(shouldUpdateSaga, location);
+    if (changesetId) {
+      /**
+       *  cancel any existing changeset tasks,
+       *  even if it doesnt change to `changesets/:id`
+       *  we anway would like to suspend the ongoing task
+       *  to save resouces
+       */
+      if (changesetTask) yield cancel(changesetTask);
+      if (changesetMapTask) yield cancel(changesetMapTask);
 
-    // checks for the old osmcha style urls
-    // eg osmcha.mapbox.com/34354242 and redirects them
-    // to osmcha.mapbox.com/changesets/3432434
-    const legacy = checkForLegacyURL(location);
-    if (legacy) {
-      yield put(
-        replace({
-          ...location,
-          pathname: '/changesets/' + legacy
-        })
-      );
-      continue;
-    }
-    if (changesetTask) yield cancel(changesetTask);
-    if (changesetMapTask) yield cancel(changesetMapTask);
-
-    // extracts the new changesetId param from location object
-    let changesetId = getChangesetIdFromLocation(location);
-    if (!changesetId) continue; // skip for non changesets/:id routes
-
-    let oldChangesetId = yield select(
-      (state: RootStateType) =>
-        !state.changeset.get('errorChangeset') &&
-        !state.changeset.get('errorChangesetMap') &&
-        state.changeset.get('changesetId')
-    );
-
-    if (oldChangesetId !== changesetId) {
-      // on forking: https://redux-saga.js.org/docs/advanced/Concurrency.html
       changesetTask = yield fork(fetchChangesetAction, changesetId);
       changesetMapTask = yield fork(fetchChangesetMapAction, changesetId);
     }
+  }
+}
+
+export function* shouldUpdateSaga(location: Object): any {
+  // checks for the old osmcha style urls
+  // eg osmcha.mapbox.com/34354242 and redirects them
+  // to osmcha.mapbox.com/changesets/3432434
+  const legacy = checkForLegacyURL(location);
+  if (legacy) {
+    yield put(
+      replace({
+        ...location,
+        pathname: '/changesets/' + legacy
+      })
+    );
+    return false;
+  }
+  let changesetId = getChangesetIdFromLocation(location);
+
+  if (!changesetId) return false;
+
+  let oldChangesetId = yield select(
+    (state: RootStateType) =>
+      !state.changeset.get('errorChangeset') &&
+      !state.changeset.get('errorChangesetMap') &&
+      state.changeset.get('changesetId')
+  );
+
+  if (oldChangesetId !== changesetId) {
+    return changesetId;
   }
 }
 
