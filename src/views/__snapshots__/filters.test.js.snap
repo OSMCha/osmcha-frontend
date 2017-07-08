@@ -75,30 +75,10 @@ exports[`renders correctly with 1 filter 1`] = `
           className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3 "
-              disabled={undefined}
-              max="2017-07-05"
-              min={false}
-              name="date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input  "
-              disabled={undefined}
-              max="2017-07-05"
-              min={undefined}
-              name="date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -710,30 +690,10 @@ exports[`renders correctly with 1 filter 1`] = `
           className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3 "
-              disabled={undefined}
-              max="2017-07-05"
-              min={false}
-              name="check_date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input  "
-              disabled={undefined}
-              max="2017-07-05"
-              min={undefined}
-              name="check_date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -1325,7 +1285,7 @@ exports[`renders correctly with 1 filter 1`] = `
             <input
               className="input mr3 "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={0}
               name="create__gte"
               onChange={[Function]}
@@ -1336,7 +1296,7 @@ exports[`renders correctly with 1 filter 1`] = `
             <input
               className="input  "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={undefined}
               name="create__lte"
               onChange={[Function]}
@@ -1387,7 +1347,7 @@ exports[`renders correctly with 1 filter 1`] = `
             <input
               className="input mr3 "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={0}
               name="modify__gte"
               onChange={[Function]}
@@ -1398,7 +1358,7 @@ exports[`renders correctly with 1 filter 1`] = `
             <input
               className="input  "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={undefined}
               name="modify__lte"
               onChange={[Function]}
@@ -1449,7 +1409,7 @@ exports[`renders correctly with 1 filter 1`] = `
             <input
               className="input mr3 "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={0}
               name="delete__gte"
               onChange={[Function]}
@@ -1460,7 +1420,7 @@ exports[`renders correctly with 1 filter 1`] = `
             <input
               className="input  "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={undefined}
               name="delete__lte"
               onChange={[Function]}
@@ -1868,30 +1828,10 @@ exports[`renders correctly with 2 filters 1`] = `
           className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3 "
-              disabled={undefined}
-              max="2017-07-05"
-              min={false}
-              name="date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input  "
-              disabled={undefined}
-              max="2017-07-05"
-              min={undefined}
-              name="date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -2550,30 +2490,10 @@ exports[`renders correctly with 2 filters 1`] = `
           className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3 "
-              disabled={undefined}
-              max="2017-07-05"
-              min={false}
-              name="check_date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input  "
-              disabled={undefined}
-              max="2017-07-05"
-              min={undefined}
-              name="check_date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -3165,7 +3085,7 @@ exports[`renders correctly with 2 filters 1`] = `
             <input
               className="input mr3 "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={0}
               name="create__gte"
               onChange={[Function]}
@@ -3176,7 +3096,7 @@ exports[`renders correctly with 2 filters 1`] = `
             <input
               className="input  "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={undefined}
               name="create__lte"
               onChange={[Function]}
@@ -3227,7 +3147,7 @@ exports[`renders correctly with 2 filters 1`] = `
             <input
               className="input mr3 "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={0}
               name="modify__gte"
               onChange={[Function]}
@@ -3238,7 +3158,7 @@ exports[`renders correctly with 2 filters 1`] = `
             <input
               className="input  "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={undefined}
               name="modify__lte"
               onChange={[Function]}
@@ -3289,7 +3209,7 @@ exports[`renders correctly with 2 filters 1`] = `
             <input
               className="input mr3 "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={0}
               name="delete__gte"
               onChange={[Function]}
@@ -3300,7 +3220,7 @@ exports[`renders correctly with 2 filters 1`] = `
             <input
               className="input  "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={undefined}
               name="delete__lte"
               onChange={[Function]}
@@ -3722,30 +3642,10 @@ exports[`renders correctly with 4 filters 1`] = `
           className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3 "
-              disabled={undefined}
-              max="2017-07-05"
-              min={false}
-              name="date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value="2017-06-04"
-            />
-            <input
-              className="input  "
-              disabled={undefined}
-              max="2017-07-05"
-              min="2017-06-04"
-              name="date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -4486,30 +4386,10 @@ exports[`renders correctly with 4 filters 1`] = `
           className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3 "
-              disabled={undefined}
-              max="2017-07-05"
-              min={false}
-              name="check_date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input  "
-              disabled={undefined}
-              max="2017-07-05"
-              min={undefined}
-              name="check_date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -5101,7 +4981,7 @@ exports[`renders correctly with 4 filters 1`] = `
             <input
               className="input mr3 "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={0}
               name="create__gte"
               onChange={[Function]}
@@ -5112,7 +4992,7 @@ exports[`renders correctly with 4 filters 1`] = `
             <input
               className="input  "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={undefined}
               name="create__lte"
               onChange={[Function]}
@@ -5163,7 +5043,7 @@ exports[`renders correctly with 4 filters 1`] = `
             <input
               className="input mr3 "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={0}
               name="modify__gte"
               onChange={[Function]}
@@ -5174,7 +5054,7 @@ exports[`renders correctly with 4 filters 1`] = `
             <input
               className="input  "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={undefined}
               name="modify__lte"
               onChange={[Function]}
@@ -5225,7 +5105,7 @@ exports[`renders correctly with 4 filters 1`] = `
             <input
               className="input mr3 "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={0}
               name="delete__gte"
               onChange={[Function]}
@@ -5236,7 +5116,7 @@ exports[`renders correctly with 4 filters 1`] = `
             <input
               className="input  "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={undefined}
               name="delete__lte"
               onChange={[Function]}
@@ -5644,30 +5524,10 @@ exports[`renders correctly without filter 1`] = `
           className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3 "
-              disabled={undefined}
-              max="2017-07-05"
-              min={false}
-              name="date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input  "
-              disabled={undefined}
-              max="2017-07-05"
-              min={undefined}
-              name="date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -6235,30 +6095,10 @@ exports[`renders correctly without filter 1`] = `
           className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3 "
-              disabled={undefined}
-              max="2017-07-05"
-              min={false}
-              name="check_date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input  "
-              disabled={undefined}
-              max="2017-07-05"
-              min={undefined}
-              name="check_date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -6850,7 +6690,7 @@ exports[`renders correctly without filter 1`] = `
             <input
               className="input mr3 "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={0}
               name="create__gte"
               onChange={[Function]}
@@ -6861,7 +6701,7 @@ exports[`renders correctly without filter 1`] = `
             <input
               className="input  "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={undefined}
               name="create__lte"
               onChange={[Function]}
@@ -6912,7 +6752,7 @@ exports[`renders correctly without filter 1`] = `
             <input
               className="input mr3 "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={0}
               name="modify__gte"
               onChange={[Function]}
@@ -6923,7 +6763,7 @@ exports[`renders correctly without filter 1`] = `
             <input
               className="input  "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={undefined}
               name="modify__lte"
               onChange={[Function]}
@@ -6974,7 +6814,7 @@ exports[`renders correctly without filter 1`] = `
             <input
               className="input mr3 "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={0}
               name="delete__gte"
               onChange={[Function]}
@@ -6985,7 +6825,7 @@ exports[`renders correctly without filter 1`] = `
             <input
               className="input  "
               disabled={undefined}
-              max={false}
+              max={undefined}
               min={undefined}
               name="delete__lte"
               onChange={[Function]}

@@ -5,6 +5,10 @@ import { fromJS } from 'immutable';
 import { StaticRouter } from 'react-router';
 import MockDate from 'mockdate';
 
+jest.mock('react-datepicker', () => {
+  return () => <div />;
+});
+
 beforeEach(() => {
   MockDate.set(1499224971614);
 });
