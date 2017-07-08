@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { Loading } from '../components/loading';
 import { dispatchEvent } from '../utils/dispatch_event';
+import { importChangesetMap } from '../utils/cmap';
+
 import 'changeset-map/public/css/style.css';
 import type { RootStateType } from '../store';
 
@@ -20,24 +22,22 @@ export function selectFeature(id: number) {
   event.emit('selectFeature', 'node|way', id);
 }
 
-function importChangesetMap() {
+function loadingChangesetMapAsync() {
   if (cMapRender) return Promise.resolve(cMapRender);
-  return import('changeset-map')
-    .then(function(module) {
-      cMapRender = module.render;
-      getMapInstance = module.getMapInstance;
-      return cMapRender;
-    })
-    .catch(function(err) {
-      console.error(err);
-      console.log('Failed to load module changeset-map');
-    });
+  return Promise.all([
+    importChangesetMap('render'),
+    importChangesetMap('getMapInstance')
+  ]).then(res => {
+    cMapRender = res[0];
+    getMapInstance = res[1];
+    return cMapRender;
+  });
 }
 
 function loadMap() {
   var container = document.getElementById('container');
   if (!container || !currentChangesetMap) return;
-  importChangesetMap().then(render => {
+  loadingChangesetMapAsync().then(render => {
     if (!render) return;
     // if (event) event.emit('clearFeature');
     event = render(container, changesetId, {

@@ -2,21 +2,7 @@
 import React from 'react';
 import debounce from 'lodash.debounce';
 import { fromJS } from 'immutable';
-
-let mapboxgl;
-
-function importChangesetMap() {
-  if (mapboxgl) return Promise.resolve(mapboxgl);
-  return import('changeset-map')
-    .then(function(module) {
-      mapboxgl = module.getGL();
-      return mapboxgl;
-    })
-    .catch(function(err) {
-      console.error(err);
-      console.log('Failed to load module changeset-map');
-    });
-}
+import { importChangesetMap } from '../utils/cmap';
 
 export class BBoxPicker extends React.Component {
   update = debounce(() => {
@@ -47,21 +33,26 @@ export class BBoxPicker extends React.Component {
 
   map = null;
   componentDidMount() {
-    importChangesetMap().then((mapboxgl: any) => {
-      mapboxgl.accessToken =
-        'pk.eyJ1IjoicGxhbmVtYWQiLCJhIjoiemdYSVVLRSJ9.g3lbg_eN0kztmsfIPxa9MQ';
-      if (this.props.value) {
-        let bbox = this.props.value.getIn(['0', 'value'], '').split(',');
+    importChangesetMap('getGL').then((getGL: any) => {
+      if (getGL) {
+        var mapboxgl = getGL();
+        mapboxgl.accessToken =
+          'pk.eyJ1IjoicGxhbmVtYWQiLCJhIjoiemdYSVVLRSJ9.g3lbg_eN0kztmsfIPxa9MQ';
+        if (this.props.value) {
+          let bbox = this.props.value.getIn(['0', 'value'], '').split(',');
+        }
+        const map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/mapbox/light-v9'
+        });
+        map.on('dragend', this.update);
+        map.on('zoomend', this.update);
+        map.on('touchend', this.update);
+        this.map = map;
       }
-      const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/light-v9'
-      });
-      map.on('dragend', this.update);
-      map.on('zoomend', this.update);
-      map.on('touchend', this.update);
-      this.map = map;
     });
+    // importChangesetMap().then((mapboxgl: any) => {
+    // });
   }
   componentWillUnmount() {
     console.log('unmount');

@@ -6,6 +6,7 @@ import { LOCATION_CHANGE, replace, push } from 'react-router-redux';
 import notifications from '../config/notifications';
 
 import { fetchChangeset, setHarmful, setTag } from '../network/changeset';
+import { importChangesetMap } from '../utils/cmap';
 
 import {
   getChangesetIdFromLocation,
@@ -17,21 +18,25 @@ import { modal } from './modal_actions';
 
 import { CHANGESETS_PAGE } from './changesets_page_actions';
 
-export const CHANGESET_GET = 'CHANGESET_GET';
-export const CHANGESET_FETCHED = 'CHANGESET_FETCHED';
-export const CHANGESET_CHANGE = 'CHANGESET_CHANGE';
-export const CHANGESET_LOADING = 'CHANGESET_LOADING';
-export const CHANGESET_ERROR = 'CHANGESET_ERROR';
-
-export const CHANGESET_MAP_LOADING = 'CHANGESET_MAP_FETCH_LOADING';
-export const CHANGESET_MAP_FETCHED = 'CHANGESET_MAP_FETCHED';
-export const CHANGESET_MAP_CHANGE = 'CHANGESET_MAP_CHANGE';
-export const CHANGESET_MAP_ERROR = 'CHANGESET_MAP_ERROR';
-
-export const CHANGESET_MODIFY_HARMFUL = 'CHANGESET_MODIFY_HARMFUL';
-export const CHANGESET_MODIFY = 'CHANGESET_MODIFY';
-export const CHANGESET_MODIFY_REVERT = 'CHANGESET_MODIFY_REVERT';
-export const CHANGESET_MODIFY_TAG = 'CHANGESET_MODIFY_TAG';
+export const CHANGESET = {
+  fetch: 'CHANGESET.fetch',
+  fetched: 'CHANGESET.fetched',
+  change: 'CHANGESET.change',
+  loading: 'CHANGESET.loading',
+  error: 'CHANGESET.error'
+};
+export const CHANGESET_MODIFY = {
+  modify: 'CHANGESET_MODIFY.modify',
+  harmful: 'CHANGESET_MODIFY.harmful',
+  revert: 'CHANGESET_MODIFY.revert',
+  tag: 'CHANGESET_MODIFY.tag'
+};
+export const CHANGESET_MAP = {
+  fetched: 'CHANGESET_MAP.fetched',
+  loading: 'CHANGESET_MAP.loading',
+  change: 'CHANGESET_MAP.change',
+  error: 'CHANGESET_MAP.error'
+};
 
 export function action(type: string, payload: ?Object) {
   return { type, ...payload };
@@ -40,14 +45,14 @@ export function action(type: string, payload: ?Object) {
 // public
 // starting point for react component to start fetch
 export const getChangeset = (changesetId: number) =>
-  action(CHANGESET_GET, { changesetId });
+  action(CHANGESET.fetch, { changesetId });
 
 export const handleChangesetModifyHarmful = (
   changesetId: number,
   changeset: Map<string, *>,
   harmful: boolean | -1
 ) =>
-  action(CHANGESET_MODIFY_HARMFUL, {
+  action(CHANGESET_MODIFY.harmful, {
     oldChangeset: changeset,
     changesetId,
     harmful
@@ -59,7 +64,7 @@ export const handleChangesetModifyTag = (
   tag: Object,
   remove: boolean
 ) =>
-  action(CHANGESET_MODIFY_TAG, {
+  action(CHANGESET_MODIFY.tag, {
     oldChangeset: changeset,
     changesetId,
     tag,
@@ -125,8 +130,8 @@ export function* shouldUpdateSaga(location: Object): any {
 export function* watchModifyChangeset(): any {
   while (true) {
     const modifyAction = yield take([
-      CHANGESET_MODIFY_HARMFUL,
-      CHANGESET_MODIFY_TAG
+      CHANGESET_MODIFY.harmful,
+      CHANGESET_MODIFY.tag
     ]); // scope for multiple modify actions in future
     const { token, username } = yield select((state: RootStateType) => ({
       token: state.auth.get('token'),
@@ -149,7 +154,7 @@ export function* watchModifyChangeset(): any {
     let newChangeset;
     try {
       switch (modifyAction.type) {
-        case CHANGESET_MODIFY_HARMFUL: {
+        case CHANGESET_MODIFY.harmful: {
           const harmful = modifyAction.harmful;
           newChangeset = yield call(setHarmfulAction, {
             changesetId,
@@ -160,7 +165,7 @@ export function* watchModifyChangeset(): any {
           });
           break;
         }
-        case CHANGESET_MODIFY_TAG: {
+        case CHANGESET_MODIFY.tag: {
           const { tag, remove } = modifyAction;
           newChangeset = yield call(setTagActions, {
             changesetId,
@@ -177,7 +182,7 @@ export function* watchModifyChangeset(): any {
       }
     } catch (error) {
       yield put(
-        action(CHANGESET_MODIFY_REVERT, {
+        action(CHANGESET_MODIFY.revert, {
           changesetId,
           changeset: oldChangeset
         })
@@ -200,16 +205,22 @@ export function* watchModifyChangeset(): any {
   }
 }
 
+export const changesetsSelector = (state: RootStateType) => {
+  return state.changeset.getIn(['changesets'], Map());
+};
+export const tokenSelector = (state: RootStateType) => state.auth.get('token');
+export const locationSelector = (state: RootStateType) =>
+  state.routing.location;
+
 /** Sagas **/
 export function* fetchChangesetAction(changesetId: number): Object {
-  let changeset = yield select((state: RootStateType) =>
-    state.changeset.getIn(['changesets', changesetId])
-  );
+  let changesets = yield select(changesetsSelector);
+  let changeset = changesets.get(changesetId);
   // check if the changeset already exists
-  // if it does make it active and exit
+  // if it does! make it active and exit
   if (changeset) {
     yield put(
-      action(CHANGESET_CHANGE, {
+      action(CHANGESET.change, {
         changesetId
       })
     );
@@ -217,30 +228,28 @@ export function* fetchChangesetAction(changesetId: number): Object {
   }
 
   yield put(
-    action(CHANGESET_LOADING, {
+    action(CHANGESET.loading, {
       changesetId
     })
   );
 
   try {
-    let token = yield select((state: RootStateType) => state.auth.get('token'));
+    let token = yield select(tokenSelector);
     changeset = yield call(fetchChangeset, changesetId, token);
     yield put(
-      action(CHANGESET_FETCHED, {
+      action(CHANGESET.fetched, {
         data: fromJS(changeset),
         changesetId
       })
     );
   } catch (error) {
     yield put(
-      action(CHANGESET_ERROR, {
+      action(CHANGESET.error, {
         changesetId,
         error
       })
     );
-    const location = yield select(
-      (state: RootStateType) => state.routing.location
-    );
+    const location = yield select(locationSelector);
     error.name = `Changeset:${changesetId} failed`;
     yield put(
       modal({
@@ -253,50 +262,47 @@ export function* fetchChangesetAction(changesetId: number): Object {
   }
 }
 
-export function* fetchChangesetMapAction(changesetId: number): Object {
-  let getCMapData;
-  let changesetMap = yield select((state: RootStateType) =>
-    state.changeset.getIn(['changesetMap', changesetId])
+export function changesetMapModule(changesetId: number): any {
+  return importChangesetMap('getChangeset').then((getCMapData: any) =>
+    getCMapData(changesetId)
   );
+}
+export const changesetMapSelector = (state: RootStateType) =>
+  state.changeset.getIn(['changesetMap'], Map());
+
+export function* fetchChangesetMapAction(changesetId: number): Object {
+  const changesetMaps = yield select(changesetMapSelector);
+  let changesetMap = changesetMaps.get(changesetId);
+
   if (changesetMap) {
     yield put(
-      action(CHANGESET_MAP_CHANGE, {
+      action(CHANGESET_MAP.change, {
         changesetId
       })
     );
     return;
   }
-
   yield put(
-    action(CHANGESET_MAP_LOADING, {
+    action(CHANGESET_MAP.loading, {
       changesetId
     })
   );
   try {
-    if (!getCMapData) {
-      const importPromise = new Promise(resolve =>
-        import('changeset-map').then(module => resolve(module.getChangeset))
-      );
-      const awaitPromise = () => Promise.resolve(importPromise);
-      getCMapData = yield call(awaitPromise);
-    }
-    changesetMap = yield call(getCMapData, changesetId);
+    changesetMap = yield call(changesetMapModule, changesetId);
     yield put(
-      action(CHANGESET_MAP_FETCHED, {
+      action(CHANGESET_MAP.fetched, {
         data: changesetMap,
         changesetId
       })
     );
   } catch (error) {
     yield put(
-      action(CHANGESET_MAP_ERROR, {
+      action(CHANGESET_MAP.error, {
         changesetId,
         error
       })
     );
-    const location = yield select(
-      (state: RootStateType) => state.routing.location
-    );
+    const location = yield select(locationSelector);
     error.name = `Changeset:${changesetId} Map failed`;
     yield put(
       modal({
@@ -326,9 +332,8 @@ export function* setHarmfulAction({
     .setIn(['properties', 'harmful'], harmful === -1 ? null : harmful);
 
   // update changeset list
-
   yield put(
-    action(CHANGESET_MODIFY, {
+    action(CHANGESET_MODIFY.modify, {
       changesetId,
       changeset: newChangeset
     })
@@ -371,7 +376,7 @@ export function* setTagActions({
     }
 
     yield put(
-      action(CHANGESET_MODIFY, {
+      action(CHANGESET_MODIFY.modify, {
         changesetId,
         changeset: newChangeset
       })

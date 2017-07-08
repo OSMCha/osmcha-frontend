@@ -4,12 +4,9 @@ import { expectSaga } from 'redux-saga-test-plan';
 import * as matchers from 'redux-saga-test-plan/matchers';
 import { throwError } from 'redux-saga-test-plan/providers';
 import { push } from 'react-router-redux';
-import { validateFilters, getDefaultFromDate } from '../utils/filters';
 
 import { fromJS, Map } from 'immutable';
 import { delay } from 'redux-saga';
-
-import { modal } from './modal_actions';
 
 import {
   action,
@@ -23,8 +20,11 @@ import {
   tokenSelector,
   FILTERS,
   CHANGESETS_PAGE
-} from './changesets_page_actions';
-import { fetchChangesetsPage } from '../network/changesets_page';
+} from '../changesets_page_actions';
+import { modal } from '../modal_actions';
+
+import { fetchChangesetsPage } from '../../network/changesets_page';
+import { validateFilters, getDefaultFromDate } from '../../utils/filters';
 
 describe('changesets_page filtersSaga', () => {
   const newFilters = fromJS({

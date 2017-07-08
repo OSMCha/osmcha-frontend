@@ -1,29 +1,23 @@
 import { call, select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import * as matchers from 'redux-saga-test-plan/matchers';
-import { throwError } from 'redux-saga-test-plan/providers';
 import { fromJS } from 'immutable';
-import { delay } from 'redux-saga';
-import { modal } from './modal_actions';
 
-import nock from 'nock';
-
-import { setItem, removeItem } from '../utils/safe_storage';
+import { setItem, removeItem } from '../../utils/safe_storage';
 
 import {
   postTokensOSMCha,
   postFinalTokensOSMCha,
   fetchUserDetails
-} from '../network/auth';
+} from '../../network/auth';
 
 import {
   watchAuth,
   authTokenFlow,
   AUTH,
-  action,
   getTokenSelector
-} from './auth_actions';
-import { authReducer } from './auth_reducer';
+} from '../auth_actions';
+import { authReducer } from '../auth_reducer';
 
 const token = '2d2289bd78985b2b46af29607ee50fa37cb1723a';
 const oauth_verifier = 'xbiZdWS1EYS608suvHrL';
