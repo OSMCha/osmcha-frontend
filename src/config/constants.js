@@ -16,6 +16,6 @@ export const osmCommentsApi =
   'https://osm-comments-api.mapbox.com/api/v1/changesets';
 
 export const whosThat =
-  'https://rksbsqdel4.execute-api.us-east-1.amazonaws.com/testing?action=names&q=';
+  'https://rksbsqdel4.execute-api.us-east-1.amazonaws.com/testing?action=names&id=';
 
 export const DEFAULT_FROM_DATE = 7;

@@ -26,7 +26,7 @@ export class Avatar extends React.PureComponent {
     if (this.props.url) {
       url = this.props.url;
       if (url.indexOf('http://') > -1) {
-        url = url.slice(5);
+        url = 'https://' + url.slice(5);
       }
     }
     return (

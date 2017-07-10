@@ -75,7 +75,7 @@ const persistedState = {
     error: null
   }),
   changesetsPage: Map({
-    filters: fromJS(getFiltersFromUrl()),
+    filters: getFiltersFromUrl(window.location.search),
     pageIndex: 0,
     pages: new List(),
     loading: false,

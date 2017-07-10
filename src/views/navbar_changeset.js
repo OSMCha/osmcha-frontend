@@ -24,26 +24,17 @@ import {
 } from '../store/changeset_actions';
 import type { RootStateType } from '../store';
 
-class NavbarChangeset extends React.PureComponent {
-  props: {
-    changesetId: number,
-    location: Object,
-    currentChangeset: Map<string, *>,
-    username: ?string,
-    lastKeyStroke: Map<string, *>,
-    handleChangesetModifyTag: (
-      number,
-      Map<string, *>,
-      Object,
-      boolean
-    ) => mixed,
-    handleChangesetModifyHarmful: (
-      number,
-      Map<string, *>,
-      boolean | -1
-    ) => mixed
-  };
-  componentWillReceiveProps(nextProps) {
+type propsType = {
+  changesetId: number,
+  location: Object,
+  currentChangeset: Map<string, *>,
+  username: ?string,
+  lastKeyStroke: Map<string, *>,
+  handleChangesetModifyTag: (number, Map<string, *>, Object, boolean) => mixed,
+  handleChangesetModifyHarmful: (number, Map<string, *>, boolean | -1) => mixed
+};
+class NavbarChangeset extends React.PureComponent<void, propsType, *> {
+  componentWillReceiveProps(nextProps: propsType) {
     if (!this.props.currentChangeset) return;
     const lastKeyStroke: Map<string, *> = nextProps.lastKeyStroke;
     if (is(this.props.lastKeyStroke, lastKeyStroke)) return;
@@ -127,8 +118,7 @@ class NavbarChangeset extends React.PureComponent {
                   {'<  '}
                 </Link>}
               <span className="txt-l color-gray--dark">
-                <span className="txt-bold">Changeset:</span>
-                {' '}
+                <span className="txt-bold">Changeset:</span>{' '}
                 <span className="txt-underline mr12">
                   <a
                     href={`https://openstreetmap.org/changeset/${this.props
@@ -219,4 +209,5 @@ NavbarChangeset = connect(
   }),
   { handleChangesetModifyTag, handleChangesetModifyHarmful }
 )(NavbarChangeset);
+
 export { NavbarChangeset };

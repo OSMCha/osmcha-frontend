@@ -41,9 +41,8 @@ export function Header({
           }}
           to={{
             search: location.search,
-            pathname: location.pathname.indexOf('/filters') > -1
-              ? '/'
-              : '/filters'
+            pathname:
+              location.pathname.indexOf('/filters') > -1 ? '/' : '/filters'
           }}
         >
           <Button className="mx3">Filters</Button>
@@ -51,13 +50,14 @@ export function Header({
       </header>
       <header
         className={`px12 border-l border-b border-b--1 border--gray-light px12 py6 ${diff >
-          0
+        0
           ? 'bg-darken10'
           : 'bg-gray-faint'} flex-child align-items--center`}
       >
         <span className="flex-parent flex-parent--row justify--space-between color-gray txt-s txt-bold">
           <span>
-            {(currentPage && numberWithCommas(currentPage.get('count'))) || 0}{' '}
+            {(currentPage && numberWithCommas(currentPage.get('count'))) ||
+              0}{' '}
             changesets.
           </span>
           <span className="flex-parent flex-parent--row">

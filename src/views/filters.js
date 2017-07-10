@@ -18,12 +18,14 @@ import {
 
 import { Button } from '../components/button';
 import { BBoxPicker } from '../components/bbox_picker';
-
-import { getItem, setItem } from '../utils/safe_storage';
+import { delayPromise } from '../utils/promise';
 import { gaSendEvent } from '../utils/analytics';
 
 import filters from '../config/filters.json';
-import { applyFilters } from '../store/changesets_page_actions';
+import {
+  applyFilters,
+  checkForNewChangesets
+} from '../store/changesets_page_actions';
 
 import type { RootStateType } from '../store';
 
@@ -36,7 +38,7 @@ export class _Filters extends React.PureComponent {
     filters: Map<string, any>,
     location: Object,
     features: ?List<Map<string, any>>,
-    lastChangesetID: number,
+    checkForNewChangesets: boolean => any,
     applyFilters: (Object, string) => mixed
   };
   static defaultProps = {
@@ -54,6 +56,11 @@ export class _Filters extends React.PureComponent {
   };
   handleApply = () => {
     this.props.applyFilters(this.state.filters, '/');
+    // show user if there were any new changesets
+    // incase service had cached the request
+    delayPromise(3000).promise.then(() =>
+      this.props.checkForNewChangesets(true)
+    );
     const filters: Map<string, List<*>> = this.state.filters;
     filters.forEach((v, k) => {
       v.forEach(vv => {
@@ -270,14 +277,12 @@ export class _Filters extends React.PureComponent {
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white ${width <
-          800
+        800
           ? 'viewport-full'
           : ''}`}
       >
         <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
-          <span className="txt-l txt-bold color-gray--dark">
-            Filters
-          </span>
+          <span className="txt-l txt-bold color-gray--dark">Filters</span>
           <span className="txt-l color-gray--dark">
             <Button
               className="border--0 bg-transparent"
@@ -285,7 +290,9 @@ export class _Filters extends React.PureComponent {
             >
               Reset
             </Button>
-            <Button onClick={this.handleApply} className="mx3">Apply</Button>
+            <Button onClick={this.handleApply} className="mx3">
+              Apply
+            </Button>
             <Link
               to={{ search: this.props.location.search, pathname: '/' }}
               className="mx3 pointer"
@@ -333,13 +340,11 @@ const Filters = connect(
   (state: RootStateType, props) => ({
     filters: state.changesetsPage.get('filters'),
     features: state.changesetsPage.getIn(['currentPage', 'features']),
-    lastChangesetID:
-      state.changeset.get('changesetId') ||
-        state.changesetsPage.getIn(['currentPage', 'features', 0, 'id']),
     location: props.location
   }),
   {
-    applyFilters
+    applyFilters,
+    checkForNewChangesets
   }
 )(_Filters);
 

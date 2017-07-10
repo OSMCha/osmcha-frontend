@@ -53,6 +53,7 @@ class Changeset extends React.PureComponent {
       currentChangeset,
       changesetId
     } = this.props;
+
     if (loading || !currentChangeset) {
       return null;
     }
@@ -69,11 +70,8 @@ class Changeset extends React.PureComponent {
     }
     return (
       <ChangesetDumb
-        uid={parseInt(currentChangeset.getIn(['properties', 'uid'], null), 10)}
-        user={currentChangeset.getIn(['properties', 'user'], null)}
         changesetId={changesetId}
         currentChangeset={currentChangeset}
-        errorChangeset={errorChangeset}
         filterChangesetsByUser={this.filterChangesetsByUser}
       />
     );
