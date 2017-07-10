@@ -85,7 +85,9 @@ img {
   font-size: 6em;
   line-height: 2em;
 }
-
+.react-datepicker__input-container {
+  width: 100%;
+}
 @media only screen and (max-width: 768px) {
   .responsive-box {
     width: 75vw !important;
@@ -294,31 +296,33 @@ img {
 }
 
 .cmap-bg-create {
-  background-color: #39DBC0;
+  background-color: #39dbc0;
 }
 
 .cmap-bg-modify-old {
-  background-color: #DB950A;
+  background-color: #db950a;
 }
 
 .cmap-bg-modify-new {
-  background-color: #E8E845;
+  background-color: #e8e845;
 }
 
 .cmap-bg-delete {
-  background-color: #CC2C47;
+  background-color: #cc2c47;
 }
 
 /* OSMCha Custom CSS*/
 
-.osmcha-custom-table th, .osmcha-custom-table td {
+.osmcha-custom-table th,
+.osmcha-custom-table td {
   padding: 6px !important;
 }
 
 /* Changeset list color hacks */
 
-.light-blue, .light-blue-on-hover:hover {
-  background-color: #EEF4FA !important;
+.light-blue,
+.light-blue-on-hover:hover {
+  background-color: #eef4fa !important;
 }
 
 .changesets-list .border-color-good {
@@ -330,7 +334,7 @@ img {
 }
 
 .changesets-list .border-color-neutral {
-  border-color: #D8D8D8 !important;
+  border-color: #d8d8d8 !important;
 }
 
 .changesets-list .border-l--4 {

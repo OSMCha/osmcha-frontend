@@ -43,7 +43,7 @@ exports[`renders correctly with 1 filter 1`] = `
     </span>
   </header>
   <div
-    className="pl30 flex-child scroll-auto"
+    className="px30 flex-child filters-scroll"
   >
     <h2
       className="txt-xl mr6 txt-bold mt24   border-b border--gray-light border--1"
@@ -72,29 +72,13 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3"
-              disabled={undefined}
-              name="date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input "
-              disabled={undefined}
-              name="date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -141,11 +125,13 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="in_bbox"
             onChange={[Function]}
             placeholder="Pan to the location of interest in the map"
@@ -186,11 +172,13 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="comment"
             onChange={[Function]}
             placeholder="Enter a keyword like hotosm, import or fixme"
@@ -236,7 +224,7 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className="Select Select--single is-clearable is-searchable"
@@ -367,7 +355,7 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -582,7 +570,7 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className="Select Select--single is-clearable is-searchable"
@@ -699,29 +687,13 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3"
-              disabled={undefined}
-              name="check_date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input "
-              disabled={undefined}
-              name="check_date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -757,7 +729,7 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -878,7 +850,7 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -1063,7 +1035,7 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -1184,7 +1156,7 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -1305,14 +1277,16 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
             className="flex-parent flex-parent--row  "
           >
             <input
-              className="input mr3"
+              className="input mr3 "
               disabled={undefined}
+              max={undefined}
+              min={0}
               name="create__gte"
               onChange={[Function]}
               placeholder="from"
@@ -1320,8 +1294,10 @@ exports[`renders correctly with 1 filter 1`] = `
               value=""
             />
             <input
-              className="input "
+              className="input  "
               disabled={undefined}
+              max={undefined}
+              min={undefined}
               name="create__lte"
               onChange={[Function]}
               placeholder="to"
@@ -1363,14 +1339,16 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
             className="flex-parent flex-parent--row  "
           >
             <input
-              className="input mr3"
+              className="input mr3 "
               disabled={undefined}
+              max={undefined}
+              min={0}
               name="modify__gte"
               onChange={[Function]}
               placeholder="from"
@@ -1378,8 +1356,10 @@ exports[`renders correctly with 1 filter 1`] = `
               value=""
             />
             <input
-              className="input "
+              className="input  "
               disabled={undefined}
+              max={undefined}
+              min={undefined}
               name="modify__lte"
               onChange={[Function]}
               placeholder="to"
@@ -1421,14 +1401,16 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
             className="flex-parent flex-parent--row  "
           >
             <input
-              className="input mr3"
+              className="input mr3 "
               disabled={undefined}
+              max={undefined}
+              min={0}
               name="delete__gte"
               onChange={[Function]}
               placeholder="from"
@@ -1436,8 +1418,10 @@ exports[`renders correctly with 1 filter 1`] = `
               value=""
             />
             <input
-              className="input "
+              className="input  "
               disabled={undefined}
+              max={undefined}
+              min={undefined}
               name="delete__lte"
               onChange={[Function]}
               placeholder="to"
@@ -1479,11 +1463,13 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="source"
             onChange={[Function]}
             placeholder="eg. Bing, Local"
@@ -1524,11 +1510,13 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="editor"
             onChange={[Function]}
             placeholder="eg. iD, JOSM"
@@ -1569,11 +1557,13 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="imagery_used"
             onChange={[Function]}
             placeholder="eg. Bing, Mapbox"
@@ -1614,7 +1604,7 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className="Select Select--single is-clearable is-searchable"
@@ -1731,11 +1721,13 @@ exports[`renders correctly with 1 filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="area_lt"
             onChange={[Function]}
             placeholder="Upper bound of bbox area"
@@ -1804,7 +1796,7 @@ exports[`renders correctly with 2 filters 1`] = `
     </span>
   </header>
   <div
-    className="pl30 flex-child scroll-auto"
+    className="px30 flex-child filters-scroll"
   >
     <h2
       className="txt-xl mr6 txt-bold mt24   border-b border--gray-light border--1"
@@ -1833,29 +1825,13 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3"
-              disabled={undefined}
-              name="date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input "
-              disabled={undefined}
-              name="date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -1902,11 +1878,13 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="in_bbox"
             onChange={[Function]}
             placeholder="Pan to the location of interest in the map"
@@ -1947,11 +1925,13 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="comment"
             onChange={[Function]}
             placeholder="Enter a keyword like hotosm, import or fixme"
@@ -1997,7 +1977,7 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className="Select Select--single is-clearable is-searchable"
@@ -2128,7 +2108,7 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -2357,7 +2337,7 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className="Select Select--single is-clearable is-searchable has-value"
@@ -2507,29 +2487,13 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3"
-              disabled={undefined}
-              name="check_date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input "
-              disabled={undefined}
-              name="check_date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -2565,7 +2529,7 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -2686,7 +2650,7 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -2871,7 +2835,7 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -2992,7 +2956,7 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -3113,14 +3077,16 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
             className="flex-parent flex-parent--row  "
           >
             <input
-              className="input mr3"
+              className="input mr3 "
               disabled={undefined}
+              max={undefined}
+              min={0}
               name="create__gte"
               onChange={[Function]}
               placeholder="from"
@@ -3128,8 +3094,10 @@ exports[`renders correctly with 2 filters 1`] = `
               value=""
             />
             <input
-              className="input "
+              className="input  "
               disabled={undefined}
+              max={undefined}
+              min={undefined}
               name="create__lte"
               onChange={[Function]}
               placeholder="to"
@@ -3171,14 +3139,16 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
             className="flex-parent flex-parent--row  "
           >
             <input
-              className="input mr3"
+              className="input mr3 "
               disabled={undefined}
+              max={undefined}
+              min={0}
               name="modify__gte"
               onChange={[Function]}
               placeholder="from"
@@ -3186,8 +3156,10 @@ exports[`renders correctly with 2 filters 1`] = `
               value=""
             />
             <input
-              className="input "
+              className="input  "
               disabled={undefined}
+              max={undefined}
+              min={undefined}
               name="modify__lte"
               onChange={[Function]}
               placeholder="to"
@@ -3229,14 +3201,16 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
             className="flex-parent flex-parent--row  "
           >
             <input
-              className="input mr3"
+              className="input mr3 "
               disabled={undefined}
+              max={undefined}
+              min={0}
               name="delete__gte"
               onChange={[Function]}
               placeholder="from"
@@ -3244,8 +3218,10 @@ exports[`renders correctly with 2 filters 1`] = `
               value=""
             />
             <input
-              className="input "
+              className="input  "
               disabled={undefined}
+              max={undefined}
+              min={undefined}
               name="delete__lte"
               onChange={[Function]}
               placeholder="to"
@@ -3287,11 +3263,13 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="source"
             onChange={[Function]}
             placeholder="eg. Bing, Local"
@@ -3332,11 +3310,13 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="editor"
             onChange={[Function]}
             placeholder="eg. iD, JOSM"
@@ -3377,11 +3357,13 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="imagery_used"
             onChange={[Function]}
             placeholder="eg. Bing, Mapbox"
@@ -3422,7 +3404,7 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className="Select Select--single is-clearable is-searchable"
@@ -3539,11 +3521,13 @@ exports[`renders correctly with 2 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="area_lt"
             onChange={[Function]}
             placeholder="Upper bound of bbox area"
@@ -3612,7 +3596,7 @@ exports[`renders correctly with 4 filters 1`] = `
     </span>
   </header>
   <div
-    className="pl30 flex-child scroll-auto"
+    className="px30 flex-child filters-scroll"
   >
     <h2
       className="txt-xl mr6 txt-bold mt24   border-b border--gray-light border--1"
@@ -3655,29 +3639,13 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3"
-              disabled={undefined}
-              name="date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value="2017-06-04"
-            />
-            <input
-              className="input "
-              disabled={undefined}
-              name="date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -3724,11 +3692,13 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="in_bbox"
             onChange={[Function]}
             placeholder="Pan to the location of interest in the map"
@@ -3769,11 +3739,13 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="comment"
             onChange={[Function]}
             placeholder="Enter a keyword like hotosm, import or fixme"
@@ -3833,7 +3805,7 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className="Select Select--single is-clearable is-searchable has-value"
@@ -3997,7 +3969,7 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -4261,7 +4233,7 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className="Select Select--single is-clearable is-searchable has-value"
@@ -4411,29 +4383,13 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3"
-              disabled={undefined}
-              name="check_date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input "
-              disabled={undefined}
-              name="check_date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -4469,7 +4425,7 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -4590,7 +4546,7 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -4775,7 +4731,7 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -4896,7 +4852,7 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -5017,14 +4973,16 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
             className="flex-parent flex-parent--row  "
           >
             <input
-              className="input mr3"
+              className="input mr3 "
               disabled={undefined}
+              max={undefined}
+              min={0}
               name="create__gte"
               onChange={[Function]}
               placeholder="from"
@@ -5032,8 +4990,10 @@ exports[`renders correctly with 4 filters 1`] = `
               value=""
             />
             <input
-              className="input "
+              className="input  "
               disabled={undefined}
+              max={undefined}
+              min={undefined}
               name="create__lte"
               onChange={[Function]}
               placeholder="to"
@@ -5075,14 +5035,16 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
             className="flex-parent flex-parent--row  "
           >
             <input
-              className="input mr3"
+              className="input mr3 "
               disabled={undefined}
+              max={undefined}
+              min={0}
               name="modify__gte"
               onChange={[Function]}
               placeholder="from"
@@ -5090,8 +5052,10 @@ exports[`renders correctly with 4 filters 1`] = `
               value=""
             />
             <input
-              className="input "
+              className="input  "
               disabled={undefined}
+              max={undefined}
+              min={undefined}
               name="modify__lte"
               onChange={[Function]}
               placeholder="to"
@@ -5133,14 +5097,16 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
             className="flex-parent flex-parent--row  "
           >
             <input
-              className="input mr3"
+              className="input mr3 "
               disabled={undefined}
+              max={undefined}
+              min={0}
               name="delete__gte"
               onChange={[Function]}
               placeholder="from"
@@ -5148,8 +5114,10 @@ exports[`renders correctly with 4 filters 1`] = `
               value=""
             />
             <input
-              className="input "
+              className="input  "
               disabled={undefined}
+              max={undefined}
+              min={undefined}
               name="delete__lte"
               onChange={[Function]}
               placeholder="to"
@@ -5191,11 +5159,13 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="source"
             onChange={[Function]}
             placeholder="eg. Bing, Local"
@@ -5236,11 +5206,13 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="editor"
             onChange={[Function]}
             placeholder="eg. iD, JOSM"
@@ -5281,11 +5253,13 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="imagery_used"
             onChange={[Function]}
             placeholder="eg. Bing, Mapbox"
@@ -5326,7 +5300,7 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className="Select Select--single is-clearable is-searchable"
@@ -5443,11 +5417,13 @@ exports[`renders correctly with 4 filters 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="area_lt"
             onChange={[Function]}
             placeholder="Upper bound of bbox area"
@@ -5516,7 +5492,7 @@ exports[`renders correctly without filter 1`] = `
     </span>
   </header>
   <div
-    className="pl30 flex-child scroll-auto"
+    className="px30 flex-child filters-scroll"
   >
     <h2
       className="txt-xl mr6 txt-bold mt24   border-b border--gray-light border--1"
@@ -5545,29 +5521,13 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3"
-              disabled={undefined}
-              name="date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input "
-              disabled={undefined}
-              name="date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -5614,11 +5574,13 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="in_bbox"
             onChange={[Function]}
             placeholder="Pan to the location of interest in the map"
@@ -5659,11 +5621,13 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="comment"
             onChange={[Function]}
             placeholder="Enter a keyword like hotosm, import or fixme"
@@ -5709,7 +5673,7 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className="Select Select--single is-clearable is-searchable"
@@ -5826,7 +5790,7 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -6011,7 +5975,7 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className="Select Select--single is-clearable is-searchable"
@@ -6128,29 +6092,13 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
-            className="flex-parent flex-parent--row  "
+            className="flex-parent flex-parent--row h36"
           >
-            <input
-              className="input mr3"
-              disabled={undefined}
-              name="check_date__gte"
-              onChange={[Function]}
-              placeholder="from"
-              type="date"
-              value=""
-            />
-            <input
-              className="input "
-              disabled={undefined}
-              name="check_date__lte"
-              onChange={[Function]}
-              placeholder="to"
-              type="date"
-              value=""
-            />
+            <div />
+            <div />
           </span>
         </span>
         <span
@@ -6186,7 +6134,7 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -6307,7 +6255,7 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -6492,7 +6440,7 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -6613,7 +6561,7 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className=""
@@ -6734,14 +6682,16 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
             className="flex-parent flex-parent--row  "
           >
             <input
-              className="input mr3"
+              className="input mr3 "
               disabled={undefined}
+              max={undefined}
+              min={0}
               name="create__gte"
               onChange={[Function]}
               placeholder="from"
@@ -6749,8 +6699,10 @@ exports[`renders correctly without filter 1`] = `
               value=""
             />
             <input
-              className="input "
+              className="input  "
               disabled={undefined}
+              max={undefined}
+              min={undefined}
               name="create__lte"
               onChange={[Function]}
               placeholder="to"
@@ -6792,14 +6744,16 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
             className="flex-parent flex-parent--row  "
           >
             <input
-              className="input mr3"
+              className="input mr3 "
               disabled={undefined}
+              max={undefined}
+              min={0}
               name="modify__gte"
               onChange={[Function]}
               placeholder="from"
@@ -6807,8 +6761,10 @@ exports[`renders correctly without filter 1`] = `
               value=""
             />
             <input
-              className="input "
+              className="input  "
               disabled={undefined}
+              max={undefined}
+              min={undefined}
               name="modify__lte"
               onChange={[Function]}
               placeholder="to"
@@ -6850,14 +6806,16 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <span
             className="flex-parent flex-parent--row  "
           >
             <input
-              className="input mr3"
+              className="input mr3 "
               disabled={undefined}
+              max={undefined}
+              min={0}
               name="delete__gte"
               onChange={[Function]}
               placeholder="from"
@@ -6865,8 +6823,10 @@ exports[`renders correctly without filter 1`] = `
               value=""
             />
             <input
-              className="input "
+              className="input  "
               disabled={undefined}
+              max={undefined}
+              min={undefined}
               name="delete__lte"
               onChange={[Function]}
               placeholder="to"
@@ -6908,11 +6868,13 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="source"
             onChange={[Function]}
             placeholder="eg. Bing, Local"
@@ -6953,11 +6915,13 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="editor"
             onChange={[Function]}
             placeholder="eg. iD, JOSM"
@@ -6998,11 +6962,13 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="imagery_used"
             onChange={[Function]}
             placeholder="eg. Bing, Mapbox"
@@ -7043,7 +7009,7 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <div
             className="Select Select--single is-clearable is-searchable"
@@ -7160,11 +7126,13 @@ exports[`renders correctly without filter 1`] = `
         className="grid"
       >
         <span
-          className="col col--6-mxl col--6-ml col--6-mm col--8"
+          className="col col--6-mxl col--6-ml col--12-mm col--12"
         >
           <input
-            className="input "
+            className="input  "
             disabled={undefined}
+            max={undefined}
+            min={undefined}
             name="area_lt"
             onChange={[Function]}
             placeholder="Upper bound of bbox area"

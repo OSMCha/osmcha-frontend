@@ -2,7 +2,22 @@
 import React from 'react';
 import { Loading } from './loading';
 
-export function loadingEnhancer(WrappedComponent: any) {
-  return ({ loading, ...props }: Object) =>
-    loading ? <Loading /> : <WrappedComponent {...props} />;
+type propTypes = {
+  loading: boolean
+};
+
+export function loadingEnhancer<P: {}, S: {}>(
+  WrappedComponent: Class<React.PureComponent<any, P, S>>
+): Class<React.PureComponent<void, P & propTypes, *>> {
+  return class PureRendered extends React.PureComponent<
+    void,
+    P & propTypes,
+    *
+  > {
+    render() {
+      return this.props.loading
+        ? <Loading />
+        : <WrappedComponent {...this.props} />;
+    }
+  };
 }

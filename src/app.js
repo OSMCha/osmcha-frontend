@@ -21,11 +21,9 @@ export class App extends Component {
   resize = null;
   componentDidMount() {
     if (document && document.body) {
-      var filters = getFiltersFromUrl();
-      if (filters && Object.keys(filters).length > 0) {
-        filters = Object.keys(filters)
-          .sort((a, b) => a.localeCompare(b))
-          .join(',');
+      var filters = getFiltersFromUrl(window.location.search);
+      if (filters && filters.size > 0) {
+        filters = filters.keySeq().sort((a, b) => a.localeCompare(b)).join(',');
         gaPageView(`/?filters=${filters}`);
       } else {
         gaPageView('/');
@@ -38,7 +36,7 @@ export class App extends Component {
       return (
         <div>
           <div className="grid">
-            <div className="col col--3-mxl col--4-ml bg-white border-r border--gray-light border--1">
+            <div className="col col--3-mxl col--4-ml bg-gray--faint border-r border--gray-light border--1">
               <NavbarSidebar />
               <ChangesetsList />
             </div>

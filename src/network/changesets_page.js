@@ -33,8 +33,8 @@ export function fetchChangesetsPage(
     }
   ).then(res => {
     if (res.status >= 400 && res.status < 600) {
-      throw new Error(
-        'Bad request. Please check filters or your network connection.'
+      return Promise.reject(
+        Error('Bad request. Please check filters or your network connection.')
       );
     }
     return res.json();
