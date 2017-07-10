@@ -2,20 +2,20 @@
 import React from 'react';
 import { List, fromJS, Map } from 'immutable';
 import { Creatable, Async } from 'react-select';
-import { Wrapper } from './wrapper';
 import type { InputType } from './';
 import { API_URL } from '../../config';
+import type { filterType } from './';
 
 export class MultiSelect extends React.PureComponent {
   props: {
     name: string,
     display: string,
-    value: List<InputType>,
+    value: filterType,
     type: string,
     placeholder: string,
     options: Array<Object>,
     dataURL: ?string,
-    onChange: (string, ?List<InputType>) => any,
+    onChange: (string, value?: filterType) => any,
     showAllToggle: boolean
   };
   state = {
@@ -35,21 +35,23 @@ export class MultiSelect extends React.PureComponent {
       });
   };
   onChangeLocal = (data: ?Array<Object>) => {
-    let name = this.props.name.slice(0, 4) === 'all_'
-      ? this.props.name.slice(4)
-      : this.props.name;
+    let name =
+      this.props.name.slice(0, 4) === 'all_'
+        ? this.props.name.slice(4)
+        : this.props.name;
 
     name = `${this.state.allToggle ? 'all_' : ''}${name}`;
     if (!Array.isArray(data)) return;
     this.sendData(this.state.allToggle, data);
   };
   sendData = (allToggle: boolean, data: Array<Object>) => {
-    let name = this.props.name.slice(0, 4) === 'all_'
-      ? this.props.name.slice(4)
-      : this.props.name;
+    let name =
+      this.props.name.slice(0, 4) === 'all_'
+        ? this.props.name.slice(4)
+        : this.props.name;
 
     name = `${allToggle ? 'all_' : ''}${name}`;
-    if (data.length === 0) return this.props.onChange(name, null);
+    if (data.length === 0) return this.props.onChange(name);
     var processed = data.map(o => ({ label: o.label, value: o.value })); // remove any bogus keys
     this.props.onChange(name, fromJS(processed));
   };

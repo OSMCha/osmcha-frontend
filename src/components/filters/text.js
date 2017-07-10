@@ -2,7 +2,7 @@
 import React from 'react';
 import { Wrapper } from './wrapper';
 import { List, fromJS, Map } from 'immutable';
-import type { InputType } from './';
+import type { filterType } from './';
 
 export class Text extends React.Component {
   props: {
@@ -10,10 +10,9 @@ export class Text extends React.Component {
     display: string,
     type: string,
     placeholder: string,
-    value: List<InputType>,
+    value: filterType,
     className: string,
-    disabled: ?boolean,
-    onChange: (string, ?List<InputType>) => any,
+    onChange: (string, value?: filterType) => any,
     min: ?string,
     max: ?string
   };
@@ -29,7 +28,7 @@ export class Text extends React.Component {
     const name = target.name;
     this.setState({ isValid: target.validity.valid });
     if (!value || value === '') {
-      return this.props.onChange(name, null);
+      return this.props.onChange(name);
     }
     this.props.onChange(
       name,
@@ -51,7 +50,6 @@ export class Text extends React.Component {
       display,
       value,
       className,
-      disabled,
       min,
       max
     } = this.props;
@@ -60,7 +58,6 @@ export class Text extends React.Component {
     return (
       <input
         name={name}
-        disabled={disabled}
         className={`input ${className} ${isValid ? '' : errorClass}`}
         value={(value && value.getIn([0, 'value'])) || ''} // allways sends 1 size array to keep things consistent
         onChange={this.handleFormChange}

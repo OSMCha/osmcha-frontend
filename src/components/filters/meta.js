@@ -2,16 +2,17 @@
 import React from 'react';
 import { Map, fromJS } from 'immutable';
 import Select, { Creatable, Async } from 'react-select';
+import type { filterType, filtersType } from './';
 
 export class Meta extends React.PureComponent {
   options: Array<*>;
   props: {
     placeholder: string,
     name: string,
-    activeFilters: Map<string, *>,
+    activeFilters: filtersType,
     metaOf: Array<string>,
     options: Array<Object>,
-    onChange: (Map<string, *>) => {}
+    replaceFiltersState: filtersType => void
   };
   handleChange = (data: Object) => {
     let { activeFilters } = this.props;
@@ -22,7 +23,7 @@ export class Meta extends React.PureComponent {
     if (data && data.value) {
       activeFilters = activeFilters.merge(fromJS(data.value));
     }
-    this.props.onChange(activeFilters);
+    this.props.replaceFiltersState(activeFilters);
   };
   findCurrentValue = () => {
     const { activeFilters } = this.props;

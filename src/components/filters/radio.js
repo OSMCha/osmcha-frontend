@@ -3,7 +3,7 @@ import React from 'react';
 import Select, { Creatable, Async } from 'react-select';
 import { Wrapper } from './wrapper';
 import { List, fromJS, Map } from 'immutable';
-import type { InputType } from './';
+import type { filterType } from './';
 
 export class Radio extends React.PureComponent {
   props: {
@@ -12,12 +12,12 @@ export class Radio extends React.PureComponent {
     type: string,
     placeholder: string,
     options: Array<Object>,
-    value: List<InputType>,
-    onChange: (string, ?List<InputType>) => any
+    value: filterType,
+    onChange: (string, value?: filterType) => any
   };
   onChangeLocal = (data: Object) => {
     if (!data || data.value === '') {
-      return this.props.onChange(this.props.name, null); // always sends 1 size array to keep things consistent with multiselect InputTypes
+      return this.props.onChange(this.props.name); // always sends 1 size array to keep things consistent with multiselect InputTypes
     }
     this.props.onChange(this.props.name, fromJS([data])); // always sends 1 size array to keep things consistent with multiselect InputTypes
   };
