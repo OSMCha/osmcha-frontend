@@ -8,22 +8,23 @@ import { Text, Radio, MultiSelect, Wrapper, Meta, Date } from './';
 import { BBoxPicker } from '../bbox_picker';
 
 import filters from '../../config/filters.json';
-
+import { getDefaultFromDate } from '../../utils/filters';
 import type { filterType, filtersType } from './';
+
+const defaultDate = getDefaultFromDate().getIn(['date__gte']);
 
 var filtersData = filters.filter(f => {
   return !f.ignore;
 });
-
-export class FiltersList extends React.PureComponent {
-  props: {|
-    filters: filtersType,
-    active: string,
-    handleChange: (name: string, values?: filterType) => void,
-    handleFocus: (name: string) => void,
-    replaceFiltersState: (filters: filtersType) => void,
-    handleToggleAll: (name: string, values?: filterType) => void
-  |};
+type propsType = {|
+  filters: filtersType,
+  active: string,
+  handleChange: (name: string, values?: filterType) => void,
+  handleFocus: (name: string) => void,
+  replaceFiltersState: (filters: filtersType) => void,
+  handleToggleAll: (name: string, values?: filterType) => void
+|};
+export class FiltersList extends React.PureComponent<void, propsType, void> {
   renderFilters = (f: Object, k: number) => {
     const propsToSend = {
       name: f.name,
@@ -78,7 +79,7 @@ export class FiltersList extends React.PureComponent {
       );
     }
     if (f.range && f.type === 'date') {
-      const gteValue = this.props.filters.get(f.name + '__gte');
+      const gteValue = this.props.filters.get(f.name + '__gte') || defaultDate;
       const lteValue = this.props.filters.get(f.name + '__lte');
       const today = moment().format('YYYY-MM-DD');
       return (

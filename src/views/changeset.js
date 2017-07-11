@@ -8,7 +8,7 @@ import { Changeset as ChangesetDumb } from '../components/changeset';
 
 import { dispatchEvent } from '../utils/dispatch_event';
 
-import { applyFilters } from '../store/changesets_page_actions';
+import { applyFilters } from '../store/filters_actions';
 import { FILTER_BY_USER } from '../config/bindings';
 import type { RootStateType } from '../store';
 

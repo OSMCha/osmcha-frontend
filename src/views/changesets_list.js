@@ -7,9 +7,10 @@ import type { RootStateType } from '../store';
 
 import {
   getChangesetsPage,
-  checkForNewChangesets,
-  applyFilters
+  checkForNewChangesets
 } from '../store/changesets_page_actions';
+
+import { applyFilters } from '../store/filters_actions';
 
 import { List } from '../components/list';
 import { Footer } from '../components/list/footer';
@@ -45,9 +46,9 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
 
   constructor(props: propsType) {
     super(props);
-    this.props.getChangesetsPage(props.pageIndex);
-    this.checkUpdate = delayPromise(2000);
-    this.checkUpdate.promise.then(() => this.props.checkForNewChangesets(true));
+    // this.props.getChangesetsPage(props.pageIndex);
+    // this.checkUpdate = delayPromise(2000);
+    // this.checkUpdate.promise.then(() => this.props.checkForNewChangesets(true));
   }
   componentWillUnmount() {
     this.checkUpdate && this.checkUpdate.cancel();
@@ -172,7 +173,7 @@ ChangesetsList = connect(
     diffLoading: state.changesetsPage.get('diffLoading'),
     pageIndex: state.changesetsPage.get('pageIndex') || 0,
     activeChangesetId: state.changeset.get('changesetId'),
-    filters: state.changesetsPage.get('filters') || Map()
+    filters: state.filters.get('filters')
   }),
   {
     // actions

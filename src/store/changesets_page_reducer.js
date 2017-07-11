@@ -1,23 +1,16 @@
 /* @flow */
 import { List, Map, fromJS } from 'immutable';
 
-import { CHANGESETS_PAGE, FILTERS } from './changesets_page_actions';
+import { CHANGESETS_PAGE } from './changesets_page_actions';
 
 export type ChangesetsPageType = Map<
-  | 'currentPage'
-  | 'pageIndex'
-  | 'loading'
-  | 'error'
-  | 'filters'
-  | 'diff'
-  | 'diffLoading',
+  'currentPage' | 'pageIndex' | 'loading' | 'error' | 'diff' | 'diffLoading',
   any
 >;
 
 const changesetsInitial: ChangesetsPageType = fromJS({
   pageIndex: 0,
-  currentPage: {},
-  filters: {},
+  currentPage: null,
   loading: false,
   error: null,
   diff: 0, // difference between the number of changesets in cache and the currentPage.
@@ -29,9 +22,6 @@ export function changesetsPageReducer(
   action: Object
 ): ChangesetsPageType {
   switch (action.type) {
-    case FILTERS.set: {
-      return state.set('filters', action.filters);
-    }
     case CHANGESETS_PAGE.updateNewCount: {
       return state.set('diff', action.diff).set('diffLoading', false);
     }

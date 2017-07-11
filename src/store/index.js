@@ -6,25 +6,26 @@ import { history } from './history';
 import createSagaMiddleware from 'redux-saga';
 
 import * as safeStorage from '../utils/safe_storage';
-import { getFiltersFromUrl } from '../utils/query_params';
 
 // Reducers
 import { authReducer } from './auth_reducer';
 import { changesetsPageReducer } from './changesets_page_reducer';
 import { changesetReducer } from './changeset_reducer';
 import { modalReducer } from './modal_reducer';
+import { filtersReducer } from './filters_reducer';
 
 import type { ModalType } from './modal_reducer';
 import type { ChangesetsPageType } from './changesets_page_reducer';
 import type { ChangesetType } from './changeset_reducer';
 import type { AuthType } from './auth_reducer';
-
+import type { filtersReducerType } from './filters_reducer';
 // Sagas
 import sagas from './sagas';
 
 export type RootStateType = {
   auth: AuthType,
   changesetsPage: ChangesetsPageType,
+  filters: filtersReducerType,
   changeset: ChangesetType,
   modal: ModalType,
   routing: Object
@@ -34,6 +35,7 @@ export type RootStateType = {
 const reducers = combineReducers({
   changesetsPage: changesetsPageReducer,
   changeset: changesetReducer,
+  filters: filtersReducer,
   routing: routerReducer,
   auth: authReducer,
   modal: modalReducer
@@ -72,13 +74,6 @@ const persistedState = {
     token: safeStorage.getItem('token'),
     oAuthToken: safeStorage.getItem('oauth_token'),
     oAuthTokenSecret: safeStorage.getItem('oauth_token_secret'),
-    error: null
-  }),
-  changesetsPage: Map({
-    filters: getFiltersFromUrl(window.location.search),
-    pageIndex: 0,
-    pages: new List(),
-    loading: false,
     error: null
   })
 };

@@ -1,15 +1,15 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
+
 import { Map, List, fromJS } from 'immutable';
 
-import {
-  applyFilters,
-  checkForNewChangesets
-} from '../store/changesets_page_actions';
+import { checkForNewChangesets } from '../store/changesets_page_actions';
+import { applyFilters } from '../store/filters_actions';
 
 import { FiltersList } from '../components/filters/filters_list';
 import { FiltersHeader } from '../components/filters/filters_header';
+// import * as aoi from '../network/aoi';
 
 import type { RootStateType } from '../store';
 import { delayPromise } from '../utils/promise';
@@ -17,13 +17,13 @@ import { gaSendEvent } from '../utils/analytics';
 
 import type { filterType, filtersType } from '../components/filters';
 
-type propsType = {
+type propsType = {|
   filters: filtersType,
   location: Object,
   features: ?List<Map<string, any>>,
   checkForNewChangesets: boolean => any,
-  applyFilters: (Object, string) => mixed
-};
+  applyFilters: (filtersType, path?: string) => mixed // base 0
+|};
 
 type stateType = {
   filters: filtersType,
@@ -106,7 +106,6 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
   };
   render() {
     const width = window.innerWidth;
-
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white ${width <
@@ -134,13 +133,13 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
 
 Filters = connect(
   (state: RootStateType, props) => ({
-    filters: state.changesetsPage.get('filters'),
+    filters: state.filters.get('filters'),
     features: state.changesetsPage.getIn(['currentPage', 'features']),
     location: props.location
   }),
   {
-    applyFilters,
-    checkForNewChangesets
+    checkForNewChangesets,
+    applyFilters
   }
 )(Filters);
 

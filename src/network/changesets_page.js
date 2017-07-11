@@ -1,14 +1,17 @@
 // @flow
+import { Iterable, List, Map } from 'immutable';
 import { API_URL } from '../config';
 import { PAGE_SIZE } from '../config/constants';
-import { Iterable, List, Map } from 'immutable';
+import { appendDefaultDate } from '../utils/filters';
+import type { filtersType } from '../components/filters';
 export function fetchChangesetsPage(
   pageIndex: number,
-  filters: Map<string, *>,
+  filters: filtersType = Map(),
   token: ?string,
   nocache: boolean
 ) {
   let flatFilters = '';
+  filters = appendDefaultDate(filters);
   filters.forEach((v: List<Object>, k: string) => {
     if (!Iterable.isIterable(v)) return;
     let filter = v;
