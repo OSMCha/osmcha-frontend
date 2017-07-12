@@ -12,12 +12,13 @@ import {
   action,
   fetchChangesetsPageSaga,
   modifyChangesetPageSaga,
+  aoiIdSelector,
   pageIndexSelector,
   currentPageAndIndexSelector,
   tokenSelector,
   CHANGESETS_PAGE
 } from '../changesets_page_actions';
-import { validateFiltersSaga, filtersSelector } from '../filters_actions';
+import { filtersSelector } from '../filters_actions';
 
 import { fetchChangesetsPage } from '../../network/changesets_page';
 
@@ -49,6 +50,7 @@ describe('changesets_page fetchChangesetsPageSaga', () => {
       .provide([
         [select(filtersSelector), filters],
         [select(pageIndexSelector), 0],
+        [select(aoiIdSelector), null],
         [select(tokenSelector), token],
         [matchers.call.fn(fetchChangesetsPage), JSON.parse(payload)]
         // [matchers.call.fn(validateFiltersSaga), filters]
@@ -62,7 +64,6 @@ describe('changesets_page fetchChangesetsPageSaga', () => {
       .put.actionType(CHANGESETS_PAGE.loading)
       .run();
     const { effects } = result;
-    // expect(effects.call[0]).toEqual(call(validateFiltersSaga, filters));
     expect(effects.call[0]).toEqual(
       call(fetchChangesetsPage, 0, filters, token, undefined)
     );
@@ -73,6 +74,7 @@ describe('changesets_page fetchChangesetsPageSaga', () => {
       .provide([
         [select(filtersSelector), filters],
         [select(pageIndexSelector), 0],
+        [select(aoiIdSelector), null],
         [select(tokenSelector), token],
         [matchers.call.fn(fetchChangesetsPage), throwError(new Error('error'))]
         // [matchers.call.fn(validateFiltersSaga), filters]
