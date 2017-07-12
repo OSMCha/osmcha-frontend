@@ -15,8 +15,15 @@ import { push } from 'react-router-redux';
 
 import { getSearchObj, getObjAsQueryParam } from '../utils/query_params';
 import { validateFilters } from '../utils/filters';
+import { tokenSelector } from './auth_actions';
 
-import { fetchAOI } from '../network/aoi';
+import {
+  fetchAOI,
+  fetchAllAOIs,
+  createAOI,
+  updateAOI,
+  deleteAOI
+} from '../network/aoi';
 
 import { modal } from './modal_actions';
 
@@ -37,6 +44,14 @@ export const CHANGESETS_PAGE = {
 export const FILTERS = {
   set: 'FILTERS_SET',
   apply: 'FILTERS_APPLY'
+};
+
+export const AOI = {
+  fetch: 'AOI.fetch',
+  clear: 'AOI.clear',
+  fetched: 'AOI.fetched',
+  loading: 'AOI.loading',
+  error: 'AOI.error'
 };
 
 export function action(type: string, payload: ?Object) {
@@ -95,17 +110,20 @@ export function* applyFilterSaga({
 export function* filtersSaga(location: Object): any {
   try {
     // the url can only contain two things `filters` or `aoiId`
-    let { filters, aoiId } = getSearchObj(location.search).toObject();
+    let { filters, aoi: aoiId } = getSearchObj(location.search).toObject();
 
     if (!filters) filters = Map();
 
     if (aoiId) {
-      filters = yield call(aoiSaga, aoiId);
+      filters = yield call(fetchAOISaga, aoiId);
+    } else {
+      // if there is no active AOI in use
+      // we might want to clear so that other
+      // sagas continue using regular filters.
+      yield put(action(AOI.clear));
     }
-    // `validateFilters` will change location.search
-    // if invalid filters, i.e. current filtersProcessSaga
-    // would get cancelled.
-    yield call(validateFiltersSaga, filters);
+    // NOTE! `validateFilters` will throw an Error if invalid
+    yield call(validateFilters, filters);
     yield put(
       action(FILTERS.set, {
         filters
@@ -114,6 +132,16 @@ export function* filtersSaga(location: Object): any {
     yield put(action(CHANGESETS_PAGE.fetch, { pageIndex: 0, filters }));
   } catch (e) {
     console.error(e);
+    const location = yield select(locationSelector);
+    location.search = '';
+    yield all([
+      put(
+        modal({
+          error: e
+        })
+      ),
+      put(push(location))
+    ]);
   }
 }
 
@@ -121,74 +149,29 @@ export function* filtersSaga(location: Object): any {
 // let changesetMapTask;
 
 // export function* filtersProcess
-export function* aoiSaga(aoiId: number): any {
-  try {
-    const data = yield call(fetchAOI, aoiId);
-  } catch (e) {
-    console.log(e);
-  }
+export function* fetchAOISaga(aoiId: string): any {
+  yield put(action(AOI.loading, { loading: true }));
+  const token = yield select(tokenSelector);
+  const data = yield call(fetchAOI, token, aoiId);
+  const aoi = fromJS(data);
+  yield put(action(AOI.fetched, { aoi }));
+  let filters = aoi.getIn(['properties', 'filters'], Map());
+  filters = filters.map((v, k) => {
+    const options = v.split(',');
+    return fromJS(
+      options.map(o => ({
+        value: o,
+        label: o
+      }))
+    );
+  });
+  return filters;
 }
+
 export const locationSelector = (state: RootStateType) =>
   state.routing.location;
 
 /** Sagas **/
-// export function* filtersSaga({
-//   filters,
-//   pathname
-// }: {
-//   filters: filtersType,
-//   pathname: ?Object
-// }): Object {
-//   try {
-//     yield call(validateFiltersSaga, filters);
-//     filters = appendDefaultDate(filters);
-//     const search = getObjAsQueryParam('filters', filters.toJS());
-//     let location = yield select(locationSelector);
-//     // console.log(location);
-//     location = {
-//       ...location,
-//       pathname: pathname || location.pathname,
-//       search // update the search
-//     };
-//     // fill the empty Obj with default `from_date`
-//     if (filters && filters.size === 0) {
-//       filters = getDefaultFromDate();
-//     }
-//     // documentation is spotty about push,
-// I could find one comment on `push(location)` in the readme
-// ref: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
-//     yield all([
-//       put(push(location)),
-//       put(
-//         action(FILTERS.set, {
-//           filters
-//         })
-//       )
-//     ]);
-
-//     // update the results, using `put` so that
-//     // watchChangesetsPage's `takeLatest` can avoid repititions
-//     yield put(action(CHANGESETS_PAGE.fetch, { pageIndex: 0 }));
-//   } catch (e) {
-//     console.error(e);
-//   }
-// }
-
-export function* validateFiltersSaga(filters: filtersType): any {
-  const valid = validateFilters(filters);
-  if (!valid) {
-    const location = yield select(locationSelector);
-    location.search = '';
-    yield all([
-      put(
-        modal({
-          error: Error('The filters that you applied were not correct.')
-        })
-      ),
-      put(push(location))
-    ]);
-  }
-}
 
 export const filtersSelector = (state: RootStateType) =>
   state.filters.get('filters');

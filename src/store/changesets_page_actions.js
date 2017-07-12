@@ -4,8 +4,11 @@ import { delay } from 'redux-saga';
 
 import { fromJS, List, Map } from 'immutable';
 import { push } from 'react-router-redux';
-import { fetchChangesetsPage } from '../network/changesets_page';
-import { validateFiltersSaga, filtersSelector } from './filters_actions';
+import {
+  fetchChangesetsPage,
+  fetchAOIChangesetPage
+} from '../network/changesets_page';
+import { filtersSelector } from './filters_actions';
 
 import { modal } from './modal_actions';
 
@@ -56,6 +59,8 @@ export const pageIndexSelector = (state: RootStateType) => [
 ];
 export const tokenSelector = (state: RootStateType) => state.auth.get('token');
 
+export const aoiIdSelector = (state: RootStateType) =>
+  state.filters.getIn(['aoi', 'id']);
 export function* fetchChangesetsPageSaga({
   pageIndex,
   nocache,
@@ -81,13 +86,19 @@ export function* fetchChangesetsPageSaga({
   );
   try {
     let token = yield select(tokenSelector);
-    let thisPage = yield call(
-      fetchChangesetsPage,
-      pageIndex,
-      filters,
-      token,
-      nocache
-    );
+    let aoiId = yield select(aoiIdSelector);
+    let thisPage;
+    if (aoiId) {
+      thisPage = yield call(fetchAOIChangesetPage, pageIndex, aoiId, token);
+    } else {
+      thisPage = yield call(
+        fetchChangesetsPage,
+        pageIndex,
+        filters,
+        token,
+        nocache
+      );
+    }
     yield put(
       action(CHANGESETS_PAGE.fetched, {
         data: fromJS(thisPage),

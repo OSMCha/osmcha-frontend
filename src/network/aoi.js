@@ -1,6 +1,8 @@
 // @flow
 import { API_URL } from '../config';
 import { createForm } from './changeset';
+import { Iterable, Map, List } from 'immutable';
+import type { filtersType, filterType } from '../components/filters';
 export function handleErrors(response: Object) {
   if (!response.ok) {
     return response.json().then(r => {
@@ -14,19 +16,27 @@ export function handleErrors(response: Object) {
 export function createAOI(
   token: string,
   name: string,
-  filters: string
+  filters: filtersType
 ): Promise<*> {
+  let serverFilters = {};
+  filters.forEach((v: filterType, k: string) => {
+    if (!Iterable.isIterable(v)) return;
+    let filter = v;
+    serverFilters[k] = filter
+      .filter(x => Iterable.isIterable(x) && x.get('value') !== '')
+      .map(x => x.get('value'))
+      .join(',');
+  });
+  console.log(serverFilters);
   return fetch(`${API_URL}/aoi/?date__gte=2017-07-03`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Token ${token}`
     },
-    body: createForm({
-      data: {
-        name,
-        filters
-      }
+    body: JSON.stringify({
+      name,
+      filters: serverFilters
     })
   })
     .then(handleErrors)
@@ -48,7 +58,8 @@ export function fetchAOI(token: string, aoiId: number): Promise<*> {
     });
 }
 
-export function fetchAllAOIs(token: string): Promise<*> {
+export function fetchAllAOIs(token?: string): Promise<*> {
+  if (token == null) return Promise.resolve();
   return fetch(`${API_URL}/aoi/`, {
     method: 'GET',
     headers: {
@@ -85,14 +96,12 @@ export function updateAOI(
     });
 }
 
-export function deleteAOI(token: string, aoiId: number): Promise<*> {
+export function deleteAOI(token: string, aoiId: string): Promise<*> {
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Token ${token}`
     }
-  })
-    .then(handleErrors)
-    .then(res => res.json());
+  }).then(handleErrors);
 }

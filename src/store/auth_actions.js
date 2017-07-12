@@ -38,8 +38,7 @@ export const getFinalToken = (oauth_verifier: string) =>
 
 export const logUserOut = () => action(AUTH.logout);
 
-export const getTokenSelector = (state: RootStateType) =>
-  state.auth.get('token');
+export const tokenSelector = (state: RootStateType) => state.auth.get('token');
 
 const delay = process.env.NODE_ENV === 'test' ? () => {} : delayPromise;
 const DELAY = 1000;
@@ -48,7 +47,7 @@ export function* watchAuth(): any {
   // if it exists we just need to wait for
   // logout action.
   let delayBy = 1000;
-  let token = yield select(getTokenSelector);
+  let token = yield select(tokenSelector);
   // wrapping it in a for loop allows us to
   // pause or resume our auth workflow
   // info: https://redux-saga.js.org/docs/advanced/NonBlockingCalls.html

@@ -6,24 +6,31 @@ import { DEFAULT_FROM_DATE } from '../config/constants';
 import type { filtersType } from '../components/filters';
 
 export function validateFilters(filters: filtersType): boolean {
-  if (!Map.isMap(filters)) return false;
-  let valid = true;
-  filters.forEach((v, k) => {
-    if (!List.isList(v)) {
-      // check for list
-      valid = false;
-    } else {
-      v.forEach(vv => {
-        if (!(Map.isMap(vv) && vv.has('label') && vv.has('value'))) {
-          valid = false;
-        }
-        if (!Map.isMap(vv)) {
-          valid = false;
-        }
-      });
-    }
-  });
-  return valid;
+  var test = function() {
+    if (!Map.isMap(filters)) return false;
+    let valid = true;
+    filters.forEach((v, k) => {
+      if (!List.isList(v)) {
+        // check for list
+        valid = false;
+      } else {
+        v.forEach(vv => {
+          if (!(Map.isMap(vv) && vv.has('label') && vv.has('value'))) {
+            valid = false;
+          }
+          if (!Map.isMap(vv)) {
+            valid = false;
+          }
+        });
+      }
+    });
+    return valid;
+  };
+  if (!test()) {
+    throw new Error('The filters that you applied were not correct.');
+  } else {
+    return true;
+  }
 }
 
 export function getDefaultFromDate(): filtersType {

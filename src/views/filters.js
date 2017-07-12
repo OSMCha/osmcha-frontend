@@ -1,27 +1,33 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
-import { Map, List, fromJS } from 'immutable';
+import { Map, List, fromJS, is } from 'immutable';
 
 import { checkForNewChangesets } from '../store/changesets_page_actions';
 import { applyFilters } from '../store/filters_actions';
 
 import { FiltersList } from '../components/filters/filters_list';
 import { FiltersHeader } from '../components/filters/filters_header';
-// import * as aoi from '../network/aoi';
 
+import { createAOI, deleteAOI } from '../network/aoi';
 import type { RootStateType } from '../store';
-import { delayPromise } from '../utils/promise';
+import { delayPromise, cancelablePromise } from '../utils/promise';
 import { gaSendEvent } from '../utils/analytics';
 
 import type { filterType, filtersType } from '../components/filters';
+const NEW_AOI = 'unnamed *';
 
 type propsType = {|
   filters: filtersType,
+  loading: boolean,
+  aoi: Map<string, *>,
+  token: string,
   location: Object,
   features: ?List<Map<string, any>>,
   checkForNewChangesets: boolean => any,
+  push: (location: Object) => void,
   applyFilters: (filtersType, path?: string) => mixed // base 0
 |};
 
@@ -37,13 +43,34 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
   state = {
     filters: this.props.filters,
     active: ''
+    // aoiName: this.props.aoi.getIn(['properties', 'name'], NEW_AOI)
   };
+  createAOIPromise;
+  componentWillReceiveProps(nextProps: propsType) {
+    if (!is(this.props.filters, nextProps.filters)) {
+      this.setState({
+        filters: nextProps.filters
+      });
+    }
+  }
+  componentWillUnmount() {
+    this.createAOIPromise && this.createAOIPromise.cancel();
+  }
   handleFocus = (name: string) => {
     this.setState({
       active: name
     });
   };
   handleApply = () => {
+    // in case the user clicks on apply when filter
+    // loaded AOI.
+    if (is(this.state.filters, this.props.filters)) {
+      this.props.push({
+        ...this.props.location,
+        pathname: '/'
+      });
+      return;
+    }
     this.props.applyFilters(this.state.filters, '/');
     this.sendToAnalytics();
     // show user if there were any new changesets
@@ -104,6 +131,36 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
   handleClear = () => {
     this.props.applyFilters(new Map(), '/');
   };
+  loadAoiId = (aoiId: string) => {
+    this.props.push({
+      ...this.props.location,
+      search: `aoi=${aoiId}`
+    });
+  };
+  createAOI = (name: string) => {
+    this.createAOIPromise = cancelablePromise(
+      createAOI(this.props.token, name, this.state.filters)
+    );
+
+    this.createAOIPromise.promise
+      .then(r => r && this.loadAoiId(r.id))
+      .catch(e => console.error(e));
+  };
+  getAOIName = () => {
+    if (this.props.loading) return '';
+    if (!is(this.props.filters, this.state.filters)) {
+      return NEW_AOI;
+    }
+    return this.props.aoi.getIn(['properties', 'name'], NEW_AOI);
+  };
+  removeAOI = (aoiId: string) => {
+    if (aoiId === this.props.aoi.get('id')) {
+      this.handleClear();
+    }
+    deleteAOI(this.props.token, aoiId)
+      .then(r => console.log(r))
+      .catch(e => console.error(e));
+  };
   render() {
     const width = window.innerWidth;
     return (
@@ -114,11 +171,18 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
           : ''}`}
       >
         <FiltersHeader
+          createAOI={this.createAOI}
+          removeAOI={this.removeAOI}
+          loading={this.props.loading}
+          token={this.props.token}
+          aoiName={this.getAOIName()}
+          loadAoiId={this.loadAoiId}
           handleApply={this.handleApply}
           handleClear={this.handleClear}
           search={this.props.location.search}
         />
         <FiltersList
+          loading={this.props.loading}
           filters={this.state.filters}
           active={this.state.active}
           handleFocus={this.handleFocus}
@@ -134,12 +198,16 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
 Filters = connect(
   (state: RootStateType, props) => ({
     filters: state.filters.get('filters'),
+    aoi: state.filters.get('aoi'),
+    loading: state.filters.get('loading'),
     features: state.changesetsPage.getIn(['currentPage', 'features']),
-    location: props.location
+    location: props.location,
+    token: state.auth.get('token')
   }),
   {
     checkForNewChangesets,
-    applyFilters
+    applyFilters,
+    push
   }
 )(Filters);
 
