@@ -189,6 +189,7 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
           handleChange={this.handleChange}
           handleToggleAll={this.handleToggleAll}
           replaceFiltersState={this.replaceFiltersState}
+          token={this.props.token}
         />
       </div>
     );

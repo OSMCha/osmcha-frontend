@@ -16,14 +16,21 @@ export class MultiSelect extends React.PureComponent {
     options: Array<Object>,
     dataURL: ?string,
     onChange: (string, value?: filterType) => any,
-    showAllToggle: boolean
+    showAllToggle: boolean,
+    token?: string
   };
   state = {
     allToggle: this.props.name.slice(0, 4) === 'all_'
   };
   getAsyncOptions = () => {
     if (!this.props.dataURL) return;
-    return fetch(`${API_URL}/${this.props.dataURL}/`)
+    return fetch(`${API_URL}/${this.props.dataURL}/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: this.props.token ? `Token ${this.props.token}` : ''
+      }
+    })
       .then(response => {
         return response.json();
       })

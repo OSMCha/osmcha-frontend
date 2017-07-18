@@ -20,6 +20,7 @@ type propsType = {|
   filters: filtersType,
   loading: boolean,
   active: string,
+  token: ?string,
   handleChange: (name: string, values?: filterType) => void,
   handleFocus: (name: string) => void,
   replaceFiltersState: (filters: filtersType) => void,
@@ -166,6 +167,7 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
             value={value}
             onChange={onChange}
             showAllToggle={f.all}
+            token={this.props.token}
           />
         </Wrapper>
       );
