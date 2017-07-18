@@ -27,7 +27,6 @@ export function createAOI(
       .map(x => x.get('value'))
       .join(',');
   });
-  console.log(serverFilters);
   return fetch(`${API_URL}/aoi/?date__gte=2017-07-03`, {
     method: 'POST',
     headers: {
