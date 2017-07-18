@@ -4,14 +4,16 @@ import { delay } from 'redux-saga';
 
 import { fromJS, List, Map } from 'immutable';
 import { push } from 'react-router-redux';
-import { fetchChangesetsPage } from '../network/changesets_page';
-import { getObjAsQueryParam } from '../utils/query_params';
-import { validateFilters, getDefaultFromDate } from '../utils/filters';
+import {
+  fetchChangesetsPage,
+  fetchAOIChangesetPage
+} from '../network/changesets_page';
+import { filtersSelector } from './filters_actions';
 
 import { modal } from './modal_actions';
 
 import type { RootStateType } from './';
-import type { InputType } from '../components/filters';
+import type { filtersType } from '../components/filters';
 
 export const CHANGESETS_PAGE = {
   fetch: 'CHANGESETS_PAGE_FETCH',
@@ -22,11 +24,6 @@ export const CHANGESETS_PAGE = {
   checkNew: 'CHANGESETS_PAGE_CHECK_NEW_CHANGESETS',
   updateNewCount: 'CHANGESETS_PAGE_UPDATE_NEW_COUNT',
   checkNewLoading: 'CHANGESETS_PAGE_CHECK_NEW_LOADING'
-};
-
-export const FILTERS = {
-  set: 'FILTERS_SET',
-  apply: 'FILTERS_APPLY'
 };
 
 export function action(type: string, payload: ?Object) {
@@ -44,16 +41,8 @@ export const getChangesetsPage = (pageIndex: number, nocache: boolean) =>
 export const checkForNewChangesets = (nocache: boolean) =>
   action(CHANGESETS_PAGE.checkNew, { nocache });
 
-export const applyFilters = (
-  filters: Map<string, List<InputType>>,
-  pathname: ?string
-) => action(FILTERS.apply, { filters, pathname });
-
-// watches for CHANGESET_PAGE_GET and only
-// dispatches latest to fetchChangesetsPageSaga
 export function* watchChangesetsPage(): any {
   yield all([
-    takeLatest(FILTERS.apply, filtersSaga),
     takeLatest(CHANGESETS_PAGE.fetch, fetchChangesetsPageSaga),
     takeLatest(CHANGESETS_PAGE.modify, modifyChangesetPageSaga),
     takeLatest(CHANGESETS_PAGE.checkNew, checkForNewChangesetsSaga)
@@ -64,79 +53,27 @@ export const locationSelector = (state: RootStateType) =>
   state.routing.location;
 
 /** Sagas **/
-export function* filtersSaga({
-  filters,
-  pathname
-}: {
-  filters: Map<string, List<InputType>>,
-  pathname: ?Object
-}): Object {
-  try {
-    const search = getObjAsQueryParam('filters', filters.toJS());
-    let location = yield select(locationSelector);
 
-    location = {
-      ...location,
-      pathname: pathname || location.pathname,
-      search // update the search
-    };
-    // fill the empty Obj with default `from_date`
-    if (filters && filters.size === 0) {
-      filters = getDefaultFromDate();
-    }
-    // documentation is spotty about push,
-    // I could find one comment on `push(location)` in the readme
-    // ref: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
-    yield all([
-      put(push(location)),
-      put(
-        action(FILTERS.set, {
-          filters
-        })
-      )
-    ]);
-    // update the results, using `put` so that
-    // watchChangesetsPage's `takeLatest` can avoid repititions
-    yield put(action(CHANGESETS_PAGE.fetch, { pageIndex: 0 }));
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-export function* validateFiltersSaga(filters: Map<string, *>): any {
-  const valid = validateFilters(filters);
-  if (!valid) {
-    filters = getDefaultFromDate();
-    const location = yield select(locationSelector);
-    location.search = '';
-    yield all([
-      put(
-        modal({
-          error: Error('The filters that you applied were not correct.')
-        })
-      ),
-      put(push(location)),
-      put(action(FILTERS.set, { filters }))
-    ]);
-  }
-  return filters;
-}
-
-export const filtersAndPageIndexSelector = (state: RootStateType) => [
-  state.changesetsPage.get('filters'),
-  state.changesetsPage.get('pageIndex')
+export const pageIndexSelector = (state: RootStateType) => [
+  state.changesetsPage.getIn(['pageIndex'], 0)
 ];
 export const tokenSelector = (state: RootStateType) => state.auth.get('token');
+
+export const aoiIdSelector = (state: RootStateType) =>
+  state.filters.getIn(['aoi', 'id']);
 export function* fetchChangesetsPageSaga({
   pageIndex,
-  nocache
+  nocache,
+  filters
 }: {
-  pageIndex: number,
-  nocache: boolean
+  pageIndex?: number,
+  nocache: boolean,
+  filters?: filtersType
 }): Object {
-  let [filters, oldPageIndex] = yield select(filtersAndPageIndexSelector);
-
-  filters = yield call(validateFiltersSaga, filters);
+  if (!filters) {
+    filters = yield select(filtersSelector);
+  }
+  let oldPageIndex: number = yield select(pageIndexSelector);
 
   // checks both undefined and null
   if (pageIndex == null) {
@@ -149,13 +86,19 @@ export function* fetchChangesetsPageSaga({
   );
   try {
     let token = yield select(tokenSelector);
-    let thisPage = yield call(
-      fetchChangesetsPage,
-      pageIndex,
-      filters,
-      token,
-      nocache
-    );
+    let aoiId = yield select(aoiIdSelector);
+    let thisPage;
+    if (aoiId) {
+      thisPage = yield call(fetchAOIChangesetPage, pageIndex, aoiId, token);
+    } else {
+      thisPage = yield call(
+        fetchChangesetsPage,
+        pageIndex,
+        filters,
+        token,
+        nocache
+      );
+    }
     yield put(
       action(CHANGESETS_PAGE.fetched, {
         data: fromJS(thisPage),
@@ -222,11 +165,11 @@ export function* checkForNewChangesetsSaga({
     yield put(action(CHANGESETS_PAGE.checkNewLoading));
     yield call(delay, 3000 + Math.random() * 2000);
     const [
-      filters: Map<string, List<InputType>>,
+      filters: filtersType,
       pageIndex: number,
       token
     ] = yield select((state: RootStateType) => [
-      state.changesetsPage.get('filters'),
+      state.filters.get('filters'),
       state.changesetsPage.get('pageIndex'),
       state.auth.get('token')
     ]);

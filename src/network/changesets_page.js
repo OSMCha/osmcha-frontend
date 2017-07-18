@@ -1,14 +1,19 @@
 // @flow
+import { Iterable, List, Map } from 'immutable';
 import { API_URL } from '../config';
 import { PAGE_SIZE } from '../config/constants';
-import { Iterable, List, Map } from 'immutable';
+import { appendDefaultDate } from '../utils/filters';
+import { handleErrors } from './aoi';
+import type { filtersType } from '../components/filters';
+
 export function fetchChangesetsPage(
   pageIndex: number,
-  filters: Map<string, *>,
+  filters: filtersType = Map(),
   token: ?string,
   nocache: boolean
 ) {
   let flatFilters = '';
+  filters = appendDefaultDate(filters);
   filters.forEach((v: List<Object>, k: string) => {
     if (!Iterable.isIterable(v)) return;
     let filter = v;
@@ -39,4 +44,26 @@ export function fetchChangesetsPage(
     }
     return res.json();
   });
+}
+
+export function fetchAOIChangesetPage(
+  pageIndex: number,
+  aoiId: string,
+  token: string
+) {
+  return fetch(
+    `${API_URL}/aoi/${aoiId}/changesets/?page_size=${PAGE_SIZE}&page=${pageIndex +
+      1}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token ? `Token ${token}` : ''
+      }
+    }
+  )
+    .then(handleErrors)
+    .then(res => {
+      return res.json();
+    });
 }

@@ -2,7 +2,7 @@
 import React from 'react';
 import { List, fromJS } from 'immutable';
 import moment from 'moment';
-import type { InputType } from './';
+import type { filterType } from './';
 import type Moment from 'moment';
 
 import DatePicker from 'react-datepicker';
@@ -14,10 +14,9 @@ export class Date extends React.Component {
     display: string,
     type: string,
     placeholder: string,
-    value: List<InputType>,
+    value: filterType,
     className: string,
-    disabled: ?boolean,
-    onChange: (string, ?List<InputType>) => any,
+    onChange: (string, value?: filterType) => any,
     min: ?string,
     max: ?string
   };
@@ -39,7 +38,7 @@ export class Date extends React.Component {
         ])
       );
     } else {
-      this.props.onChange(name, null);
+      this.props.onChange(name);
     }
   };
   render() {

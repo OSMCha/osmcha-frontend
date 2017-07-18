@@ -65,18 +65,40 @@ class DropdownContent extends React.PureComponent {
                 value={i.label}
                 className="cursor-pointer mt6"
               />}
-            <a
-              target={i.href ? '_blank' : '_self'}
-              href={i.href || '#'}
-              onClick={this.props.toggleDropdown}
-              className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${this.isActive(
-                i
-              )
-                ? 'is-active txt-bold'
-                : ''}`}
-            >
-              {i.label}
-            </a>
+            {i.href
+              ? <a
+                  target={'_blank'}
+                  href={i.href}
+                  onClick={this.props.toggleDropdown}
+                  className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${this.isActive(
+                    i
+                  )
+                    ? 'is-active txt-bold'
+                    : ''}`}
+                >
+                  {i.label}
+                </a>
+              : <a
+                  onClick={this.props.toggleDropdown}
+                  className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${this.isActive(
+                    i
+                  )
+                    ? 'is-active txt-bold'
+                    : ''}`}
+                >
+                  {i.label}
+                </a>}
+            {this.props.deletable &&
+              <a
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  this.props.toggleDropdown();
+                  this.props.deletable(i.value);
+                }}
+              >
+                x
+              </a>}
           </span>
         )}
       </div>
@@ -94,6 +116,7 @@ export class _Dropdown extends React.PureComponent {
     onRemove: (?Object) => any,
     options: Array<Object>,
     display: string,
+    deletable?: (value: string) => any,
     multi: boolean
   };
 
@@ -126,7 +149,9 @@ export class _Dropdown extends React.PureComponent {
           onClick={this.toggleDropdown}
           className="wmin96"
         >
-          <span>{this.props.display}</span>
+          <span>
+            {this.props.display}
+          </span>
         </Button>
         {this.state.display &&
           <DropdownContent

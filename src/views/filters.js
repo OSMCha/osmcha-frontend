@@ -1,67 +1,86 @@
+// @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { Map, List, fromJS } from 'immutable';
-import moment from 'moment';
+import { push } from 'react-router-redux';
 
-import 'date-input-polyfill';
+import { Map, List, fromJS, is } from 'immutable';
 
-import { Link } from 'react-router-dom';
+import { checkForNewChangesets } from '../store/changesets_page_actions';
+import { applyFilters } from '../store/filters_actions';
 
-import {
-  Text,
-  Radio,
-  MultiSelect,
-  Wrapper,
-  Meta,
-  Date
-} from '../components/filters';
+import { FiltersList } from '../components/filters/filters_list';
+import { FiltersHeader } from '../components/filters/filters_header';
 
-import { Button } from '../components/button';
-import { BBoxPicker } from '../components/bbox_picker';
-import { delayPromise } from '../utils/promise';
+import { createAOI, deleteAOI } from '../network/aoi';
+import type { RootStateType } from '../store';
+import { delayPromise, cancelablePromise } from '../utils/promise';
 import { gaSendEvent } from '../utils/analytics';
 
-import filters from '../config/filters.json';
-import {
-  applyFilters,
-  checkForNewChangesets
-} from '../store/changesets_page_actions';
+import type { filterType, filtersType } from '../components/filters';
+const NEW_AOI = 'unnamed *';
 
-import type { RootStateType } from '../store';
+type propsType = {|
+  filters: filtersType,
+  loading: boolean,
+  aoi: Map<string, *>,
+  token: string,
+  location: Object,
+  features: ?List<Map<string, any>>,
+  checkForNewChangesets: boolean => any,
+  push: (location: Object) => void,
+  applyFilters: (filtersType, path?: string) => mixed // base 0
+|};
 
-var filtersData = filters.filter(f => {
-  return !f.ignore;
+type stateType = {
+  filters: filtersType,
+  active: string
+};
+const noDateGte: filterType = fromJS({
+  date__gte: [{ label: '', value: null }]
 });
 
-export class _Filters extends React.PureComponent {
-  props: {
-    filters: Map<string, any>,
-    location: Object,
-    features: ?List<Map<string, any>>,
-    checkForNewChangesets: boolean => any,
-    applyFilters: (Object, string) => mixed
-  };
-  static defaultProps = {
-    filters: new Map(),
-    toggleAll: new Map()
-  };
+class Filters extends React.PureComponent<void, propsType, stateType> {
   state = {
     filters: this.props.filters,
-    active: filtersData[0].name
+    active: ''
+    // aoiName: this.props.aoi.getIn(['properties', 'name'], NEW_AOI)
   };
+  createAOIPromise;
+  componentWillReceiveProps(nextProps: propsType) {
+    if (!is(this.props.filters, nextProps.filters)) {
+      this.setState({
+        filters: nextProps.filters
+      });
+    }
+  }
+  componentWillUnmount() {
+    this.createAOIPromise && this.createAOIPromise.cancel();
+  }
   handleFocus = (name: string) => {
     this.setState({
       active: name
     });
   };
   handleApply = () => {
+    // in case the user clicks on apply when filter
+    // loaded AOI.
+    if (is(this.state.filters, this.props.filters)) {
+      this.props.push({
+        ...this.props.location,
+        pathname: '/'
+      });
+      return;
+    }
     this.props.applyFilters(this.state.filters, '/');
+    this.sendToAnalytics();
     // show user if there were any new changesets
     // incase service had cached the request
     delayPromise(3000).promise.then(() =>
       this.props.checkForNewChangesets(true)
     );
-    const filters: Map<string, List<*>> = this.state.filters;
+  };
+  sendToAnalytics = () => {
+    const filters = this.state.filters;
     filters.forEach((v, k) => {
       v.forEach(vv => {
         gaSendEvent({
@@ -72,25 +91,24 @@ export class _Filters extends React.PureComponent {
       });
     });
   };
-  handleChange = (name: string, values: ?List<*>) => {
-    if (!values) {
-      if (name === 'date__gte') {
-        return this.setState({
-          filters: this.state.filters.set(
-            name,
-            fromJS([{ label: '', value: null }])
-          )
-        });
-      }
-      return this.setState({
-        filters: this.state.filters.delete(name)
-      });
+  handleChange = (name: string, values?: filterType) => {
+    let filters = this.state.filters;
+    // if someone cleared date__gte filter
+    // we use the convention defined at `noDateGte`
+    // to signify no default gte.
+    if (name === 'date__gte' && values == null) {
+      filters = filters.merge(noDateGte);
+    } else if (values == null) {
+      // clear this filter
+      filters = filters.delete(name);
+    } else {
+      filters = filters.set(name, values);
     }
     return this.setState({
-      filters: this.state.filters.set(name, values)
+      filters
     });
   };
-  handleToggleAll = (name: string, values: ?List<*>) => {
+  handleToggleAll = (name: string, values?: filterType) => {
     let filters = this.state.filters;
     const isAll = name.slice(0, 4) === 'all_';
     //  delete the opposite value
@@ -101,176 +119,47 @@ export class _Filters extends React.PureComponent {
     }
     // regularly handle change
     if (!values) {
-      return this.setState({
-        filters: filters.delete(name)
-      });
+      filters = filters.delete(name);
+    } else {
+      filters = filters.set(name, values);
     }
-    return this.setState({ filters: filters.set(name, values) });
+    return this.setState({ filters });
   };
-  handleMetaChange = filters => {
+  replaceFiltersState = filters => {
     this.setState({ filters });
   };
   handleClear = () => {
     this.props.applyFilters(new Map(), '/');
   };
-  renderFilters = (f: Object, k: number) => {
-    const propsToSend = {
-      name: f.name,
-      type: f.type,
-      display: f.display,
-      value: this.state.filters.get(f.name),
-      placeholder: f.placeholder,
-      options: f.options || [],
-      onChange: this.handleChange,
-      dataURL: f.data_url,
-      min: f.min,
-      max: f.max
-    };
-    const wrapperProps = {
-      name: f.name,
-      handleFocus: this.handleFocus,
-      hasValue: this.state.filters.has(f.name),
-      display: f.display,
-      key: k,
-      description: this.state.active === f.name && f.description
-    };
-    if (f.range && f.type === 'number') {
-      const gteValue = this.state.filters.get(f.name + '__gte');
-      const lteValue = this.state.filters.get(f.name + '__lte');
-      return (
-        <Wrapper
-          {...wrapperProps}
-          hasValue={
-            this.state.filters.has(f.name + '__gte') ||
-            this.state.filters.has(f.name + '__lte')
-          }
-        >
-          <span className="flex-parent flex-parent--row  ">
-            <Text
-              {...propsToSend}
-              className="mr3"
-              name={f.name + '__gte'}
-              value={gteValue}
-              placeholder={'from'}
-              min={0}
-              max={lteValue && lteValue.getIn([0, 'value'])}
-            />
-            <Text
-              {...propsToSend}
-              name={f.name + '__lte'}
-              value={lteValue}
-              placeholder={'to'}
-              min={gteValue && gteValue.getIn([0, 'value'])}
-            />
-          </span>
-        </Wrapper>
-      );
-    }
-    if (f.range && f.type === 'date') {
-      const gteValue = this.state.filters.get(f.name + '__gte');
-      const lteValue = this.state.filters.get(f.name + '__lte');
-      const today = moment().format('YYYY-MM-DD');
-      return (
-        <Wrapper
-          {...wrapperProps}
-          hasValue={
-            this.state.filters.has(f.name + '__gte') ||
-            this.state.filters.has(f.name + '__lte')
-          }
-        >
-          <span className="flex-parent flex-parent--row h36">
-            <Date
-              {...propsToSend}
-              name={f.name + '__gte'}
-              value={gteValue}
-              placeholder={'From'}
-              max={(lteValue && lteValue.getIn([0, 'value'])) || today}
-            />
-            <Date
-              {...propsToSend}
-              name={f.name + '__lte'}
-              value={lteValue}
-              placeholder={'To'}
-              min={gteValue && gteValue.getIn([0, 'value'])}
-              max={today}
-            />
-          </span>
-        </Wrapper>
-      );
-    }
-    if (f.type === 'text') {
-      return (
-        <Wrapper {...wrapperProps}>
-          <Text {...propsToSend} />
-        </Wrapper>
-      );
-    }
-    if (f.type === 'radio') {
-      return (
-        <Wrapper {...wrapperProps}>
-          <Radio {...propsToSend} />
-        </Wrapper>
-      );
-    }
-    if (f.type === 'meta') {
-      return (
-        <Wrapper
-          {...wrapperProps}
-          hasValue={f.metaOf.find(fi => this.state.filters.has(fi))}
-        >
-          <Meta
-            {...propsToSend}
-            onChange={this.handleMetaChange}
-            metaOf={f.metaOf}
-            activeFilters={this.state.filters}
-          />
-        </Wrapper>
-      );
-    }
-    if (f.type === 'text_comma') {
-      let { name, value, onChange } = propsToSend;
-      if (f.all) {
-        onChange = this.handleToggleAll;
-      }
-      if (f.all && this.state.filters.has(`all_${f.name}`)) {
-        name = `all_${f.name}`;
-        value = this.state.filters.get(name);
-      }
+  loadAoiId = (aoiId: string) => {
+    this.props.push({
+      ...this.props.location,
+      search: `aoi=${aoiId}`
+    });
+  };
+  createAOI = (name: string) => {
+    this.createAOIPromise = cancelablePromise(
+      createAOI(this.props.token, name, this.state.filters)
+    );
 
-      return (
-        <Wrapper
-          {...wrapperProps}
-          name={name}
-          hasValue={this.state.filters.has(name)}
-          description={this.state.active === f.name && f.description}
-        >
-          <MultiSelect
-            {...propsToSend}
-            name={name}
-            value={value}
-            onChange={onChange}
-            showAllToggle={f.all}
-          />
-        </Wrapper>
-      );
+    this.createAOIPromise.promise
+      .then(r => r && this.loadAoiId(r.id))
+      .catch(e => console.error(e));
+  };
+  getAOIName = () => {
+    if (this.props.loading) return '';
+    if (!is(this.props.filters, this.state.filters)) {
+      return NEW_AOI;
     }
-    if (f.type === 'map') {
-      return (
-        <Wrapper
-          {...wrapperProps}
-          description={
-            this.state.active === f.name &&
-            <BBoxPicker
-              onChange={this.handleChange}
-              name={f.name}
-              value={this.state.filters.get(f.name)}
-            />
-          }
-        >
-          <Text {...propsToSend} />
-        </Wrapper>
-      );
+    return this.props.aoi.getIn(['properties', 'name'], NEW_AOI);
+  };
+  removeAOI = (aoiId: string) => {
+    if (aoiId === this.props.aoi.get('id')) {
+      this.handleClear();
     }
+    deleteAOI(this.props.token, aoiId)
+      .then(r => console.log(r))
+      .catch(e => console.error(e));
   };
   render() {
     const width = window.innerWidth;
@@ -281,95 +170,45 @@ export class _Filters extends React.PureComponent {
           ? 'viewport-full'
           : ''}`}
       >
-        <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
-          <span className="txt-l txt-bold color-gray--dark">Filters</span>
-          <span className="txt-l color-gray--dark">
-            <Button
-              className="border--0 bg-transparent"
-              onClick={this.handleClear}
-            >
-              Reset
-            </Button>
-            <Button onClick={this.handleApply} className="mx3">
-              Apply
-            </Button>
-            <Link
-              to={{ search: this.props.location.search, pathname: '/' }}
-              className="mx3 pointer"
-            >
-              <svg className="icon icon--m inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
-                <use xlinkHref="#icon-close" />
-              </svg>
-            </Link>
-          </span>
-        </header>
-
-        <div className="px30 flex-child filters-scroll">
-          <h2 className="txt-xl mr6 txt-bold mt24   border-b border--gray-light border--1">
-            Basic
-          </h2>
-          {filtersData
-            .slice(0, 3)
-            .map((f: Object, k) => this.renderFilters(f, k))}
-          <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
-            Flags
-          </h2>
-          {filtersData
-            .slice(3, 5)
-            .map((f: Object, k) => this.renderFilters(f, k))}
-          <span className="flex-child flex-child--grow wmin420 wmax435" />
-          <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
-            Review
-          </h2>
-          {filtersData
-            .slice(5, 9)
-            .map((f: Object, k) => this.renderFilters(f, k))}
-          <span className="flex-child flex-child--grow wmin420 wmax435" />
-          <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
-            Changeset Details
-          </h2>
-          {filtersData.slice(9).map((f: Object, k) => this.renderFilters(f, k))}
-          <span className="flex-child flex-child--grow wmin420 wmax435" />
-        </div>
+        <FiltersHeader
+          createAOI={this.createAOI}
+          removeAOI={this.removeAOI}
+          loading={this.props.loading}
+          token={this.props.token}
+          aoiName={this.getAOIName()}
+          loadAoiId={this.loadAoiId}
+          handleApply={this.handleApply}
+          handleClear={this.handleClear}
+          search={this.props.location.search}
+        />
+        <FiltersList
+          loading={this.props.loading}
+          filters={this.state.filters}
+          active={this.state.active}
+          handleFocus={this.handleFocus}
+          handleChange={this.handleChange}
+          handleToggleAll={this.handleToggleAll}
+          replaceFiltersState={this.replaceFiltersState}
+        />
       </div>
     );
   }
 }
 
-const Filters = connect(
+Filters = connect(
   (state: RootStateType, props) => ({
-    filters: state.changesetsPage.get('filters'),
+    filters: state.filters.get('filters'),
+    aoi: state.filters.get('aoi'),
+    loading: state.filters.get('loading'),
     features: state.changesetsPage.getIn(['currentPage', 'features']),
-    location: props.location
+    location: props.location,
+    token: state.auth.get('token')
   }),
   {
+    checkForNewChangesets,
     applyFilters,
-    checkForNewChangesets
+    push
   }
-)(_Filters);
+)(Filters);
 
 export { Filters };
-
-/*
-<div className="flex-parent flex-parent--column align-items--center justify--space-between">
-  <div className="mb12">
-    <Avatar url={this.props.avatar} />
-    <div className="txt-s txt-bold color-gray">{this.props.username}</div>
-  </div>
-  <Button onClick={this.props.logUserOut} className="bg-white-on-hover">
-    Logout
-  </Button>
-</div>
-
-<a
-  target="_blank"
-  title="Add a comment on OSM"
-  href={`https://openstreetmap.org/changeset/${changesetId}`}
-  className="btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition pl12 pr6"
->
-  Add a comment on OSM
-  <svg className="icon inline-block align-middle pl3 pb3">
-    <use xlinkHref="#icon-share" />
-  </svg>
-</a>
-*/

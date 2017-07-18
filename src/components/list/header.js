@@ -56,7 +56,8 @@ export function Header({
       >
         <span className="flex-parent flex-parent--row justify--space-between color-gray txt-s txt-bold">
           <span>
-            {(currentPage && numberWithCommas(currentPage.get('count'))) ||
+            {(currentPage &&
+              numberWithCommas(currentPage.getIn(['count'], 0))) ||
               0}{' '}
             changesets.
           </span>

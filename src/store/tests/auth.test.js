@@ -11,12 +11,7 @@ import {
   fetchUserDetails
 } from '../../network/auth';
 
-import {
-  watchAuth,
-  authTokenFlow,
-  AUTH,
-  getTokenSelector
-} from '../auth_actions';
+import { watchAuth, authTokenFlow, AUTH, tokenSelector } from '../auth_actions';
 import { authReducer } from '../auth_reducer';
 
 const token = '2d2289bd78985b2b46af29607ee50fa37cb1723a';
@@ -93,7 +88,7 @@ describe('auth actions testing', () => {
     };
     const result = await expectSaga(watchAuth)
       .provide([
-        [select(getTokenSelector), token],
+        [select(tokenSelector), token],
         [matchers.call.fn(fetchUserDetails), userDetails],
         [matchers.call.fn(removeItem)],
         [matchers.call.fn(authTokenFlow), token]
@@ -126,7 +121,7 @@ describe('auth actions testing', () => {
     };
     const result = await expectSaga(watchAuth)
       .provide([
-        [select(getTokenSelector), null],
+        [select(tokenSelector), null],
         [matchers.call.fn(fetchUserDetails), userDetails],
         [matchers.call.fn(removeItem)],
         [matchers.call.fn(authTokenFlow), token]
@@ -159,7 +154,7 @@ describe('auth actions testing', () => {
           return next();
         },
         select({ selector }, next) {
-          if (selector === getTokenSelector) {
+          if (selector === tokenSelector) {
             return token;
           }
           return next();
