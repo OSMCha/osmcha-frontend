@@ -27,7 +27,6 @@ import {
 
 // | denote strict props
 type propsType = {|
-  filterChangesetsByUser: () => any,
   changesetId: number,
   currentChangeset: Map<string, any>,
   // The props below come from HOCs, they are not optional!
@@ -87,7 +86,6 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
             <User
               userDetails={data.getIn(['userDetails'], Map())}
               whosThat={data.getIn(['whosThat', 0, 'names'], List())}
-              filterChangesetsByUser={this.props.filterChangesetsByUser}
             />
           </Box>}
         {bindingsState.get(CHANGESET_DETAILS_MAP.label) &&

@@ -72,7 +72,6 @@ class Changeset extends React.PureComponent {
       <ChangesetDumb
         changesetId={changesetId}
         currentChangeset={currentChangeset}
-        filterChangesetsByUser={this.filterChangesetsByUser}
       />
     );
   };
