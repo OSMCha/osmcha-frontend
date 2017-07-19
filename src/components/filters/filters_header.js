@@ -7,7 +7,6 @@ import { Button } from '../button';
 import { Dropdown } from '../dropdown';
 import { AOIManager } from './aoi_manager';
 import { isProd } from '../../config';
-const DISABLE_AOI = isProd; // isProd;
 
 class AOIName extends React.PureComponent {
   constructor(props) {
@@ -92,17 +91,9 @@ export function FiltersHeader({
     <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
       <span className="txt-l txt-bold color-gray--dark">
         <span>Filters</span>
-        {!DISABLE_AOI &&
-          aoiName &&
-          <AOIName name={aoiName} createAOI={createAOI} />}
+        {aoiName && <AOIName name={aoiName} createAOI={createAOI} />}
       </span>
       <span className="txt-l color-gray--dark">
-        {!DISABLE_AOI &&
-          <AOIManager
-            token={token}
-            loadAoiId={loadAoiId}
-            removeAOI={removeAOI}
-          />}
         <Button className="border--0 bg-transparent" onClick={handleClear}>
           Reset
         </Button>

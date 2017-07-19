@@ -80,6 +80,7 @@ class NavbarSidebar extends React.PureComponent {
   };
   render() {
     let username = this.props.username;
+    console.log(this.props.location);
     return (
       <div>
         <Navbar
@@ -124,22 +125,18 @@ class NavbarSidebar extends React.PureComponent {
                 </svg>
               </Link>
               {this.props.token
-                ? <div className="dropdown mr3 pointer">
-                    <Button onClick={this.openMenu} iconName="chevron-down">
+                ? <div className="mr3 pointer">
+                    <Link
+                      className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+                      to={{
+                        ...this.props.location,
+                        pathname: '/user'
+                      }}
+                    >
                       {username && username.length > 10
                         ? `${username.slice(0, 10)}..`
                         : username}
-                    </Button>
-                    <div
-                      className="dropdown-content w120 z6 round px24 py12"
-                      style={{
-                        display: this.state.isMenuOpen ? 'block' : 'none',
-                        marginLeft: -14,
-                        marginTop: 10
-                      }}
-                    >
-                      {this.displayDropdown()}
-                    </div>
+                    </Link>
                   </div>
                 : <Button
                     onClick={this.handleLoginClick}
@@ -158,7 +155,7 @@ class NavbarSidebar extends React.PureComponent {
 
 NavbarSidebar = connect(
   (state: RootStateType, props) => ({
-    location: props.location,
+    location: state.routing.location,
     changesetId: parseInt(state.changeset.get('changesetId'), 10),
     currentChangeset: state.changeset.getIn([
       'changesets',

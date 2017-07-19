@@ -353,20 +353,18 @@ class User extends React.PureComponent<any, propsType, any> {
             {userDetails.get('is_staff') &&
               <span className="ml12 flex-parent flex-parent--row my3">
                 <p className="flex-child txt-bold w120">Staff: </p>
-                <p className="flex-child">
-                  {userDetails.get('is_staff')}
-                </p>
+                <p className="flex-child">Yes</p>
               </span>}
             <span className="ml12 flex-parent flex-parent--row my3">
               <p className="flex-child txt-bold w120">Active: </p>
               <p className="flex-child">
-                {userDetails.get('is_active')}
+                {userDetails.get('is_active') ? 'Yes' : 'No'}
               </p>
             </span>
             <span className="ml12 flex-parent flex-parent--row my3">
               <p className="flex-child txt-bold w120">Email: </p>
               <p className="flex-child">
-                {userDetails.get('email')}
+                {userDetails.get('email') || '-'}
               </p>
             </span>
 
