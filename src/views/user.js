@@ -8,6 +8,8 @@ import Mousetrap from 'mousetrap';
 
 import { Changeset as ChangesetDumb } from '../components/changeset';
 import { getUserDetails } from '../network/openstreetmap';
+import { getObjAsQueryParam } from '../utils/query_params';
+
 import {
   fetchBlackList,
   postUserToBlackList,
@@ -105,8 +107,15 @@ const BlackListBlock = ({ data, removeFromBlackList }) =>
       <Link
         className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
         to={{
-          search: `aoi=${data.getIn(['id'])}`,
-          pathname: '/filters'
+          search: getObjAsQueryParam('filters', {
+            users: [
+              {
+                label: data.getIn(['username']),
+                value: data.getIn(['username'])
+              }
+            ]
+          }),
+          pathname: '/'
         }}
       >
         OSMCha
@@ -286,7 +295,7 @@ class User extends React.PureComponent<any, propsType, any> {
     const userDetails = this.props.userDetails;
     return (
       <div
-        className={`flex-parent flex-parent--column changesets-filters bg-white ${window.innerWidth <
+        className={`flex-parent flex-parent--column changesets-filters bg-white${window.innerWidth <
         800
           ? 'viewport-full'
           : ''}`}
@@ -295,9 +304,17 @@ class User extends React.PureComponent<any, propsType, any> {
           <span className="txt-l txt-bold color-gray--dark">
             <span>User</span>
           </span>
-          <span className="txt-l color-gray--dark" />
+
+          <span className="txt-l color-gray--dark">
+            <Button
+              onClick={this.props.logUserOut}
+              className="bg-white-on-hover"
+            >
+              Logout
+            </Button>
+          </span>
         </header>
-        <div className="px30 flex-child filters-scroll">
+        <div className="px30 flex-child  pb60  filters-scroll">
           <span className="flex-parent flex-parent--row align justify--space-between  mr6 txt-bold mt24">
             <Avatar size={72} url={this.props.avatar} />
             <span
@@ -377,12 +394,7 @@ class User extends React.PureComponent<any, propsType, any> {
               }}
               SaveComp={<SaveButton onCreate={this.createAOI} />}
             />
-            <Button
-              onClick={this.props.logUserOut}
-              className="mt12 mx12 bg-white-on-hover"
-            >
-              Logout
-            </Button>
+            <span>&nbsp;</span>
           </div>
         </div>
       </div>
