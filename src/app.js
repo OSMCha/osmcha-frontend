@@ -14,6 +14,7 @@ import { NavbarChangeset } from './views/navbar_changeset';
 import { NavbarSidebar } from './views/navbar_sidebar';
 import { Home } from './views/home';
 import { Modal } from './views/modal';
+import { User } from './views/user';
 
 import { gaPageView } from './utils/analytics';
 import { getSearchObj } from './utils/query_params';
@@ -71,6 +72,7 @@ export class App extends Component {
                     <Route path="/changesets/:id" component={Changeset} />
                     <Route path="/about" component={About} />
                     <Route path="/stats" component={Stats} />
+                    <Route path="/user" component={User} />
                   </CSSTransitionGroup>}
               />
             </div>

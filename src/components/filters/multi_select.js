@@ -17,7 +17,7 @@ export class MultiSelect extends React.PureComponent {
     dataURL: ?string,
     onChange: (string, value?: filterType) => any,
     showAllToggle: boolean,
-    token?: string
+    token: string
   };
   state = {
     allToggle: this.props.name.slice(0, 4) === 'all_'
@@ -36,7 +36,7 @@ export class MultiSelect extends React.PureComponent {
       })
       .then(json => {
         const data = json
-          .filter(d => d.is_visible && d.for_changeset)
+          .filter(d => d.for_changeset)
           .map(d => ({ ...d, label: d.name, value: d.id }));
         return { options: data };
       });

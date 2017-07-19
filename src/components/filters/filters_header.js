@@ -7,7 +7,7 @@ import { Button } from '../button';
 import { Dropdown } from '../dropdown';
 import { AOIManager } from './aoi_manager';
 import { isProd } from '../../config';
-const DISABLE_AOI = true; // isProd;
+const DISABLE_AOI = isProd; // isProd;
 
 class AOIName extends React.PureComponent {
   constructor(props) {

@@ -9,7 +9,7 @@ export const appVersion = process.env.REACT_APP_VERSION;
 let url = 'https://osmcha-django-staging.tilestream.net/api/v1';
 
 if (isProd) {
-  url = 'https://osmcha.mapbox.com/api/v1';
+  let url = 'https://osmcha.mapbox.com/api/v1';
 }
 
 window.debug_info = () =>
