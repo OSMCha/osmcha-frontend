@@ -1,11 +1,12 @@
-## OSMCHA Guide
+
 
 <!-- toc -->
 
-- [Introduction to OSMCha](#introduction-to-osmcha)
-    + [Why use OSMCha?](#why-use-osmcha)
+- [Story behind OSMCha](#story-behind-osmcha)
+    + [Validation and OpenStreetMap](#validation-and-openstreetmap)
     + [What is vandalism?](#what-is-vandalism)
-    + [What are flagged changesets and how are they automatically flagged?](#what-are-flagged-changesets-and-how-are-they-automatically-flagged)
+      - [What is a problematic edit?](#what-is-a-problematic-edit)
+    + [Automated flagging of changesets](#automated-flagging-of-changesets)
     + [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad-%F0%9F%91%8D--%F0%9F%91%8E-)
     + [Future of OSMCha and validation using OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
 - [Usage](#usage)
@@ -17,10 +18,7 @@
     + [Basic filters](#basic-filters)
     + [Applications for edit based search](#applications-for-edit-based-search)
 - [FAQ](#faq)
-    + [How are the changesets presented?](#how-are-the-changesets-presented)
-    + [How can I sign-in into OSMCha?](#how-can-i-sign-in-into-osmcha)
     + [Can I view the changesets and use filters without logging into OSMCha?](#can-i-view-the-changesets-and-use-filters-without-logging-into-osmcha)
-    + [How do I logout of OSMCha?](#how-do-i-logout-of-osmcha)
     + [My changeset has been flagged by a reason, am I doing something wrong?](#my-changeset-has-been-flagged-by-a-reason-am-i-doing-something-wrong)
     + [Are there keyboard shortcuts in OSMCha?](#are-there-keyboard-shortcuts-in-osmcha)
     + [What are tags on OSMCha?](#what-are-tags-on-osmcha)
@@ -34,27 +32,47 @@
 
 <!-- tocstop -->
 
-# Introduction to OSMCha
+# Story behind OSMCha
 
-OSMCha is short for OpenStreetMap Changeset Analyser. OSMCha is a web tool to help visualise and analyse edits made by mappers on OpenStreetMap(OSM). OSMCha was originally written by [Wille Marcel](https://www.openstreetmap.org/user/wille) in 2015 to validate changesets. In collaboration with Wille, this global instance is hosted by Mapbox as an additional data Quality Analysis tool for the community.
+The idea to build OSMCha - OpenStreetMap Changeset Analyser was [initiated](https://www.openstreetmap.org/user/wille/diary/40511) by [Wille Marcel](https://www.openstreetmap.org/user/wille) in mid 2015. It was built with a motivation of detecting and discovering harmful changesets that lasted in the OpenStreetMap (OSM) database for a long time without anyone noticing it.
+He strongly found the need of a system that can help to help visualise and analyse edits made my mappers on OSM. In collaboration with Wille, this global instance is hosted by Mapbox as an additional data Quality Analysis tool for the community.
 
-### Why use OSMCha?
+### Validation and OpenStreetMap
 
-- OSM is a crowdsourced project, and it is necessary to have user friendly tools for the community, to guide new contributors to make a great map.
-- Any given day, around 30,000 changesets containing additions, modifications, and deletions to the data make their way into OSM, which is driven by a strong community.
-- With new users signing up on OSM every day, it is likely that the mapping guides/wikis on tagging scheme, general practices are not uniformly followed by every contributor, resulting in accidental edits, and in rare cases [intentional vandalism](#what-is-vandalism) that breaks the map.
-- OSMCha is designed to be an integrated tool that can address various [validation requirements](#how-to-review-a-changeset) of the community. OSMCha is also supported by an open source edit recognition project called [OSM-Compare](https://github.com/mapbox/osm-compare) which can be used for suggesting manual verification.
-- This tool offers advanced filtering options that can help you [filter changesets](#filters) based on various attributes. (Ex: All changesets with hashtags, user specific changesets, etc.)
+OpenStreetMap is a crowdsourced project, which is driven by a strong community. Any given day, around 30,000 changesets containing additions, modifications, and deletions to the data make their way into OpenStreetMap. With new users signing up on OSM every day, it is likely that the mapping guides/wikis on tagging scheme, general practices are not uniformly followed by every contributor, resulting in accidental edits, and in rare cases [intentional vandalism](#what-is-vandalism) that breaks the map.
+
+In situations like these, it's necessary to have user friendly tools for the community to identify such errors easily and support the new contributors to make a great map. OSMCha is designed to be an integrated tool that can address various [validation requirements](#how-to-review-a-changeset) of the community. It is also supported by an open source edit recognition project called [OSM-Compare](https://github.com/mapbox/osm-compare), which can be used for suggesting manual verification. This tool offers advanced filtering options that can help you [filter changesets](#filters) based on various attributes. (Ex: All changesets with hashtags, user specific changesets, etc.)
 
 ### What is vandalism?
 
 [Vandalism](https://wiki.openstreetmap.org/wiki/Vandalism) with respect to OpenStreetMap refers to deliberate acts of destruction or damage to the map data. These include, intentional edits that causes visible breakages on the map and also break other crucial map data such as route relations, boundaries, turn restrictions, land use etc.
 
-### What are flagged changesets and how are they automatically flagged?
+#### What is a problematic edit?
 
-- `Flagged changesets` are changesets that are flagged by [OSM-Compare](https://github.com/mapbox/osm-compare) for specific edit behaviour. Like deletion of valid data, incompatible data errors. Example - A swimming pool tagged as `natural=water`.
+Every change to OpenStreetMap is contained in a changeset. They consist of either additions (new feature), modifications (change existing tags, feature location, or location of a referred feature) or deletions by a mapper.
 
-- OSMCha is supported by an edit detection pipeline called OSM-Compare. It is an open collection of compare functions written in Javascript that automatically check for suspicious changes on OSM and pushes them into OSMCha to different categories of identifiable edit behaviour. Currently, there are compare functions in OSM-Compare for flagging deletions of cities, overlap between features, and similar rule based scenarios.
+When working with data in OpenStreetMap, you sometimes come across places where another mapper might have added bad features or tags, changed or moved or deleted a large set of data or an important set of tags. Changes that spoil the quality of OpenStreetMap data are considered problematic edits.
+
+There are several kinds of potentially problematic changes. For example:
+
+- Use of proprietary data (like Google Maps) to add data in OpenStreetMap.
+- Modification to significant tags like place, boundary,  highway, etc.
+- Undocumented imports.
+- Modifications with outdated imagery.
+- Unintentional dragging of nodes in way that results in geometry changes.
+
+Creation and deletion of features, modification to tags and modification to a node’s location, result in a version increment. Every change by every user is retained as a separate version of the object in the OpenStreetMap database. Changes to nodes within a way, or to members of a relation, result in displayed changes to the way/relation but do not increment version. Read more about Validating OpenStreetMap in this [guide](https://www.mapbox.com/mapping/validating-osm/)
+
+
+### Automated flagging of changesets
+
+OSMCha is supported by an edit detection pipeline called [OSM-Compare](https://github.com/mapbox/osm-compare). It is an open collection of compare functions written in Javascript that automatically check for suspicious changes on OSM and pushes them into OSMCha to different categories of identifiable edit behaviour. Currently, there are compare functions in OSM-Compare for flagging deletions of cities, overlap between features, and similar rule based scenarios.
+
+`Flagged changesets` are changesets that are flagged by OSM-Compare for specific edit behaviour. Like deletion of valid data, incompatible data errors. Example - A swimming pool tagged as `natural=water`. The rule based detectors in OSM-Compare are inefficient in understanding context of an edit, place and mapping activity. This is the disadvantage and reason that these detections are false positives 80% of the time, based on the compare function written.
+
+These changesets are automatically flagged by [OSM-Compare](https://github.com/mapbox/osm-compare) for specific edit behaviour. We are working towards making this [detection](#future-of-osmcha-and-validation-using-osm-compare) better over time.
+
+
 
 ### Why to review a changeset as Good/Bad 👍 / 👎 ?
 
@@ -230,6 +248,7 @@ Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of chan
 | Toggle Changeset discussions                     | ` 3 `              |
 | Toggle User profile                              | ` 4 `              |
 | Toggle Map controls                              | ` 5 `              |
+| Toggle Filters                                   | ` \ `              |
 | **Other**                                        |                    |
 | Show shortcuts list                              | ` ? `              |
 
