@@ -31,7 +31,7 @@ export function createAOI(
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
+      Authorization: token ? `Token ${token}` : ''
     },
     body: JSON.stringify({
       name,
@@ -48,7 +48,7 @@ export function fetchAOI(token: string, aoiId: number): Promise<*> {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
+      Authorization: token ? `Token ${token}` : ''
     }
   })
     .then(handleErrors)
@@ -63,7 +63,7 @@ export function fetchAllAOIs(token?: string): Promise<*> {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
+      Authorization: token ? `Token ${token}` : ''
     }
   })
     .then(handleErrors)
@@ -82,7 +82,7 @@ export function updateAOI(
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
+      Authorization: token ? `Token ${token}` : ''
     },
     body: createForm({
       name,
@@ -100,7 +100,7 @@ export function deleteAOI(token: string, aoiId: string): Promise<*> {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
+      Authorization: token ? `Token ${token}` : ''
     }
   }).then(handleErrors);
 }
