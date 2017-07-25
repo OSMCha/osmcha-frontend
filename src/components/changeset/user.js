@@ -11,7 +11,9 @@ import { getObjAsQueryParam } from '../../utils/query_params';
 export function User({ userDetails, whosThat }) {
   return (
     <div className="px12 py6">
-      <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">User</h2>
+      <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
+        User / {userDetails.get('uid')}
+      </h2>
       <div className="flex-parent flex-parent--column align-items--center justify--space-between mb6">
         <div>
           <Avatar size={96} url={userDetails.get('img')} />
