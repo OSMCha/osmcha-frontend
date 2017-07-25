@@ -9,6 +9,7 @@ import Mousetrap from 'mousetrap';
 import { Changeset as ChangesetDumb } from '../components/changeset';
 import { getUserDetails } from '../network/openstreetmap';
 import { getObjAsQueryParam } from '../utils/query_params';
+import { UserAutocomplete } from '../components/filters/user_autocomplete';
 
 import {
   fetchBlackList,
@@ -35,6 +36,56 @@ const BlockMarkup = ({ children }) =>
       {children}
     </div>
   </div>;
+
+class SaveUser extends React.PureComponent {
+  state: {
+    userValues: any
+  };
+  state = {
+    userValues: null,
+    showInput: false
+  };
+  onUserChange = (value: ?Array<Object>) => {
+    if (Array.isArray(value) && value.length === 0)
+      return this.setState({ userValues: null });
+    this.setState({
+      userValues: value
+    });
+  };
+  onSave = () => {
+    this.setState({
+      showInput: false
+    });
+    if (this.state.userValues) {
+      this.props.onCreate(this.state.userValues);
+    }
+  };
+  render() {
+    return (
+      <span>
+        {this.state.showInput
+          ? <span className="flex-parent flex-parent--row ">
+              <UserAutocomplete
+                placeholder="user"
+                className="wmin180"
+                onChange={this.onUserChange}
+                value={this.state.userValues}
+                name="blacklist_user"
+              />
+              <Button className="input wmax120 ml6" onClick={this.onSave}>
+                Save
+              </Button>
+            </span>
+          : <Button
+              className="input wmax120 ml12"
+              onClick={() => this.setState({ showInput: true })}
+            >
+              Add+
+            </Button>}
+      </span>
+    );
+  }
+}
 
 class SaveButton extends React.PureComponent {
   constructor(props) {
@@ -65,12 +116,19 @@ class SaveButton extends React.PureComponent {
       this.clicked = false;
     }
   };
+  onSave = event => {
+    this.setState({
+      editing: false
+    });
+    this.props.onCreate(this.state.value);
+  };
   render() {
     return (
       <span>
         {this.state.editing
           ? <span className="flex-parent flex-parent--row ">
               <input
+                placeholder={this.props.placeholder}
                 className="input wmax120 ml12"
                 ref={r => {
                   if (this.clicked) {
@@ -82,7 +140,7 @@ class SaveButton extends React.PureComponent {
                 onChange={this.onChange}
                 onKeyDown={this.onKeyDown}
               />
-              <Button className="input wmax120 ml6" onClick={this.onClick}>
+              <Button className="input wmax120 ml6" onClick={this.onSave}>
                 Save
               </Button>
             </span>
@@ -100,7 +158,7 @@ const BlackListBlock = ({ data, removeFromBlackList }) =>
         {data.getIn(['username'])}
       </span>
       <span className="txt-em color-gray pl6">
-        ({data.getIn(['date'])})
+        ({data.getIn(['uid'])})
       </span>
     </span>
     <span>
@@ -114,15 +172,14 @@ const BlackListBlock = ({ data, removeFromBlackList }) =>
                 value: data.getIn(['username'])
               }
             ]
-          }),
-          pathname: '/'
+          })
         }}
       >
         OSMCha
       </Link>
       <Button
         className="mr3"
-        onClick={() => removeFromBlackList(data.getIn(['username']))}
+        onClick={() => removeFromBlackList(data.getIn(['uid']))}
       >
         Remove
       </Button>
@@ -189,18 +246,25 @@ class User extends React.PureComponent<any, propsType, any> {
   createAOIPromise;
   addToBlackListPromise;
   deleteFromBlackListPromise;
-  // componentDidMount() {
-  //   // Mousetrap.bind(FILTER_BY_USER.bindings, this.filterChangesetsByUser);
-  // }
+  state = {
+    userValues: null
+  };
   componentWillUnmount() {
     this.createAOIPromise && this.createAOIPromise.cancel();
     this.addToBlackListPromise && this.addToBlackListPromise.cancel();
-    // FILTER_BY_USER.bindings.forEach(k => Mousetrap.unbind(k));
   }
+
   // blacklist
-  addToBlackList = (username: string) => {
+  addToBlackList = ({
+    label: username,
+    value: uid
+  }: {
+    label: string,
+    value: string
+  }) => {
+    if (!username || !uid) return;
     this.addToBlackListPromise = cancelablePromise(
-      postUserToBlackList(this.props.token, username)
+      postUserToBlackList(this.props.token, username, uid)
     );
 
     this.addToBlackListPromise.promise
@@ -208,7 +272,7 @@ class User extends React.PureComponent<any, propsType, any> {
         this.props.modal({
           kind: 'success',
           title: 'User Added',
-          description: `The user ${username} was added to your blacklist`
+          description: `The user ${uid} was added to your blacklist. Please reload again in case it doesn't reflect on your screen.`
         });
         this.props.reloadData();
       })
@@ -221,19 +285,21 @@ class User extends React.PureComponent<any, propsType, any> {
         this.props.reloadData();
       });
   };
-  removeFromBlackList = (username: string) => {
-    if (!username) return;
+  removeFromBlackList = (uid: string) => {
+    if (!uid) return;
     this.deleteFromBlackListPromise = cancelablePromise(
-      deleteFromBlackList(this.props.token, username)
+      deleteFromBlackList(this.props.token, uid)
     );
     this.deleteFromBlackListPromise.promise
       .then(r => {
         this.props.modal({
           kind: 'success',
           title: 'User Removed ',
-          description: `The user ${username} was removed from your blacklist`
+          description: `The user ${uid} was removed from your blacklist. Please reload osmcha in case it doesn't reflect on your screen.`
         });
-        this.props.reloadData();
+        setTimeout(() => {
+          this.props.reloadData();
+        }, 300);
       })
       .catch(e => {
         console.error(e);
@@ -291,8 +357,21 @@ class User extends React.PureComponent<any, propsType, any> {
         });
       });
   };
+  onUserChange = (value: ?Array<Object>) => {
+    if (Array.isArray(value) && value.length === 0)
+      return this.setState({ userValues: null });
+    this.setState({
+      userValues: value
+    });
+  };
   render() {
     const userDetails = this.props.userDetails;
+    let blackList: List<any> = this.props.data.getIn(['blackList'], List());
+
+    blackList = blackList.sortBy(
+      a => a.get('username'),
+      (a: string, b: string) => a.localeCompare(b)
+    );
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${window.innerWidth <
@@ -371,14 +450,15 @@ class User extends React.PureComponent<any, propsType, any> {
             <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
               BlackList
             </h2>
-            <ListFortified
-              data={this.props.data.getIn(['blackList'], List())}
-              TargetBlock={BlackListBlock}
-              propsToPass={{
-                removeFromBlackList: this.removeFromBlackList
-              }}
-              SaveComp={<SaveButton onCreate={this.addToBlackList} />}
-            />
+            {userDetails.get('is_staff') &&
+              <ListFortified
+                data={blackList}
+                TargetBlock={BlackListBlock}
+                propsToPass={{
+                  removeFromBlackList: this.removeFromBlackList
+                }}
+                SaveComp={<SaveUser onCreate={this.addToBlackList} />}
+              />}
             <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
               <span className="txt-bold">Saved Filters</span>
               <span className="txt-xs txt-em">(Experimental)</span>
