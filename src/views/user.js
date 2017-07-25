@@ -447,9 +447,10 @@ class User extends React.PureComponent<any, propsType, any> {
               </p>
             </span>
 
-            <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-              BlackList
-            </h2>
+            {userDetails.get('is_staff') &&
+              <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
+                BlackList
+              </h2>}
             {userDetails.get('is_staff') &&
               <ListFortified
                 data={blackList}
