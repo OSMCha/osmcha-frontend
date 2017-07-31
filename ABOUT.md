@@ -402,5 +402,5 @@ This is raised when someone tries to remove tags in a feature that are added by 
 
 # Feedback
 
-- To file bugs, feature requests on OSMCha - please file issues at https://github.com/mapbox/osmcha-frontend/
+- To file bugs, feature requests on OSMCha - please file issues at https://github.com/mapbox/osmcha-frontend/issues
 - To file bugs, feature requests on Changeset map - please file issues at https://github.com/osmlab/changeset-map/issues
