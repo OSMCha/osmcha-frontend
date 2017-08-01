@@ -1,3 +1,7 @@
+jest.mock('lodash.debounce', () => {
+  return fn => fn;
+});
+
 import React from 'react';
 import { fromJS, Map } from 'immutable';
 import { shallow } from 'enzyme';

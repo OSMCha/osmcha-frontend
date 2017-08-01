@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { Map, fromJS } from 'immutable';
-
+import debounce from 'lodash.debounce';
 import { getDisplayName } from '../utils/component';
 
 type stateType = {
@@ -28,6 +28,11 @@ export function withFetchDataSilent<P: {}, S: {}>(
       data: Map()
     };
     fetchedData: Object;
+    initFetching: (props: P) => void;
+    constructor(props) {
+      super(props);
+      this.initFetching = debounce(this._initFetching, 500);
+    }
     componentDidMount() {
       this.initFetching(this.props);
     }
@@ -36,7 +41,7 @@ export function withFetchDataSilent<P: {}, S: {}>(
         this.initFetching(nextProps);
       }
     }
-    initFetching(props: P) {
+    _initFetching = (props: P) => {
       this.fetchedData = dataToFetch(props);
       // iterate through all of cancelable promises, one for each api request
       Object.keys(this.fetchedData).forEach(k => {
@@ -49,14 +54,23 @@ export function withFetchDataSilent<P: {}, S: {}>(
           })
           .catch(e => console.log(e));
       });
-    }
+    };
+    reloadData = () => {
+      this.initFetching(this.props);
+    };
     componentWillUnmount() {
       Object.keys(this.fetchedData).forEach(k => {
         this.fetchedData[k] && this.fetchedData[k].cancel();
       });
     }
     render() {
-      return <WrappedComponent {...this.props} data={this.state.data} />;
+      return (
+        <WrappedComponent
+          {...this.props}
+          data={this.state.data}
+          reloadData={this.reloadData}
+        />
+      );
     }
   };
 }

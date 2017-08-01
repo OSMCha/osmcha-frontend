@@ -20,7 +20,7 @@ type propsType = {|
   filters: filtersType,
   loading: boolean,
   active: string,
-  token: ?string,
+  token: string,
   handleChange: (name: string, values?: filterType) => void,
   handleFocus: (name: string) => void,
   replaceFiltersState: (filters: filtersType) => void,

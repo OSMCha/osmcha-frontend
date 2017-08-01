@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 {
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "prettier.tabWidth": 2,
   "javascript.validate.enable": false
 }
+=======
+// Place your settings in this file to overwrite default and user settings.
+{
+    "javascript.validate.enable": false,
+    "prettier.singleQuote": true
+}
+>>>>>>> 07a7bcbc0a41b2a97a21327efb6dbec3dc56898f
