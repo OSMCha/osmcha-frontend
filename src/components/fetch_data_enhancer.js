@@ -59,9 +59,10 @@ export function withFetchDataSilent<P: {}, S: {}>(
       this.initFetching(this.props);
     };
     componentWillUnmount() {
-      Object.keys(this.fetchedData).forEach(k => {
-        this.fetchedData[k] && this.fetchedData[k].cancel();
-      });
+      this.fetchedData &&
+        Object.keys(this.fetchedData).forEach(k => {
+          this.fetchedData[k] && this.fetchedData[k].cancel();
+        });
     }
     render() {
       return (
