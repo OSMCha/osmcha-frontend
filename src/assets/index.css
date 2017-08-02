@@ -293,6 +293,7 @@ img {
   padding: 5px;
   top: inherit !important;
   left: inherit !important;
+  z-index: 0 !important;
 }
 
 .cmap-bg-create {
