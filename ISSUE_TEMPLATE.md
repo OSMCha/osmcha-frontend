@@ -6,11 +6,9 @@
 <!--Note: One line descriptions without any context would be closed immediately -->
 <!--Note: Remove any question which is not applicable -->
 
-* **I'm submitting a ... **
-<!--- This is required-->
-  - [ ] bug report
-  - [ ] feature request
-  - [ ] support / question
+<!--- This is required, remove the ones not applicable.-->
+
+## I'm submitting a _(bug report/feature request/ support or question)_
 
 ## *Brief Description*
 <!--- This is required, How has this issue affected you? What are you trying to accomplish? -->
