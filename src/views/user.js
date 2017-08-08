@@ -26,6 +26,7 @@ import { modal } from '../store/modal_actions';
 import { dispatchEvent } from '../utils/dispatch_event';
 import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
+import { CustomURL } from '../components/customURL';
 import { logUserOut } from '../store/auth_actions';
 import { applyFilters } from '../store/filters_actions';
 import { FILTER_BY_USER } from '../config/bindings';
@@ -211,6 +212,13 @@ const AOIsBlock = ({ data, activeAoiId, removeAoi }) =>
       <Button className="mr3" onClick={() => removeAoi(data.getIn(['id']))}>
         Remove
       </Button>
+      <CustomURL
+        href={`https://osmcha-django-staging.tilestream.net/api/v1/aoi/${data.getIn(
+          ['id']
+        )}/changesets/feed/`}
+        className="mr3"
+        iconName="rss"
+      />
     </span>
   </BlockMarkup>;
 
