@@ -30,6 +30,7 @@ import { CustomURL } from '../components/customURL';
 import { logUserOut } from '../store/auth_actions';
 import { applyFilters } from '../store/filters_actions';
 import { FILTER_BY_USER } from '../config/bindings';
+import { API_URL } from '../config';
 import type { RootStateType } from '../store';
 const BlockMarkup = ({ children }) =>
   <div className="flex-child flex-child--grow bg-gray-faint mx12 round p12 my6">
@@ -213,9 +214,7 @@ const AOIsBlock = ({ data, activeAoiId, removeAoi }) =>
         Remove
       </Button>
       <CustomURL
-        href={`https://osmcha-django-staging.tilestream.net/api/v1/aoi/${data.getIn(
-          ['id']
-        )}/changesets/feed/`}
+        href={`${API_URL}/aoi/${data.getIn(['id'])}/changesets/feed/`}
         className="mr3"
         iconName="rss"
       />
