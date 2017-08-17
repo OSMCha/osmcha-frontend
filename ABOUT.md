@@ -1,11 +1,12 @@
-## OSMCHA Guide
+
 
 <!-- toc -->
 
-- [Introduction to OSMCha](#introduction-to-osmcha)
-    + [Why use OSMCha?](#why-use-osmcha)
+- [Story behind OSMCha](#story-behind-osmcha)
+    + [Validation and OpenStreetMap](#validation-and-openstreetmap)
     + [What is vandalism?](#what-is-vandalism)
-    + [What are flagged changesets and how are they automatically flagged?](#what-are-flagged-changesets-and-how-are-they-automatically-flagged)
+      - [What is a problematic edit?](#what-is-a-problematic-edit)
+    + [Automated flagging of changesets](#automated-flagging-of-changesets)
     + [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad-%F0%9F%91%8D--%F0%9F%91%8E-)
     + [Future of OSMCha and validation using OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
 - [Usage](#usage)
@@ -17,61 +18,61 @@
     + [Basic filters](#basic-filters)
     + [Applications for edit based search](#applications-for-edit-based-search)
 - [FAQ](#faq)
-    + [How are the changesets presented?](#how-are-the-changesets-presented)
-    + [How can I sign-in into OSMCha?](#how-can-i-sign-in-into-osmcha)
     + [Can I view the changesets and use filters without logging into OSMCha?](#can-i-view-the-changesets-and-use-filters-without-logging-into-osmcha)
-    + [How do I logout of OSMCha?](#how-do-i-logout-of-osmcha)
     + [My changeset has been flagged by a reason, am I doing something wrong?](#my-changeset-has-been-flagged-by-a-reason-am-i-doing-something-wrong)
     + [Are there keyboard shortcuts in OSMCha?](#are-there-keyboard-shortcuts-in-osmcha)
     + [What are tags on OSMCha?](#what-are-tags-on-osmcha)
     + [What if I want to change my review for a changeset?](#what-if-i-want-to-change-my-review-for-a-changeset)
     + [Can I review my own changesets?](#can-i-review-my-own-changesets)
-- [Frequent error messages](#frequent-error-messages)
+- [Why did I get this error message](#why-did-i-get-this-error-message)
   * [Changeset views error messages](#changeset-views-error-messages)
-    + [Changeset was already checked.](#changeset-was-already-checked)
-    + [User can not check his own changeset.](#user-can-not-check-his-own-changeset)
-    + [Changeset is not checked.](#changeset-is-not-checked)
-    + [User does not have permission to uncheck this changeset.](#user-does-not-have-permission-to-uncheck-this-changeset)
-    + [User can not add tags to his own changeset.](#user-can-not-add-tags-to-his-own-changeset)
-    + [User can not add tags to a changeset checked by another user.](#user-can-not-add-tags-to-a-changeset-checked-by-another-user)
-    + [User can not remove tags from his own changeset.](#user-can-not-remove-tags-from-his-own-changeset)
-    + [User can not remove tags from a changeset checked by another user.](#user-can-not-remove-tags-from-a-changeset-checked-by-another-user)
-  * [Feature views error messages](#feature-views-error-messages)
-    + [Feature was already checked.](#feature-was-already-checked)
-    + [User can not check his own feature.](#user-can-not-check-his-own-feature)
-    + [Feature is not checked.](#feature-is-not-checked)
-    + [User does not have permission to uncheck this feature.](#user-does-not-have-permission-to-uncheck-this-feature)
-    + [User can not add tags to his own feature.](#user-can-not-add-tags-to-his-own-feature)
-    + [User can not add tags to a feature checked by another user.](#user-can-not-add-tags-to-a-feature-checked-by-another-user)
-    + [User can not remove tags from his own feature.](#user-can-not-remove-tags-from-his-own-feature)
-    + [User can not remove tags from a feature checked by another user.](#user-can-not-remove-tags-from-a-feature-checked-by-another-user)
 - [References](#references)
 - [Other tools for validation](#other-tools-for-validation)
 - [Feedback](#feedback)
 
 <!-- tocstop -->
 
-# Introduction to OSMCha
+# Story behind OSMCha
 
-OSMCha is short for OpenStreetMap Changeset Analyser. OSMCha is a web tool to help visualise and analyse edits made by mappers on OpenStreetMap(OSM). OSMCha was originally written by [Wille Marcel](https://www.openstreetmap.org/user/wille) in 2015 to validate changesets. In collaboration with Wille, this global instance is hosted by Mapbox as an additional data Quality Analysis tool for the community.
+The idea to build OSMCha - OpenStreetMap Changeset Analyser was [initiated](https://www.openstreetmap.org/user/wille/diary/40511) by [Wille Marcel](https://www.openstreetmap.org/user/wille) in mid 2015. It was built with a motivation of detecting and discovering harmful changesets that lasted in the OpenStreetMap (OSM) database for a long time without anyone noticing it.
+He strongly found the need of a system that can help to help visualise and analyse edits made my mappers on OSM. In collaboration with Wille, this global instance is hosted by Mapbox as an additional data Quality Analysis tool for the community.
 
-### Why use OSMCha?
+### Validation and OpenStreetMap
 
-- OSM is a crowdsourced project, and it is necessary to have user friendly tools for the community, to guide new contributors to make a great map.
-- Any given day, around 30,000 changesets containing additions, modifications, and deletions to the data make their way into OSM, which is driven by a strong community.
-- With new users signing up on OSM every day, it is likely that the mapping guides/wikis on tagging scheme, general practices are not uniformly followed by every contributor, resulting in accidental edits, and in rare cases [intentional vandalism](#what-is-vandalism) that breaks the map.
-- OSMCha is designed to be an integrated tool that can address various [validation requirements](#how-to-review-a-changeset) of the community. OSMCha is also supported by an open source edit recognition project called [OSM-Compare](https://github.com/mapbox/osm-compare) which can be used for suggesting manual verification.
-- This tool offers advanced filtering options that can help you [filter changesets](#filters) based on various attributes. (Ex: All changesets with hashtags, user specific changesets, etc.)
+OpenStreetMap is a crowdsourced project, which is driven by a strong community. Any given day, around 30,000 changesets containing additions, modifications, and deletions to the data make their way into OpenStreetMap. With new users signing up on OSM every day, it is likely that the mapping guides/wikis on tagging scheme, general practices are not uniformly followed by every contributor, resulting in accidental edits, and in rare cases [intentional vandalism](#what-is-vandalism) that breaks the map.
+
+In situations like these, it's necessary to have user friendly tools for the community to identify such errors easily and support the new contributors to make a great map. OSMCha is designed to be an integrated tool that can address various [validation requirements](#how-to-review-a-changeset) of the community. It is also supported by an open source edit recognition project called [OSM-Compare](https://github.com/mapbox/osm-compare), which can be used for suggesting manual verification. This tool offers advanced filtering options that can help you [filter changesets](#filters) based on various attributes. (Ex: All changesets with hashtags, user specific changesets, etc.)
 
 ### What is vandalism?
 
 [Vandalism](https://wiki.openstreetmap.org/wiki/Vandalism) with respect to OpenStreetMap refers to deliberate acts of destruction or damage to the map data. These include, intentional edits that causes visible breakages on the map and also break other crucial map data such as route relations, boundaries, turn restrictions, land use etc.
 
-### What are flagged changesets and how are they automatically flagged?
+#### What is a problematic edit?
 
-- `Flagged changesets` are changesets that are flagged by [OSM-Compare](https://github.com/mapbox/osm-compare) for specific edit behaviour. Like deletion of valid data, incompatible data errors. Example - A swimming pool tagged as `natural=water`.
+Every change to OpenStreetMap is contained in a changeset. They consist of either additions (new feature), modifications (change existing tags, feature location, or location of a referred feature) or deletions by a mapper.
 
-- OSMCha is supported by an edit detection pipeline called OSM-Compare. It is an open collection of compare functions written in Javascript that automatically check for suspicious changes on OSM and pushes them into OSMCha to different categories of identifiable edit behaviour. Currently, there are compare functions in OSM-Compare for flagging deletions of cities, overlap between features, and similar rule based scenarios.
+When working with data in OpenStreetMap, you sometimes come across places where another mapper might have added bad features or tags, changed or moved or deleted a large set of data or an important set of tags. Changes that spoil the quality of OpenStreetMap data are considered problematic edits.
+
+There are several kinds of potentially problematic changes. For example:
+
+- Use of proprietary data (like Google Maps) to add data in OpenStreetMap.
+- Modification to significant tags like place, boundary,  highway, etc.
+- Undocumented imports.
+- Modifications with outdated imagery.
+- Unintentional dragging of nodes in way that results in geometry changes.
+
+Creation and deletion of features, modification to tags and modification to a node’s location, result in a version increment. Every change by every user is retained as a separate version of the object in the OpenStreetMap database. Changes to nodes within a way, or to members of a relation, result in displayed changes to the way/relation but do not increment version. Read more about Validating OpenStreetMap in this [guide](https://www.mapbox.com/mapping/validating-osm/)
+
+
+### Automated flagging of changesets
+
+OSMCha is supported by an edit detection pipeline called [OSM-Compare](https://github.com/mapbox/osm-compare). It is an open collection of compare functions written in Javascript that automatically check for suspicious changes on OSM and pushes them into OSMCha to different categories of identifiable edit behaviour. Currently, there are compare functions in OSM-Compare for flagging deletions of cities, overlap between features, and similar rule based scenarios.
+
+`Flagged changesets` are changesets that are flagged by OSM-Compare for specific edit behaviour. Like deletion of valid data, incompatible data errors. Example - A swimming pool tagged as `natural=water`. The rule based detectors in OSM-Compare are inefficient in understanding context of an edit, place and mapping activity. This is the disadvantage and reason that these detections are false positives 80% of the time, based on the compare function written.
+
+These changesets are automatically flagged by [OSM-Compare](https://github.com/mapbox/osm-compare) for specific edit behaviour. We are working towards making this [detection](#future-of-osmcha-and-validation-using-osm-compare) better over time.
+
+
 
 ### Why to review a changeset as Good/Bad 👍 / 👎 ?
 
@@ -208,36 +209,10 @@ These include:
 
 # FAQ
 
-### How are the changesets presented?
-
-OSMCha reads all changesets from OpenStreetMap. By default they are presented in the order of the newest first based on the [filters](#filters) applied by the OSMCha reviewer.
-
-
-![osmcha-sidebar](https://user-images.githubusercontent.com/8921295/27321563-4e9f6fce-55b8-11e7-89ba-4e4e627ea20a.png)
-
-
-_The list of changesets are presented on the sidebar._
-
-You can select the changeset from the changeset review panel and can view the edits associated to it using the changeset map that appears on the right hand side.
-
-### How can I sign-in into OSMCha?
-
-You can sign-in on OSMCha using their OpenStreetMap account. On clicking on `sign-in`, a window (_like the one below_) appears, click on `Grant Access` and you will be singed-in on OSMCha.
-
-![osmcha-signin](https://user-images.githubusercontent.com/8921295/27321375-a4fada26-55b7-11e7-9516-f00f61f64cc1.png)
-
-
-`Note:` It **is** necessary to be signed-in in-order to [review](#how-to-review-a-changeset) a changeset as `Good` or `Bad`
-
-
 ### Can I view the changesets and use filters without logging into OSMCha?
 
  You **must** be signed in-order to [review](#how-to-review-a-changeset) a changeset as good or bad. Authentication in not required if you are only viewing the changesets.
 
-
-### How do I logout of OSMCha?
-
- After the authentication, the sign-in button on OSMCha shows your OpenStreetMap username. When you click on your username, a dropdown appears, by clicking on the `logout` button you can sign-out of OSMCha.
 
 ### My changeset has been flagged by a reason, am I doing something wrong?
 
@@ -273,6 +248,7 @@ Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of chan
 | Toggle Changeset discussions                     | ` 3 `              |
 | Toggle User profile                              | ` 4 `              |
 | Toggle Map controls                              | ` 5 `              |
+| Toggle Filters                                   | ` \ `              |
 | **Other**                                        |                    |
 | Show shortcuts list                              | ` ? `              |
 
@@ -303,76 +279,50 @@ Yes, it is possible to change the review for a changeset from `Good` to `Bad` or
 No, you cannot review your own changesets, but you can view your changesets.
 
 
-# Frequent error messages
+# Why did I get this error message
 
 ## Changeset views error messages
 
-### Changeset was already checked.
+- This changeset is already reviewed!
 
-This is raised when someone tries to check a changeset that was already checked
+You cannot review a changeset which was already reviewed by another user. Please choose a different changeset.
 
-### User can not check his own changeset.
+- You cannot check your own changeset!
 
-This is raised when someone tries to check a changeset that was created by him/her
+You cannot review your own changesets.
 
-### Changeset is not checked.
+- This changeset is not reviewed yet!
 
-This is raised when someone tries to uncheck a changeset that is not checked
+You cannot undo a review for a changeset if it's not reviewed before. Please go ahead and review the changeset.
 
-### User does not have permission to uncheck this changeset.
+- You do not have the permission to undo a review for this changeset.
 
-This is raised when someone tries to uncheck a changeset that another user checked
+You cannot undo a review for a changeset which is reviewed by another user. You have the permission to undo a review for changesets that are reviewed **only** by you.
 
-### User can not add tags to his own changeset.
+- You cannot add tags to your own changeset.
 
-This is raised when someone tries to add tags to their own changesets
+You do not have the permission to add tags or review your own changesets.
 
-### User can not add tags to a changeset checked by another user.
+- You cannot add tags to a changeset that is reviewed by another user.
 
-This is raised when someone tries to add tags to a changeset reviewed by someone else.
-
-### User can not remove tags from his own changeset.
-
-This is raised when someone tries to remove tags from their own changeset.
-
-### User can not remove tags from a changeset checked by another user.
-
-This is raised when someone tries to remove tags in a changeset that are added by the other users.
+You cannot perform any actions on changesets that are reviewed by other users.
 
 
-## Feature views error messages
+- You can not remove tags from your own changeset.
 
-### Feature was already checked.
+If your changeset is reviewed by others and has some tags associated with it, you don't have permissions to remove or alter these tags.
 
-This is raised when someone tries to check a feature that was already checked
+- You can not remove tags from a changeset reviewed by another user.
 
-### User can not check his own feature.
+You don't have permission to remove or alter tags of changesets that are reviewed by other users.
 
-This is raised when someone tries to check a feature that was created by him/her.
+- Sign in error
 
-### Feature is not checked.
+You get this error, when you have not signed-in into OSMCha. Please sign-in using your OpenStreetMap name.
 
-This is raised when someone tries to uncheck a feature that is not checked
+- Changeset map error
 
-### User does not have permission to uncheck this feature.
-
-This is raised when someone tries to uncheck a feature that another user checked
-
-### User can not add tags to his own feature.
-
-This is raised when someone tries to add tags to their own features
-
-### User can not add tags to a feature checked by another user.
-
-This is raised when someone tries to add tags to a feature reviewed by someone else
-
-### User can not remove tags from his own feature.
-
-This is raised when someone tries to remove a tag from his/her own feature
-
-### User can not remove tags from a feature checked by another user.
-
-This is raised when someone tries to remove tags in a feature that are added by the other users.
+<need more info on this>
 
 
 # References
