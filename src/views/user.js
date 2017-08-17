@@ -10,6 +10,7 @@ import { Changeset as ChangesetDumb } from '../components/changeset';
 import { getUserDetails } from '../network/openstreetmap';
 import { getObjAsQueryParam } from '../utils/query_params';
 import { UserAutocomplete } from '../components/filters/user_autocomplete';
+import { BlackListUser } from '../components/filters/blacklist_user';
 
 import {
   fetchBlackList,
@@ -38,43 +39,41 @@ const BlockMarkup = ({ children }) =>
   </div>;
 
 class SaveUser extends React.PureComponent {
-  state: {
-    userValues: any
-  };
   state = {
-    userValues: null,
     showInput: false
   };
-  onUserChange = (value: ?Array<Object>) => {
-    if (Array.isArray(value) && value.length === 0)
-      return this.setState({ userValues: null });
-    this.setState({
-      userValues: value
-    });
-  };
-  onSave = () => {
-    this.setState({
-      showInput: false
-    });
-    if (this.state.userValues) {
-      this.props.onCreate(this.state.userValues);
-    }
+  // onUserChange = (value: ?Array<Object>) => {
+  //   if (Array.isArray(value) && value.length === 0)
+  //     return this.setState({ userValues: null });
+  //   this.setState({
+  //     userValues: value
+  //   });
+  // };
+  // onSave = () => {
+  //   this.setState({
+  //     showInput: false
+  //   });
+  //   if (this.state.userValues) {
+  //     this.props.onCreate(this.state.userValues);
+  //   }
+  // };
+  onSave = (username, uid) => {
+    if (!username || !uid) return;
+    this.props.onCreate({ username, uid });
   };
   render() {
     return (
       <span>
         {this.state.showInput
           ? <span className="flex-parent flex-parent--row ">
-              <UserAutocomplete
+              <BlackListUser onSave={this.onSave} />
+              {/* <UserAutocomplete
                 placeholder="user"
                 className="wmin180"
                 onChange={this.onUserChange}
                 value={this.state.userValues}
                 name="blacklist_user"
-              />
-              <Button className="input wmax120 ml6" onClick={this.onSave}>
-                Save
-              </Button>
+              /> */}
             </span>
           : <Button
               className="input wmax120 ml12"
@@ -255,13 +254,7 @@ class User extends React.PureComponent<any, propsType, any> {
   }
 
   // blacklist
-  addToBlackList = ({
-    label: username,
-    value: uid
-  }: {
-    label: string,
-    value: string
-  }) => {
+  addToBlackList = ({ username, uid }: { username: string, uid: string }) => {
     if (!username || !uid) return;
     this.addToBlackListPromise = cancelablePromise(
       postUserToBlackList(this.props.token, username, uid)

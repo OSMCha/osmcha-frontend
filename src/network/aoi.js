@@ -7,7 +7,8 @@ export function handleErrors(response: Object) {
   if (!response.ok) {
     return response.json().then(r => {
       if (r && r.detail) throw new Error(r.detail);
-      throw Error(response.statusText);
+      if (response.statusText) throw new Error(response.statusText);
+      return Promise.reject('network request failed');
     });
   }
   return response;
