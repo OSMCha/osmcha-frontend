@@ -1,14 +1,19 @@
 import React from 'react';
 import { Avatar } from '../avatar';
 import moment from 'moment';
-import AnchorifyText from 'react-anchorify-text';
-import { Button } from '../button';
-import AssemblyAnchor from '../assembly_anchor';
 import { Link } from 'react-router-dom';
 import { getObjAsQueryParam } from '../../utils/query_params';
+import CommonMark from 'commonmark';
+import ReactRenderer from 'commonmark-react-renderer';
 
 // getObjAsQueryParam('filters', filters.toJS());
 export function User({ userDetails, whosThat }) {
+  var parser = new CommonMark.Parser();
+  var renderer = new ReactRenderer();
+  const UserDescriptionHTML = renderer.render(
+    parser.parse(userDetails.get('description') || '')
+  );
+
   return (
     <div className="px12 py6">
       <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
@@ -81,10 +86,8 @@ export function User({ userDetails, whosThat }) {
             )}
           </div>}
         <div className="mt12">
-          <p className="txt-subhead txt-s txt-break-url">
-            <AnchorifyText text={userDetails.get('description') || ''}>
-              <AssemblyAnchor />
-            </AnchorifyText>
+          <p className="txt-subhead txt-s txt-break-url user-description">
+            {UserDescriptionHTML}
           </p>
         </div>
       </div>

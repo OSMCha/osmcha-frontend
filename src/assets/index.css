@@ -373,3 +373,7 @@ img {
   height: 144px !important;
   width: 144px !important;
 }
+
+.user-description a {
+  color: #448ee4;
+}
