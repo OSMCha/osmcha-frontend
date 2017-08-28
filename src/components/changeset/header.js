@@ -41,14 +41,12 @@ export function Header({
         <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
           <span className="txt-s">
             <span className="txt-underline-on-hover pointer txt-bold">
-              <a onClick={toggleUser}>
+              <a dir="ltr" onClick={toggleUser}>
                 {user}
               </a>
             </span>
             &nbsp;
-            <span className="txt-s txt-em">
-              ({userEditCount} edits)
-            </span>&nbsp;
+            <span className="txt-s txt-em">({userEditCount} edits)</span>&nbsp;
             created&nbsp;{moment(date).fromNow()}
           </span>
         </div>
