@@ -35,6 +35,11 @@ export function OpenIn({ changesetId, coordinates, className }) {
             label: 'OSM-HV',
             value: 'OSM-HV',
             href: `http://osmhv.openstreetmap.de/changeset.jsp?id=${changesetId}`
+          },
+          {
+            label: 'Level 0',
+            value: 'Level 0',
+            href: `http://level0.osmz.ru/?url=changeset/${changesetId}`
           }
         ]}
         display="Open with"
