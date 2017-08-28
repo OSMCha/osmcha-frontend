@@ -7,7 +7,10 @@ import showdown from 'showdown';
 
 // getObjAsQueryParam('filters', filters.toJS());
 export function User({ userDetails, whosThat }) {
-  const converter = new showdown.Converter({ noHeaderId: true });
+  const converter = new showdown.Converter({
+    noHeaderId: true,
+    simplifiedAutoLink: true
+  });
   const UserDescriptionHTML = converter.makeHtml(
     userDetails.get('description') || ''
   );
