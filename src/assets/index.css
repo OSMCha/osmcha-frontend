@@ -377,3 +377,6 @@ img {
 .user-description a {
   color: #448ee4;
 }
+.user-description h2 {
+  font-weight: 600;
+}

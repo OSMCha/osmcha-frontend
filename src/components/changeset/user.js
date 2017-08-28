@@ -3,15 +3,13 @@ import { Avatar } from '../avatar';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { getObjAsQueryParam } from '../../utils/query_params';
-import CommonMark from 'commonmark';
-import ReactRenderer from 'commonmark-react-renderer';
+import showdown from 'showdown';
 
 // getObjAsQueryParam('filters', filters.toJS());
 export function User({ userDetails, whosThat }) {
-  var parser = new CommonMark.Parser();
-  var renderer = new ReactRenderer();
-  const UserDescriptionHTML = renderer.render(
-    parser.parse(userDetails.get('description') || '')
+  const converter = new showdown.Converter({ noHeaderId: true });
+  const UserDescriptionHTML = converter.makeHtml(
+    userDetails.get('description') || ''
   );
 
   return (
@@ -86,9 +84,10 @@ export function User({ userDetails, whosThat }) {
             )}
           </div>}
         <div className="mt12">
-          <p className="txt-subhead txt-s txt-break-url user-description">
-            {UserDescriptionHTML}
-          </p>
+          <p
+            className="txt-subhead txt-s txt-break-url user-description"
+            dangerouslySetInnerHTML={{ __html: UserDescriptionHTML }}
+          />
         </div>
       </div>
     </div>
