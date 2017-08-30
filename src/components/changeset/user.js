@@ -71,7 +71,7 @@ export function User({ userDetails, whosThat }) {
             OSM
           </a>
         </div>
-        {whosThat &&
+        {whosThat.size > 1 &&
           <div className="txt-s color-gray">
             Past usernames: &nbsp;
             {whosThat.slice(0, -1).map((e, k) =>
