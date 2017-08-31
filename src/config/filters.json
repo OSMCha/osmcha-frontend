@@ -14,10 +14,20 @@
     "icontains": false,
     "all": false,
     "range": false,
-    "display": "BBox",
+    "display": "BBox (Location)",
     "type": "map",
     "description": "Scroll",
     "placeholder": "Pan to the location of interest in the map"
+  },
+  {
+    "name": "area_lt",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "BBox size bound",
+    "type": "number",
+    "description": "Filter changesets that have a bbox area lower than X times the area of your bbox filter. For example, if the bbox you defined in your filter has an area of 1 degree and you set the 'BBox size bound' to 2, it will filter the changesets whose bbox area is lower than 2 degrees.",
+    "placeholder": "Upper bound of bbox area"
   },
   {
     "name": "comment",
@@ -26,7 +36,7 @@
     "range": false,
     "display": "Comment",
     "type": "text",
-    "description": " Filter changesets that mention a particular keyword it in the comment. This is not case-sensitive.",
+    "description": " Filter changesets that mention a particular keyword in its comment. This is not case-sensitive.",
     "placeholder": "Enter a keyword like hotosm, import or fixme"
   },
   {
@@ -324,16 +334,6 @@
     ],
     "description": "If True, it will exclude the changesets created by the users that you whitelisted",
     "placeholder": "exclude changesets by whitelisted"
-  },
-  {
-    "name": "area_lt",
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Bbox size bound",
-    "type": "text",
-    "description": "Filter changesets that have a bbox area lower than X times the area of your geospatial filter. For example, if the bbox or geometry you defined in your filter has an area of 1 degree and you set 'area_lt=2', it will filter the changesets whose bbox area is lower than 2 degree",
-    "placeholder": "Upper bound of bbox area"
   },
   {
     "name": "geometry",
