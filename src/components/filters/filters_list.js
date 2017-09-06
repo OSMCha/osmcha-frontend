@@ -83,7 +83,7 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
     if (!f.range && f.type === 'number') {
       return (
         <Wrapper {...wrapperProps}>
-          <Text {...propsToSend} className="mr3" min={0} max={100} />
+          <Text {...propsToSend} className="mr3" min={1} max={100} />
         </Wrapper>
       );
     }
