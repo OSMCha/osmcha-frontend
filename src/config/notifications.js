@@ -1,8 +1,8 @@
 export default {
   NOT_LOGGED_IN: {
     kind: 'error',
-    title: 'Login required',
-    description: 'This action requires you to login first.'
+    title: 'Sign in required',
+    description: 'This action requires you to sign in first.'
   },
   MODIFY_SUCCESS: {
     kind: 'success',
