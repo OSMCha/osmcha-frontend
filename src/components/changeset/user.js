@@ -1,14 +1,20 @@
 import React from 'react';
 import { Avatar } from '../avatar';
 import moment from 'moment';
-import AnchorifyText from 'react-anchorify-text';
-import { Button } from '../button';
-import AssemblyAnchor from '../assembly_anchor';
 import { Link } from 'react-router-dom';
 import { getObjAsQueryParam } from '../../utils/query_params';
+import showdown from 'showdown';
 
 // getObjAsQueryParam('filters', filters.toJS());
 export function User({ userDetails, whosThat }) {
+  const converter = new showdown.Converter({
+    noHeaderId: true,
+    simplifiedAutoLink: true
+  });
+  const UserDescriptionHTML = converter.makeHtml(
+    userDetails.get('description') || ''
+  );
+
   return (
     <div className="px12 py6">
       <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
@@ -81,11 +87,10 @@ export function User({ userDetails, whosThat }) {
             )}
           </div>}
         <div className="mt12">
-          <p className="txt-subhead txt-s txt-break-url">
-            <AnchorifyText text={userDetails.get('description') || ''}>
-              <AssemblyAnchor />
-            </AnchorifyText>
-          </p>
+          <p
+            className="txt-subhead txt-s txt-break-url user-description"
+            dangerouslySetInnerHTML={{ __html: UserDescriptionHTML }}
+          />
         </div>
       </div>
     </div>
