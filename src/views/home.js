@@ -11,21 +11,30 @@ export function Home() {
     <div className="flex-parent flex-parent--column flex-parent--center-cross h-full my60">
       <div className="flex-child flex-child--grow">&nbsp;</div>
       <div className="flex-parent flex-parent--column flex-parent--center-cross ">
-        <img src={banner} style={{ width: '40vw' }} />
-        <img src={work_flow} style={{ width: '35vw' }} className="pt36" />
+        <img src={banner} style={{ width: '40vw' }} alt="OSMCHA" />
+        <img
+          src={work_flow}
+          style={{ width: '35vw' }}
+          className="pt36"
+          alt="Validation tool for OpenStreetmap"
+        />
       </div>
       <div className="flex-child flex-child--grow">&nbsp;</div>
       <div className="flex-parent flex-parent--column align-center txt-l">
         <div className="txt-xl">
-          v{appVersion}{isDev && ' Dev'}
-          {isStaging && ' Staging'}{isLocal && ' Local'}
+          v{appVersion}
+          {isDev && ' Dev'}
+          {isStaging && ' Staging'}
+          {isLocal && ' Local'}
         </div>
         <div className="flex-parent flex-parent--row flex-parent--center-main">
           <Link
             className="link link--gray flex-parent flex-parent--row flex-parent--center-cross mx6"
             to="/about"
           >
-            <svg className="icon"><use xlinkHref="#icon-info" /></svg>{' '}
+            <svg className="icon">
+              <use xlinkHref="#icon-info" />
+            </svg>{' '}
             <span>Guide</span>
           </Link>{' '}
           |{' '}
@@ -34,7 +43,9 @@ export function Home() {
             className="link link--gray  flex-parent flex-parent--row flex-parent--center-cross mx6"
             href="https://github.com/mapbox/osmcha-frontend/blob/master/CONTRIBUTING.md"
           >
-            <svg className="icon"><use xlinkHref="#icon-github" /></svg>{' '}
+            <svg className="icon">
+              <use xlinkHref="#icon-github" />
+            </svg>{' '}
             <span>Github</span>
           </a>{' '}
           |{' '}
@@ -43,7 +54,9 @@ export function Home() {
             className="link link--gray  flex-parent flex-parent--row flex-parent--center-cross mx6"
             href="https://github.com/mapbox/osmcha-frontend/issues"
           >
-            <svg className="icon"><use xlinkHref="#icon-bug" /></svg>{' '}
+            <svg className="icon">
+              <use xlinkHref="#icon-bug" />
+            </svg>{' '}
             <span>File an issue</span>
           </a>
         </div>
