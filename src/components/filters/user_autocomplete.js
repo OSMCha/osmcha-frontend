@@ -1,10 +1,8 @@
 // @flow
 import React from 'react';
-import { List, fromJS, Map } from 'immutable';
-import { Creatable, Async } from 'react-select';
-import type { InputType } from './';
+import { Async } from 'react-select';
 import { getUsers } from '../../network/whosthat';
-import debounce from 'lodash.debounce';
+
 export class UserAutocomplete extends React.PureComponent {
   state = {
     value: null

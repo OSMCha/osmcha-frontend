@@ -2,8 +2,6 @@
 import React from 'react';
 import moment from 'moment';
 
-import { CreateDeleteModify } from '../create_delete_modify';
-
 export function Title({ properties, wasOpen, date }: Object) {
   return (
     <div>

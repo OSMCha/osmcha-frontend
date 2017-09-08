@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Map, List, fromJS } from 'immutable';
+import { Map, List } from 'immutable';
 import CSSGroup from 'react-transition-group/CSSTransitionGroup';
 import { cancelablePromise, cancelableFetchJSON } from '../../utils/promise';
 

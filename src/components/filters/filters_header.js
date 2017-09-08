@@ -1,12 +1,7 @@
 // @flow
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Map } from 'immutable';
-
 import { Button } from '../button';
-import { Dropdown } from '../dropdown';
-import { AOIManager } from './aoi_manager';
-import { isProd } from '../../config';
 
 class AOIName extends React.PureComponent {
   constructor(props) {

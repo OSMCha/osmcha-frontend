@@ -1,6 +1,6 @@
 // @flow
 import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { Map, List, fromJS } from 'immutable';
+import { Map } from 'immutable';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { history } from './history';
 import createSagaMiddleware from 'redux-saga';
