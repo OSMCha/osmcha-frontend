@@ -47,7 +47,7 @@ class NavbarSidebar extends React.PureComponent {
     }
 
     if (oAuthToken) {
-      const popup = createPopup('oauth_popup', url);
+      createPopup('oauth_popup', url);
       handlePopupCallback().then(oAuthObj => {
         this.props.getFinalToken(oAuthObj.oauth_verifier);
       });
@@ -76,7 +76,6 @@ class NavbarSidebar extends React.PureComponent {
   };
   render() {
     let username = this.props.username;
-    console.log(this.props.location);
     return (
       <div>
         <Navbar
@@ -120,27 +119,31 @@ class NavbarSidebar extends React.PureComponent {
                   <use xlinkHref="#icon-question" />
                 </svg>
               </Link>
-              {this.props.token
-                ? <div className="mr3 pointer">
-                    <Link
-                      className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-                      to={{
-                        ...this.props.location,
-                        pathname: '/user'
-                      }}
-                    >
-                      {username && username.length > 10
-                        ? `${username.slice(0, 10)}..`
-                        : username}
-                    </Link>
-                  </div>
-                : <Button
-                    onClick={this.handleLoginClick}
-                    disable={!this.props.oAuthToken}
-                    iconName="osm"
+              {this.props.token ? (
+                <div className="mr3 pointer">
+                  <Link
+                    className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+                    to={{
+                      ...this.props.location,
+                      pathname: '/user'
+                    }}
                   >
-                    Sign in
-                  </Button>}
+                    {username && username.length > 10 ? (
+                      `${username.slice(0, 10)}..`
+                    ) : (
+                      username
+                    )}
+                  </Link>
+                </div>
+              ) : (
+                <Button
+                  onClick={this.handleLoginClick}
+                  disable={!this.props.oAuthToken}
+                  iconName="osm"
+                >
+                  Sign in
+                </Button>
+              )}
             </div>
           }
         />

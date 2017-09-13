@@ -41,12 +41,6 @@ export class MultiSelect extends React.PureComponent {
       });
   };
   onChangeLocal = (data: ?Array<Object>) => {
-    let name =
-      this.props.name.slice(0, 4) === 'all_'
-        ? this.props.name.slice(4)
-        : this.props.name;
-
-    name = `${this.state.allToggle ? 'all_' : ''}${name}`;
     if (!Array.isArray(data)) return;
     this.sendData(this.state.allToggle, data);
   };
@@ -101,7 +95,7 @@ export class MultiSelect extends React.PureComponent {
   render() {
     return (
       <div className="">
-        {this.props.showAllToggle &&
+        {this.props.showAllToggle && (
           <span className="relative fr">
             <span className="absolute" style={{ left: -95, top: -30 }}>
               <div className="toggle-group txt-s mr18">
@@ -125,7 +119,8 @@ export class MultiSelect extends React.PureComponent {
                 </label>
               </div>
             </span>
-          </span>}
+          </span>
+        )}
         {this.renderSelect()}
       </div>
     );

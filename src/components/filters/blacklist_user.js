@@ -38,7 +38,6 @@ export class BlackListUser extends React.Component {
     if (this.state.uid.length > 0 && this.state.username.length === 0) {
       this.fetchUid(this.state.uid)
         .then(x => {
-          console.log(x);
           return x;
         })
         .then(r => ({
@@ -62,7 +61,6 @@ export class BlackListUser extends React.Component {
           username: r.name
         }))
         .then(x => {
-          console.log(x);
           return x;
         })
         .then(r =>
@@ -76,7 +74,7 @@ export class BlackListUser extends React.Component {
         )
         .catch(r => this.setState({ isValidUsername: false, verified: false }));
     } else if (this.state.uid.length > 0 && this.state.username.length > 0) {
-      var p = Promise.all([
+      Promise.all([
         this.fetchUid(this.state.uid).then(r => ({
           uid: r.id,
           username: r.name
@@ -130,7 +128,7 @@ export class BlackListUser extends React.Component {
           placeholder="UID"
           type="text"
         />
-        <Button className={`btn max120 ml12 `} onClick={this.verifyInput}>
+        <Button className={'btn max120 ml12 '} onClick={this.verifyInput}>
           {this.state.verified ? 'Verified' : 'Verify'}
         </Button>
         <Button

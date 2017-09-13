@@ -52,7 +52,7 @@ export function withFetchDataSilent<P: {}, S: {}>(
             data = data.set(k, fromJS(x));
             this.setState({ data });
           })
-          .catch(e => console.log(e));
+          .catch(e => console.error(e));
       });
     };
     reloadData = () => {

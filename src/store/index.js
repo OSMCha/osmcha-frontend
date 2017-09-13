@@ -47,7 +47,7 @@ const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
 let appliedMiddlewares = applyMiddleware(...middlewares);
 if (process.env.NODE_ENV !== 'production') {
-  const { createLogger } = require('redux-logger');
+  // const { createLogger } = require('redux-logger');
 
   // const logger = createLogger({
   //   stateTransformer: state => {

@@ -3,7 +3,6 @@
 export function cancelablePromise(promise: Promise<*>) {
   let hasCanceled_ = false;
 
-  // promise.catch(e => console.log(e));
   const wrappedPromise = new Promise((resolve, reject) => {
     promise
       .then(val => (hasCanceled_ ? reject({ isCanceled: true }) : resolve(val)))
@@ -28,9 +27,11 @@ function handleErrors(response) {
 
 export function cancelableFetchJSON(url: string) {
   return cancelablePromise(
-    fetch(url).then(handleErrors).then(res => {
-      return res.json();
-    })
+    fetch(url)
+      .then(handleErrors)
+      .then(res => {
+        return res.json();
+      })
   );
 }
 

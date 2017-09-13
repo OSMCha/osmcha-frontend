@@ -43,7 +43,7 @@ export class Meta extends React.PureComponent {
     return value;
   };
   render() {
-    const { name, placeholder, activeFilters } = this.props;
+    const { name, placeholder } = this.props;
     let value = this.findCurrentValue();
     return (
       <Select

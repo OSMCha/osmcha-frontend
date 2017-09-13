@@ -43,7 +43,6 @@ export class Text extends React.Component {
   render() {
     const {
       name,
-      onChange,
       type,
       placeholder,
       display,

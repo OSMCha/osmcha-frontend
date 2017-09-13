@@ -92,7 +92,6 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
         arr[0].value // whether harmful is true or false
       );
     } else if (arr.length > 1) {
-      console.log(arr);
       throw new Error('verify array is big');
     }
   };
@@ -111,12 +110,13 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
         title={
           <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
             <span className="flex-parent align-items--center">
-              {width < 800 &&
+              {width < 800 && (
                 <Link
                   to={{ search: this.props.location.search, pathname: '/' }}
                 >
                   {'<  '}
-                </Link>}
+                </Link>
+              )}
               <span className="txt-l color-gray--dark">
                 <span className="txt-bold">Changeset:</span>{' '}
                 <span className="txt-underline mr12">
@@ -145,12 +145,12 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
               />
             </span>
             <span>
-              {this.props.currentChangeset &&
+              {this.props.currentChangeset && (
                 <span>
                   {this.props.currentChangeset.getIn([
                     'properties',
                     'check_user'
-                  ]) &&
+                  ]) && (
                     <Tags
                       changesetId={this.props.changesetId}
                       currentChangeset={this.props.currentChangeset}
@@ -158,7 +158,8 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                       handleChangesetModifyTag={
                         this.props.handleChangesetModifyTag
                       }
-                    />}
+                    />
+                  )}
                   <Verify
                     changeset={this.props.currentChangeset}
                     placeholder="Verify"
@@ -182,7 +183,8 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                     ]}
                     className="select--s"
                   />
-                </span>}
+                </span>
+              )}
             </span>
           </div>
         }

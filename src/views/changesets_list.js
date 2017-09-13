@@ -16,7 +16,6 @@ import { List } from '../components/list';
 import { Footer } from '../components/list/footer';
 import { Header } from '../components/list/header';
 import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
-import { delayPromise } from '../utils/promise';
 import {
   NEXT_CHANGESET,
   PREV_CHANGESET,

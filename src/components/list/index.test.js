@@ -1,7 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
 import { shallow } from 'enzyme';
-import renderer from 'react-test-renderer';
 import { StaticRouter } from 'react-router';
 import MockDate from 'mockdate';
 import { List } from './index';

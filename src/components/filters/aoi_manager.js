@@ -19,9 +19,7 @@ class AOIManager extends React.PureComponent<void, propsType, *> {
       this.props.loadAoiId(changes[0].value);
     }
   };
-  onDelete = obj => {
-    console.log(obj);
-  };
+  onDelete = obj => {};
   render() {
     const data = (this.props.data || Map())
       .getIn(['AOIs', 'features'], List())

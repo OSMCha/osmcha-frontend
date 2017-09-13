@@ -1,14 +1,11 @@
-import { call, put, select } from 'redux-saga/effects';
+import { select } from 'redux-saga/effects';
 
 import { expectSaga } from 'redux-saga-test-plan';
 import * as matchers from 'redux-saga-test-plan/matchers';
 import { throwError } from 'redux-saga-test-plan/providers';
-import { push } from 'react-router-redux';
 
 import { fromJS, Map, List } from 'immutable';
-import { delay } from 'redux-saga';
 import { fetchChangeset, setHarmful, setTag } from '../../network/changeset';
-import { importChangesetMap } from '../../utils/cmap';
 
 import {
   action,
@@ -25,11 +22,6 @@ import {
   CHANGESET_MODIFY,
   CHANGESET_MAP
 } from '../changeset_actions';
-import { changesetReducer } from '../changeset_reducer';
-import { modal } from '../modal_actions';
-
-// import { fetchChangesetsPage } from '../../network/changesets_page';
-// import { validateFilters, getDefaultFromDate } from '../../utils/filters';
 
 describe('fetchChangesetAction', () => {
   const changesetId = 50052312;
@@ -103,11 +95,8 @@ describe('fetchChangesetAction', () => {
 
 describe('fetchChangesetMapAction', () => {
   const changesetId = 50052312;
-  const token = '2d2289bd78985b2b46af29607ee50fa37cb1723a';
   const changesetMap = Map();
-  const changeset = {
-    test: 'test'
-  };
+
   const location = {
     pathname: '/changesets/50052312',
     search: '',
@@ -283,12 +272,13 @@ describe('setTagActions', () => {
     }
   });
   const token = '2d2289bd78985b2b46af29607ee50fa37cb1723a';
-  const username = 'kepta';
   const tag = { label: 'intentional', value: 1 };
 
   it('adds tag correctly', async () => {
     const remove = false;
-    const newTags = Map().set('id', tag.value).set('name', tag.label);
+    const newTags = Map()
+      .set('id', tag.value)
+      .set('name', tag.label);
     const newChangeset = oldChangeset.setIn(
       ['properties', 'tags'],
       List().push(newTags)
@@ -312,7 +302,9 @@ describe('setTagActions', () => {
   it('adds removes tag correctly', async () => {
     const remove = true;
     const newTags = List().push(
-      Map().set('id', tag.value).set('name', tag.label)
+      Map()
+        .set('id', tag.value)
+        .set('name', tag.label)
     );
     const withTags = oldChangeset.setIn(['properties', 'tags'], newTags);
     return await expectSaga(setTagActions, {
