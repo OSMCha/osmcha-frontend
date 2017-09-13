@@ -1,8 +1,7 @@
 // @flow
 import React from 'react';
-import Select, { Creatable, Async } from 'react-select';
-import { Wrapper } from './wrapper';
-import { List, fromJS, Map } from 'immutable';
+import Select from 'react-select';
+import { fromJS } from 'immutable';
 import type { filterType } from './';
 
 export class Radio extends React.PureComponent {

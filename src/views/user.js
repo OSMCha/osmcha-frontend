@@ -1,13 +1,9 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { Map, fromJS, List } from 'immutable';
+import { Map, List } from 'immutable';
 import { push } from 'react-router-redux';
 
-import Mousetrap from 'mousetrap';
-
-import { Changeset as ChangesetDumb } from '../components/changeset';
-import { getUserDetails } from '../network/openstreetmap';
 import { getObjAsQueryParam } from '../utils/query_params';
 import { UserAutocomplete } from '../components/filters/user_autocomplete';
 import { BlackListUser } from '../components/filters/blacklist_user';
@@ -24,13 +20,11 @@ import { Link } from 'react-router-dom';
 import { createAOI, deleteAOI } from '../network/aoi';
 import type { filterType, filtersType } from '../components/filters';
 import { modal } from '../store/modal_actions';
-import { dispatchEvent } from '../utils/dispatch_event';
 import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
 import { CustomURL } from '../components/customURL';
 import { logUserOut } from '../store/auth_actions';
 import { applyFilters } from '../store/filters_actions';
-import { FILTER_BY_USER } from '../config/bindings';
 import { API_URL } from '../config';
 import type { RootStateType } from '../store';
 const BlockMarkup = ({ children }) =>

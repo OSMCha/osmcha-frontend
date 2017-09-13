@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { List, fromJS } from 'immutable';
+import { fromJS } from 'immutable';
 import moment from 'moment';
 import type { filterType } from './';
 import type Moment from 'moment';

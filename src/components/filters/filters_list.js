@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { Map, List } from 'immutable';
 import moment from 'moment';
 
 import { Text, Radio, MultiSelect, Wrapper, Meta, Date } from './';

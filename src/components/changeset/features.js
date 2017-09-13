@@ -1,16 +1,21 @@
 // @flow
 import React from 'react';
-import { Map, fromJS, List } from 'immutable';
+import { Map, List } from 'immutable';
 import { Reasons } from '../reasons';
 import { selectFeature } from '../../views/map';
 
 const Feature = ({ data }: { data: Map<string, any> }) => {
-  const Li = data.get('reasons');
   return (
     <tr className="txt-s">
-      <td>{data.get('osm_id')}</td>
-      <td>{data.get('name')}</td>
-      <td><Reasons reasons={data.get('reasons')} color="blue" /></td>
+      <td>
+        {data.get('osm_id')}
+      </td>
+      <td>
+        {data.get('name')}
+      </td>
+      <td>
+        <Reasons reasons={data.get('reasons')} color="blue" />
+      </td>
       <td>
         <span
           onClick={() => selectFeature(parseInt(data.get('osm_id'), 10))}

@@ -4,12 +4,8 @@ import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
 
-import { Tags } from '../components/changeset/tags';
 import { Button } from '../components/button';
 import { Navbar } from '../components/navbar';
-import { Verify } from '../components/changeset/verify';
-import { Dropdown } from '../components/dropdown';
-import { OpenIn } from '../components/changeset/open_in';
 import { Avatar } from '../components/avatar';
 
 import { createPopup } from '../utils/create_popup';

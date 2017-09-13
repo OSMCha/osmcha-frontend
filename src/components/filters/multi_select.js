@@ -1,8 +1,7 @@
 // @flow
 import React from 'react';
-import { List, fromJS, Map } from 'immutable';
+import { fromJS } from 'immutable';
 import { Creatable, Async } from 'react-select';
-import type { InputType } from './';
 import { API_URL } from '../../config';
 import type { filterType } from './';
 

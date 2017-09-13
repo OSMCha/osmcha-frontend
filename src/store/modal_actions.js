@@ -1,9 +1,6 @@
 // @flow
-import { put, call, take, select, takeEvery } from 'redux-saga/effects';
+import { put, call, take, takeEvery } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
-import { fromJS } from 'immutable';
-
-import type { RootStateType } from './';
 
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const INIT_MODAL = 'INIT_MODAL';
