@@ -8,7 +8,7 @@ import { Dropdown } from '../dropdown';
 import { AOIManager } from './aoi_manager';
 import { isProd } from '../../config';
 
-class AOIName extends React.PureComponent {
+class SaveAOI extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,28 +39,43 @@ class AOIName extends React.PureComponent {
       this.clicked = false;
     }
   };
+  handleSubmit = event => {
+    this.setState({
+      editing: false
+    });
+    if (this.props.aoiId) {
+      this.props.updateAOI(this.props.aoiId, this.state.value);
+    } else {
+      this.props.createAOI(this.state.value);
+      event.preventDefault();
+    }
+  };
   // handleFocus = event => {
   //   event.target.select();
   // };
   render() {
     return (
       <span>
-        /
         {this.state.editing
-          ? <input
-              ref={r => {
-                if (this.clicked) {
-                  r.select();
-                  this.clicked = false;
-                }
-              }}
-              value={this.state.value}
-              onChange={this.onChange}
-              onKeyDown={this.onKeyDown}
-            />
-          : <span onClick={this.onClick}>
-              {this.props.name}
-            </span>}
+          ? <span>
+              <input
+                ref={r => {
+                  if (this.clicked) {
+                    r.select();
+                    this.clicked = false;
+                  }
+                }}
+                value={this.state.value}
+                onChange={this.onChange}
+                onKeyDown={this.onKeyDown}
+              />
+              <Button onClick={this.handleSubmit} className="mx3">
+                Confirm Save
+              </Button>
+            </span>
+          : <Button onClick={this.onClick} className="border--0 bg-transparent">
+              Save
+            </Button>}
       </span>
     );
   }
@@ -71,18 +86,22 @@ export function FiltersHeader({
   search,
   token,
   aoiName,
+  aoiId,
   createAOI,
+  updateAOI,
   removeAOI,
   handleApply,
   handleClear,
   loadAoiId
 }: {
   createAOI: string => void,
+  updateAOI: string => void,
   removeAOI: string => void,
   loading: boolean,
   search: string,
   token?: string,
   aoiName?: string,
+  aoiId?: string,
   handleApply: () => void,
   handleClear: () => void,
   loadAoiId: string => void
@@ -90,10 +109,16 @@ export function FiltersHeader({
   return (
     <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
       <span className="txt-l txt-bold color-gray--dark">
-        <span>Filters</span>
-        {aoiName && <AOIName name={aoiName} createAOI={createAOI} />}
+        <span>Filters/</span>
+        {aoiName}
       </span>
       <span className="txt-l color-gray--dark">
+        <SaveAOI
+          name={aoiName}
+          aoiId={aoiId}
+          createAOI={createAOI}
+          updateAOI={updateAOI}
+        />
         <Button className="border--0 bg-transparent" onClick={handleClear}>
           Reset
         </Button>

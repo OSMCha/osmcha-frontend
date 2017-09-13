@@ -11,7 +11,7 @@ import { applyFilters } from '../store/filters_actions';
 import { FiltersList } from '../components/filters/filters_list';
 import { FiltersHeader } from '../components/filters/filters_header';
 
-import { createAOI, deleteAOI } from '../network/aoi';
+import { createAOI, deleteAOI, updateAOI } from '../network/aoi';
 import type { RootStateType } from '../store';
 import { delayPromise, cancelablePromise } from '../utils/promise';
 import { gaSendEvent } from '../utils/analytics';
@@ -46,6 +46,7 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
     // aoiName: this.props.aoi.getIn(['properties', 'name'], NEW_AOI)
   };
   createAOIPromise;
+  updateAOIPromise;
   componentWillReceiveProps(nextProps: propsType) {
     if (!is(this.props.filters, nextProps.filters)) {
       this.setState({
@@ -55,6 +56,7 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
   }
   componentWillUnmount() {
     this.createAOIPromise && this.createAOIPromise.cancel();
+    this.updateAOIPromise && this.updateAOIPromise.cancel();
   }
   handleFocus = (name: string) => {
     this.setState({
@@ -141,17 +143,17 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
     this.createAOIPromise = cancelablePromise(
       createAOI(this.props.token, name, this.state.filters)
     );
-
     this.createAOIPromise.promise
       .then(r => r && this.loadAoiId(r.id))
       .catch(e => console.error(e));
   };
   getAOIName = () => {
     if (this.props.loading) return '';
-    if (!is(this.props.filters, this.state.filters)) {
-      return NEW_AOI;
-    }
     return this.props.aoi.getIn(['properties', 'name'], NEW_AOI);
+  };
+  getAOIId = (aoiId: string) => {
+    if (this.props.loading) return '';
+    return this.props.aoi.get('id');
   };
   removeAOI = (aoiId: string) => {
     if (aoiId === this.props.aoi.get('id')) {
@@ -159,6 +161,14 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
     }
     deleteAOI(this.props.token, aoiId)
       .then(r => console.log(r))
+      .catch(e => console.error(e));
+  };
+  updateAOI = (aoiId: string, name: string) => {
+    this.updateAOIPromise = cancelablePromise(
+      updateAOI(this.props.token, aoiId, name, this.state.filters)
+    );
+    this.updateAOIPromise.promise
+      .then(r => r && this.loadAoiId(r.id))
       .catch(e => console.error(e));
   };
   render() {
@@ -172,10 +182,12 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
       >
         <FiltersHeader
           createAOI={this.createAOI}
+          updateAOI={this.updateAOI}
           removeAOI={this.removeAOI}
           loading={this.props.loading}
           token={this.props.token}
           aoiName={this.getAOIName()}
+          aoiId={this.getAOIId()}
           loadAoiId={this.loadAoiId}
           handleApply={this.handleApply}
           handleClear={this.handleClear}

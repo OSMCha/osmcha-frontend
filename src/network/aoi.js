@@ -79,15 +79,24 @@ export function updateAOI(
   name: string,
   filters: string
 ): Promise<*> {
+  let serverFilters = {};
+  filters.forEach((v: filterType, k: string) => {
+    if (!Iterable.isIterable(v)) return;
+    let filter = v;
+    serverFilters[k] = filter
+      .filter(x => Iterable.isIterable(x) && x.get('value') !== '')
+      .map(x => x.get('value'))
+      .join(',');
+  });
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
     },
-    body: createForm({
+    body: JSON.stringify({
       name,
-      filters
+      filters: serverFilters
     })
   })
     .then(handleErrors)
