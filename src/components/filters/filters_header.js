@@ -27,10 +27,7 @@ class SaveAOI extends React.PureComponent {
   };
   onKeyDown = event => {
     if (event.keyCode === 13) {
-      this.setState({
-        editing: false
-      });
-      this.props.createAOI(this.state.value);
+      this.handleSubmit(event);
     } else if (event.keyCode === 27) {
       this.setState({
         editing: false,
@@ -47,7 +44,6 @@ class SaveAOI extends React.PureComponent {
       this.props.updateAOI(this.props.aoiId, this.state.value);
     } else {
       this.props.createAOI(this.state.value);
-      event.preventDefault();
     }
   };
   // handleFocus = event => {
