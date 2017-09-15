@@ -3,7 +3,6 @@ import { put, call, takeLatest, select, all } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 
 import { fromJS, List, Map } from 'immutable';
-import { push } from 'react-router-redux';
 import {
   fetchChangesetsPage,
   fetchAOIChangesetPage
@@ -186,7 +185,10 @@ export function* checkForNewChangesetsSaga({
     let diff = 0;
     if (oldData) {
       newData = fromJS(newData.features.map(f => f.id)).toSet();
-      oldData = oldData.get('features').map(f => f.get('id')).toSet();
+      oldData = oldData
+        .get('features')
+        .map(f => f.get('id'))
+        .toSet();
       diff = newData.subtract(oldData).size;
     }
     yield put(

@@ -39,7 +39,7 @@ export class BBoxPicker extends React.Component {
         mapboxgl.accessToken =
           'pk.eyJ1IjoicGxhbmVtYWQiLCJhIjoiemdYSVVLRSJ9.g3lbg_eN0kztmsfIPxa9MQ';
         if (this.props.value) {
-          let bbox = this.props.value.getIn(['0', 'value'], '').split(',');
+          // let bbox = this.props.value.getIn(['0', 'value'], '').split(',');
         }
         const map = new mapboxgl.Map({
           container: 'map',
@@ -55,7 +55,6 @@ export class BBoxPicker extends React.Component {
     // });
   }
   componentWillUnmount() {
-    console.log('unmount');
     this.map && this.map.remove();
   }
   clearBbox = () => {

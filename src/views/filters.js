@@ -157,9 +157,7 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
     if (aoiId === this.props.aoi.get('id')) {
       this.handleClear();
     }
-    deleteAOI(this.props.token, aoiId)
-      .then(r => console.log(r))
-      .catch(e => console.error(e));
+    deleteAOI(this.props.token, aoiId).catch(e => console.error(e));
   };
   render() {
     const width = window.innerWidth;

@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
-import { Wrapper } from './wrapper';
-import { List, fromJS, Map } from 'immutable';
+import { fromJS } from 'immutable';
 import type { filterType } from './';
 
 export class Text extends React.Component {
@@ -44,7 +43,6 @@ export class Text extends React.Component {
   render() {
     const {
       name,
-      onChange,
       type,
       placeholder,
       display,

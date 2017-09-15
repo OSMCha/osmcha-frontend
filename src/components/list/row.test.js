@@ -4,7 +4,6 @@ import { fromJS } from 'immutable';
 import { StaticRouter } from 'react-router';
 import { PrimaryLine } from './primary_line';
 import { Row } from './row';
-import moment from 'moment';
 import MockDate from 'mockdate';
 
 const changeset = fromJS({

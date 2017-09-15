@@ -1,9 +1,6 @@
 // @flow
-import { put, call, take, select, takeEvery } from 'redux-saga/effects';
+import { put, call, take, takeEvery } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
-import { fromJS } from 'immutable';
-
-import type { RootStateType } from './';
 
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const INIT_MODAL = 'INIT_MODAL';
@@ -80,16 +77,12 @@ function* handleModal({ payload, callback, callbackArgs }: Object): any {
   if (!callback) return;
   while (true) {
     const { type, uid } = yield take([ACTIVATE_MODAL_CALLBACK, DISMISS_MODAL]);
-    console.log(`${uidOriginal} received`, uid, type);
     if (type === DISMISS_MODAL && uidOriginal === uid) {
-      console.log(`${uidOriginal} is dismissing `, uid);
       return;
     }
     if (type === ACTIVATE_MODAL_CALLBACK && uidOriginal === uid) {
-      console.log(`${uidOriginal} is activating callback for `, uid);
       yield call(delay, 500);
       yield put(callback(...callbackArgs));
-      console.log(`${uidOriginal} finished calling args=`, callbackArgs);
       return;
     }
   }

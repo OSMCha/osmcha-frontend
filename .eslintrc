@@ -4,13 +4,9 @@
         "quotes": [
             "error",
             "single"
-        ]
+        ],
+        "no-unused-vars": "error"
     },
-    "ignore": [
-        "flow-typed",
-        "build",
-        "src/0.13.0.assembly.js"
-    ],
     "globals": {
         "Raven": true
     }

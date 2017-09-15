@@ -1,8 +1,9 @@
 // @flow
 import { API_URL } from '../config';
 import { createForm } from './changeset';
-import { Iterable, Map, List } from 'immutable';
+import { Iterable } from 'immutable';
 import type { filtersType, filterType } from '../components/filters';
+
 export function handleErrors(response: Object) {
   if (!response.ok) {
     return response.json().then(r => {

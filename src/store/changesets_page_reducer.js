@@ -1,5 +1,5 @@
 /* @flow */
-import { List, Map, fromJS } from 'immutable';
+import { Map, fromJS } from 'immutable';
 
 import { CHANGESETS_PAGE } from './changesets_page_actions';
 

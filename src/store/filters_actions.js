@@ -10,20 +10,14 @@ import {
   takeLatest
 } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { fromJS, List, Map } from 'immutable';
+import { fromJS, Map } from 'immutable';
 import { push } from 'react-router-redux';
 
 import { getSearchObj, getObjAsQueryParam } from '../utils/query_params';
 import { validateFilters } from '../utils/filters';
 import { tokenSelector } from './auth_actions';
 
-import {
-  fetchAOI,
-  fetchAllAOIs,
-  createAOI,
-  updateAOI,
-  deleteAOI
-} from '../network/aoi';
+import { fetchAOI } from '../network/aoi';
 
 import { modal } from './modal_actions';
 

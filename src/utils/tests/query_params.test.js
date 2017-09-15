@@ -1,10 +1,6 @@
-import { Map, fromJS } from 'immutable';
+import { Map } from 'immutable';
 
-import {
-  getFiltersFromUrl,
-  getObjAsQueryParam,
-  getSearchObj
-} from '../query_params';
+import { getObjAsQueryParam, getSearchObj } from '../query_params';
 
 describe('getSearchObj', () => {
   it('with input provided.', () => {
