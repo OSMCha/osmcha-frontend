@@ -11,11 +11,10 @@ export function Home() {
     <div className="flex-parent flex-parent--column flex-parent--center-cross h-full my60">
       <div className="flex-child flex-child--grow">&nbsp;</div>
       <div className="flex-parent flex-parent--column flex-parent--center-cross ">
-        <img src={banner} style={{ width: '40vw' }} alt="OSMCHA" />
+        <img src={banner} className="osmcha-logo" alt="OSMCHA" />
         <img
           src={work_flow}
-          style={{ width: '35vw' }}
-          className="pt36"
+          className="pt36 workflow-img"
           alt="Validation tool for OpenStreetmap"
         />
       </div>
