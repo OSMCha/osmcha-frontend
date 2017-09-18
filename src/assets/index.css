@@ -380,3 +380,12 @@ img {
 .user-description h2 {
   font-weight: 600;
 }
+
+/*home images*/
+.osmcha-logo {
+  width: 40vw;
+}
+
+.workflow-img {
+  width: 35vw;
+}
