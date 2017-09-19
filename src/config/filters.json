@@ -148,7 +148,7 @@
     "display": "Reviewed by",
     "cache": true,
     "type": "text_comma",
-    "description": "Filter changesets that were checked by a user. Start typing to select one or more users.",
+    "description": "Filter changesets that were reviewed by a user. Start typing to select one or more users.",
     "placeholder": "Enter OSM usernames"
   },
   {
@@ -190,7 +190,7 @@
     "range": true,
     "display": "Objects Created",
     "type": "number",
-    "description": "Filter changesets whose number of elements created are greater or less than equal to number.",
+    "description": "Filter changesets whose number of elements created are greater than or equal to and/or lesser than or equal to a number.",
     "placeholder": "eg. 500"
   },
   {
@@ -200,7 +200,7 @@
     "range": true,
     "display": "Objects Modified",
     "type": "number",
-    "description": "Filter changesets whose number of elements modified are greater or less than equal to number.",
+    "description": "Filter changesets whose number of elements modified are greater than or equal to and/or lesser than or equal to a number.",
     "placeholder": "eg. 500"
   },
   {
@@ -210,7 +210,7 @@
     "range": true,
     "display": "Objects Deleted",
     "type": "number",
-    "description": "Filter changesets whose number of elements deleted are greater or less than equal to number.",
+    "description": "Filter changesets whose number of elements deleted are greater than or equal to and/or lesser than or equal to a number.",
     "placeholder": "eg. 500"
   },
   {
@@ -364,8 +364,8 @@
         "value": "False"
       }
     ],
-    "description": "Filter for changesets that have been manually checked and marked (either harmful or not harmful)",
-    "placeholder": "Toggle if changeset was checked"
+    "description": "Filter for changesets that have been manually reviewed and marked (either harmful or not harmful)",
+    "placeholder": "Toggle if changeset was reviewed"
   },
   {
     "name": "harmful",
