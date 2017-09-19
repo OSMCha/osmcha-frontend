@@ -384,7 +384,8 @@ This is raised when someone tries to remove tags in a feature that are added by 
 
 - Related Projects
 
-  - [OSMCha-frontend](https://github.com/mapbox/osmcha-frontend/)
+  - [osmcha-frontend](https://github.com/mapbox/osmcha-frontend/)
+  - [osmcha-django](https://github.com/willemarcel/osmcha-django/)
   - [OSM-Compare](https://github.com/mapbox/osm-compare)
   - [OSMLint](https://github.com/osmlab/osmlint)
   - [MapRoulette](http://www.maproulette.org/)
