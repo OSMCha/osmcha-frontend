@@ -82,6 +82,7 @@ describe('auth actions testing', () => {
       username: 'kepta',
       is_staff: true,
       is_active: true,
+      whitelists: [],
       email: '',
       avatar:
         'http://www.gravatar.com/avatar/8be7bdc2d8cde52fb8900c8d0c813faf.jpg?s=256&d…large-afe7442b856c223cca92b1a16d96a3266ec0c86cac8031269e90ef93562adb72.png'
@@ -115,6 +116,7 @@ describe('auth actions testing', () => {
       username: 'kepta',
       is_staff: true,
       is_active: true,
+      whitelists: [],
       email: '',
       avatar:
         'http://www.gravatar.com/avatar/8be7bdc2d8cde52fb8900c8d0c813faf.jpg?s=256&d…large-afe7442b856c223cca92b1a16d96a3266ec0c86cac8031269e90ef93562adb72.png'
