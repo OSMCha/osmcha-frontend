@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 import { Map, List, fromJS, is } from 'immutable';
 
 import { checkForNewChangesets } from '../store/changesets_page_actions';
-import { applyFilters } from '../store/filters_actions';
+import { applyFilters, updateAOISaga } from '../store/filters_actions';
 
 import { FiltersList } from '../components/filters/filters_list';
 import { FiltersHeader } from '../components/filters/filters_header';
@@ -28,7 +28,8 @@ type propsType = {|
   features: ?List<Map<string, any>>,
   checkForNewChangesets: boolean => any,
   push: (location: Object) => void,
-  applyFilters: (filtersType, path?: string) => mixed // base 0
+  applyFilters: (filtersType, path?: string) => mixed, // base 0
+  updateAOISaga: (aoiId?: string, name?: string, filtersType) => mixed
 |};
 
 type stateType = {
@@ -46,7 +47,6 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
     // aoiName: this.props.aoi.getIn(['properties', 'name'], NEW_AOI)
   };
   createAOIPromise;
-  updateAOIPromise;
   componentWillReceiveProps(nextProps: propsType) {
     if (!is(this.props.filters, nextProps.filters)) {
       this.setState({
@@ -164,12 +164,7 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
       .catch(e => console.error(e));
   };
   updateAOI = (aoiId: string, name: string) => {
-    this.updateAOIPromise = cancelablePromise(
-      updateAOI(this.props.token, aoiId, name, this.state.filters)
-    );
-    this.updateAOIPromise.promise
-      .then(r => r && this.loadAoiId(r.id))
-      .catch(e => console.error(e));
+    this.props.updateAOISaga(aoiId, name, this.state.filters);
   };
   render() {
     const width = window.innerWidth;
@@ -220,6 +215,7 @@ Filters = connect(
   {
     checkForNewChangesets,
     applyFilters,
+    updateAOISaga,
     push
   }
 )(Filters);

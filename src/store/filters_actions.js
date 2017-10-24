@@ -50,6 +50,7 @@ export const AOI = {
   fetch: 'AOI.fetch',
   clear: 'AOI.clear',
   fetched: 'AOI.fetched',
+  updated: 'AOI.updated',
   loading: 'AOI.loading',
   error: 'AOI.error'
 };
@@ -166,6 +167,32 @@ export function* fetchAOISaga(aoiId: string): any {
     );
   });
   return filters;
+}
+
+export function* updateAOISaga({
+  aoiId,
+  name,
+  filters
+}: {
+  aoiId: string,
+  name: string,
+  filters: filtersType
+}): any {
+  const token = yield select(tokenSelector);
+  const data = yield call(updateAOI, token, aoiId, name, filters);
+  const aoi = fromJS(data);
+  yield put(action(AOI.updated, { aoi }));
+  let new_filters = aoi.getIn(['properties', 'filters'], Map());
+  new_filters = filters.map((v, k) => {
+    const options = v.split(',');
+    return fromJS(
+      options.map(o => ({
+        value: o,
+        label: o
+      }))
+    );
+  });
+  return new_filters;
 }
 
 export const locationSelector = (state: RootStateType) =>

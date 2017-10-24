@@ -27,9 +27,18 @@ export function filtersReducer(
       return state.set('loading', true);
     }
     case AOI.clear: {
-      return state.set('aoi', Map()).set('loading', false).set('error', null);
+      return state
+        .set('aoi', Map())
+        .set('loading', false)
+        .set('error', null);
     }
     case AOI.fetched: {
+      return state
+        .set('loading', false)
+        .set('error', null)
+        .set('aoi', action.aoi);
+    }
+    case AOI.updated: {
       return state
         .set('loading', false)
         .set('error', null)
