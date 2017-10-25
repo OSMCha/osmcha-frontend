@@ -104,7 +104,7 @@ For this purpose, OSMCha offers an interface similar to OpenStreetMap but with a
 
 - The details panel on OSMCha gives information of the changeset and the mapper.
 - In the top right corner of the panel, in blue, yellow and red, number of additions, modifications and deletions of the changeset are presented.
-- The details panels includes the username of the mapper, number of changesets the mapper has contributed on OSM, chnageset comment and further details like the editor and imagery used in making the edits on OSM.
+- The details panels includes the username of the mapper, number of changesets the mapper has contributed on OSM, changeset comment and further details like the editor and imagery used in making the edits on OSM.
 
 ![osmcha-flagged](https://user-images.githubusercontent.com/8921295/27320646-c8a33dcc-55b4-11e7-87d3-b7adfe9c9c54.png)
 
