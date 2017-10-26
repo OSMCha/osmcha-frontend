@@ -182,7 +182,7 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
           loading={this.props.loading}
           token={this.props.token}
           aoiName={this.getAOIName()}
-          aoiId={this.getAOIId()}
+          aoiId={this.props.loading ? '' : this.props.aoi.get('id')}
           loadAoiId={this.loadAoiId}
           handleApply={this.handleApply}
           handleClear={this.handleClear}

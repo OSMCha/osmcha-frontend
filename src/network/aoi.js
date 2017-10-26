@@ -77,7 +77,7 @@ export function updateAOI(
   token: string,
   aoiId: number,
   name: string,
-  filters: string
+  filters: filtersType
 ): Promise<*> {
   let serverFilters = {};
   filters.forEach((v: filterType, k: string) => {

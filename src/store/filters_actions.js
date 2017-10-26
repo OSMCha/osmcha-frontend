@@ -76,7 +76,7 @@ export function* watchFilters(): any {
 }
 
 export function* watchAOI(): any {
-  yield all([takeLatest(AOI.update, applyUpdateAOI)]);
+  yield all([takeLatest(AOI.update, updateAOISaga)]);
 }
 
 export function* watchLocationChange(): any {
@@ -192,18 +192,7 @@ export function* updateAOISaga({
   const token = yield select(tokenSelector);
   const data = yield call(updateAOI, token, aoiId, name, filters);
   const aoi = fromJS(data);
-  yield put(action(AOI.updated, { aoi }));
-  let new_filters = aoi.getIn(['properties', 'filters'], Map());
-  new_filters = filters.map((v, k) => {
-    const options = v.split(',');
-    return fromJS(
-      options.map(o => ({
-        value: o,
-        label: o
-      }))
-    );
-  });
-  return new_filters;
+  yield put(action(AOI.fetched, { aoi }));
 }
 
 export const locationSelector = (state: RootStateType) =>
