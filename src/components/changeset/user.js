@@ -1,9 +1,10 @@
 import React from 'react';
-import { Avatar } from '../avatar';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { getObjAsQueryParam } from '../../utils/query_params';
 import showdown from 'showdown';
+import { Avatar } from '../avatar';
+import { getObjAsQueryParam } from '../../utils/query_params';
+import { WhitelistUser } from './whitelist';
 
 // getObjAsQueryParam('filters', filters.toJS());
 export function User({ userDetails, whosThat }) {
@@ -26,6 +27,9 @@ export function User({ userDetails, whosThat }) {
           <div className="mt6 txt-bold color-gray align-center">
             {userDetails.get('name')}
           </div>
+        </div>
+        <div>
+          <WhitelistUser user_to_whitelist={userDetails.get('name')} />
         </div>
         <div>
           <p className="txt-s color-gray align-center">
@@ -77,15 +81,16 @@ export function User({ userDetails, whosThat }) {
             OSM
           </a>
         </div>
-        {whosThat.size > 1 &&
+        {whosThat.size > 1 && (
           <div className="txt-s color-gray">
             Past usernames: &nbsp;
-            {whosThat.slice(0, -1).map((e, k) =>
+            {whosThat.slice(0, -1).map((e, k) => (
               <span key={k} className="txt-em">
                 {e}&nbsp;
               </span>
-            )}
-          </div>}
+            ))}
+          </div>
+        )}
         <div className="mt12">
           <p
             className="txt-subhead txt-s txt-break-url user-description"
