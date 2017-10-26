@@ -76,7 +76,7 @@ export function* watchFilters(): any {
 }
 
 export function* watchAOI(): any {
-  yield all([watchLocationChange(), takeLatest(AOI.update, applyUpdateAOI)]);
+  yield all([takeLatest(AOI.update, applyUpdateAOI)]);
 }
 
 export function* watchLocationChange(): any {
