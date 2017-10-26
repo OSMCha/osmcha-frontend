@@ -50,7 +50,7 @@ export const AOI = {
   fetch: 'AOI.fetch',
   clear: 'AOI.clear',
   fetched: 'AOI.fetched',
-  updated: 'AOI.updated',
+  update: 'AOI.update',
   loading: 'AOI.loading',
   error: 'AOI.error'
 };
@@ -62,11 +62,21 @@ export function action(type: string, payload: ?Object) {
 export const applyFilters = (filters: filtersType, pathname: ?string) =>
   action(FILTERS.apply, { filters, pathname });
 
+export const applyUpdateAOI = (
+  aoiId: string,
+  name: string,
+  filters: filtersType
+) => action(AOI.update, { aoiId, name, filters });
+
 export function* watchFilters(): any {
   yield all([
     watchLocationChange(),
     takeLatest(FILTERS.apply, applyFilterSaga)
   ]);
+}
+
+export function* watchAOI(): any {
+  yield all([watchLocationChange(), takeLatest(AOI.update, applyUpdateAOI)]);
 }
 
 export function* watchLocationChange(): any {
@@ -178,6 +188,7 @@ export function* updateAOISaga({
   name: string,
   filters: filtersType
 }): any {
+  yield put(action(AOI.loading, { loading: true }));
   const token = yield select(tokenSelector);
   const data = yield call(updateAOI, token, aoiId, name, filters);
   const aoi = fromJS(data);

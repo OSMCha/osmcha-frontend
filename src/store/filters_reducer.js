@@ -38,7 +38,7 @@ export function filtersReducer(
         .set('error', null)
         .set('aoi', action.aoi);
     }
-    case AOI.updated: {
+    case AOI.update: {
       return state
         .set('loading', false)
         .set('error', null)

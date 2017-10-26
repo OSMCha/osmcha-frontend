@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 import { Map, List, fromJS, is } from 'immutable';
 
 import { checkForNewChangesets } from '../store/changesets_page_actions';
-import { applyFilters, updateAOISaga } from '../store/filters_actions';
+import { applyFilters, applyUpdateAOI } from '../store/filters_actions';
 
 import { FiltersList } from '../components/filters/filters_list';
 import { FiltersHeader } from '../components/filters/filters_header';
@@ -22,14 +22,14 @@ const NEW_AOI = 'unnamed *';
 type propsType = {|
   filters: filtersType,
   loading: boolean,
-  aoi: Map<string, *>,
+  aoi: Object,
   token: string,
   location: Object,
   features: ?List<Map<string, any>>,
   checkForNewChangesets: boolean => any,
   push: (location: Object) => void,
   applyFilters: (filtersType, path?: string) => mixed, // base 0
-  updateAOISaga: (aoiId?: string, name?: string, filtersType) => mixed
+  applyUpdateAOI: (aoiId?: string, name?: string, filtersType) => mixed
 |};
 
 type stateType = {
@@ -164,7 +164,7 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
       .catch(e => console.error(e));
   };
   updateAOI = (aoiId: string, name: string) => {
-    this.props.updateAOISaga(aoiId, name, this.state.filters);
+    this.props.applyUpdateAOI(aoiId, name, this.state.filters);
   };
   render() {
     const width = window.innerWidth;
@@ -215,7 +215,7 @@ Filters = connect(
   {
     checkForNewChangesets,
     applyFilters,
-    updateAOISaga,
+    applyUpdateAOI,
     push
   }
 )(Filters);
