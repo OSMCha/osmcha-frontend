@@ -1,8 +1,10 @@
 // @flow
+import { Iterable, Map, List } from 'immutable';
+
 import { API_URL } from '../config';
 import { createForm } from './changeset';
-import { Iterable, Map, List } from 'immutable';
 import type { filtersType, filterType } from '../components/filters';
+
 export function handleErrors(response: Object) {
   if (!response.ok) {
     return response.json().then(r => {
@@ -28,7 +30,7 @@ export function createAOI(
       .map(x => x.get('value'))
       .join(',');
   });
-  return fetch(`${API_URL}/aoi/?date__gte=2017-07-03`, {
+  return fetch(`${API_URL}/aoi/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -44,6 +46,7 @@ export function createAOI(
       return res.json();
     });
 }
+
 export function fetchAOI(token: string, aoiId: number): Promise<*> {
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
     method: 'GET',

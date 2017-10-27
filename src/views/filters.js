@@ -6,14 +6,15 @@ import { push } from 'react-router-redux';
 import { Map, List, fromJS, is } from 'immutable';
 
 import { checkForNewChangesets } from '../store/changesets_page_actions';
-import { applyFilters, applyUpdateAOI } from '../store/filters_actions';
+import { applyFilters } from '../store/filters_actions';
+import { applyUpdateAOI, applyCreateAOI } from '../store/aoi_actions';
 
 import { FiltersList } from '../components/filters/filters_list';
 import { FiltersHeader } from '../components/filters/filters_header';
 
-import { createAOI, deleteAOI, updateAOI } from '../network/aoi';
+import { deleteAOI } from '../network/aoi';
 import type { RootStateType } from '../store';
-import { delayPromise, cancelablePromise } from '../utils/promise';
+import { delayPromise } from '../utils/promise';
 import { gaSendEvent } from '../utils/analytics';
 
 import type { filterType, filtersType } from '../components/filters';
@@ -29,6 +30,7 @@ type propsType = {|
   checkForNewChangesets: boolean => any,
   push: (location: Object) => void,
   applyFilters: (filtersType, path?: string) => mixed, // base 0
+  applyCreateAOI: (name?: string, filtersType) => mixed,
   applyUpdateAOI: (aoiId?: string, name?: string, filtersType) => mixed
 |};
 
@@ -46,17 +48,12 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
     active: ''
     // aoiName: this.props.aoi.getIn(['properties', 'name'], NEW_AOI)
   };
-  createAOIPromise;
   componentWillReceiveProps(nextProps: propsType) {
     if (!is(this.props.filters, nextProps.filters)) {
       this.setState({
         filters: nextProps.filters
       });
     }
-  }
-  componentWillUnmount() {
-    this.createAOIPromise && this.createAOIPromise.cancel();
-    this.updateAOIPromise && this.updateAOIPromise.cancel();
   }
   handleFocus = (name: string) => {
     this.setState({
@@ -139,14 +136,6 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
       search: `aoi=${aoiId}`
     });
   };
-  createAOI = (name: string) => {
-    this.createAOIPromise = cancelablePromise(
-      createAOI(this.props.token, name, this.state.filters)
-    );
-    this.createAOIPromise.promise
-      .then(r => r && this.loadAoiId(r.id))
-      .catch(e => console.error(e));
-  };
   getAOIName = () => {
     if (this.props.loading) return '';
     return this.props.aoi.getIn(['properties', 'name'], NEW_AOI);
@@ -162,6 +151,9 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
     deleteAOI(this.props.token, aoiId)
       .then(r => console.log(r))
       .catch(e => console.error(e));
+  };
+  createAOI = (name: string) => {
+    this.props.applyCreateAOI(name, this.state.filters);
   };
   updateAOI = (aoiId: string, name: string) => {
     this.props.applyUpdateAOI(aoiId, name, this.state.filters);
@@ -206,7 +198,7 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
 Filters = connect(
   (state: RootStateType, props) => ({
     filters: state.filters.get('filters'),
-    aoi: state.filters.get('aoi'),
+    aoi: state.aoi.get('aoi'),
     loading: state.filters.get('loading'),
     features: state.changesetsPage.getIn(['currentPage', 'features']),
     location: props.location,
@@ -215,6 +207,7 @@ Filters = connect(
   {
     checkForNewChangesets,
     applyFilters,
+    applyCreateAOI,
     applyUpdateAOI,
     push
   }

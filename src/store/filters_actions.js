@@ -16,14 +16,7 @@ import { push } from 'react-router-redux';
 import { getSearchObj, getObjAsQueryParam } from '../utils/query_params';
 import { validateFilters } from '../utils/filters';
 import { tokenSelector } from './auth_actions';
-
-import {
-  fetchAOI,
-  fetchAllAOIs,
-  createAOI,
-  updateAOI,
-  deleteAOI
-} from '../network/aoi';
+import { fetchAOISaga, AOI } from './aoi_actions';
 
 import { modal } from './modal_actions';
 
@@ -46,15 +39,6 @@ export const FILTERS = {
   apply: 'FILTERS_APPLY'
 };
 
-export const AOI = {
-  fetch: 'AOI.fetch',
-  clear: 'AOI.clear',
-  fetched: 'AOI.fetched',
-  update: 'AOI.update',
-  loading: 'AOI.loading',
-  error: 'AOI.error'
-};
-
 export function action(type: string, payload: ?Object) {
   return { type, ...payload };
 }
@@ -62,21 +46,11 @@ export function action(type: string, payload: ?Object) {
 export const applyFilters = (filters: filtersType, pathname: ?string) =>
   action(FILTERS.apply, { filters, pathname });
 
-export const applyUpdateAOI = (
-  aoiId: string,
-  name: string,
-  filters: filtersType
-) => action(AOI.update, { aoiId, name, filters });
-
 export function* watchFilters(): any {
   yield all([
     watchLocationChange(),
     takeLatest(FILTERS.apply, applyFilterSaga)
   ]);
-}
-
-export function* watchAOI(): any {
-  yield all([takeLatest(AOI.update, updateAOISaga)]);
 }
 
 export function* watchLocationChange(): any {
@@ -154,45 +128,6 @@ export function* filtersSaga(location: Object): any {
       put(push(location))
     ]);
   }
-}
-
-// let changesetTask;
-// let changesetMapTask;
-
-// export function* filtersProcess
-export function* fetchAOISaga(aoiId: string): any {
-  yield put(action(AOI.loading, { loading: true }));
-  const token = yield select(tokenSelector);
-  const data = yield call(fetchAOI, token, aoiId);
-  const aoi = fromJS(data);
-  yield put(action(AOI.fetched, { aoi }));
-  let filters = aoi.getIn(['properties', 'filters'], Map());
-  filters = filters.map((v, k) => {
-    const options = v.split(',');
-    return fromJS(
-      options.map(o => ({
-        value: o,
-        label: o
-      }))
-    );
-  });
-  return filters;
-}
-
-export function* updateAOISaga({
-  aoiId,
-  name,
-  filters
-}: {
-  aoiId: string,
-  name: string,
-  filters: filtersType
-}): any {
-  yield put(action(AOI.loading, { loading: true }));
-  const token = yield select(tokenSelector);
-  const data = yield call(updateAOI, token, aoiId, name, filters);
-  const aoi = fromJS(data);
-  yield put(action(AOI.fetched, { aoi }));
 }
 
 export const locationSelector = (state: RootStateType) =>
