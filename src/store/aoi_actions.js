@@ -4,6 +4,7 @@ import { fromJS, Map } from 'immutable';
 import { push } from 'react-router-redux';
 
 import { tokenSelector } from './auth_actions';
+import { modal } from './modal_actions';
 import { fetchAOI, createAOI, updateAOI } from '../network/aoi';
 import type { filtersType } from '../components/filters';
 import type { RootStateType } from './';
@@ -64,20 +65,29 @@ export function* createAOISaga({
   name: string,
   filters: filtersType
 }): any {
-  yield put(action(AOI.loading, { loading: true }));
-  const token = yield select(tokenSelector);
-  const data = yield call(createAOI, token, name, filters);
-  const aoi = fromJS(data);
-  yield put(action(AOI.fetched, { aoi }));
-  let location = yield select(locationSelector);
-  const aoiId = aoi.id;
-  yield put(
-    push({
-      ...location,
-      pathname: location.pathname,
-      search: `aoi=${aoiId}`
-    })
-  );
+  try {
+    yield put(action(AOI.loading, { loading: true }));
+    const token = yield select(tokenSelector);
+    const data = yield call(createAOI, token, name, filters);
+    const aoi = fromJS(data);
+    yield put(action(AOI.fetched, { aoi }));
+    let location = yield select(locationSelector);
+    const aoiId = aoi.id;
+    yield put(
+      push({
+        ...location,
+        pathname: location.pathname,
+        search: `aoi=${aoiId}`
+      })
+    );
+  } catch (e) {
+    console.error(e);
+    yield put(
+      modal({
+        error: e
+      })
+    );
+  }
 }
 
 export function* updateAOISaga({
@@ -89,11 +99,20 @@ export function* updateAOISaga({
   name: string,
   filters: filtersType
 }): any {
-  yield put(action(AOI.loading, { loading: true }));
-  const token = yield select(tokenSelector);
-  const data = yield call(updateAOI, token, aoiId, name, filters);
-  const aoi = fromJS(data);
-  yield put(action(AOI.fetched, { aoi }));
+  try {
+    yield put(action(AOI.loading, { loading: true }));
+    const token = yield select(tokenSelector);
+    const data = yield call(updateAOI, token, aoiId, name, filters);
+    const aoi = fromJS(data);
+    yield put(action(AOI.fetched, { aoi }));
+  } catch (e) {
+    console.error(e);
+    yield put(
+      modal({
+        error: e
+      })
+    );
+  }
 }
 
 export const locationSelector = (state: RootStateType) =>
