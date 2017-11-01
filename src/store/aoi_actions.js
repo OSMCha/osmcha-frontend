@@ -3,9 +3,11 @@ import { put, call, select, all, takeLatest } from 'redux-saga/effects';
 import { fromJS, Map } from 'immutable';
 import { push } from 'react-router-redux';
 
+import { fetchAOI, createAOI, updateAOI } from '../network/aoi';
+import { validateFilters } from '../utils/filters';
+import { CHANGESETS_PAGE, FILTERS } from './filters_actions';
 import { tokenSelector } from './auth_actions';
 import { modal } from './modal_actions';
-import { fetchAOI, createAOI, updateAOI } from '../network/aoi';
 import type { filtersType } from '../components/filters';
 import type { RootStateType } from './';
 
@@ -72,12 +74,11 @@ export function* createAOISaga({
     const aoi = fromJS(data);
     yield put(action(AOI.fetched, { aoi }));
     let location = yield select(locationSelector);
-    const aoiId = aoi.id;
     yield put(
       push({
         ...location,
         pathname: location.pathname,
-        search: `aoi=${aoiId}`
+        search: `aoi=${data.id}`
       })
     );
   } catch (e) {
@@ -105,6 +106,13 @@ export function* updateAOISaga({
     const data = yield call(updateAOI, token, aoiId, name, filters);
     const aoi = fromJS(data);
     yield put(action(AOI.fetched, { aoi }));
+    yield call(validateFilters, filters);
+    yield put(
+      action(FILTERS.set, {
+        filters
+      })
+    );
+    yield put(action(CHANGESETS_PAGE.fetch, { pageIndex: 0, filters }));
   } catch (e) {
     console.error(e);
     yield put(
