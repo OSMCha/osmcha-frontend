@@ -11,6 +11,7 @@ import {
 import { setItem, removeItem } from '../utils/safe_storage';
 
 import { modal } from './modal_actions';
+import { WHITELIST } from './whitelist_actions';
 
 import type { RootStateType } from './';
 
@@ -57,6 +58,8 @@ export function* watchAuth(): any {
         token = yield call(authTokenFlow);
       }
       const userDetails = fromJS(yield call(fetchUserDetails, token));
+      const whitelist = userDetails.get('whitelists');
+      yield put(action(WHITELIST.define, { whitelist }));
       yield put(action(AUTH.userDetails, { userDetails }));
 
       yield take(AUTH.logout);
@@ -74,10 +77,11 @@ export function* watchAuth(): any {
       delayBy = 4 * delayBy;
     } finally {
       token = undefined;
-      yield call(removeItem, 'token');
-      yield call(removeItem, 'oauth_token');
-      yield call(removeItem, 'oauth_token_secret');
-      yield put(action(AUTH.clearSession));
+      // yield call(removeItem, 'token');
+      // yield call(removeItem, 'oauth_token');
+      // yield call(removeItem, 'oauth_token_secret');
+      // yield put(action(AUTH.clearSession));
+      // yield put(action(WHITELIST.clear));
       yield call(delay, delayBy);
     }
   }

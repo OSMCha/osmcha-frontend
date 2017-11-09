@@ -4,58 +4,34 @@ import { Map } from 'immutable';
 import { Button } from '../button';
 import { cancelablePromise } from '../../utils/promise';
 import {
-  postUserToWhiteList,
-  deleteFromWhiteList
-} from '../../network/osmcha_whitelist';
+  addToWhitelist,
+  removeFromWhitelist
+} from '../../store/whitelist_actions';
 
 class WhitelistUser extends React.PureComponent {
   props: {
     token: string,
     whitelisted: Map<string, *>,
-    user_to_whitelist: string
+    user_to_whitelist: string,
+    addToWhitelist: string => void,
+    removeFromWhitelist: string => void
   };
   constructor(props) {
     super(props);
     this.state = {
       is_whitelisted: this.props.whitelisted
-        ? this.props.whitelisted.indexOf(props.user_to_whitelist) !== -1
+        ? this.props.whitelisted.indexOf(this.props.user_to_whitelist) !== -1
         : false,
       hover: false
     };
   }
   _ref;
 
-  addToWhiteList = event => {
-    this.addToWhiteListPromise = cancelablePromise(
-      postUserToWhiteList(this.props.token, this.props.user_to_whitelist)
-    );
-
-    this.addToWhiteListPromise.promise
-      .then(r => {
-        this.setState({ is_whitelisted: true });
-      })
-      .catch(e => {
-        console.error(e);
-      });
-  };
-  removeFromWhiteList = event => {
-    this.deleteFromWhiteListPromise = cancelablePromise(
-      deleteFromWhiteList(this.props.token, this.props.user_to_whitelist)
-    );
-    this.deleteFromWhiteListPromise.promise
-      .then(r => {
-        this.setState({ is_whitelisted: false });
-      })
-      .catch(e => {
-        console.error(e);
-      });
-  };
-
   onClick = event => {
     if (this.state.is_whitelisted) {
-      this.removeFromWhiteList();
+      this.props.removeFromWhitelist(this.props.user_to_whitelist);
     } else {
-      this.addToWhiteList();
+      this.props.addToWhitelist(this.props.user_to_whitelist);
     }
   };
 
@@ -107,8 +83,14 @@ class WhitelistUser extends React.PureComponent {
   }
 }
 
-WhitelistUser = connect((state: RootStateType, props) => ({
-  token: state.auth.get('token'),
-  whitelisted: state.auth.getIn(['userDetails', 'whitelists'])
-}))(WhitelistUser);
+WhitelistUser = connect(
+  (state: RootStateType, props) => ({
+    token: state.auth.get('token'),
+    whitelisted: state.whitelist.get('whitelist')
+  }),
+  {
+    addToWhitelist,
+    removeFromWhitelist
+  }
+)(WhitelistUser);
 export { WhitelistUser };

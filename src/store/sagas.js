@@ -4,6 +4,7 @@ import { watchChangeset, watchModifyChangeset } from './changeset_actions';
 import { watchAuth } from './auth_actions';
 import { watchModal } from './modal_actions';
 import { watchFilters } from './filters_actions';
+import { watchWhitelist } from './whitelist_actions';
 export default function* rootSaga() {
   yield all([
     watchChangesetsPage(),
@@ -11,6 +12,7 @@ export default function* rootSaga() {
     watchChangeset(),
     watchAuth(),
     watchModifyChangeset(),
-    watchModal()
+    watchModal(),
+    watchWhitelist()
   ]);
 }
