@@ -400,6 +400,7 @@ This is raised when someone tries to remove tags in a feature that are added by 
 - [WHODIDIT](http://simon04.dev.openstreetmap.org/whodidit/)
 - [Who’s That](whosthat.osmz.ru)
 - [Result Maps](http://resultmaps.neis-one.org/)
+- [Missing Maps](http://missingmaops.org/users/)
 
 # Feedback
 
