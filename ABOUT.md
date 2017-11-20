@@ -388,8 +388,6 @@ This is raised when someone tries to remove tags in a feature that are added by 
   - [osmcha-django](https://github.com/willemarcel/osmcha-django/)
   - [OSM-Compare](https://github.com/mapbox/osm-compare)
   - [OSMLint](https://github.com/osmlab/osmlint)
-  - [MapRoulette](http://www.maproulette.org/)
-
 
 # Other tools for validation
 
@@ -398,9 +396,9 @@ This is raised when someone tries to remove tags in a feature that are added by 
 - [MapRoulette](http://www.maproulette.org/)
 - [HDYC](http://hdyc.neis-one.org/)
 - [WHODIDIT](http://simon04.dev.openstreetmap.org/whodidit/)
-- [Who’s That](whosthat.osmz.ru)
+- [Who’s That](http://whosthat.osmz.ru)
 - [Result Maps](http://resultmaps.neis-one.org/)
-- [Missing Maps](http://missingmaops.org/users/)
+- [Missing Maps](http://missingmaps.org/users/)
 
 # Feedback
 
