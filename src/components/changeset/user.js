@@ -61,6 +61,15 @@ export function User({ userDetails, whosThat }) {
           <a
             target="_blank"
             rel="noopener noreferrer"
+            title="Open in OSM"
+            className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+            href={`https://openstreetmap.org/user/${userDetails.get('name')}`}
+          >
+            OSM
+          </a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
             title="Open in HDYC"
             className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
             href={`http://hdyc.neis-one.org/?${userDetails.get('name')}`}
@@ -70,22 +79,25 @@ export function User({ userDetails, whosThat }) {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            title="Open in OSM"
+            title="Open in Missing Maps"
             className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-            href={`https://openstreetmap.org/user/${userDetails.get('name')}`}
+            href={`http://www.missingmaps.org/users/#/${userDetails.get(
+              'name'
+            )}`}
           >
-            OSM
+            Missing Maps
           </a>
         </div>
-        {whosThat.size > 1 &&
+        {whosThat.size > 1 && (
           <div className="txt-s color-gray">
             Past usernames: &nbsp;
-            {whosThat.slice(0, -1).map((e, k) =>
+            {whosThat.slice(0, -1).map((e, k) => (
               <span key={k} className="txt-em">
                 {e}&nbsp;
               </span>
-            )}
-          </div>}
+            ))}
+          </div>
+        )}
         <div className="mt12">
           <p
             className="txt-subhead txt-s txt-break-url user-description"
