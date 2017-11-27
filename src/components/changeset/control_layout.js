@@ -6,6 +6,7 @@ import { Floater } from './floater';
 import {
   CHANGESET_DETAILS_DETAILS,
   CHANGESET_DETAILS_SUSPICIOUS,
+  CHANGESET_DETAILS_TAGS,
   CHANGESET_DETAILS_USER,
   CHANGESET_DETAILS_DISCUSSIONS,
   CHANGESET_DETAILS_MAP
@@ -17,6 +18,7 @@ export function ControlLayout({
   discussions,
   toggleDetails,
   toggleFeatures,
+  toggleTags,
   toggleDiscussions,
   toggleUser,
   toggleMapOptions
@@ -51,6 +53,16 @@ export function ControlLayout({
             : 'color-black'}`}
         >
           <use xlinkHref="#icon-alert" />
+        </svg>
+      </Control>
+      <Control
+        active={bindingsState.get(CHANGESET_DETAILS_TAGS.label)}
+        onClick={toggleTags}
+        bg={'gray-faint'}
+        className="unround"
+      >
+        <svg className="icon inline-block align-middle">
+          <use xlinkHref="#icon-hash" />
         </svg>
       </Control>
       <Control

@@ -9,6 +9,7 @@ import { Floater } from './floater';
 import { Header } from './header';
 import { User } from './user';
 import { Features } from './features';
+import { TagChanges } from './tag_changes';
 import { Box } from './box';
 import { Discussions } from './discussions';
 import { MapOptions } from './map_options';
@@ -20,6 +21,7 @@ import { osmCommentsApi, whosThat } from '../../config/constants';
 import {
   CHANGESET_DETAILS_DETAILS,
   CHANGESET_DETAILS_SUSPICIOUS,
+  CHANGESET_DETAILS_TAGS,
   CHANGESET_DETAILS_USER,
   CHANGESET_DETAILS_DISCUSSIONS,
   CHANGESET_DETAILS_MAP
@@ -58,7 +60,7 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
         transitionEnterTimeout={300}
         transitionLeaveTimeout={250}
       >
-        {bindingsState.get(CHANGESET_DETAILS_DETAILS.label) &&
+        {bindingsState.get(CHANGESET_DETAILS_DETAILS.label) && (
           <Box key={3} className=" responsive-box round-tr round-br">
             <Header
               toggleUser={this.toggleUser}
@@ -66,12 +68,19 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
               properties={properties}
               userEditCount={data.getIn(['userDetails', 'count'], 0)}
             />
-          </Box>}
-        {bindingsState.get(CHANGESET_DETAILS_SUSPICIOUS.label) &&
+          </Box>
+        )}
+        {bindingsState.get(CHANGESET_DETAILS_SUSPICIOUS.label) && (
           <Box key={2} className=" responsive-box round-tr round-br">
             <Features changesetId={changesetId} properties={properties} />
-          </Box>}
-        {bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label) &&
+          </Box>
+        )}
+        {bindingsState.get(CHANGESET_DETAILS_TAGS.label) && (
+          <Box key={5} className=" responsive-box round-tr round-br">
+            <TagChanges changesetId={changesetId} properties={properties} />
+          </Box>
+        )}
+        {bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label) && (
           <Box key={1} className=" responsive-box  round-tr round-br">
             <Discussions
               changesetId={changesetId}
@@ -80,18 +89,21 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
                 List()
               )}
             />
-          </Box>}
-        {bindingsState.get(CHANGESET_DETAILS_USER.label) &&
+          </Box>
+        )}
+        {bindingsState.get(CHANGESET_DETAILS_USER.label) && (
           <Box key={0} className=" responsive-box  round-tr round-br">
             <User
               userDetails={data.getIn(['userDetails'], Map())}
               whosThat={data.getIn(['whosThat', 0, 'names'], List())}
             />
-          </Box>}
-        {bindingsState.get(CHANGESET_DETAILS_MAP.label) &&
+          </Box>
+        )}
+        {bindingsState.get(CHANGESET_DETAILS_MAP.label) && (
           <Box key={4} className=" responsive-box  round-tr round-br">
             <MapOptions />
-          </Box>}
+          </Box>
+        )}
       </CSSGroup>
     );
   };
@@ -99,6 +111,10 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
   toggleFeatures = () => {
     this.props.exclusiveKeyToggle &&
       this.props.exclusiveKeyToggle(CHANGESET_DETAILS_SUSPICIOUS.label);
+  };
+  toggleTags = () => {
+    this.props.exclusiveKeyToggle &&
+      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_TAGS.label);
   };
   toggleDiscussions = () => {
     this.props.exclusiveKeyToggle &&
@@ -125,6 +141,7 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
         <ControlLayout
           toggleDetails={this.toggleDetails}
           toggleFeatures={this.toggleFeatures}
+          toggleTags={this.toggleTags}
           toggleDiscussions={this.toggleDiscussions}
           toggleUser={this.toggleUser}
           toggleMapOptions={this.toggleMapOptions}
@@ -153,6 +170,7 @@ let Changeset = keyboardToggleEnhancer(
   [
     CHANGESET_DETAILS_DETAILS,
     CHANGESET_DETAILS_SUSPICIOUS,
+    CHANGESET_DETAILS_TAGS,
     CHANGESET_DETAILS_USER,
     CHANGESET_DETAILS_DISCUSSIONS,
     CHANGESET_DETAILS_MAP
