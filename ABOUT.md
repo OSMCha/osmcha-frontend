@@ -199,6 +199,8 @@ what a problematic edit is on OSM, please refer to our guide on
 * In these cases, you can copy the changeset ID and open it in OSMCha for
   visualisation and easily spotting errors in a changeset.
 
+---
+
 ## Filters
 
 <img width="600" alt="osmcha-filters" src="https://user-images.githubusercontent.com/8921295/33522469-946070fc-d813-11e7-940d-2df6a797f655.png">
@@ -263,6 +265,36 @@ These include:
   for changesets based more than 1 condition
   * Ex: iD editor changesets that have deleted a lot of features
   * Ex: Mass additions of data by new mappers
+
+### Saving and sharing custom filters
+
+OSMCha allows a logged-in user to save a filter template with custom search
+parameters with a personalized name. There is no limit on how many filter
+templates can be saved per user nor with the number of custom parameters that
+can be set in a filter template.
+
+Saved filters are visible in the user page which can be accessed by clicking on
+your OSM username beside the OSMCha icon on the sidebar. Any saved filter can be
+loaded to retrieve search results, shared with a permalink, removed from the
+saved list or be used to setup an RSS.
+
+<img width="600" alt="osmcha-saving-filters" src="https://user-images.githubusercontent.com/8921295/33522675-0ce1327e-d818-11e7-88c0-3f03359da6c2.png">
+
+OSMCha saves these filters with a unique identifier code. Here is an example
+filter -
+https://osmcha.mapbox.com/filters?aoi=71247014-abbf-4253-8093-2a2afdda4169
+
+### Setting up RSS feed - Area of Interest
+
+Each saved filter has an RSS feed to update whenever a new changeset comes into
+the custom filter. A real life application would be to get instant notifications
+for all edits in the area you are currently surveying.
+
+Here is an RSS feed for the filter we have setup in the above section -
+https://osmcha.mapbox.com/api/v1/aoi/71247014-abbf-4253-8093-2a2afdda4169/changesets/feed/
+
+Any third party RSS client can be used to push instant personal notifications
+for the changesets that have come into your saved filters at set time intervals.
 
 # FAQ
 
