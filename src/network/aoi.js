@@ -1,8 +1,7 @@
 // @flow
-import { Iterable, Map, List } from 'immutable';
+import { Iterable } from 'immutable';
 
 import { API_URL } from '../config';
-import { createForm } from './changeset';
 import type { filtersType, filterType } from '../components/filters';
 
 export function handleErrors(response: Object) {

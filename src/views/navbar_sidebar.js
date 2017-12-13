@@ -4,12 +4,8 @@ import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
 
-import { Tags } from '../components/changeset/tags';
 import { Button } from '../components/button';
 import { Navbar } from '../components/navbar';
-import { Verify } from '../components/changeset/verify';
-import { Dropdown } from '../components/dropdown';
-import { OpenIn } from '../components/changeset/open_in';
 import { Avatar } from '../components/avatar';
 
 import { createPopup } from '../utils/create_popup';
@@ -51,7 +47,7 @@ class NavbarSidebar extends React.PureComponent {
     }
 
     if (oAuthToken) {
-      const popup = createPopup('oauth_popup', url);
+      createPopup('oauth_popup', url);
       handlePopupCallback().then(oAuthObj => {
         this.props.getFinalToken(oAuthObj.oauth_verifier);
       });
@@ -80,7 +76,6 @@ class NavbarSidebar extends React.PureComponent {
   };
   render() {
     let username = this.props.username;
-    console.log(this.props.location);
     return (
       <div>
         <Navbar
@@ -124,27 +119,31 @@ class NavbarSidebar extends React.PureComponent {
                   <use xlinkHref="#icon-question" />
                 </svg>
               </Link>
-              {this.props.token
-                ? <div className="mr3 pointer">
-                    <Link
-                      className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-                      to={{
-                        ...this.props.location,
-                        pathname: '/user'
-                      }}
-                    >
-                      {username && username.length > 10
-                        ? `${username.slice(0, 10)}..`
-                        : username}
-                    </Link>
-                  </div>
-                : <Button
-                    onClick={this.handleLoginClick}
-                    disable={!this.props.oAuthToken}
-                    iconName="osm"
+              {this.props.token ? (
+                <div className="mr3 pointer">
+                  <Link
+                    className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+                    to={{
+                      ...this.props.location,
+                      pathname: '/user'
+                    }}
                   >
-                    Sign in
-                  </Button>}
+                    {username && username.length > 10 ? (
+                      `${username.slice(0, 10)}..`
+                    ) : (
+                      username
+                    )}
+                  </Link>
+                </div>
+              ) : (
+                <Button
+                  onClick={this.handleLoginClick}
+                  disable={!this.props.oAuthToken}
+                  iconName="osm"
+                >
+                  Sign in
+                </Button>
+              )}
             </div>
           }
         />

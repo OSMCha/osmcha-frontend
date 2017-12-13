@@ -1,5 +1,4 @@
 import React from 'react';
-import { Map, List } from 'immutable';
 
 import { Control } from './control';
 import { Floater } from './floater';
@@ -47,7 +46,7 @@ export function ControlLayout({
       >
         <svg
           className={`icon inline-block align-middle ${features &&
-            features.size == 0
+          features.size == 0
             ? 'color-darken25'
             : 'color-black'}`}
         >

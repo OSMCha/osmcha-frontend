@@ -17,11 +17,6 @@ export function Details({
   let source = properties.get('source');
   let editor = properties.get('editor');
   let imagery = properties.get('imagery_used');
-  const user = properties.get('user');
-  const date = properties.get('date');
-  const create = properties.get('create');
-  const modify = properties.get('modify');
-  const destroy = properties.get('delete');
   const reasons = properties.get('reasons');
   const comment = properties.get('comment');
 
@@ -76,7 +71,7 @@ export function Details({
             {source}
             <span>
               <br />
-              {sourceMatch.map((e, k) =>
+              {sourceMatch.map((e, k) => (
                 <a
                   href={sourceOrignal}
                   title={sourceOrignal}
@@ -87,23 +82,23 @@ export function Details({
                     e.match(
                       /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
                     )
-                  )
-                    ? e.match(
-                        /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                      )[0]
-                    : <svg className="icon inline-block align-middle ">
-                        <use xlinkHref="#icon-share" />
-                      </svg>}
+                  ) ? (
+                    e.match(
+                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                    )[0]
+                  ) : (
+                    <svg className="icon inline-block align-middle ">
+                      <use xlinkHref="#icon-share" />
+                    </svg>
+                  )}
                 </a>
-              )}
+              ))}
             </span>
           </span>
         </div>
         <div className="flex-parent flex-parent--column ">
           <span className="txt-s txt-uppercase txt-bold">Editor</span>
-          <span className="wmax180 txt-break-word txt-s">
-            {editor}
-          </span>
+          <span className="wmax180 txt-break-word txt-s">{editor}</span>
         </div>
         <div className="flex-parent flex-parent--column">
           <span className="txt-s txt-uppercase txt-bold">Imagery</span>
@@ -111,21 +106,23 @@ export function Details({
             {imagery}
             <span>
               <br />
-              {imageryMatch.map((e, k) =>
+              {imageryMatch.map((e, k) => (
                 <a href={e} key={k} className="color-blue">
                   {Array.isArray(
                     e.match(
                       /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
                     )
-                  )
-                    ? e.match(
-                        /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                      )[0]
-                    : <svg className="icon inline-block align-middle ">
-                        <use xlinkHref="#icon-share" />
-                      </svg>}
+                  ) ? (
+                    e.match(
+                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                    )[0]
+                  ) : (
+                    <svg className="icon inline-block align-middle ">
+                      <use xlinkHref="#icon-share" />
+                    </svg>
+                  )}
                 </a>
-              )}
+              ))}
             </span>
           </span>
         </div>

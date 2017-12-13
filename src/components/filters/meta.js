@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
 import { Map, fromJS } from 'immutable';
-import Select, { Creatable, Async } from 'react-select';
-import type { filterType, filtersType } from './';
+import Select from 'react-select';
+import type { filtersType } from './';
 
 export class Meta extends React.PureComponent {
   options: Array<*>;
@@ -43,7 +43,7 @@ export class Meta extends React.PureComponent {
     return value;
   };
   render() {
-    const { name, placeholder, activeFilters } = this.props;
+    const { name, placeholder } = this.props;
     let value = this.findCurrentValue();
     return (
       <Select

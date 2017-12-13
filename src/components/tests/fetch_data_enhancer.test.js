@@ -1,22 +1,19 @@
+/* eslint-disable import/first */
 jest.mock('lodash.debounce', () => {
   return fn => fn;
 });
 
 import React from 'react';
-import { fromJS, Map } from 'immutable';
+import { fromJS } from 'immutable';
 import { shallow } from 'enzyme';
-import renderer from 'react-test-renderer';
-import { StaticRouter } from 'react-router';
-import MockDate from 'mockdate';
 import { withFetchDataSilent } from '../fetch_data_enhancer';
-import { _Changeset } from '../changeset/index';
-import { delayPromise } from '../../utils/promise';
 
 describe('test fetch_data_enhancer HOC', () => {
-  var TestComponent = () =>
+  var TestComponent = () => (
     <div>
       <div>Test Component</div>
-    </div>;
+    </div>
+  );
   it('should work correctly', async () => {
     var userDetailsProm = Promise.resolve({ test: 'userDetails' });
     var osmCommentsProm = Promise.resolve({ test: 'osmComments' });

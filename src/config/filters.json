@@ -14,10 +14,20 @@
     "icontains": false,
     "all": false,
     "range": false,
-    "display": "BBox",
+    "display": "BBox (Location)",
     "type": "map",
     "description": "Scroll",
     "placeholder": "Pan to the location of interest in the map"
+  },
+  {
+    "name": "area_lt",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "BBox size bound",
+    "type": "number",
+    "description": "Filter changesets that have a bbox area lower than X times the area of your bbox filter. For example, if the bbox you defined in your filter has an area of 1 degree and you set the 'BBox size bound' to 2, it will filter the changesets whose bbox area is lower than 2 degrees.",
+    "placeholder": "Upper bound of bbox area"
   },
   {
     "name": "comment",
@@ -26,7 +36,7 @@
     "range": false,
     "display": "Comment",
     "type": "text",
-    "description": " Filter changesets that mention a particular keyword it in the comment. This is not case-sensitive.",
+    "description": " Filter changesets that mention a particular keyword in its comment. This is not case-sensitive.",
     "placeholder": "Enter a keyword like hotosm, import or fixme"
   },
   {
@@ -138,7 +148,7 @@
     "display": "Reviewed by",
     "cache": true,
     "type": "text_comma",
-    "description": "Filter changesets that were checked by a user. Start typing to select one or more users.",
+    "description": "Filter changesets that were reviewed by a user. Start typing to select one or more users.",
     "placeholder": "Enter OSM usernames"
   },
   {
@@ -180,7 +190,7 @@
     "range": true,
     "display": "Objects Created",
     "type": "number",
-    "description": "Filter changesets whose number of elements created are greater or less than equal to number.",
+    "description": "Filter changesets whose number of elements created are greater than or equal to and/or lesser than or equal to a number.",
     "placeholder": "eg. 500"
   },
   {
@@ -190,7 +200,7 @@
     "range": true,
     "display": "Objects Modified",
     "type": "number",
-    "description": "Filter changesets whose number of elements modified are greater or less than equal to number.",
+    "description": "Filter changesets whose number of elements modified are greater than or equal to and/or lesser than or equal to a number.",
     "placeholder": "eg. 500"
   },
   {
@@ -200,7 +210,7 @@
     "range": true,
     "display": "Objects Deleted",
     "type": "number",
-    "description": "Filter changesets whose number of elements deleted are greater or less than equal to number.",
+    "description": "Filter changesets whose number of elements deleted are greater than or equal to and/or lesser than or equal to a number.",
     "placeholder": "eg. 500"
   },
   {
@@ -326,16 +336,6 @@
     "placeholder": "exclude changesets by whitelisted"
   },
   {
-    "name": "area_lt",
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Bbox size bound",
-    "type": "text",
-    "description": "Filter changesets that have a bbox area lower than X times the area of your geospatial filter. For example, if the bbox or geometry you defined in your filter has an area of 1 degree and you set 'area_lt=2', it will filter the changesets whose bbox area is lower than 2 degree",
-    "placeholder": "Upper bound of bbox area"
-  },
-  {
     "name": "geometry",
     "ignore": true,
     "icontains": false,
@@ -364,8 +364,8 @@
         "value": "False"
       }
     ],
-    "description": "Filter for changesets that have been manually checked and marked (either harmful or not harmful)",
-    "placeholder": "Toggle if changeset was checked"
+    "description": "Filter for changesets that have been manually reviewed and marked (either harmful or not harmful)",
+    "placeholder": "Toggle if changeset was reviewed"
   },
   {
     "name": "harmful",

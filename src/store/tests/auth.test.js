@@ -131,16 +131,6 @@ describe('auth actions testing', () => {
     expect(effects.call[0]).toEqual(call(authTokenFlow));
   });
   it('test watchauth should handle errors', async () => {
-    const userDetails = {
-      id: 33,
-      uid: '3563274',
-      username: 'kepta',
-      is_staff: true,
-      is_active: true,
-      email: '',
-      avatar:
-        'http://www.gravatar.com/avatar/8be7bdc2d8cde52fb8900c8d0c813faf.jpg?s=256&d…large-afe7442b856c223cca92b1a16d96a3266ec0c86cac8031269e90ef93562adb72.png'
-    };
     const error = new Error('didnt work :(');
     const result = await expectSaga(watchAuth)
       .provide({

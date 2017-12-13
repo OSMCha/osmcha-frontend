@@ -2,7 +2,6 @@
 import React from 'react';
 import showdown from 'showdown';
 import { cancelablePromise } from '../utils/promise';
-import { appVersion, isDev, isStaging } from '../config';
 
 const converter = new showdown.Converter({
   ghCompatibleHeaderId: true,

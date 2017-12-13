@@ -1,12 +1,6 @@
 import React from 'react';
-import { fromJS, Map } from 'immutable';
 import { shallow } from 'enzyme';
-import renderer from 'react-test-renderer';
-import { StaticRouter } from 'react-router';
-import MockDate from 'mockdate';
-import { _Changeset } from '../changeset/index';
 import { keyboardToggleEnhancer } from '../keyboard_enhancer';
-import { delayPromise } from '../../utils/promise';
 
 import {
   CHANGESET_DETAILS_DETAILS,
@@ -24,10 +18,11 @@ jest.mock('mousetrap', () => ({
 var moustrap = require('mousetrap');
 
 describe('test keyboard_enhancer HOC', () => {
-  var TestComponent = () =>
+  var TestComponent = () => (
     <div>
       <div>Test Component</div>
-    </div>;
+    </div>
+  );
   it('should work correctly', async () => {
     const strokes = [
       CHANGESET_DETAILS_DETAILS,

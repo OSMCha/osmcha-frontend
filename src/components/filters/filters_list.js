@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { Map, List } from 'immutable';
 import moment from 'moment';
 
 import { Text, Radio, MultiSelect, Wrapper, Meta, Date } from './';
@@ -77,6 +76,13 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
               min={gteValue && gteValue.getIn([0, 'value'])}
             />
           </span>
+        </Wrapper>
+      );
+    }
+    if (!f.range && f.type === 'number') {
+      return (
+        <Wrapper {...wrapperProps}>
+          <Text {...propsToSend} className="mr3" min={1} max={100} />
         </Wrapper>
       );
     }
@@ -177,12 +183,13 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
         <Wrapper
           {...wrapperProps}
           description={
-            this.props.active === f.name &&
-            <BBoxPicker
-              onChange={this.props.handleChange}
-              name={f.name}
-              value={this.props.filters.get(f.name)}
-            />
+            this.props.active === f.name && (
+              <BBoxPicker
+                onChange={this.props.handleChange}
+                name={f.name}
+                value={this.props.filters.get(f.name)}
+              />
+            )
           }
         >
           <Text {...propsToSend} />
@@ -197,26 +204,26 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           Basic
         </h2>
         {filtersData
-          .slice(0, 3)
+          .slice(0, 4)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Flags
         </h2>
         {filtersData
-          .slice(3, 5)
+          .slice(4, 6)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Review
         </h2>
         {filtersData
-          .slice(5, 9)
+          .slice(6, 10)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Changeset Details
         </h2>
-        {filtersData.slice(9).map((f: Object, k) => this.renderFilters(f, k))}
+        {filtersData.slice(10).map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
       </div>
     );

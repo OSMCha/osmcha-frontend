@@ -2,8 +2,6 @@
 import React from 'react';
 import moment from 'moment';
 
-import { CreateDeleteModify } from '../create_delete_modify';
-
 export function Title({ properties, wasOpen, date }: Object) {
   return (
     <div>
@@ -11,9 +9,7 @@ export function Title({ properties, wasOpen, date }: Object) {
         <span className={'txt-m txt-bold mt3 mr6'}>
           {properties.get('user')}
         </span>
-        <span className="txt-s mr3">
-          &nbsp;{moment(date).fromNow()}
-        </span>
+        <span className="txt-s mr3">&nbsp;{moment(date).fromNow()}</span>
       </span>
     </div>
   );

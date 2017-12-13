@@ -1,7 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
 import { shallow } from 'enzyme';
-import renderer from 'react-test-renderer';
 import { StaticRouter } from 'react-router';
 import MockDate from 'mockdate';
 import { List } from './index';
@@ -798,7 +797,7 @@ describe.skip('list index testing', () => {
             user: 'pvk',
             uid: '11153',
             editor: 'iD 2.2.1',
-            comment: "Ajout d'un acacia",
+            comment: 'Ajout dun acacia',
             source: 'Not reported',
             imagery_used: 'Bing aerial imagery',
             date: '2017-06-10T09:10:52Z',
@@ -1320,7 +1319,7 @@ describe.skip('list index testing', () => {
             user: 'foufou08',
             uid: '88729',
             editor: 'iD 2.2.1',
-            comment: "Mise à jour d'information",
+            comment: 'Mise à jour dinformation',
             source: 'Not reported',
             imagery_used: 'Bing aerial imagery',
             date: '2017-06-09T10:59:00Z',

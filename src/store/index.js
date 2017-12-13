@@ -1,6 +1,6 @@
 // @flow
 import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { Map, List, fromJS } from 'immutable';
+import { Map } from 'immutable';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { history } from './history';
 import createSagaMiddleware from 'redux-saga';
@@ -51,7 +51,7 @@ const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
 let appliedMiddlewares = applyMiddleware(...middlewares);
 if (process.env.NODE_ENV !== 'production') {
-  const { createLogger } = require('redux-logger');
+  // const { createLogger } = require('redux-logger');
 
   // const logger = createLogger({
   //   stateTransformer: state => {
