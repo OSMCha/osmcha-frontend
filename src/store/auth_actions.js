@@ -8,7 +8,8 @@ import {
   postFinalTokensOSMCha,
   fetchUserDetails
 } from '../network/auth';
-import { setItem, removeItem } from '../utils/safe_storage';
+import { setItem, getItem, removeItem } from '../utils/safe_storage';
+import notifications from '../config/notifications';
 
 import { modal } from './modal_actions';
 
@@ -39,6 +40,8 @@ export const getFinalToken = (oauth_verifier: string) =>
 export const logUserOut = () => action(AUTH.logout);
 
 export const tokenSelector = (state: RootStateType) => state.auth.get('token');
+export const newsAlertSelector = (state: RootStateType) =>
+  state.auth.get('newsAlertShowCount');
 
 const delay = process.env.NODE_ENV === 'test' ? () => {} : delayPromise;
 const DELAY = 1000;
@@ -58,6 +61,25 @@ export function* watchAuth(): any {
       }
       const userDetails = fromJS(yield call(fetchUserDetails, token));
       yield put(action(AUTH.userDetails, { userDetails }));
+
+      // changeset comment alert
+      // it will be removed after this feature is well known by the OSM community
+      let newsAlertShowCount = yield select(newsAlertSelector);
+      if (newsAlertShowCount == null) {
+        newsAlertShowCount = 0;
+      }
+      if (newsAlertShowCount < 4) {
+        yield put(
+          modal({
+            ...notifications.NEWS
+          })
+        );
+        yield call(
+          setItem,
+          'news_alert_show_count',
+          Math.ceil(newsAlertShowCount) + 1
+        );
+      }
 
       yield take(AUTH.logout);
       delayBy = DELAY;
