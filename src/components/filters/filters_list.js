@@ -183,12 +183,13 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
         <Wrapper
           {...wrapperProps}
           description={
-            this.props.active === f.name &&
-            <BBoxPicker
-              onChange={this.props.handleChange}
-              name={f.name}
-              value={this.props.filters.get(f.name)}
-            />
+            this.props.active === f.name && (
+              <BBoxPicker
+                onChange={this.props.handleChange}
+                name={f.name}
+                value={this.props.filters.get(f.name)}
+              />
+            )
           }
         >
           <Text {...propsToSend} />

@@ -7,13 +7,14 @@ import { Map, List, fromJS, is } from 'immutable';
 
 import { checkForNewChangesets } from '../store/changesets_page_actions';
 import { applyFilters } from '../store/filters_actions';
+import { applyUpdateAOI, applyCreateAOI } from '../store/aoi_actions';
 
 import { FiltersList } from '../components/filters/filters_list';
 import { FiltersHeader } from '../components/filters/filters_header';
 
-import { createAOI, deleteAOI } from '../network/aoi';
+import { deleteAOI } from '../network/aoi';
 import type { RootStateType } from '../store';
-import { delayPromise, cancelablePromise } from '../utils/promise';
+import { delayPromise } from '../utils/promise';
 import { gaSendEvent } from '../utils/analytics';
 
 import type { filterType, filtersType } from '../components/filters';
@@ -22,13 +23,15 @@ const NEW_AOI = 'unnamed *';
 type propsType = {|
   filters: filtersType,
   loading: boolean,
-  aoi: Map<string, *>,
+  aoi: Object,
   token: string,
   location: Object,
   features: ?List<Map<string, any>>,
   checkForNewChangesets: boolean => any,
   push: (location: Object) => void,
-  applyFilters: (filtersType, path?: string) => mixed // base 0
+  applyFilters: (filtersType, path?: string) => mixed, // base 0
+  applyCreateAOI: (name?: string, filtersType) => mixed,
+  applyUpdateAOI: (aoiId?: string, name?: string, filtersType) => mixed
 |};
 
 type stateType = {
@@ -45,16 +48,12 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
     active: ''
     // aoiName: this.props.aoi.getIn(['properties', 'name'], NEW_AOI)
   };
-  createAOIPromise;
   componentWillReceiveProps(nextProps: propsType) {
     if (!is(this.props.filters, nextProps.filters)) {
       this.setState({
         filters: nextProps.filters
       });
     }
-  }
-  componentWillUnmount() {
-    this.createAOIPromise && this.createAOIPromise.cancel();
   }
   handleFocus = (name: string) => {
     this.setState({
@@ -137,27 +136,25 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
       search: `aoi=${aoiId}`
     });
   };
-  createAOI = (name: string) => {
-    this.createAOIPromise = cancelablePromise(
-      createAOI(this.props.token, name, this.state.filters)
-    );
-
-    this.createAOIPromise.promise
-      .then(r => r && this.loadAoiId(r.id))
-      .catch(e => console.error(e));
-  };
   getAOIName = () => {
     if (this.props.loading) return '';
-    if (!is(this.props.filters, this.state.filters)) {
-      return NEW_AOI;
-    }
     return this.props.aoi.getIn(['properties', 'name'], NEW_AOI);
+  };
+  getAOIId = (aoiId: string) => {
+    if (this.props.loading) return '';
+    return this.props.aoi.get('id');
   };
   removeAOI = (aoiId: string) => {
     if (aoiId === this.props.aoi.get('id')) {
       this.handleClear();
     }
     deleteAOI(this.props.token, aoiId).catch(e => console.error(e));
+  };
+  createAOI = (name: string) => {
+    this.props.applyCreateAOI(name, this.state.filters);
+  };
+  updateAOI = (aoiId: string, name: string) => {
+    this.props.applyUpdateAOI(aoiId, name, this.state.filters);
   };
   render() {
     const width = window.innerWidth;
@@ -170,10 +167,12 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
       >
         <FiltersHeader
           createAOI={this.createAOI}
+          updateAOI={this.updateAOI}
           removeAOI={this.removeAOI}
           loading={this.props.loading}
           token={this.props.token}
           aoiName={this.getAOIName()}
+          aoiId={this.props.loading ? '' : this.props.aoi.get('id')}
           loadAoiId={this.loadAoiId}
           handleApply={this.handleApply}
           handleClear={this.handleClear}
@@ -197,7 +196,7 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
 Filters = connect(
   (state: RootStateType, props) => ({
     filters: state.filters.get('filters'),
-    aoi: state.filters.get('aoi'),
+    aoi: state.aoi.get('aoi'),
     loading: state.filters.get('loading'),
     features: state.changesetsPage.getIn(['currentPage', 'features']),
     location: props.location,
@@ -206,6 +205,8 @@ Filters = connect(
   {
     checkForNewChangesets,
     applyFilters,
+    applyCreateAOI,
+    applyUpdateAOI,
     push
   }
 )(Filters);

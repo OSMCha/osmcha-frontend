@@ -58,7 +58,7 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
         transitionEnterTimeout={300}
         transitionLeaveTimeout={250}
       >
-        {bindingsState.get(CHANGESET_DETAILS_DETAILS.label) &&
+        {bindingsState.get(CHANGESET_DETAILS_DETAILS.label) && (
           <Box key={3} className=" responsive-box round-tr round-br">
             <Header
               toggleUser={this.toggleUser}
@@ -66,12 +66,14 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
               properties={properties}
               userEditCount={data.getIn(['userDetails', 'count'], 0)}
             />
-          </Box>}
-        {bindingsState.get(CHANGESET_DETAILS_SUSPICIOUS.label) &&
+          </Box>
+        )}
+        {bindingsState.get(CHANGESET_DETAILS_SUSPICIOUS.label) && (
           <Box key={2} className=" responsive-box round-tr round-br">
             <Features changesetId={changesetId} properties={properties} />
-          </Box>}
-        {bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label) &&
+          </Box>
+        )}
+        {bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label) && (
           <Box key={1} className=" responsive-box  round-tr round-br">
             <Discussions
               changesetId={changesetId}
@@ -80,18 +82,21 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
                 List()
               )}
             />
-          </Box>}
-        {bindingsState.get(CHANGESET_DETAILS_USER.label) &&
+          </Box>
+        )}
+        {bindingsState.get(CHANGESET_DETAILS_USER.label) && (
           <Box key={0} className=" responsive-box  round-tr round-br">
             <User
               userDetails={data.getIn(['userDetails'], Map())}
               whosThat={data.getIn(['whosThat', 0, 'names'], List())}
             />
-          </Box>}
-        {bindingsState.get(CHANGESET_DETAILS_MAP.label) &&
+          </Box>
+        )}
+        {bindingsState.get(CHANGESET_DETAILS_MAP.label) && (
           <Box key={4} className=" responsive-box  round-tr round-br">
             <MapOptions />
-          </Box>}
+          </Box>
+        )}
       </CSSGroup>
     );
   };

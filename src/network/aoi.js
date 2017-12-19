@@ -1,7 +1,7 @@
 // @flow
-import { API_URL } from '../config';
-import { createForm } from './changeset';
 import { Iterable } from 'immutable';
+
+import { API_URL } from '../config';
 import type { filtersType, filterType } from '../components/filters';
 
 export function handleErrors(response: Object) {
@@ -29,7 +29,7 @@ export function createAOI(
       .map(x => x.get('value'))
       .join(',');
   });
-  return fetch(`${API_URL}/aoi/?date__gte=2017-07-03`, {
+  return fetch(`${API_URL}/aoi/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -45,6 +45,7 @@ export function createAOI(
       return res.json();
     });
 }
+
 export function fetchAOI(token: string, aoiId: number): Promise<*> {
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
     method: 'GET',
@@ -78,17 +79,26 @@ export function updateAOI(
   token: string,
   aoiId: number,
   name: string,
-  filters: string
+  filters: filtersType
 ): Promise<*> {
+  let serverFilters = {};
+  filters.forEach((v: filterType, k: string) => {
+    if (!Iterable.isIterable(v)) return;
+    let filter = v;
+    serverFilters[k] = filter
+      .filter(x => Iterable.isIterable(x) && x.get('value') !== '')
+      .map(x => x.get('value'))
+      .join(',');
+  });
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
     },
-    body: createForm({
+    body: JSON.stringify({
       name,
-      filters
+      filters: serverFilters
     })
   })
     .then(handleErrors)

@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../button';
 
-class AOIName extends React.PureComponent {
+class SaveAOI extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,17 +15,14 @@ class AOIName extends React.PureComponent {
   clicked = false;
   onClick = event => {
     this.clicked = true;
-    this.setState({ editing: true });
+    this.setState({ editing: true, value: this.props.name });
   };
   onChange = (event: any) => {
     this.setState({ value: event.target.value });
   };
   onKeyDown = event => {
     if (event.keyCode === 13) {
-      this.setState({
-        editing: false
-      });
-      this.props.createAOI(this.state.value);
+      this.handleSubmit(event);
     } else if (event.keyCode === 27) {
       this.setState({
         editing: false,
@@ -34,15 +31,25 @@ class AOIName extends React.PureComponent {
       this.clicked = false;
     }
   };
+  handleSubmit = event => {
+    this.setState({
+      editing: false
+    });
+    if (this.props.aoiId) {
+      this.props.updateAOI(this.props.aoiId, this.state.value);
+    } else {
+      this.props.createAOI(this.state.value);
+    }
+  };
   // handleFocus = event => {
   //   event.target.select();
   // };
   render() {
     return (
       <span>
-        /
-        {this.state.editing
-          ? <input
+        {this.state.editing ? (
+          <span>
+            <input
               ref={r => {
                 if (this.clicked) {
                   r.select();
@@ -53,9 +60,15 @@ class AOIName extends React.PureComponent {
               onChange={this.onChange}
               onKeyDown={this.onKeyDown}
             />
-          : <span onClick={this.onClick}>
-              {this.props.name}
-            </span>}
+            <Button onClick={this.handleSubmit} className="mx3">
+              Confirm Save
+            </Button>
+          </span>
+        ) : (
+          <Button onClick={this.onClick} className="border--0 bg-transparent">
+            Save
+          </Button>
+        )}
       </span>
     );
   }
@@ -66,29 +79,46 @@ export function FiltersHeader({
   search,
   token,
   aoiName,
+  aoiId,
   createAOI,
+  updateAOI,
   removeAOI,
   handleApply,
   handleClear,
   loadAoiId
 }: {
   createAOI: string => void,
+  updateAOI: string => void,
   removeAOI: string => void,
   loading: boolean,
   search: string,
   token?: string,
   aoiName?: string,
+  aoiId?: string,
   handleApply: () => void,
   handleClear: () => void,
   loadAoiId: string => void
 }) {
+  if (token) {
+    var save_aoi = (
+      <SaveAOI
+        name={aoiName}
+        aoiId={aoiId}
+        createAOI={createAOI}
+        updateAOI={updateAOI}
+      />
+    );
+  } else {
+    var save_aoi = '';
+  }
   return (
     <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
       <span className="txt-l txt-bold color-gray--dark">
-        <span>Filters</span>
-        {aoiName && <AOIName name={aoiName} createAOI={createAOI} />}
+        <span>Filters/</span>
+        {aoiName}
       </span>
       <span className="txt-l color-gray--dark">
+        {save_aoi}
         <Button className="border--0 bg-transparent" onClick={handleClear}>
           Reset
         </Button>
