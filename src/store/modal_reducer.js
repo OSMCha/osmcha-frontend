@@ -12,7 +12,8 @@ export type ModalType = Map<
   | 'callbackLabel'
   | 'dismiss'
   | 'uid'
-  | 'autoDismiss',
+  | 'autoDismiss'
+  | 'position',
   any
 >; // osmcha uses this
 
@@ -23,6 +24,7 @@ const initialState: ModalType = fromJS({
   title: null,
   dismiss: true,
   autoDismiss: 5, // number
+  position: 'tr',
   description: null,
   uid: null // number
 });
@@ -41,6 +43,7 @@ export function modalReducer(
         .set('dismiss', action.dismiss)
         .set('uid', action.uid)
         .set('autoDismiss', action.autoDismiss)
+        .set('position', action.position)
         .set('description', action.description);
     }
     default:
