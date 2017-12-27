@@ -17,6 +17,7 @@ export default {
     autoDismiss: 0,
     dismiss: true,
     position: 'br',
-    description: `From now on, when you review a changeset in OSMCha, it will post a comment on the changeset page. That way, we give feedback to the user who created it.`
+    description:
+      'From now on, when you review a changeset in OSMCha, it will post a comment on the changeset page. That way, we give feedback to the user who created it.'
   }
 };

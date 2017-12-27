@@ -8,7 +8,7 @@ import {
   postFinalTokensOSMCha,
   fetchUserDetails
 } from '../network/auth';
-import { setItem, getItem, removeItem } from '../utils/safe_storage';
+import { setItem, removeItem } from '../utils/safe_storage';
 import notifications from '../config/notifications';
 
 import { modal } from './modal_actions';
