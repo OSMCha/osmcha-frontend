@@ -342,6 +342,10 @@ img {
   border-left-width: 4px !important;
 }
 
+.cmap-changeset-link {
+  text-decoration: underline;
+}
+
 /* bbox map*/
 .bbox-map-clear {
   position: relative;

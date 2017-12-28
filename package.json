@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "animate.css": "^3.5.2",
-    "changeset-map": "1.0.8",
+    "changeset-map": "1.2.0",
     "date-input-polyfill": "^2.14.0",
     "history": "^4.6.3",
     "immutable": "^3.8.1",

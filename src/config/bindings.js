@@ -24,17 +24,21 @@ export const CHANGESET_DETAILS_SUSPICIOUS = {
   label: 'CHANGESET_DETAILS_SUSPICIOUS',
   bindings: ['2']
 };
+export const CHANGESET_DETAILS_TAGS = {
+  label: 'CHANGESET_DETAILS_TAGS',
+  bindings: ['3']
+};
 export const CHANGESET_DETAILS_DISCUSSIONS = {
   label: 'CHANGESET_DETAILS_DISCUSSIONS',
-  bindings: ['3']
+  bindings: ['4']
 };
 export const CHANGESET_DETAILS_USER = {
   label: 'CHANGESET_DETAILS_USER',
-  bindings: ['4']
+  bindings: ['5']
 };
 export const CHANGESET_DETAILS_MAP = {
   label: 'CHANGESET_DETAILS_MAP',
-  bindings: ['5']
+  bindings: ['6']
 };
 export const VERIFY_GOOD = {
   label: 'VERIFY_GOOD',
