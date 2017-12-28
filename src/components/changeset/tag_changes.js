@@ -1,12 +1,69 @@
 // @flow
 import React from 'react';
-import { Map } from 'immutable';
+import { connect } from 'react-redux';
+
+import { is } from 'immutable';
+
+import type { RootStateType } from '../store';
 import { selectFeature } from '../../views/map';
+
+export function getFeatures(features) {
+  var keys = Object.keys(features);
+  return keys.map(item => features[item]);
+}
+
+export function processFeatures(features) {
+  const finalReport = new Map();
+  const analyzedFeatures = features.map(feature =>
+    analyzeFeature(feature[0], feature[1])
+  );
+  const keys = ['addedTags', 'changedValues', 'deletedTags'];
+  analyzedFeatures.map(item =>
+    keys.map(key =>
+      item.get(key).forEach(tag => {
+        if (finalReport.get(tag)) {
+          finalReport.set(tag, finalReport.get(tag).concat([item.get('id')]));
+        } else {
+          finalReport.set(tag, [item.get('id')]);
+        }
+      })
+    )
+  );
+  return finalReport;
+}
+
+export function analyzeFeature(newVersion, oldVersion) {
+  var oldVersionKeys = Object.keys(oldVersion.properties.tags);
+  var newVersionKeys = Object.keys(newVersion.properties.tags);
+  var addedTags = newVersionKeys.filter(
+    tag => oldVersionKeys.indexOf(tag) === -1
+  );
+  var deletedTags = oldVersionKeys.filter(
+    tag => newVersionKeys.indexOf(tag) === -1
+  );
+  var changedValues = newVersionKeys
+    .filter(
+      tag => addedTags.indexOf(tag) === -1 && deletedTags.indexOf(tag) === -1
+    )
+    .filter(
+      tag => newVersion.properties.tags[tag] !== oldVersion.properties.tags[tag]
+    );
+  var result = new Map();
+  result
+    .set('id', newVersion.properties.id)
+    .set('addedTags', addedTags.map(tag => `Added tag ${tag}`))
+    .set('deletedTags', deletedTags.map(tag => `Deleted tag ${tag}`))
+    .set(
+      'changedValues',
+      changedValues.map(tag => `Changed value of tag ${tag}`)
+    );
+  return result;
+}
 
 function FeatureListItem(props) {
   return (
     <li>
-      <span className="pointer " onClick={() => selectFeature(props.id)}>
+      <span className="pointer" onClick={() => selectFeature(props.id)}>
         {props.id}
       </span>
     </li>
@@ -19,72 +76,93 @@ export class ChangeItem extends React.PureComponent {
     this.state = {
       opened: false
     };
-    this.tag = props.tag;
-    this.value = props.features;
+    this.tag = props.change[0];
+    this.value = props.change[1];
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange() {
     this.setState({ opened: !this.state.opened });
   }
   render() {
+    var last_space = this.tag.lastIndexOf(' ') + 1;
     return (
       <div>
-        <h7 className="cmap-sub-heading pointer" onClick={this.handleChange}>
+        <h7
+          className="cmap-sub-heading cmap-pointer"
+          onClick={this.handleChange}
+        >
           {this.state.opened ? '▼' : '▶'}
-          {this.tag}
+          {this.tag.slice(0, last_space)}
+          <span className="txt-code">{this.tag.slice(last_space)}</span>
+          <span className="bg-blue-faint color-blue-light inline-block px6 py3 txt-xs txt-bold round">
+            {this.value.length}
+          </span>
         </h7>
         <ul
           className="cmap-vlist"
-          style={{ display: this.state.opened ? 'block' : 'none' }}
+          style={{
+            display: this.state.opened ? 'block' : 'none'
+          }}
         >
-          {Array.from(this.value).map((id, k) => (
-            <FeatureListItem id={id} key={k} />
-          ))}
+          {this.value.map((id, k) => <FeatureListItem id={id} key={k} />)}
         </ul>
       </div>
     );
   }
 }
 
-export class TagChanges extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.tags = document.querySelector('.cmap-filter-changes-section');
-    this.state = { data: [] };
-  }
-  componentDidMount() {
-    this.data = [];
-    if (this.tags) {
-      for (let n of this.tags.children[1].children) {
-        var item = {};
-        item.name = n.children[0].textContent.slice(1);
-        item.features = new Set();
-        for (let id of n.children[1].children) {
-          item.features.add(id.textContent);
-        }
-        this.data.push(item);
-      }
-      console.log(this.data);
+type propsType = {|
+  changesetId: string,
+  changes: Object
+|};
+
+class TagChanges extends React.PureComponent<void, propsType> {
+  state = {
+    changesetId: this.props.changesetId,
+    changes: this.props.changes
+  };
+
+  componentWillReceiveProps(nextProps: propsType) {
+    if (!is(this.props.changes, nextProps.changes)) {
+      this.setState({
+        changes: nextProps.changes
+      });
     }
-    this.setState({ data: this.data });
   }
 
   render() {
+    const changeReport = [];
+    if (
+      this.state &&
+      this.state.changes &&
+      this.state.changes.get(this.props.changesetId)
+    ) {
+      const changes = this.state.changes.get(this.props.changesetId)[
+        'featureMap'
+      ];
+      processFeatures(
+        getFeatures(changes).filter(
+          item => item.length === 2 && item[0].properties.action === 'modify'
+        )
+      ).forEach((featureIDs, tag) => changeReport.push([tag, featureIDs]));
+    }
     return (
       <div className="px12 py6">
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">Tag changes</h2>
-        {this.tags ? this.state.data.length ? (
-          this.state.data.map((item, key) => (
-            <ChangeItem tag={item.name} features={item.features} key={key} />
-          ))
+        {changeReport.length ? (
+          changeReport
+            .sort()
+            .map((change, k) => <ChangeItem key={k} change={change} />)
         ) : (
           <span>No tags were changed in this changeset.</span>
-        ) : (
-          <div>
-            Wait for the page to finish loading and click again on this tab.
-          </div>
         )}
       </div>
     );
   }
 }
+
+TagChanges = connect((state: RootStateType, props) => ({
+  changes: state.changeset.get('changesetMap')
+}))(TagChanges);
+
+export { TagChanges };

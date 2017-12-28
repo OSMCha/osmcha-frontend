@@ -77,7 +77,7 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
         )}
         {bindingsState.get(CHANGESET_DETAILS_TAGS.label) && (
           <Box key={5} className=" responsive-box round-tr round-br">
-            <TagChanges />
+            <TagChanges changesetId={changesetId} />
           </Box>
         )}
         {bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label) && (
