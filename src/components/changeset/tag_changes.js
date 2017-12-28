@@ -87,10 +87,7 @@ export class ChangeItem extends React.PureComponent {
     var last_space = this.tag.lastIndexOf(' ') + 1;
     return (
       <div>
-        <h7
-          className="cmap-sub-heading cmap-pointer"
-          onClick={this.handleChange}
-        >
+        <h7 className="cmap-sub-heading pointer" onClick={this.handleChange}>
           {this.state.opened ? '▼' : '▶'}
           {this.tag.slice(0, last_space)}
           <span className="txt-code">{this.tag.slice(last_space)}</span>

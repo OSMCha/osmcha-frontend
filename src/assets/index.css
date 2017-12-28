@@ -282,7 +282,7 @@ img {
   background: #000 !important;
 }
 
-.cmap-changeset-section {
+.cmap-changeset-section, .cmap-sidebar {
   display: none !important;
 }
 
