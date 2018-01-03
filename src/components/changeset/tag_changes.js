@@ -87,14 +87,28 @@ export class ChangeItem extends React.PureComponent {
     var last_space = this.tag.lastIndexOf(' ') + 1;
     return (
       <div>
-        <h7 className="cmap-sub-heading pointer" onClick={this.handleChange}>
-          {this.state.opened ? '▼' : '▶'}
+        <span className="pointer" onClick={this.handleChange}>
+          {this.state.opened
+            ? <svg
+                className="icon inline-block"
+                style={{ verticalAlign: 'text-bottom' }}
+              >
+                <use xlinkHref={'#icon-chevron-down'} />
+              </svg>
+            : <svg
+                className="icon inline-block"
+                style={{ verticalAlign: 'text-bottom' }}
+              >
+                <use xlinkHref={'#icon-chevron-right'} />
+              </svg>}
           {this.tag.slice(0, last_space)}
-          <span className="txt-code">{this.tag.slice(last_space)}</span>
-          <span className="bg-blue-faint color-blue-light inline-block px6 py3 txt-xs txt-bold round">
+          <span className="txt-code">
+            {this.tag.slice(last_space)}
+          </span>
+          <span className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s txt-bold round">
             {this.value.length}
           </span>
-        </h7>
+        </span>
         <ul
           className="cmap-vlist"
           style={{
@@ -146,13 +160,11 @@ class TagChanges extends React.PureComponent<void, propsType> {
     return (
       <div className="px12 py6">
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">Tag changes</h2>
-        {changeReport.length ? (
-          changeReport
-            .sort()
-            .map((change, k) => <ChangeItem key={k} change={change} />)
-        ) : (
-          <span>No tags were changed in this changeset.</span>
-        )}
+        {changeReport.length
+          ? changeReport
+              .sort()
+              .map((change, k) => <ChangeItem key={k} change={change} />)
+          : <span>No tags were changed in this changeset.</span>}
       </div>
     );
   }
