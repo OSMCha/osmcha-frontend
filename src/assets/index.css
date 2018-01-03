@@ -282,7 +282,7 @@ img {
   background: #000 !important;
 }
 
-.cmap-changeset-section {
+.cmap-changeset-section, .cmap-sidebar {
   display: none !important;
 }
 
@@ -340,6 +340,10 @@ img {
 
 .changesets-list .border-l--4 {
   border-left-width: 4px !important;
+}
+
+.cmap-changeset-link {
+  text-decoration: underline;
 }
 
 /* bbox map*/
