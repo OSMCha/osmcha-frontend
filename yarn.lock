@@ -1500,9 +1500,9 @@ changelog@^1.3.0:
     semver "5.3.0"
     wordwrap "1.0.0"
 
-changeset-map@1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/changeset-map/-/changeset-map-1.0.8.tgz#5f1198f4464d1fcd77d23013c784d1e7aebc0401"
+changeset-map@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/changeset-map/-/changeset-map-1.2.0.tgz#b01e66b62d927c9e80c847c6f4e14d2f33f5246c"
   dependencies:
     "@turf/bbox-polygon" "^4.3.0"
     "@turf/helpers" "^4.3.0"
