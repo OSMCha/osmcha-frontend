@@ -2,6 +2,10 @@
 
 Log of changes since the 2.0 version
 
+#### 0.36.1
+
+* Fix bug in BBox filter
+
 #### 0.36.0
 
 * Add Tag Changes tab

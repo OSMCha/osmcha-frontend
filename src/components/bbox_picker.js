@@ -2,6 +2,8 @@
 import React from 'react';
 import debounce from 'lodash.debounce';
 import { fromJS } from 'immutable';
+
+import { mapboxAccessToken } from '../config/constants';
 import { importChangesetMap } from '../utils/cmap';
 
 export class BBoxPicker extends React.Component {
@@ -36,8 +38,7 @@ export class BBoxPicker extends React.Component {
     importChangesetMap('getGL').then((getGL: any) => {
       if (getGL) {
         var mapboxgl = getGL();
-        mapboxgl.accessToken =
-          'pk.eyJ1IjoicGxhbmVtYWQiLCJhIjoiemdYSVVLRSJ9.g3lbg_eN0kztmsfIPxa9MQ';
+        mapboxgl.accessToken = mapboxAccessToken;
         if (this.props.value) {
           // let bbox = this.props.value.getIn(['0', 'value'], '').split(',');
         }
