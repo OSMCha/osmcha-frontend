@@ -6,7 +6,7 @@
   * [Why use OSMCha?](#why-use-osmcha)
   * [What is vandalism?](#what-is-vandalism)
   * [What are flagged changesets and how are they automatically flagged?](#what-are-flagged-changesets-and-how-are-they-automatically-flagged)
-  * [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad-%F0%9F%91%8D--%F0%9F%91%8E-)
+  * [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad----)
   * [Future of OSMCha and validation using OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
 * [Usage](#usage)
   * [How to review a changeset?](#how-to-review-a-changeset)
@@ -120,6 +120,11 @@ restrictions, land use etc.
   detection process for bad edits instead of writing rule based compare
   functions for all possible scenarios of bad edits.
 
+* When we review a changeset in OSMCha, a comment will be posted in the OSM
+  changeset page. That way, we give a feedback to the user and make that
+  information accessible to other Quality Assurance tools. The comments have a
+  predefined message and are posted with your username.
+
 ### Future of OSMCha and validation using OSM-Compare
 
 * Machine learning based detection methods replace rule based edit detections.
@@ -162,6 +167,12 @@ what a problematic edit is on OSM, please refer to our guide on
   on OSM-Compare, it is shown on the `Flagged features` tab. The reviewer can
   click on Map to view the edit on the changeset map or open it directly on JOSM
   for detailed review.
+
+<img width="300" alt="osmcha-tag-changes" src="https://user-images.githubusercontent.com/666291/34695408-824871f0-f4a9-11e7-9968-ff41801e57ca.png">
+
+* There is also a tab that shows all the features whose tags were modified in the
+  changeset. This makes it easy to identify the modifications made in the features
+  without the need of clicking on them one by one.
 
 <img width="300" alt="osmcha-discussions" src="https://user-images.githubusercontent.com/8921295/33522260-49991fd8-d80e-11e7-88a3-a1c07774db78.png">
 
@@ -281,6 +292,14 @@ OSMCha allows a logged-in user to save a filter template with custom search
 parameters with a personalized name. There is no limit on how many filter
 templates can be saved per user nor with the number of custom parameters that
 can be set in a filter template.
+
+<img width="600" alt="osmcha-save-filter-instructions" src="https://user-images.githubusercontent.com/666291/34695491-c7b995ac-f4a9-11e7-9e43-edca8365fadb.gif">
+
+To save a filter, start setting your desired filter parameters, then click on
+the `Save` button on the top of the screen, give a name to it and press the
+`Confirm Save` button. The filter will be saved and applied, so the sidebar will
+update with the results. If you want to change something in your filter later,
+repeat those steps.
 
 Saved filters are visible in the user page which can be accessed by clicking on
 your OSM username beside the OSMCha icon on the sidebar. Any saved filter can be
