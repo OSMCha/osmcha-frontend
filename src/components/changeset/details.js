@@ -21,7 +21,7 @@ export function Details({
   const comment = properties.get('comment');
 
   const urlRegex = new RegExp(
-    /(([\w\.\-\+]+:)\/{2}(([\w\d\.]+):([\w\d\.]+))?@?(([a-zA-Z0-9\.\-_]+)(?::(\d{1,5}))?))?(\/(?:[a-zA-Z0-9{}:\,\.\-\/\+\%]+)?)(?:\?([a-zA-Z0-9=%\-_\.\*&;]+))?(?:#([a-zA-Z0-9\-=,&%;\/\\"'\?]+)?)?/g
+    /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/gim
   );
 
   let sourceMatch = [];
@@ -71,34 +71,35 @@ export function Details({
             {source}
             <span>
               <br />
-              {sourceMatch.map((e, k) => (
+              {sourceMatch.map((e, k) =>
                 <a
-                  href={sourceOrignal}
-                  title={sourceOrignal}
+                  href={sourceMatch}
+                  title={sourceMatch}
                   key={k}
                   className="color-blue"
+                  target="_blank"
                 >
                   {Array.isArray(
                     e.match(
                       /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
                     )
-                  ) ? (
-                    e.match(
-                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                    )[0]
-                  ) : (
-                    <svg className="icon inline-block align-middle ">
-                      <use xlinkHref="#icon-share" />
-                    </svg>
-                  )}
+                  )
+                    ? e.match(
+                        /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                      )[0]
+                    : <svg className="icon inline-block align-middle ">
+                        <use xlinkHref="#icon-share" />
+                      </svg>}
                 </a>
-              ))}
+              )}
             </span>
           </span>
         </div>
         <div className="flex-parent flex-parent--column ">
           <span className="txt-s txt-uppercase txt-bold">Editor</span>
-          <span className="wmax180 txt-break-word txt-s">{editor}</span>
+          <span className="wmax180 txt-break-word txt-s">
+            {editor}
+          </span>
         </div>
         <div className="flex-parent flex-parent--column">
           <span className="txt-s txt-uppercase txt-bold">Imagery</span>
@@ -106,23 +107,21 @@ export function Details({
             {imagery}
             <span>
               <br />
-              {imageryMatch.map((e, k) => (
+              {imageryMatch.map((e, k) =>
                 <a href={e} key={k} className="color-blue">
                   {Array.isArray(
                     e.match(
                       /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
                     )
-                  ) ? (
-                    e.match(
-                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                    )[0]
-                  ) : (
-                    <svg className="icon inline-block align-middle ">
-                      <use xlinkHref="#icon-share" />
-                    </svg>
-                  )}
+                  )
+                    ? e.match(
+                        /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                      )[0]
+                    : <svg className="icon inline-block align-middle ">
+                        <use xlinkHref="#icon-share" />
+                      </svg>}
                 </a>
-              ))}
+              )}
             </span>
           </span>
         </div>
