@@ -6,6 +6,14 @@ import { appendDefaultDate } from '../utils/filters';
 import { handleErrors } from './aoi';
 import type { filtersType } from '../components/filters';
 
+function getString(input) {
+  if (typeof input === 'object') {
+    return JSON.stringify(input);
+  } else {
+    return input;
+  }
+}
+
 export function fetchChangesetsPage(
   pageIndex: number,
   filters: filtersType = Map(),
@@ -19,7 +27,7 @@ export function fetchChangesetsPage(
     let filter = v;
     let filterJoined = filter
       .filter(x => Iterable.isIterable(x) && x.get('value') !== '')
-      .map(x => x.get('value'))
+      .map(x => getString(x.get('value')))
       .join(',');
 
     if (filterJoined === '') return;

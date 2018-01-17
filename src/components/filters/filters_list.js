@@ -2,7 +2,15 @@
 import React from 'react';
 import moment from 'moment';
 
-import { Text, Radio, MultiSelect, Wrapper, Meta, Date } from './';
+import {
+  Text,
+  Radio,
+  MultiSelect,
+  Wrapper,
+  Meta,
+  Date,
+  LocationSelect
+} from './';
 
 import { BBoxPicker } from '../bbox_picker';
 import { loadingEnhancer } from '../loading_enhancer';
@@ -118,6 +126,13 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
               max={today}
             />
           </span>
+        </Wrapper>
+      );
+    }
+    if (f.type === 'location') {
+      return (
+        <Wrapper {...wrapperProps}>
+          <LocationSelect {...propsToSend} />
         </Wrapper>
       );
     }

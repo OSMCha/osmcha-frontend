@@ -190,6 +190,13 @@ img {
   transition: opacity 1s ease-out;
 }
 
+#geometry-map {
+  position: relative;
+  display: inline-block;
+  height: 300px;
+  width: 100%;
+}
+
 .filters-desc-appear {
   opacity: 0.01;
 }
