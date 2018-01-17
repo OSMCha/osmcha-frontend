@@ -150,7 +150,7 @@ export class LocationSelect extends React.PureComponent {
     this.setState({ queryType: value });
   };
   renderSelect = () => {
-    const { name, options, placeholder, value, display } = this.props;
+    const { name, placeholder, value } = this.props;
     return (
       <Async
         name={name}
