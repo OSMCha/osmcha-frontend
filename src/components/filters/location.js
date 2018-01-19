@@ -67,7 +67,10 @@ export class LocationSelect extends React.PureComponent {
       fromJS([{ label: data, value: data }])
     );
     const geom_bbox = bbox(data);
-    this.map.fitBounds([geom_bbox.slice(0, 2), geom_bbox.slice(2)]);
+    this.map.fitBounds(
+      [geom_bbox.slice(0, 2), geom_bbox.slice(2)],
+      {padding: 20}
+    );
   }
 
   componentDidMount() {
@@ -89,37 +92,41 @@ export class LocationSelect extends React.PureComponent {
         map.addControl(this.draw);
 
         map.on('draw.create', this.drawingUpdate);
-        map.on('draw.modechange', this.clearMap);
+        map.on('draw.modechange', this.clearBeforeDraw);
         map.on('draw.delete', this.drawingUpdate);
         map.on('draw.update', this.drawingUpdate);
-        if (this.props.value.get('0').get('value')) {
-          this.updateMap(
-            this.props.value
-              .get('0')
-              .get('value')
-              .toJS()
-          );
-        }
+        map.on('style.load', () => {
+          if (this.props.value.get('0').get('value')) {
+            this.updateMap(this.props.value.get('0').get('value').toJS());
+          }
+        });
       }
     });
   }
 
-  clearMap = e => {
+  clearBeforeDraw = e => {
     if (e.mode === 'draw_polygon') {
-      this.draw.deleteAll();
-      this.props.onChange(this.props.name, null);
-      if (this.map.getSource('feature')) {
-        this.map.getSource('feature').setData({});
-      }
-      if (this.map.getLayer('geometry')) {
-        this.map.removeLayer('geometry');
-      }
+      this.clearMap();
       this.draw.changeMode('draw_polygon');
+    }
+  };
+  clearMap = () => {
+    this.draw.deleteAll();
+    this.props.onChange(this.props.name, null);
+    if (this.map.getSource('feature')) {
+      this.map.getSource('feature').setData({});
+    }
+    if (this.map.getLayer('geometry')) {
+      this.map.removeLayer('geometry');
     }
   };
   drawingUpdate = e => {
     const drawingData = this.draw.getAll();
-    this.updateMap(drawingData.features[0].geometry);
+    if (drawingData && drawingData.features.length && drawingData.features[0].geometry) {
+      this.updateMap(drawingData.features[0].geometry);
+    } else {
+      this.clearMap();
+    }
   };
 
   getAsyncOptions = (input: string, cb: (e: ?Error, any) => void) => {
@@ -178,8 +185,16 @@ export class LocationSelect extends React.PureComponent {
           <div className="col col--8 pl3">{this.renderSelect()}</div>
         </div>
         <div className="grid grid--gut12 pt6">
-          <div className="col col--12">
-            <div id="geometry-map" />
+          <div className="col col--12 map-select">
+            <div id="geometry-map" >
+              <div
+                onClick={this.clearMap}
+                className="pointer z5 m3 inline-block px6 py3 txt-s bg-white txt-bold round absolute fl"
+                style={{zIndex: 2}}
+                >
+                Clear All
+              </div>
+            </div>
           </div>
         </div>
       </div>
