@@ -75,7 +75,7 @@ it('renders active row properly', () => {
 
   const tree1 = renderer
     .create(
-      <StaticRouter>
+      <StaticRouter context={{}}>
         <Row
           properties={changeset.getIn(['properties'])}
           active
@@ -94,7 +94,7 @@ it('renders inactive row properly', () => {
 
   const tree1 = renderer
     .create(
-      <StaticRouter>
+      <StaticRouter context={{}}>
         <Row
           properties={changeset.getIn(['properties'])}
           active={false}
