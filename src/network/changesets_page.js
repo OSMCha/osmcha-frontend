@@ -3,16 +3,9 @@ import { Iterable, List, Map } from 'immutable';
 import { API_URL } from '../config';
 import { PAGE_SIZE } from '../config/constants';
 import { appendDefaultDate } from '../utils/filters';
-import { handleErrors } from './aoi';
+import { handleErrors, getString } from './aoi';
 import type { filtersType } from '../components/filters';
 
-function getString(input) {
-  if (typeof input === 'object') {
-    return JSON.stringify(input);
-  } else {
-    return input;
-  }
-}
 
 export function fetchChangesetsPage(
   pageIndex: number,

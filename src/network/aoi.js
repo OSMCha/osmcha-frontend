@@ -4,6 +4,14 @@ import { Iterable } from 'immutable';
 import { API_URL } from '../config';
 import type { filtersType, filterType } from '../components/filters';
 
+export function getString(input) {
+  if (typeof input === 'object') {
+    return JSON.stringify(input);
+  } else {
+    return input;
+  }
+}
+
 export function handleErrors(response: Object) {
   if (!response.ok) {
     return response.json().then(r => {
@@ -26,7 +34,7 @@ export function createAOI(
     let filter = v;
     serverFilters[k] = filter
       .filter(x => Iterable.isIterable(x) && x.get('value') !== '')
-      .map(x => x.get('value'))
+      .map(x => getString(x.get('value')))
       .join(',');
   });
   return fetch(`${API_URL}/aoi/`, {
@@ -87,7 +95,7 @@ export function updateAOI(
     let filter = v;
     serverFilters[k] = filter
       .filter(x => Iterable.isIterable(x) && x.get('value') !== '')
-      .map(x => x.get('value'))
+      .map(x => getString(x.get('value')))
       .join(',');
   });
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
