@@ -6,7 +6,7 @@ import Select from 'react-select';
 
 import bbox from '@turf/bbox';
 import simplify from '@turf/simplify';
-import MapboxDraw from '@mapbox/mapbox-gl-draw';
+import MapboxDraw from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw';
 
 import { nominatimSearch } from '../../network/nominatim';
 import { mapboxAccessToken } from '../../config/constants';
