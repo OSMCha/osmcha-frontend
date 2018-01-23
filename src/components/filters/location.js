@@ -96,7 +96,7 @@ export class LocationSelect extends React.PureComponent {
         map.on('draw.delete', this.drawingUpdate);
         map.on('draw.update', this.drawingUpdate);
         map.on('style.load', () => {
-          if (this.props.value.get('0').get('value')) {
+          if (this.props.value && this.props.value.get('0').get('value')) {
             this.updateMap(this.props.value.get('0').get('value').toJS());
           }
         });
