@@ -88,6 +88,7 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
                 ['osmComments', 'properties', 'comments'],
                 List()
               )}
+              changesetIsHarmful={properties.get('harmful')}
             />
           </Box>
         )}
