@@ -64,25 +64,30 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
   }
   render() {
     return(
-      <div>
+      <div className="flex-parent flex-parent--column mt6 mb3">
         {this.state.success && <div>Comment posted successfully!</div>}
         {this.state.error && <div>Some error ocurred.</div>}
-        <div>
-          <input
-            placeholder="post a comment"
-            className="input wmax120 ml12"
-            ref={r => {
-              if (this.clicked) {
-                r && r.select();
-                this.clicked = false;
-              }
-            }}
-            value={this.state.value}
-            onChange={this.onChange}
-          />
-          <Button className="input wmax120 ml6" onClick={this.handleSubmit}>
-            Post Comment
-          </Button>
+        <div className="grid grid--gut12">
+          <div className="col col--12">
+            <textarea
+              placeholder="Communicate with the mapper through a changeset comment"
+              className="textarea"
+              ref={r => {
+                if (this.clicked) {
+                  r && r.select();
+                  this.clicked = false;
+                }
+              }}
+              value={this.state.value}
+              onChange={this.onChange}
+            >
+            </textarea>
+            <div className="pt6 fr">
+              <Button className="input wmax120" onClick={this.handleSubmit}>
+                Post Comment
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     );

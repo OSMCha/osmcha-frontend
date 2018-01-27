@@ -55,7 +55,7 @@ export class Discussions extends React.PureComponent {
                 </div>
               )}
             </div>}
-        <div className="flex-parent flex-parent--center-main my12">
+        <div className="flex-parent flex-parent--column justify--space-between my6 mt12">
           <CommentForm
             changesetId={changesetId}
             changesetIsHarmful={changesetIsHarmful}
