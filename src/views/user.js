@@ -21,11 +21,14 @@ import type { filtersType } from '../components/filters';
 import { modal } from '../store/modal_actions';
 import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
+import { EditUserDetails } from '../components/user/details';
 import { CustomURL } from '../components/customURL';
 import { logUserOut } from '../store/auth_actions';
 import { applyFilters } from '../store/filters_actions';
 import { API_URL } from '../config';
 import type { RootStateType } from '../store';
+
+
 const BlockMarkup = ({ children }) => (
   <div className="flex-child flex-child--grow bg-gray-faint mx12 round p12 my6">
     <div className="flex-parent flex-parent--row  justify--space-between">
@@ -228,6 +231,7 @@ const ListFortified = ({
   </div>
 );
 
+
 type propsType = {
   avatar: ?string,
   aoiId: ?string,
@@ -242,13 +246,12 @@ type propsType = {
   push: any => any,
   modal: any => any
 };
-
 class User extends React.PureComponent<any, propsType, any> {
   createAOIPromise;
   addToBlackListPromise;
   deleteFromBlackListPromise;
   state = {
-    userValues: null
+    userValues: null,
   };
   componentWillUnmount() {
     this.createAOIPromise && this.createAOIPromise.cancel();
@@ -390,12 +393,14 @@ class User extends React.PureComponent<any, propsType, any> {
         </header>
         <div className="px30 flex-child  pb60  filters-scroll">
           <span className="flex-parent flex-parent--row align justify--space-between  mr6 txt-bold mt24">
-            <Avatar size={72} url={this.props.avatar} />
-            <span
-              className="flex-child flex-child--grow pl24  pt18"
-              style={{ alignSelf: 'center' }}
-            >
-              <h2 className="txt-xl">Welcome {userDetails.get('username')}!</h2>
+              <Avatar size={72} url={this.props.avatar} />
+              <span
+                className="flex-child flex-child--grow pl24  pt18"
+                style={{ alignSelf: 'center' }}
+              >
+              <h2 className="txt-xl">
+                Welcome, {userDetails.get('username') ? userDetails.get('username') : 'stranger'}!
+              </h2>
               <div className="flex-child flex-child--grow">&nbsp;</div>
             </span>
           </span>
@@ -432,6 +437,9 @@ class User extends React.PureComponent<any, propsType, any> {
               <p className="flex-child txt-bold w120">Email: </p>
               <p className="flex-child">{userDetails.get('email') || '-'}</p>
             </span>
+            {this.props.token &&
+              <EditUserDetails />
+            }
 
             {userDetails.get('is_staff') && (
               <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">

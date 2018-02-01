@@ -49,3 +49,30 @@ export function fetchUserDetails(token: string) {
     return res.json();
   });
 }
+
+export function updateUserDetails(
+    token: string,
+    message_good: string,
+    message_bad: string,
+    comment_feature: boolean
+  ) {
+  return fetch(`${API_URL}/users/`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token ? `Token ${token}` : ''
+    },
+    body: JSON.stringify({
+      message_good,
+      message_bad,
+      comment_feature
+    })
+  }).then(res => {
+    if (res.status >= 400 && res.status < 600) {
+      throw new Error(
+        'Bad request.'
+      );
+    }
+    return res.json();
+  });
+}

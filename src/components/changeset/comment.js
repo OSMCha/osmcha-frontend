@@ -53,6 +53,7 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
     this.postCommentPromise.promise
       .then(r => {
         this.setState({'success': true});
+        this.setState({'value': ''});
       })
       .catch(e => {
         console.log(e);
@@ -65,12 +66,12 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
   render() {
     return(
       <div className="flex-parent flex-parent--column mt6 mb3">
-        {this.state.success && <div>Comment posted successfully!</div>}
-        {this.state.error && <div>Some error ocurred.</div>}
+        {this.state.success && <div><span>Comment posted successfully!</span></div>}
+        {this.state.error && <div><span>Some error ocurred.</span></div>}
         <div className="grid grid--gut12">
           <div className="col col--12">
             <textarea
-              placeholder="Communicate with the mapper through a changeset comment"
+              placeholder="Communicate with the mapper sending him a changeset comment."
               className="textarea"
               ref={r => {
                 if (this.clicked) {
