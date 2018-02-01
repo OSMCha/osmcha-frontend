@@ -135,7 +135,7 @@ export class MapOptions extends React.PureComponent {
                   defaultChecked="true"
                   name="baselayer"
                   id="cmap-baselayer-satellite"
-                  onChange={this.toggleSatellite}
+                  onClick={this.toggleSatellite}
                 />
                 <span className="cmap-label-text">Satellite</span>
               </label>
@@ -147,7 +147,7 @@ export class MapOptions extends React.PureComponent {
                   value="streets"
                   name="baselayer"
                   id="cmap-baselayer-streets"
-                  onChange={this.toggleStreet}
+                  onClick={this.toggleStreet}
                 />
                 <span className="cmap-label-text">Streets</span>
               </label>
@@ -159,7 +159,7 @@ export class MapOptions extends React.PureComponent {
                   value="dark"
                   name="baselayer"
                   id="cmap-baselayer-dark"
-                  onChange={this.toggleDark}
+                  onClick={this.toggleDark}
                 />
                 <span className="cmap-label-text">Dark</span>
               </label>
