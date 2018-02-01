@@ -52,8 +52,6 @@ export class BBoxPicker extends React.Component {
         this.map = map;
       }
     });
-    // importChangesetMap().then((mapboxgl: any) => {
-    // });
   }
   componentWillUnmount() {
     this.map && this.map.remove();

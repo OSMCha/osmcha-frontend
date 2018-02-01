@@ -45,7 +45,7 @@ export function Wrapper({
                 {description &&
                   <span
                     key={0}
-                    className="absolute wmin300"
+                    className="absolute wmin300 bg-white"
                     style={{ marginTop: -5 }}
                   >
                     {description}

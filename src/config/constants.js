@@ -17,4 +17,6 @@ export const osmCommentsApi =
 export const whosThat =
   'https://rksbsqdel4.execute-api.us-east-1.amazonaws.com/testing?action=names&id=';
 
+export const nominatimUrl = 'https://nominatim.openstreetmap.org/search.php';
+
 export const DEFAULT_FROM_DATE = 7;

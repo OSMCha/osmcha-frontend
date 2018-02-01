@@ -25,7 +25,6 @@ export function Details({
   );
 
   let sourceMatch = [];
-  let sourceOrignal = source;
 
   if (source && source.indexOf('{switch:a,b,c}.') > -1) {
     source = source.replace('{switch:a,b,c}.', '');

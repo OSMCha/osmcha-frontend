@@ -3,8 +3,9 @@ import { Iterable, List, Map } from 'immutable';
 import { API_URL } from '../config';
 import { PAGE_SIZE } from '../config/constants';
 import { appendDefaultDate } from '../utils/filters';
-import { handleErrors } from './aoi';
+import { handleErrors, getString } from './aoi';
 import type { filtersType } from '../components/filters';
+
 
 export function fetchChangesetsPage(
   pageIndex: number,
@@ -19,7 +20,7 @@ export function fetchChangesetsPage(
     let filter = v;
     let filterJoined = filter
       .filter(x => Iterable.isIterable(x) && x.get('value') !== '')
-      .map(x => x.get('value'))
+      .map(x => getString(x.get('value')))
       .join(',');
 
     if (filterJoined === '') return;

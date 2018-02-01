@@ -10,7 +10,7 @@ describe.skip('list index testing', () => {
     const mockReload = jest.fn();
     const currentPage = getcurrentPage();
     const list = shallow(
-      <StaticRouter>
+      <StaticRouter context={{}}>
         <List
           reloadPage={mockReload}
           activeChangesetId={49425586}

@@ -49,13 +49,24 @@ export function* fetchAOISaga(aoiId: string): any {
   yield put(action(AOI.fetched, { aoi }));
   let filters = aoi.getIn(['properties', 'filters'], Map());
   filters = filters.map((v, k) => {
-    const options = v.split(',');
-    return fromJS(
-      options.map(o => ({
-        value: o,
-        label: o
-      }))
-    );
+    try {
+      if (JSON.parse(v) && JSON.parse(v).hasOwnProperty('coordinates')) {
+        return fromJS([{
+          value: JSON.parse(v),
+          label: JSON.parse(v)
+        }]);
+      } else {
+        throw SyntaxError;
+      }
+    } catch(e) {
+      const options = v.split(',');
+      return fromJS(
+        options.map(o => ({
+          value: o,
+          label: o
+        }))
+      );
+    }
   });
   return filters;
 }
