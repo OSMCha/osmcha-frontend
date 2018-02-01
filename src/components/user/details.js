@@ -7,7 +7,6 @@ import { applyUpdateUserDetails } from '../../store/auth_actions';
 import type { RootStateType } from '../../store';
 
 
-
 class EditUserDetails extends React.PureComponent {
   constructor(props) {
     super(props);
