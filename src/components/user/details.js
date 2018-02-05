@@ -6,8 +6,6 @@ import { Button } from '../button';
 import { applyUpdateUserDetails } from '../../store/auth_actions';
 import type { RootStateType } from '../../store';
 
-
-
 class EditUserDetails extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -18,9 +16,11 @@ class EditUserDetails extends React.PureComponent {
     };
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({message_good: nextProps.userDetails.get('message_good')});
-    this.setState({message_bad: nextProps.userDetails.get('message_bad')});
-    this.setState({comment_feature: nextProps.userDetails.get('comment_feature')});
+    this.setState({ message_good: nextProps.userDetails.get('message_good') });
+    this.setState({ message_bad: nextProps.userDetails.get('message_bad') });
+    this.setState({
+      comment_feature: nextProps.userDetails.get('comment_feature')
+    });
   }
   onChangeMessageGood = (event: any) => {
     this.setState({ message_good: event.target.value });
@@ -34,30 +34,32 @@ class EditUserDetails extends React.PureComponent {
       this.state.message_bad,
       this.state.comment_feature
     );
-  }
+  };
   render() {
-    return(
+    return (
       <div>
         <span className="ml12 flex-parent flex-parent--row my3">
-          <p className="flex-child txt-bold">Default comment for changesets reviewed as GOOD:</p>
+          <p className="flex-child txt-s">
+            Default comment for changesets reviewed as GOOD:
+          </p>
         </span>
         <textarea
           placeholder="Define a default message to the changesets you review as good. You can edit it before post a comment."
           className="textarea ml12"
           value={this.state.message_good}
           onChange={this.onChangeMessageGood}
-          >
-        </textarea>
+        />
         <span className="ml12 flex-parent flex-parent--row my3 pt6">
-          <p className="flex-child txt-bold">Default comment for changesets reviewed as BAD:</p>
+          <p className="flex-child txt-s">
+            Default comment for changesets reviewed as BAD:
+          </p>
         </span>
         <textarea
           placeholder="Define a default message to the changesets you review as bad. You can edit it before post a comment."
           className="textarea ml12"
           value={this.state.message_bad}
           onChange={this.onChangeMessageBad}
-          >
-        </textarea>
+        />
         <Button className="input wmax180 ml12 mt6" onClick={this.handleSubmit}>
           Save Preferences
         </Button>
@@ -67,11 +69,11 @@ class EditUserDetails extends React.PureComponent {
 }
 EditUserDetails = connect(
   (state: RootStateType, props) => ({
-  userDetails: state.auth.getIn(['userDetails'], Map()),
-}),
-{
-  applyUpdateUserDetails
-}
+    userDetails: state.auth.getIn(['userDetails'], Map())
+  }),
+  {
+    applyUpdateUserDetails
+  }
 )(EditUserDetails);
 
 export { EditUserDetails };
