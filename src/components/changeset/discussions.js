@@ -1,18 +1,20 @@
 // @flow
 import React from 'react';
-import { List } from 'immutable';
 import moment from 'moment';
 import AnchorifyText from 'react-anchorify-text';
+
 import AssemblyAnchor from '../assembly_anchor';
+import { CommentForm } from './comment';
 import TranslateButton from './translate_button';
 
 export class Discussions extends React.PureComponent {
   props: {
     discussions: List<*>,
-    changesetId: number
+    changesetId: number,
+    changesetIsHarmful: boolean
   };
   render() {
-    const { discussions, changesetId } = this.props;
+    const { discussions, changesetId, changesetIsHarmful } = this.props;
     return (
       <div className="px12 py6">
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
@@ -53,19 +55,13 @@ export class Discussions extends React.PureComponent {
                 </div>
               )}
             </div>}
-        <div className="flex-parent flex-parent--center-main my12">
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Add a comment on OSM"
-            href={`https://openstreetmap.org/changeset/${changesetId}`}
-            className="btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition pl12 pr6"
+        <div className="flex-parent flex-parent--column justify--space-between my6 mt12">
+          <CommentForm
+            changesetId={changesetId}
+            changesetIsHarmful={changesetIsHarmful}
+            discussions={discussions}
           >
-            Add a comment on OSM
-            <svg className="icon inline-block align-middle pl3 pb3">
-              <use xlinkHref="#icon-share" />
-            </svg>
-          </a>
+          </CommentForm>
         </div>
       </div>
     );

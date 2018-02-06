@@ -99,8 +99,9 @@ export function FiltersHeader({
   handleClear: () => void,
   loadAoiId: string => void
 }) {
+  var save_aoi = '';
   if (token) {
-    var save_aoi = (
+    save_aoi = (
       <SaveAOI
         name={aoiName}
         aoiId={aoiId}
@@ -108,9 +109,8 @@ export function FiltersHeader({
         updateAOI={updateAOI}
       />
     );
-  } else {
-    var save_aoi = '';
   }
+
   return (
     <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
       <span className="txt-l txt-bold color-gray--dark">

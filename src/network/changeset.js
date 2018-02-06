@@ -81,3 +81,23 @@ export function setTag(
     return res.json();
   });
 }
+
+export function postComment(id: number, token: string, comment: string) {
+  return fetch(`${API_URL}/changesets/${id}/comment/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token ? `Token ${token}` : ''
+    },
+    body: JSON.stringify({
+      comment: comment
+    })
+  }).then(res => {
+    if (res.status >= 400 && res.status < 600) {
+      return res.json().then(r => {
+        throw new Error(r && r.detail);
+      });
+    }
+    return res.json();
+  });
+}
