@@ -59,6 +59,7 @@ export class Discussions extends React.PureComponent {
           <CommentForm
             changesetId={changesetId}
             changesetIsHarmful={changesetIsHarmful}
+            discussions={discussions}
           >
           </CommentForm>
         </div>
