@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 import { connect } from 'react-redux';
 
 import { cancelablePromise } from '../../utils/promise';
@@ -11,7 +11,8 @@ type propsType = {
   token: string,
   changesetId: number,
   userDetails: Map<string, any>,
-  changesetIsHarmful: boolean
+  changesetIsHarmful: boolean,
+  discussions: List<*>
 };
 
 class CommentForm extends React.PureComponent<any, propsType, any> {
@@ -33,7 +34,13 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
     this.updateValue(nextProps);
   }
   updateValue(props) {
-    if (this.state.value === '' && props.changesetIsHarmful !== null) {
+    const userCommentedBefore = props.discussions.filter(
+      item => item.get('userName') === props.userDetails.get('username')
+    ).size > 0;
+    if (this.state.value === '' &&
+        props.changesetIsHarmful !== null &&
+        !userCommentedBefore
+      ) {
       if (props.changesetIsHarmful) {
         this.setState({ value: props.userDetails.get('message_bad') });
       } else {
@@ -64,36 +71,45 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
   };
   render() {
     return (
-      <div className="flex-parent flex-parent--column mt6 mb3">
-        {this.state.success &&
-          <div className="bg-green-faint color-green inline-block px6 py3 txt-xs txt-bold round-full my12">
-            <span>Comment successfully posted.</span>
-          </div>}
-        {this.state.error &&
-          <div className="bg-orange-faint color-orange-dark inline-block px6 py3 txt-xs txt-bold round-full my12">
-            <span>Some error ocurred.</span>
-          </div>}
-        <div className="grid grid--gut12">
-          <div className="col col--12">
-            <textarea
-              placeholder="Communicate with the mapper sending him a changeset comment."
-              className="textarea"
-              ref={r => {
-                if (this.clicked) {
-                  r && r.select();
-                  this.clicked = false;
-                }
-              }}
-              value={this.state.value}
-              onChange={this.onChange}
-            />
-            <div className="pt6 fr">
-              <Button className="input wmax120" onClick={this.handleSubmit}>
-                Post Comment
-              </Button>
-            </div>
-          </div>
-        </div>
+      <div>
+        {this.props.token
+          ? <div className="flex-parent flex-parent--column mt6 mb3">
+              {this.state.success &&
+                <div className="bg-green-faint color-green inline-block px6 py3 txt-xs txt-bold align-center round-full my12">
+                  <span>Comment successfully posted.</span>
+                </div>}
+                {this.state.error &&
+                  <div className="bg-orange-faint color-orange-dark inline-block px6 py3 txt-xs txt-bold align-center round-full my12">
+                    <span>Some error ocurred.</span>
+                  </div>}
+                  <div className="grid grid--gut12">
+                    <div className="col col--12">
+                      <textarea
+                        placeholder="Communicate with the mapper sending him a changeset comment."
+                        className="textarea"
+                        ref={r => {
+                          if (this.clicked) {
+                            r && r.select();
+                            this.clicked = false;
+                          }
+                        }}
+                        value={this.state.value}
+                        onChange={this.onChange}
+                        />
+                      <div className="pt6 fr">
+                        <Button className="input wmax120" onClick={this.handleSubmit}>
+                          Post Comment
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              : <div className="flex-parent flex-parent--column mt6 mb3">
+                  <div className="bg-darken10 color-gray inline-block px6 py3 txt-xs txt-bold align-center round-full my12">
+                    <span>Sign in to post a comment.</span>
+                  </div>
+                </div>
+        }
       </div>
     );
   }
