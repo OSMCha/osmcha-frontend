@@ -430,51 +430,42 @@ class User extends React.PureComponent<any, propsType, any> {
               <span className="ml12 flex-parent flex-parent--row my3">
                 <p className="flex-child txt-bold w120">Staff: </p>
                 <p className="flex-child">Yes</p>
-              </span>}
-            <span className="ml12 flex-parent flex-parent--row my3">
-              <p className="flex-child txt-bold w120">Active: </p>
-              <p className="flex-child">
-                {userDetails.get('is_active') ? 'Yes' : 'No'}
-              </p>
-            </span>
-            <span className="ml12 flex-parent flex-parent--row my3">
-              <p className="flex-child txt-bold w120">Email: </p>
-              <p className="flex-child">
-                {userDetails.get('email') || '-'}
-              </p>
-            </span>
+              </span>
+            }
+            {this.props.token &&
+              <div className="mt24 mb12">
+                <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
+                  <span className="txt-bold">Review Comments Template </span>
+                </h2>
+                <EditUserDetails />
+              </div>
+            }
             {userDetails.get('is_staff') &&
-              <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-                BlackList
-              </h2>}
-            {userDetails.get('is_staff') &&
-              <ListFortified
-                data={blackList}
-                TargetBlock={BlackListBlock}
-                propsToPass={{
-                  removeFromBlackList: this.removeFromBlackList
-                }}
-                SaveComp={<SaveUser onCreate={this.addToBlackList} />}
-              />}
-            <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-              <span className="txt-bold">Saved Filters</span>
-              <span className="txt-xs txt-em">(Experimental)</span>
-            </h2>
-            <ListFortified
-              data={this.props.data.getIn(['aoi', 'features'], List())}
-              TargetBlock={AOIsBlock}
-              propsToPass={{
-                activeAoiId: this.props.aoiId,
-                removeAoi: this.removeAOI
-              }}
-              SaveComp={<SaveButton onCreate={this.createAOI} />}
-            />
-            <span>&nbsp;</span>
-            <div className="my24">
-              <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-                <span className="txt-bold">Review Comments Template </span>
+              <div className="mt24 mb12">
+                <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
+                  BlackList
+                </h2>
+                <ListFortified
+                  data={blackList}
+                  TargetBlock={BlackListBlock}
+                  propsToPass={{removeFromBlackList: this.removeFromBlackList}}
+                  SaveComp={<SaveUser onCreate={this.addToBlackList} />}
+                />
+              </div>
+            }
+            <div className="mt24 mb12">
+              <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
+                <span className="txt-bold">Saved Filters</span>
               </h2>
-              {this.props.token && <EditUserDetails />}
+              <ListFortified
+                data={this.props.data.getIn(['aoi', 'features'], List())}
+                TargetBlock={AOIsBlock}
+                propsToPass={{
+                  activeAoiId: this.props.aoiId,
+                  removeAoi: this.removeAOI
+                }}
+                SaveComp={<SaveButton onCreate={this.createAOI} />}
+                />
             </div>
           </div>
         </div>
