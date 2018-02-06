@@ -78,7 +78,6 @@ const persistedState = {
     token: safeStorage.getItem('token'),
     oAuthToken: safeStorage.getItem('oauth_token'),
     oAuthTokenSecret: safeStorage.getItem('oauth_token_secret'),
-    newsAlertShowCount: safeStorage.getItem('news_alert_show_count'),
     error: null
   })
 };
