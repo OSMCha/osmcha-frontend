@@ -56,7 +56,7 @@
 # Introduction to OSMCha
 
 OSMCha is short for OpenStreetMap Changeset Analyser. OSMCha is a web tool to
-help visualise and analyse edits made by mappers on OpenStreetMap(OSM). OSMCha
+help visualise and analyse edits made by mappers on OpenStreetMap (OSM). OSMCha
 was originally written by
 [Wille Marcel](https://www.openstreetmap.org/user/wille) in 2015 to validate
 changesets. In collaboration with Wille, this global instance is hosted by
