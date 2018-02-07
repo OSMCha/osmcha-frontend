@@ -206,9 +206,9 @@ what a problematic edit is on OSM, please refer to our guide on
 
 ## Filters
 
-<img width="600" alt="osmcha-filters" src="https://user-images.githubusercontent.com/8921295/33522469-946070fc-d813-11e7-940d-2df6a797f655.png">
+<img width="600" alt="osmcha-filters" src="https://user-images.githubusercontent.com/666291/35921574-236d00ea-0c02-11e8-9cfb-bf53dde304a0.png">
 
-Filters tab on OSMCha provides a variety of search parameters to fetch a specific list of changesets the reviewer is interested in. One can filter changesets based on a date range, new mapper edits, mass deletions, text in the source field, Bbox, editor used, etc.
+The Filters tab on OSMCha provides a variety of search parameters to fetch a specific list of changesets the reviewer is interested in. One can filter changesets based on a date range, new mapper edits, mass deletions, text in the source field, location, editor used, etc.
 
 <img width="300" alt="osmcha-is-hot" src="https://user-images.githubusercontent.com/8921295/33522494-128de644-d814-11e7-8510-e25efac79004.png">
 
@@ -218,17 +218,16 @@ _Hot project edits are a specific example for which a changeset comment with the
 
 <full screenshot of filters>
 
-<img width="600" alt="osmcha-basic" src="https://user-images.githubusercontent.com/8921295/33522383-5598e18a-d811-11e7-9340-5fc48036523c.png">
+<img width="600" alt="osmcha-basic" src="https://user-images.githubusercontent.com/666291/35921419-adc7e184-0c01-11e8-8e37-a23751c5bad3.png">
 
 The [history tab](https://www.openstreetmap.org/history) on OpenStreetMap offers a very basic area based retrieval of changesets. It allows a user to zoom in to a specific area on the map and all the changesets in that area are shown on the sidebar in the order of newest first. OSMCha filters expands this feature with much more metadata based search.
 
 These include:
 
-* Words in a changeset comment or changeset comment used by the mapper, for example: #hotosm-project #MissingMaps
+* Words in a changeset comment or changeset comment used by the mapper, for example: `#hotosm-project` `#MissingMaps`
 * Changeset date based on the time the edits were uploaded on OpenStreetMap
 * Number of features added, modified and deleted in a changeset
-* Changeset area on OpenStreetMap using the **Bbox** filter
-* Geospatial filter for searching changesets whose bounding box intersects with a given geometry
+* Changeset location using the **Bbox** or the **Location** filter
 * Changesets that are flagged by compare functions for edit behaviour through reason feed from [OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
 * Source or imagery mentioned in a changeset by the mapper
 * Specific editor based search
@@ -253,7 +252,7 @@ These include:
 
 ### Saving and sharing custom filters
 
-OSMCha allows a logged-in user to save a filter template with custom search parameters with a personalized name. There is no limit on how many filter templates can be saved per user nor with the number of custom parameters that can be set in a filter template.
+OSMCha allows a logged-in user to save a filter template with custom search parameters and a personalized name. There is no limit on how many filter templates can be saved per user nor with the number of custom parameters that can be set in a filter template.
 
 <img width="600" alt="osmcha-save-filter-instructions" src="https://user-images.githubusercontent.com/666291/34695491-c7b995ac-f4a9-11e7-9e43-edca8365fadb.gif">
 
@@ -263,7 +262,7 @@ Saved filters are visible in the user page which can be accessed by clicking on 
 
 <img width="600" alt="osmcha-saving-filters" src="https://user-images.githubusercontent.com/8921295/33522675-0ce1327e-d818-11e7-88c0-3f03359da6c2.png">
 
-OSMCha saves these filters with a unique identifier code. Here is an example filter - https://osmcha.mapbox.com/filters?aoi=71247014-abbf-4253-8093-2a2afdda4169
+OSMCha saves these filters with a unique identifier code. Here is a filter example - https://osmcha.mapbox.com/filters?aoi=71247014-abbf-4253-8093-2a2afdda4169
 
 ### Setting up RSS feed - Area of Interest
 
@@ -272,6 +271,16 @@ Each saved filter has an RSS feed to update whenever a new changeset comes into 
 Here is an RSS feed for the filter we have setup in the above section - https://osmcha.mapbox.com/api/v1/aoi/71247014-abbf-4253-8093-2a2afdda4169/changesets/feed/
 
 Any third party RSS client can be used to push instant personal notifications for the changesets that have come into your saved filters at set time intervals.
+
+## User page
+
+The user page contains some details like your username and ids, your Review Comments Template and your Saved Filters.
+
+<img width="600" alt="osmcha-sidebar" src="https://user-images.githubusercontent.com/666291/35931820-0d5b944a-0c1d-11e8-97bc-7c23caf7ed05.png">
+
+In the Review Comments Template you can set a message template to use in the changeset comments. That way, after you review a changeset, the comment template will be loaded in the discussions tab and you can complement the text or just post the message.
+
+Finally, in the Saved Filters section you can manage your filters, load them and get its RSS link.
 
 # FAQ
 
@@ -327,9 +336,10 @@ Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of chan
 | **Changeset panels**                             |                |
 | Toggle Changeset details                         | `1`            |
 | Toggle Flagged features                          | `2`            |
-| Toggle Changeset discussions                     | `3`            |
-| Toggle User profile                              | `4`            |
-| Toggle Map controls                              | `5`            |
+| Toggle Tag Changes                               | `3`            |
+| Toggle Changeset discussions                     | `4`            |
+| Toggle User profile                              | `5`            |
+| Toggle Map controls                              | `6`            |
 | **Other**                                        |                |
 | Show shortcuts list                              | `?`            |
 
