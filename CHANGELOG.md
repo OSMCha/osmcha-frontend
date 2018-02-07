@@ -2,6 +2,10 @@
 
 Log of changes since the 2.0 version
 
+#### 0.38.1
+
+- Avoid post comment success and error messages to be shown at the same time
+
 #### 0.38.0
 
 * Allow users to post comments to changesets from inside OSMCha
