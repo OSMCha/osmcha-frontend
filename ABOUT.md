@@ -120,11 +120,6 @@ restrictions, land use etc.
   detection process for bad edits instead of writing rule based compare
   functions for all possible scenarios of bad edits.
 
-* When we review a changeset in OSMCha, a comment will be posted in the OSM
-  changeset page. That way, we give a feedback to the user and make that
-  information accessible to other Quality Assurance tools. The comments have a
-  predefined message and are posted with your username.
-
 ### Future of OSMCha and validation using OSM-Compare
 
 * Machine learning based detection methods replace rule based edit detections.
@@ -157,7 +152,7 @@ what a problematic edit is on OSM, please refer to our guide on
 * In the top right corner of the panel, in blue, yellow and red, number of
   additions, modifications and deletions of the changeset are presented.
 * The details panels includes the username of the mapper, number of changesets
-  the mapper has contributed on OSM, changeset comment and further details like
+  the mapper has contributed on OSM, changeset comments and further details like
   the editor and imagery used in making the edits on OSM.
 
 <img width="300" alt="osmcha-flagged" src="https://user-images.githubusercontent.com/8921295/33522235-84e676fe-d80d-11e7-8c3a-685143958732.png">
@@ -172,9 +167,9 @@ what a problematic edit is on OSM, please refer to our guide on
 
 * There is also a tab that shows all the features whose tags were modified in the changeset. This makes it easy to identify the modifications made in the features without the need of clicking on them one by one.
 
-<img width="300" alt="osmcha-discussions" src="https://user-images.githubusercontent.com/8921295/33522260-49991fd8-d80e-11e7-88a3-a1c07774db78.png">
+<img width="300" alt="osmcha-discussions" src="https://user-images.githubusercontent.com/666291/35882802-8090d3a0-0b6c-11e8-9da6-bc27ff82980c.png">
 
-* Similarly if there is a discussion on the changeset on OpenStreetMap, OSMCha presents the discussion under the discussion tab.
+* Similarly, if there are comments on the changeset on OpenStreetMap, OSMCha presents the discussion under the discussion tab. You can post comments directly from OSMCha. You can define comment templates on your [user page](https://osmcha.mapbox.com/user), so you will have a base message to send to a user after review the changeset as good or bad. Right after your review, the comment form will be filled with your saved text. We suggest you to communicate with other mappers to alert them of errors, aspects to improve or simply to welcome a new user or praise a good edit.
 
 <img width="300" alt="osmcha-users" src="https://user-images.githubusercontent.com/8921295/33522268-a7f36b06-d80e-11e7-8901-edf0376898fa.png">
 
