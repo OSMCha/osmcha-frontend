@@ -59,11 +59,13 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
     this.postCommentPromise.promise
       .then(r => {
         this.setState({ success: true });
+        this.setState({ error: false });
         this.setState({ value: '' });
       })
       .catch(e => {
         console.log(e);
         this.setState({ error: true });
+        this.setState({ success: false });
       });
   };
   handleSubmit = event => {
