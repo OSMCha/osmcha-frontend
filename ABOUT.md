@@ -31,21 +31,21 @@
 * [Frequent error messages](#frequent-error-messages)
   * [Changeset views error messages](#changeset-views-error-messages)
     * [Changeset was already checked.](#changeset-was-already-checked)
-    * [User can not check his own changeset.](#user-can-not-check-his-own-changeset)
+    * [User can not check their own changeset.](#user-can-not-check-their-own-changeset)
     * [Changeset is not checked.](#changeset-is-not-checked)
     * [User does not have permission to uncheck this changeset.](#user-does-not-have-permission-to-uncheck-this-changeset)
-    * [User can not add tags to his own changeset.](#user-can-not-add-tags-to-his-own-changeset)
+    * [User can not add tags to their own changeset.](#user-can-not-add-tags-to-their-own-changeset)
     * [User can not add tags to a changeset checked by another user.](#user-can-not-add-tags-to-a-changeset-checked-by-another-user)
-    * [User can not remove tags from his own changeset.](#user-can-not-remove-tags-from-his-own-changeset)
+    * [User can not remove tags from their own changeset.](#user-can-not-remove-tags-from-their-own-changeset)
     * [User can not remove tags from a changeset checked by another user.](#user-can-not-remove-tags-from-a-changeset-checked-by-another-user)
   * [Feature views error messages](#feature-views-error-messages)
     * [Feature was already checked.](#feature-was-already-checked)
-    * [User can not check his own feature.](#user-can-not-check-his-own-feature)
+    * [User can not check their own feature.](#user-can-not-check-their-own-feature)
     * [Feature is not checked.](#feature-is-not-checked)
     * [User does not have permission to uncheck this feature.](#user-does-not-have-permission-to-uncheck-this-feature)
-    * [User can not add tags to his own feature.](#user-can-not-add-tags-to-his-own-feature)
+    * [User can not add tags to their own feature.](#user-can-not-add-tags-to-their-own-feature)
     * [User can not add tags to a feature checked by another user.](#user-can-not-add-tags-to-a-feature-checked-by-another-user)
-    * [User can not remove tags from his own feature.](#user-can-not-remove-tags-from-his-own-feature)
+    * [User can not remove tags from their own feature.](#user-can-not-remove-tags-from-their-own-feature)
     * [User can not remove tags from a feature checked by another user.](#user-can-not-remove-tags-from-a-feature-checked-by-another-user)
 * [References](#references)
 * [Other tools for validation](#other-tools-for-validation)
@@ -56,7 +56,7 @@
 # Introduction to OSMCha
 
 OSMCha is short for OpenStreetMap Changeset Analyser. OSMCha is a web tool to
-help visualise and analyse edits made by mappers on OpenStreetMap(OSM). OSMCha
+help visualise and analyse edits made by mappers on OpenStreetMap (OSM). OSMCha
 was originally written by
 [Wille Marcel](https://www.openstreetmap.org/user/wille) in 2015 to validate
 changesets. In collaboration with Wille, this global instance is hosted by
@@ -67,29 +67,33 @@ Mapbox as an additional data Quality Analysis tool for the community.
 * OpenStreetMap is a crowdsourced project, and it is necessary to have user
   friendly tools for the community, to guide new contributors to make a great
   map.
+
 * Any given day, around 30,000 changesets containing additions, modifications,
   and deletions to the data make their way into OSM, which is driven by a strong
   community.
+
 * With new users signing up on OSM every day, it is likely that the mapping
   guides/wikis on tagging scheme, general practices are not uniformly followed
   by every contributor, resulting in accidental edits, and in rare cases
   [intentional vandalism](#what-is-vandalism) that breaks the map.
+
 * OSMCha is designed to be an integrated tool that can address various
   [validation requirements](#how-to-review-a-changeset) of the community. OSMCha
   is also supported by an open source edit recognition project called
   [OSM-Compare](https://github.com/mapbox/osm-compare) which can be used for
   suggesting manual verification.
+
 * This tool offers advanced filtering options that can help you
-  [filter changesets](#filters) based on various attributes. (Ex: All changesets
+  [filter changesets](#filters) based on various OSM metatags and attributes. (Ex: All changesets
   with hashtags, user specific changesets, etc.).
 
 ### What is vandalism?
 
 [Vandalism](https://wiki.openstreetmap.org/wiki/Vandalism) with respect to
 OpenStreetMap refers to deliberate acts of destruction or damage to the map
-data. These include, intentional edits that causes visible breakages on the map
+data. These include, intentional edits that cause visible breakages on the map
 and also break other crucial map data such as route relations, boundaries, turn
-restrictions, land use etc.
+restrictions, land use classification etc.
 
 ### What are flagged changesets and how are they automatically flagged?
 
@@ -120,16 +124,12 @@ restrictions, land use etc.
   detection process for bad edits instead of writing rule based compare
   functions for all possible scenarios of bad edits.
 
-* When we review a changeset in OSMCha, a comment will be posted in the OSM
-  changeset page. That way, we give a feedback to the user and make that
-  information accessible to other Quality Assurance tools. The comments have a
-  predefined message and are posted with your username.
-
 ### Future of OSMCha and validation using OSM-Compare
 
 * Machine learning based detection methods replace rule based edit detections.
   This makes it easier for analysis, automates maintenance and has prospects for
-  better for detection rates to catch bad edits on OpenStreetMap.
+  better detection rates to catch bad edits on OpenStreetMap.
+
 * OSMCha will continue to be an OpenStreetMap validation tool that get feeds
   from [OSM-Compare](https://github.com/mapbox/osm-compare) with constant
   maintenance, with features towards an easier user experience for validation of
@@ -140,10 +140,10 @@ restrictions, land use etc.
 ## How to review a changeset?
 
 It is important that the reviewer has the necessary information about the
-changeset and the mapper to understand a particular changeset.
+changeset and understand the diff of modifications in the OSM data.
 
 For this purpose, OSMCha offers an interface similar to OpenStreetMap but with
-additional tools such as changeset-map to visualise the edits, information about
+additional tools such as [changeset-map](https://github.com/osmlab/changeset-map) to visualise the edits, information about
 the mapper, other information related to the changeset and OSM user history that
 can help the reviewer identify a problematic edits on OSM. For a deep-dive into
 what a problematic edit is on OSM, please refer to our guide on
@@ -151,16 +151,18 @@ what a problematic edit is on OSM, please refer to our guide on
 
 ### Changeset and Mapper details
 
-<img width="300" alt="osmcha-changeset-details" src="https://user-images.githubusercontent.com/8921295/33522217-bcf61e42-d80c-11e7-8338-2ae4abe49693.png">
+<img width="300" alt="osmcha-changeset-details" src="https://user-images.githubusercontent.com/8921295/35939695-edaf1c40-0c1a-11e8-858e-6683680e79fc.png">
 
-* The details panel on OSMCha gives information of the changeset and the mapper.
+* The details panel on OSMCha provides information on the changeset and the mapper.
+
 * In the top right corner of the panel, in blue, yellow and red, number of
   additions, modifications and deletions of the changeset are presented.
-* The details panels includes the username of the mapper, number of changesets
-  the mapper has contributed on OSM, changeset comment and further details like
+
+* The details include the username of the mapper, number of changesets
+  the mapper has contributed on OSM, changeset discussion comments and further details like
   the editor and imagery used in making the edits on OSM.
 
-<img width="300" alt="osmcha-flagged" src="https://user-images.githubusercontent.com/8921295/33522235-84e676fe-d80d-11e7-8c3a-685143958732.png">
+<img width="300" alt="osmcha-flagged" src="https://user-images.githubusercontent.com/8921295/35939948-a4ebf0c2-0c1b-11e8-9db9-3b439f04d7fe.png">
 
 * When an edit is
   [detected through a compare function](#why-to-review-a-changeset-as-goodbad-%F0%9F%91%8D--%F0%9F%91%8E-)
@@ -172,11 +174,13 @@ what a problematic edit is on OSM, please refer to our guide on
 
 * There is also a tab that shows all the features whose tags were modified in the changeset. This makes it easy to identify the modifications made in the features without the need of clicking on them one by one.
 
-<img width="300" alt="osmcha-discussions" src="https://user-images.githubusercontent.com/8921295/33522260-49991fd8-d80e-11e7-88a3-a1c07774db78.png">
+<img width="300" alt="osmcha-discussions" src="https://user-images.githubusercontent.com/666291/35882802-8090d3a0-0b6c-11e8-9da6-bc27ff82980c.png">
 
-* Similarly if there is a discussion on the changeset on OpenStreetMap, OSMCha presents the discussion under the discussion tab.
+* Similarly, if there are comments on the changeset on OpenStreetMap, OSMCha presents the discussion under the discussion tab.
 
-<img width="300" alt="osmcha-users" src="https://user-images.githubusercontent.com/8921295/33522268-a7f36b06-d80e-11e7-8901-edf0376898fa.png">
+* User's can automatically post OSM changeset discussion comments directly from OSMCha. You can define comment templates on your [user page](https://osmcha.mapbox.com/user), so you will have a base message to send to a user after reviewing the changeset as good or bad. Right after your review, the comment form will be filled with your saved text. We suggest you to communicate with other mappers to alert them of errors, aspects to improve or simply to welcome a new user or praise a good edit.
+
+<img width="300" alt="osmcha-users" src="https://user-images.githubusercontent.com/8921295/35940051-ee1c8dce-0c1b-11e8-924a-4c1bcc31fcce.png">
 
 <screenshot on user profile>
 
@@ -192,12 +196,12 @@ what a problematic edit is on OSM, please refer to our guide on
 
 * Click on map from `Flagged features tab` and visualise it in changeset map.
 
-<img width="300" alt="osmcha-mapcontrols" src="https://user-images.githubusercontent.com/8921295/33522969-5cfbb8d0-d820-11e7-86e7-590d897c1a8a.png">
+<img width="300" alt="osmcha-mapcontrols" src="https://user-images.githubusercontent.com/8921295/35940114-236f8314-0c1c-11e8-9649-47c1f077ab02.png">
 
 * The reviewer can also change the background map on the changeset-map by
   toggling through the map style in `Map controls` tab.
 
-<img width="300" alt="osmcha-flagged" src="https://user-images.githubusercontent.com/8921295/33522285-22bf5732-d80f-11e7-99bf-291f0c29d906.png">
+<img width="300" alt="osmcha-flagged" src="https://user-images.githubusercontent.com/8921295/35940146-333e3d94-0c1c-11e8-8036-5adbbfea35be.png">
 
 * Open the changeset in a preferred editor or a preferred tool to inspect the
   changeset.
@@ -211,11 +215,11 @@ what a problematic edit is on OSM, please refer to our guide on
 
 ## Filters
 
-<img width="600" alt="osmcha-filters" src="https://user-images.githubusercontent.com/8921295/33522469-946070fc-d813-11e7-940d-2df6a797f655.png">
+<img width="600" alt="osmcha-filters" src="https://user-images.githubusercontent.com/666291/35921574-236d00ea-0c02-11e8-9cfb-bf53dde304a0.png">
 
-Filters tab on OSMCha provides a variety of search parameters to fetch a specific list of changesets the reviewer is interested in. One can filter changesets based on a date range, new mapper edits, mass deletions, text in the source field, Bbox, editor used, etc.
+The Filters tab on OSMCha provides a variety of search parameters to fetch a specific list of changesets the reviewer is interested in. One can filter changesets based on a date range, new mapper edits, mass deletions, text in the source field, location, editor used, etc.
 
-<img width="300" alt="osmcha-is-hot" src="https://user-images.githubusercontent.com/8921295/33522494-128de644-d814-11e7-8510-e25efac79004.png">
+<img width="250" alt="osmcha-is-hot" src="https://user-images.githubusercontent.com/8921295/33522494-128de644-d814-11e7-8510-e25efac79004.png">
 
 _Hot project edits are a specific example for which a changeset comment with the associated hashtag can be used to retrieve all the changesets contributed for the task._
 
@@ -223,17 +227,16 @@ _Hot project edits are a specific example for which a changeset comment with the
 
 <full screenshot of filters>
 
-<img width="600" alt="osmcha-basic" src="https://user-images.githubusercontent.com/8921295/33522383-5598e18a-d811-11e7-9340-5fc48036523c.png">
+<img width="600" alt="osmcha-basic" src="https://user-images.githubusercontent.com/666291/35921419-adc7e184-0c01-11e8-8e37-a23751c5bad3.png">
 
 The [history tab](https://www.openstreetmap.org/history) on OpenStreetMap offers a very basic area based retrieval of changesets. It allows a user to zoom in to a specific area on the map and all the changesets in that area are shown on the sidebar in the order of newest first. OSMCha filters expands this feature with much more metadata based search.
 
 These include:
 
-* Words in a changeset comment or changeset comment used by the mapper, for example: #hotosm-project #MissingMaps
+* Words in a changeset comment or changeset comment used by the mapper, for example: `#hotosm-project` `#MissingMaps`
 * Changeset date based on the time the edits were uploaded on OpenStreetMap
 * Number of features added, modified and deleted in a changeset
-* Changeset area on OpenStreetMap using the **Bbox** filter
-* Geospatial filter for searching changesets whose bounding box intersects with a given geometry
+* Changeset location using the **Bbox** or the **Location** filter
 * Changesets that are flagged by compare functions for edit behaviour through reason feed from [OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
 * Source or imagery mentioned in a changeset by the mapper
 * Specific editor based search
@@ -258,7 +261,7 @@ These include:
 
 ### Saving and sharing custom filters
 
-OSMCha allows a logged-in user to save a filter template with custom search parameters with a personalized name. There is no limit on how many filter templates can be saved per user nor with the number of custom parameters that can be set in a filter template.
+OSMCha allows a logged-in user to save a filter template with custom search parameters and a personalized name. There is no limit on how many filter templates can be saved per user nor with the number of custom parameters that can be set in a filter template.
 
 <img width="600" alt="osmcha-save-filter-instructions" src="https://user-images.githubusercontent.com/666291/34695491-c7b995ac-f4a9-11e7-9e43-edca8365fadb.gif">
 
@@ -268,7 +271,7 @@ Saved filters are visible in the user page which can be accessed by clicking on 
 
 <img width="600" alt="osmcha-saving-filters" src="https://user-images.githubusercontent.com/8921295/33522675-0ce1327e-d818-11e7-88c0-3f03359da6c2.png">
 
-OSMCha saves these filters with a unique identifier code. Here is an example filter - https://osmcha.mapbox.com/filters?aoi=71247014-abbf-4253-8093-2a2afdda4169
+OSMCha saves these filters with a unique identifier code. Here is a filter example - https://osmcha.mapbox.com/filters?aoi=71247014-abbf-4253-8093-2a2afdda4169
 
 ### Setting up RSS feed - Area of Interest
 
@@ -277,6 +280,16 @@ Each saved filter has an RSS feed to update whenever a new changeset comes into 
 Here is an RSS feed for the filter we have setup in the above section - https://osmcha.mapbox.com/api/v1/aoi/71247014-abbf-4253-8093-2a2afdda4169/changesets/feed/
 
 Any third party RSS client can be used to push instant personal notifications for the changesets that have come into your saved filters at set time intervals.
+
+## User page
+
+The user page contains some details like your username and ids, your Review Comments Template and your Saved Filters.
+
+<img width="600" alt="osmcha-sidebar" src="https://user-images.githubusercontent.com/666291/35931820-0d5b944a-0c1d-11e8-97bc-7c23caf7ed05.png">
+
+In the Review Comments Template you can set a message template to use in the changeset comments. That way, after you review a changeset, the comment template will be loaded in the discussions tab and you can complement the text or just post the message.
+
+Finally, in the Saved Filters section you can manage your filters, load them and get it's RSS link.
 
 # FAQ
 
@@ -332,9 +345,10 @@ Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of chan
 | **Changeset panels**                             |                |
 | Toggle Changeset details                         | `1`            |
 | Toggle Flagged features                          | `2`            |
-| Toggle Changeset discussions                     | `3`            |
-| Toggle User profile                              | `4`            |
-| Toggle Map controls                              | `5`            |
+| Toggle Tag Changes                               | `3`            |
+| Toggle Changeset discussions                     | `4`            |
+| Toggle User profile                              | `5`            |
+| Toggle Map controls                              | `6`            |
 | **Other**                                        |                |
 | Show shortcuts list                              | `?`            |
 
@@ -369,7 +383,7 @@ No, you cannot review your own changesets, but you can view your changesets.
 
 This is raised when someone tries to check a changeset that was already checked
 
-### User can not check his own changeset.
+### User can not check their own changeset.
 
 This is raised when someone tries to check a changeset that was created by him/her
 
@@ -381,7 +395,7 @@ This is raised when someone tries to uncheck a changeset that is not checked
 
 This is raised when someone tries to uncheck a changeset that another user checked
 
-### User can not add tags to his own changeset.
+### User can not add tags to their own changeset.
 
 This is raised when someone tries to add tags to their own changesets
 
@@ -389,7 +403,7 @@ This is raised when someone tries to add tags to their own changesets
 
 This is raised when someone tries to add tags to a changeset reviewed by someone else.
 
-### User can not remove tags from his own changeset.
+### User can not remove tags from their own changeset.
 
 This is raised when someone tries to remove tags from their own changeset.
 
@@ -403,7 +417,7 @@ This is raised when someone tries to remove tags in a changeset that are added b
 
 This is raised when someone tries to check a feature that was already checked
 
-### User can not check his own feature.
+### User can not check their own feature.
 
 This is raised when someone tries to check a feature that was created by him/her.
 
@@ -415,7 +429,7 @@ This is raised when someone tries to uncheck a feature that is not checked
 
 This is raised when someone tries to uncheck a feature that another user checked
 
-### User can not add tags to his own feature.
+### User can not add tags to their own feature.
 
 This is raised when someone tries to add tags to their own features
 
@@ -424,7 +438,7 @@ This is raised when someone tries to add tags to their own features
 This is raised when someone tries to add tags to a feature reviewed by someone
 else
 
-### User can not remove tags from his own feature.
+### User can not remove tags from their own feature.
 
 This is raised when someone tries to remove a tag from his/her own feature
 
