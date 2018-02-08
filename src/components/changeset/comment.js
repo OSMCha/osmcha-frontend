@@ -87,7 +87,7 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
                   <div className="grid grid--gut12">
                     <div className="col col--12">
                       <textarea
-                        placeholder="Provide feedback to the mapper with a changeset comment"
+                        placeholder="Provide constructive feedback to the mapper with a changeset comment."
                         className="textarea"
                         ref={r => {
                           if (this.clicked) {
