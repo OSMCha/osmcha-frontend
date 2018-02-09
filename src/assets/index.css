@@ -400,6 +400,11 @@ img {
 .workflow-img {
   width: 35vw;
 }
+
 #guide > p {
   padding-top: 6px;
+}
+
+#guide > p > img {
+  padding-bottom: 6px;
 }
