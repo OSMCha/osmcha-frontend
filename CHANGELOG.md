@@ -2,9 +2,15 @@
 
 Log of changes since the 2.0 version
 
+#### 0.38.2
+
+* Make documentation and all software messages gender neutral
+* Update documentation to match the 0.38.0 changes
+* Improve post comment success/error messages
+
 #### 0.38.1
 
-- Avoid post comment success and error messages to be shown at the same time
+* Avoid post comment success and error messages to be shown at the same time
 
 #### 0.38.0
 
