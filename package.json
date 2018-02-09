@@ -41,7 +41,7 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.15.4",
     "reselect": "^3.0.1",
-    "showdown": "^1.7.1",
+    "showdown": "^1.8.6",
     "superagent": "^3.5.2",
     "@turf/simplify": "^5.1.5",
     "@turf/bbox": "^5.1.5"
