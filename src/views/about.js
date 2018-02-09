@@ -9,6 +9,7 @@ const converter = new showdown.Converter({
 });
 
 converter.setFlavor('github');
+converter.setOption('simpleLineBreaks', false);
 
 function formatMarkdown() {
   return [
@@ -47,7 +48,7 @@ function formatMarkdown() {
     {
       type: 'output',
       regex: /img src=/g,
-      replace: `img 
+      replace: `img
       class="py12 my12 border border--gray-light border--2"
       style="margin-left: auto;
              margin-right: auto;

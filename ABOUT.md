@@ -3,50 +3,42 @@
 <!-- toc -->
 
 * [Introduction to OSMCha](#introduction-to-osmcha)
-  * [Why use OSMCha?](#why-use-osmcha)
-  * [What is vandalism?](#what-is-vandalism)
-  * [What are flagged changesets and how are they automatically flagged?](#what-are-flagged-changesets-and-how-are-they-automatically-flagged)
-  * [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad----)
-  * [Future of OSMCha and validation using OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
+    * [Why use OSMCha?](#why-use-osmcha)
+    * [What is vandalism?](#what-is-vandalism)
+    * [What are flagged changesets and how are they automatically flagged?](#what-are-flagged-changesets-and-how-are-they-automatically-flagged)
+    * [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad----)
+    * [Future of OSMCha and validation using OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
 * [Usage](#usage)
-  * [How to review a changeset?](#how-to-review-a-changeset)
-    * [Changeset and Mapper details](#changeset-and-mapper-details)
-    * [Using Changeset-map](#using-changeset-map)
-    * [Reviewing changesets in OSMCha from OpenStreetMap](#reviewing-changesets-in-osmcha-from-openstreetmap)
-  * [Filters](#filters)
-    * [Basic filters](#basic-filters)
-    * [Applications for edit based search](#applications-for-edit-based-search)
-    * [Saving and sharing custom filters](#saving-and-sharing-custom-filters)
-    * [Setting up RSS feed - Area of Interest](#setting-up-rss-feed---area-of-interest)
+    * [How to review a changeset?](#how-to-review-a-changeset)
+        * [Changeset and Mapper details](#changeset-and-mapper-details)
+        * [Using Changeset-map](#using-changeset-map)
+        * [Reviewing changesets in OSMCha from OpenStreetMap](#reviewing-changesets-in-osmcha-from-openstreetmap)
+    * [Filters](#filters)
+        * [Basic filters](#basic-filters)
+        * [Applications for edit based search](#applications-for-edit-based-search)
+        * [Saving and sharing custom filters](#saving-and-sharing-custom-filters)
+        * [Setting up RSS feed - Area of Interest](#setting-up-rss-feed---area-of-interest)
+    * [User page](#user-page)
 * [FAQ](#faq)
-  * [How are the changesets presented?](#how-are-the-changesets-presented)
-  * [How can I sign-in into OSMCha?](#how-can-i-sign-in-into-osmcha)
-  * [Can I view the changesets and use filters without logging into OSMCha?](#can-i-view-the-changesets-and-use-filters-without-logging-into-osmcha)
-  * [How do I logout of OSMCha?](#how-do-i-logout-of-osmcha)
-  * [My changeset has been flagged by a reason, am I doing something wrong?](#my-changeset-has-been-flagged-by-a-reason-am-i-doing-something-wrong)
-  * [Are there keyboard shortcuts in OSMCha?](#are-there-keyboard-shortcuts-in-osmcha)
-  * [What are tags on OSMCha?](#what-are-tags-on-osmcha)
-  * [What if I want to change my review for a changeset?](#what-if-i-want-to-change-my-review-for-a-changeset)
-  * [Can I review my own changesets?](#can-i-review-my-own-changesets)
+    * [How are the changesets presented?](#how-are-the-changesets-presented)
+    * [How can I sign-in into OSMCha?](#how-can-i-sign-in-into-osmcha)
+    * [Can I view the changesets and use filters without logging into OSMCha?](#can-i-view-the-changesets-and-use-filters-without-logging-into-osmcha)
+    * [How do I logout of OSMCha?](#how-do-i-logout-of-osmcha)
+    * [My changeset has been flagged by a reason, am I doing something wrong?](#my-changeset-has-been-flagged-by-a-reason-am-i-doing-something-wrong)
+    * [Are there keyboard shortcuts in OSMCha?](#are-there-keyboard-shortcuts-in-osmcha)
+    * [What are tags on OSMCha?](#what-are-tags-on-osmcha)
+    * [What if I want to change my review for a changeset?](#what-if-i-want-to-change-my-review-for-a-changeset)
+    * [Can I review my own changesets?](#can-i-review-my-own-changesets)
 * [Frequent error messages](#frequent-error-messages)
-  * [Changeset views error messages](#changeset-views-error-messages)
-    * [Changeset was already checked.](#changeset-was-already-checked)
-    * [User can not check their own changeset.](#user-can-not-check-their-own-changeset)
-    * [Changeset is not checked.](#changeset-is-not-checked)
-    * [User does not have permission to uncheck this changeset.](#user-does-not-have-permission-to-uncheck-this-changeset)
-    * [User can not add tags to their own changeset.](#user-can-not-add-tags-to-their-own-changeset)
-    * [User can not add tags to a changeset checked by another user.](#user-can-not-add-tags-to-a-changeset-checked-by-another-user)
-    * [User can not remove tags from their own changeset.](#user-can-not-remove-tags-from-their-own-changeset)
-    * [User can not remove tags from a changeset checked by another user.](#user-can-not-remove-tags-from-a-changeset-checked-by-another-user)
-  * [Feature views error messages](#feature-views-error-messages)
-    * [Feature was already checked.](#feature-was-already-checked)
-    * [User can not check their own feature.](#user-can-not-check-their-own-feature)
-    * [Feature is not checked.](#feature-is-not-checked)
-    * [User does not have permission to uncheck this feature.](#user-does-not-have-permission-to-uncheck-this-feature)
-    * [User can not add tags to their own feature.](#user-can-not-add-tags-to-their-own-feature)
-    * [User can not add tags to a feature checked by another user.](#user-can-not-add-tags-to-a-feature-checked-by-another-user)
-    * [User can not remove tags from their own feature.](#user-can-not-remove-tags-from-their-own-feature)
-    * [User can not remove tags from a feature checked by another user.](#user-can-not-remove-tags-from-a-feature-checked-by-another-user)
+    * [Changeset views error messages](#changeset-views-error-messages)
+        * [Changeset was already checked.](#changeset-was-already-checked)
+        * [User can not check their own changeset.](#user-can-not-check-their-own-changeset)
+        * [Changeset is not checked.](#changeset-is-not-checked)
+        * [User does not have permission to uncheck this changeset.](#user-does-not-have-permission-to-uncheck-this-changeset)
+        * [User can not add tags to their own changeset.](#user-can-not-add-tags-to-their-own-changeset)
+        * [User can not add tags to a changeset checked by another user.](#user-can-not-add-tags-to-a-changeset-checked-by-another-user)
+        * [User can not remove tags from their own changeset.](#user-can-not-remove-tags-from-their-own-changeset)
+        * [User can not remove tags from a changeset checked by another user.](#user-can-not-remove-tags-from-a-changeset-checked-by-another-user)
 * [References](#references)
 * [Other tools for validation](#other-tools-for-validation)
 * [Feedback](#feedback)
@@ -271,13 +263,13 @@ Saved filters are visible in the user page which can be accessed by clicking on 
 
 <img width="600" alt="osmcha-saving-filters" src="https://user-images.githubusercontent.com/8921295/33522675-0ce1327e-d818-11e7-88c0-3f03359da6c2.png">
 
-OSMCha saves these filters with a unique identifier code. Here is a filter example - https://osmcha.mapbox.com/filters?aoi=71247014-abbf-4253-8093-2a2afdda4169
+OSMCha saves these filters with a unique identifier code. Here is a filter example - https://osmcha.mapbox.com/filters?aoi=71247014-abbf-4253-8093-2a2afdda4169.
 
 ### Setting up RSS feed - Area of Interest
 
 Each saved filter has an RSS feed to update whenever a new changeset comes into the custom filter. A real life application would be to get instant notifications for all edits in the area you are currently surveying.
 
-Here is an RSS feed for the filter we have setup in the above section - https://osmcha.mapbox.com/api/v1/aoi/71247014-abbf-4253-8093-2a2afdda4169/changesets/feed/
+Here is an RSS feed for the filter we have setup in the above section - https://osmcha.mapbox.com/api/v1/aoi/71247014-abbf-4253-8093-2a2afdda4169/changesets/feed/.
 
 Any third party RSS client can be used to push instant personal notifications for the changesets that have come into your saved filters at set time intervals.
 
@@ -367,7 +359,9 @@ The button `Tags` will only appear when you review a changeset good or bad, but 
 
 ### What if I want to change my review for a changeset?
 
-Yes, it is possible to change the review for a changeset from `Good` to `Bad` or vise versa. You can also unreview a changeset by clicking on the
+Yes, it is possible to change the review for a changeset from `Good` to `Bad` or
+vise versa. You can also unreview a changeset by clicking on the `'x'` beside your
+username on the top right corner button.
 
 <img width="280" alt="osmcha-undo" src="https://user-images.githubusercontent.com/8921295/33522551-66bc5f1a-d815-11e7-810b-16725b33e1cf.gif">
 
@@ -410,41 +404,6 @@ This is raised when someone tries to remove tags from their own changeset.
 ### User can not remove tags from a changeset checked by another user.
 
 This is raised when someone tries to remove tags in a changeset that are added by the other users.
-
-## Feature views error messages
-
-### Feature was already checked.
-
-This is raised when someone tries to check a feature that was already checked
-
-### User can not check their own feature.
-
-This is raised when someone tries to check a feature that was created by him/her.
-
-### Feature is not checked.
-
-This is raised when someone tries to uncheck a feature that is not checked
-
-### User does not have permission to uncheck this feature.
-
-This is raised when someone tries to uncheck a feature that another user checked
-
-### User can not add tags to their own feature.
-
-This is raised when someone tries to add tags to their own features
-
-### User can not add tags to a feature checked by another user.
-
-This is raised when someone tries to add tags to a feature reviewed by someone
-else
-
-### User can not remove tags from their own feature.
-
-This is raised when someone tries to remove a tag from his/her own feature
-
-### User can not remove tags from a feature checked by another user.
-
-This is raised when someone tries to remove tags in a feature that are added by the other users.
 
 # References
 
