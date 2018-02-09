@@ -34,13 +34,15 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
     this.updateValue(nextProps);
   }
   updateValue(props) {
-    const userCommentedBefore = props.discussions.filter(
-      item => item.get('userName') === props.userDetails.get('username')
-    ).size > 0;
-    if (this.state.value === '' &&
-        props.changesetIsHarmful !== null &&
-        !userCommentedBefore
-      ) {
+    const userCommentedBefore =
+      props.discussions.filter(
+        item => item.get('userName') === props.userDetails.get('username')
+      ).size > 0;
+    if (
+      this.state.value === '' &&
+      props.changesetIsHarmful !== null &&
+      !userCommentedBefore
+    ) {
       if (props.changesetIsHarmful) {
         this.setState({ value: props.userDetails.get('message_bad') });
       } else {
@@ -50,6 +52,12 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
   }
   onChange = (event: any) => {
     this.setState({ value: event.target.value });
+    if (this.state.error) {
+      this.setState({ error: false });
+    }
+    if (this.state.success) {
+      this.setState({ success: false });
+    }
   };
   postComment = (comment: string) => {
     if (!comment) return;
@@ -74,44 +82,51 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
   render() {
     return (
       <div>
-        {this.props.token
-          ? <div className="flex-parent flex-parent--column mt6 mb3">
-              {this.state.success &&
-                <div className="bg-green-faint color-green inline-block px6 py3 txt-xs txt-bold align-center round-full my12">
-                  <span>Comment successfully posted.</span>
-                </div>}
-                {this.state.error &&
-                  <div className="bg-orange-faint color-orange-dark inline-block px6 py3 txt-xs txt-bold align-center round-full my12">
-                    <span>Some error ocurred.</span>
-                  </div>}
-                  <div className="grid grid--gut12">
-                    <div className="col col--12">
-                      <textarea
-                        placeholder="Provide constructive feedback to the mapper with a changeset comment."
-                        className="textarea"
-                        ref={r => {
-                          if (this.clicked) {
-                            r && r.select();
-                            this.clicked = false;
-                          }
-                        }}
-                        value={this.state.value}
-                        onChange={this.onChange}
-                        />
-                      <div className="pt6 fr">
-                        <Button className="input wmax120" onClick={this.handleSubmit}>
-                          Post Comment
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
+        {this.props.token ? (
+          <div className="flex-parent flex-parent--column mt6 mb3">
+            {this.state.success && (
+              <div className="bg-green-faint color-green inline-block px6 py3 txt-s align-center round my12">
+                <span className="txt-bold">Comment successfully posted.</span>
+                <br />
+                <span>It will appear on OSMCha after some minutes.</span>
+              </div>
+            )}
+            {this.state.error && (
+              <div className="bg-red-faint color-red-dark inline-block px6 py3 txt-s align-center round my12">
+                <span className="txt-bold">
+                  It was not possible to post your comment.
+                </span>
+              </div>
+            )}
+            <div className="grid grid--gut12">
+              <div className="col col--12">
+                <textarea
+                  placeholder="Provide constructive feedback to the mapper with a changeset comment."
+                  className="textarea"
+                  ref={r => {
+                    if (this.clicked) {
+                      r && r.select();
+                      this.clicked = false;
+                    }
+                  }}
+                  value={this.state.value}
+                  onChange={this.onChange}
+                />
+                <div className="pt6 fr">
+                  <Button className="input wmax120" onClick={this.handleSubmit}>
+                    Post Comment
+                  </Button>
                 </div>
-              : <div className="flex-parent flex-parent--column mt6 mb3">
-                  <div className="bg-darken10 color-gray inline-block px6 py3 txt-xs txt-bold align-center round-full my12">
-                    <span>Sign in to post a comment.</span>
-                  </div>
-                </div>
-        }
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="flex-parent flex-parent--column mt6 mb3">
+            <div className="bg-darken10 color-gray inline-block px6 py3 txt-xs txt-bold align-center round-full my12">
+              <span>Sign in to post a comment.</span>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
