@@ -88,23 +88,23 @@ export class ChangeItem extends React.PureComponent {
     return (
       <div>
         <span className="pointer" onClick={this.handleChange}>
-          {this.state.opened
-            ? <svg
-                className="icon inline-block"
-                style={{ verticalAlign: 'text-bottom' }}
-              >
-                <use xlinkHref={'#icon-chevron-down'} />
-              </svg>
-            : <svg
-                className="icon inline-block"
-                style={{ verticalAlign: 'text-bottom' }}
-              >
-                <use xlinkHref={'#icon-chevron-right'} />
-              </svg>}
+          {this.state.opened ? (
+            <svg
+              className="icon h18 w18 inline-block"
+              style={{ verticalAlign: 'text-bottom' }}
+            >
+              <use xlinkHref={'#icon-chevron-down'} />
+            </svg>
+          ) : (
+            <svg
+              className="icon h18 w18 inline-block"
+              style={{ verticalAlign: 'text-bottom' }}
+            >
+              <use xlinkHref={'#icon-chevron-right'} />
+            </svg>
+          )}
           {this.tag.slice(0, last_space)}
-          <span className="txt-code">
-            {this.tag.slice(last_space)}
-          </span>
+          <span className="txt-code">{this.tag.slice(last_space)}</span>
           <span className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s txt-bold round">
             {this.value.length}
           </span>
@@ -160,11 +160,13 @@ class TagChanges extends React.PureComponent<void, propsType> {
     return (
       <div className="px12 py6">
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">Tag changes</h2>
-        {changeReport.length
-          ? changeReport
-              .sort()
-              .map((change, k) => <ChangeItem key={k} change={change} />)
-          : <span>No tags were changed in this changeset.</span>}
+        {changeReport.length ? (
+          changeReport
+            .sort()
+            .map((change, k) => <ChangeItem key={k} change={change} />)
+        ) : (
+          <span>No tags were changed in this changeset.</span>
+        )}
       </div>
     );
   }
