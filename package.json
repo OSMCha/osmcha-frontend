@@ -1,6 +1,6 @@
 {
   "name": "osmcha-frontend",
-  "version": "0.38.2",
+  "version": "0.39.0",
   "license": "ISC",
   "engines": {
     "node": ">=7.0"
@@ -13,7 +13,6 @@
     "url": "https://github.com/mapbox/osmcha-frontend/issues"
   },
   "dependencies": {
-    "@mapbox/assembly": "^0.21.0",
     "@mapbox/mapbox-gl-draw": "^1.0.4",
     "@turf/bbox": "^5.1.5",
     "@turf/simplify": "^5.1.5",
@@ -23,7 +22,7 @@
     "history": "^4.6.3",
     "immutable": "^3.8.1",
     "lodash.debounce": "^4.0.8",
-    "moment": "^2.18.1",
+    "moment": "^2.21.0",
     "mousetrap": "^1.6.1",
     "raven-js": "^3.16.1",
     "react": "^15.6.1",

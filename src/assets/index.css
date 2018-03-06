@@ -407,6 +407,8 @@ img {
 
 #guide > p > img {
   padding-bottom: 6px;
+  margin: 0 auto;
+  display: block;
 }
 
 .p6 {
