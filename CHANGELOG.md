@@ -2,6 +2,13 @@
 
 Log of changes since the 2.0 version
 
+#### 0.40.0
+
+* Update assembly to 0.21.0
+* Add support to Cyrillic and other scripts in OpenSans font
+* Update moment js to 2.21.0
+* Align images in the center on about page
+
 #### 0.38.2
 
 * Make documentation and all software messages gender neutral
