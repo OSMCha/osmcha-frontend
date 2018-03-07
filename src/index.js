@@ -14,8 +14,8 @@ import './assets/index.css';
 import 'animate.css/animate.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import 'react-select/dist/react-select.css';
-import './assets/0.13.0.assembly.min.css';
-import './assets/0.13.0.assembly';
+import './assets/0.21.0.assembly.min.css';
+import './assets/0.21.0.assembly';
 
 import { App } from './app';
 

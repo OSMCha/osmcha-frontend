@@ -17,51 +17,48 @@ export class Discussions extends React.PureComponent {
     const { discussions, changesetId, changesetIsHarmful } = this.props;
     return (
       <div className="px12 py6">
-        <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
-          Discussions
-        </h2>
-        {discussions.size === 0
-          ? <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
-              <svg className="icon icon--xxl color-darken25">
-                <use xlinkHref="#icon-contact" />
-              </svg>
-              <p className="txt-m">{`No discussions found for ${changesetId}.`}</p>
-            </div>
-          : <div className="">
-              {discussions.map((f, k) =>
-                <div
-                  key={k}
-                  className="flex-parent flex-parent--column justify--space-between border border--gray-light round p6 my6 mt12"
-                >
-                  <div className="flex-parent flex-parent--row justify--space-between txt-s ">
-                    <span>
-                      By{' '}
-                      <span className="txt-bold">
-                        {f.get('userName')}&nbsp;
-                      </span>
-                    </span>
-                    <span>{moment(f.get('timestamp')).fromNow()}</span>
-                  </div>
-                  <div className="flex-parent flex-parent--column mt6 mb3">
-                    <p className="txt-break-url">
-                      <AnchorifyText text={f.get('comment')}>
-                        <AssemblyAnchor />
-                      </AnchorifyText>
-                    </p>
-                  </div>
-                  <div className="flex-parent justify--flex-end">
-                    <TranslateButton text={f.get('comment')} />
-                  </div>
+        <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">Discussions</h2>
+        {discussions.size === 0 ? (
+          <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
+            <svg className="icon icon--xxl color-darken25">
+              <use xlinkHref="#icon-contact" />
+            </svg>
+            <p className="txt-m">{`No discussions found for changeset ${changesetId}.`}</p>
+          </div>
+        ) : (
+          <div className="">
+            {discussions.map((f, k) => (
+              <div
+                key={k}
+                className="flex-parent flex-parent--column justify--space-between border border--gray-light round p6 my6 mt12"
+              >
+                <div className="flex-parent flex-parent--row justify--space-between txt-s ">
+                  <span>
+                    By{' '}
+                    <span className="txt-bold">{f.get('userName')}&nbsp;</span>
+                  </span>
+                  <span>{moment(f.get('timestamp')).fromNow()}</span>
                 </div>
-              )}
-            </div>}
+                <div className="flex-parent flex-parent--column mt6 mb3">
+                  <p className="txt-break-url">
+                    <AnchorifyText text={f.get('comment')}>
+                      <AssemblyAnchor />
+                    </AnchorifyText>
+                  </p>
+                </div>
+                <div className="flex-parent justify--flex-end">
+                  <TranslateButton text={f.get('comment')} />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
         <div className="flex-parent flex-parent--column justify--space-between my6 mt12">
           <CommentForm
             changesetId={changesetId}
             changesetIsHarmful={changesetIsHarmful}
             discussions={discussions}
-          >
-          </CommentForm>
+          />
         </div>
       </div>
     );

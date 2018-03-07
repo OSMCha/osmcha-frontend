@@ -36,7 +36,7 @@ export function ControlLayout({
         bg={'gray-faint'}
         className="unround-r unround-bl"
       >
-        <svg className="icon inline-block align-middle ">
+        <svg className="icon h18 w18 inline-block align-middle ">
           <use xlinkHref="#icon-eye" />
         </svg>
       </Control>
@@ -47,7 +47,7 @@ export function ControlLayout({
         className="unround"
       >
         <svg
-          className={`icon inline-block align-middle ${features &&
+          className={`icon h18 w18 inline-block align-middle ${features &&
           features.size == 0
             ? 'color-darken25'
             : 'color-black'}`}
@@ -61,7 +61,7 @@ export function ControlLayout({
         bg={'gray-faint'}
         className="unround"
       >
-        <svg className="icon inline-block align-middle">
+        <svg className="icon h18 w18 inline-block align-middle">
           <use xlinkHref="#icon-hash" />
         </svg>
       </Control>
@@ -72,7 +72,8 @@ export function ControlLayout({
         className="unround"
       >
         <svg
-          className={`icon inline-block align-middle ${discussions.size == 0
+          className={`icon h18 w18 inline-block align-middle ${discussions.size ==
+          0
             ? 'color-darken25'
             : 'color-black'}`}
         >
@@ -85,7 +86,7 @@ export function ControlLayout({
         bg={'white'}
         className="unround"
       >
-        <svg className="icon inline-block align-middle">
+        <svg className="icon h18 w18 inline-block align-middle">
           <use xlinkHref="#icon-user" />
         </svg>
       </Control>
@@ -95,7 +96,7 @@ export function ControlLayout({
         bg={'white'}
         className="unround-r unround-tl"
       >
-        <svg className="icon inline-block align-middle">
+        <svg className="icon h18 w18 inline-block align-middle">
           <use xlinkHref="#icon-map" />
         </svg>
       </Control>

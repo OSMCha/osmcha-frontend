@@ -407,4 +407,34 @@ img {
 
 #guide > p > img {
   padding-bottom: 6px;
+  margin: 0 auto;
+  display: block;
+}
+
+.p6 {
+  padding: 6px;
+}
+
+.p12 {
+  padding: 12px;
+}
+
+.border--darken5 {
+  border-color:rgba(0,0,0,.05) !important;
+}
+
+.w72 {
+  width: 72px;
+}
+
+.h72 {
+  height: 72px;
+}
+
+.w96 {
+  width: 96px;
+}
+
+.h96 {
+  height: 96px;
 }
