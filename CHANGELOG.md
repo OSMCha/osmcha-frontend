@@ -2,6 +2,11 @@
 
 Log of changes since the 2.0 version
 
+#### 0.40.1
+
+* Update changeset-map and other dependencies
+* Fix missing max-height CSS class in map sidebar
+
 #### 0.40.0
 
 * Update assembly to 0.21.0
