@@ -1,7 +1,9 @@
 // @flow
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import { Button } from '../button';
+import { API_URL } from '../../config';
 
 class SaveAOI extends React.PureComponent {
   constructor(props) {
@@ -116,6 +118,16 @@ export function FiltersHeader({
       <span className="txt-l txt-bold color-gray--dark">
         <span>Filters/</span>
         {aoiName}
+        {aoiId && (
+          <a
+            className="txt--s pl6"
+            href={`${API_URL}/aoi/${aoiId}/changesets/feed/`}
+          >
+            <svg className="icon icon--s mt-neg3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+              <use xlinkHref="#icon-rss" />
+            </svg>
+          </a>
+        )}
       </span>
       <span className="txt-l color-gray--dark">
         {save_aoi}
