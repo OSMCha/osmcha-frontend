@@ -32,6 +32,7 @@ type propsType = {
   pageIndex: number,
   activeChangesetId: ?number,
   filters: Map<string, ImmutableList<*>>,
+  aoiId: ?string,
   lastKeyStroke: Map<string, *>,
   getChangesetsPage: (number, ?boolean) => mixed, // base 0
   checkForNewChangesets: boolean => any,
@@ -172,7 +173,8 @@ ChangesetsList = connect(
     diffLoading: state.changesetsPage.get('diffLoading'),
     pageIndex: state.changesetsPage.get('pageIndex') || 0,
     activeChangesetId: state.changeset.get('changesetId'),
-    filters: state.filters.get('filters')
+    filters: state.filters.get('filters'),
+    aoiId: state.aoi.get('aoi').get('id')
   }),
   {
     // actions

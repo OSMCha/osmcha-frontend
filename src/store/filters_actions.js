@@ -113,7 +113,13 @@ export function* filtersSaga(location: Object): any {
         filters
       })
     );
-    yield put(action(CHANGESETS_PAGE.fetch, { pageIndex: 0, filters }));
+    if (aoiId) {
+      yield put(
+        action(CHANGESETS_PAGE.fetch, { pageIndex: 0, filters, aoiId })
+      );
+    } else {
+      yield put(action(CHANGESETS_PAGE.fetch, { pageIndex: 0, filters }));
+    }
   } catch (e) {
     console.error(e);
     const location = yield select(locationSelector);

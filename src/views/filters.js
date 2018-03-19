@@ -8,6 +8,7 @@ import { Map, List, fromJS, is } from 'immutable';
 import { checkForNewChangesets } from '../store/changesets_page_actions';
 import { applyFilters } from '../store/filters_actions';
 import { applyUpdateAOI, applyCreateAOI } from '../store/aoi_actions';
+import { modal } from '../store/modal_actions';
 
 import { FiltersList } from '../components/filters/filters_list';
 import { FiltersHeader } from '../components/filters/filters_header';
@@ -31,7 +32,8 @@ type propsType = {|
   push: (location: Object) => void,
   applyFilters: (filtersType, path?: string) => mixed, // base 0
   applyCreateAOI: (name?: string, filtersType) => mixed,
-  applyUpdateAOI: (aoiId?: string, name?: string, filtersType) => mixed
+  applyUpdateAOI: (aoiId?: string, name?: string, filtersType) => mixed,
+  modal: any => any
 |};
 
 type stateType = {
@@ -63,20 +65,29 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
   handleApply = () => {
     // in case the user clicks on apply when filter
     // loaded AOI.
-    if (is(this.state.filters, this.props.filters)) {
-      this.props.push({
-        ...this.props.location,
-        pathname: '/'
+    if (JSON.stringify(this.state.filters.toJSON()).length > 7000) {
+      this.props.modal({
+        kind: 'error',
+        title: 'Use Save Filter',
+        description:
+          'Your filter is too big to be applied. You need to Save your Filter to be able to see the results.'
       });
-      return;
+    } else {
+      if (is(this.state.filters, this.props.filters)) {
+        this.props.push({
+          ...this.props.location,
+          pathname: '/'
+        });
+        return;
+      }
+      this.props.applyFilters(this.state.filters, '/');
+      this.sendToAnalytics();
+      // show user if there were any new changesets
+      // incase service had cached the request
+      delayPromise(3000).promise.then(() =>
+        this.props.checkForNewChangesets(true)
+      );
     }
-    this.props.applyFilters(this.state.filters, '/');
-    this.sendToAnalytics();
-    // show user if there were any new changesets
-    // incase service had cached the request
-    delayPromise(3000).promise.then(() =>
-      this.props.checkForNewChangesets(true)
-    );
   };
   sendToAnalytics = () => {
     const filters = this.state.filters;
@@ -160,10 +171,9 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
     const width = window.innerWidth;
     return (
       <div
-        className={`flex-parent flex-parent--column changesets-filters bg-white ${width <
-        800
-          ? 'viewport-full'
-          : ''}`}
+        className={`flex-parent flex-parent--column changesets-filters bg-white ${
+          width < 800 ? 'viewport-full' : ''
+        }`}
       >
         <FiltersHeader
           createAOI={this.createAOI}
@@ -207,7 +217,8 @@ Filters = connect(
     applyFilters,
     applyCreateAOI,
     applyUpdateAOI,
-    push
+    push,
+    modal
   }
 )(Filters);
 
