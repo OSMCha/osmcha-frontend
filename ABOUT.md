@@ -423,7 +423,6 @@ This is raised when someone tries to remove tags in a changeset that are added b
 # Other tools for validation
 
 * [OSM-Comments](https://www.mapbox.com/osm-comments/)
-* [To-Fix](https://osmlab.github.io/to-fix/)
 * [MapRoulette](http://www.maproulette.org/)
 * [HDYC](http://hdyc.neis-one.org/)
 * [WHODIDIT](http://simon04.dev.openstreetmap.org/whodidit/)
