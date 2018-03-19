@@ -41,7 +41,7 @@ type stateType = {
   active: string
 };
 const noDateGte: filterType = fromJS({
-  date__gte: [{ label: '', value: null }]
+  date__gte: [{ label: '', value: '' }]
 });
 
 class Filters extends React.PureComponent<void, propsType, stateType> {
