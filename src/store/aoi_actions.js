@@ -51,14 +51,16 @@ export function* fetchAOISaga(aoiId: string): any {
   filters = filters.map((v, k) => {
     try {
       if (JSON.parse(v) && JSON.parse(v).hasOwnProperty('coordinates')) {
-        return fromJS([{
-          value: JSON.parse(v),
-          label: JSON.parse(v)
-        }]);
+        return fromJS([
+          {
+            value: JSON.parse(v),
+            label: JSON.parse(v)
+          }
+        ]);
       } else {
         throw SyntaxError;
       }
-    } catch(e) {
+    } catch (e) {
       const options = v.split(',');
       return fromJS(
         options.map(o => ({
@@ -123,7 +125,9 @@ export function* updateAOISaga({
         filters
       })
     );
-    yield put(action(CHANGESETS_PAGE.fetch, { pageIndex: 0, filters }));
+    yield put(
+      action(CHANGESETS_PAGE.fetch, { pageIndex: 0, aoiId: aoiId, filters })
+    );
   } catch (e) {
     console.error(e);
     yield put(

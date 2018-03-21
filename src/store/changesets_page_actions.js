@@ -59,18 +59,24 @@ export const pageIndexSelector = (state: RootStateType) => [
 export const tokenSelector = (state: RootStateType) => state.auth.get('token');
 
 export const aoiIdSelector = (state: RootStateType) =>
-  state.filters.getIn(['aoi', 'id']);
+  state.aoi.getIn(['aoi', 'id']);
+
 export function* fetchChangesetsPageSaga({
   pageIndex,
   nocache,
-  filters
+  filters,
+  aoiId
 }: {
   pageIndex?: number,
   nocache: boolean,
-  filters?: filtersType
+  filters?: filtersType,
+  aoiId?: string
 }): Object {
   if (!filters) {
     filters = yield select(filtersSelector);
+  }
+  if (!aoiId) {
+    aoiId = yield select(aoiIdSelector);
   }
   let oldPageIndex: number = yield select(pageIndexSelector);
 
@@ -85,10 +91,16 @@ export function* fetchChangesetsPageSaga({
   );
   try {
     let token = yield select(tokenSelector);
-    let aoiId = yield select(aoiIdSelector);
     let thisPage;
     if (aoiId) {
-      thisPage = yield call(fetchAOIChangesetPage, pageIndex, aoiId, token);
+      thisPage = yield call(
+        fetchChangesetsPage,
+        pageIndex,
+        filters,
+        token,
+        nocache,
+        aoiId
+      );
     } else {
       thisPage = yield call(
         fetchChangesetsPage,
@@ -127,6 +139,7 @@ export const currentPageAndIndexSelector = (state: RootStateType) => [
   state.changesetsPage.getIn(['currentPage'], Map()),
   state.changesetsPage.getIn(['pageIndex'], 0)
 ];
+
 export function* modifyChangesetPageSaga({
   changesetId,
   changeset
@@ -166,18 +179,21 @@ export function* checkForNewChangesetsSaga({
     const [
       filters: filtersType,
       pageIndex: number,
-      token
+      token,
+      aoiId
     ] = yield select((state: RootStateType) => [
       state.filters.get('filters'),
       state.changesetsPage.get('pageIndex'),
-      state.auth.get('token')
+      state.auth.get('token'),
+      state.aoi.get('aoi').get('id')
     ]);
     let newData = yield call(
       fetchChangesetsPage,
       pageIndex,
       filters,
       token,
-      nocache
+      nocache,
+      aoiId
     );
     let oldData = yield select((state: RootStateType) =>
       state.changesetsPage.get('currentPage')

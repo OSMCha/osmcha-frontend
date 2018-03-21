@@ -2,10 +2,15 @@
 
 Log of changes since the 2.0 version
 
+#### 0.41.0
+
+* Fix error when the filters parameters are bigger than supported by the server (#274)
+
 #### 0.40.1
 
 * Update changeset-map and other dependencies
 * Fix missing max-height CSS class in map sidebar
+* Add link to RSS feed in the filters page
 
 #### 0.40.0
 
