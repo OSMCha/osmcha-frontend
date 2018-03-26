@@ -4,6 +4,10 @@ export const FILTER_BINDING = {
   label: 'FILTER_BINDING',
   bindings: ['\\']
 };
+export const HELP_BINDING = {
+  label: 'HELP_BINDING',
+  bindings: ['/', '?']
+};
 export const NEXT_CHANGESET = {
   label: 'NEXT_CHANGESET',
   bindings: ['down', 'right', 'space']

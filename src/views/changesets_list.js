@@ -19,7 +19,8 @@ import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
 import {
   NEXT_CHANGESET,
   PREV_CHANGESET,
-  FILTER_BINDING
+  FILTER_BINDING,
+  HELP_BINDING
 } from '../config/bindings';
 
 type propsType = {
@@ -86,12 +87,35 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
       this.props.push(location);
     }
   }
+  toggleHelp() {
+    if (
+      this.props.location &&
+      this.props.location.pathname.startsWith('/about')
+    ) {
+      const location = {
+        ...this.props.location, //  clone it
+        pathname: '/'
+      };
+      this.props.push(location);
+    } else {
+      console.log(...this.props.location);
+      const location = {
+        ...this.props.location, //  clone it
+        pathname: '/about'
+      };
+      this.props.push(location);
+    }
+  }
   componentWillReceiveProps(nextProps: propsType) {
     const lastKeyStroke: Map<string, *> = nextProps.lastKeyStroke;
     if (is(this.props.lastKeyStroke, lastKeyStroke)) return;
     switch (lastKeyStroke.keySeq().first()) {
       case FILTER_BINDING.label: {
         this.toggleFilters();
+        break;
+      }
+      case HELP_BINDING.label: {
+        this.toggleHelp();
         break;
       }
       case NEXT_CHANGESET.label: {
@@ -159,7 +183,7 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
 
 ChangesetsList = keyboardToggleEnhancer(
   false,
-  [NEXT_CHANGESET, PREV_CHANGESET, FILTER_BINDING],
+  [NEXT_CHANGESET, PREV_CHANGESET, FILTER_BINDING, HELP_BINDING],
   ChangesetsList
 );
 

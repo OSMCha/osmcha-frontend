@@ -342,7 +342,8 @@ Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of chan
 | Toggle User profile                              | `5`            |
 | Toggle Map controls                              | `6`            |
 | **Other**                                        |                |
-| Show shortcuts list                              | `?`            |
+| Toggle Filters page                              | `\`            |
+| Show this Guide page                             | `?` or `/`     |
 
 ### What are tags on OSMCha?
 
