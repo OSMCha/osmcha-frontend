@@ -20,7 +20,8 @@ import {
   NEXT_CHANGESET,
   PREV_CHANGESET,
   FILTER_BINDING,
-  HELP_BINDING
+  HELP_BINDING,
+  REFRESH_CHANGESETS
 } from '../config/bindings';
 
 type propsType = {
@@ -126,6 +127,10 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
         this.goUpDownToChangeset(-1);
         break;
       }
+      case REFRESH_CHANGESETS.label: {
+        this.reloadCurrentPage();
+        break;
+      }
       default: {
         return;
       }
@@ -183,7 +188,13 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
 
 ChangesetsList = keyboardToggleEnhancer(
   false,
-  [NEXT_CHANGESET, PREV_CHANGESET, FILTER_BINDING, HELP_BINDING],
+  [
+    NEXT_CHANGESET,
+    PREV_CHANGESET,
+    FILTER_BINDING,
+    HELP_BINDING,
+    REFRESH_CHANGESETS
+  ],
   ChangesetsList
 );
 

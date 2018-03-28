@@ -328,6 +328,7 @@ Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of chan
 | **Navigating changeset list**                    |                   |
 | Go to previous changeset (in the changeset list) | `↑`               |
 | Go to next changeset (in the changeset list)     | `↓`, `→`, `Space` |
+| Refresh changeset list                           | `R`               |
 | **Changeset detail view**                        |                   |
 | Open changeset in JOSM                           | `J`               |
 | Open changeset in iD                             | `I`               |
