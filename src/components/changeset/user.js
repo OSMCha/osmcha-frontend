@@ -51,7 +51,8 @@ export function User({ userDetails, whosThat }) {
                     label: userDetails.get('name'),
                     value: userDetails.get('name')
                   }
-                ]
+                ],
+                date__gte: [{ label: '', value: '' }]
               }),
               pathname: '/'
             }}

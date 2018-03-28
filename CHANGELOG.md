@@ -2,9 +2,16 @@
 
 Log of changes since the 2.0 version
 
-#### 0.41.0
+#### 0.42.1
+
+* Remove date filter from the OSMCha user link (#215)
+* Fix '?' and '/' keyboard shortcuts and update shortcuts list
+
+#### 0.42.0
 
 * Fix error when the filters parameters are bigger than supported by the server (#274)
+* Fix error when date__gte filter field is cleared (#266)
+* Removed to-fix link
 
 #### 0.40.1
 
