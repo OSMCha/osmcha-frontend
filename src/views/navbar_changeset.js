@@ -15,6 +15,10 @@ import {
   VERIFY_GOOD,
   VERIFY_CLEAR,
   OPEN_IN_JOSM,
+  OPEN_IN_ID,
+  OPEN_IN_OSM,
+  OPEN_IN_LEVEL0,
+  OPEN_IN_ACHAVI,
   OPEN_IN_HDYC
 } from '../config/bindings';
 
@@ -65,8 +69,48 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       }
       case OPEN_IN_JOSM.label: {
         if (!this.props.changesetId) return;
-        const url = `https://127.0.0.1:8112/import?url=http://www.openstreetmap.org/api/0.6/changeset/${this
-          .props.changesetId}/download`;
+        const url = `https://127.0.0.1:8112/import?url=http://www.openstreetmap.org/api/0.6/changeset/${
+          this.props.changesetId
+        }/download`;
+        window.open(url, '_blank');
+        break;
+      }
+      case OPEN_IN_ID.label: {
+        if (!this.props.changesetId || !this.props.currentChangeset) return;
+        const coordinates = this.props.currentChangeset.getIn([
+          'geometry',
+          'coordinates',
+          0,
+          0
+        ]);
+        const url = `http://www.openstreetmap.org/edit?changeset=${
+          this.props.changesetId
+        }#map=15/${coordinates && coordinates.get('1')}/${coordinates &&
+          coordinates.get('0')}`;
+        window.open(url, '_blank');
+        break;
+      }
+      case OPEN_IN_OSM.label: {
+        if (!this.props.changesetId) return;
+        const url = `http://www.openstreetmap.org/changeset/${
+          this.props.changesetId
+        }`;
+        window.open(url, '_blank');
+        break;
+      }
+      case OPEN_IN_LEVEL0.label: {
+        if (!this.props.changesetId) return;
+        const url = `http://level0.osmz.ru/?url=changeset/${
+          this.props.changesetId
+        }`;
+        window.open(url, '_blank');
+        break;
+      }
+      case OPEN_IN_ACHAVI.label: {
+        if (!this.props.changesetId) return;
+        const url = `https://overpass-api.de/achavi/?changeset=${
+          this.props.changesetId
+        }`;
         window.open(url, '_blank');
         break;
       }
@@ -121,8 +165,9 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                 <span className="txt-bold">Changeset:</span>{' '}
                 <span className="txt-underline mr12">
                   <a
-                    href={`https://openstreetmap.org/changeset/${this.props
-                      .changesetId}`}
+                    href={`https://openstreetmap.org/changeset/${
+                      this.props.changesetId
+                    }`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -195,7 +240,17 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
 
 NavbarChangeset = keyboardToggleEnhancer(
   false,
-  [VERIFY_BAD, VERIFY_GOOD, VERIFY_CLEAR, OPEN_IN_JOSM, OPEN_IN_HDYC],
+  [
+    VERIFY_BAD,
+    VERIFY_GOOD,
+    VERIFY_CLEAR,
+    OPEN_IN_JOSM,
+    OPEN_IN_ID,
+    OPEN_IN_OSM,
+    OPEN_IN_LEVEL0,
+    OPEN_IN_ACHAVI,
+    OPEN_IN_HDYC
+  ],
   NavbarChangeset
 );
 
