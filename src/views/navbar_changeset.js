@@ -75,7 +75,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
           ['properties', 'user'],
           ''
         );
-        const url = `http://hdyc.neis-one.org/?${user}`;
+        const url = `https://hdyc.neis-one.org/?${user}`;
         window.open(url, '_blank');
         break;
       }
