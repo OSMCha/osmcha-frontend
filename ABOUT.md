@@ -429,7 +429,7 @@ This is raised when someone tries to remove tags in a changeset that are added b
 * [WHODIDIT](http://simon04.dev.openstreetmap.org/whodidit/)
 * [Who’s That](http://whosthat.osmz.ru)
 * [Result Maps](http://resultmaps.neis-one.org/)
-* [Missing Maps](http://missingmaps.org/users/)
+* [Missing Maps](https://www.missingmaps.org/users/)
 * [Live OSM user stats](http://www.gryph.de:8080/)
 * [OSM deep history](https://osmlab.github.io/osm-deep-history)
 * [OSM History viewer](http://osmhv.openstreetmap.de/index.jsp)

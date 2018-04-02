@@ -82,7 +82,7 @@ export function User({ userDetails, whosThat }) {
             rel="noopener noreferrer"
             title="Open in Missing Maps"
             className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-            href={`http://www.missingmaps.org/users/#/${userDetails.get(
+            href={`https://www.missingmaps.org/users/#/${userDetails.get(
               'name'
             )}`}
           >
