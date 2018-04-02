@@ -425,7 +425,7 @@ This is raised when someone tries to remove tags in a changeset that are added b
 
 * [OSM-Comments](https://www.mapbox.com/osm-comments/)
 * [MapRoulette](http://www.maproulette.org/)
-* [HDYC](http://hdyc.neis-one.org/)
+* [HDYC](https://hdyc.neis-one.org/)
 * [WHODIDIT](http://simon04.dev.openstreetmap.org/whodidit/)
 * [Who’s That](http://whosthat.osmz.ru)
 * [Result Maps](http://resultmaps.neis-one.org/)
