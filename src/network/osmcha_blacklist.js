@@ -23,7 +23,11 @@ export function deleteFromBlackList(token: string, uid: string): Promise<*> {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
     }
-  }).then(handleErrors);
+  })
+    .then(handleErrors)
+    .then(res => {
+      return res.json();
+    });
 }
 
 export function postUserToBlackList(

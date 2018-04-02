@@ -2,6 +2,7 @@
 import request from 'superagent';
 import { osmchaSocialTokenUrl } from '../config/constants';
 import { API_URL } from '../config';
+import { handleErrors } from './aoi';
 
 export function postFinalTokensOSMCha(
   oauth_token: string,
@@ -40,22 +41,19 @@ export function fetchUserDetails(token: string) {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
     }
-  }).then(res => {
-    if (res.status >= 400 && res.status < 600) {
-      throw new Error(
-        'Bad request. Please make sure you are allowed to add tags to this changeset.'
-      );
-    }
-    return res.json();
-  });
+  })
+    .then(handleErrors)
+    .then(res => {
+      return res.json();
+    });
 }
 
 export function updateUserDetails(
-    token: string,
-    message_good: string,
-    message_bad: string,
-    comment_feature: boolean
-  ) {
+  token: string,
+  message_good: string,
+  message_bad: string,
+  comment_feature: boolean
+) {
   return fetch(`${API_URL}/users/`, {
     method: 'PATCH',
     headers: {
@@ -67,12 +65,9 @@ export function updateUserDetails(
       message_bad,
       comment_feature
     })
-  }).then(res => {
-    if (res.status >= 400 && res.status < 600) {
-      throw new Error(
-        'Bad request.'
-      );
-    }
-    return res.json();
-  });
+  })
+    .then(handleErrors)
+    .then(res => {
+      return res.json();
+    });
 }

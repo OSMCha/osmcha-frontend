@@ -15,6 +15,11 @@ export function getString(input) {
 export function handleErrors(response: Object) {
   if (!response.ok) {
     return response.json().then(r => {
+      if (response.status === 401 || response.status === 403) {
+        throw new Error(
+          'Authentication error. Sign in again and repeat the operation.'
+        );
+      }
       if (r && r.detail) throw new Error(r.detail);
       if (response.statusText) throw new Error(response.statusText);
       return Promise.reject('network request failed');
