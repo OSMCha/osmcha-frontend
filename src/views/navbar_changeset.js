@@ -69,7 +69,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       }
       case OPEN_IN_JOSM.label: {
         if (!this.props.changesetId) return;
-        const url = `https://127.0.0.1:8112/import?url=http://www.openstreetmap.org/api/0.6/changeset/${
+        const url = `https://127.0.0.1:8112/import?url=https://www.openstreetmap.org/api/0.6/changeset/${
           this.props.changesetId
         }/download`;
         window.open(url, '_blank');
@@ -83,7 +83,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
           0,
           0
         ]);
-        const url = `http://www.openstreetmap.org/edit?changeset=${
+        const url = `https://www.openstreetmap.org/edit?changeset=${
           this.props.changesetId
         }#map=15/${coordinates && coordinates.get('1')}/${coordinates &&
           coordinates.get('0')}`;
@@ -92,7 +92,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       }
       case OPEN_IN_OSM.label: {
         if (!this.props.changesetId) return;
-        const url = `http://www.openstreetmap.org/changeset/${
+        const url = `https://www.openstreetmap.org/changeset/${
           this.props.changesetId
         }`;
         window.open(url, '_blank');
@@ -119,7 +119,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
           ['properties', 'user'],
           ''
         );
-        const url = `http://hdyc.neis-one.org/?${user}`;
+        const url = `https://hdyc.neis-one.org/?${user}`;
         window.open(url, '_blank');
         break;
       }
