@@ -2,6 +2,14 @@
 
 Log of changes since the 2.0 version
 
+#### 0.44.0
+
+* Remove vertical margins on homepage
+* Use https in links to OSM.org website and APIs
+* Change message to 401 and 403 network errors and use handleErrors functions in all requests
+* Add shortcut to refresh changeset list
+* Add keyboards to the 'open in' menu options
+
 #### 0.42.1
 
 * Remove date filter from the OSMCha user link (#215)
