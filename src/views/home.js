@@ -8,7 +8,7 @@ import work_flow from '../assets/work_flow.png';
 
 export function Home() {
   return (
-    <div className="flex-parent flex-parent--column flex-parent--center-cross h-full my60">
+    <div className="flex-parent flex-parent--column flex-parent--center-cross h-full">
       <div className="flex-child flex-child--grow">&nbsp;</div>
       <div className="flex-parent flex-parent--column flex-parent--center-cross ">
         <img src={banner} className="osmcha-logo" alt="OSMCHA" />

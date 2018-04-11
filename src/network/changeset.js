@@ -1,5 +1,6 @@
 // @flow
 import { API_URL } from '../config';
+import { handleErrors } from './aoi';
 
 export function fetchChangeset(id: number, token: ?string) {
   return fetch(`${API_URL}/changesets/${id}/`, {
@@ -8,14 +9,11 @@ export function fetchChangeset(id: number, token: ?string) {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
     }
-  }).then(res => {
-    if (res.status >= 400 && res.status < 600) {
-      return res.json().then(r => {
-        throw new Error(r && r.detail);
-      });
-    }
-    return res.json();
-  });
+  })
+    .then(handleErrors)
+    .then(res => {
+      return res.json();
+    });
 }
 
 export function setHarmful(id: number, token: string, harmful: boolean | -1) {
@@ -24,9 +22,9 @@ export function setHarmful(id: number, token: string, harmful: boolean | -1) {
   if (harmful === -1) {
     url = `${API_URL}/changesets/${id}/uncheck/`;
   } else {
-    url = `${API_URL}/changesets/${id}/${harmful
-      ? 'set-harmful'
-      : 'set-good'}/`;
+    url = `${API_URL}/changesets/${id}/${
+      harmful ? 'set-harmful' : 'set-good'
+    }/`;
   }
 
   return fetch(url, {
@@ -35,14 +33,11 @@ export function setHarmful(id: number, token: string, harmful: boolean | -1) {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
     }
-  }).then(res => {
-    if (res.status >= 400 && res.status < 600) {
-      return res.json().then(r => {
-        throw new Error(r && r.detail);
-      });
-    }
-    return res.json();
-  });
+  })
+    .then(handleErrors)
+    .then(res => {
+      return res.json();
+    });
 }
 
 export const createForm = (obj: Object) => {
@@ -72,14 +67,11 @@ export function setTag(
       tag_pk: tag,
       id
     })
-  }).then(res => {
-    if (res.status >= 400 && res.status < 600) {
-      return res.json().then(r => {
-        throw new Error(r && r.detail);
-      });
-    }
-    return res.json();
-  });
+  })
+    .then(handleErrors)
+    .then(res => {
+      return res.json();
+    });
 }
 
 export function postComment(id: number, token: string, comment: string) {
@@ -92,12 +84,9 @@ export function postComment(id: number, token: string, comment: string) {
     body: JSON.stringify({
       comment: comment
     })
-  }).then(res => {
-    if (res.status >= 400 && res.status < 600) {
-      return res.json().then(r => {
-        throw new Error(r && r.detail);
-      });
-    }
-    return res.json();
-  });
+  })
+    .then(handleErrors)
+    .then(res => {
+      return res.json();
+    });
 }

@@ -323,27 +323,33 @@ For example, a place deleted compare function flags an experienced mapper's chan
 
 Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of changesets quickly. Here are the available shortcuts:
 
-| _Description_                                    | _Shortcut_     |
-| ------------------------------------------------ | -------------- |
-| **Navigating changeset list**                    |                |
-| Go to previous changeset (in the changeset list) | `↑`            |
-| Go to next changeset (in the changeset list)     | `↓` or `Space` |
-| **Changeset detail view**                        |                |
-| Open changeset in JOSM                           | `J`            |
-| Open user profile in HDYC                        | `H`            |
-| Review changeset as good                         | `G`            |
-| Review changeset as bad                          | `B`            |
-| Undo or clear changeset review                   | `U` or `C`     |
-| **Changeset panels**                             |                |
-| Toggle Changeset details                         | `1`            |
-| Toggle Flagged features                          | `2`            |
-| Toggle Tag Changes                               | `3`            |
-| Toggle Changeset discussions                     | `4`            |
-| Toggle User profile                              | `5`            |
-| Toggle Map controls                              | `6`            |
-| **Other**                                        |                |
-| Toggle Filters page                              | `\`            |
-| Show this Guide page                             | `?` or `/`     |
+| _Description_                                    | _Shortcut_        |
+| ------------------------------------------------ | ----------------- |
+| **Navigating changeset list**                    |                   |
+| Go to previous changeset (in the changeset list) | `↑`               |
+| Go to next changeset (in the changeset list)     | `↓`, `→`, `Space` |
+| Refresh changeset list                           | `R`               |
+| **Changeset detail view**                        |                   |
+| Open changeset in JOSM                           | `J`               |
+| Open changeset in iD                             | `I`               |
+| Open changeset in OSM                            | `O`               |
+| Open changeset in Achavi                         | `V`               |
+| Open user profile in HDYC                        | `H`               |
+| Open changeset in Level 0                        | `L`               |
+| Review changeset as good                         | `G`               |
+| Review changeset as bad                          | `B`               |
+| Undo or clear changeset review                   | `U` or `C`        |
+| Filter edits of the current changeset's user     | `A`               |
+| **Changeset panels**                             |                   |
+| Toggle Changeset details                         | `1`               |
+| Toggle Flagged features                          | `2`               |
+| Toggle Tag Changes                               | `3`               |
+| Toggle Changeset discussions                     | `4`               |
+| Toggle User profile                              | `5`               |
+| Toggle Map controls                              | `6`               |
+| **Other**                                        |                   |
+| Toggle Filters page                              | `\`               |
+| Show this Guide page                             | `?` or `/`        |
 
 ### What are tags on OSMCha?
 

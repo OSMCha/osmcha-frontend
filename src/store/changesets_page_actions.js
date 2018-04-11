@@ -3,10 +3,7 @@ import { put, call, takeLatest, select, all } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 
 import { fromJS, List, Map } from 'immutable';
-import {
-  fetchChangesetsPage,
-  fetchAOIChangesetPage
-} from '../network/changesets_page';
+import { fetchChangesetsPage } from '../network/changesets_page';
 import { filtersSelector } from './filters_actions';
 
 import { modal } from './modal_actions';

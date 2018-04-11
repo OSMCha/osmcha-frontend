@@ -16,6 +16,10 @@ export const PREV_CHANGESET = {
   label: 'PREV_CHANGESET',
   bindings: ['up', 'left']
 };
+export const REFRESH_CHANGESETS = {
+  label: 'REFRESH_CHANGESETS',
+  bindings: ['R', 'r']
+};
 export const CHANGESET_DETAILS_SHOW_ALL = {
   label: 'CHANGESET_DETAILS_SHOW_ALL',
   bindings: ['0']
@@ -59,6 +63,22 @@ export const VERIFY_CLEAR = {
 export const OPEN_IN_JOSM = {
   label: 'OPEN_IN_JOSM',
   bindings: ['J', 'j']
+};
+export const OPEN_IN_ID = {
+  label: 'OPEN_IN_ID',
+  bindings: ['I', 'i']
+};
+export const OPEN_IN_OSM = {
+  label: 'OPEN_IN_OSM',
+  bindings: ['O', 'o']
+};
+export const OPEN_IN_LEVEL0 = {
+  label: 'OPEN_IN_LEVEL0',
+  bindings: ['L', 'l']
+};
+export const OPEN_IN_ACHAVI = {
+  label: 'OPEN_IN_ACHAVI',
+  bindings: ['V', 'v']
 };
 export const OPEN_IN_HDYC = {
   label: 'OPEN_IN_HDYC',

@@ -45,14 +45,22 @@ export function fetchChangesetsPage(
       Authorization: token ? `Token ${token}` : ''
     }
   }).then(res => {
+    if (res.status === 401 || res.status === 403) {
+      return Promise.reject(
+        Error('Authentication error. Sign in again and repeat the operation.')
+      );
+    }
     if (res.status >= 400 && res.status < 600) {
       return Promise.reject(
-        Error('Bad request. Please check filters or your network connection.')
+        Error(
+          'Bad request. Please check your filters or your network connection.'
+        )
       );
     }
     return res.json();
   });
 }
+
 export function fetchAOIChangesetPage(
   pageIndex: number,
   aoiId: string,
