@@ -163,7 +163,7 @@ class FiltersHeader extends React.Component<any, filterProps, any> {
         onRemove={() => {}}
       />
     );
-    if (this.props.token) {
+    if (this.props.token && this.state.aoiList.length) {
       return <span>{dropdown}</span>;
     }
   }
