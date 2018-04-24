@@ -42,7 +42,10 @@ class SaveAOI extends React.PureComponent {
     this.setState({
       editing: false
     });
-    if (this.props.aoiId) {
+    const aoiList = this.props.aoiList.filter(
+      aoi => aoi.value === this.props.aoiId
+    );
+    if (this.props.aoiId && aoiList.length) {
       this.props.updateAOI(this.props.aoiId, this.state.value);
     } else {
       this.props.createAOI(this.state.value);
@@ -175,6 +178,7 @@ class FiltersHeader extends React.Component<any, filterProps, any> {
         <SaveAOI
           name={this.props.aoiName}
           aoiId={this.props.aoiId}
+          aoiList={this.state.aoiList}
           createAOI={this.props.createAOI}
           updateAOI={this.props.updateAOI}
         />
