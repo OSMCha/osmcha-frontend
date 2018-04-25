@@ -2,6 +2,11 @@
 
 Log of changes since the 2.0 version
 
+#### 0.46.0
+
+* Add dropdown "My Filters" to the Filters page
+* Check if the current aoi belongs to the user before sending a save request
+
 #### 0.44.0
 
 * Remove vertical margins on homepage
