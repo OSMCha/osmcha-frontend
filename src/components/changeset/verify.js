@@ -18,9 +18,11 @@ export function Verify({
     return (
       <div className="flex-parent-inline">
         <span
-          className={`btn btn--s border border--1 round color-gray transition pl12 pr6 ${isHarmful
-            ? 'bg-lighten50 border--red-light'
-            : 'bg-lighten50 border--green-light'}`}
+          className={`btn btn--s border border--1 round color-gray transition pl12 pr6 ${
+            isHarmful
+              ? 'bg-lighten50 border--red-light'
+              : 'bg-lighten50 border--green-light'
+          }`}
         >
           <span>
             <img
@@ -28,7 +30,11 @@ export function Verify({
               alt={`Marked as ${isHarmful ? 'bad' : 'good'}`}
               className="icon inline-block mt3"
             />
-            <span className="ml6">{checkUser}</span>
+            {checkUser ? (
+              <span className="ml6">{checkUser}</span>
+            ) : (
+              <span className="ml6 txt-em">Verified</span>
+            )}
           </span>
           <svg
             onClick={onClear}

@@ -18,94 +18,110 @@ export function User({ userDetails, whosThat }) {
   return (
     <div className="px12 py6">
       <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
-        User / {userDetails.get('uid')}
+        User {userDetails.get('uid') && `/ ${userDetails.get('uid')}`}
       </h2>
-      <div className="flex-parent flex-parent--column align-items--center justify--space-between mb6">
-        <div>
-          <Avatar size={96} url={userDetails.get('img')} />
-          <div className="mt6 txt-bold color-gray align-center">
-            {userDetails.get('name')}
+      {userDetails.get('name') ? (
+        <div className="flex-parent flex-parent--column align-items--center justify--space-between mb6">
+          <div>
+            <Avatar size={96} url={userDetails.get('img')} />
+            <div className="mt6 txt-bold color-gray align-center">
+              {userDetails.get('name')}
+            </div>
+          </div>
+          <div>
+            <p className="txt-s color-gray align-center">
+              Joined {moment(userDetails.get('accountCreated')).fromNow(true)}{' '}
+              ago | {userDetails.get('count')} edits
+            </p>
+          </div>
+          <div>
+            <p className="txt-s color-gray align-center">
+              {userDetails.get('harmful_changesets')} Bad and &nbsp;
+              {userDetails.get('checked_changesets') -
+                userDetails.get('harmful_changesets')}{' '}
+              Good Changesets
+            </p>
+          </div>
+          <div className="mt6">
+            <Link
+              className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+              to={{
+                search: getObjAsQueryParam('filters', {
+                  users: [
+                    {
+                      label: userDetails.get('name'),
+                      value: userDetails.get('name')
+                    }
+                  ],
+                  date__gte: [{ label: '', value: '' }]
+                }),
+                pathname: '/'
+              }}
+            >
+              OSMCha
+            </Link>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Open in OSM"
+              className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+              href={`https://openstreetmap.org/user/${userDetails.get('name')}`}
+            >
+              OSM
+            </a>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Open in HDYC"
+              className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+              href={`https://hdyc.neis-one.org/?${userDetails.get('name')}`}
+            >
+              HDYC
+            </a>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Open in Missing Maps"
+              className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+              href={`https://www.missingmaps.org/users/#/${userDetails.get(
+                'name'
+              )}`}
+            >
+              Missing Maps
+            </a>
+          </div>
+          {whosThat.size > 1 && (
+            <div className="txt-s color-gray">
+              Past usernames: &nbsp;
+              {whosThat.slice(0, -1).map((e, k) => (
+                <span key={k} className="txt-em">
+                  {e}&nbsp;
+                </span>
+              ))}
+            </div>
+          )}
+          <div className="mt12">
+            <p
+              className="txt-subhead txt-s txt-break-url user-description"
+              dangerouslySetInnerHTML={{ __html: UserDescriptionHTML }}
+            />
           </div>
         </div>
-        <div>
-          <p className="txt-s color-gray align-center">
-            Joined {moment(userDetails.get('accountCreated')).fromNow(true)} ago
-            | {userDetails.get('count')} edits
-          </p>
-        </div>
-        <div>
-          <p className="txt-s color-gray align-center">
-            {userDetails.get('harmful_changesets')} Bad and &nbsp;
-            {userDetails.get('checked_changesets') -
-              userDetails.get('harmful_changesets')}{' '}
-            Good Changesets
-          </p>
-        </div>
-        <div className="mt6">
-          <Link
-            className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-            to={{
-              search: getObjAsQueryParam('filters', {
-                users: [
-                  {
-                    label: userDetails.get('name'),
-                    value: userDetails.get('name')
-                  }
-                ],
-                date__gte: [{ label: '', value: '' }]
-              }),
-              pathname: '/'
-            }}
-          >
-            OSMCha
-          </Link>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Open in OSM"
-            className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-            href={`https://openstreetmap.org/user/${userDetails.get('name')}`}
-          >
-            OSM
-          </a>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Open in HDYC"
-            className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-            href={`https://hdyc.neis-one.org/?${userDetails.get('name')}`}
-          >
-            HDYC
-          </a>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Open in Missing Maps"
-            className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-            href={`https://www.missingmaps.org/users/#/${userDetails.get(
-              'name'
-            )}`}
-          >
-            Missing Maps
-          </a>
-        </div>
-        {whosThat.size > 1 && (
-          <div className="txt-s color-gray">
-            Past usernames: &nbsp;
-            {whosThat.slice(0, -1).map((e, k) => (
-              <span key={k} className="txt-em">
-                {e}&nbsp;
-              </span>
-            ))}
+      ) : (
+        <div className="flex-parent flex-parent--column align-items--center justify--space-between mb6">
+          <div>
+            <Avatar size={96} url={userDetails.get('img')} />
+            <div className="mt6 txt-bold color-gray align-center">
+              {userDetails.get('name')}
+            </div>
           </div>
-        )}
-        <div className="mt12">
-          <p
-            className="txt-subhead txt-s txt-break-url user-description"
-            dangerouslySetInnerHTML={{ __html: UserDescriptionHTML }}
-          />
+          <div className="flex-parent flex-parent--column mt6 mb3">
+            <div className="bg-darken10 color-gray inline-block px6 py3 txt-xs txt-bold align-center round-full my12">
+              <span>Sign in to see the user details.</span>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
