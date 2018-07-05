@@ -2,6 +2,14 @@
 
 Log of changes since the 2.0 version
 
+#### 0.47.0
+
+- Adjustements to hide user metadata from unauthenticated users
+
+#### 0.46.1
+
+- Show number of active filters in the Filter toggle button
+
 #### 0.46.0
 
 * Add dropdown "My Filters" to the Filters page

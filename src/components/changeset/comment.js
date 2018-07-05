@@ -82,7 +82,7 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
   render() {
     return (
       <div>
-        {this.props.token ? (
+        {this.props.token && (
           <div className="flex-parent flex-parent--column mt6 mb3">
             {this.state.success && (
               <div className="bg-green-faint color-green inline-block px6 py3 txt-s align-center round my12">
@@ -118,12 +118,6 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
                   </Button>
                 </div>
               </div>
-            </div>
-          </div>
-        ) : (
-          <div className="flex-parent flex-parent--column mt6 mb3">
-            <div className="bg-darken10 color-gray inline-block px6 py3 txt-xs txt-bold align-center round-full my12">
-              <span>Sign in to post a comment.</span>
             </div>
           </div>
         )}

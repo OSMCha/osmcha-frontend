@@ -9,25 +9,27 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
   return (
     <span className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray">
       <span>
-        <span className="mr6">
-          {changesetId}
-        </span>
-        {properties.get('checked')
-          ? <span>
-              {properties.get('harmful')
-                ? <img
-                    src={thumbsDown}
-                    alt="Marked as bad"
-                    className="icon inline-block"
-                  />
-                : <img
-                    src={thumbsUp}
-                    alt="Marked as good"
-                    className="icon inline-block"
-                  />}
-              &nbsp; by&nbsp;{properties.get('check_user')}
-            </span>
-          : null}
+        <span className="mr6">{changesetId}</span>
+        {properties.get('checked') ? (
+          <span>
+            {properties.get('harmful') ? (
+              <img
+                src={thumbsDown}
+                alt="Marked as bad"
+                className="icon inline-block"
+              />
+            ) : (
+              <img
+                src={thumbsUp}
+                alt="Marked as good"
+                className="icon inline-block"
+              />
+            )}
+            {properties.get('check_user') && (
+              <span>&nbsp; by&nbsp;{properties.get('check_user')}</span>
+            )}
+          </span>
+        ) : null}
       </span>
       <span className="flex-parent flex-parent--row">
         <CreateDeleteModify
