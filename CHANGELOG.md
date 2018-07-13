@@ -2,6 +2,14 @@
 
 Log of changes since the 2.0 version
 
+#### 0.46.3
+
+- Disable service-worker temporarily
+
+#### 0.46.2
+
+- Update saved filters documentation
+
 #### 0.46.1
 
 - Show number of active filters in the Filter toggle button
