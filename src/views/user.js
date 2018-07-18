@@ -28,12 +28,13 @@ import { applyFilters } from '../store/filters_actions';
 import { API_URL } from '../config';
 import type { RootStateType } from '../store';
 
-const BlockMarkup = ({ children }) =>
+const BlockMarkup = ({ children }) => (
   <div className="flex-child flex-child--grow bg-gray-faint mx12 round p12 my6">
     <div className="flex-parent flex-parent--row  justify--space-between">
       {children}
     </div>
-  </div>;
+  </div>
+);
 
 class SaveUser extends React.PureComponent {
   state = {
@@ -61,23 +62,25 @@ class SaveUser extends React.PureComponent {
   render() {
     return (
       <span>
-        {this.state.showInput
-          ? <span className="flex-parent flex-parent--row ">
-              <BlackListUser onSave={this.onSave} />
-              {/* <UserAutocomplete
+        {this.state.showInput ? (
+          <span className="flex-parent flex-parent--row ">
+            <BlackListUser onSave={this.onSave} />
+            {/* <UserAutocomplete
                 placeholder="user"
                 className="wmin180"
                 onChange={this.onUserChange}
                 value={this.state.userValues}
                 name="blacklist_user"
               /> */}
-            </span>
-          : <Button
-              className="input wmax120 ml12"
-              onClick={() => this.setState({ showInput: true })}
-            >
-              Add+
-            </Button>}
+          </span>
+        ) : (
+          <Button
+            className="input wmax120 ml12"
+            onClick={() => this.setState({ showInput: true })}
+          >
+            Add+
+          </Button>
+        )}
       </span>
     );
   }
@@ -121,41 +124,39 @@ class SaveButton extends React.PureComponent {
   render() {
     return (
       <span>
-        {this.state.editing
-          ? <span className="flex-parent flex-parent--row ">
-              <input
-                placeholder={this.props.placeholder}
-                className="input wmax120 ml12"
-                ref={r => {
-                  if (this.clicked) {
-                    r && r.select();
-                    this.clicked = false;
-                  }
-                }}
-                value={this.state.value}
-                onChange={this.onChange}
-                onKeyDown={this.onKeyDown}
-              />
-              <Button className="input wmax120 ml6" onClick={this.onSave}>
-                Save
-              </Button>
-            </span>
-          : <Button className="input wmax120 ml12" onClick={this.onClick}>
-              Add+
-            </Button>}
+        {this.state.editing ? (
+          <span className="flex-parent flex-parent--row ">
+            <input
+              placeholder={this.props.placeholder}
+              className="input wmax120 ml12"
+              ref={r => {
+                if (this.clicked) {
+                  r && r.select();
+                  this.clicked = false;
+                }
+              }}
+              value={this.state.value}
+              onChange={this.onChange}
+              onKeyDown={this.onKeyDown}
+            />
+            <Button className="input wmax120 ml6" onClick={this.onSave}>
+              Save
+            </Button>
+          </span>
+        ) : (
+          <Button className="input wmax120 ml12" onClick={this.onClick}>
+            Add+
+          </Button>
+        )}
       </span>
     );
   }
 }
-const BlackListBlock = ({ data, removeFromBlackList }) =>
+const BlackListBlock = ({ data, removeFromBlackList }) => (
   <BlockMarkup>
     <span>
-      <span>
-        {data.getIn(['username'])}
-      </span>
-      <span className="txt-em color-gray pl6">
-        ({data.getIn(['uid'])})
-      </span>
+      <span>{data.getIn(['username'])}</span>
+      <span className="txt-em color-gray pl6">({data.getIn(['uid'])})</span>
     </span>
     <span>
       <Link
@@ -180,8 +181,9 @@ const BlackListBlock = ({ data, removeFromBlackList }) =>
         Remove
       </Button>
     </span>
-  </BlockMarkup>;
-const AOIsBlock = ({ data, activeAoiId, removeAoi }) =>
+  </BlockMarkup>
+);
+const AOIsBlock = ({ data, activeAoiId, removeAoi }) => (
   <BlockMarkup>
     <span>
       <span
@@ -190,9 +192,7 @@ const AOIsBlock = ({ data, activeAoiId, removeAoi }) =>
         {data.getIn(['properties', 'name'])}
         {activeAoiId === data.getIn(['id']) ? '*' : ''}
       </span>
-      <span className="txt-em color-gray pl6">
-        ({data.getIn(['id'])})
-      </span>
+      <span className="txt-em color-gray pl6">({data.getIn(['id'])})</span>
     </span>
     <span>
       <Link
@@ -213,7 +213,8 @@ const AOIsBlock = ({ data, activeAoiId, removeAoi }) =>
         iconName="rss"
       />
     </span>
-  </BlockMarkup>;
+  </BlockMarkup>
+);
 
 const ListFortified = ({
   onAdd,
@@ -222,11 +223,12 @@ const ListFortified = ({
   TargetBlock,
   propsToPass,
   SaveComp
-}) =>
+}) => (
   <div>
     {data.map((e, i) => <TargetBlock key={i} data={e} {...propsToPass} />)}
     {SaveComp}
-  </div>;
+  </div>
+);
 
 type propsType = {
   avatar: ?string,
@@ -368,10 +370,9 @@ class User extends React.PureComponent<any, propsType, any> {
     );
     return (
       <div
-        className={`flex-parent flex-parent--column changesets-filters bg-white${window.innerWidth <
-        800
-          ? 'viewport-full'
-          : ''}`}
+        className={`flex-parent flex-parent--column changesets-filters bg-white${
+          window.innerWidth < 800 ? 'viewport-full' : ''
+        }`}
       >
         <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
           <span className="txt-l txt-bold color-gray--dark">
@@ -409,38 +410,32 @@ class User extends React.PureComponent<any, propsType, any> {
             </h2>
             <span className="ml12 flex-parent flex-parent--row my3">
               <p className="flex-child txt-bold w120">OSMCha ID: </p>
-              <p className="flex-child">
-                {userDetails.get('id')}
-              </p>
+              <p className="flex-child">{userDetails.get('id')}</p>
             </span>
             <span className="ml12 flex-parent flex-parent--row my3">
               <p className="flex-child txt-bold w120">OSM ID: </p>
-              <p className="flex-child">
-                {userDetails.get('uid')}
-              </p>
+              <p className="flex-child">{userDetails.get('uid')}</p>
             </span>
             <span className="ml12 flex-parent flex-parent--row my3">
               <p className="flex-child txt-bold w120">Username: </p>
-              <p className="flex-child">
-                {userDetails.get('username')}
-              </p>
+              <p className="flex-child">{userDetails.get('username')}</p>
             </span>
 
-            {userDetails.get('is_staff') &&
+            {userDetails.get('is_staff') && (
               <span className="ml12 flex-parent flex-parent--row my3">
                 <p className="flex-child txt-bold w120">Staff: </p>
                 <p className="flex-child">Yes</p>
               </span>
-            }
-            {this.props.token &&
+            )}
+            {this.props.token && (
               <div className="mt24 mb12">
                 <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
                   <span className="txt-bold">Review Comments Template </span>
                 </h2>
                 <EditUserDetails />
               </div>
-            }
-            {userDetails.get('is_staff') &&
+            )}
+            {userDetails.get('is_staff') && (
               <div className="mt24 mb12">
                 <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
                   BlackList
@@ -448,11 +443,13 @@ class User extends React.PureComponent<any, propsType, any> {
                 <ListFortified
                   data={blackList}
                   TargetBlock={BlackListBlock}
-                  propsToPass={{removeFromBlackList: this.removeFromBlackList}}
+                  propsToPass={{
+                    removeFromBlackList: this.removeFromBlackList
+                  }}
                   SaveComp={<SaveUser onCreate={this.addToBlackList} />}
                 />
               </div>
-            }
+            )}
             <div className="mt24 mb12">
               <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
                 <span className="txt-bold">Saved Filters</span>
@@ -465,7 +462,7 @@ class User extends React.PureComponent<any, propsType, any> {
                   removeAoi: this.removeAOI
                 }}
                 SaveComp={<SaveButton onCreate={this.createAOI} />}
-                />
+              />
             </div>
           </div>
         </div>
