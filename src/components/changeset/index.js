@@ -1,10 +1,10 @@
 // @flow
-import React from 'react';
 import { Map, List } from 'immutable';
+import React from 'react';
+import { connect } from 'react-redux';
 import CSSGroup from 'react-transition-group/CSSTransitionGroup';
-import { cancelablePromise, cancelableFetchJSON } from '../../utils/promise';
 
-import { getUserDetails } from '../../network/openstreetmap';
+import { cancelablePromise, cancelableFetchJSON } from '../../utils/promise';
 import { Floater } from './floater';
 import { Header } from './header';
 import { User } from './user';
@@ -16,8 +16,9 @@ import { MapOptions } from './map_options';
 import { ControlLayout } from './control_layout';
 import { keyboardToggleEnhancer } from '../keyboard_enhancer';
 import { withFetchDataSilent } from '../fetch_data_enhancer';
-
-import { osmCommentsApi, whosThat } from '../../config/constants';
+import { osmCommentsApi } from '../../config/constants';
+import { getUserDetails } from '../../network/openstreetmap';
+import { getUsers } from '../../network/whosthat';
 import {
   CHANGESET_DETAILS_DETAILS,
   CHANGESET_DETAILS_SUSPICIOUS,
@@ -41,11 +42,46 @@ type propsType = {|
 
 // presentational component for view/changeset.js
 export class _Changeset extends React.PureComponent<*, propsType, *> {
+  getUserDetailsPromise;
+  getWhosThatPromise;
+
+  state = {
+    userDetails: null,
+    whosThat: null
+  };
+
   static defaultProps = {
     data: Map()
   };
   componentDidMount() {
     this.toggleDetails();
+  }
+  componentDidUpdate(prevProps) {
+    if (
+      !prevProps.currentChangeset.getIn(['properties', 'uid']) &&
+      this.props.currentChangeset.getIn(['properties', 'uid'])
+    ) {
+      this.getUserDetailsPromise = cancelablePromise(
+        getUserDetails(
+          this.props.currentChangeset.getIn(['properties', 'uid'], null),
+          this.props.token
+        )
+      );
+      this.getUserDetailsPromise.promise
+        .then(r => {
+          this.setState({ userDetails: r });
+        })
+        .catch(e => console.log(e));
+
+      this.getWhosThatPromise = cancelablePromise(
+        getUsers(this.props.currentChangeset.getIn(['properties', 'uid'], ''))
+      );
+      this.getWhosThatPromise.promise
+        .then(r => {
+          this.setState({ whosThat: List(r[0].names) });
+        })
+        .catch(e => console.log(e));
+    }
   }
   showFloaters = () => {
     const { changesetId, currentChangeset, bindingsState, data } = this.props;
@@ -95,8 +131,16 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
         {bindingsState.get(CHANGESET_DETAILS_USER.label) && (
           <Box key={0} className=" responsive-box  round-tr round-br">
             <User
-              userDetails={data.getIn(['userDetails'], Map())}
-              whosThat={data.getIn(['whosThat', 0, 'names'], List())}
+              userDetails={
+                data.getIn(['userDetails', 'name'])
+                  ? data.getIn(['userDetails'], Map())
+                  : Map(this.state.userDetails)
+              }
+              whosThat={
+                data.getIn(['userDetails', 'name'])
+                  ? data.getIn(['whosThat', 0, 'names'], List())
+                  : this.state.whosThat || List()
+              }
             />
           </Box>
         )}
@@ -185,16 +229,23 @@ let Changeset = keyboardToggleEnhancer(
 Changeset = withFetchDataSilent(
   (props: propsType) => ({
     userDetails: cancelablePromise(
-      getUserDetails(props.currentChangeset.getIn(['properties', 'uid'], null))
+      getUserDetails(
+        props.currentChangeset.getIn(['properties', 'uid'], null),
+        props.token
+      )
     ),
     osmComments: cancelableFetchJSON(`${osmCommentsApi}/${props.changesetId}`),
-    whosThat: cancelableFetchJSON(
-      `${whosThat}${props.currentChangeset.getIn(['properties', 'uid'], '')}`
+    whosThat: cancelablePromise(
+      getUsers(props.currentChangeset.getIn(['properties', 'uid'], ''))
     )
   }),
   (nextProps: propsType, props: propsType) =>
     props.changesetId !== nextProps.changesetId,
   Changeset
 );
+
+Changeset = connect((state: RootStateType, props) => ({
+  token: state.auth.get('token')
+}))(Changeset);
 
 export { Changeset };
