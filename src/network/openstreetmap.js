@@ -2,7 +2,7 @@ import { fromJS, Map } from 'immutable';
 import { apiOSM } from '../config/constants';
 import { API_URL } from '../config';
 
-export function getUserDetails(uid: number): Map<'string', *> {
+export function getUserDetails(uid: number, token: string): Map<'string', *> {
   const user = {};
   const fromOSM = fetch(`${apiOSM}/user/${uid}`)
     .then(r => r.text())
@@ -36,7 +36,13 @@ export function getUserDetails(uid: number): Map<'string', *> {
     .catch(e => user)
     .then(user => fromJS(user));
 
-  const fromOSMCha = fetch(`${API_URL}/user-stats/${uid}`)
+  const fromOSMCha = fetch(`${API_URL}/user-stats/${uid}/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token ? `Token ${token}` : ''
+    }
+  })
     .then(r => r.json())
     .then(r => fromJS(r))
     .catch(e => new Map());

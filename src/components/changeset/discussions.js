@@ -7,6 +7,7 @@ import AnchorifyText from 'react-anchorify-text';
 import AssemblyAnchor from '../assembly_anchor';
 import { CommentForm } from './comment';
 import TranslateButton from './translate_button';
+import { SignInButton } from './sign_in_button';
 
 class Discussions extends React.PureComponent {
   props: {
@@ -72,27 +73,33 @@ class Discussions extends React.PureComponent {
                 <use xlinkHref="#icon-contact" />
               </svg>
             </div>
-            <div className="flex-parent flex-parent--column mt6 mb3">
-              <div className="bg-darken10 color-gray inline-block px6 py3 txt-xs txt-bold align-center round-full my12">
-                <span>Sign in to read and post comments.</span>
-              </div>
+            <div className="flex-parent flex-parent--inline flex-parent--center-main mt6 mb3">
+              <SignInButton
+                changesetId={changesetId}
+                text="Sign in to read and post comments"
+              />
             </div>
           </div>
         )}
-        <div className="flex-parent flex-parent--column justify--space-between my6 mt12">
-          <CommentForm
-            changesetId={changesetId}
-            changesetIsHarmful={changesetIsHarmful}
-            discussions={discussions}
-          />
-        </div>
+        {this.props.token && (
+          <div className="flex-parent flex-parent--column justify--space-between my6 mt12">
+            <CommentForm
+              changesetId={changesetId}
+              changesetIsHarmful={changesetIsHarmful}
+              discussions={discussions}
+              token={this.props.token}
+              userDetails={this.props.userDetails}
+            />
+          </div>
+        )}
       </div>
     );
   }
 }
 
 Discussions = connect((state: RootStateType, props) => ({
-  token: state.auth.get('token')
+  token: state.auth.get('token'),
+  userDetails: state.auth.get('userDetails')
 }))(Discussions);
 
 export { Discussions };
