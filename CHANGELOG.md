@@ -2,9 +2,18 @@
 
 Log of changes since the 2.0 version
 
-#### 0.47.0
+#### Next release
 
-- Adjustements to hide user metadata from unauthenticated users
+- Removes user metadata to unauthenticated requests
+- Enable service-worker again
+
+#### 0.46.3
+
+- Disable service-worker
+
+#### 0.46.2
+
+- Update documentation
 
 #### 0.46.1
 
