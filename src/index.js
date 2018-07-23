@@ -8,7 +8,7 @@ import Raven from 'raven-js';
 import { history } from './store/history';
 import { store } from './store';
 import { isDev, stack, appVersion } from './config';
-import { registerServiceWorker } from './serviceworker';
+import { unregisterServiceWorker } from './serviceworker';
 
 import './assets/index.css';
 import 'animate.css/animate.css';
@@ -22,8 +22,9 @@ import { App } from './app';
 ReactGA.initialize('UA-100686765-1', {
   gaOptions: {
     anonymizeIp: true,
-    screenResolution: `${window.screen.availWidth}X${window.screen
-      .availHeight}`,
+    screenResolution: `${window.screen.availWidth}X${
+      window.screen.availHeight
+    }`,
     appName: stack
   }
 });
@@ -47,4 +48,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-registerServiceWorker();
+unregisterServiceWorker();
