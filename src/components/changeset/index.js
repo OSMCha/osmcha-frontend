@@ -102,7 +102,12 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
               toggleUser={this.toggleUser}
               changesetId={changesetId}
               properties={properties}
-              userEditCount={data.getIn(['userDetails', 'count'], 0)}
+              userEditCount={
+                data.getIn(['userDetails', 'count'], 0) ||
+                this.state.userDetails
+                  ? this.state.userDetails.get('count')
+                  : 0
+              }
             />
           </Box>
         )}
