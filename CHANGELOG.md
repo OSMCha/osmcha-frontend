@@ -6,6 +6,7 @@ Log of changes since the 2.0 version
 
 - Removes user metadata to unauthenticated requests
 - Enable service-worker again
+- Show current user token on the user page
 
 #### 0.46.3
 
