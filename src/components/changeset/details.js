@@ -21,11 +21,10 @@ export function Details({
   const comment = properties.get('comment');
 
   const urlRegex = new RegExp(
-    /(([\w\.\-\+]+:)\/{2}(([\w\d\.]+):([\w\d\.]+))?@?(([a-zA-Z0-9\.\-_]+)(?::(\d{1,5}))?))?(\/(?:[a-zA-Z0-9{}:\,\.\-\/\+\%]+)?)(?:\?([a-zA-Z0-9=%\-_\.\*&;]+))?(?:#([a-zA-Z0-9\-=,&%;\/\\"'\?]+)?)?/g
+    /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/gim
   );
 
   let sourceMatch = [];
-  let sourceOrignal = source;
 
   if (source && source.indexOf('{switch:a,b,c}.') > -1) {
     source = source.replace('{switch:a,b,c}.', '');
@@ -44,9 +43,9 @@ export function Details({
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap py12">
         <div className="flex-parent flex-parent--row flex-parent--wrap mb3">
           <p
-            className={`flex-child txt-subhead txt-l txt-break-url ${!comment
-              ? 'color-gray txt-em'
-              : ''}`}
+            className={`flex-child txt-subhead txt-l txt-break-url ${
+              !comment ? 'color-gray txt-em' : ''
+            }`}
           >
             <AnchorifyText
               text={
@@ -73,10 +72,11 @@ export function Details({
               <br />
               {sourceMatch.map((e, k) => (
                 <a
-                  href={sourceOrignal}
-                  title={sourceOrignal}
+                  href={sourceMatch}
+                  title={sourceMatch}
                   key={k}
                   className="color-blue"
+                  target="_blank"
                 >
                   {Array.isArray(
                     e.match(
@@ -87,7 +87,7 @@ export function Details({
                       /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
                     )[0]
                   ) : (
-                    <svg className="icon inline-block align-middle ">
+                    <svg className="icon h18 w18 inline-block align-middle ">
                       <use xlinkHref="#icon-share" />
                     </svg>
                   )}
@@ -117,7 +117,7 @@ export function Details({
                       /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
                     )[0]
                   ) : (
-                    <svg className="icon inline-block align-middle ">
+                    <svg className="icon h18 w18 inline-block align-middle ">
                       <use xlinkHref="#icon-share" />
                     </svg>
                   )}

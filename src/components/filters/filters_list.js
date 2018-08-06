@@ -2,7 +2,15 @@
 import React from 'react';
 import moment from 'moment';
 
-import { Text, Radio, MultiSelect, Wrapper, Meta, Date } from './';
+import {
+  Text,
+  Radio,
+  MultiSelect,
+  Wrapper,
+  Meta,
+  Date,
+  LocationSelect
+} from './';
 
 import { BBoxPicker } from '../bbox_picker';
 import { loadingEnhancer } from '../loading_enhancer';
@@ -121,6 +129,13 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
         </Wrapper>
       );
     }
+    if (f.type === 'location') {
+      return (
+        <Wrapper {...wrapperProps}>
+          <LocationSelect {...propsToSend} />
+        </Wrapper>
+      );
+    }
     if (f.type === 'text') {
       return (
         <Wrapper {...wrapperProps}>
@@ -183,12 +198,13 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
         <Wrapper
           {...wrapperProps}
           description={
-            this.props.active === f.name &&
-            <BBoxPicker
-              onChange={this.props.handleChange}
-              name={f.name}
-              value={this.props.filters.get(f.name)}
-            />
+            this.props.active === f.name && (
+              <BBoxPicker
+                onChange={this.props.handleChange}
+                name={f.name}
+                value={this.props.filters.get(f.name)}
+              />
+            )
           }
         >
           <Text {...propsToSend} />
@@ -203,26 +219,26 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           Basic
         </h2>
         {filtersData
-          .slice(0, 4)
+          .slice(0, 5)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Flags
         </h2>
         {filtersData
-          .slice(4, 6)
+          .slice(5, 7)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Review
         </h2>
         {filtersData
-          .slice(6, 10)
+          .slice(7, 11)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Changeset Details
         </h2>
-        {filtersData.slice(10).map((f: Object, k) => this.renderFilters(f, k))}
+        {filtersData.slice(11).map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
       </div>
     );

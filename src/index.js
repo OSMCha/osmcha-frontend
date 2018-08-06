@@ -8,21 +8,23 @@ import Raven from 'raven-js';
 import { history } from './store/history';
 import { store } from './store';
 import { isDev, stack, appVersion } from './config';
-import { registerServiceWorker } from './serviceworker';
+import { unregisterServiceWorker } from './serviceworker';
 
 import './assets/index.css';
 import 'animate.css/animate.css';
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import 'react-select/dist/react-select.css';
-import './assets/0.13.0.assembly.min.css';
-import './assets/0.13.0.assembly';
+import './assets/0.21.0.assembly.min.css';
+import './assets/0.21.0.assembly';
 
 import { App } from './app';
 
 ReactGA.initialize('UA-100686765-1', {
   gaOptions: {
     anonymizeIp: true,
-    screenResolution: `${window.screen.availWidth}X${window.screen
-      .availHeight}`,
+    screenResolution: `${window.screen.availWidth}X${
+      window.screen.availHeight
+    }`,
     appName: stack
   }
 });
@@ -46,4 +48,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-registerServiceWorker();
+unregisterServiceWorker();

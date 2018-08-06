@@ -1,12 +1,13 @@
 // @flow
-import { put, call, take, select } from 'redux-saga/effects';
+import { put, call, take, select, all, takeLatest } from 'redux-saga/effects';
 import { delay as delayPromise } from 'redux-saga';
 import { fromJS } from 'immutable';
 
 import {
   postTokensOSMCha,
   postFinalTokensOSMCha,
-  fetchUserDetails
+  fetchUserDetails,
+  updateUserDetails
 } from '../network/auth';
 import { setItem, removeItem } from '../utils/safe_storage';
 
@@ -23,7 +24,8 @@ export const AUTH = {
   logout: 'AUTH_LOGOUT',
   clearSession: 'AUTH_CLEAR_SESSION',
   loginError: 'AUTH_LOGIN_ERROR',
-  userDetails: 'AUTH_USER_DETAILS'
+  userDetails: 'AUTH_USER_DETAILS',
+  updateUserDetails: 'UPDATE_USER_DETAILS'
 };
 
 export function action(type: string, payload: ?Object) {
@@ -43,6 +45,22 @@ export const tokenSelector = (state: RootStateType) => state.auth.get('token');
 
 const delay = process.env.NODE_ENV === 'test' ? () => {} : delayPromise;
 const DELAY = 1000;
+
+export const applyUpdateUserDetails = (
+  message_good: string,
+  message_bad: string,
+  comment_feature: boolean
+) =>
+  action(AUTH.updateUserDetails, {
+    message_good,
+    message_bad,
+    comment_feature
+  });
+
+export function* watchUserDetails(): any {
+  yield all([takeLatest(AUTH.updateUserDetails, updateUserDetailsSaga)]);
+}
+
 export function* watchAuth(): any {
   // get the token from localStorage.
   // if it exists we just need to wait for
@@ -119,4 +137,44 @@ export function* authTokenFlow(): any {
     })
   );
   return token;
+}
+
+export function* updateUserDetailsSaga({
+  message_good,
+  message_bad,
+  comment_feature
+}: {
+  message_good: string,
+  message_bad: string,
+  comment_feature: boolean
+}): any {
+  try {
+    let token = yield select(tokenSelector);
+    if (token) {
+      const userDetails = fromJS(
+        yield call(
+          updateUserDetails,
+          token,
+          message_good,
+          message_bad,
+          comment_feature
+        )
+      );
+      yield put(action(AUTH.userDetails, { userDetails }));
+      yield put(
+        modal({
+          kind: 'success',
+          title: 'User updated',
+          description: 'Your user preferences were updated successfully'
+        })
+      );
+    }
+  } catch (e) {
+    console.error(e);
+    yield put(
+      modal({
+        error: e
+      })
+    );
+  }
 }

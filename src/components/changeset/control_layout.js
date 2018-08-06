@@ -6,6 +6,7 @@ import { Floater } from './floater';
 import {
   CHANGESET_DETAILS_DETAILS,
   CHANGESET_DETAILS_SUSPICIOUS,
+  CHANGESET_DETAILS_TAGS,
   CHANGESET_DETAILS_USER,
   CHANGESET_DETAILS_DISCUSSIONS,
   CHANGESET_DETAILS_MAP
@@ -17,6 +18,7 @@ export function ControlLayout({
   discussions,
   toggleDetails,
   toggleFeatures,
+  toggleTags,
   toggleDiscussions,
   toggleUser,
   toggleMapOptions
@@ -34,7 +36,7 @@ export function ControlLayout({
         bg={'gray-faint'}
         className="unround-r unround-bl"
       >
-        <svg className="icon inline-block align-middle ">
+        <svg className="icon h18 w18 inline-block align-middle ">
           <use xlinkHref="#icon-eye" />
         </svg>
       </Control>
@@ -45,12 +47,21 @@ export function ControlLayout({
         className="unround"
       >
         <svg
-          className={`icon inline-block align-middle ${features &&
-          features.size == 0
-            ? 'color-darken25'
-            : 'color-black'}`}
+          className={`icon h18 w18 inline-block align-middle ${
+            features && features.size == 0 ? 'color-darken25' : 'color-black'
+          }`}
         >
           <use xlinkHref="#icon-alert" />
+        </svg>
+      </Control>
+      <Control
+        active={bindingsState.get(CHANGESET_DETAILS_TAGS.label)}
+        onClick={toggleTags}
+        bg={'gray-faint'}
+        className="unround"
+      >
+        <svg className="icon h18 w18 inline-block align-middle">
+          <use xlinkHref="#icon-hash" />
         </svg>
       </Control>
       <Control
@@ -60,9 +71,9 @@ export function ControlLayout({
         className="unround"
       >
         <svg
-          className={`icon inline-block align-middle ${discussions.size == 0
-            ? 'color-darken25'
-            : 'color-black'}`}
+          className={`icon h18 w18 inline-block align-middle ${
+            discussions.size == 0 ? 'color-darken25' : 'color-black'
+          }`}
         >
           <use xlinkHref="#icon-contact" />
         </svg>
@@ -73,7 +84,7 @@ export function ControlLayout({
         bg={'white'}
         className="unround"
       >
-        <svg className="icon inline-block align-middle">
+        <svg className="icon h18 w18 inline-block align-middle">
           <use xlinkHref="#icon-user" />
         </svg>
       </Control>
@@ -83,7 +94,7 @@ export function ControlLayout({
         bg={'white'}
         className="unround-r unround-tl"
       >
-        <svg className="icon inline-block align-middle">
+        <svg className="icon h18 w18 inline-block align-middle">
           <use xlinkHref="#icon-map" />
         </svg>
       </Control>

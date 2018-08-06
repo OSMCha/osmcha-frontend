@@ -10,14 +10,12 @@ import {
   takeLatest
 } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { fromJS, Map } from 'immutable';
+import { Map } from 'immutable';
 import { push } from 'react-router-redux';
 
 import { getSearchObj, getObjAsQueryParam } from '../utils/query_params';
 import { validateFilters } from '../utils/filters';
-import { tokenSelector } from './auth_actions';
-
-import { fetchAOI } from '../network/aoi';
+import { fetchAOISaga, AOI } from './aoi_actions';
 
 import { modal } from './modal_actions';
 
@@ -38,14 +36,6 @@ export const CHANGESETS_PAGE = {
 export const FILTERS = {
   set: 'FILTERS_SET',
   apply: 'FILTERS_APPLY'
-};
-
-export const AOI = {
-  fetch: 'AOI.fetch',
-  clear: 'AOI.clear',
-  fetched: 'AOI.fetched',
-  loading: 'AOI.loading',
-  error: 'AOI.error'
 };
 
 export function action(type: string, payload: ?Object) {
@@ -123,7 +113,13 @@ export function* filtersSaga(location: Object): any {
         filters
       })
     );
-    yield put(action(CHANGESETS_PAGE.fetch, { pageIndex: 0, filters }));
+    if (aoiId) {
+      yield put(
+        action(CHANGESETS_PAGE.fetch, { pageIndex: 0, filters, aoiId })
+      );
+    } else {
+      yield put(action(CHANGESETS_PAGE.fetch, { pageIndex: 0, filters }));
+    }
   } catch (e) {
     console.error(e);
     const location = yield select(locationSelector);
@@ -137,29 +133,6 @@ export function* filtersSaga(location: Object): any {
       put(push(location))
     ]);
   }
-}
-
-// let changesetTask;
-// let changesetMapTask;
-
-// export function* filtersProcess
-export function* fetchAOISaga(aoiId: string): any {
-  yield put(action(AOI.loading, { loading: true }));
-  const token = yield select(tokenSelector);
-  const data = yield call(fetchAOI, token, aoiId);
-  const aoi = fromJS(data);
-  yield put(action(AOI.fetched, { aoi }));
-  let filters = aoi.getIn(['properties', 'filters'], Map());
-  filters = filters.map((v, k) => {
-    const options = v.split(',');
-    return fromJS(
-      options.map(o => ({
-        value: o,
-        label: o
-      }))
-    );
-  });
-  return filters;
 }
 
 export const locationSelector = (state: RootStateType) =>

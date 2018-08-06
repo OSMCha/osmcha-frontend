@@ -45,14 +45,15 @@ export function Header({
               location.pathname.indexOf('/filters') > -1 ? '/' : '/filters'
           }}
         >
-          <Button className="mx3">Filters</Button>
+          <Button className="mx3">
+            Filters {filters.size > 0 && `(${filters.size})`}
+          </Button>
         </NavLink>
       </header>
       <header
-        className={`px12 border-l border-b border-b--1 border--gray-light px12 py6 ${diff >
-        0
-          ? 'bg-darken10'
-          : 'bg-gray-faint'} flex-child align-items--center`}
+        className={`px12 border-l border-b border-b--1 border--gray-light px12 py6 ${
+          diff > 0 ? 'bg-darken10' : 'bg-gray-faint'
+        } flex-child align-items--center`}
       >
         <span className="flex-parent flex-parent--row justify--space-between color-gray txt-s txt-bold">
           <span>
@@ -62,15 +63,17 @@ export function Header({
             changesets.
           </span>
           <span className="flex-parent flex-parent--row">
-            {diffLoading
-              ? <span className="loading loading--s inline" />
-              : <Button
-                  className="mx3 btn--xs"
-                  iconName="rotate"
-                  onClick={reloadCurrentPage}
-                >
-                  {diff > 0 ? `${diff} new` : ''}
-                </Button>}
+            {diffLoading ? (
+              <span className="loading loading--s inline" />
+            ) : (
+              <Button
+                className="mx3 btn--xs"
+                iconName="rotate"
+                onClick={reloadCurrentPage}
+              >
+                {diff > 0 ? `${diff} new` : ''}
+              </Button>
+            )}
           </span>
         </span>
       </header>

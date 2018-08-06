@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
+
 import { Button } from '../button';
-import { cancelablePromise } from '../../utils/promise';
 import {
   addToWhitelist,
   removeFromWhitelist
@@ -52,20 +52,21 @@ class WhitelistUser extends React.PureComponent {
             onClick={this.onClick}
           >
             <svg
-              className={`icon inline-block align-middle pl3 pb3 pointer ${this
-                .state.hover
-                ? 'color-red'
-                : 'color-green'}`}
+              className={`icon inline-block align-middle pl3 pb3 pointer ${
+                this.state.hover ? 'color-red' : 'color-green'
+              }`}
             >
               <use
-                xlinkHref={`${this.state.hover
-                  ? '#icon-close'
-                  : '#icon-check'}`}
+                xlinkHref={`${
+                  this.state.hover ? '#icon-close' : '#icon-check'
+                }`}
               />
             </svg>
-            {`${this.state.hover
-              ? 'Remove user from whitelist'
-              : 'Whitelisted User'}`}
+            {`${
+              this.state.hover
+                ? 'Remove user from whitelist'
+                : 'Whitelisted User'
+            }`}
           </Button>
         ) : (
           <Button

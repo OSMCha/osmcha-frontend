@@ -190,6 +190,14 @@ img {
   transition: opacity 1s ease-out;
 }
 
+#geometry-map {
+  position: relative;
+  display: inline-block;
+  height: 300px;
+  width: 100%;
+  z-index: 0;
+}
+
 .filters-desc-appear {
   opacity: 0.01;
 }
@@ -282,7 +290,7 @@ img {
   background: #000 !important;
 }
 
-.cmap-changeset-section {
+.cmap-changeset-section, .cmap-sidebar {
   display: none !important;
 }
 
@@ -342,6 +350,10 @@ img {
   border-left-width: 4px !important;
 }
 
+.cmap-changeset-link {
+  text-decoration: underline;
+}
+
 /* bbox map*/
 .bbox-map-clear {
   position: relative;
@@ -388,4 +400,42 @@ img {
 
 .workflow-img {
   width: 35vw;
+}
+
+#guide > p {
+  padding-top: 6px;
+}
+
+#guide > p > img {
+  padding-bottom: 6px;
+  margin: 0 auto;
+  display: block;
+}
+
+.p6 {
+  padding: 6px;
+}
+
+.p12 {
+  padding: 12px;
+}
+
+.border--darken5 {
+  border-color:rgba(0,0,0,.05) !important;
+}
+
+.w72 {
+  width: 72px;
+}
+
+.h72 {
+  height: 72px;
+}
+
+.w96 {
+  width: 96px;
+}
+
+.h96 {
+  height: 96px;
 }

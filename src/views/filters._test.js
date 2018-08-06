@@ -20,7 +20,7 @@ afterEach(() => {
 test.skip('renders correctly without filter', () => {
   const tree = renderer
     .create(
-      <StaticRouter>
+      <StaticRouter context={{}}>
         <Filters
           filters={fromJS({})}
           location={{ search: '' }}
@@ -35,7 +35,7 @@ test.skip('renders correctly without filter', () => {
 test.skip('renders correctly with 1 filter', () => {
   const tree = renderer
     .create(
-      <StaticRouter>
+      <StaticRouter context={{}}>
         <Filters
           filters={fromJS({
             reasons: [
@@ -57,7 +57,7 @@ test.skip('renders correctly with 1 filter', () => {
 test.skip('renders correctly with 2 filters', () => {
   const tree = renderer
     .create(
-      <StaticRouter>
+      <StaticRouter context={{}}>
         <Filters
           filters={fromJS({
             reasons: [
@@ -86,7 +86,7 @@ test.skip('renders correctly with 2 filters', () => {
 test.skip('renders correctly with 4 filters', () => {
   const tree = renderer
     .create(
-      <StaticRouter>
+      <StaticRouter context={{}}>
         <Filters
           filters={fromJS({
             reasons: [

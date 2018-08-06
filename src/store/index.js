@@ -14,6 +14,7 @@ import { changesetReducer } from './changeset_reducer';
 import { modalReducer } from './modal_reducer';
 import { filtersReducer } from './filters_reducer';
 import { whitelistReducer } from './whitelist_reducer';
+import { aoiReducer } from './aoi_reducer';
 
 import type { ModalType } from './modal_reducer';
 import type { ChangesetsPageType } from './changesets_page_reducer';
@@ -28,6 +29,7 @@ export type RootStateType = {
   auth: AuthType,
   changesetsPage: ChangesetsPageType,
   filters: filtersReducerType,
+  aoi: aoiReducerType,
   changeset: ChangesetType,
   modal: ModalType,
   routing: Object,
@@ -39,6 +41,7 @@ const reducers = combineReducers({
   changesetsPage: changesetsPageReducer,
   changeset: changesetReducer,
   filters: filtersReducer,
+  aoi: aoiReducer,
   routing: routerReducer,
   auth: authReducer,
   modal: modalReducer,

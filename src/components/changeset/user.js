@@ -55,7 +55,8 @@ export function User({ userDetails, whosThat }) {
                     label: userDetails.get('name'),
                     value: userDetails.get('name')
                   }
-                ]
+                ],
+                date__gte: [{ label: '', value: '' }]
               }),
               pathname: '/'
             }}
@@ -65,20 +66,31 @@ export function User({ userDetails, whosThat }) {
           <a
             target="_blank"
             rel="noopener noreferrer"
+            title="Open in OSM"
+            className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+            href={`https://openstreetmap.org/user/${userDetails.get('name')}`}
+          >
+            OSM
+          </a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
             title="Open in HDYC"
             className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-            href={`http://hdyc.neis-one.org/?${userDetails.get('name')}`}
+            href={`https://hdyc.neis-one.org/?${userDetails.get('name')}`}
           >
             HDYC
           </a>
           <a
             target="_blank"
             rel="noopener noreferrer"
-            title="Open in OSM"
+            title="Open in Missing Maps"
             className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-            href={`https://openstreetmap.org/user/${userDetails.get('name')}`}
+            href={`https://www.missingmaps.org/users/#/${userDetails.get(
+              'name'
+            )}`}
           >
-            OSM
+            Missing Maps
           </a>
         </div>
         {whosThat.size > 1 && (

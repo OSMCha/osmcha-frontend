@@ -19,6 +19,7 @@ class Modal extends React.PureComponent {
     autoDismiss: ?boolean,
     dismissModalCallback: number => any,
     activateModalCallback: number => any,
+    position: ?string,
     callbackLabel: ?string,
     error: Object,
     uid: number
@@ -28,6 +29,7 @@ class Modal extends React.PureComponent {
     description: 'Oops there was a problem. Please reload the app.',
     autoDismiss: 5,
     dismiss: true,
+    position: 'tr',
     kind: 'error'
   };
   ref = null;
@@ -49,6 +51,7 @@ class Modal extends React.PureComponent {
         (nextProps.error && nextProps.error.message) || nextProps.description,
       level: nextProps.kind,
       autoDismiss: nextProps.autoDismiss,
+      position: nextProps.position,
       dismissible: nextProps.dismiss,
       action: nextProps.callbackLabel && {
         label: nextProps.callbackLabel,
@@ -74,6 +77,7 @@ Modal = connect(
     title: state.modal.get('title'),
     description: state.modal.get('description'),
     dismiss: state.modal.get('dismiss'),
+    position: state.modal.get('position'),
     autoDismiss: state.modal.get('autoDismiss'),
     kind: state.modal.get('kind'),
     uid: state.modal.get('uid')

@@ -7,12 +7,8 @@ import { selectFeature } from '../../views/map';
 const Feature = ({ data }: { data: Map<string, any> }) => {
   return (
     <tr className="txt-s">
-      <td>
-        {data.get('osm_id')}
-      </td>
-      <td>
-        {data.get('name')}
-      </td>
+      <td>{data.get('osm_id')}</td>
+      <td>{data.get('name')}</td>
       <td>
         <Reasons reasons={data.get('reasons')} color="blue" />
       </td>
@@ -52,26 +48,28 @@ export function Features({
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
           Flagged Features {features.size !== 0 ? `(${features.size})` : ''}
         </h2>
-        {features.size === 0
-          ? <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
-              <svg className="icon icon--xxl color-darken25">
-                <use xlinkHref="#icon-alert" />
-              </svg>
-              <p className="txt-m">{`No features were flagged for ${changesetId}.`}</p>
-            </div>
-          : <table className="table osmcha-custom-table my12">
-              <thead>
-                <tr className="txt-s txt-uppercase">
-                  <th>OSM Id</th>
-                  <th>Name</th>
-                  <th>Reasons</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {features.map((f, k) => <Feature key={k} data={f} />)}
-              </tbody>
-            </table>}
+        {features.size === 0 ? (
+          <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
+            <svg className="icon icon--xxl color-darken25">
+              <use xlinkHref="#icon-alert" />
+            </svg>
+            <p className="txt-m">{`No features were flagged for ${changesetId}.`}</p>
+          </div>
+        ) : (
+          <table className="table osmcha-custom-table my12">
+            <thead>
+              <tr className="txt-s txt-uppercase">
+                <th>OSM Id</th>
+                <th>Name</th>
+                <th>Reasons</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {features.map((f, k) => <Feature key={k} data={f} />)}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

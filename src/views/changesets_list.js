@@ -19,7 +19,9 @@ import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
 import {
   NEXT_CHANGESET,
   PREV_CHANGESET,
-  FILTER_BINDING
+  FILTER_BINDING,
+  HELP_BINDING,
+  REFRESH_CHANGESETS
 } from '../config/bindings';
 
 type propsType = {
@@ -32,6 +34,7 @@ type propsType = {
   pageIndex: number,
   activeChangesetId: ?number,
   filters: Map<string, ImmutableList<*>>,
+  aoiId: ?string,
   lastKeyStroke: Map<string, *>,
   getChangesetsPage: (number, ?boolean) => mixed, // base 0
   checkForNewChangesets: boolean => any,
@@ -85,6 +88,25 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
       this.props.push(location);
     }
   }
+  toggleHelp() {
+    if (
+      this.props.location &&
+      this.props.location.pathname.startsWith('/about')
+    ) {
+      const location = {
+        ...this.props.location, //  clone it
+        pathname: '/'
+      };
+      this.props.push(location);
+    } else {
+      console.log(...this.props.location);
+      const location = {
+        ...this.props.location, //  clone it
+        pathname: '/about'
+      };
+      this.props.push(location);
+    }
+  }
   componentWillReceiveProps(nextProps: propsType) {
     const lastKeyStroke: Map<string, *> = nextProps.lastKeyStroke;
     if (is(this.props.lastKeyStroke, lastKeyStroke)) return;
@@ -93,12 +115,20 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
         this.toggleFilters();
         break;
       }
+      case HELP_BINDING.label: {
+        this.toggleHelp();
+        break;
+      }
       case NEXT_CHANGESET.label: {
         this.goUpDownToChangeset(1);
         break;
       }
       case PREV_CHANGESET.label: {
         this.goUpDownToChangeset(-1);
+        break;
+      }
+      case REFRESH_CHANGESETS.label: {
+        this.reloadCurrentPage();
         break;
       }
       default: {
@@ -158,7 +188,13 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
 
 ChangesetsList = keyboardToggleEnhancer(
   false,
-  [NEXT_CHANGESET, PREV_CHANGESET, FILTER_BINDING],
+  [
+    NEXT_CHANGESET,
+    PREV_CHANGESET,
+    FILTER_BINDING,
+    HELP_BINDING,
+    REFRESH_CHANGESETS
+  ],
   ChangesetsList
 );
 
@@ -172,7 +208,8 @@ ChangesetsList = connect(
     diffLoading: state.changesetsPage.get('diffLoading'),
     pageIndex: state.changesetsPage.get('pageIndex') || 0,
     activeChangesetId: state.changeset.get('changesetId'),
-    filters: state.filters.get('filters')
+    filters: state.filters.get('filters'),
+    aoiId: state.aoi.get('aoi').get('id')
   }),
   {
     // actions

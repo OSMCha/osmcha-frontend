@@ -1,12 +1,25 @@
 // @flow
-import { API_URL } from '../config';
-import { createForm } from './changeset';
 import { Iterable } from 'immutable';
+
+import { API_URL } from '../config';
 import type { filtersType, filterType } from '../components/filters';
+
+export function getString(input) {
+  if (typeof input === 'object') {
+    return JSON.stringify(input);
+  } else {
+    return input;
+  }
+}
 
 export function handleErrors(response: Object) {
   if (!response.ok) {
     return response.json().then(r => {
+      if (response.status === 401 || response.status === 403) {
+        throw new Error(
+          'Authentication error. Sign in again and repeat the operation.'
+        );
+      }
       if (r && r.detail) throw new Error(r.detail);
       if (response.statusText) throw new Error(response.statusText);
       return Promise.reject('network request failed');
@@ -26,10 +39,10 @@ export function createAOI(
     let filter = v;
     serverFilters[k] = filter
       .filter(x => Iterable.isIterable(x) && x.get('value') !== '')
-      .map(x => x.get('value'))
+      .map(x => getString(x.get('value')))
       .join(',');
   });
-  return fetch(`${API_URL}/aoi/?date__gte=2017-07-03`, {
+  return fetch(`${API_URL}/aoi/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -45,6 +58,7 @@ export function createAOI(
       return res.json();
     });
 }
+
 export function fetchAOI(token: string, aoiId: number): Promise<*> {
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
     method: 'GET',
@@ -78,17 +92,26 @@ export function updateAOI(
   token: string,
   aoiId: number,
   name: string,
-  filters: string
+  filters: filtersType
 ): Promise<*> {
+  let serverFilters = {};
+  filters.forEach((v: filterType, k: string) => {
+    if (!Iterable.isIterable(v)) return;
+    let filter = v;
+    serverFilters[k] = filter
+      .filter(x => Iterable.isIterable(x) && x.get('value') !== '')
+      .map(x => getString(x.get('value')))
+      .join(',');
+  });
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
     },
-    body: createForm({
+    body: JSON.stringify({
       name,
-      filters
+      filters: serverFilters
     })
   })
     .then(handleErrors)
