@@ -1,6 +1,6 @@
 {
   "name": "osmcha-frontend",
-  "version": "0.47.4",
+  "version": "0.47.5",
   "license": "ISC",
   "engines": {
     "node": ">=7.0"

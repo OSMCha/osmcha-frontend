@@ -259,7 +259,11 @@ OSMCha allows a logged-in user to save a filter template with custom search para
 
 To save a filter, start setting your desired filter parameters, then click on the `Save` button on the top of the screen, give a name to it and press the `Confirm Save` button. The filter will be saved and applied, so the sidebar will update with the results. If you want to change something in your filter later, repeat those steps.
 
-Saved filters are visible in the user page which can be accessed by clicking on your OSM username beside the OSMCha icon on the sidebar. Any saved filter can be loaded to retrieve search results, shared with a permalink, removed from the saved list or be used to setup an RSS.
+Saved filters are listed on the dropdown menu on the left side of the filters page.
+
+<img width="300" alt="osmcha-listing-filters" src="https://user-images.githubusercontent.com/666291/42547817-5c9bcd68-849a-11e8-9e03-a24529692952.png">
+
+They are available also in the user page which can be accessed by clicking on your OSM username beside the OSMCha icon on the sidebar. Any saved filter can be loaded to retrieve search results, shared with a permalink, removed from the saved list or be used to setup an RSS.
 
 <img width="600" alt="osmcha-saving-filters" src="https://user-images.githubusercontent.com/8921295/33522675-0ce1327e-d818-11e7-88c0-3f03359da6c2.png">
 
