@@ -45,7 +45,7 @@ export function Home() {
             <svg className="icon">
               <use xlinkHref="#icon-github" />
             </svg>{' '}
-            <span>Github</span>
+            <span>GitHub</span>
           </a>{' '}
           |{' '}
           <a
