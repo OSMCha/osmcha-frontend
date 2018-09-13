@@ -3,6 +3,7 @@ import debounce from 'lodash.debounce';
 import { connect } from 'react-redux';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { Loading } from '../components/loading';
+import { SignIn } from '../components/sign_in';
 import { dispatchEvent } from '../utils/dispatch_event';
 import { importChangesetMap } from '../utils/cmap';
 
@@ -81,7 +82,10 @@ class CMap extends React.PureComponent {
     event && event.emit('remove');
   }
   componentDidUpdate(prevProp: Object) {
-    if (this.props.currentChangesetMap !== prevProp.currentChangesetMap) {
+    if (
+      this.props.currentChangesetMap !== prevProp.currentChangesetMap ||
+      this.props.token !== prevProp.token
+    ) {
       minDebounce();
     }
   }
@@ -118,47 +122,55 @@ class CMap extends React.PureComponent {
     }
     changesetId = this.props.changesetId;
     currentChangesetMap = this.props.currentChangesetMap;
-    return (
-      <div className="">
-        <div className="relative" ref={this.setRef}>
-          <div
-            id="container"
-            className="absolute"
-            style={{
-              height: this.state.height,
-              width: this.state.width,
-              visibility: !(
-                this.props.loadingChangesetMap || this.props.errorChangesetMap
-              )
-                ? 'visible'
-                : 'hidden'
-            }}
-          />
-          <CSSTransitionGroup
-            transitionName="map-hide"
-            transitionAppearTimeout={300}
-            transitionAppear={true}
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={1000} // determines the transition to cMap
-          >
-            {(this.props.loadingChangesetMap || this.props.errorChangesetMap) &&
-              <div
-                key={0}
-                id="placeholder"
-                className={` absolute z0
-          ${this.props.errorChangesetMap ? 'bg-red-faint' : 'bg-black'}
-          `}
-                style={{
-                  height: this.state.height,
-                  width: this.state.width
-                }}
-              >
-                <Loading height={this.state.height} />
-              </div>}
-          </CSSTransitionGroup>
+    if (this.props.token) {
+      return (
+        <div className="">
+          <div className="relative" ref={this.setRef}>
+            <div
+              id="container"
+              className="absolute"
+              style={{
+                height: this.state.height,
+                width: this.state.width,
+                visibility: !(
+                  this.props.loadingChangesetMap || this.props.errorChangesetMap
+                )
+                  ? 'visible'
+                  : 'hidden'
+              }}
+            />
+            <CSSTransitionGroup
+              transitionName="map-hide"
+              transitionAppearTimeout={300}
+              transitionAppear={true}
+              transitionEnterTimeout={300}
+              transitionLeaveTimeout={1000} // determines the transition to cMap
+            >
+              {(this.props.loadingChangesetMap ||
+                this.props.errorChangesetMap) && (
+                <div
+                  key={0}
+                  id="placeholder"
+                  className={` absolute z0
+                    ${
+                      this.props.errorChangesetMap ? 'bg-red-faint' : 'bg-black'
+                    }
+                    `}
+                  style={{
+                    height: this.state.height,
+                    width: this.state.width
+                  }}
+                >
+                  <Loading height={this.state.height} />
+                </div>
+              )}
+            </CSSTransitionGroup>
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return <SignIn />;
+    }
   }
 }
 
@@ -169,7 +181,8 @@ CMap = connect((state: RootStateType, props) => ({
     state.changeset.get('changesetId')
   ]),
   errorChangesetMap: state.changeset.get('errorChangesetMap'),
-  loadingChangesetMap: state.changeset.get('loadingChangesetMap')
+  loadingChangesetMap: state.changeset.get('loadingChangesetMap'),
+  token: state.auth.get('token')
 }))(CMap);
 
 export { CMap };

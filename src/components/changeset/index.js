@@ -103,10 +103,9 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
               changesetId={changesetId}
               properties={properties}
               userEditCount={
-                data.getIn(['userDetails', 'count'], 0) ||
-                this.state.userDetails
+                this.state.userDetails != null
                   ? this.state.userDetails.get('count')
-                  : 0
+                  : 0 || data.getIn(['userDetails', 'count'], 0)
               }
             />
           </Box>

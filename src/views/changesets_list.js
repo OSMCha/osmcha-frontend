@@ -46,12 +46,12 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
   checkUpdate = null;
   maxPageCount = Infinity;
 
-  constructor(props: propsType) {
-    super(props);
-    // this.props.getChangesetsPage(props.pageIndex);
-    // this.checkUpdate = delayPromise(2000);
-    // this.checkUpdate.promise.then(() => this.props.checkForNewChangesets(true));
-  }
+  // constructor(props: propsType) {
+  //   super(props);
+  //   this.props.getChangesetsPage(props.pageIndex);
+  //   this.checkUpdate = delayPromise(2000);
+  //   this.checkUpdate.promise.then(() => this.props.checkForNewChangesets(true));
+  // }
   componentWillUnmount() {
     this.checkUpdate && this.checkUpdate.cancel();
   }
@@ -175,6 +175,7 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
           loading={loading}
           currentPage={currentPage}
           pageIndex={pageIndex}
+          location={location.pathname ? location.pathname : null}
         />
         <Footer
           pageIndex={pageIndex}

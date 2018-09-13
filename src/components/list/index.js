@@ -1,7 +1,9 @@
 // @flow
 import React from 'react';
+import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { Row } from './row';
+import { SignInButton } from '../changeset/sign_in_button.js';
 import { elementInViewport } from '../../utils/element_in_view';
 import { loadingEnhancer } from '../loading_enhancer';
 
@@ -25,11 +27,28 @@ class List extends React.PureComponent<void, propTypes, *> {
     }
   };
   render() {
+    if (
+      !this.props.token &&
+      (this.props.location === '/about' || this.props.location === '/filters')
+    ) {
+      return (
+        <div className="flex-parent flex-parent--column scroll-styled flex-child--grow py36">
+          <div className="flex-parent flex-parent--column flex-parent--center-cross">
+            <svg className="icon h60 w60 inline-block align-middle pb3">
+              <use xlinkHref="#icon-osm" />
+            </svg>
+          </div>
+          <div className="flex-parent flex-parent--center-main align-center txt-l pt36">
+            <SignInButton text="Sign in with your OpenStreetMap account" />
+          </div>
+        </div>
+      );
+    }
     return (
       <ul className="flex-parent flex-parent--column scroll-styled flex-child--grow">
         <div>
           {this.props.currentPage &&
-            this.props.currentPage.get('features').map((f, k) =>
+            this.props.currentPage.get('features').map((f, k) => (
               <Row
                 active={f.get('id') === this.props.activeChangesetId}
                 properties={f.get('properties')}
@@ -41,7 +60,7 @@ class List extends React.PureComponent<void, propTypes, *> {
                 }
                 key={k}
               />
-            )}
+            ))}
         </div>
       </ul>
     );
@@ -49,4 +68,8 @@ class List extends React.PureComponent<void, propTypes, *> {
 }
 
 List = loadingEnhancer(List);
+List = connect((state: RootStateType, props) => ({
+  token: state.auth.get('token')
+}))(List);
+
 export { List };
