@@ -74,10 +74,7 @@ class Discussions extends React.PureComponent {
               </svg>
             </div>
             <div className="flex-parent flex-parent--inline flex-parent--center-main mt6 mb3">
-              <SignInButton
-                changesetId={changesetId}
-                text="Sign in to read and post comments"
-              />
+              <SignInButton text="Sign in to read and post comments" />
             </div>
           </div>
         )}
