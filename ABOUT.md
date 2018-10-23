@@ -426,7 +426,6 @@ This is raised when someone tries to remove tags in a changeset that are added b
 
 * Related Projects
 
-  * [osmcha-frontend](https://github.com/mapbox/osmcha-frontend/)
   * [osmcha-django](https://github.com/willemarcel/osmcha-django/)
   * [OSM-Compare](https://github.com/mapbox/osm-compare)
   * [OSMLint](https://github.com/osmlab/osmlint)
