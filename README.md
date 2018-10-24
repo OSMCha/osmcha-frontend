@@ -1,11 +1,17 @@
 # osmcha-frontend
 [![CircleCI](https://circleci.com/gh/mapbox/osmcha-frontend.svg?style=svg)](https://circleci.com/gh/mapbox/osmcha-frontend)
 
-- Frontend for the osmcha-django REST API  
-- API Testing endpoint: https://osmcha-django-api-test.tilestream.net/api-docs/
-- API staging http://osmcha-django-staging.tilestream.net/api-docs
+OSMCha is composed by a group of softwares that together has the aim to make it
+easier to monitor and validate the changes in OpenStreetMap.
 
-Published to Github Pages at https://mapbox.github.io/osmcha-frontend/
+This repository contains the frontend code. Check the [Repositories section](#other-repositories)
+to see the other softwares we use in OSMCha.
+
+To learn how to use OSMCha, check the [ABOUT.md](ABOUT.md) file.
+
+- Production instance: https://osmcha.mapbox.com
+- Test instance: http://osmcha-django-staging.tilestream.net/
+
 
 ## Setting up editor
 
@@ -41,7 +47,7 @@ yarn test
 
 2. (optional) before deploy, you might want to increment the version number of application.
     * We use `minor` for all non-drastic changes.
-    * The `patch` is reserved for minor changes. 
+    * The `patch` is reserved for minor changes.
     * We try to stick to sem-ver.
 ```bash
 npm version minor
@@ -68,3 +74,13 @@ yarn deploy:<stack>
     * draft a github release with a tag `v0.16.3-staging`. (Note the name spacing)
     * supply this version tag to the server.
     * Refer to githubs [article](https://help.github.com/articles/creating-releases/) for creating releases.
+
+
+## Other repositories
+
+* [OSMCha backend code](https://github.com/willemarcel/osmcha-django)
+* [OSMCha python library](https://github.com/willemarcel/osmcha) _(used to analyse the OSM changesets)_
+* [osm-compare](https://github.com/mapbox/osm-compare) _(used to analyse the OSM features)_
+
+If you have any error reports of want to request new features, please
+[report here](https://github.com/mapbox/osmcha-frontend/issues).

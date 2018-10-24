@@ -158,7 +158,7 @@
     "display": "Reviewed by",
     "cache": true,
     "type": "text_comma",
-    "description": "Filter changesets that were reviewed by a user. Start typing to select one or more users.",
+    "description": "Filter changesets that were reviewed by a user. Start typing to select one or more users. This filter requires authentication to work.",
     "placeholder": "Enter OSM usernames"
   },
   {
@@ -180,7 +180,7 @@
     "display": "Users",
     "cache": true,
     "type": "text_comma",
-    "description": "Show changesets created by the users. Start typing to select one or more users.",
+    "description": "Show changesets created by the users. Start typing to select one or more users. This filter requires authentication to work.",
     "placeholder": "Enter OSM usernames"
   },
   {

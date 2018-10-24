@@ -5,7 +5,8 @@ import { Map } from 'immutable';
 import { Button } from '../button';
 import { applyUpdateUserDetails } from '../../store/auth_actions';
 import type { RootStateType } from '../../store';
-
+import thumbsUp from '../../assets/thumbs-up.svg';
+import thumbsDown from '../../assets/thumbs-down.svg';
 
 class EditUserDetails extends React.PureComponent {
   constructor(props) {
@@ -36,12 +37,23 @@ class EditUserDetails extends React.PureComponent {
       this.state.comment_feature
     );
   };
+  renderGoodBadImg(isGood) {
+    return (
+      <img
+        src={isGood ? thumbsUp : thumbsDown}
+        alt={`${isGood ? 'good' : 'bad'}`}
+        className="icon inline-block mt3"
+      />
+    );
+  }
+
   render() {
     return (
       <div>
         <span className="ml12 flex-parent flex-parent--row my3">
           <p className="flex-child txt-s">
-            Default comment for changesets reviewed as GOOD:
+            Default comment for changesets reviewed as GOOD{' '}
+            {this.renderGoodBadImg(true)}:
           </p>
         </span>
         <textarea
@@ -52,7 +64,8 @@ class EditUserDetails extends React.PureComponent {
         />
         <span className="ml12 flex-parent flex-parent--row my3 pt6">
           <p className="flex-child txt-s">
-            Default comment for changesets reviewed as BAD:
+            Default comment for changesets reviewed as BAD{' '}
+            {this.renderGoodBadImg()}:
           </p>
         </span>
         <textarea

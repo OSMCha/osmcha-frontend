@@ -18,7 +18,7 @@ export class MapOptions extends React.PureComponent {
       r =>
         r &&
         r() &&
-        r().renderMap('mapbox://styles/rasagy/cizp6lsah00ct2snu6gi3p16q')
+        r().renderMap('mapbox://styles/openstreetmap/cjnd8lj0e10i42spfo4nsvoay')
     );
   };
   toggleDark = () => {

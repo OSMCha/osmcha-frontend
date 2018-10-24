@@ -47,7 +47,7 @@ export class Date extends React.Component {
     return (
       <DatePicker
         className={`input ${className} date-width-full`}
-        dateFormat="DD/MM/YYYY"
+        dateFormat="YYYY-MM-DD"
         isClearable={true}
         selected={hasValue ? moment(value.getIn([0, 'value'])) : null}
         placeholderText={placeholder || display}

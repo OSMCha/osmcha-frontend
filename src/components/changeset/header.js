@@ -45,8 +45,11 @@ export function Header({
                 {user}
               </a>
             </span>
-            &nbsp;
-            <span className="txt-s txt-em">({userEditCount} edits)</span>&nbsp;
+            {userEditCount > 0 && (
+              <span className="txt-s txt-em">
+                &nbsp;({userEditCount} edits)&nbsp;
+              </span>
+            )}
             created&nbsp;{moment(date).fromNow()}
           </span>
         </div>
