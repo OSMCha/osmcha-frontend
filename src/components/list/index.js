@@ -29,7 +29,7 @@ class List extends React.PureComponent<void, propTypes, *> {
   render() {
     if (
       !this.props.token &&
-      (this.props.location === '/about' || this.props.location === '/filters')
+      ['/about', '/filters', '/user', '/'].includes(this.props.location)
     ) {
       return (
         <div className="flex-parent flex-parent--column scroll-styled flex-child--grow py36">
