@@ -1,7 +1,13 @@
 # osmcha-frontend
 [![CircleCI](https://circleci.com/gh/mapbox/osmcha-frontend.svg?style=svg)](https://circleci.com/gh/mapbox/osmcha-frontend)
 
-- Frontend for the osmcha-django REST API
+OSMCha is composed by a group of softwares that together has the aim to make it
+easier to monitor and validate the changes in OpenStreetMap.
+
+This repository contains the frontend code. Check the [Repositories section](#other-repositories)
+to see the other softwares we use in OSMCha.
+
+To learn how to use OSMCha, check the [ABOUT.md](ABOUT.md) file.
 
 - Production instance: https://osmcha.mapbox.com
 - Test instance: http://osmcha-django-staging.tilestream.net/
@@ -69,8 +75,12 @@ yarn deploy:<stack>
     * supply this version tag to the server.
     * Refer to githubs [article](https://help.github.com/articles/creating-releases/) for creating releases.
 
+
 ## Other repositories
 
 * [OSMCha backend code](https://github.com/willemarcel/osmcha-django)
 * [OSMCha python library](https://github.com/willemarcel/osmcha) _(used to analyse the OSM changesets)_
 * [osm-compare](https://github.com/mapbox/osm-compare) _(used to analyse the OSM features)_
+
+If you have any error reports of want to request new features, please
+[report here](https://github.com/mapbox/osmcha-frontend/issues).

@@ -2,6 +2,10 @@
 
 Log of changes since the 2.0 version
 
+#### 0.48.1
+
+- Show login button in the changeset list panel in the home and user pages
+
 #### 0.48.0
 
 - Removes user metadata to unauthenticated requests
