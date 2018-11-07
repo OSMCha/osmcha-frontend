@@ -2,6 +2,10 @@
 
 Log of changes since the 2.0 version
 
+### Next stable release
+
+- Show the feature's note when the mouse is over a reason
+
 #### 0.48.1
 
 - Show login button in the changeset list panel in the home and user pages

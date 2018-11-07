@@ -7,7 +7,7 @@ easier to monitor and validate the changes in OpenStreetMap.
 This repository contains the frontend code. Check the [Repositories section](#other-repositories)
 to see the other softwares we use in OSMCha.
 
-To learn how to use OSMCha, check the [ABOUT.md](ABOUT.md) file.
+To learn how to use OSMCha, see the [ABOUT.md](ABOUT.md) file.
 
 - Production instance: https://osmcha.mapbox.com
 - Test instance: http://osmcha-django-staging.tilestream.net/
