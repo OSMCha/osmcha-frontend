@@ -450,3 +450,7 @@ img {
 .h96 {
   height: 96px;
 }
+
+.txt-underline-dotted {
+  text-decoration: underline dotted !important;
+}

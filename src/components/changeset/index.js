@@ -16,7 +16,7 @@ import { MapOptions } from './map_options';
 import { ControlLayout } from './control_layout';
 import { keyboardToggleEnhancer } from '../keyboard_enhancer';
 import { withFetchDataSilent } from '../fetch_data_enhancer';
-import { osmCommentsApi } from '../../config/constants';
+import { API_URL } from '../../config';
 import { getUserDetails } from '../../network/openstreetmap';
 import { getUsers } from '../../network/whosthat';
 import {
@@ -124,10 +124,7 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
           <Box key={1} className=" responsive-box  round-tr round-br">
             <Discussions
               changesetId={changesetId}
-              discussions={data.getIn(
-                ['osmComments', 'properties', 'comments'],
-                List()
-              )}
+              discussions={data.getIn(['osmComments'], List())}
               changesetIsHarmful={properties.get('harmful')}
             />
           </Box>
@@ -196,10 +193,7 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
           toggleMapOptions={this.toggleMapOptions}
           features={features}
           bindingsState={bindingsState}
-          discussions={
-            data &&
-            data.getIn(['osmComments', 'properties', 'comments'], List())
-          }
+          discussions={data && data.getIn(['osmComments'], List())}
         />
         <Floater
           style={{
@@ -238,7 +232,10 @@ Changeset = withFetchDataSilent(
         props.token
       )
     ),
-    osmComments: cancelableFetchJSON(`${osmCommentsApi}/${props.changesetId}`),
+    osmComments: cancelableFetchJSON(
+      `${API_URL}/changesets/${props.changesetId}/comment/`,
+      props.token
+    ),
     whosThat: cancelablePromise(
       getUsers(props.currentChangeset.getIn(['properties', 'uid'], ''))
     )

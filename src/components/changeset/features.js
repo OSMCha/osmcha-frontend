@@ -28,7 +28,13 @@ const Feature = ({
       <td>{data.get('osm_id')}</td>
       <td>{data.get('name')}</td>
       <td>
-        <Reasons reasons={reasons} color="blue" />
+        {data.get('note') ? (
+          <abbr title={data.get('note')}>
+            <Reasons reasons={reasons} underline={true} color="blue" />
+          </abbr>
+        ) : (
+          <Reasons reasons={reasons} color="blue" />
+        )}
       </td>
       <td>
         <span
