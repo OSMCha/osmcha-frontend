@@ -2,9 +2,10 @@
 
 Log of changes since the 2.0 version
 
-### Next stable release
+### 0.50.0
 
 - Show the feature's note when the mouse is over a reason
+- Replace the osm-comments-api by our osmcha backend API
 
 #### 0.48.1
 
