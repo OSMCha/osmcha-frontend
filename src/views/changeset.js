@@ -19,6 +19,7 @@ class Changeset extends React.PureComponent {
     loading: boolean, // loading of the selected changesetId
     currentChangeset?: Map<string, *>,
     changesetId: number,
+    token: string,
     applyFilters: (Map<string, *>) => mixed // base 0
   };
   componentDidMount() {
@@ -51,7 +52,8 @@ class Changeset extends React.PureComponent {
       loading,
       errorChangeset,
       currentChangeset,
-      changesetId
+      changesetId,
+      token
     } = this.props;
 
     if (loading || !currentChangeset) {
@@ -72,6 +74,7 @@ class Changeset extends React.PureComponent {
       <ChangesetDumb
         changesetId={changesetId}
         currentChangeset={currentChangeset}
+        token={token}
       />
     );
   };
@@ -96,7 +99,8 @@ Changeset = connect(
       parseInt(props.match.params.id, 10)
     ]),
     errorChangeset: state.changeset.get('errorChangeset'),
-    loading: state.changeset.get('loading')
+    loading: state.changeset.get('loading'),
+    token: state.auth.get('token')
   }),
   { applyFilters }
 )(Changeset);
