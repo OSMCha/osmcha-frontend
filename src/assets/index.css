@@ -62,8 +62,13 @@ img {
 .h55 {
   height: 55px !important;
 }
+
 .hmin55 {
   min-height: 55px !important;
+}
+
+.hmin186 {
+  min-height: 186px !important;
 }
 
 .hfull-55 {
