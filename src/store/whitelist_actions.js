@@ -48,6 +48,15 @@ export function* addToWhitelistSaga(whitelist_user: string): any {
   }
 }
 export function* removeFromWhitelistSaga(whitelist_user: string): any {
-  const token = yield select(tokenSelector);
-  yield call(deleteFromWhiteList, token, whitelist_user);
+  try {
+    const token = yield select(tokenSelector);
+    yield call(deleteFromWhiteList, token, whitelist_user.whitelist_user);
+  } catch (e) {
+    console.error(e);
+    yield put(
+      modal({
+        error: e
+      })
+    );
+  }
 }

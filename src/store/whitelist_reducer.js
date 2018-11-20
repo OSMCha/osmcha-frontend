@@ -28,7 +28,7 @@ export function whitelistReducer(
       return state
         .set(
           'whitelist',
-          state.get('whitelist').filter(item => item !== action.whitelist)
+          state.get('whitelist').filter(item => item !== action.whitelist_user)
         )
         .set('loading', false);
     }
