@@ -420,6 +420,10 @@ class User extends React.PureComponent<any, propsType, any> {
               <p className="flex-child txt-bold w120">Username: </p>
               <p className="flex-child">{userDetails.get('username')}</p>
             </span>
+            <span className="ml12 flex-parent flex-parent--row my3">
+              <p className="flex-child txt-bold w120">Current Token: </p>
+              <p className="flex-child">{this.props.token}</p>
+            </span>
 
             {userDetails.get('is_staff') && (
               <span className="ml12 flex-parent flex-parent--row my3">

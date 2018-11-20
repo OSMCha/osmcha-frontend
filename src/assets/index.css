@@ -66,6 +66,17 @@ img {
   min-height: 55px !important;
 }
 
+.hfull-55 {
+  height: calc(100% - 55px);
+}
+
+.h160 {
+  height: 160px !important;
+}
+.w160 {
+  width: 160px !important;
+}
+
 .wmin435 {
   min-width: 435px !important;
 }
@@ -438,4 +449,8 @@ img {
 
 .h96 {
   height: 96px;
+}
+
+.txt-underline-dotted {
+  text-decoration: underline dotted !important;
 }

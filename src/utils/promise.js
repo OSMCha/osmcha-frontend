@@ -25,14 +25,29 @@ function handleErrors(response) {
   return response;
 }
 
-export function cancelableFetchJSON(url: string) {
-  return cancelablePromise(
-    fetch(url)
-      .then(handleErrors)
-      .then(res => {
-        return res.json();
+export function cancelableFetchJSON(url: string, token?: string) {
+  if (token) {
+    return cancelablePromise(
+      fetch(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token ? `Token ${token}` : ''
+        }
       })
-  );
+        .then(handleErrors)
+        .then(res => {
+          return res.json();
+        })
+    );
+  } else {
+    return cancelablePromise(
+      fetch(url)
+        .then(handleErrors)
+        .then(res => {
+          return res.json();
+        })
+    );
+  }
 }
 
 export function delayPromise(

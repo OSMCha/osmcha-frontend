@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import { Map, List } from 'immutable';
-import { connect } from 'react-redux';
 
 import { cancelablePromise } from '../../utils/promise';
 import { postComment } from '../../network/changeset';
@@ -15,7 +14,7 @@ type propsType = {
   discussions: List<*>
 };
 
-class CommentForm extends React.PureComponent<any, propsType, any> {
+export class CommentForm extends React.PureComponent<any, propsType, any> {
   postCommentPromise;
 
   state = {
@@ -82,7 +81,7 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
   render() {
     return (
       <div>
-        {this.props.token ? (
+        {this.props.token && (
           <div className="flex-parent flex-parent--column mt6 mb3">
             {this.state.success && (
               <div className="bg-green-faint color-green inline-block px6 py3 txt-s align-center round my12">
@@ -120,21 +119,8 @@ class CommentForm extends React.PureComponent<any, propsType, any> {
               </div>
             </div>
           </div>
-        ) : (
-          <div className="flex-parent flex-parent--column mt6 mb3">
-            <div className="bg-darken10 color-gray inline-block px6 py3 txt-xs txt-bold align-center round-full my12">
-              <span>Sign in to post a comment.</span>
-            </div>
-          </div>
         )}
       </div>
     );
   }
 }
-
-CommentForm = connect((state: RootStateType, props) => ({
-  token: state.auth.get('token'),
-  userDetails: state.auth.getIn(['userDetails'], Map())
-}))(CommentForm);
-
-export { CommentForm };

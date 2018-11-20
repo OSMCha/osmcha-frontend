@@ -38,6 +38,9 @@ export function authReducer(
     case AUTH.userDetails: {
       return state.set('userDetails', action.userDetails);
     }
+    case AUTH.clearUserDetails: {
+      return state.set('userDetails', Map());
+    }
     default:
       return state;
   }

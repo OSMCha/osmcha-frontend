@@ -4,13 +4,37 @@ import { Map, List } from 'immutable';
 import { Reasons } from '../reasons';
 import { selectFeature } from '../../views/map';
 
-const Feature = ({ data }: { data: Map<string, any> }) => {
+const Feature = ({
+  data,
+  changesetReasons
+}: {
+  data: Map<string, any>,
+  changesetReasons: Map<string, any>
+}) => {
+  let reasons;
+  // operation necessary to the change
+  if (
+    data.get('reasons').size &&
+    typeof data.get('reasons').get(0) === 'number'
+  ) {
+    reasons = changesetReasons.filter(reason =>
+      data.get('reasons').contains(reason.get('id'))
+    );
+  } else {
+    reasons = data.get('reasons');
+  }
   return (
     <tr className="txt-s">
       <td>{data.get('osm_id')}</td>
       <td>{data.get('name')}</td>
       <td>
-        <Reasons reasons={data.get('reasons')} color="blue" />
+        {data.get('note') ? (
+          <abbr title={data.get('note')}>
+            <Reasons reasons={reasons} underline={true} color="blue" />
+          </abbr>
+        ) : (
+          <Reasons reasons={reasons} color="blue" />
+        )}
       </td>
       <td>
         <span
@@ -66,7 +90,13 @@ export function Features({
               </tr>
             </thead>
             <tbody>
-              {features.map((f, k) => <Feature key={k} data={f} />)}
+              {features.map((f, k) => (
+                <Feature
+                  key={k}
+                  data={f}
+                  changesetReasons={properties.get('reasons')}
+                />
+              ))}
             </tbody>
           </table>
         )}

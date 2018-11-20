@@ -2,6 +2,22 @@
 
 Log of changes since the 2.0 version
 
+### 0.50.0
+
+- Show the feature's note when the mouse is over a reason
+- Replace the osm-comments-api by our osmcha backend API
+
+#### 0.48.1
+
+- Show login button in the changeset list panel in the home and user pages
+
+#### 0.48.0
+
+- Removes user metadata to unauthenticated requests
+- Enable service-worker again
+- Show current user token on the user page
+- Change feature panel to be compatible with the new feature reasons serialization
+
 #### 0.46.3
 
 - Disable service-worker temporarily
