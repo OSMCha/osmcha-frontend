@@ -228,6 +228,7 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           .slice(5, 7)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
+
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Review
         </h2>
@@ -235,10 +236,19 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           .slice(7, 11)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
+
+        <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
+          Users
+        </h2>
+        {filtersData
+          .slice(11, 13)
+          .map((f: Object, k) => this.renderFilters(f, k))}
+        <span className="flex-child flex-child--grow wmin420 wmax435" />
+
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Changeset Details
         </h2>
-        {filtersData.slice(11).map((f: Object, k) => this.renderFilters(f, k))}
+        {filtersData.slice(13).map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
       </div>
     );

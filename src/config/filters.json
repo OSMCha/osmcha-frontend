@@ -184,14 +184,24 @@
     "placeholder": "Enter OSM usernames"
   },
   {
-    "name": "ids",
+    "name": "hide_whitelist",
     "icontains": false,
     "range": false,
     "all": false,
-    "display": "Changeset IDs",
-    "type": "text_comma",
-    "description": "Filter changesets by its ID. Use commas to search for more than one id.",
-    "placeholder": "Enter Changeset IDs"
+    "display": "Hide trusted users",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
+    "description": "If Yes, it will exclude the changesets created by users that you added to your trusted users list",
+    "placeholder": "Exclude changesets created by trusted users"
   },
   {
     "name": "create",
@@ -252,6 +262,16 @@
     "type": "text",
     "description": "Filter changesets by text in its imagery_used field. This is not case-sensitive.",
     "placeholder": "eg. Bing, Mapbox"
+  },
+  {
+    "name": "ids",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Changeset IDs",
+    "type": "text_comma",
+    "description": "Filter changesets by its ID. Use commas to search for more than one id.",
+    "placeholder": "Enter Changeset IDs"
   },
   {
     "name": "order_by",
@@ -323,79 +343,5 @@
     "type": "text",
     "description": "Filter changesets that were created using a software editor considered powerful (those that allow to create, modify or delete data in a batch).",
     "placeholder": ""
-  },
-  {
-    "name": "hide_whitelist",
-    "ignore": true,
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Hide whitelist",
-    "type": "radio",
-    "options": [
-      {
-        "label": "Yes",
-        "value": "True"
-      },
-      {
-        "label": "No",
-        "value": "False"
-      }
-    ],
-    "description": "If True, it will exclude the changesets created by the users that you whitelisted",
-    "placeholder": "exclude changesets by whitelisted"
-  },
-  {
-    "name": "geometry",
-    "ignore": true,
-    "icontains": false,
-    "all": false,
-    "range": false,
-    "display": "Geometry",
-    "type": "text",
-    "description": "Geospatial filter of changeset whose bbox intersects with another geometry. You can use any geometry type in this filter.",
-    "placeholder": ""
-  },
-  {
-    "name": "checked",
-    "ignore": "true",
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Checked",
-    "type": "radio",
-    "options": [
-      {
-        "label": "Show Both Good or Bad",
-        "value": "True"
-      },
-      {
-        "label": "Show not reviewed",
-        "value": "False"
-      }
-    ],
-    "description": "Filter for changesets that have been manually reviewed and marked (either harmful or not harmful)",
-    "placeholder": "Toggle if changeset was reviewed"
-  },
-  {
-    "name": "harmful",
-    "ignore": "true",
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Harmful",
-    "type": "radio",
-    "options": [
-      {
-        "label": "Show Bad only",
-        "value": "True"
-      },
-      {
-        "label": "Show Good only",
-        "value": "False"
-      }
-    ],
-    "description": "Filter changesets that were marked as harmful or not.",
-    "placeholder": "Toggle harmful"
   }
 ]
