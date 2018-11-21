@@ -12,6 +12,10 @@ import {
   postUserToBlackList,
   deleteFromBlackList
 } from '../network/osmcha_blacklist';
+import {
+  deleteFromWhiteList,
+  postUserToWhiteList
+} from '../network/osmcha_whitelist';
 import { withFetchDataSilent } from '../components/fetch_data_enhancer';
 import { cancelablePromise } from '../utils/promise';
 import { fetchAllAOIs } from '../network/aoi';
@@ -183,6 +187,34 @@ const BlackListBlock = ({ data, removeFromBlackList }) => (
     </span>
   </BlockMarkup>
 );
+
+const WhiteListBlock = ({ data, removeFromWhiteList }) => (
+  <BlockMarkup>
+    <span>
+      <span>{data}</span>
+    </span>
+    <span>
+      <Link
+        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+        to={{
+          search: getObjAsQueryParam('filters', {
+            users: [
+              {
+                label: data,
+                value: data
+              }
+            ]
+          })
+        }}
+      >
+        OSMCha
+      </Link>
+      <Button className="mr3" onClick={() => removeFromWhiteList(data)}>
+        Remove
+      </Button>
+    </span>
+  </BlockMarkup>
+);
 const AOIsBlock = ({ data, activeAoiId, removeAoi }) => (
   <BlockMarkup>
     <span>
@@ -242,12 +274,15 @@ type propsType = {
   reloadData: () => any,
   logUserOut: () => any,
   push: any => any,
-  modal: any => any
+  modal: any => any,
+  whitelisted: Map<string, *>
 };
 class User extends React.PureComponent<any, propsType, any> {
   createAOIPromise;
   addToBlackListPromise;
   deleteFromBlackListPromise;
+  postUserToWhiteListPromise;
+  deleteFromWhiteListPromise;
   state = {
     userValues: null
   };
@@ -292,6 +327,56 @@ class User extends React.PureComponent<any, propsType, any> {
           kind: 'success',
           title: 'User Removed ',
           description: `The user ${uid} was removed from your blacklist. Please reload osmcha in case it doesn't reflect on your screen.`
+        });
+        setTimeout(() => {
+          this.props.reloadData();
+        }, 300);
+      })
+      .catch(e => {
+        console.error(e);
+        this.props.modal({
+          kind: 'error',
+          title: 'Removing failed ',
+          error: e
+        });
+      });
+  };
+  // whitelist - trusted users
+  addToBlackList = ({ username }: { username: string }) => {
+    if (!username) return;
+    this.addToWhiteListPromise = cancelablePromise(
+      postUserToWhiteList(this.props.token, username)
+    );
+
+    this.addToWhiteListPromise.promise
+      .then(r => {
+        this.props.modal({
+          kind: 'success',
+          title: 'User Added',
+          description: `The user ${username} was added to your trusted users list.`
+        });
+        this.props.reloadData();
+      })
+      .catch(e => {
+        this.props.modal({
+          kind: 'error',
+          title: 'Adding failed ',
+          error: e
+        });
+        this.props.reloadData();
+      });
+  };
+  removeFromWhiteList = (username: string) => {
+    if (!username) return;
+    this.deleteFromWhiteListPromise = cancelablePromise(
+      deleteFromWhiteList(this.props.token, username)
+    );
+    this.deleteFromWhiteListPromise.promise
+      .then(r => {
+        this.props.modal({
+          kind: 'success',
+          title: 'User Removed ',
+          description: `The user ${username} was removed from your trusted users list.`
         });
         setTimeout(() => {
           this.props.reloadData();
@@ -368,6 +453,10 @@ class User extends React.PureComponent<any, propsType, any> {
       a => a.get('username'),
       (a: string, b: string) => a.localeCompare(b)
     );
+    let trustedUsers = this.props.whitelisted ? this.props.whitelisted : List();
+    if (trustedUsers.size) {
+      trustedUsers.sort().reverse();
+    }
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
@@ -439,21 +528,6 @@ class User extends React.PureComponent<any, propsType, any> {
                 <EditUserDetails />
               </div>
             )}
-            {userDetails.get('is_staff') && (
-              <div className="mt24 mb12">
-                <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-                  BlackList
-                </h2>
-                <ListFortified
-                  data={blackList}
-                  TargetBlock={BlackListBlock}
-                  propsToPass={{
-                    removeFromBlackList: this.removeFromBlackList
-                  }}
-                  SaveComp={<SaveUser onCreate={this.addToBlackList} />}
-                />
-              </div>
-            )}
             <div className="mt24 mb12">
               <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
                 <span className="txt-bold">Saved Filters</span>
@@ -468,6 +542,34 @@ class User extends React.PureComponent<any, propsType, any> {
                 SaveComp={<SaveButton onCreate={this.createAOI} />}
               />
             </div>
+            <div className="mt24 mb12">
+              <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
+                Trusted Users
+              </h2>
+              <ListFortified
+                data={trustedUsers}
+                TargetBlock={WhiteListBlock}
+                propsToPass={{
+                  removeFromWhiteList: this.removeFromWhiteList
+                }}
+                SaveComp={<SaveUser onCreate={this.addToWhitelist} />}
+              />
+            </div>
+            {userDetails.get('is_staff') && (
+              <div className="mt24 mb12">
+                <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
+                  Watchlist
+                </h2>
+                <ListFortified
+                  data={blackList}
+                  TargetBlock={BlackListBlock}
+                  propsToPass={{
+                    removeFromBlackList: this.removeFromBlackList
+                  }}
+                  SaveComp={<SaveUser onCreate={this.addToBlackList} />}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -490,7 +592,7 @@ User = connect(
   (state: RootStateType, props) => ({
     location: props.location,
     filters: state.filters.get('filters'),
-
+    whitelisted: state.whitelist.get('whitelist'),
     changesetId: parseInt(state.changeset.get('changesetId'), 10),
     currentChangeset: state.changeset.getIn([
       'changesets',
