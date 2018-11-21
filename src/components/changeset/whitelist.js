@@ -58,11 +58,16 @@ class WhitelistUser extends React.PureComponent {
                 }`}
               />
             </svg>
-            {`${
-              this.state.hover
-                ? 'Remove user from whitelist'
-                : 'Whitelisted User'
-            }`}
+            {this.state.hover ? (
+              'Remove from trusted users list'
+            ) : (
+              <span>
+                Trusted user
+                <svg className="icon inline-block align-middle pl3 pb3 w18 h18 color-gray">
+                  <use xlinkHref="#icon-close" />
+                </svg>
+              </span>
+            )}
           </Button>
         ) : (
           <Button
@@ -72,7 +77,7 @@ class WhitelistUser extends React.PureComponent {
             <svg className="icon inline-block align-middle w18 h18 pointer">
               <use xlinkHref="#icon-plus" />
             </svg>
-            Add user to your whitelist
+            Add to trusted users list
           </Button>
         )}
       </div>
