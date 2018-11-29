@@ -38,6 +38,15 @@ export function* addToWhitelistSaga(whitelist_user: string): any {
   try {
     const token = yield select(tokenSelector);
     yield call(postUserToWhiteList, token, whitelist_user.whitelist_user);
+    yield put(
+      modal({
+        title: 'Success',
+        description: `User ${
+          whitelist_user.whitelist_user
+        } added to your Trusted Users list.`,
+        kind: 'success'
+      })
+    );
   } catch (e) {
     console.error(e);
     yield put(
@@ -51,6 +60,15 @@ export function* removeFromWhitelistSaga(whitelist_user: string): any {
   try {
     const token = yield select(tokenSelector);
     yield call(deleteFromWhiteList, token, whitelist_user.whitelist_user);
+    yield put(
+      modal({
+        title: 'Success',
+        description: `User ${
+          whitelist_user.whitelist_user
+        } removed from your Trusted Users list.`,
+        kind: 'success'
+      })
+    );
   } catch (e) {
     console.error(e);
     yield put(

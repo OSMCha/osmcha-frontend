@@ -23,18 +23,10 @@ export function deleteFromBlackList(token: string, uid: string): Promise<*> {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
     }
-  })
-    .then(handleErrors)
-    .then(res => {
-      return res.json();
-    });
+  }).then(handleErrors);
 }
 
-export function postUserToBlackList(
-  token: string,
-  username: string,
-  uid: string
-): Promise<*> {
+export function postUserToBlackList(token: string, data: object): Promise<*> {
   return fetch(`${API_URL}/blacklisted-users/`, {
     method: 'POST',
     headers: {
@@ -42,8 +34,8 @@ export function postUserToBlackList(
       Authorization: token ? `Token ${token}` : ''
     },
     body: JSON.stringify({
-      uid,
-      username
+      username: data.blacklist_user.username,
+      uid: data.blacklist_user.uid
     })
   })
     .then(handleErrors)

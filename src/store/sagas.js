@@ -5,6 +5,7 @@ import { watchAuth, watchUserDetails } from './auth_actions';
 import { watchModal } from './modal_actions';
 import { watchFilters } from './filters_actions';
 import { watchWhitelist } from './whitelist_actions';
+import { watchBlacklist } from './blacklist_actions';
 import { watchAOI } from './aoi_actions';
 
 export default function* rootSaga() {
@@ -17,6 +18,7 @@ export default function* rootSaga() {
     watchUserDetails(),
     watchModifyChangeset(),
     watchModal(),
-    watchWhitelist()
+    watchWhitelist(),
+    watchBlacklist()
   ]);
 }

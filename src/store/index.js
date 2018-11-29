@@ -14,6 +14,7 @@ import { changesetReducer } from './changeset_reducer';
 import { modalReducer } from './modal_reducer';
 import { filtersReducer } from './filters_reducer';
 import { whitelistReducer } from './whitelist_reducer';
+import { blacklistReducer } from './blacklist_reducer';
 import { aoiReducer } from './aoi_reducer';
 
 import type { ModalType } from './modal_reducer';
@@ -22,6 +23,7 @@ import type { ChangesetType } from './changeset_reducer';
 import type { AuthType } from './auth_reducer';
 import type { filtersReducerType } from './filters_reducer';
 import type { whitelistReducerType } from './whitelist_reducer';
+import type { blacklistReducerType } from './blacklist_reducer';
 // Sagas
 import sagas from './sagas';
 
@@ -33,7 +35,8 @@ export type RootStateType = {
   changeset: ChangesetType,
   modal: ModalType,
   routing: Object,
-  whitelist: whitelistReducerType
+  whitelist: whitelistReducerType,
+  blacklist: blacklistReducerType
 };
 
 // Root reducer
@@ -45,7 +48,8 @@ const reducers = combineReducers({
   routing: routerReducer,
   auth: authReducer,
   modal: modalReducer,
-  whitelist: whitelistReducer
+  whitelist: whitelistReducer,
+  blacklist: blacklistReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

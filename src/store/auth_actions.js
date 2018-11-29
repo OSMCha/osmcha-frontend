@@ -10,9 +10,11 @@ import {
   updateUserDetails
 } from '../network/auth';
 import { fetchChangeset } from '../network/changeset';
+import { fetchBlackList } from '../network/osmcha_blacklist';
 import { setItem, removeItem } from '../utils/safe_storage';
 import { modal } from './modal_actions';
 import { WHITELIST } from './whitelist_actions';
+import { BLACKLIST } from './blacklist_actions';
 import { pageIndexSelector, CHANGESETS_PAGE } from './changesets_page_actions';
 import { CHANGESET } from './changeset_actions';
 
@@ -84,7 +86,9 @@ export function* watchAuth(): any {
       }
       const userDetails = fromJS(yield call(fetchUserDetails, token));
       const whitelist = userDetails.get('whitelists');
+      const blacklist = fromJS(yield call(fetchBlackList, token));
       yield put(action(WHITELIST.define, { whitelist }));
+      yield put(action(BLACKLIST.define, { blacklist }));
       yield put(action(AUTH.userDetails, { userDetails }));
       let pageIndex = yield select(pageIndexSelector);
       if (pageIndex) {
@@ -104,6 +108,7 @@ export function* watchAuth(): any {
       yield take(AUTH.logout);
       delayBy = DELAY;
     } catch (error) {
+      console.log(error);
       yield put(action(AUTH.loginError, error));
       yield call(delay, delayBy / 2);
       error.name = 'Login Failed';

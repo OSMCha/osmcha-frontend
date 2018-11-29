@@ -5,30 +5,30 @@ import { Map, List } from 'immutable';
 import { push } from 'react-router-redux';
 
 import { getObjAsQueryParam } from '../utils/query_params';
-import { BlackListUser } from '../components/filters/blacklist_user';
+import { BlackListUser } from '../components/user/blacklist_user';
+import { WhiteListUser } from '../components/user/whitelist_user';
 
 import {
-  fetchBlackList,
-  postUserToBlackList,
-  deleteFromBlackList
-} from '../network/osmcha_blacklist';
+  addToBlacklist,
+  removeFromBlacklist
+} from '../store/blacklist_actions';
 import {
-  deleteFromWhiteList,
-  postUserToWhiteList
-} from '../network/osmcha_whitelist';
+  addToWhitelist,
+  removeFromWhitelist
+} from '../store/whitelist_actions';
+import { modal } from '../store/modal_actions';
+import { logUserOut } from '../store/auth_actions';
+import { applyFilters } from '../store/filters_actions';
 import { withFetchDataSilent } from '../components/fetch_data_enhancer';
 import { cancelablePromise } from '../utils/promise';
 import { fetchAllAOIs } from '../network/aoi';
 import { Link } from 'react-router-dom';
 import { createAOI, deleteAOI } from '../network/aoi';
 import type { filtersType } from '../components/filters';
-import { modal } from '../store/modal_actions';
 import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
 import { EditUserDetails } from '../components/user/details';
 import { CustomURL } from '../components/customURL';
-import { logUserOut } from '../store/auth_actions';
-import { applyFilters } from '../store/filters_actions';
 import { API_URL } from '../config';
 import type { RootStateType } from '../store';
 
@@ -60,15 +60,27 @@ class SaveUser extends React.PureComponent {
   //   }
   // };
   onSave = (username, uid) => {
-    if (!username || !uid) return;
-    this.props.onCreate({ username, uid });
+    if (this.props.forBlacklist) {
+      if (!username || !uid) return;
+      this.props.onCreate({ username, uid });
+      this.setState({ showInput: false });
+    } else {
+      if (!username) return;
+      this.props.onCreate({ username });
+      this.setState({ showInput: false });
+    }
   };
   render() {
     return (
       <span>
         {this.state.showInput ? (
           <span className="flex-parent flex-parent--row ">
-            <BlackListUser onSave={this.onSave} />
+            {this.props.forBlacklist ? (
+              <BlackListUser onSave={this.onSave} />
+            ) : (
+              <WhiteListUser onSave={this.onSave} />
+            )}
+
             {/* <UserAutocomplete
                 placeholder="user"
                 className="wmin180"
@@ -275,121 +287,39 @@ type propsType = {
   logUserOut: () => any,
   push: any => any,
   modal: any => any,
-  whitelisted: Map<string, *>
+  whitelisted: Map<string, *>,
+  blacklisted: Map<object, *>,
+  addToBlacklist: string => void,
+  removeFromBlacklist: string => void,
+  addToWhitelist: string => void,
+  removeFromWhitelist: string => void
 };
 class User extends React.PureComponent<any, propsType, any> {
   createAOIPromise;
-  addToBlackListPromise;
-  deleteFromBlackListPromise;
-  postUserToWhiteListPromise;
-  deleteFromWhiteListPromise;
   state = {
     userValues: null
   };
   componentWillUnmount() {
     this.createAOIPromise && this.createAOIPromise.cancel();
-    this.addToBlackListPromise && this.addToBlackListPromise.cancel();
   }
 
   // blacklist
   addToBlackList = ({ username, uid }: { username: string, uid: string }) => {
     if (!username || !uid) return;
-    this.addToBlackListPromise = cancelablePromise(
-      postUserToBlackList(this.props.token, username, uid)
-    );
-
-    this.addToBlackListPromise.promise
-      .then(r => {
-        this.props.modal({
-          kind: 'success',
-          title: 'User Added',
-          description: `The user ${uid} was added to your blacklist. Please reload again in case it doesn't reflect on your screen.`
-        });
-        this.props.reloadData();
-      })
-      .catch(e => {
-        this.props.modal({
-          kind: 'error',
-          title: 'Adding failed ',
-          error: e
-        });
-        this.props.reloadData();
-      });
+    this.props.addToBlacklist({ username, uid });
   };
-  removeFromBlackList = (uid: string) => {
+  removeFromBlackList = (uid: number) => {
     if (!uid) return;
-    this.deleteFromBlackListPromise = cancelablePromise(
-      deleteFromBlackList(this.props.token, uid)
-    );
-    this.deleteFromBlackListPromise.promise
-      .then(r => {
-        this.props.modal({
-          kind: 'success',
-          title: 'User Removed ',
-          description: `The user ${uid} was removed from your blacklist. Please reload osmcha in case it doesn't reflect on your screen.`
-        });
-        setTimeout(() => {
-          this.props.reloadData();
-        }, 300);
-      })
-      .catch(e => {
-        console.error(e);
-        this.props.modal({
-          kind: 'error',
-          title: 'Removing failed ',
-          error: e
-        });
-      });
+    this.props.removeFromBlacklist(uid);
   };
   // whitelist - trusted users
-  addToBlackList = ({ username }: { username: string }) => {
+  addToWhiteList = ({ username }: { username: string }) => {
     if (!username) return;
-    this.addToWhiteListPromise = cancelablePromise(
-      postUserToWhiteList(this.props.token, username)
-    );
-
-    this.addToWhiteListPromise.promise
-      .then(r => {
-        this.props.modal({
-          kind: 'success',
-          title: 'User Added',
-          description: `The user ${username} was added to your trusted users list.`
-        });
-        this.props.reloadData();
-      })
-      .catch(e => {
-        this.props.modal({
-          kind: 'error',
-          title: 'Adding failed ',
-          error: e
-        });
-        this.props.reloadData();
-      });
+    this.props.addToWhitelist(username);
   };
   removeFromWhiteList = (username: string) => {
     if (!username) return;
-    this.deleteFromWhiteListPromise = cancelablePromise(
-      deleteFromWhiteList(this.props.token, username)
-    );
-    this.deleteFromWhiteListPromise.promise
-      .then(r => {
-        this.props.modal({
-          kind: 'success',
-          title: 'User Removed ',
-          description: `The user ${username} was removed from your trusted users list.`
-        });
-        setTimeout(() => {
-          this.props.reloadData();
-        }, 300);
-      })
-      .catch(e => {
-        console.error(e);
-        this.props.modal({
-          kind: 'error',
-          title: 'Removing failed ',
-          error: e
-        });
-      });
+    this.props.removeFromWhitelist(username);
   };
   // aoi
   loadAoiId = (aoiId: ?string) => {
@@ -447,16 +377,17 @@ class User extends React.PureComponent<any, propsType, any> {
   };
   render() {
     const userDetails = this.props.userDetails;
-    let blackList: List<any> = this.props.data.getIn(['blackList'], List());
+    let blackList = this.props.blacklisted ? this.props.blacklisted : List();
 
     blackList = blackList.sortBy(
       a => a.get('username'),
       (a: string, b: string) => a.localeCompare(b)
     );
     let trustedUsers = this.props.whitelisted ? this.props.whitelisted : List();
-    if (trustedUsers.size) {
-      trustedUsers.sort().reverse();
-    }
+    trustedUsers = trustedUsers.sortBy(
+      a => a,
+      (a: string, b: string) => a.localeCompare(b)
+    );
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
@@ -521,53 +452,58 @@ class User extends React.PureComponent<any, propsType, any> {
               </span>
             )}
             {this.props.token && (
-              <div className="mt24 mb12">
-                <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
-                  <span className="txt-bold">Review Comments Template </span>
-                </h2>
-                <EditUserDetails />
-              </div>
-            )}
-            <div className="mt24 mb12">
-              <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
-                <span className="txt-bold">Saved Filters</span>
-              </h2>
-              <ListFortified
-                data={this.props.data.getIn(['aoi', 'features'], List())}
-                TargetBlock={AOIsBlock}
-                propsToPass={{
-                  activeAoiId: this.props.aoiId,
-                  removeAoi: this.removeAOI
-                }}
-                SaveComp={<SaveButton onCreate={this.createAOI} />}
-              />
-            </div>
-            <div className="mt24 mb12">
-              <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-                Trusted Users
-              </h2>
-              <ListFortified
-                data={trustedUsers}
-                TargetBlock={WhiteListBlock}
-                propsToPass={{
-                  removeFromWhiteList: this.removeFromWhiteList
-                }}
-                SaveComp={<SaveUser onCreate={this.addToWhitelist} />}
-              />
-            </div>
-            {userDetails.get('is_staff') && (
-              <div className="mt24 mb12">
-                <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-                  Watchlist
-                </h2>
-                <ListFortified
-                  data={blackList}
-                  TargetBlock={BlackListBlock}
-                  propsToPass={{
-                    removeFromBlackList: this.removeFromBlackList
-                  }}
-                  SaveComp={<SaveUser onCreate={this.addToBlackList} />}
-                />
+              <div>
+                <div className="mt24 mb12">
+                  <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
+                    <span className="txt-bold">Review Comments Template </span>
+                  </h2>
+                  <EditUserDetails />
+                </div>
+                <div className="mt24 mb12">
+                  <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
+                    <span className="txt-bold">Saved Filters</span>
+                  </h2>
+                  <ListFortified
+                    data={this.props.data.getIn(['aoi', 'features'], List())}
+                    TargetBlock={AOIsBlock}
+                    propsToPass={{
+                      activeAoiId: this.props.aoiId,
+                      removeAoi: this.removeAOI
+                    }}
+                    SaveComp={<SaveButton onCreate={this.createAOI} />}
+                  />
+                </div>
+                <div className="mt24 mb12">
+                  <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
+                    Trusted Users
+                  </h2>
+                  <ListFortified
+                    data={trustedUsers}
+                    TargetBlock={WhiteListBlock}
+                    propsToPass={{
+                      removeFromWhiteList: this.removeFromWhiteList
+                    }}
+                    SaveComp={<SaveUser onCreate={this.addToWhiteList} />}
+                  />
+                </div>
+                <div className="mt24 mb12">
+                  <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
+                    Watchlist
+                  </h2>
+                  <ListFortified
+                    data={blackList}
+                    TargetBlock={BlackListBlock}
+                    propsToPass={{
+                      removeFromBlackList: this.removeFromBlackList
+                    }}
+                    SaveComp={
+                      <SaveUser
+                        onCreate={this.addToBlackList}
+                        forBlacklist={true}
+                      />
+                    }
+                  />
+                </div>
               </div>
             )}
           </div>
@@ -581,7 +517,6 @@ class User extends React.PureComponent<any, propsType, any> {
  */
 User = withFetchDataSilent(
   (props: propsType) => ({
-    blackList: cancelablePromise(fetchBlackList(props.token)),
     aoi: cancelablePromise(fetchAllAOIs(props.token))
   }),
   (nextProps: propsType, props: propsType) => true,
@@ -593,6 +528,7 @@ User = connect(
     location: props.location,
     filters: state.filters.get('filters'),
     whitelisted: state.whitelist.get('whitelist'),
+    blacklisted: state.blacklist.get('blacklist'),
     changesetId: parseInt(state.changeset.get('changesetId'), 10),
     currentChangeset: state.changeset.getIn([
       'changesets',
@@ -608,7 +544,11 @@ User = connect(
     applyFilters,
     logUserOut,
     modal,
-    push
+    push,
+    addToBlacklist,
+    removeFromBlacklist,
+    addToWhitelist,
+    removeFromWhitelist
   }
 )(User);
 
