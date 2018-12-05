@@ -13,7 +13,8 @@ class Header extends React.PureComponent {
     changesetId: number,
     userEditCount: number,
     toggleUser: () => mixed,
-    whitelisted: Map<string, *>
+    whitelisted: Map<string, *>,
+    blacklisted: Map<object, *>
   };
   render() {
     const user = this.props.properties.get('user');
@@ -22,6 +23,10 @@ class Header extends React.PureComponent {
     const modify = this.props.properties.get('modify');
     const destroy = this.props.properties.get('delete');
     const is_whitelisted = this.props.whitelisted.indexOf(user) !== -1;
+    const is_blacklisted =
+      this.props.blacklisted
+        .map(user => user.get('uid'))
+        .indexOf(this.props.properties.get('uid')) !== -1;
 
     return (
       <div className="px12 py6">
@@ -50,6 +55,11 @@ class Header extends React.PureComponent {
                   <use xlinkHref="#icon-star" />
                 </svg>
               )}
+              {is_blacklisted && (
+                <svg className="icon inline-block align-middle pl3 w18 h18 color-gray">
+                  <use xlinkHref="#icon-alert" />
+                </svg>
+              )}
               {this.props.userEditCount > 0 && (
                 <span className="txt-s txt-em">
                   &nbsp;({this.props.userEditCount} edits)&nbsp;
@@ -69,6 +79,7 @@ class Header extends React.PureComponent {
 }
 
 Header = connect((state: RootStateType, props) => ({
-  whitelisted: state.whitelist.get('whitelist')
+  whitelisted: state.whitelist.get('whitelist'),
+  blacklisted: state.blacklist.get('blacklist')
 }))(Header);
 export { Header };
