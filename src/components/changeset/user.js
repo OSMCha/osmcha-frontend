@@ -6,7 +6,7 @@ import moment from 'moment';
 import { Avatar } from '../avatar';
 import { getObjAsQueryParam } from '../../utils/query_params';
 import { SignInButton } from './sign_in_button';
-import { WhitelistUser } from './whitelist';
+import { TrustWatchUser } from './trust_watch_user';
 
 // getObjAsQueryParam('filters', filters.toJS());
 export class User extends React.PureComponent {
@@ -54,9 +54,7 @@ export class User extends React.PureComponent {
             </div>
 
             <div className="mt6">
-              <WhitelistUser
-                user_to_whitelist={this.props.userDetails.get('name')}
-              />
+              <TrustWatchUser user={this.props.userDetails} />
             </div>
 
             <div className="mt6">

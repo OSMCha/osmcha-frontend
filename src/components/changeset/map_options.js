@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { importChangesetMap } from '../../utils/cmap';
+
 export class MapOptions extends React.PureComponent {
   state = {
     actions: true,
