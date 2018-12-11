@@ -241,14 +241,14 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           Users
         </h2>
         {filtersData
-          .slice(11, 13)
+          .slice(11, 14)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Changeset Details
         </h2>
-        {filtersData.slice(13).map((f: Object, k) => this.renderFilters(f, k))}
+        {filtersData.slice(14).map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
       </div>
     );
