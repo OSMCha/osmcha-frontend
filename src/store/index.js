@@ -13,6 +13,8 @@ import { changesetsPageReducer } from './changesets_page_reducer';
 import { changesetReducer } from './changeset_reducer';
 import { modalReducer } from './modal_reducer';
 import { filtersReducer } from './filters_reducer';
+import { whitelistReducer } from './whitelist_reducer';
+import { blacklistReducer } from './blacklist_reducer';
 import { aoiReducer } from './aoi_reducer';
 
 import type { ModalType } from './modal_reducer';
@@ -20,7 +22,8 @@ import type { ChangesetsPageType } from './changesets_page_reducer';
 import type { ChangesetType } from './changeset_reducer';
 import type { AuthType } from './auth_reducer';
 import type { filtersReducerType } from './filters_reducer';
-import type { aoiReducerType } from './aoi_reducer';
+import type { whitelistReducerType } from './whitelist_reducer';
+import type { blacklistReducerType } from './blacklist_reducer';
 // Sagas
 import sagas from './sagas';
 
@@ -31,7 +34,9 @@ export type RootStateType = {
   aoi: aoiReducerType,
   changeset: ChangesetType,
   modal: ModalType,
-  routing: Object
+  routing: Object,
+  whitelist: whitelistReducerType,
+  blacklist: blacklistReducerType
 };
 
 // Root reducer
@@ -42,7 +47,9 @@ const reducers = combineReducers({
   aoi: aoiReducer,
   routing: routerReducer,
   auth: authReducer,
-  modal: modalReducer
+  modal: modalReducer,
+  whitelist: whitelistReducer,
+  blacklist: blacklistReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

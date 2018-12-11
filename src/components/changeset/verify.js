@@ -28,17 +28,17 @@ export function Verify({
             <img
               src={isHarmful ? thumbsDown : thumbsUp}
               alt={`Marked as ${isHarmful ? 'bad' : 'good'}`}
-              className="icon inline-block mt3"
+              className="icon inline-block mt3 w14 h14"
             />
             {checkUser ? (
-              <span className="ml6">{checkUser}</span>
+              <span className="ml6 mt3">{checkUser}</span>
             ) : (
               <span className="ml6 txt-em">Verified</span>
             )}
           </span>
           <svg
             onClick={onClear}
-            className="icon inline-block align-middle pl3 pb3 pointer"
+            className="icon inline-block align-middle pl3 pb3 w18 h18 pointer color-gray"
           >
             <use xlinkHref="#icon-close" />
           </svg>

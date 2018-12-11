@@ -67,10 +67,9 @@ export class LocationSelect extends React.PureComponent {
       fromJS([{ label: data, value: data }])
     );
     const geom_bbox = bbox(data);
-    this.map.fitBounds(
-      [geom_bbox.slice(0, 2), geom_bbox.slice(2)],
-      {padding: 20}
-    );
+    this.map.fitBounds([geom_bbox.slice(0, 2), geom_bbox.slice(2)], {
+      padding: 20
+    });
   }
 
   componentDidMount() {
@@ -97,9 +96,15 @@ export class LocationSelect extends React.PureComponent {
         map.on('draw.update', this.drawingUpdate);
         map.on('style.load', () => {
           try {
-            this.updateMap(this.props.value.get('0').get('value').toJS());
+            this.updateMap(
+              this.props.value
+                .get('0')
+                .get('value')
+                .toJS()
+            );
           } catch (e) {
-            if (e instanceof TypeError) {}
+            if (e instanceof TypeError) {
+            }
           }
         });
       }
@@ -124,7 +129,11 @@ export class LocationSelect extends React.PureComponent {
   };
   drawingUpdate = e => {
     const drawingData = this.draw.getAll();
-    if (drawingData && drawingData.features.length && drawingData.features[0].geometry) {
+    if (
+      drawingData &&
+      drawingData.features.length &&
+      drawingData.features[0].geometry
+    ) {
       this.updateMap(drawingData.features[0].geometry);
     } else {
       this.clearMap();
@@ -188,12 +197,12 @@ export class LocationSelect extends React.PureComponent {
         </div>
         <div className="grid grid--gut12 pt6">
           <div className="col col--12 map-select">
-            <div id="geometry-map" >
+            <div id="geometry-map">
               <div
                 onClick={this.clearMap}
                 className="pointer z5 m3 inline-block px6 py3 txt-s bg-white txt-bold round absolute fl"
-                style={{zIndex: 2}}
-                >
+                style={{ zIndex: 2 }}
+              >
                 Clear All
               </div>
             </div>

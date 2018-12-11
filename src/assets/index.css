@@ -59,11 +59,24 @@ img {
   width: 28px !important;
 }
 
+.h14 {
+  height: 14px !important;
+}
+
+.w14 {
+  width: 14px !important;
+}
+
 .h55 {
   height: 55px !important;
 }
+
 .hmin55 {
   min-height: 55px !important;
+}
+
+.hmin186 {
+  min-height: 186px !important;
 }
 
 .hfull-55 {

@@ -2,8 +2,8 @@
 import { handleErrors } from './aoi';
 import { API_URL } from '../config';
 
-export function fetchBlackList(token: string): Promise<*> {
-  return fetch(`${API_URL}/blacklisted-users/`, {
+export function fetchWhiteList(token: string): Promise<*> {
+  return fetch(`${API_URL}/whitelist-user/`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -16,8 +16,11 @@ export function fetchBlackList(token: string): Promise<*> {
     });
 }
 
-export function deleteFromBlackList(token: string, uid: string): Promise<*> {
-  return fetch(`${API_URL}/blacklisted-users/${uid}/`, {
+export function deleteFromWhiteList(
+  token: string,
+  username: string
+): Promise<*> {
+  return fetch(`${API_URL}/whitelist-user/${username}/`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -26,16 +29,18 @@ export function deleteFromBlackList(token: string, uid: string): Promise<*> {
   }).then(handleErrors);
 }
 
-export function postUserToBlackList(token: string, data: object): Promise<*> {
-  return fetch(`${API_URL}/blacklisted-users/`, {
+export function postUserToWhiteList(
+  token: string,
+  whitelist_user: string
+): Promise<*> {
+  return fetch(`${API_URL}/whitelist-user/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
     },
     body: JSON.stringify({
-      username: data.blacklist_user.username,
-      uid: data.blacklist_user.uid
+      whitelist_user
     })
   })
     .then(handleErrors)

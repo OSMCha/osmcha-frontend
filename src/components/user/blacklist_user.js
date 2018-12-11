@@ -23,8 +23,9 @@ export class BlackListUser extends React.Component {
   };
   fetchUsername = (username: string) =>
     fetch(
-      `https://osm-comments-api.mapbox.com/api/v1/users/name/${this.state
-        .username}`
+      `https://osm-comments-api.mapbox.com/api/v1/users/name/${
+        this.state.username
+      }`
     )
       .then(handleErrors)
       .then(r => r.json());
@@ -132,9 +133,9 @@ export class BlackListUser extends React.Component {
           {this.state.verified ? 'Verified' : 'Verify'}
         </Button>
         <Button
-          className={`btn wmax120 ml12 ${this.state.verified
-            ? 'btn--green'
-            : ''}`}
+          className={`btn wmax120 ml12 ${
+            this.state.verified ? 'btn--green' : ''
+          }`}
           onClick={this.onAdd}
         >
           Add

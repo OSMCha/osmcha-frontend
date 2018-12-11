@@ -43,9 +43,9 @@ export function Details({
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap py12">
         <div className="flex-parent flex-parent--row flex-parent--wrap mb3">
           <p
-            className={`flex-child txt-subhead txt-l txt-break-url ${!comment
-              ? 'color-gray txt-em'
-              : ''}`}
+            className={`flex-child txt-subhead txt-l txt-break-url ${
+              !comment ? 'color-gray txt-em' : ''
+            }`}
           >
             <AnchorifyText
               text={

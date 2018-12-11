@@ -47,10 +47,9 @@ export function ControlLayout({
         className="unround"
       >
         <svg
-          className={`icon h18 w18 inline-block align-middle ${features &&
-          features.size == 0
-            ? 'color-darken25'
-            : 'color-black'}`}
+          className={`icon h18 w18 inline-block align-middle ${
+            features && features.size == 0 ? 'color-darken25' : 'color-black'
+          }`}
         >
           <use xlinkHref="#icon-alert" />
         </svg>
@@ -72,10 +71,9 @@ export function ControlLayout({
         className="unround"
       >
         <svg
-          className={`icon h18 w18 inline-block align-middle ${discussions.size ==
-          0
-            ? 'color-darken25'
-            : 'color-black'}`}
+          className={`icon h18 w18 inline-block align-middle ${
+            discussions.size == 0 ? 'color-darken25' : 'color-black'
+          }`}
         >
           <use xlinkHref="#icon-contact" />
         </svg>

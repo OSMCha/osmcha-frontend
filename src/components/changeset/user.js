@@ -6,6 +6,7 @@ import moment from 'moment';
 import { Avatar } from '../avatar';
 import { getObjAsQueryParam } from '../../utils/query_params';
 import { SignInButton } from './sign_in_button';
+import { TrustWatchUser } from './trust_watch_user';
 
 // getObjAsQueryParam('filters', filters.toJS());
 export class User extends React.PureComponent {
@@ -51,6 +52,11 @@ export class User extends React.PureComponent {
                 Good Changesets
               </p>
             </div>
+
+            <div className="mt6">
+              <TrustWatchUser user={this.props.userDetails} />
+            </div>
+
             <div className="mt6">
               <Link
                 className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
@@ -103,6 +109,7 @@ export class User extends React.PureComponent {
                 Missing Maps
               </a>
             </div>
+
             {this.props.whosThat.size > 1 && (
               <div className="txt-s color-gray">
                 Past usernames: &nbsp;

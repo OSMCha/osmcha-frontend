@@ -146,7 +146,7 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
           </Box>
         )}
         {bindingsState.get(CHANGESET_DETAILS_MAP.label) && (
-          <Box key={4} className=" responsive-box  round-tr round-br">
+          <Box key={4} className="responsive-box round-tr round-br">
             <MapOptions />
           </Box>
         )}
