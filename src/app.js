@@ -15,6 +15,9 @@ import { NavbarSidebar } from './views/navbar_sidebar';
 import { Home } from './views/home';
 import { Modal } from './views/modal';
 import { User } from './views/user';
+import { SavedFilters } from './views/saved_filters';
+import { TrustedUsers } from './views/trusted_users';
+import { Watchlist } from './views/watchlist';
 
 import { gaPageView } from './utils/analytics';
 import { getSearchObj } from './utils/query_params';
@@ -28,7 +31,10 @@ export class App extends Component {
         Map()
       );
       if (filters && filters.size > 0) {
-        filters = filters.keySeq().sort((a, b) => a.localeCompare(b)).join(',');
+        filters = filters
+          .keySeq()
+          .sort((a, b) => a.localeCompare(b))
+          .join(',');
         gaPageView(`/?filters=${filters}`);
       } else {
         gaPageView('/');
@@ -47,7 +53,7 @@ export class App extends Component {
             </div>
             <div className="col col--9-mxl col--8-ml col--12-mm">
               <Route
-                render={({ location }) =>
+                render={({ location }) => (
                   <CSSTransitionGroup
                     transitionName="filters"
                     transitionEnterTimeout={300}
@@ -73,7 +79,11 @@ export class App extends Component {
                     <Route path="/about" component={About} />
                     <Route path="/stats" component={Stats} />
                     <Route path="/user" component={User} />
-                  </CSSTransitionGroup>}
+                    <Route path="/saved-filters" component={SavedFilters} />
+                    <Route path="/trusted-users" component={TrustedUsers} />
+                    <Route path="/watchlist" component={Watchlist} />
+                  </CSSTransitionGroup>
+                )}
               />
             </div>
           </div>

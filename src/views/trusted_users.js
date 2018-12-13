@@ -1,32 +1,91 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 import { push } from 'react-router-redux';
+import { Link } from 'react-router-dom';
 
+import { getObjAsQueryParam } from '../utils/query_params';
+import { BlockMarkup } from '../components/user/block_markup';
+import { SaveUser } from '../components/user/save_user';
+import {
+  addToWhitelist,
+  removeFromWhitelist
+} from '../store/whitelist_actions';
 import { modal } from '../store/modal_actions';
 import { logUserOut } from '../store/auth_actions';
-import type { filtersType } from '../components/filters';
 import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
-import { EditUserDetails } from '../components/user/details';
 import type { RootStateType } from '../store';
+
+const WhiteListBlock = ({ data, removeFromWhiteList }) => (
+  <BlockMarkup>
+    <span>
+      <span>{data}</span>
+    </span>
+    <span>
+      <Link
+        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+        to={{
+          search: getObjAsQueryParam('filters', {
+            users: [
+              {
+                label: data,
+                value: data
+              }
+            ]
+          })
+        }}
+      >
+        OSMCha
+      </Link>
+      <Button className="mr3" onClick={() => removeFromWhiteList(data)}>
+        Remove
+      </Button>
+    </span>
+  </BlockMarkup>
+);
+
+const ListFortified = ({
+  onAdd,
+  onRemove,
+  data,
+  TargetBlock,
+  propsToPass,
+  SaveComp
+}) => (
+  <div>
+    {data.map((e, i) => <TargetBlock key={i} data={e} {...propsToPass} />)}
+    {SaveComp}
+  </div>
+);
 
 type propsType = {
   avatar: ?string,
   token: string,
   data: Map<string, any>,
   location: Object,
-  filters: filtersType,
   userDetails: Map<string, any>,
   reloadData: () => any,
   logUserOut: () => any,
   push: any => any,
-  modal: any => any
+  modal: any => any,
+  whitelisted: Map<string, *>,
+  addToWhitelist: string => void,
+  removeFromWhitelist: string => void
 };
-class User extends React.PureComponent<any, propsType, any> {
+class TrustedUsers extends React.PureComponent<any, propsType, any> {
   state = {
     userValues: null
+  };
+  // whitelist - trusted users
+  addToWhiteList = ({ username }: { username: string }) => {
+    if (!username) return;
+    this.props.addToWhitelist(username);
+  };
+  removeFromWhiteList = (username: string) => {
+    if (!username) return;
+    this.props.removeFromWhitelist(username);
   };
   onUserChange = (value: ?Array<Object>) => {
     if (Array.isArray(value) && value.length === 0)
@@ -37,6 +96,11 @@ class User extends React.PureComponent<any, propsType, any> {
   };
   render() {
     const userDetails = this.props.userDetails;
+    let trustedUsers = this.props.whitelisted ? this.props.whitelisted : List();
+    trustedUsers = trustedUsers.sortBy(
+      a => a,
+      (a: string, b: string) => a.localeCompare(b)
+    );
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
@@ -45,7 +109,7 @@ class User extends React.PureComponent<any, propsType, any> {
       >
         <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
           <span className="txt-l txt-bold color-gray--dark">
-            <span>User</span>
+            <span>Trusted Users</span>
           </span>
 
           <span className="txt-l color-gray--dark">
@@ -65,7 +129,7 @@ class User extends React.PureComponent<any, propsType, any> {
               style={{ alignSelf: 'center' }}
             >
               <h2 className="txt-xl">
-                Welcome,{' '}
+                Hi,{' '}
                 {userDetails.get('username')
                   ? userDetails.get('username')
                   : 'stranger'}!
@@ -74,39 +138,20 @@ class User extends React.PureComponent<any, propsType, any> {
             </span>
           </span>
           <div className="flex-parent flex-parent--column align justify--space-between">
-            <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-              Info
-            </h2>
-            <span className="ml12 flex-parent flex-parent--row my3">
-              <p className="flex-child txt-bold w120">OSMCha ID: </p>
-              <p className="flex-child">{userDetails.get('id')}</p>
-            </span>
-            <span className="ml12 flex-parent flex-parent--row my3">
-              <p className="flex-child txt-bold w120">OSM ID: </p>
-              <p className="flex-child">{userDetails.get('uid')}</p>
-            </span>
-            <span className="ml12 flex-parent flex-parent--row my3">
-              <p className="flex-child txt-bold w120">Username: </p>
-              <p className="flex-child">{userDetails.get('username')}</p>
-            </span>
-            <span className="ml12 flex-parent flex-parent--row my3">
-              <p className="flex-child txt-bold w120">Current Token: </p>
-              <p className="flex-child">{this.props.token}</p>
-            </span>
-
-            {userDetails.get('is_staff') && (
-              <span className="ml12 flex-parent flex-parent--row my3">
-                <p className="flex-child txt-bold w120">Staff: </p>
-                <p className="flex-child">Yes</p>
-              </span>
-            )}
             {this.props.token && (
               <div>
                 <div className="mt24 mb12">
-                  <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
-                    <span className="txt-bold">Review Comments Template </span>
+                  <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
+                    Trusted Users
                   </h2>
-                  <EditUserDetails />
+                  <ListFortified
+                    data={trustedUsers}
+                    TargetBlock={WhiteListBlock}
+                    propsToPass={{
+                      removeFromWhiteList: this.removeFromWhiteList
+                    }}
+                    SaveComp={<SaveUser onCreate={this.addToWhiteList} />}
+                  />
                 </div>
               </div>
             )}
@@ -117,14 +162,10 @@ class User extends React.PureComponent<any, propsType, any> {
   }
 }
 
-User = connect(
+TrustedUsers = connect(
   (state: RootStateType, props) => ({
     location: props.location,
-    changesetId: parseInt(state.changeset.get('changesetId'), 10),
-    currentChangeset: state.changeset.getIn([
-      'changesets',
-      parseInt(state.changeset.get('changesetId'), 10)
-    ]),
+    whitelisted: state.whitelist.get('whitelist'),
     oAuthToken: state.auth.get('oAuthToken'),
     token: state.auth.get('token'),
     userDetails: state.auth.getIn(['userDetails'], Map()),
@@ -133,8 +174,10 @@ User = connect(
   {
     logUserOut,
     modal,
-    push
+    push,
+    addToWhitelist,
+    removeFromWhitelist
   }
-)(User);
+)(TrustedUsers);
 
-export { User };
+export { TrustedUsers };

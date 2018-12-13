@@ -3,10 +3,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
 
 import { Button } from '../components/button';
 import { Navbar } from '../components/navbar';
 import { Avatar } from '../components/avatar';
+import { Dropdown } from '../components/dropdown';
 
 import { createPopup } from '../utils/create_popup';
 import { handlePopupCallback } from '../utils/handle_popup_callback';
@@ -32,7 +34,8 @@ class NavbarSidebar extends React.PureComponent {
     oAuthToken: ?string,
     getOAuthToken: () => mixed,
     getFinalToken: string => mixed,
-    logUserOut: () => mixed
+    logUserOut: () => mixed,
+    push: any => any
   };
   state = {
     isMenuOpen: false
@@ -53,6 +56,37 @@ class NavbarSidebar extends React.PureComponent {
       });
     }
   };
+  onUserMenuSelect = (arr: Array<Object>) => {
+    if (arr.length === 1) {
+      console.log(this.props.push);
+      this.props.push({
+        ...this.props.location,
+        search: this.props.location.search,
+        pathname: arr[0].url
+      });
+    } else if (arr.length > 1) {
+      throw new Error('filter select array is big');
+    }
+  };
+  renderUserMenuOptions() {
+    const username = this.props.username;
+
+    return (
+      <Dropdown
+        display={username ? username.slice(0, 10) : 'User'}
+        options={[
+          { label: 'User details', url: '/user' },
+          { label: 'My saved filters', url: '/saved-filters' },
+          { label: 'My trusted users list', url: 'trusted-users' },
+          { label: 'My watchlist', url: '/watchlist' }
+        ]}
+        onChange={this.onUserMenuSelect}
+        value={[]}
+        onAdd={() => {}}
+        onRemove={() => {}}
+      />
+    );
+  }
   openMenu = () => {
     // onClick={this.props.logUserOut}
     this.setState({
@@ -75,7 +109,6 @@ class NavbarSidebar extends React.PureComponent {
     );
   };
   render() {
-    let username = this.props.username;
     return (
       <div>
         <Navbar
@@ -121,19 +154,7 @@ class NavbarSidebar extends React.PureComponent {
               </Link>
               {this.props.token ? (
                 <div className="mr3 pointer">
-                  <Link
-                    className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-                    to={{
-                      ...this.props.location,
-                      pathname: '/user'
-                    }}
-                  >
-                    {username && username.length > 10 ? (
-                      `${username.slice(0, 10)}..`
-                    ) : (
-                      username
-                    )}
-                  </Link>
+                  {this.renderUserMenuOptions()}
                 </div>
               ) : (
                 <Button
@@ -168,7 +189,8 @@ NavbarSidebar = connect(
   {
     getOAuthToken,
     getFinalToken,
-    logUserOut
+    logUserOut,
+    push
   }
 )(NavbarSidebar);
 
