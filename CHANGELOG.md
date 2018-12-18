@@ -2,6 +2,20 @@
 
 Log of changes since the 2.0 version
 
+### 0.54.0
+
+- Add the watchlist field to filters
+- Separate Saved Filters, Watchlist and Trusted Users in different views
+- Replace the user button by a dropdown menu
+- Add logout to user menu options
+- Change header of user pages
+- Add Filter changesets button in the watchlist page
+
+### 0.52.0
+
+- Add whitelist and blacklist sagas
+- Modify blacklist API to be available to all users
+
 ### 0.50.0
 
 - Show the feature's note when the mouse is over a reason

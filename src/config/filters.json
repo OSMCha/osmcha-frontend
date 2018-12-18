@@ -204,6 +204,26 @@
     "placeholder": "Exclude changesets created by trusted users"
   },
   {
+    "name": "blacklist",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Watchlisted users",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
+    "description": "If Yes, it will Filter changesets created by users that you added to your Watchlist.",
+    "placeholder": "Filter changesets created by users from your Watchlist"
+  },
+  {
     "name": "create",
     "icontains": false,
     "all": false,
