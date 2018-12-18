@@ -239,7 +239,10 @@ class SavedFilters extends React.PureComponent<any, propsType, any> {
       >
         <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
           <span className="txt-l txt-bold color-gray--dark">
-            <span>Saved Filters</span>
+            <span className="fl">
+              <Avatar size={36} url={this.props.avatar} />
+            </span>
+            <span className="pl6 line45">Saved filters</span>
           </span>
 
           <span className="txt-l color-gray--dark">
@@ -252,27 +255,12 @@ class SavedFilters extends React.PureComponent<any, propsType, any> {
           </span>
         </header>
         <div className="px30 flex-child  pb60  filters-scroll">
-          <span className="flex-parent flex-parent--row align justify--space-between  mr6 txt-bold mt24">
-            <Avatar size={72} url={this.props.avatar} />
-            <span
-              className="flex-child flex-child--grow pl24  pt18"
-              style={{ alignSelf: 'center' }}
-            >
-              <h2 className="txt-xl">
-                Hello,{' '}
-                {userDetails.get('username')
-                  ? userDetails.get('username')
-                  : 'stranger'}!
-              </h2>
-              <div className="flex-child flex-child--grow">&nbsp;</div>
-            </span>
-          </span>
           <div className="flex-parent flex-parent--column align justify--space-between">
             {this.props.token && (
               <div>
                 <div className="mt24 mb12">
                   <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
-                    <span className="txt-bold">Saved Filters</span>
+                    <span className="txt-bold">Your saved filters</span>
                   </h2>
                   <ListFortified
                     data={this.props.data.getIn(['aoi', 'features'], List())}

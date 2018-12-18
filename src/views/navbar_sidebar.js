@@ -7,7 +7,6 @@ import { push } from 'react-router-redux';
 
 import { Button } from '../components/button';
 import { Navbar } from '../components/navbar';
-import { Avatar } from '../components/avatar';
 import { Dropdown } from '../components/dropdown';
 
 import { createPopup } from '../utils/create_popup';
@@ -58,12 +57,16 @@ class NavbarSidebar extends React.PureComponent {
   };
   onUserMenuSelect = (arr: Array<Object>) => {
     if (arr.length === 1) {
-      console.log(this.props.push);
-      this.props.push({
-        ...this.props.location,
-        search: this.props.location.search,
-        pathname: arr[0].url
-      });
+      if (arr[0].url === '/logout') {
+        this.props.logUserOut();
+      } else {
+        console.log(this.props.push);
+        this.props.push({
+          ...this.props.location,
+          search: this.props.location.search,
+          pathname: arr[0].url
+        });
+      }
     } else if (arr.length > 1) {
       throw new Error('filter select array is big');
     }
@@ -75,10 +78,11 @@ class NavbarSidebar extends React.PureComponent {
       <Dropdown
         display={username ? username.slice(0, 10) : 'User'}
         options={[
-          { label: 'User details', url: '/user' },
+          { label: 'Account settings', url: '/user' },
           { label: 'My saved filters', url: '/saved-filters' },
           { label: 'My trusted users list', url: 'trusted-users' },
-          { label: 'My watchlist', url: '/watchlist' }
+          { label: 'My watchlist', url: '/watchlist' },
+          { label: 'Logout', url: '/logout' }
         ]}
         onChange={this.onUserMenuSelect}
         value={[]}
@@ -88,25 +92,9 @@ class NavbarSidebar extends React.PureComponent {
     );
   }
   openMenu = () => {
-    // onClick={this.props.logUserOut}
     this.setState({
       isMenuOpen: !this.state.isMenuOpen
     });
-  };
-  displayDropdown = () => {
-    return (
-      <div className="flex-parent flex-parent--column align-items--center justify--space-between">
-        <div className="mb12">
-          <Avatar size={72} url={this.props.avatar} />
-          <div className="txt txt-bold color-gray align-center">
-            {this.props.username}
-          </div>
-        </div>
-        <Button onClick={this.props.logUserOut} className="bg-white-on-hover">
-          Logout
-        </Button>
-      </div>
-    );
   };
   render() {
     return (

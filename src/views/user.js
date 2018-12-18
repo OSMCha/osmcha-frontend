@@ -45,7 +45,7 @@ class User extends React.PureComponent<any, propsType, any> {
       >
         <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
           <span className="txt-l txt-bold color-gray--dark">
-            <span>User</span>
+            <span>Account Settings</span>
           </span>
 
           <span className="txt-l color-gray--dark">

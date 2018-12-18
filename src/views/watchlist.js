@@ -114,7 +114,10 @@ class Watchlist extends React.PureComponent<any, propsType, any> {
       >
         <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
           <span className="txt-l txt-bold color-gray--dark">
-            <span>Watchlist</span>
+            <span className="fl">
+              <Avatar size={36} url={this.props.avatar} />
+            </span>
+            <span className="pl6 line45">Watchlist</span>
           </span>
 
           <span className="txt-l color-gray--dark">
@@ -127,28 +130,13 @@ class Watchlist extends React.PureComponent<any, propsType, any> {
           </span>
         </header>
         <div className="px30 flex-child  pb60  filters-scroll">
-          <span className="flex-parent flex-parent--row align justify--space-between  mr6 txt-bold mt24">
-            <Avatar size={72} url={this.props.avatar} />
-            <span
-              className="flex-child flex-child--grow pl24  pt18"
-              style={{ alignSelf: 'center' }}
-            >
-              <h2 className="txt-xl">
-                Hi,{' '}
-                {userDetails.get('username')
-                  ? userDetails.get('username')
-                  : 'stranger'}!
-              </h2>
-              <div className="flex-child flex-child--grow">&nbsp;</div>
-            </span>
-          </span>
           <div className="flex-parent flex-parent--column align justify--space-between">
             {this.props.token && (
               <div>
                 <div className="mt24 mb12">
-                  <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-                    Watchlist
-                  </h2>
+                  <h3 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
+                    Your watchlist
+                  </h3>
                   <ListFortified
                     data={blackList}
                     TargetBlock={BlackListBlock}
@@ -164,6 +152,20 @@ class Watchlist extends React.PureComponent<any, propsType, any> {
                   />
                 </div>
               </div>
+            )}
+            {this.props.token && (
+              <span>
+                <Link
+                  className="input wmax140 ml12 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+                  to={{
+                    search: getObjAsQueryParam('filters', {
+                      blacklist: [{ label: 'Yes', value: 'True' }]
+                    })
+                  }}
+                >
+                  Filter changesets
+                </Link>
+              </span>
             )}
           </div>
         </div>

@@ -95,7 +95,6 @@ class TrustedUsers extends React.PureComponent<any, propsType, any> {
     });
   };
   render() {
-    const userDetails = this.props.userDetails;
     let trustedUsers = this.props.whitelisted ? this.props.whitelisted : List();
     trustedUsers = trustedUsers.sortBy(
       a => a,
@@ -109,7 +108,10 @@ class TrustedUsers extends React.PureComponent<any, propsType, any> {
       >
         <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
           <span className="txt-l txt-bold color-gray--dark">
-            <span>Trusted Users</span>
+            <span className="fl">
+              <Avatar size={36} url={this.props.avatar} />
+            </span>
+            <span className="pl6 line45">Trusted users</span>
           </span>
 
           <span className="txt-l color-gray--dark">
@@ -122,27 +124,12 @@ class TrustedUsers extends React.PureComponent<any, propsType, any> {
           </span>
         </header>
         <div className="px30 flex-child  pb60  filters-scroll">
-          <span className="flex-parent flex-parent--row align justify--space-between  mr6 txt-bold mt24">
-            <Avatar size={72} url={this.props.avatar} />
-            <span
-              className="flex-child flex-child--grow pl24  pt18"
-              style={{ alignSelf: 'center' }}
-            >
-              <h2 className="txt-xl">
-                Hi,{' '}
-                {userDetails.get('username')
-                  ? userDetails.get('username')
-                  : 'stranger'}!
-              </h2>
-              <div className="flex-child flex-child--grow">&nbsp;</div>
-            </span>
-          </span>
           <div className="flex-parent flex-parent--column align justify--space-between">
             {this.props.token && (
               <div>
                 <div className="mt24 mb12">
                   <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-                    Trusted Users
+                    Your trusted users list
                   </h2>
                   <ListFortified
                     data={trustedUsers}
