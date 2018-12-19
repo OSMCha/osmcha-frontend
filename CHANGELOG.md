@@ -2,6 +2,10 @@
 
 Log of changes since the 2.0 version
 
+### 0.54.1
+
+- Fix error in trusted-users page link
+
 ### 0.54.0
 
 - Add the watchlist field to filters
