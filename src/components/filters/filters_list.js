@@ -5,6 +5,7 @@ import moment from 'moment';
 import {
   Text,
   Radio,
+  MappingTeamMultiSelect,
   MultiSelect,
   Wrapper,
   Meta,
@@ -182,14 +183,25 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           hasValue={this.props.filters.has(name)}
           description={this.props.active === f.name && f.description}
         >
-          <MultiSelect
-            {...propsToSend}
-            name={name}
-            value={value}
-            onChange={onChange}
-            showAllToggle={f.all}
-            token={this.props.token}
-          />
+          {name.endsWith('_teams') ? (
+            <MappingTeamMultiSelect
+              {...propsToSend}
+              name={name}
+              value={value}
+              onChange={onChange}
+              showAllToggle={f.all}
+              token={this.props.token}
+            />
+          ) : (
+            <MultiSelect
+              {...propsToSend}
+              name={name}
+              value={value}
+              onChange={onChange}
+              showAllToggle={f.all}
+              token={this.props.token}
+            />
+          )}
         </Wrapper>
       );
     }
@@ -238,10 +250,10 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
-          Users
+          Users & Teams
         </h2>
         {filtersData
-          .slice(11, 14)
+          .slice(11, 17)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 

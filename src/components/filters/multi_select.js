@@ -126,3 +126,34 @@ export class MultiSelect extends React.PureComponent {
     );
   }
 }
+
+export class MappingTeamMultiSelect extends MultiSelect {
+  getAsyncOptions = () => {
+    if (!this.props.dataURL) return;
+    return fetch(`${API_URL}/${this.props.dataURL}/?trusted=true`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: this.props.token ? `Token ${this.props.token}` : ''
+      }
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        const data = json.map(d => ({ ...d, label: d.name, value: d.name }));
+        return { options: data };
+      });
+  };
+  sendData = (allToggle: boolean, data: Array<Object>) => {
+    let name =
+      this.props.name.slice(0, 4) === 'all_'
+        ? this.props.name.slice(4)
+        : this.props.name;
+
+    name = `${allToggle ? 'all_' : ''}${name}`;
+    if (data.length === 0) return this.props.onChange(name);
+    var processed = data.map(o => ({ label: o.label, value: o.value })); // remove any bogus keys
+    this.props.onChange(name, fromJS(processed));
+  };
+}
