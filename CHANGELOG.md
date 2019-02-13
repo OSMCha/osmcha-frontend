@@ -2,6 +2,12 @@
 
 Log of changes since the 2.0 version
 
+### Next release
+
+- Add Mapping Team filters
+- Show some details we have on the database about deleted users
+
+
 ### 0.54.1
 
 - Fix error in trusted-users page link
