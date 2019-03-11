@@ -43,7 +43,7 @@ export function deleteMappingTeam(token: string, id: number) {
 }
 
 export function fetchUserMappingTeams(token: string, owner: string) {
-  return fetch(`${API_URL}/mapping-team/?owner=${user}`, {
+  return fetch(`${API_URL}/mapping-team/?owner=${owner}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
