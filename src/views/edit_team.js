@@ -1,9 +1,8 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { Map, List } from 'immutable';
+import { Map } from 'immutable';
 import { push } from 'react-router-redux';
-import { Link } from 'react-router-dom';
 
 import { modal } from '../store/modal_actions';
 import { logUserOut } from '../store/auth_actions';
@@ -16,7 +15,6 @@ import {
 import { withFetchDataSilent } from '../components/fetch_data_enhancer';
 import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
-import { BlockMarkup } from '../components/user/block_markup';
 import { SaveButton } from './teams';
 import type { RootStateType } from '../store';
 

@@ -129,7 +129,7 @@ class TrustedUsers extends React.PureComponent<any, propsType, any> {
               <div>
                 <div className="mt24 mb12">
                   <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-                    Your trusted users list
+                    My trusted users list
                   </h2>
                   <ListFortified
                     data={trustedUsers}
