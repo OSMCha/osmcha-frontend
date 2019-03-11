@@ -151,7 +151,7 @@ class SaveButton extends React.PureComponent {
             />
             <span className="txt-bold txt-truncate pt6">Users</span>
             <textarea
-              placeholder="Paste here a json list containing the team members information"
+              placeholder={`[{"username": "name"}, {"username": "other_user"}]`}
               className="textarea h180"
               ref={r => {
                 if (this.clicked) {
@@ -163,6 +163,18 @@ class SaveButton extends React.PureComponent {
               onChange={this.onChangeTeamUsers}
               onKeyDown={this.onKeyDown}
             />
+            <span className="txt-light txt-truncate pt6">
+              Check the{' '}
+              <a
+                className="link"
+                href="https://github.com/mapbox/osmcha-frontend/wiki/Mapping-Teams"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                reference
+              </a>{' '}
+              about the users field JSON format.
+            </span>
             {this.state.validationErrorMessage && (
               <span className="flex-parent flex-parent--row mt12 color-red-dark txt-bold">
                 {this.state.validationErrorMessage}
@@ -202,7 +214,7 @@ class SaveButton extends React.PureComponent {
 const TeamsBlock = ({ data, removeTeam, editTeam }) => (
   <BlockMarkup>
     <span>
-      <span>{data.get('name')}:</span>
+      <span>{data.get('name')}</span>
     </span>
     <span>
       <Link
@@ -317,7 +329,7 @@ class MappingTeams extends React.PureComponent<any, propsType, any> {
             <span className="fl">
               <Avatar size={36} url={this.props.userDetails.get('avatar')} />
             </span>
-            <span className="pl6 line45">Your Mapping Teams</span>
+            <span className="pl6 line45">My Mapping Teams</span>
           </span>
 
           <span className="txt-l color-gray--dark">
@@ -335,7 +347,7 @@ class MappingTeams extends React.PureComponent<any, propsType, any> {
               <div>
                 <div className="mt24 mb12">
                   <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
-                    <span className="txt-bold">Your mapping teams</span>
+                    <span className="txt-bold">My mapping teams</span>
                   </h2>
                   <ListFortified
                     data={this.props.data.getIn(['teams'], List())}
