@@ -6,6 +6,8 @@ export const overpassBase = '//overpass.maptime.in/api/interpreter';
 export const osmBase = '//www.openstreetmap.org/api/0.6/';
 export const mapboxAccessToken =
   'pk.eyJ1Ijoib3BlbnN0cmVldG1hcCIsImEiOiJjam10OXpmc2YwMXI5M3BqeTRiMDBqMHVyIn0.LIcIDe3TZLSDdTWDoojzNg';
+export const statusUrl =
+  'https://raw.githubusercontent.com/mapbox/osmcha-frontend/status/status.json';
 
 export const osmchaSocialTokenUrl = `${API_URL}/social-auth/`;
 
