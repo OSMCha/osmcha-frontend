@@ -1,0 +1,11 @@
+[ignore]
+.*/node_modules/changeset-map/*.
+.*/node_modules/mapbox-gl/*.
+.*/node_modules/eslint-plugin-jsx-a11y/.*
+.*/node_modules/unflowify/.*
+.*/node_modules/redux-saga-test-plan/.*
+.*/node_modules/nock/.*
+[include]
+
+[libs]
+[options]

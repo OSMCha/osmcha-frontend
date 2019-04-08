@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<button
+  className="flex-child btn btn--s color-gray round bg-gray-faint bg-darken10-on-active bg-darken5-on-hover
+          false
+          "
+  disabled={false}
+  onClick={[Function]}
+>
+  <svg
+    className="icon icon--s inline-block align-middle "
+  >
+    <use
+      xlinkHref="#icon-<"
+    />
+  </svg>
+</button>
+`;
+
+exports[`renders correctly 2`] = `
+<button
+  className="flex-child btn btn--s color-gray round bg-gray-faint bg-darken10-on-active bg-darken5-on-hover
+          is-active 
+          "
+  disabled={undefined}
+  onClick={[Function]}
+>
+  5
+</button>
+`;

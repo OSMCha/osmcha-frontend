@@ -1,0 +1,13 @@
+{
+    "extends": "react-app",
+    "rules": {
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "no-unused-vars": "error"
+    },
+    "globals": {
+        "Raven": true
+    }
+}

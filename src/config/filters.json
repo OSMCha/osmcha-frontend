@@ -1,0 +1,367 @@
+[
+  {
+    "name": "date",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Date",
+    "type": "date",
+    "description": "Set the date range to view changesets created during that duration.",
+    "placeholder": "YYYY-MM-DD"
+  },
+  {
+    "name": "comment",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Comment",
+    "type": "text",
+    "description": " Filter changesets that mention a particular keyword in its comment. This is not case-sensitive.",
+    "placeholder": "Enter a keyword like hotosm, import or fixme"
+  },
+  {
+    "name": "geometry",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Location",
+    "type": "location",
+    "description": "Filter changesets whose bbox intersect with a location boundary.",
+    "placeholder": "Type a place on the world"
+  },
+  {
+    "name": "in_bbox",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Bounding Box (BBox)",
+    "type": "map",
+    "description": "Scroll",
+    "placeholder": "Pan to the location of interest in the map"
+  },
+  {
+    "name": "area_lt",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "BBox size bound",
+    "type": "number",
+    "description": "Filter changesets that have a bbox area lower than X times the area of your BBox or geometry filter. For example, if the geometry you defined in your filter has an area of 1 degree and you set the 'BBox size bound' to 2, it will filter the changesets whose bbox area is lower than 2 degrees.",
+    "placeholder": "Upper bound of bbox area"
+  },
+  {
+    "name": "is_suspect",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Show Flagged",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
+    "description": "Choose to view only changesets that have been flagged, not flagged, or all. Read more about automated flagging on our About page.",
+    "placeholder": "yes / no"
+  },
+  {
+    "name": "reasons",
+    "icontains": false,
+    "range": false,
+    "all": true,
+    "data_url": "suspicion-reasons",
+    "display": "Reasons for Flagging",
+    "type": "text_comma",
+    "description": " Select one or multiple reasons that a changeset might be flagged for.",
+    "placeholder": "Start typing to pick reasons"
+  },
+  {
+    "name": "checked_&_harmful",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Review Status",
+    "type": "meta",
+    "metaOf": [
+      "harmful",
+      "checked"
+    ],
+    "options": [
+      {
+        "label": "Bad only",
+        "value": {
+          "harmful": [
+            {
+              "label": "Show Bad only",
+              "value": "True"
+            }
+          ]
+        }
+      },
+      {
+        "label": "Good only",
+        "value": {
+          "harmful": [
+            {
+              "label": "Show Good only",
+              "value": "False"
+            }
+          ]
+        }
+      },
+      {
+        "label": "Both Good or Bad",
+        "value": {
+          "checked": [
+            {
+              "label": "Both Good or Bad",
+              "value": "True"
+            }
+          ]
+        }
+      },
+      {
+        "label": "Not Reviewed",
+        "value": {
+          "checked": [
+            {
+              "label": "Not Reviewed",
+              "value": "False"
+            }
+          ]
+        }
+      }
+    ],
+    "placeholder": "Filter by the type of review",
+    "description": "Filter for changesets that have been manually reviewed and marked (either good or bad)"
+  },
+  {
+    "name": "check_date",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Review Date",
+    "type": "date",
+    "description": "Set the date range to view changesets reviewed within that duration.",
+    "placeholder": "YYYY-MM-DD"
+  },
+  {
+    "name": "checked_by",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Reviewed by",
+    "cache": true,
+    "type": "text_comma",
+    "description": "Filter changesets that were reviewed by a user. Start typing to select one or more users. This filter requires authentication to work.",
+    "placeholder": "Enter OSM usernames"
+  },
+  {
+    "name": "tags",
+    "icontains": false,
+    "range": false,
+    "all": true,
+    "display": "Tags",
+    "type": "text_comma",
+    "data_url": "tags",
+    "description": "Filter changesets that have one or more manually assigned Tags. Start typing to select tags.",
+    "placeholder": "Add tags"
+  },
+  {
+    "name": "users",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Users",
+    "cache": true,
+    "type": "text_comma",
+    "description": "Show changesets created by the users. Start typing to select one or more users. This filter requires authentication to work.",
+    "placeholder": "Enter OSM usernames"
+  },
+  {
+    "name": "hide_whitelist",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Hide trusted users",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
+    "description": "If Yes, it will exclude the changesets created by users that you added to your trusted users list",
+    "placeholder": "Exclude changesets created by trusted users"
+  },
+  {
+    "name": "blacklist",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Watchlisted users",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
+    "description": "If Yes, it will Filter changesets created by users that you added to your Watchlist.",
+    "placeholder": "Filter changesets created by users from your Watchlist"
+  },
+  {
+    "name": "create",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Objects Created",
+    "type": "number",
+    "description": "Filter changesets whose number of elements created are greater than or equal to and/or lesser than or equal to a number.",
+    "placeholder": "eg. 500"
+  },
+  {
+    "name": "modify",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Objects Modified",
+    "type": "number",
+    "description": "Filter changesets whose number of elements modified are greater than or equal to and/or lesser than or equal to a number.",
+    "placeholder": "eg. 500"
+  },
+  {
+    "name": "delete",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Objects Deleted",
+    "type": "number",
+    "description": "Filter changesets whose number of elements deleted are greater than or equal to and/or lesser than or equal to a number.",
+    "placeholder": "eg. 500"
+  },
+  {
+    "name": "source",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Source",
+    "type": "text",
+    "description": "Filter changesets by text in its source field. This is not case-sensitive.",
+    "placeholder": "eg. Bing, Local"
+  },
+  {
+    "name": "editor",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Editor",
+    "type": "text",
+    "description": "Filter changesets by text in its source field. This is not case-sensitive.",
+    "placeholder": "eg. iD, JOSM"
+  },
+  {
+    "name": "imagery_used",
+    "icontains": true,
+    "all": false,
+    "range": false,
+    "display": "Imagery used",
+    "type": "text",
+    "description": "Filter changesets by text in its imagery_used field. This is not case-sensitive.",
+    "placeholder": "eg. Bing, Mapbox"
+  },
+  {
+    "name": "ids",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Changeset IDs",
+    "type": "text_comma",
+    "description": "Filter changesets by its ID. Use commas to search for more than one id.",
+    "placeholder": "Enter Changeset IDs"
+  },
+  {
+    "name": "order_by",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Order by",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Ascending ID",
+        "value": "id"
+      },
+      {
+        "label": "Ascending Date",
+        "value": "date"
+      },
+      {
+        "label": "Ascending check date",
+        "value": "check_date"
+      },
+      {
+        "label": "Ascending object created",
+        "value": "create"
+      },
+      {
+        "label": "Ascending object modified",
+        "value": "modify"
+      },
+      {
+        "label": "Ascending object deleted",
+        "value": "delete"
+      },
+      {
+        "label": "Descending ID",
+        "value": "-id"
+      },
+      {
+        "label": "Descending Date",
+        "value": "-date"
+      },
+      {
+        "label": "Descending check date",
+        "value": "-check_date"
+      },
+      {
+        "label": "Descending object created",
+        "value": "-create"
+      },
+      {
+        "label": "Descending object modified",
+        "value": "-modify"
+      },
+      {
+        "label": "Descending object deleted",
+        "value": "-delete"
+      }
+    ],
+    "description": "Order the Changesets by one of the following fields: id, date, check_date, create, modify or delete. Use a minus sign (-) before the field name to reverse the ordering. Default ordering is '-id'.",
+    "placeholder": "Asceding/Descending "
+  },
+  {
+    "name": "powerfull_editor",
+    "ignore": true,
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Powerful editor",
+    "type": "text",
+    "description": "Filter changesets that were created using a software editor considered powerful (those that allow to create, modify or delete data in a batch).",
+    "placeholder": ""
+  }
+]
