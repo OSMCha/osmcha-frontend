@@ -106,13 +106,14 @@ export function* watchAuth(): any {
           })
         );
       }
-      if (status.get('status') === 'failure') {
-        console.log('yes');
+      // show status notification
+      if (status.get('status') !== 'success') {
         yield put(
           modal({
             title: 'Status alert',
             description: status.get('message'),
-            kind: 'warning'
+            kind: status.get('status'),
+            autoDismiss: 20
           })
         );
       }
