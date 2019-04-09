@@ -9,6 +9,7 @@ import {
   fetchUserDetails,
   updateUserDetails
 } from '../network/auth';
+import { getStatus } from '../network/status';
 import { fetchChangeset } from '../network/changeset';
 import { fetchBlackList } from '../network/osmcha_blacklist';
 import { setItem, removeItem } from '../utils/safe_storage';
@@ -87,6 +88,7 @@ export function* watchAuth(): any {
       const userDetails = fromJS(yield call(fetchUserDetails, token));
       const whitelist = userDetails.get('whitelists');
       const blacklist = fromJS(yield call(fetchBlackList, token));
+      const status = fromJS(yield call(getStatus));
       yield put(action(WHITELIST.define, { whitelist }));
       yield put(action(BLACKLIST.define, { blacklist }));
       yield put(action(AUTH.userDetails, { userDetails }));
@@ -101,6 +103,17 @@ export function* watchAuth(): any {
           action(CHANGESET.fetched, {
             data: fromJS(changeset),
             changesetId
+          })
+        );
+      }
+      // show status notification
+      if (status.get('status') !== 'success') {
+        yield put(
+          modal({
+            title: 'Status alert',
+            description: status.get('message'),
+            kind: status.get('status'),
+            autoDismiss: 20
           })
         );
       }
