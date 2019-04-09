@@ -130,18 +130,43 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
           </Box>
         )}
         {bindingsState.get(CHANGESET_DETAILS_USER.label) && (
-          <Box key={0} className=" responsive-box  round-tr round-br">
+          <Box key={0} className="responsive-box round-tr round-br">
             <User
               userDetails={
                 data.getIn(['userDetails', 'name'])
                   ? data.getIn(['userDetails'], Map())
-                  : Map(this.state.userDetails)
+                  : Map([
+                      [
+                        'uid',
+                        this.props.currentChangeset.getIn(['properties', 'uid'])
+                      ],
+                      [
+                        'name',
+                        this.props.currentChangeset.getIn([
+                          'properties',
+                          'user'
+                        ])
+                      ],
+                      [
+                        'harmful_changesets',
+                        data.getIn(['userDetails', 'harmful_changesets'])
+                      ],
+                      [
+                        'checked_changesets',
+                        data.getIn(['userDetails', 'checked_changesets'])
+                      ],
+                      [
+                        'changesets_in_osmcha',
+                        data.getIn(['userDetails', 'changesets_in_osmcha'])
+                      ]
+                    ])
               }
               whosThat={
                 data.getIn(['userDetails', 'name'])
                   ? data.getIn(['whosThat', 0, 'names'], List())
                   : this.state.whosThat || List()
               }
+              changesetUsername
             />
           </Box>
         )}
@@ -195,12 +220,7 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
           bindingsState={bindingsState}
           discussions={data && data.getIn(['osmComments'], List())}
         />
-        <Floater
-          style={{
-            marginTop: 5,
-            marginLeft: 41
-          }}
-        >
+        <Floater style={{ marginTop: 5, marginLeft: 41 }}>
           {this.showFloaters()}
         </Floater>
       </div>
