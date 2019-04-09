@@ -3,6 +3,7 @@ import { Map, List } from 'immutable';
 export { Radio } from './radio';
 export { Text } from './text';
 export { MultiSelect } from './multi_select';
+export { MappingTeamMultiSelect } from './multi_select';
 export { LocationSelect } from './location';
 export { Wrapper } from './wrapper';
 export { Meta } from './meta';

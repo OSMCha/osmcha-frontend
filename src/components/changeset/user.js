@@ -36,11 +36,15 @@ export class User extends React.PureComponent {
             </div>
             <div>
               <p className="txt-s color-gray align-center">
-                Joined{' '}
-                {moment(this.props.userDetails.get('accountCreated')).fromNow(
-                  true
-                )}{' '}
-                ago | {this.props.userDetails.get('count')} edits
+                {this.props.userDetails.get('accountCreated') &&
+                  `Joined ${moment(
+                    this.props.userDetails.get('accountCreated')
+                  ).fromNow(true)} ago |`}
+                {this.props.userDetails.get('count')
+                  ? `${this.props.userDetails.get('count')} edits`
+                  : `${this.props.userDetails.get(
+                      'changesets_in_osmcha'
+                    )} edits registered on OSMCha`}
               </p>
             </div>
             <div>
