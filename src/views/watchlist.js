@@ -59,7 +59,9 @@ const ListFortified = ({
   SaveComp
 }) => (
   <div>
-    {data.map((e, i) => <TargetBlock key={i} data={e} {...propsToPass} />)}
+    {data.map((e, i) => (
+      <TargetBlock key={i} data={e} {...propsToPass} />
+    ))}
     {SaveComp}
   </div>
 );
@@ -99,7 +101,6 @@ class Watchlist extends React.PureComponent<any, propsType, any> {
     });
   };
   render() {
-    const userDetails = this.props.userDetails;
     let blackList = this.props.blacklisted ? this.props.blacklisted : List();
     blackList = blackList.sortBy(
       a => a.get('username'),
@@ -135,7 +136,7 @@ class Watchlist extends React.PureComponent<any, propsType, any> {
               <div>
                 <div className="mt24 mb12">
                   <h3 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-                    Your watchlist
+                    My watchlist
                   </h3>
                   <ListFortified
                     data={blackList}

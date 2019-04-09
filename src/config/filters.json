@@ -180,7 +180,7 @@
     "display": "Users",
     "cache": true,
     "type": "text_comma",
-    "description": "Show changesets created by the users. Start typing to select one or more users. This filter requires authentication to work.",
+    "description": "Show changesets created by the users. Start typing to select one or more users.",
     "placeholder": "Enter OSM usernames"
   },
   {
@@ -222,6 +222,48 @@
     ],
     "description": "If Yes, it will Filter changesets created by users that you added to your Watchlist.",
     "placeholder": "Filter changesets created by users from your Watchlist"
+  },
+  {
+    "name": "mapping_teams",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Mapping teams",
+    "data_url": "mapping-team",
+    "type": "text_comma",
+    "description": "Show changesets created by users that are part of a Mapping Team. Start typing to select one or more teams.",
+    "placeholder": "Enter mapping teams"
+  },
+  {
+    "name": "exclude_teams",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Hide mapping teams",
+    "data_url": "mapping-team",
+    "type": "text_comma",
+    "description": "Exclude changesets created by users that are part of a Mapping Team. Start typing to select one or more teams.",
+    "placeholder": "Enter mapping teams"
+  },
+  {
+    "name": "exclude_trusted_teams",
+    "icontains": false,
+    "range": false,
+    "all": false,
+    "display": "Hide trusted mapping teams",
+    "type": "radio",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "True"
+      },
+      {
+        "label": "No",
+        "value": "False"
+      }
+    ],
+    "description": "If Yes, it will exclude the changesets created by users that are part of trusted mapping teams",
+    "placeholder": "Exclude changesets created by users from trusted teams"
   },
   {
     "name": "create",

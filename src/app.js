@@ -18,6 +18,8 @@ import { User } from './views/user';
 import { SavedFilters } from './views/saved_filters';
 import { TrustedUsers } from './views/trusted_users';
 import { Watchlist } from './views/watchlist';
+import { MappingTeams } from './views/teams';
+import { EditMappingTeam } from './views/edit_team';
 
 import { gaPageView } from './utils/analytics';
 import { getSearchObj } from './utils/query_params';
@@ -79,6 +81,8 @@ export class App extends Component {
                     <Route path="/about" component={About} />
                     <Route path="/stats" component={Stats} />
                     <Route path="/user" component={User} />
+                    <Route path="/teams" component={MappingTeams} />
+                    <Route path="/team/:id" component={EditMappingTeam} />
                     <Route path="/saved-filters" component={SavedFilters} />
                     <Route path="/trusted-users" component={TrustedUsers} />
                     <Route path="/watchlist" component={Watchlist} />
@@ -108,6 +112,12 @@ export class App extends Component {
             <Route path="/about" component={About} />
             <Route path="/stats" component={Stats} />
             <Route path="/filters" component={Filters} />
+            <Route path="/user" component={User} />
+            <Route path="/saved-filters" component={SavedFilters} />
+            <Route path="/trusted-users" component={TrustedUsers} />
+            <Route path="/watchlist" component={Watchlist} />
+            <Route path="/teams" component={MappingTeams} />
+            <Route path={'/team/:id'} component={EditMappingTeam} />
           </div>
           <Modal />
         </div>

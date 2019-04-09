@@ -129,7 +129,9 @@ const ListFortified = ({
   SaveComp
 }) => (
   <div>
-    {data.map((e, i) => <TargetBlock key={i} data={e} {...propsToPass} />)}
+    {data.map((e, i) => (
+      <TargetBlock key={i} data={e} {...propsToPass} />
+    ))}
     {SaveComp}
   </div>
 );
@@ -230,7 +232,6 @@ class SavedFilters extends React.PureComponent<any, propsType, any> {
     });
   };
   render() {
-    const userDetails = this.props.userDetails;
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
@@ -260,7 +261,7 @@ class SavedFilters extends React.PureComponent<any, propsType, any> {
               <div>
                 <div className="mt24 mb12">
                   <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
-                    <span className="txt-bold">Your saved filters</span>
+                    <span className="txt-bold">My saved filters</span>
                   </h2>
                   <ListFortified
                     data={this.props.data.getIn(['aoi', 'features'], List())}
