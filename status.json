@@ -1,4 +1,4 @@
 {
-  "status": "error",
-  "message": "We are having some delays and failures in the changeset visualization map. Our ETA to solve this problem is Wednesday, April 10th"
+  "status": "warning",
+  "message": "There is a delay of 5 minutes between the time a changeset is created on OSMCha and the time its visualization is available on OSMCha."
 }
