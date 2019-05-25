@@ -20,50 +20,58 @@ This repository uses [prettier](https://github.com/prettier/prettier) to keep th
 - Atom users can simply install the [prettier-atom](https://atom.io/packages/prettier-atom) package and use Ctrl+Alt+F to format a file (or format on save if enabled).
 - Visual Studio Code users can Search for Prettier - JavaScript formatter.
 
-## Workflow
-
-`yarn start`
-
-Runs the app in the development mode.
-Open http://localhost:3000 to view it in the browser.
-
-
 ### Prerequisite
-- Make sure your node version is 7.
+- Make sure your node version is *9.1*.
 - Install `yarn` globally using `brew install yarn`.
 - Install `watchman` globally with `brew install watchman`.
 
-### Deploy/Release
-- There are three stacks to deploy to
-- `yarn deploy:dev` deploys it to `mapbox.github.io`
-- `yarn deploy:staging` deploys it to `osmcha-django-staging.tilestream.net`
-- `yarn deploy:prod` deploys it to `osmcha.mapbox.com`
+### Local development
+1. `yarn start`
+1. Open [https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]}](https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]})
+    - The app runs with https; Firefox is recommended since it allows self signed certificates.
+    - The staging database only has changesets until mid 2017; without the filter you will not see any changesets.
 
-1. Test the application before commiting any changes. If you encounter any error make sure you have `watchman` installed. [Installation Guide](https://facebook.github.io/watchman/docs/install.html).
+*To sign in:*
+
+1. After loading the page in your browser, inspect the request made to `social-auth/` and copy the `oauth_token`;
+1. In other browser tab, access `https://www.openstreetmap.org/oauth/authorize?oauth_token=<oauth_token>` and give authorization in the OpenStreetMap page that will load;
+1. You will be redirected to a blank page that has a `oauth_verifier` in the url. Copy the `oauth_verifier`;
+1. Click on the `Sign in` button on your local OSMCha instance, paste the `oauth_verifier` and you will be logged in.
+
+### Local testing
+Test the application before commiting any changes. If you encounter any error make sure you have `watchman` installed. [Installation Guide](https://facebook.github.io/watchman/docs/install.html).
 
 ```bash
 yarn test
 ```
 
+## Deploy/Release
+- There are three stacks to deploy to
+- `yarn deploy:dev` deploys it to `mapbox.github.io`
+- `yarn deploy:staging` deploys it to `osmcha-django-staging.tilestream.net`
+- `yarn deploy:prod` deploys it to `osmcha.mapbox.com`
+
+1. Run the tests with `yarn test`
+
 2. (optional) before deploy, you might want to increment the version number of application.
     * We use `minor` for all non-drastic changes.
     * The `patch` is reserved for minor changes.
     * We try to stick to sem-ver.
-```bash
-npm version minor
-```
+    ```bash
+    npm version minor
+    ```
 
 
 3. Then build the app with the following command.
-```bash
-yarn build:<stack>
-```
+    ```bash
+    yarn build:<stack>
+    ```
     * here stack could be `dev`, `staging`, `prod`. Refer to package.json for more info.
 
 4. The next step involves deploying the `build` folder to github. If you get an error like this `error: failed to push some refs to 'git'` while doing the deploy step. Run `rm -rf node_modules/gh-pages/.cache/`.
-```
-yarn deploy:<stack>
-```
+    ```
+    yarn deploy:<stack>
+    ```
     * here stack could be `dev`, `staging`, `prod`. Refer to package.json for more info.
     * `oh-pages` branch handles the build for `staging`, `prod` stacks.
     * `gh-pages` branch handles the build for `dev` stack.
@@ -82,5 +90,8 @@ yarn deploy:<stack>
 * [OSMCha python library](https://github.com/willemarcel/osmcha) _(used to analyse the OSM changesets)_
 * [osm-compare](https://github.com/mapbox/osm-compare) _(used to analyse the OSM features)_
 
+
+## Issues and feature requests
+
 If you have any error reports of want to request new features, please
-[report here](https://github.com/mapbox/osmcha-frontend/issues).
+[read our contribution guide to file an issue](CONTRIBUTING.md).
