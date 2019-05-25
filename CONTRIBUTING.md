@@ -31,4 +31,6 @@ JavaScript error message.
 
 When in doubt, be over-descriptive of the bug and how you discovered it.
 
--- This doc was inspired from [iD](https://github.com/openstreetmap/iD/blob/master/CONTRIBUTING.md)
+--- 
+
+This doc was inspired from [iD](https://github.com/openstreetmap/iD/blob/master/CONTRIBUTING.md)
