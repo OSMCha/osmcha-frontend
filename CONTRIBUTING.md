@@ -31,13 +31,4 @@ JavaScript error message.
 
 When in doubt, be over-descriptive of the bug and how you discovered it.
 
-## How to login when running locally in development mode
-
-* Start the development server with `yarn start`;
-* After loading the page in your browser, inspect the request made to `social-auth/` and copy the `oauth_token`;
-* In other browser tab, access `https://www.openstreetmap.org/oauth/authorize?oauth_token=<oauth_token>` and give authorization in the OpenStreetMap page that will load;
-* You will be redirected to a blank page that has a `oauth_verifier` in the url. Copy the `oauth_verifier`;
-* Click on the `Sign in` button on your local OSMCha instance, paste the `oauth_verifier` and you will be logged in.
-
-
 -- This doc was inspired from [iD](https://github.com/openstreetmap/iD/blob/master/CONTRIBUTING.md)
