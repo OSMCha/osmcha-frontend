@@ -28,8 +28,8 @@ This repository uses [prettier](https://github.com/prettier/prettier) to keep th
 ### Local development
 1. `yarn start`
 1. Open [https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]}](https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]})
-  - The app runs with https; Firefox is recommended since it allows self signed certificates.
-  - The staging database only has changesets until mid 2017; without the filter you will not see any changesets.
+    - The app runs with https; Firefox is recommended since it allows self signed certificates.
+    - The staging database only has changesets until mid 2017; without the filter you will not see any changesets.
 
 *To sign in:*
 
@@ -57,21 +57,21 @@ yarn test
     * We use `minor` for all non-drastic changes.
     * The `patch` is reserved for minor changes.
     * We try to stick to sem-ver.
-```bash
-npm version minor
-```
+    ```bash
+    npm version minor
+    ```
 
 
 3. Then build the app with the following command.
-```bash
-yarn build:<stack>
-```
+    ```bash
+    yarn build:<stack>
+    ```
     * here stack could be `dev`, `staging`, `prod`. Refer to package.json for more info.
 
 4. The next step involves deploying the `build` folder to github. If you get an error like this `error: failed to push some refs to 'git'` while doing the deploy step. Run `rm -rf node_modules/gh-pages/.cache/`.
-```
-yarn deploy:<stack>
-```
+    ```
+    yarn deploy:<stack>
+    ```
     * here stack could be `dev`, `staging`, `prod`. Refer to package.json for more info.
     * `oh-pages` branch handles the build for `staging`, `prod` stacks.
     * `gh-pages` branch handles the build for `dev` stack.
@@ -89,6 +89,7 @@ yarn deploy:<stack>
 * [OSMCha backend code](https://github.com/willemarcel/osmcha-django)
 * [OSMCha python library](https://github.com/willemarcel/osmcha) _(used to analyse the OSM changesets)_
 * [osm-compare](https://github.com/mapbox/osm-compare) _(used to analyse the OSM features)_
+
 
 ## Issues and feature requests
 
