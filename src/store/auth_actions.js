@@ -113,7 +113,8 @@ export function* watchAuth(): any {
             title: 'Status alert',
             description: status.get('message'),
             kind: status.get('status'),
-            autoDismiss: 20
+            autoDismiss: 20,
+            position: 'br'
           })
         );
       }
