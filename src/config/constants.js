@@ -20,3 +20,8 @@ export const whosThat =
 export const nominatimUrl = 'https://nominatim.openstreetmap.org/search.php';
 
 export const DEFAULT_FROM_DATE = 7;
+
+// exclude changesets newer than x minutes. It's needed because of the difference
+// between the time a changeset is processed by OSMCha and the time its map
+// visualization is available
+export const DELAY_TO_EXCLUDE = 5;
