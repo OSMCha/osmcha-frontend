@@ -130,7 +130,7 @@ export class MultiSelect extends React.PureComponent {
 export class MappingTeamMultiSelect extends MultiSelect {
   getAsyncOptions = () => {
     if (!this.props.dataURL) return;
-    return fetch(`${API_URL}/${this.props.dataURL}/?trusted=true`, {
+    return fetch(`${API_URL}/${this.props.dataURL}/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -141,7 +141,17 @@ export class MappingTeamMultiSelect extends MultiSelect {
         return response.json();
       })
       .then(json => {
-        const data = json.map(d => ({ ...d, label: d.name, value: d.name }));
+        const data = json.map(d => {
+          if (d.trusted) {
+            return { ...d, label: `${d.name} (trusted)`, value: d.name };
+          } else {
+            return {
+              ...d,
+              label: d.name.replace('(trusted)', ''),
+              value: d.name
+            };
+          }
+        });
         return { options: data };
       });
   };
