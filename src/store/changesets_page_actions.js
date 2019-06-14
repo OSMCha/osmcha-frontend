@@ -2,14 +2,12 @@
 import { put, call, takeLatest, select, all } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 
-import moment from 'moment';
 import { fromJS, List, Map } from 'immutable';
 import { fetchChangesetsPage } from '../network/changesets_page';
 import { filtersSelector } from './filters_actions';
 
 import { modal } from './modal_actions';
 
-import { DELAY_TO_EXCLUDE } from '../config/constants';
 import type { RootStateType } from './';
 import type { filtersType } from '../components/filters';
 
@@ -109,11 +107,6 @@ export function* fetchChangesetsPageSaga({
         nocache
       );
     }
-    const newFeatures = thisPage.features.filter(
-      i => moment().diff(i.properties.date, 'minutes') > DELAY_TO_EXCLUDE
-    );
-    thisPage.count -= thisPage.features.length - newFeatures.length;
-    thisPage.features = newFeatures;
     yield put(
       action(CHANGESETS_PAGE.fetched, {
         data: fromJS(thisPage),
