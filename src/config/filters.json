@@ -250,7 +250,7 @@
     "icontains": false,
     "range": false,
     "all": false,
-    "display": "Hide trusted mapping teams",
+    "display": "Hide verified mapping teams",
     "type": "radio",
     "options": [
       {
@@ -262,8 +262,8 @@
         "value": "False"
       }
     ],
-    "description": "If Yes, it will exclude the changesets created by users that are part of trusted mapping teams",
-    "placeholder": "Exclude changesets created by users from trusted teams"
+    "description": "If Yes, it will exclude the changesets created by users that are part of verified mapping teams",
+    "placeholder": "Exclude changesets created by users from verified teams"
   },
   {
     "name": "create",

@@ -110,10 +110,11 @@ export function* watchAuth(): any {
       if (status.get('status') !== 'success') {
         yield put(
           modal({
-            title: 'Status alert',
+            title: 'OSMCha Status',
             description: status.get('message'),
             kind: status.get('status'),
-            autoDismiss: 20
+            autoDismiss: 20,
+            position: 'br'
           })
         );
       }
