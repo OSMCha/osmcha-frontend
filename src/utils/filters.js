@@ -2,7 +2,7 @@
 import { List, Map, fromJS } from 'immutable';
 import moment from 'moment';
 
-import { DEFAULT_FROM_DATE } from '../config/constants';
+import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '../config/constants';
 import type { filtersType } from '../components/filters';
 
 export function validateFilters(filters: filtersType): boolean {
@@ -47,9 +47,27 @@ export function getDefaultFromDate(): filtersType {
   });
 }
 
+export function getDefaultToDate(): filtersType {
+  const defaultDate = moment()
+    .subtract(DEFAULT_TO_DATE, 'minutes')
+    .utc()
+    .format('YYYY-MM-DD HH:mm');
+  return fromJS({
+    date__lte: [
+      {
+        label: '',
+        value: defaultDate
+      }
+    ]
+  });
+}
+
 export function appendDefaultDate(filters: filtersType) {
   if (filters && !filters.has('date__gte') && !filters.has('date__lte')) {
     filters = filters.merge(getDefaultFromDate());
+  }
+  if (filters && !filters.has('date__lte')) {
+    filters = filters.merge(getDefaultToDate());
   }
   return filters;
 }
