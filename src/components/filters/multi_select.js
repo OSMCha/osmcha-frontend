@@ -143,11 +143,11 @@ export class MappingTeamMultiSelect extends MultiSelect {
       .then(json => {
         const data = json.map(d => {
           if (d.trusted) {
-            return { ...d, label: `${d.name} (trusted)`, value: d.name };
+            return { ...d, label: `${d.name} (verified)`, value: d.name };
           } else {
             return {
               ...d,
-              label: d.name.replace('(trusted)', ''),
+              label: d.name.replace('(verified)', ''),
               value: d.name
             };
           }
