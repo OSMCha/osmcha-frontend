@@ -20,6 +20,9 @@ export function handleErrors(response: Object) {
           'Authentication error. Sign in again and repeat the operation.'
         );
       }
+      if (response.status === 404) {
+        throw new Error('Resource not found.');
+      }
       if (r && r.detail) throw new Error(r.detail);
       if (response.statusText) throw new Error(response.statusText);
       return Promise.reject('network request failed');

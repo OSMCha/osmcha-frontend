@@ -114,18 +114,19 @@ export function* watchAuth(): any {
             description: status.get('message'),
             kind: status.get('status'),
             autoDismiss: 20,
-            position: 'br'
+            position: 'bc'
           })
         );
       }
 
       yield take(AUTH.logout);
       delayBy = DELAY;
+      yield call(logoutFlow, delayBy);
     } catch (error) {
       console.log(error);
       yield put(action(AUTH.loginError, error));
       yield call(delay, delayBy / 2);
-      error.name = 'Login Failed';
+      error.name = 'Error';
       yield put(
         modal({
           error,
@@ -133,22 +134,23 @@ export function* watchAuth(): any {
         })
       );
       delayBy = 4 * delayBy;
-    } finally {
-      token = undefined;
-      yield call(removeItem, 'token');
-      yield call(removeItem, 'oauth_token');
-      yield call(removeItem, 'oauth_token_secret');
-      yield put(action(AUTH.clearSession));
-      yield put(action(WHITELIST.clear));
-      // get CHANGESET_PAGE without user metadata
-      let pageIndex = yield select(pageIndexSelector);
-      if (pageIndex) {
-        yield put(action(CHANGESETS_PAGE.fetch, { pageIndex }));
-      }
-      yield put(action(AUTH.clearUserDetails));
-      yield call(delay, delayBy);
     }
   }
+}
+
+export function* logoutFlow({ delayBy }: { delayBy: int }): any {
+  yield call(removeItem, 'token');
+  yield call(removeItem, 'oauth_token');
+  yield call(removeItem, 'oauth_token_secret');
+  yield put(action(AUTH.clearSession));
+  yield put(action(WHITELIST.clear));
+  // get CHANGESET_PAGE without user metadata
+  let pageIndex = yield select(pageIndexSelector);
+  if (pageIndex) {
+    yield put(action(CHANGESETS_PAGE.fetch, { pageIndex }));
+  }
+  yield put(action(AUTH.clearUserDetails));
+  yield call(delay, delayBy);
 }
 
 export function* authTokenFlow(): any {
