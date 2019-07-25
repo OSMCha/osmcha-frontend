@@ -1,6 +1,7 @@
 // @flow
 import { put, call, take, select, all, takeLatest } from 'redux-saga/effects';
 import { delay as delayPromise } from 'redux-saga';
+import { push } from 'react-router-redux';
 import { fromJS } from 'immutable';
 
 import {
@@ -48,6 +49,9 @@ export const getFinalToken = (oauth_verifier: string) =>
 export const logUserOut = () => action(AUTH.logout);
 
 export const tokenSelector = (state: RootStateType) => state.auth.get('token');
+
+export const locationSelector = (state: RootStateType) =>
+  state.routing.location;
 
 export const changesetIdSelector = (state: RootStateType) =>
   state.changeset.get('changesetId');
@@ -114,41 +118,55 @@ export function* watchAuth(): any {
             description: status.get('message'),
             kind: status.get('status'),
             autoDismiss: 20,
-            position: 'br'
+            position: 'bc'
           })
         );
       }
 
       yield take(AUTH.logout);
       delayBy = DELAY;
+      token = undefined;
+      yield call(logoutFlow);
+      yield call(delay, delayBy);
     } catch (error) {
       console.log(error);
       yield put(action(AUTH.loginError, error));
       yield call(delay, delayBy / 2);
-      error.name = 'Login Failed';
+      error.name = 'Error';
       yield put(
         modal({
           error,
           kind: 'warning'
         })
       );
+      yield take(AUTH.logout);
       delayBy = 4 * delayBy;
-    } finally {
       token = undefined;
-      yield call(removeItem, 'token');
-      yield call(removeItem, 'oauth_token');
-      yield call(removeItem, 'oauth_token_secret');
-      yield put(action(AUTH.clearSession));
-      yield put(action(WHITELIST.clear));
-      // get CHANGESET_PAGE without user metadata
-      let pageIndex = yield select(pageIndexSelector);
-      if (pageIndex) {
-        yield put(action(CHANGESETS_PAGE.fetch, { pageIndex }));
-      }
-      yield put(action(AUTH.clearUserDetails));
+      yield call(logoutFlow);
       yield call(delay, delayBy);
     }
   }
+}
+
+export function* logoutFlow(): any {
+  yield call(removeItem, 'token');
+  yield call(removeItem, 'oauth_token');
+  yield call(removeItem, 'oauth_token_secret');
+  yield put(action(AUTH.clearSession));
+  yield put(action(WHITELIST.clear));
+  // get CHANGESET_PAGE without user metadata
+  let pageIndex = yield select(pageIndexSelector);
+  if (pageIndex) {
+    yield put(action(CHANGESETS_PAGE.fetch, { pageIndex }));
+  }
+  yield put(action(AUTH.clearUserDetails));
+  let location = yield select(locationSelector);
+  yield put(
+    push({
+      ...location,
+      pathname: '/'
+    })
+  );
 }
 
 export function* authTokenFlow(): any {

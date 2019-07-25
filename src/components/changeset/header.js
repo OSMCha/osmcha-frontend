@@ -22,11 +22,20 @@ class Header extends React.PureComponent {
     const create = this.props.properties.get('create');
     const modify = this.props.properties.get('modify');
     const destroy = this.props.properties.get('delete');
-    const is_whitelisted = this.props.whitelisted.indexOf(user) !== -1;
-    const is_blacklisted =
-      this.props.blacklisted
-        .map(user => user.get('uid'))
-        .indexOf(this.props.properties.get('uid')) !== -1;
+    let is_whitelisted, is_blacklisted;
+    try {
+      is_whitelisted = this.props.whitelisted.indexOf(user) !== -1;
+    } catch (e) {
+      is_whitelisted = false;
+    }
+    try {
+      is_blacklisted =
+        this.props.blacklisted
+          .map(user => user.get('uid'))
+          .indexOf(this.props.properties.get('uid')) !== -1;
+    } catch (e) {
+      is_blacklisted = false;
+    }
 
     return (
       <div className="px12 py6">
@@ -62,10 +71,10 @@ class Header extends React.PureComponent {
               )}
               {this.props.userEditCount > 0 && (
                 <span className="txt-s txt-em">
-                  &nbsp;({this.props.userEditCount} edits)&nbsp;
+                  &nbsp;({this.props.userEditCount} edits)
                 </span>
               )}
-              created&nbsp;{moment(date).fromNow()}
+              &nbsp;created&nbsp;{moment(date).fromNow()}
             </span>
           </div>
         </div>
