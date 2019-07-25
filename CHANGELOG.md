@@ -3,13 +3,10 @@
 Log of changes since the 2.0 version
 
 
-### Next release
+### 0.60.0
 
-- Show some stats of a deleted user on the changeset user panel
-- Add Mapping Team filter fields
-- Add forms to allow the creation and management of Mapping Teams
-- Code linting and text improvements
-
+- disable logout when requests fails
+- adjust status modal position
 
 ### 0.58.2
 

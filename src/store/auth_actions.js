@@ -1,6 +1,7 @@
 // @flow
 import { put, call, take, select, all, takeLatest } from 'redux-saga/effects';
 import { delay as delayPromise } from 'redux-saga';
+import { push } from 'react-router-redux';
 import { fromJS } from 'immutable';
 
 import {
@@ -48,6 +49,9 @@ export const getFinalToken = (oauth_verifier: string) =>
 export const logUserOut = () => action(AUTH.logout);
 
 export const tokenSelector = (state: RootStateType) => state.auth.get('token');
+
+export const locationSelector = (state: RootStateType) =>
+  state.routing.location;
 
 export const changesetIdSelector = (state: RootStateType) =>
   state.changeset.get('changesetId');
@@ -121,7 +125,9 @@ export function* watchAuth(): any {
 
       yield take(AUTH.logout);
       delayBy = DELAY;
-      yield call(logoutFlow, delayBy);
+      token = undefined;
+      yield call(logoutFlow);
+      yield call(delay, delayBy);
     } catch (error) {
       console.log(error);
       yield put(action(AUTH.loginError, error));
@@ -133,12 +139,16 @@ export function* watchAuth(): any {
           kind: 'warning'
         })
       );
+      yield take(AUTH.logout);
       delayBy = 4 * delayBy;
+      token = undefined;
+      yield call(logoutFlow);
+      yield call(delay, delayBy);
     }
   }
 }
 
-export function* logoutFlow({ delayBy }: { delayBy: int }): any {
+export function* logoutFlow(): any {
   yield call(removeItem, 'token');
   yield call(removeItem, 'oauth_token');
   yield call(removeItem, 'oauth_token_secret');
@@ -150,7 +160,13 @@ export function* logoutFlow({ delayBy }: { delayBy: int }): any {
     yield put(action(CHANGESETS_PAGE.fetch, { pageIndex }));
   }
   yield put(action(AUTH.clearUserDetails));
-  yield call(delay, delayBy);
+  let location = yield select(locationSelector);
+  yield put(
+    push({
+      ...location,
+      pathname: '/'
+    })
+  );
 }
 
 export function* authTokenFlow(): any {
