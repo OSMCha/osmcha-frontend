@@ -1,4 +1,4 @@
 {
   "status": "warning",
-  "message": "Our current delay between the time a changeset is created on OSMCha and the time its visualization is available on OSMCha is in 8 minutes."
+  "message": "The current delay between the time a changeset is created and the time its visualization is available on OSMCha is 6 minutes."
 }
