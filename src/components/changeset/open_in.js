@@ -29,12 +29,7 @@ export function OpenIn({ changesetId, coordinates, className }) {
           {
             label: 'Achavi',
             value: 'Achavi',
-            href: `https://overpass-api.de/achavi/?changeset=${changesetId}`
-          },
-          {
-            label: 'OSM-HV',
-            value: 'OSM-HV',
-            href: `http://osmhv.openstreetmap.de/changeset.jsp?id=${changesetId}`
+            href: `https://overpass-api.de/achavi/?changeset=${changesetId}&relations=true`
           },
           {
             label: 'Level 0',
