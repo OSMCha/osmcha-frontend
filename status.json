@@ -1,4 +1,4 @@
 {
-  "status": "error",
-  "message": "We are having problems to process the changeset visualization. Our team is working to fix it."
+  "status": "success",
+  "message": "OSMCha is working fine."
 }
