@@ -1,4 +1,4 @@
 {
-  "status": "warning",
-  "message": "The current delay between the time a changeset is created and the time its visualization is available on OSMCha is 6 minutes."
+  "status": "error",
+  "message": "We are having problems to process the changeset visualization. Our team is working to fix it."
 }
