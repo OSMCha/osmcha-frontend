@@ -3,10 +3,14 @@
 Log of changes since the 2.0 version
 
 
-### 0.60.1
-
+### 0.60.2
 - remove OSM-HV link
 - link to changeset in Achavi with relations=true
+
+### 0.60.1
+
+- Update dependencies
+- Fix production build
 
 ### 0.60.0
 
