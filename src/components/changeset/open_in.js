@@ -12,7 +12,7 @@ export function OpenIn({ changesetId, coordinates, className }) {
           {
             label: 'JOSM',
             value: 'JOSM',
-            href: `https://127.0.0.1:8112/import?url=https://www.openstreetmap.org/api/0.6/changeset/${changesetId}/download`
+            href: `http://127.0.0.1:8111/import?url=https://www.openstreetmap.org/api/0.6/changeset/${changesetId}/download`
           },
           {
             label: 'iD',
