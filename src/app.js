@@ -81,8 +81,8 @@ export class App extends Component {
                     <Route path="/about" component={About} />
                     <Route path="/stats" component={Stats} />
                     <Route path="/user" component={User} />
-                    <Route path="/teams" component={MappingTeams} />
-                    <Route path="/team/:id" component={EditMappingTeam} />
+                    <Route exact path="/teams" component={MappingTeams} />
+                    <Route path="/teams/:id" component={EditMappingTeam} />
                     <Route path="/saved-filters" component={SavedFilters} />
                     <Route path="/trusted-users" component={TrustedUsers} />
                     <Route path="/watchlist" component={Watchlist} />
@@ -116,8 +116,8 @@ export class App extends Component {
             <Route path="/saved-filters" component={SavedFilters} />
             <Route path="/trusted-users" component={TrustedUsers} />
             <Route path="/watchlist" component={Watchlist} />
-            <Route path="/teams" component={MappingTeams} />
-            <Route path={'/team/:id'} component={EditMappingTeam} />
+            <Route exact path="/teams" component={MappingTeams} />
+            <Route path={'/teams/:id'} component={EditMappingTeam} />
           </div>
           <Modal />
         </div>
