@@ -175,6 +175,10 @@ class SaveButton extends React.PureComponent {
               </a>{' '}
               about the users field JSON format.
             </span>
+            <p className="txt-light txt-truncate pt6">
+              The mapping team members are <strong>public</strong> and can be
+              visualized by any logged in OSMCha user.
+            </p>
             {this.state.validationErrorMessage && (
               <span className="flex-parent flex-parent--row mt12 color-red-dark txt-bold">
                 {this.state.validationErrorMessage}
@@ -230,7 +234,7 @@ const TeamsBlock = ({ data, removeTeam, editTeam }) => (
       </Link>
       <Link
         className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-        to={{ pathname: `/team/${data.getIn(['id'])}` }}
+        to={{ pathname: `/teams/${data.getIn(['id'])}` }}
       >
         Edit
       </Link>
