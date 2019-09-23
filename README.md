@@ -2,15 +2,16 @@
 [![CircleCI](https://circleci.com/gh/mapbox/osmcha-frontend.svg?style=svg)](https://circleci.com/gh/mapbox/osmcha-frontend)
 
 OSMCha is composed by a group of softwares that together has the aim to make it
-easier to monitor and validate the changes in OpenStreetMap.
-
-This repository contains the frontend code. Check the [Repositories section](#other-repositories)
-to see the other softwares we use in OSMCha.
-
-To learn how to use OSMCha, see the [ABOUT.md](ABOUT.md) file.
+easier to monitor and validate the changes in OpenStreetMap. [Learn more …](ABOUT.md)
 
 - Production instance: https://osmcha.mapbox.com
 - Test instance: http://osmcha-django-staging.tilestream.net/
+
+This repository contains the frontend code. Other repositories are:
+* [OSMCha backend code](https://github.com/willemarcel/osmcha-django)
+* [OSMCha python library](https://github.com/willemarcel/osmcha) is used to analyse the OSM changesets
+* [OSM Compare](https://github.com/mapbox/osm-compare) is used to analyse OSM features
+* [OSM Changeset Viewer](https://github.com/osmlab/changeset-map) is used to display the changeset on the main map
 
 
 ## Setting up editor
@@ -82,13 +83,6 @@ yarn test
     * draft a github release with a tag `v0.16.3-staging`. (Note the name spacing)
     * supply this version tag to the server.
     * Refer to githubs [article](https://help.github.com/articles/creating-releases/) for creating releases.
-
-
-## Other repositories
-
-* [OSMCha backend code](https://github.com/willemarcel/osmcha-django)
-* [OSMCha python library](https://github.com/willemarcel/osmcha) _(used to analyse the OSM changesets)_
-* [osm-compare](https://github.com/mapbox/osm-compare) _(used to analyse the OSM features)_
 
 
 ## Issues and feature requests
