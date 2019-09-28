@@ -69,7 +69,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       }
       case OPEN_IN_JOSM.label: {
         if (!this.props.changesetId) return;
-        const url = `https://127.0.0.1:8112/import?url=https://www.openstreetmap.org/api/0.6/changeset/${
+        const url = `http://127.0.0.1:8111/import?url=https://www.openstreetmap.org/api/0.6/changeset/${
           this.props.changesetId
         }/download`;
         window.open(url, '_blank');
