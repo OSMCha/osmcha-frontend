@@ -148,6 +148,7 @@ class SaveButton extends React.PureComponent {
               value={this.state.teamName}
               onChange={this.onChangeTeamName}
               onKeyDown={this.onKeyDown}
+              disabled={!this.props.userIsOwner}
             />
             <span className="txt-bold txt-truncate pt6">Users</span>
             <textarea
@@ -162,6 +163,7 @@ class SaveButton extends React.PureComponent {
               value={this.state.teamUsers}
               onChange={this.onChangeTeamUsers}
               onKeyDown={this.onKeyDown}
+              disabled={!this.props.userIsOwner}
             />
             <span className="txt-light txt-truncate pt6">
               Check the{' '}
@@ -185,9 +187,11 @@ class SaveButton extends React.PureComponent {
               </span>
             )}
             <span className="flex-parent flex-parent--row mt12">
-              <Button className="input wmax120 ml6" onClick={this.onSave}>
-                Save
-              </Button>
+              {this.props.userIsOwner && (
+                <Button className="input wmax120 ml6" onClick={this.onSave}>
+                  Save
+                </Button>
+              )}
               {this.props.activeTeam ? (
                 <Link
                   to={{ pathname: '/teams' }}
