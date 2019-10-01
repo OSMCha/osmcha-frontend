@@ -15,6 +15,7 @@ import {
 import { withFetchDataSilent } from '../components/fetch_data_enhancer';
 import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
+import { SignIn } from '../components/sign_in';
 import { SaveButton } from './teams';
 import type { RootStateType } from '../store';
 
@@ -108,9 +109,9 @@ class EditMappingTeam extends React.PureComponent<any, propsType, any> {
             </Button>
           </span>
         </header>
-        <div className="px30 flex-child  pb60  filters-scroll">
-          <div className="flex-parent flex-parent--column align justify--space-between">
-            {this.props.token && (
+        {this.props.token ? (
+          <div className="px30 flex-child  pb60  filters-scroll">
+            <div className="flex-parent flex-parent--column align justify--space-between">
               <div>
                 <div className="mt24 mb12">
                   <h2 className="pl12 txt-xl mr6 border-b border--gray-light border--1">
@@ -121,12 +122,18 @@ class EditMappingTeam extends React.PureComponent<any, propsType, any> {
                     onChange={this.editTeam}
                     editing={true}
                     activeTeam={this.props.data.get('team')}
+                    userIsOwner={
+                      this.props.data.getIn(['team', 'owner']) ===
+                      this.props.userDetails.get('username')
+                    }
                   />
                 </div>
               </div>
-            )}
+            </div>
           </div>
-        </div>
+        ) : (
+          <SignIn />
+        )}
       </div>
     );
   }
