@@ -4,6 +4,7 @@ import { fromJS, Map } from 'immutable';
 import { push } from 'react-router-redux';
 
 import { fetchAOI, createAOI, updateAOI } from '../network/aoi';
+import { fetchReasons, fetchTags } from '../network/reasons_tags';
 import { validateFilters } from '../utils/filters';
 import { CHANGESETS_PAGE, FILTERS } from './filters_actions';
 import { tokenSelector } from './auth_actions';
@@ -45,10 +46,28 @@ export function* fetchAOISaga(aoiId: string): any {
   yield put(action(AOI.loading, { loading: true }));
   const token = yield select(tokenSelector);
   const data = yield call(fetchAOI, token, aoiId);
+  const reasons = yield call(fetchReasons, token);
+  const tags = yield call(fetchTags, token);
   const aoi = fromJS(data);
   yield put(action(AOI.fetched, { aoi }));
   let filters = aoi.getIn(['properties', 'filters'], Map());
   filters = filters.map((v, k) => {
+    if (k === 'reasons') {
+      return fromJS(
+        v.split(',').map(o => ({
+          value: o,
+          label: reasons.filter(i => i.id == o)[0]['name']
+        }))
+      );
+    }
+    if (k === 'tags') {
+      return fromJS(
+        v.split(',').map(o => ({
+          value: o,
+          label: tags.filter(i => i.id == o)[0]['name']
+        }))
+      );
+    }
     try {
       if (JSON.parse(v) && JSON.parse(v).hasOwnProperty('coordinates')) {
         return fromJS([
