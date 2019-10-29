@@ -2,7 +2,7 @@
 import React from 'react';
 import { fromJS } from 'immutable';
 import { Creatable, Async } from 'react-select';
-import { API_URL } from '../../config';
+import { API_URL, OSM_TEAMS_API_URL, isOsmTeamsEnabled } from '../../config';
 import type { filterType } from './';
 
 export class MultiSelect extends React.PureComponent {
@@ -130,10 +130,14 @@ export class MultiSelect extends React.PureComponent {
 export class MappingTeamMultiSelect extends MultiSelect {
   getAsyncOptions = () => {
     if (!this.props.dataURL) return;
-    return fetch(`${API_URL}/${this.props.dataURL}/`, {
+    const url = isOsmTeamsEnabled
+      ? OSM_TEAMS_API_URL
+      : `${API_URL}/${this.props.dataURL}/`;
+    return fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        // TODO: the OSM Teams endpoint doesn't require auth (yet)
         Authorization: this.props.token ? `Token ${this.props.token}` : ''
       }
     })
