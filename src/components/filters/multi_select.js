@@ -137,18 +137,11 @@ export class MappingTeamMultiSelect extends MultiSelect {
           'Content-Type': 'application/json'
         }
       }).then(response => response.json());
-      const teams_with_members = await Promise.all(
-        teams.map(team =>
-          fetch(`${OSM_TEAMS_API_URL}/${team.id}`).then(response =>
-            response.json()
-          )
-        )
-      );
-      const data = teams_with_members.map(team => {
+      const data = teams.map(team => {
         return {
           ...team,
           label: `${team.name} (verified)`,
-          value: team.members.map(member => parseInt(member.id, 10))
+          value: team.name
         };
       });
       return { options: data };
@@ -179,7 +172,7 @@ export class MappingTeamMultiSelect extends MultiSelect {
         });
     }
   };
-  sendData = (allToggle: boolean, data: Array<Object>) => {
+  sendData = async (allToggle: boolean, data: Array<Object>) => {
     let name =
       this.props.name.slice(0, 4) === 'all_'
         ? this.props.name.slice(4)
@@ -187,7 +180,28 @@ export class MappingTeamMultiSelect extends MultiSelect {
 
     name = `${allToggle ? 'all_' : ''}${name}`;
     if (data.length === 0) return this.props.onChange(name);
-    var processed = data.map(o => ({ label: o.label, value: o.value })); // remove any bogus keys
+    let processed;
+    if (isOsmTeamsEnabled) {
+      const teams_with_members = await Promise.all(
+        data.map(team =>
+          fetch(`${OSM_TEAMS_API_URL}/${team.id}`).then(async response => {
+            const json = await response.json();
+            return {
+              ...json,
+              label: team.label
+            };
+          })
+        )
+      );
+      // remove any bogus keys
+      processed = teams_with_members.map(team => ({
+        label: team.label,
+        value: team.members.map(member => parseInt(member.id, 10))
+      }));
+    } else {
+      processed = data.map(o => ({ label: o.label, value: o.value })); // remove any bogus keys
+    }
+
     this.props.onChange(name, fromJS(processed));
   };
 }

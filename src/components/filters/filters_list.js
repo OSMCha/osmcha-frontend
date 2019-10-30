@@ -37,11 +37,13 @@ type propsType = {|
 |};
 class FiltersList extends React.PureComponent<void, propsType, *> {
   renderFilters = (f: Object, k: number) => {
+    const namesOverride =
+      isOsmTeamsEnabled && f.name === 'mapping_teams' ? 'uids' : f.name;
     const propsToSend = {
       name: f.name,
       type: f.type,
       display: f.display,
-      value: this.props.filters.get(f.name),
+      value: this.props.filters.get(namesOverride),
       placeholder: f.placeholder,
       options: f.options || [],
       onChange: this.props.handleChange,
@@ -187,7 +189,7 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           {name.endsWith('_teams') ? (
             <MappingTeamMultiSelect
               {...propsToSend}
-              name={name}
+              name={isOsmTeamsEnabled ? 'uids' : name}
               value={value}
               onChange={onChange}
               showAllToggle={f.all}
@@ -253,19 +255,9 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Users & Teams
         </h2>
-        {filtersData.slice(11, 17).map((f: Object, k) =>
-          this.renderFilters(
-            // osm-teams overrides:
-            {
-              ...f,
-              name:
-                isOsmTeamsEnabled && f.name === 'mapping_teams'
-                  ? 'uids'
-                  : f.name
-            },
-            k
-          )
-        )}
+        {filtersData
+          .slice(11, 17)
+          .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
