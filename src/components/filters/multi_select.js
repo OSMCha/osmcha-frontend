@@ -128,36 +128,56 @@ export class MultiSelect extends React.PureComponent {
 }
 
 export class MappingTeamMultiSelect extends MultiSelect {
-  getAsyncOptions = () => {
+  getAsyncOptions = async () => {
     if (!this.props.dataURL) return;
-    const url = isOsmTeamsEnabled
-      ? OSM_TEAMS_API_URL
-      : `${API_URL}/${this.props.dataURL}/`;
-    return fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        // TODO: the OSM Teams endpoint doesn't require auth (yet)
-        Authorization: this.props.token ? `Token ${this.props.token}` : ''
-      }
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        const data = json.map(d => {
-          if (d.trusted) {
-            return { ...d, label: `${d.name} (verified)`, value: d.name };
-          } else {
-            return {
-              ...d,
-              label: d.name.replace('(verified)', ''),
-              value: d.name
-            };
-          }
-        });
-        return { options: data };
+    if (isOsmTeamsEnabled) {
+      const teams = await fetch(OSM_TEAMS_API_URL, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(response => response.json());
+      const teams_with_members = await Promise.all(
+        teams.map(team =>
+          fetch(`${OSM_TEAMS_API_URL}/${team.id}`).then(response =>
+            response.json()
+          )
+        )
+      );
+      const data = teams_with_members.map(team => {
+        return {
+          ...team,
+          label: `${team.name} (verified)`,
+          value: team.members.map(member => parseInt(member.id, 10))
+        };
       });
+      return { options: data };
+    } else {
+      return await fetch(`${API_URL}/${this.props.dataURL}/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: this.props.token ? `Token ${this.props.token}` : ''
+        }
+      })
+        .then(response => {
+          return response.json();
+        })
+        .then(json => {
+          const data = json.map(d => {
+            if (d.trusted) {
+              return { ...d, label: `${d.name} (verified)`, value: d.name };
+            } else {
+              return {
+                ...d,
+                label: d.name.replace('(verified)', ''),
+                value: d.name
+              };
+            }
+          });
+          return { options: data };
+        });
+    }
   };
   sendData = (allToggle: boolean, data: Array<Object>) => {
     let name =

@@ -16,6 +16,7 @@ import {
 import { BBoxPicker } from '../bbox_picker';
 import { loadingEnhancer } from '../loading_enhancer';
 import filters from '../../config/filters.json';
+import { isOsmTeamsEnabled } from '../../config';
 import { getDefaultFromDate } from '../../utils/filters';
 import type { filterType, filtersType } from './';
 
@@ -252,9 +253,19 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Users & Teams
         </h2>
-        {filtersData
-          .slice(11, 17)
-          .map((f: Object, k) => this.renderFilters(f, k))}
+        {filtersData.slice(11, 17).map((f: Object, k) =>
+          this.renderFilters(
+            // osm-teams overrides:
+            {
+              ...f,
+              name:
+                isOsmTeamsEnabled && f.name === 'mapping_teams'
+                  ? 'uids'
+                  : f.name
+            },
+            k
+          )
+        )}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
