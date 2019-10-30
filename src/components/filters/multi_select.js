@@ -194,10 +194,13 @@ export class MappingTeamMultiSelect extends MultiSelect {
         )
       );
       // remove any bogus keys
-      processed = teams_with_members.map(team => ({
-        label: team.label,
-        value: team.members.map(member => parseInt(member.id, 10))
-      }));
+      processed = teams_with_members.map(team => {
+        return {
+          id: team.id, // need to persist this for team filter lookups
+          label: team.label,
+          value: team.members.map(member => parseInt(member.id, 10))
+        };
+      });
     } else {
       processed = data.map(o => ({ label: o.label, value: o.value })); // remove any bogus keys
     }
