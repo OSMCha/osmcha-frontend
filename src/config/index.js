@@ -4,7 +4,7 @@ export const isStaging = process.env.REACT_APP_STACK === 'STAGING';
 export const isProd = process.env.REACT_APP_STACK === 'PRODUCTION';
 export const isLocal = process.env.NODE_ENV === 'development';
 export const stack = process.env.REACT_APP_STACK;
-export const isOsmTeamsEnabled = true;
+export const isOsmTeamsEnabled = false;
 export const appVersion = process.env.REACT_APP_VERSION;
 
 let url = 'https://osmcha-django-staging.tilestream.net/api/v1';
