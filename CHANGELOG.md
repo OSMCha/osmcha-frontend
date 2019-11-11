@@ -3,6 +3,9 @@
 Log of changes since the 2.0 version
 
 
+### next release
+- Update changeset-map to 1.3.8
+
 ### 0.60.2
 - remove OSM-HV link
 - link to changeset in Achavi with relations=true

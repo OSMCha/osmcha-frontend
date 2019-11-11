@@ -2011,10 +2011,10 @@ changelog@^1.3.0:
     semver "5.5.0"
     wordwrap "1.0.0"
 
-changeset-map@^1.3.6:
-  version "1.3.6"
-  resolved "https://registry.yarnpkg.com/changeset-map/-/changeset-map-1.3.6.tgz#1d09aa17be6bc8b72171de81d463e5fed0ede606"
-  integrity sha512-7ltx4UBSTP22BGw4cojdjp7sT16i2H3vrCig8cNtunqjLJLDzxHRcWBD0nP8RlhbqYf7k6AOuiTUvbbNl98+/Q==
+changeset-map@^1.3.8:
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/changeset-map/-/changeset-map-1.3.8.tgz#fd22770ddeddd115993c19179aac2b4d8ff46f2a"
+  integrity sha512-juX/PSM6TarwbULqHBncNJGnkJwLKNLBzfWBWrZNs159U0io/Z5iuRtjAh9ECwyNUuFUiXzv8mXdSdPiY4duKQ==
   dependencies:
     "@turf/bbox-polygon" "^5.1.5"
     "@turf/helpers" "^5.1.5"
@@ -2022,6 +2022,7 @@ changeset-map@^1.3.6:
     mapbox-gl "^0.43.0"
     moment "^2.18.1"
     osm-adiff-parser-saxjs "^1.0.0"
+    react-click-outside "^3.0.1"
     real-changesets-parser "^1.2.3"
     rollup-plugin-uglify "^2.0.1"
     sax "^1.2.2"
