@@ -16,7 +16,7 @@ exports[`renders PrimaryLine correctly 1`] = `
       className="mr6"
     >
       <span
-        className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
+        className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold "
       >
         mass deletion
       </span>
@@ -25,7 +25,7 @@ exports[`renders PrimaryLine correctly 1`] = `
       className="mr6"
     >
       <span
-        className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
+        className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold "
       >
         Randomized flag
       </span>
@@ -38,7 +38,7 @@ exports[`renders PrimaryLine correctly 1`] = `
       className="mr6"
     >
       <span
-        className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
+        className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold "
       >
         intentional
       </span>
@@ -47,7 +47,7 @@ exports[`renders PrimaryLine correctly 1`] = `
       className="mr6"
     >
       <span
-        className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
+        className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold "
       >
         unintentional
       </span>
@@ -56,7 +56,7 @@ exports[`renders PrimaryLine correctly 1`] = `
 </span>
 `;
 
-exports[`renders active row properly 1`] = `
+exports['renders active row properly 1'] = `
 <a
   href="/changesets/49328744"
   onClick={[Function]}
@@ -105,7 +105,7 @@ exports[`renders active row properly 1`] = `
                 className="mr6"
               >
                 <span
-                  className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
+                  className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold "
                 >
                   mass deletion
                 </span>
@@ -114,7 +114,7 @@ exports[`renders active row properly 1`] = `
                 className="mr6"
               >
                 <span
-                  className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
+                  className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold "
                 >
                   Randomized flag
                 </span>
@@ -127,7 +127,7 @@ exports[`renders active row properly 1`] = `
                 className="mr6"
               >
                 <span
-                  className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
+                  className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold "
                 >
                   intentional
                 </span>
@@ -136,7 +136,7 @@ exports[`renders active row properly 1`] = `
                 className="mr6"
               >
                 <span
-                  className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
+                  className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold "
                 >
                   unintentional
                 </span>
@@ -160,8 +160,11 @@ exports[`renders active row properly 1`] = `
                   className="icon inline-block"
                   src="thumbs-down.svg"
                 />
-                  by 
-                nammala
+                <span
+                  className="pl6"
+                >
+                  by nammala
+                </span>
               </span>
             </span>
             <span
@@ -195,7 +198,7 @@ exports[`renders active row properly 1`] = `
 </a>
 `;
 
-exports[`renders inactive row properly 1`] = `
+exports['renders inactive row properly 1'] = `
 <a
   href="/changesets/49328744"
   onClick={[Function]}
@@ -244,7 +247,7 @@ exports[`renders inactive row properly 1`] = `
                 className="mr6"
               >
                 <span
-                  className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
+                  className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold "
                 >
                   mass deletion
                 </span>
@@ -253,7 +256,7 @@ exports[`renders inactive row properly 1`] = `
                 className="mr6"
               >
                 <span
-                  className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold"
+                  className="color-blue-dark inline-block bg-blue-faint px6 txt-s txt-bold "
                 >
                   Randomized flag
                 </span>
@@ -266,7 +269,7 @@ exports[`renders inactive row properly 1`] = `
                 className="mr6"
               >
                 <span
-                  className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
+                  className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold "
                 >
                   intentional
                 </span>
@@ -275,7 +278,7 @@ exports[`renders inactive row properly 1`] = `
                 className="mr6"
               >
                 <span
-                  className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold"
+                  className="color-red-dark inline-block bg-red-faint px6 txt-s txt-bold "
                 >
                   unintentional
                 </span>
@@ -299,8 +302,11 @@ exports[`renders inactive row properly 1`] = `
                   className="icon inline-block"
                   src="thumbs-down.svg"
                 />
-                  by 
-                nammala
+                <span
+                  className="pl6"
+                >
+                  by nammala
+                </span>
               </span>
             </span>
             <span

@@ -26,7 +26,9 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
               />
             )}
             {properties.get('check_user') && (
-              <span>&nbsp; by&nbsp;{properties.get('check_user')}</span>
+              <span className="pl6">{`by ${properties.get(
+                'check_user'
+              )}`}</span>
             )}
           </span>
         ) : null}

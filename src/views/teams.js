@@ -152,7 +152,7 @@ class SaveButton extends React.PureComponent {
             />
             <span className="txt-bold txt-truncate pt6">Users</span>
             <textarea
-              placeholder={`[{"username": "name"}, {"username": "other_user"}]`}
+              placeholder={'[{"username": "name"}, {"username": "other_user"}]'}
               className="textarea h180"
               ref={r => {
                 if (this.clicked) {
