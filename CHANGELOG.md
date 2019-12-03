@@ -3,6 +3,10 @@
 Log of changes since the 2.0 version
 
 
+### 0.62.1
+- Update changeset-map to 1.3.10
+- Update history and some other libs
+
 ### 0.62.0
 - Update changeset-map to 1.3.9
 

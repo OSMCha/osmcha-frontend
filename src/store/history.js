@@ -1,9 +1,9 @@
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import { isDev } from '../config';
 let historyConfig = {};
 if (isDev) {
   historyConfig.basename = '/osmcha-frontend';
 }
 
-const history = createHistory(historyConfig);
+const history = createBrowserHistory(historyConfig);
 export { history };
