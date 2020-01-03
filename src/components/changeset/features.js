@@ -46,7 +46,7 @@ const Feature = ({
         <span className="cursor-pointer txt-bold txt-underline-on-hover">
           <a
             target="_blank"
-            href={`https://localhost:8112/load_object?new_layer=true&objects=${data
+            href={`https://localhost:8112/load_object?objects=${data
               .getIn(['url'], '')
               .charAt(0)}${data.get('osm_id')}`}
           >
