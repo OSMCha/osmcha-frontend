@@ -369,6 +369,7 @@ class MappingTeams extends React.PureComponent<any, propsType, any> {
                       <SaveButton
                         onCreate={this.createTeam}
                         editing={this.state.addingTeam}
+                        userIsOwner={true}
                       />
                     }
                   />
