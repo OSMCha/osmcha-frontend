@@ -3,6 +3,9 @@
 Log of changes since the 2.0 version
 
 
+### 0.62.4
+- Update changeset-map to 1.4.1
+
 ### 0.62.3
 - Update changeset-map to 1.4.0
 

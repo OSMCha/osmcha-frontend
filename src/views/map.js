@@ -151,7 +151,7 @@ class CMap extends React.PureComponent {
                 <div
                   key={0}
                   id="placeholder"
-                  className={` absolute z0
+                  className={`absolute z0
                     ${
                       this.props.errorChangesetMap ? 'bg-red-faint' : 'bg-black'
                     }
