@@ -42,6 +42,7 @@
 * [References](#references)
 * [Other tools for validation](#other-tools-for-validation)
 * [Feedback](#feedback)
+* [Trademark notice](#trademark-notice)
 
 <!-- tocstop -->
 
@@ -451,3 +452,7 @@ This is raised when someone tries to remove tags in a changeset that are added b
   https://github.com/mapbox/osmcha-frontend/issues
 * To file bugs, feature requests on Changeset map - please file issues at
   https://github.com/osmlab/changeset-map/issues
+
+# Trademark notice
+
+[OpenStreetMap (OSM)](https://osm.org) is a trademark of the [OpenStreetMap Foundation](https://osmfoundation.org), and is used with their permission. OSMCha is not endorsed by or affiliated with the OpenStreetMap Foundation.
