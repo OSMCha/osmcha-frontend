@@ -1,6 +1,6 @@
 {
   "name": "osmcha-frontend",
-  "version": "0.62.4",
+  "version": "0.64.0",
   "license": "ISC",
   "engines": {
     "node": ">=7.0"
@@ -77,9 +77,9 @@
     "build": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV react-app-rewired build",
     "build:dev": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV PUBLIC_URL=https://mapbox.github.io/osmcha-frontend react-app-rewired build",
     "deploy:dev": "gh-pages -d build",
-    "build:staging": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=STAGING PUBLIC_URL=https://osmcha-django-staging.tilestream.net react-app-rewired build",
+    "build:staging": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=STAGING PUBLIC_URL=https://osmcha-org-staging.osmcha.org react-app-rewired build",
     "deploy:staging": "gh-pages -d build -b oh-pages",
-    "build:prod": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=PRODUCTION PUBLIC_URL=https://osmcha.mapbox.com react-app-rewired build",
+    "build:prod": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=PRODUCTION PUBLIC_URL=https://osmcha.org react-app-rewired build",
     "deploy:prod": "gh-pages -d build -b oh-pages"
   },
   "lint-staged": {

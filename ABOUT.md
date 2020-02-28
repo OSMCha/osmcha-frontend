@@ -171,7 +171,7 @@ what a problematic edit is on OSM, please refer to our guide on
 
 * Similarly, if there are comments on the changeset on OpenStreetMap, OSMCha presents the discussion under the discussion tab.
 
-* User's can automatically post OSM changeset discussion comments directly from OSMCha. You can define comment templates on your [user page](https://osmcha.mapbox.com/user), so you will have a base message to send to a user after reviewing the changeset as good or bad. Right after your review, the comment form will be filled with your saved text. We suggest you to communicate with other mappers to alert them of errors, aspects to improve or simply to welcome a new user or praise a good edit.
+* User's can automatically post OSM changeset discussion comments directly from OSMCha. You can define comment templates on your [user page](https://osmcha.org/user), so you will have a base message to send to a user after reviewing the changeset as good or bad. Right after your review, the comment form will be filled with your saved text. We suggest you to communicate with other mappers to alert them of errors, aspects to improve or simply to welcome a new user or praise a good edit.
 
 <img width="300" alt="osmcha-users" src="https://user-images.githubusercontent.com/8921295/35940051-ee1c8dce-0c1b-11e8-924a-4c1bcc31fcce.png">
 
@@ -268,13 +268,13 @@ They are available also in the user page which can be accessed by clicking on yo
 
 <img width="600" alt="osmcha-saving-filters" src="https://user-images.githubusercontent.com/8921295/33522675-0ce1327e-d818-11e7-88c0-3f03359da6c2.png">
 
-OSMCha saves these filters with a unique identifier code. Here is a filter example - https://osmcha.mapbox.com/filters?aoi=71247014-abbf-4253-8093-2a2afdda4169.
+OSMCha saves these filters with a unique identifier code. Here is a filter example - https://osmcha.org/filters?aoi=71247014-abbf-4253-8093-2a2afdda4169.
 
 ### Setting up RSS feed - Area of Interest
 
 Each saved filter has an RSS feed to update whenever a new changeset comes into the custom filter. A real life application would be to get instant notifications for all edits in the area you are currently surveying.
 
-Here is an RSS feed for the filter we have setup in the above section - https://osmcha.mapbox.com/api/v1/aoi/71247014-abbf-4253-8093-2a2afdda4169/changesets/feed/.
+Here is an RSS feed for the filter we have setup in the above section - https://osmcha.org/api/v1/aoi/71247014-abbf-4253-8093-2a2afdda4169/changesets/feed/.
 
 Any third party RSS client can be used to push instant personal notifications for the changesets that have come into your saved filters at set time intervals.
 

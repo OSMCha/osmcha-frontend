@@ -4,7 +4,7 @@
 OSMCha is composed by a group of softwares that together has the aim to make it
 easier to monitor and validate the changes in OpenStreetMap. [Learn more …](ABOUT.md)
 
-- Production instance: https://osmcha.mapbox.com
+- Production instance: https://osmcha.org
 - Test instance: http://osmcha-django-staging.tilestream.net/
 
 This repository contains the frontend code. Other repositories are:
@@ -50,7 +50,7 @@ yarn test
 - There are three stacks to deploy to
 - `yarn deploy:dev` deploys it to `mapbox.github.io`
 - `yarn deploy:staging` deploys it to `osmcha-django-staging.tilestream.net`
-- `yarn deploy:prod` deploys it to `osmcha.mapbox.com`
+- `yarn deploy:prod` deploys it to `osmcha.org`
 
 1. Run the tests with `yarn test`
 
