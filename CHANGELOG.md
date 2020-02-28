@@ -3,6 +3,9 @@
 Log of changes since the 2.0 version
 
 
+### 0.64.0
+- Update URLs to osmcha.org
+
 ### 0.62.4
 - Update changeset-map to 1.4.1
 

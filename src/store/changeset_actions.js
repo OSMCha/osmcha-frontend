@@ -99,8 +99,8 @@ export function* watchChangeset(): any {
 
 export function* shouldUpdateSaga(location: Object): any {
   // checks for the old osmcha style urls
-  // eg osmcha.mapbox.com/34354242 and redirects them
-  // to osmcha.mapbox.com/changesets/3432434
+  // eg osmcha.org/34354242 and redirects them
+  // to osmcha.org/changesets/3432434
   const legacy = checkForLegacyURL(location);
   if (legacy) {
     yield put(
