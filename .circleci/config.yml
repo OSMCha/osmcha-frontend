@@ -14,3 +14,7 @@ jobs:
             JEST_JUNIT_OUTPUT_DIR: "./test-results/junit/test-results.xml"
       - store_test_results:
           path: ./test-results/
+workflows:
+  test:
+    jobs:
+      - test
