@@ -1,0 +1,16 @@
+version: 2.1
+jobs:
+  test:
+    docker:
+      - image: circleci/node:lts
+    working_directory: ~/osmcha-frontend
+    steps:
+      - checkout
+      - run: yarn
+      - run:
+          name: Testing
+          command: yarn test
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: "./test-results/junit/test-results.xml"
+      - store_test_results:
+          path: ./test-results/
