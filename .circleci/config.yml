@@ -7,7 +7,6 @@ jobs:
     steps:
       - checkout
       - run: yarn
-      - run: yarn run lint
       - run:
           name: Testing
           command: yarn test
