@@ -32,6 +32,36 @@ export class MapOptions extends React.PureComponent {
       r => r && r() && r().renderMap('mapbox://styles/mapbox/streets-v9')
     );
   };
+  toggleBing = () => {
+    const bingStyle = {
+      version: 8,
+      sources: {
+        'raster-tiles': {
+          type: 'raster',
+          tiles: [
+            'https://ecn.t0.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
+            'https://ecn.t1.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
+            'https://ecn.t2.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
+            'https://ecn.t3.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z'
+          ],
+          attribution:
+            '© <a href="https://blog.openstreetmap.org/2010/11/30/microsoft-imagery-details">Microsoft Corporation</a>'
+        }
+      },
+      layers: [
+        {
+          id: 'simple-tiles',
+          type: 'raster',
+          source: 'raster-tiles',
+          minzoom: 0,
+          maxzoom: 22
+        }
+      ]
+    };
+    importChangesetMap('getMapInstance').then(
+      r => r && r() && r().renderMap(bingStyle)
+    );
+  };
   render() {
     return (
       <div className="px12 py6">
@@ -129,7 +159,7 @@ export class MapOptions extends React.PureComponent {
 
           <ul className="cmap-hlist">
             <li>
-              <label className="cmap-hlist-item cmap-noselect cmap-pointer">
+              <label className="cmap-hlist-item cmap-noselect pointer">
                 <input
                   type="radio"
                   value="satellite"
@@ -142,7 +172,7 @@ export class MapOptions extends React.PureComponent {
               </label>
             </li>
             <li>
-              <label className="cmap-hlist-item cmap-noselect cmap-pointer">
+              <label className="cmap-hlist-item cmap-noselect pointer">
                 <input
                   type="radio"
                   value="streets"
@@ -154,7 +184,7 @@ export class MapOptions extends React.PureComponent {
               </label>
             </li>
             <li>
-              <label className="cmap-hlist-item cmap-noselect cmap-pointer">
+              <label className="cmap-hlist-item cmap-noselect pointer">
                 <input
                   type="radio"
                   value="dark"
@@ -163,6 +193,18 @@ export class MapOptions extends React.PureComponent {
                   onClick={this.toggleDark}
                 />
                 <span className="cmap-label-text">Dark</span>
+              </label>
+            </li>
+            <li>
+              <label className="cmap-hlist-item cmap-noselect pointer">
+                <input
+                  type="radio"
+                  value="bing"
+                  name="baselayer"
+                  id="cmap-baselayer-bing"
+                  onClick={this.toggleBing}
+                />
+                <span className="cmap-label-text cmap-pointer">Bing</span>
               </label>
             </li>
           </ul>
