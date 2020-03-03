@@ -2011,11 +2011,12 @@ changelog@^1.3.0:
     semver "5.5.0"
     wordwrap "1.0.0"
 
-changeset-map@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/changeset-map/-/changeset-map-1.4.1.tgz#7632615a6be895b951272f5a72eede0cf974051e"
-  integrity sha512-Brcr6bY0hKaIUk4vBb0R3PWxxDU2xwJm6+BYDrc2vaE3ydDbjz4+LhB/0zTlyK6h/tBN7BPnb8SsGZ4T07p4dw==
+changeset-map@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/changeset-map/-/changeset-map-1.4.2.tgz#a0c02f1a4600ae3943cc3344fc81046aa67514ff"
+  integrity sha512-Q9KOiYKEYA7b0GIWPBTolixI8wjmaLb+qyw484BigwGFKgggHbRh6uH3jFt/INYOG1tZx+6eEGBeB3tK2g/LjA==
   dependencies:
+    "@turf/bbox" "^6.0.1"
     "@turf/bbox-polygon" "^5.1.5"
     "@turf/helpers" "^5.1.5"
     global "^4.3.2"

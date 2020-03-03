@@ -134,9 +134,30 @@ class FiltersHeader extends React.Component<any, filterProps, any> {
         <a
           className="txt--s pl6"
           href={`${API_URL}/aoi/${this.props.aoiId}/changesets/feed/`}
+          title="RSS Feed"
         >
           <svg className="icon icon--s mt-neg3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
             <use xlinkHref="#icon-rss" />
+          </svg>
+        </a>
+      );
+    }
+  }
+
+  renderAoiLink() {
+    if (this.props.aoiId) {
+      return (
+        <a
+          className="txt--s pl6 pointer"
+          onClick={e =>
+            navigator.clipboard.writeText(
+              `${API_URL.replace('/api/v1', '')}/?aoi=${this.props.aoiId}`
+            )
+          }
+          title="Copy filter URL"
+        >
+          <svg className="icon icon--s mt-neg3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+            <use xlinkHref="#icon-link" />
           </svg>
         </a>
       );
@@ -194,6 +215,7 @@ class FiltersHeader extends React.Component<any, filterProps, any> {
           <span>
             Filters
             {this.props.aoiId && <span> / {this.props.aoiName}</span>}
+            {this.renderAoiLink()}
             {this.renderRssLink()}
           </span>
         </span>
