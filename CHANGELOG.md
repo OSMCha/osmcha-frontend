@@ -3,6 +3,12 @@
 Log of changes since the 2.0 version
 
 
+### 0.64.2
+
+- Update changeset-map to 1.4.3
+  - Add zoom controls to touchscreen devices
+  - Fix tags truncate problem
+
 ### 0.64.1
 - Update changeset-map to 1.4.2
 - Add Bing as background layer option
