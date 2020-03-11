@@ -6,7 +6,7 @@ export const isLocal = process.env.NODE_ENV === 'development';
 export const stack = process.env.REACT_APP_STACK;
 export const appVersion = process.env.REACT_APP_VERSION;
 
-let url = 'https://osmcha-org-staging.osmcha.org/api/v1';
+let url = 'https://staging.osmcha.org/api/v1';
 
 if (isProd) {
   url = 'https://osmcha.org/api/v1';
