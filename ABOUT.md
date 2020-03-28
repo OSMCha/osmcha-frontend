@@ -385,6 +385,16 @@ No, you cannot review your own changesets, but you can view your changesets.
 
 ## Changeset views error messages
 
+### Authentication error. Sign in again and repeat the operation.
+
+This is the default error message whenever you try to do something that is not possible.
+
+For example:
+- When you try to check a changeset, that was already checked.
+- When you try to check our own changeset.
+- When you try to uncheck a changeset, which was not checked by you.
+- When you try to tag a changeset or remove tags from a changeset, that was not checked by you.
+
 ### Changeset was already checked.
 
 This is raised when someone tries to check a changeset that was already checked
