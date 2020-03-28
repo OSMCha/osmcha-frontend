@@ -306,11 +306,9 @@ You can sign-in on OSMCha using their OpenStreetMap account. On clicking on `sig
 
 <img width="300" alt="osmcha-signin" src="https://user-images.githubusercontent.com/8921295/27321375-a4fada26-55b7-11e7-9516-f00f61f64cc1.png">
 
-`Note:` It **is** necessary to be signed-in in-order to [review](#how-to-review-a-changeset) a changeset as `Good` or `Bad`
-
 ### Can I view the changesets and use filters without logging into OSMCha?
 
-You **must** be signed in-order to [review](#how-to-review-a-changeset) a changeset as good or bad. Authentication in not required if you are only viewing the changesets.
+No, OSMCha requires a sign in with your OpenStreetMap account in order so see changesets.
 
 ### How do I logout of OSMCha?
 
