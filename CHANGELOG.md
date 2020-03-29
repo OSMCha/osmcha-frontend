@@ -3,6 +3,12 @@
 Log of changes since the 2.0 version
 
 
+### 0.64.3
+
+- Update changeset-map to 1.4.4
+- Handle 401 and 403 errors separately
+- Update OSMCha logo
+
 ### 0.64.2
 
 - Update changeset-map to 1.4.3
