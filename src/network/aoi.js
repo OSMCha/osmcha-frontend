@@ -15,10 +15,13 @@ export function getString(input) {
 export function handleErrors(response: Object) {
   if (!response.ok) {
     return response.json().then(r => {
-      if (response.status === 401 || response.status === 403) {
+      if (response.status === 401) {
         throw new Error(
           'Authentication error. Sign in again and repeat the operation.'
         );
+      }
+      if (response.status === 401) {
+        throw new Error('Operation not allowed.');
       }
       if (response.status === 404) {
         throw new Error('Resource not found.');
