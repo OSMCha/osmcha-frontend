@@ -17,7 +17,7 @@ export function OpenIn({ changesetId, coordinates, className }) {
           {
             label: 'iD',
             value: 'iD',
-            href: `https://www.openstreetmap.org/edit?changeset=${changesetId}#map=15/${coordinates &&
+            href: `https://www.openstreetmap.org/edit?editor=id&changeset=${changesetId}#map=15/${coordinates &&
               coordinates.get('1')}/${coordinates && coordinates.get('0')}`
           },
           {
