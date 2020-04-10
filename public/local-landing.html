@@ -2,7 +2,22 @@
 
 <html>
 
+<head>
+  <title>OSMCha: Manually sign in to OSM for local development</title>
+</head>
+
 <body>
+  <h1>Manually sign in to OSM for local development:</h1>
+  <ol>
+    <li>
+      <a href="#"
+        onClick="window.open('https://www.openstreetmap.org/oauth/authorize?oauth_token=' + window.location.hash.substring(1)); return false;">
+        Use this Link to start the Oauth-Login on osm.org
+      </a>
+    </li>
+    <li>Log into OSM on that page. You will see a blank page afterwards</li>
+    <li>Copy the value of the <code>oauth_verifier</code> param from the URL and paste it below</li>
+  </ol>
   <div id='formContainer'>
     <form id='verifierForm'>
       <input id='oauth_verifier' value='' placeholder='oauth_verifier' />

@@ -43,9 +43,11 @@ class NavbarSidebar extends React.PureComponent {
   handleLoginClick = () => {
     var oAuthToken = this.props.oAuthToken;
     if (!oAuthToken) return;
-    let url = `${osmAuthUrl}?oauth_token=${oAuthToken}`;
+
     if (isDev || isLocal) {
-      url = '/local-landing.html';
+      let url = `/local-landing.html#${oAuthToken}`;
+    } else {
+      let url = `${osmAuthUrl}?oauth_token=${oAuthToken}`;
     }
 
     createPopup('oauth_popup', url);
