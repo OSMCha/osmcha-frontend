@@ -28,7 +28,7 @@ This repository uses [prettier](https://github.com/prettier/prettier) to keep th
 
 ### Local development
 1. `yarn start`
-1. Open [https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]}](https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]})
+1. Open [https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]}](https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]}) of e.g. [changeset#68901012](https://localhost:3000/changesets/68901012?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]})
     - The app runs with https; Firefox is recommended since it allows self signed certificates.
     - The staging database only has changesets until mid 2017; without the filter you will not see any changesets.
 
