@@ -24,10 +24,11 @@ class SignInButton extends React.PureComponent {
     var oAuthToken = this.props.oAuthToken;
     if (!oAuthToken) return;
 
+    let url;
     if (isDev || isLocal) {
-      let url = `/local-landing.html#${oAuthToken}`;
+      url = `/local-landing.html#${oAuthToken}`;
     } else {
-      let url = `${osmAuthUrl}?oauth_token=${oAuthToken}`;
+      url = `${osmAuthUrl}?oauth_token=${oAuthToken}`;
     }
 
     createPopup('oauth_popup', url);
