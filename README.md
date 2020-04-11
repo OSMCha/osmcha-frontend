@@ -48,7 +48,7 @@ yarn test
 
 ## Deploy/Release
 - There are three stacks to deploy to
-- `yarn deploy:dev` deploys it to `mapbox.github.io`
+- ~~`yarn deploy:dev` deploys it to `mapbox.github.io`~~ (currently broken)
 - `yarn deploy:staging` deploys it to `osmcha-django-staging.tilestream.net`
 - `yarn deploy:prod` deploys it to `osmcha.org`
 
