@@ -105,9 +105,9 @@ export class ChangeItem extends React.PureComponent {
           )}
           {this.tag.slice(0, last_space)}
           <span className="txt-code">{this.tag.slice(last_space)}</span>
-          <span className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s txt-bold round">
+          <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
             {this.value.length}
-          </span>
+          </strong>
         </span>
         <ul
           className="cmap-vlist"
@@ -115,7 +115,9 @@ export class ChangeItem extends React.PureComponent {
             display: this.state.opened ? 'block' : 'none'
           }}
         >
-          {this.value.map((id, k) => <FeatureListItem id={id} key={k} />)}
+          {this.value.map((id, k) => (
+            <FeatureListItem id={id} key={k} />
+          ))}
         </ul>
       </div>
     );
