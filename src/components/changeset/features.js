@@ -37,13 +37,13 @@ const Feature = ({
         )}
       </td>
       <td>
-        <span
+        <strong
           onClick={() => selectFeature(parseInt(data.get('osm_id'), 10))}
-          className="cursor-pointer txt-bold txt-underline-on-hover mr6"
+          className="cursor-pointer txt-underline-on-hover mr6"
         >
           Map
-        </span>
-        <span className="cursor-pointer txt-bold txt-underline-on-hover">
+        </strong>
+        <strong className="cursor-pointer txt-underline-on-hover">
           <a
             target="_blank"
             href={`http://localhost:8111/load_object?objects=${data
@@ -52,7 +52,7 @@ const Feature = ({
           >
             JOSM
           </a>
-        </span>
+        </strong>
       </td>
     </tr>
   );
