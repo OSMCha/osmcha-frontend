@@ -26,7 +26,7 @@ export function Wrapper({
             </svg>
           )}
         </span>
-        <span className="txt-bold txt-truncate pointer">{display}&nbsp;</span>
+        <strong className="txt-truncate pointer">{display}&nbsp;</strong>
       </div>
       <div className="grid">
         <span className="col col--6-mxl col--6-ml col--12-mm col--12">

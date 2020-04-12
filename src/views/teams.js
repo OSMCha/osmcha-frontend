@@ -135,7 +135,7 @@ class SaveButton extends React.PureComponent {
             ) : (
               <div className="txt-h4 txt-bold">Add a new mapping team</div>
             )}
-            <span className="txt-bold txt-truncate pt6">Name</span>
+            <strong className="txt-truncate pt6">Name</strong>
             <input
               placeholder="New team name"
               className="input wmax180"
@@ -150,7 +150,7 @@ class SaveButton extends React.PureComponent {
               onKeyDown={this.onKeyDown}
               disabled={!this.props.userIsOwner}
             />
-            <span className="txt-bold txt-truncate pt6">Users</span>
+            <strong className="txt-truncate pt6">Users</strong>
             <textarea
               placeholder={'[{"username": "name"}, {"username": "other_user"}]'}
               className="textarea h180"

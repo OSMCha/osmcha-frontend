@@ -115,7 +115,7 @@ class EditMappingTeam extends React.PureComponent<any, propsType, any> {
               <div>
                 <div className="mt24 mb12">
                   <h2 className="pl12 txt-xl mr6 border-b border--gray-light border--1">
-                    <span className="txt-bold">Editing mapping team: </span>
+                    <strong>Editing mapping team: </strong>
                     {this.props.data.getIn(['team', 'name'])}
                   </h2>
                   <SaveButton
