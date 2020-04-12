@@ -133,8 +133,8 @@ class SaveButton extends React.PureComponent {
             {this.props.activeTeam ? (
               <span />
             ) : (
-              <div className="txt-h4 txt-bold">Add a new mapping team</div>
-            )}
+                <h3 className="txt-h4 txt-bold">Add a new mapping team</h3>
+              )}
             <strong className="txt-truncate pt6">Name</strong>
             <input
               placeholder="New team name"
