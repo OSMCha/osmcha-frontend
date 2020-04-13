@@ -13,6 +13,10 @@
     if (location.protocol == 'http:') {
       location.href = location.href.replace(/^http:/, 'https:');
     }
+    // Redirect to non-WWW
+    if (window.location.hostname.indexOf("www") == 0) {
+      window.location = window.location.href.replace("www.", "");
+    }
 
     // Single Page Apps for GitHub Pages
     // https://github.com/rafrex/spa-github-pages
