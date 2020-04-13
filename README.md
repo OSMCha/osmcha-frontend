@@ -28,16 +28,9 @@ This repository uses [prettier](https://github.com/prettier/prettier) to keep th
 
 ### Local development
 1. `yarn start`
-1. Open [https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]}](https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]})
+1. Open [https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]}](https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]}) of e.g. [changeset#68901012](https://localhost:3000/changesets/68901012?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]})
     - The app runs with https; Firefox is recommended since it allows self signed certificates.
     - The staging database only has changesets until mid 2017; without the filter you will not see any changesets.
-
-*To sign in:*
-
-1. After loading the page in your browser, inspect the request made to `social-auth/` and copy the `oauth_token`;
-1. In other browser tab, access `https://www.openstreetmap.org/oauth/authorize?oauth_token=<oauth_token>` and give authorization in the OpenStreetMap page that will load;
-1. You will be redirected to a blank page that has a `oauth_verifier` in the url. Copy the `oauth_verifier`;
-1. Click on the `Sign in` button on your local OSMCha instance, paste the `oauth_verifier` and you will be logged in.
 
 ### Local testing
 Test the application before commiting any changes. If you encounter any error make sure you have `watchman` installed. [Installation Guide](https://facebook.github.io/watchman/docs/install.html).
