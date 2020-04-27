@@ -50,8 +50,8 @@ class EditUserDetails extends React.PureComponent {
   render() {
     return (
       <div>
-        <span className="ml12 flex-parent flex-parent--row my3">
-          <p className="flex-child txt-s">
+        <span className="ml12 flex-parent flex-parent--row my3 pt12">
+          <p className="flex-child txt-m">
             Default comment for changesets reviewed as GOOD{' '}
             {this.renderGoodBadImg(true)}:
           </p>
@@ -62,8 +62,8 @@ class EditUserDetails extends React.PureComponent {
           value={this.state.message_good}
           onChange={this.onChangeMessageGood}
         />
-        <span className="ml12 flex-parent flex-parent--row my3 pt6">
-          <p className="flex-child txt-s">
+        <span className="ml12 flex-parent flex-parent--row my3 pt18">
+          <p className="flex-child txt-m">
             Default comment for changesets reviewed as BAD{' '}
             {this.renderGoodBadImg()}:
           </p>
