@@ -38,7 +38,7 @@ class Discussions extends React.PureComponent {
             >
               <div className="flex-parent flex-parent--row justify--space-between txt-s ">
                 <span>
-                  By <span className="txt-bold">{f.get('userName')}&nbsp;</span>
+                  By <strong>{f.get('userName')}&nbsp;</strong>
                 </span>
                 <span>{moment(f.get('timestamp')).fromNow()}</span>
               </div>

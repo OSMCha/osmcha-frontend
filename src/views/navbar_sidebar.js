@@ -112,7 +112,7 @@ class NavbarSidebar extends React.PureComponent {
                 }}
               >
                 <span className="txt-xl">
-                  <span className="color-blue txt-bold">OSM</span>
+                  <strong className="color-blue">OSM</strong>
                   Cha
                 </span>
               </Link>

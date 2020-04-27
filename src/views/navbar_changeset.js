@@ -162,7 +162,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                 </Link>
               )}
               <span className="txt-l color-gray--dark">
-                <span className="txt-bold">Changeset:</span>{' '}
+                <strong>Changeset:</strong>{' '}
                 <span className="txt-underline mr12">
                   <a
                     href={`https://openstreetmap.org/changeset/${

@@ -65,7 +65,7 @@ export function Details({
       </div>
       <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap pt12 pb6">
         <div className="flex-parent flex-parent--column ">
-          <span className="txt-s txt-uppercase txt-bold">Source</span>
+          <strong className="wmax180 txt-s txt-uppercase">Source</strong>
           <span className="wmax180 txt-break-word txt-s">
             {source}
             <span>
@@ -97,11 +97,11 @@ export function Details({
           </span>
         </div>
         <div className="flex-parent flex-parent--column ">
-          <span className="txt-s txt-uppercase txt-bold">Editor</span>
+          <strong className="wmax180 txt-s txt-uppercase">Editor</strong>
           <span className="wmax180 txt-break-word txt-s">{editor}</span>
         </div>
         <div className="flex-parent flex-parent--column">
-          <span className="txt-s txt-uppercase txt-bold">Imagery</span>
+          <strong className="wmax180 txt-s txt-uppercase">Imagery</strong>
           <span className="wmax180 txt-break-word txt-s">
             {imagery}
             <span>

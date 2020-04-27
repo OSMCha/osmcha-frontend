@@ -85,16 +85,14 @@ export class CommentForm extends React.PureComponent<any, propsType, any> {
           <div className="flex-parent flex-parent--column mt6 mb3">
             {this.state.success && (
               <div className="bg-green-faint color-green inline-block px6 py3 txt-s align-center round my12">
-                <span className="txt-bold">Comment successfully posted.</span>
+                <strong>Comment successfully posted.</strong>
                 <br />
                 <span>It will appear on OSMCha after some minutes.</span>
               </div>
             )}
             {this.state.error && (
               <div className="bg-red-faint color-red-dark inline-block px6 py3 txt-s align-center round my12">
-                <span className="txt-bold">
-                  It was not possible to post your comment.
-                </span>
+                <strong>It was not possible to post your comment.</strong>
               </div>
             )}
             <div className="grid grid--gut12">
