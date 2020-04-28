@@ -3,6 +3,13 @@
 Log of changes since the 2.0 version
 
 
+### 0.66.0
+
+- Simplify login on dev environment
+- Replace bold css by strong html tag
+- Add redirect removing www. from url
+- Improve link on "Open changeset with iD" button
+
 ### 0.64.3
 
 - Update changeset-map to 1.4.4
