@@ -61,7 +61,7 @@ export class User extends React.PureComponent {
               <TrustWatchUser user={this.props.userDetails} />
             </div>
 
-            <div className="mt6">
+            <div className="mt12">
               <Link
                 className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
                 to={{
