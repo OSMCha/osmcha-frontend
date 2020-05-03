@@ -21,6 +21,7 @@ import {
   OPEN_IN_ACHAVI,
   OPEN_IN_HDYC
 } from '../config/bindings';
+import { API_URL } from '../config/index';
 
 import {
   handleChangesetModifyTag,
@@ -69,9 +70,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       }
       case OPEN_IN_JOSM.label: {
         if (!this.props.changesetId) return;
-        const url = `http://127.0.0.1:8111/import?url=https://www.openstreetmap.org/api/0.6/changeset/${
-          this.props.changesetId
-        }/download`;
+        const url = `http://127.0.0.1:8111/import?url=https://www.openstreetmap.org/api/0.6/changeset/${this.props.changesetId}/download`;
         window.open(url, '_blank');
         break;
       }
@@ -92,25 +91,19 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       }
       case OPEN_IN_OSM.label: {
         if (!this.props.changesetId) return;
-        const url = `https://www.openstreetmap.org/changeset/${
-          this.props.changesetId
-        }`;
+        const url = `https://www.openstreetmap.org/changeset/${this.props.changesetId}`;
         window.open(url, '_blank');
         break;
       }
       case OPEN_IN_LEVEL0.label: {
         if (!this.props.changesetId) return;
-        const url = `http://level0.osmz.ru/?url=changeset/${
-          this.props.changesetId
-        }`;
+        const url = `http://level0.osmz.ru/?url=changeset/${this.props.changesetId}`;
         window.open(url, '_blank');
         break;
       }
       case OPEN_IN_ACHAVI.label: {
         if (!this.props.changesetId) return;
-        const url = `https://overpass-api.de/achavi/?changeset=${
-          this.props.changesetId
-        }`;
+        const url = `https://overpass-api.de/achavi/?changeset=${this.props.changesetId}`;
         window.open(url, '_blank');
         break;
       }
@@ -165,13 +158,27 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                 <strong>Changeset:</strong>{' '}
                 <span className="txt-underline mr12">
                   <a
-                    href={`https://openstreetmap.org/changeset/${
-                      this.props.changesetId
-                    }`}
+                    href={`https://openstreetmap.org/changeset/${this.props.changesetId}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    title="See on OSM"
                   >
                     {this.props.changesetId}
+                  </a>
+                  <a
+                    className="txt--s pl6 pointer"
+                    onClick={e =>
+                      navigator.clipboard.writeText(
+                        `${API_URL.replace('/api/v1', '')}/changesets/${
+                          this.props.changesetId
+                        }`
+                      )
+                    }
+                    title="Copy OSMCha Changeset URL"
+                  >
+                    <svg className="icon icon--s mt-neg3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+                      <use xlinkHref="#icon-link" />
+                    </svg>
                   </a>
                 </span>
               </span>

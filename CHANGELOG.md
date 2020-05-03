@@ -3,6 +3,12 @@
 Log of changes since the 2.0 version
 
 
+### 0.66.1
+
+- Update changeset-map to 1.4.5
+- Style improvement on changeset's user details' section
+- Add copy OSMCha changeset URL link
+
 ### 0.66.0
 
 - Simplify login on dev environment
