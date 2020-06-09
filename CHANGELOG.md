@@ -3,6 +3,9 @@
 Log of changes since the 2.0 version
 
 
+### 0.66.2
+- Update websockets-extension
+
 ### 0.66.1
 
 - Update changeset-map to 1.4.5
