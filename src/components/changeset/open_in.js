@@ -23,7 +23,7 @@ export function OpenIn({ changesetId, coordinates, className }) {
           {
             label: 'OSM',
             value: 'OSM',
-            href: `https://openstreetmap.org/changeset/${changesetId}`
+            href: `https://www.openstreetmap.org/changeset/${changesetId}`
           },
 
           {

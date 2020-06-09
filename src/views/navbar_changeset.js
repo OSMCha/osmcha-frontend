@@ -158,7 +158,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                 <strong>Changeset:</strong>{' '}
                 <span className="txt-underline mr12">
                   <a
-                    href={`https://openstreetmap.org/changeset/${this.props.changesetId}`}
+                    href={`https://www.openstreetmap.org/changeset/${this.props.changesetId}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     title="See on OSM"
