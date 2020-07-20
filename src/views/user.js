@@ -68,7 +68,8 @@ class User extends React.PureComponent<any, propsType, any> {
                 Welcome,{' '}
                 {userDetails.get('username')
                   ? userDetails.get('username')
-                  : 'stranger'}!
+                  : 'stranger'}
+                !
               </h2>
               <div className="flex-child flex-child--grow">&nbsp;</div>
             </span>
@@ -89,17 +90,30 @@ class User extends React.PureComponent<any, propsType, any> {
               <p className="flex-child txt-bold w120">Username: </p>
               <p className="flex-child">{userDetails.get('username')}</p>
             </span>
-            <span className="ml12 flex-parent flex-parent--row my3">
-              <p className="flex-child txt-bold w120">Current Token: </p>
-              <p className="flex-child">{this.props.token}</p>
-            </span>
-
             {userDetails.get('is_staff') && (
               <span className="ml12 flex-parent flex-parent--row my3">
                 <p className="flex-child txt-bold w120">Staff: </p>
                 <p className="flex-child">Yes</p>
               </span>
             )}
+            <span className="ml12 flex-parent flex-parent--row my3">
+              <p className="flex-child txt-bold w120">API key: </p>
+              <p className="flex-child">
+                <span className="pre pb6 pt6">Token {this.props.token}</span>
+                <a
+                  className="txt--s pl6 pointer"
+                  onClick={e =>
+                    navigator.clipboard.writeText(`Token ${this.props.token}`)
+                  }
+                  title="Copy Authorization Token"
+                >
+                  <svg className="icon icon--m mt-neg3 inline-block align-middle color-darken25 color-darken50-on-hover transition">
+                    <use xlinkHref="#icon-clipboard" />
+                  </svg>
+                </a>
+              </p>
+            </span>
+
             {this.props.token && (
               <div>
                 <div className="mt24 mb12">
