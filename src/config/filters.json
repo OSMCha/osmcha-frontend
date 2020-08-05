@@ -336,6 +336,16 @@
     "placeholder": "Enter Changeset IDs"
   },
   {
+    "name": "metadata",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "Other metadata",
+    "type": "text",
+    "description": "Filter changesets by any other metadata that is not present on the fields above. You can combine more than one filter, separated by commas.",
+    "placeholder": "eg. changesets_count__max=50,hashtags=#hotosm-project"
+  },
+  {
     "name": "order_by",
     "icontains": false,
     "range": false,
