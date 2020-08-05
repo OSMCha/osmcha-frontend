@@ -3,6 +3,16 @@
 Log of changes since the 2.0 version
 
 
+### 0.68.0
+- Add metadata field filter
+- Avoid redirection when loading osm.org URLs
+
+### 0.66.4
+- Improve style of API key section of user profile page
+
+### 0.66.3
+- Update moment and redux libs
+
 ### 0.66.2
 - Update websockets-extension
 
