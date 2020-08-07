@@ -1,0 +1,28 @@
+version: 2.1
+jobs:
+  test:
+    docker:
+      - image: circleci/node:lts
+    working_directory: ~/osmcha-frontend
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Testing
+          command: yarn test
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: "./test-results/junit/test-results.xml"
+      - store_test_results:
+          path: ./test-results/
+workflows:
+  test:
+    jobs:
+      - test
