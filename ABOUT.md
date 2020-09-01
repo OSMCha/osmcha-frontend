@@ -252,6 +252,13 @@ These include:
   * Ex: iD editor changesets that have deleted a lot of features
   * Ex: Mass additions of data by new mappers
 
+**Filtering by other metadata**
+
+![image](https://user-images.githubusercontent.com/666291/91881632-275e7380-ec58-11ea-834c-6fec8224c930.png)
+
+* Since August 2020, OSMCha is registering all arbitrary tags added to the changesets and it is possible to filter using that information. Scroll to the bottom of the filters page to see the "Other metadata field". You can filter changesets by the hashtags information with  `hashtags=value`. It is also possible to filter numeric values by setting a minimum or a maximum threshold. For example, with `changesets_count__max=50`, you will get the changesets created by users that had created less than 50 changesets (that information is available only to changesets created by iD editor). If you want to filter by the presence of a tag use `key=*`, for example `locale=*` to find changesets with a locale tag.
+
+
 ### Saving and sharing custom filters
 
 OSMCha allows a logged-in user to save a filter template with custom search parameters and a personalized name. There is no limit on how many filter templates can be saved per user nor with the number of custom parameters that can be set in a filter template.
