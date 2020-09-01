@@ -2,6 +2,8 @@
 
 Log of changes since the 2.0 version
 
+### 0.68.1
+- Update changeset-map to 1.5.0 to enable visualization of dragged nodes
 
 ### 0.68.0
 - Add metadata field filter
