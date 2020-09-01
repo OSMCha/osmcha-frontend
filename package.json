@@ -1,6 +1,6 @@
 {
   "name": "osmcha-frontend",
-  "version": "0.68.0",
+  "version": "0.68.1",
   "license": "ISC",
   "engines": {
     "node": ">=7.0"
@@ -17,7 +17,7 @@
     "@turf/bbox": "^6.0.1",
     "@turf/simplify": "^5.1.5",
     "animate.css": "^3.7.2",
-    "changeset-map": "^1.4.5",
+    "changeset-map": "^1.5.0",
     "date-input-polyfill": "^2.14.0",
     "history": "^4.10.1",
     "immutable": "^3.8.2",
