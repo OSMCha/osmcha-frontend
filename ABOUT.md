@@ -256,7 +256,11 @@ These include:
 
 ![image](https://user-images.githubusercontent.com/666291/91881632-275e7380-ec58-11ea-834c-6fec8224c930.png)
 
-* Since August 2020, OSMCha is registering all arbitrary tags added to the changesets and it is possible to filter using that information. Scroll to the bottom of the filters page to see the "Other metadata field". You can filter changesets by the hashtags information with  `hashtags=value`. It is also possible to filter numeric values by setting a minimum or a maximum threshold. For example, with `changesets_count__max=50`, you will get the changesets created by users that had created less than 50 changesets (that information is available only to changesets created by iD editor). If you want to filter by the presence of a tag use `key=*`, for example `locale=*` to find changesets with a locale tag.
+* Since August 2020, OSMCha is registering all arbitrary tags added to the changesets and it is possible to filter using that information. Scroll to the bottom of the filters page to see the "Other metadata field". You can filter changesets by the hashtags information with  `hashtags=value`.
+
+It is also possible to filter numeric values by setting a minimum or a maximum threshold. For example, with `changesets_count__max=50`, you will get the changesets created by users that had created less than 50 changesets (that information is available only to changesets created by iD editor). Add `__max` or `__min` after any tag name that the value can be a number.
+
+If you want to filter by the presence of a tag use `key=*`, for example `locale=*` to find changesets with a `locale` tag and any value.
 
 
 ### Saving and sharing custom filters
