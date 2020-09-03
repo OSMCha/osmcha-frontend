@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "https://staging.osmcha.org/precache-manifest.d0f8d1e24138f3c87afbfda110f55087.js"
+  "https://osmcha.org/precache-manifest.e2fd92902535f14a7ca74268d468f9c9.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("https://staging.osmcha.org/index.html", {
+workbox.routing.registerNavigationRoute("https://osmcha.org/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
