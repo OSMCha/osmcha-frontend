@@ -14,17 +14,13 @@ import './assets/index.css';
 import 'animate.css/animate.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import 'react-select/dist/react-select.css';
-import './assets/0.21.0.assembly.min.css';
-import './assets/0.21.0.assembly';
 
 import { App } from './app';
 
 ReactGA.initialize('UA-100686765-1', {
   gaOptions: {
     anonymizeIp: true,
-    screenResolution: `${window.screen.availWidth}X${
-      window.screen.availHeight
-    }`,
+    screenResolution: `${window.screen.availWidth}X${window.screen.availHeight}`,
     appName: stack
   }
 });
