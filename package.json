@@ -1,6 +1,6 @@
 {
   "name": "osmcha-frontend",
-  "version": "0.68.1",
+  "version": "0.70.0",
   "license": "ISC",
   "engines": {
     "node": ">=7.0"
@@ -17,7 +17,7 @@
     "@turf/bbox": "^6.0.1",
     "@turf/simplify": "^5.1.5",
     "animate.css": "^3.7.2",
-    "changeset-map": "^1.5.0",
+    "changeset-map": "^1.6.1",
     "date-input-polyfill": "^2.14.0",
     "history": "^4.10.1",
     "immutable": "^3.8.2",
@@ -53,33 +53,31 @@
     "flow-bin": "^0.54.1",
     "gh-pages": "^1.0.0",
     "husky": "^0.14.2",
-    "jest": "^21.0.2",
-    "jest-cli": "^21.0.2",
+    "jest": "24.9.0",
+    "jest-cli": "24.9.0",
     "lint-staged": "^4.0.0",
     "mockdate": "^2.0.1",
     "nock": "^9.0.13",
     "prettier": "^1.18.2",
     "prettier-eslint-cli": "^4.1.1",
-    "react-app-rewired": "^1.0.8",
-    "react-scripts": "^1.0.10",
+    "react-scripts": "3.4.3",
     "react-test-renderer": "^15.6.1",
     "redux-saga-test-plan": "^3.1.0",
-    "webpack-bundle-analyzer": "^2.8.2",
     "why-did-you-update": "0.0.8"
   },
   "scripts": {
     "precommit": "lint-staged",
     "flow": "flow",
-    "start": "HTTPS=true react-app-rewired start",
+    "start": "HTTPS=true react-scripts start",
     "lint": "eslint src",
-    "test": "npm run lint && react-app-rewired test --env=jsdom",
-    "coverage": "react-app-rewired test --env=jsdom --coverage",
-    "build": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV react-app-rewired build",
-    "build:dev": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV PUBLIC_URL=https://mapbox.github.io/osmcha-frontend react-app-rewired build",
+    "test": "npm run lint && react-scripts test --env=jsdom",
+    "coverage": "react-scripts test --env=jsdom --coverage",
+    "build": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV react-scripts build",
+    "build:dev": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV PUBLIC_URL=https://mapbox.github.io/osmcha-frontend react-scripts build",
     "deploy:dev": "gh-pages -d build",
-    "build:staging": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=STAGING PUBLIC_URL=https://staging.osmcha.org react-app-rewired build",
+    "build:staging": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=STAGING PUBLIC_URL=https://staging.osmcha.org react-scripts build",
     "deploy:staging": "gh-pages -d build -b oh-pages",
-    "build:prod": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=PRODUCTION PUBLIC_URL=https://osmcha.org react-app-rewired build",
+    "build:prod": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=PRODUCTION PUBLIC_URL=https://osmcha.org react-scripts build",
     "deploy:prod": "gh-pages -d build -b oh-pages"
   },
   "lint-staged": {
@@ -87,5 +85,11 @@
       "prettier --write --single-quote",
       "git add"
     ]
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
