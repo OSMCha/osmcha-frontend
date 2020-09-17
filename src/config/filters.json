@@ -184,6 +184,17 @@
     "placeholder": "Enter OSM usernames"
   },
   {
+    "name": "uids",
+    "icontains": false,
+    "all": false,
+    "range": false,
+    "display": "User ids",
+    "cache": true,
+    "type": "text_comma",
+    "description": "Show changesets created by users filtering by their OSM user ids. Start typing to select one or more uids.",
+    "placeholder": "Enter OSM user ids"
+  },
+  {
     "name": "hide_whitelist",
     "icontains": false,
     "range": false,
