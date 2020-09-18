@@ -2,6 +2,16 @@
 
 Log of changes since the 2.0 version
 
+### 0.70.1
+- Add filter by user id
+- Modify changeset header to include RapiD link and organize better the other links
+- Add links to good and bad changesets of a user
+- Add a link to filter changesets of a user by their uid instead of username
+
+### 0.70.0
+- Update changeset-map to 1.6.1, which enables visualization of dragged nodes
+- Update react-scripts to 3.4.3
+
 ### 0.68.1
 - Update changeset-map to 1.5.0 to enable visualization of dragged nodes
 
