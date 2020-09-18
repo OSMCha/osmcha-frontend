@@ -156,16 +156,8 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
               )}
               <span className="txt-l color-gray--dark">
                 <strong>Changeset:</strong>{' '}
-                <span className="txt-underline mr12">
-                  <a
-                    href={`https://www.openstreetmap.org/changeset/${this.props.changesetId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="See on OSM"
-                  >
-                    {this.props.changesetId}
-                  </a>
-                  <a
+                <span className="mr12">
+                  <span
                     className="txt--s pl6 pointer"
                     onClick={e =>
                       navigator.clipboard.writeText(
@@ -176,8 +168,19 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                     }
                     title="Copy OSMCha Changeset URL"
                   >
-                    <svg className="icon icon--s mt-neg3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+                    {this.props.changesetId}
+                    <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
                       <use xlinkHref="#icon-link" />
+                    </svg>
+                  </span>
+                  <a
+                    href={`https://www.openstreetmap.org/changeset/${this.props.changesetId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="See on OSM"
+                  >
+                    <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+                      <use xlinkHref="#icon-share" />
                     </svg>
                   </a>
                 </span>
