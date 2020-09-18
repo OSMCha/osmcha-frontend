@@ -8,8 +8,77 @@ import { getObjAsQueryParam } from '../../utils/query_params';
 import { SignInButton } from './sign_in_button';
 import { TrustWatchUser } from './trust_watch_user';
 
+class UserLink extends React.PureComponent {
+  getHarmfulObject() {
+    if (this.props.harmful) {
+      return {
+        label: 'Show Bad only',
+        value: true
+      };
+    } else {
+      return {
+        label: 'Show Good only',
+        value: false
+      };
+    }
+  }
+  getLinkContent() {
+    if (this.props.harmful) {
+      return `${this.props.userDetails.get('harmful_changesets')} Bad`;
+    } else {
+      const count =
+        this.props.userDetails.get('checked_changesets') -
+        this.props.userDetails.get('harmful_changesets');
+      return `${count} Good`;
+    }
+  }
+  render() {
+    return (
+      <Link
+        className="txt-underline-on-hover txt-bold pointer color-gray"
+        to={{
+          search: getObjAsQueryParam('filters', {
+            users: [
+              {
+                label: this.props.userDetails.get('name'),
+                value: this.props.userDetails.get('name')
+              }
+            ],
+            harmful: [this.getHarmfulObject()],
+            date__gte: [{ label: '', value: '' }]
+          }),
+          pathname: '/'
+        }}
+      >
+        {this.getLinkContent()}
+      </Link>
+    );
+  }
+}
+
 // getObjAsQueryParam('filters', filters.toJS());
 export class User extends React.PureComponent {
+  renderUidFilterLink() {
+    return (
+      <Link
+        className="txt-underline-on-hover txt-bold pointer color-gray"
+        to={{
+          search: getObjAsQueryParam('filters', {
+            uids: [
+              {
+                label: this.props.userDetails.get('uid'),
+                value: this.props.userDetails.get('uid')
+              }
+            ],
+            date__gte: [{ label: '', value: '' }]
+          }),
+          pathname: '/'
+        }}
+      >
+        {`${this.props.userDetails.get('count')} edits`}
+      </Link>
+    );
+  }
   render() {
     const converter = new showdown.Converter({
       noHeaderId: true,
@@ -39,9 +108,9 @@ export class User extends React.PureComponent {
                 {this.props.userDetails.get('accountCreated') &&
                   `Joined ${moment(
                     this.props.userDetails.get('accountCreated')
-                  ).fromNow(true)} ago |`}
+                  ).fromNow(true)} ago | `}
                 {this.props.userDetails.get('count')
-                  ? `${this.props.userDetails.get('count')} edits`
+                  ? this.renderUidFilterLink()
                   : `${this.props.userDetails.get(
                       'changesets_in_osmcha'
                     )} edits registered on OSMCha`}
@@ -49,11 +118,13 @@ export class User extends React.PureComponent {
             </div>
             <div>
               <p className="txt-s color-gray align-center">
-                {this.props.userDetails.get('harmful_changesets')} Bad and
-                &nbsp;
-                {this.props.userDetails.get('checked_changesets') -
-                  this.props.userDetails.get('harmful_changesets')}{' '}
-                Good Changesets
+                <UserLink userDetails={this.props.userDetails} harmful={true} />
+                &nbsp;and&nbsp;
+                <UserLink
+                  userDetails={this.props.userDetails}
+                  harmful={false}
+                />
+                &nbsp;changesets
               </p>
             </div>
 
