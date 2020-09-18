@@ -350,7 +350,7 @@ Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of chan
 | Open changeset in OSM                            | `O`               |
 | Open changeset in Achavi                         | `V`               |
 | Open user profile in HDYC                        | `H`               |
-| Open changeset in Level 0                        | `L`               |
+| Open changeset in Level0                        | `L`               |
 | Review changeset as good                         | `G`               |
 | Review changeset as bad                          | `B`               |
 | Undo or clear changeset review                   | `U` or `C`        |

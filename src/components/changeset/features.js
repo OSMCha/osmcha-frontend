@@ -45,6 +45,7 @@ const Feature = ({
         </strong>
         <strong className="cursor-pointer txt-underline-on-hover">
           <a
+            rel="noopener noreferrer"
             target="_blank"
             href={`http://localhost:8111/load_object?objects=${data
               .getIn(['url'], '')
