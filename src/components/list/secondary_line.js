@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { CreateDeleteModify } from '../create_delete_modify';
+import { NumberOfComments } from './comments';
 
 import thumbsUp from '../../assets/thumbs-up.svg';
 import thumbsDown from '../../assets/thumbs-down.svg';
@@ -34,6 +35,9 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
         ) : null}
       </span>
       <span className="flex-parent flex-parent--row">
+        {properties.get('comments_count') > 0 && (
+          <NumberOfComments count={properties.get('comments_count')} />
+        )}
         <CreateDeleteModify
           showZero
           className="mr3"

@@ -307,6 +307,16 @@
     "placeholder": "eg. 500"
   },
   {
+    "name": "comments_count",
+    "icontains": false,
+    "all": false,
+    "range": true,
+    "display": "Number of comments",
+    "type": "number",
+    "description": "Filter changesets whose number of comments are greater than or equal to and/or lesser than or equal to a number.",
+    "placeholder": "eg. 3"
+  },
+  {
     "name": "source",
     "icontains": true,
     "all": false,
@@ -389,6 +399,10 @@
         "value": "delete"
       },
       {
+        "label": "Ascending number of comments",
+        "value": "comments_count"
+      },
+      {
         "label": "Descending ID",
         "value": "-id"
       },
@@ -411,9 +425,13 @@
       {
         "label": "Descending object deleted",
         "value": "-delete"
+      },
+      {
+        "label": "Descending number of comments",
+        "value": "-comments_count"
       }
     ],
-    "description": "Order the Changesets by one of the following fields: id, date, check_date, create, modify or delete. Use a minus sign (-) before the field name to reverse the ordering. Default ordering is '-id'.",
+    "description": "Order changesets by one of the following fields: id, date, check_date, create, modify, delete or number of comments.",
     "placeholder": "Asceding/Descending "
   },
   {
