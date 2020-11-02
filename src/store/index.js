@@ -13,6 +13,7 @@ import { changesetsPageReducer } from './changesets_page_reducer';
 import { changesetReducer } from './changeset_reducer';
 import { modalReducer } from './modal_reducer';
 import { filtersReducer } from './filters_reducer';
+import { mapControlsReducer } from './map_controls_reducer';
 import { whitelistReducer } from './whitelist_reducer';
 import { blacklistReducer } from './blacklist_reducer';
 import { aoiReducer } from './aoi_reducer';
@@ -22,6 +23,7 @@ import type { ChangesetsPageType } from './changesets_page_reducer';
 import type { ChangesetType } from './changeset_reducer';
 import type { AuthType } from './auth_reducer';
 import type { filtersReducerType } from './filters_reducer';
+import type { mapControlsReducerType } from './map_controls_reducer';
 import type { whitelistReducerType } from './whitelist_reducer';
 import type { blacklistReducerType } from './blacklist_reducer';
 // Sagas
@@ -36,7 +38,8 @@ export type RootStateType = {
   modal: ModalType,
   routing: Object,
   whitelist: whitelistReducerType,
-  blacklist: blacklistReducerType
+  blacklist: blacklistReducerType,
+  mapControls: mapControlsReducerType
 };
 
 // Root reducer
@@ -44,6 +47,7 @@ const reducers = combineReducers({
   changesetsPage: changesetsPageReducer,
   changeset: changesetReducer,
   filters: filtersReducer,
+  mapControls: mapControlsReducer,
   aoi: aoiReducer,
   routing: routerReducer,
   auth: authReducer,
