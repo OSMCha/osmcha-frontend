@@ -5,6 +5,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { Loading } from '../components/loading';
 import { SignIn } from '../components/sign_in';
 import { dispatchEvent } from '../utils/dispatch_event';
+import { updateStyle } from '../store/map_controls_actions';
 import { importChangesetMap } from '../utils/cmap';
 
 import 'changeset-map/public/css/style.css';
@@ -58,7 +59,8 @@ class CMap extends React.PureComponent {
     currentChangesetMap: Object,
     errorChangesetMap: ?Object,
     loadingChangesetMap: boolean,
-    className: string
+    className: string,
+    style: string
   };
   state = {
     visible: false,
@@ -79,6 +81,7 @@ class CMap extends React.PureComponent {
   }
   componentWillUnmount() {
     window.onresize = null;
+    if (this.props.style !== 'satellite') this.props.updateStyle('satellite');
     event && event.emit('remove');
   }
   componentDidUpdate(prevProp: Object) {
@@ -174,15 +177,19 @@ class CMap extends React.PureComponent {
   }
 }
 
-CMap = connect((state: RootStateType, props) => ({
-  changesetId: state.changeset.get('changesetId'),
-  currentChangesetMap: state.changeset.getIn([
-    'changesetMap',
-    state.changeset.get('changesetId')
-  ]),
-  errorChangesetMap: state.changeset.get('errorChangesetMap'),
-  loadingChangesetMap: state.changeset.get('loadingChangesetMap'),
-  token: state.auth.get('token')
-}))(CMap);
+CMap = connect(
+  (state: RootStateType, props) => ({
+    changesetId: state.changeset.get('changesetId'),
+    currentChangesetMap: state.changeset.getIn([
+      'changesetMap',
+      state.changeset.get('changesetId')
+    ]),
+    errorChangesetMap: state.changeset.get('errorChangesetMap'),
+    loadingChangesetMap: state.changeset.get('loadingChangesetMap'),
+    style: state.mapControls.get('style'),
+    token: state.auth.get('token')
+  }),
+  { updateStyle }
+)(CMap);
 
 export { CMap };

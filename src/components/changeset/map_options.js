@@ -1,13 +1,43 @@
 // @flow
 import React from 'react';
-import { importChangesetMap } from '../../utils/cmap';
+import { connect } from 'react-redux';
 
-export class MapOptions extends React.PureComponent {
+import { importChangesetMap } from '../../utils/cmap';
+import { updateStyle } from '../../store/map_controls_actions';
+import { Dropdown } from '../dropdown';
+
+class MapOptions extends React.PureComponent {
   state = {
     actions: true,
     type: true,
     mapStyle: true,
     user: true
+  };
+  layerOptions = [
+    {
+      label: 'Satellite',
+      value: 'satellite',
+      function: () => this.toggleSatellite()
+    },
+    { label: 'Streets', value: 'streets', function: () => this.toggleStreet() },
+    { label: 'Dark', value: 'dark', function: () => this.toggleDark() },
+    { label: 'Bing', value: 'bing', function: () => this.toggleBing() },
+    {
+      label: 'OpenStreetMap Carto',
+      value: 'carto',
+      function: () => this.toggleOsm()
+    }
+  ];
+  getLayerDropdownDisplay = id => {
+    const filteredLayer = this.layerOptions.filter(l => l.value === id);
+    if (filteredLayer.length) return filteredLayer[0].label;
+    return 'Select a style';
+  };
+  onLayerChange = layer => {
+    if (layer && layer.length) {
+      layer[0].function();
+      this.props.updateStyle(layer[0].value);
+    }
   };
   onChange = () => {
     importChangesetMap('getMapInstance').then(
@@ -36,7 +66,7 @@ export class MapOptions extends React.PureComponent {
     const bingStyle = {
       version: 8,
       sources: {
-        'raster-tiles': {
+        'bing-tiles': {
           type: 'raster',
           tiles: [
             'https://ecn.t0.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
@@ -50,9 +80,9 @@ export class MapOptions extends React.PureComponent {
       },
       layers: [
         {
-          id: 'simple-tiles',
+          id: 'bing',
           type: 'raster',
-          source: 'raster-tiles',
+          source: 'bing-tiles',
           minzoom: 0,
           maxzoom: 22
         }
@@ -60,6 +90,36 @@ export class MapOptions extends React.PureComponent {
     };
     importChangesetMap('getMapInstance').then(
       r => r && r() && r().renderMap(bingStyle)
+    );
+  };
+  toggleOsm = () => {
+    const osmStyle = {
+      version: 8,
+      sources: {
+        'osm-tiles': {
+          type: 'raster',
+          tiles: [
+            'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            'https://b.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          ],
+          tileSize: 256,
+          attribution:
+            '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }
+      },
+      layers: [
+        {
+          id: 'osm',
+          type: 'raster',
+          source: 'osm-tiles',
+          minzoom: 0,
+          maxzoom: 22
+        }
+      ]
+    };
+    importChangesetMap('getMapInstance').then(
+      r => r && r() && r().renderMap(osmStyle)
     );
   };
   render() {
@@ -156,60 +216,24 @@ export class MapOptions extends React.PureComponent {
         </section>
         <section className="cmap-map-style-section cmap-pb3">
           <h6 className="cmap-heading pointer txt-bold">Map style</h6>
-
-          <ul className="cmap-hlist">
-            <li>
-              <label className="cmap-hlist-item cmap-noselect pointer">
-                <input
-                  type="radio"
-                  value="satellite"
-                  defaultChecked="true"
-                  name="baselayer"
-                  id="cmap-baselayer-satellite"
-                  onClick={this.toggleSatellite}
-                />
-                <span className="cmap-label-text">Satellite</span>
-              </label>
-            </li>
-            <li>
-              <label className="cmap-hlist-item cmap-noselect pointer">
-                <input
-                  type="radio"
-                  value="streets"
-                  name="baselayer"
-                  id="cmap-baselayer-streets"
-                  onClick={this.toggleStreet}
-                />
-                <span className="cmap-label-text">Streets</span>
-              </label>
-            </li>
-            <li>
-              <label className="cmap-hlist-item cmap-noselect pointer">
-                <input
-                  type="radio"
-                  value="dark"
-                  name="baselayer"
-                  id="cmap-baselayer-dark"
-                  onClick={this.toggleDark}
-                />
-                <span className="cmap-label-text">Dark</span>
-              </label>
-            </li>
-            <li>
-              <label className="cmap-hlist-item cmap-noselect pointer">
-                <input
-                  type="radio"
-                  value="bing"
-                  name="baselayer"
-                  id="cmap-baselayer-bing"
-                  onClick={this.toggleBing}
-                />
-                <span className="cmap-label-text cmap-pointer">Bing</span>
-              </label>
-            </li>
-          </ul>
+          <Dropdown
+            eventTypes={['click', 'touchend']}
+            value={this.props.style}
+            onAdd={() => {}}
+            onRemove={() => {}}
+            options={this.layerOptions}
+            onChange={this.onLayerChange}
+            display={this.getLayerDropdownDisplay(this.props.style)}
+          />
         </section>
       </div>
     );
   }
 }
+
+MapOptions = connect(
+  (state: RootStateType, props) => ({ style: state.mapControls.get('style') }),
+  { updateStyle }
+)(MapOptions);
+
+export { MapOptions };
