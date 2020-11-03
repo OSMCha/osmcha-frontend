@@ -15,12 +15,16 @@ class MapOptions extends React.PureComponent {
   };
   layerOptions = [
     {
-      label: 'Satellite',
+      label: 'Mapbox Satellite',
       value: 'satellite',
       function: () => this.toggleSatellite()
     },
-    { label: 'Streets', value: 'streets', function: () => this.toggleStreet() },
-    { label: 'Dark', value: 'dark', function: () => this.toggleDark() },
+    {
+      label: 'Mapbox Streets',
+      value: 'streets',
+      function: () => this.toggleStreet()
+    },
+    { label: 'Mapbox Dark', value: 'dark', function: () => this.toggleDark() },
     { label: 'Bing', value: 'bing', function: () => this.toggleBing() },
     {
       label: 'OpenStreetMap Carto',
