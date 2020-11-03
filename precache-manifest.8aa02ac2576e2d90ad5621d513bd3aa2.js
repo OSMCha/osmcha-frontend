@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7a6ceeead73f685d4a6e3d62153976cf",
+    "revision": "0ea4a737b43ef800f331f9579a83529c",
     "url": "https://staging.osmcha.org/index.html"
   },
   {
-    "revision": "f01eb289ee8ee7aa7cd0",
+    "revision": "2e43b19b1ad3ba6c1f90",
     "url": "https://staging.osmcha.org/static/css/2.291f62bb.chunk.css"
   },
   {
-    "revision": "3ae38bb19c533dff6959",
+    "revision": "550fd4b13e29b8ed6a72",
     "url": "https://staging.osmcha.org/static/css/main.8606d352.chunk.css"
   },
   {
-    "revision": "f01eb289ee8ee7aa7cd0",
-    "url": "https://staging.osmcha.org/static/js/2.8fa6f280.chunk.js"
+    "revision": "2e43b19b1ad3ba6c1f90",
+    "url": "https://staging.osmcha.org/static/js/2.a36a739e.chunk.js"
   },
   {
     "revision": "59dc5c12b5002672e7f04fcbf15fc018",
-    "url": "https://staging.osmcha.org/static/js/2.8fa6f280.chunk.js.LICENSE.txt"
+    "url": "https://staging.osmcha.org/static/js/2.a36a739e.chunk.js.LICENSE.txt"
   },
   {
     "revision": "61762b02488b2fa71382",
@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://staging.osmcha.org/static/js/3.06604285.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "3ae38bb19c533dff6959",
-    "url": "https://staging.osmcha.org/static/js/main.1cd264e4.chunk.js"
+    "revision": "550fd4b13e29b8ed6a72",
+    "url": "https://staging.osmcha.org/static/js/main.2becf92b.chunk.js"
   },
   {
     "revision": "1582097c60b53fc5d975",
