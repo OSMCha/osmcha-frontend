@@ -1,0 +1,8 @@
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+
+/*! http://mths.be/fromcodepoint v0.1.0 by @mathias */
