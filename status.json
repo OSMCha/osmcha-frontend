@@ -1,4 +1,4 @@
 {
-  "status": "success",
-  "message": "OSMCha is working fine."
+  "status": "warning",
+  "message": "OSMCha has some performance issues that are causing some filters and RSS feeds to fail."
 }
