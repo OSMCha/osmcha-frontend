@@ -1,4 +1,4 @@
 {
-  "status": "warning",
-  "message": "OSMCha will be offline during around 24h, starting from Nov 27th, 21:00 UTC, in order to improve the database performance."
+  "status": "success",
+  "message": "OSMCha is performing well."
 }
