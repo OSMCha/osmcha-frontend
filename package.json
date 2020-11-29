@@ -17,7 +17,7 @@
     "@turf/bbox": "^6.0.1",
     "@turf/simplify": "^5.1.5",
     "animate.css": "^3.7.2",
-    "changeset-map": "^1.7.0",
+    "changeset-map": "^1.8.0",
     "date-input-polyfill": "^2.14.0",
     "history": "^4.10.1",
     "immutable": "^3.8.2",

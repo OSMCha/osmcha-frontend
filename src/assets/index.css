@@ -347,6 +347,10 @@ img {
   background-color: #cc2c47;
 }
 
+.mapboxgl-ctrl-attrib {
+  font-size: 0.5rem;
+}
+
 /* OSMCha Custom CSS*/
 
 .osmcha-custom-table th,
