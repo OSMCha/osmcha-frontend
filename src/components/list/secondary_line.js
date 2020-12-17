@@ -1,7 +1,10 @@
 // @flow
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { CreateDeleteModify } from '../create_delete_modify';
 import { NumberOfComments } from './comments';
+import { getObjAsQueryParam } from '../../utils/query_params';
 
 import thumbsUp from '../../assets/thumbs-up.svg';
 import thumbsDown from '../../assets/thumbs-down.svg';
@@ -10,9 +13,30 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
   return (
     <span className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray">
       <span>
-        <span className="mr6">{changesetId}</span>
+        <Link
+          to={{
+            search: window.location.search,
+            pathname: `/changesets/${changesetId}`
+          }}
+        >
+          <span className="mr6">{changesetId}</span>
+        </Link>
         {properties.get('checked') ? (
-          <span>
+          <Link
+            to={{
+              search: getObjAsQueryParam('filters', {
+                users: [
+                  {
+                    label: properties.get('check_user'),
+                    value: properties.get('check_user')
+                  }
+                ],
+                date__gte: [{ label: '', value: '' }]
+              }),
+              pathname: '/'
+            }}
+            title={`See ${properties.get('check_user')}'s changesets`}
+          >
             {properties.get('harmful') ? (
               <img
                 src={thumbsDown}
@@ -31,7 +55,7 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
                 'check_user'
               )}`}</span>
             )}
-          </span>
+          </Link>
         ) : null}
       </span>
       <span className="flex-parent flex-parent--row">
