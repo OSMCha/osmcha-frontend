@@ -38,10 +38,10 @@ class UserLink extends React.PureComponent {
         className="txt-underline-on-hover txt-bold pointer color-gray"
         to={{
           search: getObjAsQueryParam('filters', {
-            users: [
+            uids: [
               {
-                label: this.props.userDetails.get('name'),
-                value: this.props.userDetails.get('name')
+                label: this.props.userDetails.get('uid'),
+                value: this.props.userDetails.get('uid')
               }
             ],
             harmful: [this.getHarmfulObject()],
