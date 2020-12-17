@@ -2,6 +2,23 @@
 
 Log of changes since the 2.0 version
 
+### 0.76.0
+- Change links on user tab to filter by uid instead of username
+- Add link to user that reviewed the PR on the changeset list
+
+### 0.74.1
+- Update changeset-map to 1.7.0
+
+### 0.74.0
+- Add OpenStreetMap carto map style layer option
+- Improve Map Style selector
+- Add metatags to public HTML
+
+### 0.72.0
+- Show number of comments information on changesets list if it's higher than 0
+- Allow filtering changesets by number of comments
+- Add order by number of comments option
+
 ### 0.70.1
 - Add filter by user id
 - Modify changeset header to include RapiD link and organize better the other links
