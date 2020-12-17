@@ -6,6 +6,7 @@ import { Map } from 'immutable';
 import { SecondaryLine } from './secondary_line';
 import { PrimaryLine } from './primary_line';
 import { Title } from './title';
+import { history } from '../../store/history';
 
 export class Row extends React.PureComponent {
   props: {
@@ -42,13 +43,17 @@ export class Row extends React.PureComponent {
 
     backgroundClass += active
       ? 'light-blue'
-      : this.wasOpen ? ' bg-darken5 ' : '';
+      : this.wasOpen
+      ? ' bg-darken5 '
+      : '';
     return (
-      <Link
-        to={{
-          search: window.location.search,
-          pathname: `/changesets/${changesetId}`
-        }}
+      <div
+        onClick={() =>
+          history.push({
+            search: window.location.search,
+            pathname: `/changesets/${changesetId}`
+          })
+        }
       >
         <div className={`${backgroundClass} ${borderClass}`} ref={inputRef}>
           <div
@@ -58,20 +63,27 @@ export class Row extends React.PureComponent {
             }
           >
             <div className="flex-parent flex-parent--column">
-              <div>
-                <Title
-                  properties={properties}
-                  wasOpen={this.wasOpen}
-                  date={properties.get('date')}
-                />
-              </div>
-              <div>
-                <PrimaryLine
-                  reasons={properties.get('reasons')}
-                  tags={properties.get('tags')}
-                  comment={properties.get('comment')}
-                />
-              </div>
+              <Link
+                to={{
+                  search: window.location.search,
+                  pathname: `/changesets/${changesetId}`
+                }}
+              >
+                <div>
+                  <Title
+                    properties={properties}
+                    wasOpen={this.wasOpen}
+                    date={properties.get('date')}
+                  />
+                </div>
+                <div>
+                  <PrimaryLine
+                    reasons={properties.get('reasons')}
+                    tags={properties.get('tags')}
+                    comment={properties.get('comment')}
+                  />
+                </div>
+              </Link>
               <div>
                 <SecondaryLine
                   changesetId={changesetId}
@@ -82,7 +94,7 @@ export class Row extends React.PureComponent {
             </div>
           </div>
         </div>
-      </Link>
+      </div>
     );
   }
 }
