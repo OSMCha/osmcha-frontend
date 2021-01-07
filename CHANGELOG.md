@@ -2,6 +2,10 @@
 
 Log of changes since the 2.0 version
 
+### 0.76.1
+- Update changeset-map to 1.9.0
+- Update browserslist
+
 ### 0.76.0
 - Change links on user tab to filter by uid instead of username
 - Add link to user that reviewed the PR on the changeset list
