@@ -7,6 +7,8 @@ import {
   CHANGESET_DETAILS_DETAILS,
   CHANGESET_DETAILS_SUSPICIOUS,
   CHANGESET_DETAILS_TAGS,
+  CHANGESET_DETAILS_GEOMETRY_CHANGES,
+  CHANGESET_DETAILS_OTHER_FEATURES,
   CHANGESET_DETAILS_USER,
   CHANGESET_DETAILS_DISCUSSIONS,
   CHANGESET_DETAILS_MAP
@@ -18,6 +20,8 @@ export function ControlLayout({
   discussions,
   toggleDetails,
   toggleFeatures,
+  toggleOtherFeatures,
+  toggleGeometryChanges,
   toggleTags,
   toggleDiscussions,
   toggleUser,
@@ -48,7 +52,7 @@ export function ControlLayout({
       >
         <svg
           className={`icon h18 w18 inline-block align-middle ${
-            features && features.size == 0 ? 'color-darken25' : 'color-black'
+            features && features.size === 0 ? 'color-darken25' : 'color-black'
           }`}
         >
           <use xlinkHref="#icon-alert" />
@@ -65,6 +69,26 @@ export function ControlLayout({
         </svg>
       </Control>
       <Control
+        active={bindingsState.get(CHANGESET_DETAILS_GEOMETRY_CHANGES.label)}
+        onClick={toggleGeometryChanges}
+        bg={'gray-faint'}
+        className="unround"
+      >
+        <svg className="icon h18 w18 inline-block align-middle">
+          <use xlinkHref="#icon-point-line" />
+        </svg>
+      </Control>
+      <Control
+        active={bindingsState.get(CHANGESET_DETAILS_OTHER_FEATURES.label)}
+        onClick={toggleOtherFeatures}
+        bg={'gray-faint'}
+        className="unround"
+      >
+        <svg className="icon h18 w18 inline-block align-middle">
+          <use xlinkHref="#icon-plus" />
+        </svg>
+      </Control>
+      <Control
         active={bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label)}
         onClick={toggleDiscussions}
         bg={'white'}
@@ -72,7 +96,7 @@ export function ControlLayout({
       >
         <svg
           className={`icon h18 w18 inline-block align-middle ${
-            discussions.size == 0 ? 'color-darken25' : 'color-black'
+            discussions.size === 0 ? 'color-darken25' : 'color-black'
           }`}
         >
           <use xlinkHref="#icon-contact" />

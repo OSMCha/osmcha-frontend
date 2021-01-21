@@ -35,16 +35,10 @@ export function processFeatures(features) {
 export function analyzeFeature(newVersion, oldVersion) {
   var oldVersionKeys = Object.keys(oldVersion.properties.tags);
   var newVersionKeys = Object.keys(newVersion.properties.tags);
-  var addedTags = newVersionKeys.filter(
-    tag => oldVersionKeys.indexOf(tag) === -1
-  );
-  var deletedTags = oldVersionKeys.filter(
-    tag => newVersionKeys.indexOf(tag) === -1
-  );
+  var addedTags = newVersionKeys.filter(tag => !oldVersionKeys.includes(tag));
+  var deletedTags = oldVersionKeys.filter(tag => !newVersionKeys.includes(tag));
   var changedValues = newVersionKeys
-    .filter(
-      tag => addedTags.indexOf(tag) === -1 && deletedTags.indexOf(tag) === -1
-    )
+    .filter(tag => !addedTags.includes(tag) && !deletedTags.includes(tag))
     .filter(
       tag => newVersion.properties.tags[tag] !== oldVersion.properties.tags[tag]
     );

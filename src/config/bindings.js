@@ -36,17 +36,25 @@ export const CHANGESET_DETAILS_TAGS = {
   label: 'CHANGESET_DETAILS_TAGS',
   bindings: ['3']
 };
+export const CHANGESET_DETAILS_GEOMETRY_CHANGES = {
+  label: 'CHANGESET_DETAILS_GEOMETRY_CHANGES',
+  bindings: ['4']
+};
+export const CHANGESET_DETAILS_OTHER_FEATURES = {
+  label: 'CHANGESET_DETAILS_OTHER_FEATURES',
+  bindings: ['5']
+};
 export const CHANGESET_DETAILS_DISCUSSIONS = {
   label: 'CHANGESET_DETAILS_DISCUSSIONS',
-  bindings: ['4']
+  bindings: ['6']
 };
 export const CHANGESET_DETAILS_USER = {
   label: 'CHANGESET_DETAILS_USER',
-  bindings: ['5']
+  bindings: ['7']
 };
 export const CHANGESET_DETAILS_MAP = {
   label: 'CHANGESET_DETAILS_MAP',
-  bindings: ['6']
+  bindings: ['8']
 };
 export const VERIFY_GOOD = {
   label: 'VERIFY_GOOD',
