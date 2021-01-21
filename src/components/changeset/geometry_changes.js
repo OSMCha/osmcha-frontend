@@ -111,7 +111,7 @@ class GeometryChanges extends React.PureComponent<void, propsType> {
   }
 
   render() {
-    const changeReport = [];
+    let changeReport = [];
     if (
       this.state &&
       this.state.changes &&
@@ -124,17 +124,16 @@ class GeometryChanges extends React.PureComponent<void, propsType> {
         changeReport.push([tag, featureIDs])
       );
     }
+    changeReport = changeReport.filter(changeType => changeType[1].length);
     return (
       <div className="px12 py6">
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
           Geometry Changes
         </h2>
         {changeReport.length ? (
-          changeReport
-            .filter(changeType => changeType[1].length)
-            .map((changeType, k) => (
-              <GeometryChangesItem key={k} action={changeType} />
-            ))
+          changeReport.map((changeType, k) => (
+            <GeometryChangesItem key={k} action={changeType} />
+          ))
         ) : (
           <span>No geometry changes in this changeset.</span>
         )}

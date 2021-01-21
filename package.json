@@ -1,6 +1,6 @@
 {
   "name": "osmcha-frontend",
-  "version": "0.76.0",
+  "version": "0.78.0",
   "license": "ISC",
   "engines": {
     "node": ">=7.0"
@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "@mapbox/mapbox-gl-draw": "^1.1.2",
-    "@turf/bbox": "^6.0.1",
-    "@turf/simplify": "^5.1.5",
+    "@turf/bbox": "^6.3.0",
+    "@turf/simplify": "^6.3.0",
     "animate.css": "^3.7.2",
-    "changeset-map": "^1.7.0",
+    "changeset-map": "^1.9.1",
     "date-input-polyfill": "^2.14.0",
     "history": "^4.10.1",
     "immutable": "^3.8.2",
@@ -88,8 +88,7 @@
   },
   "browserslist": [
     ">0.2%",
-    "not dead",
-    "not ie <= 11",
+    "not ie 11",
     "not op_mini all"
   ]
 }
