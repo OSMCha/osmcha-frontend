@@ -75,10 +75,6 @@ img {
   min-height: 55px !important;
 }
 
-.hmin186 {
-  min-height: 186px !important;
-}
-
 .hfull-55 {
   height: calc(100% - 55px);
 }

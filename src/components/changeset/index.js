@@ -10,6 +10,8 @@ import { Header } from './header';
 import { User } from './user';
 import { Features } from './features';
 import { TagChanges } from './tag_changes';
+import { OtherFeatures } from './other_features';
+import { GeometryChanges } from './geometry_changes';
 import { Box } from './box';
 import { Discussions } from './discussions';
 import { MapOptions } from './map_options';
@@ -23,6 +25,8 @@ import {
   CHANGESET_DETAILS_DETAILS,
   CHANGESET_DETAILS_SUSPICIOUS,
   CHANGESET_DETAILS_TAGS,
+  CHANGESET_DETAILS_GEOMETRY_CHANGES,
+  CHANGESET_DETAILS_OTHER_FEATURES,
   CHANGESET_DETAILS_USER,
   CHANGESET_DETAILS_DISCUSSIONS,
   CHANGESET_DETAILS_MAP
@@ -120,6 +124,16 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
             <TagChanges changesetId={changesetId} />
           </Box>
         )}
+        {bindingsState.get(CHANGESET_DETAILS_GEOMETRY_CHANGES.label) && (
+          <Box key={5} className=" responsive-box round-tr round-br">
+            <GeometryChanges changesetId={changesetId} />
+          </Box>
+        )}
+        {bindingsState.get(CHANGESET_DETAILS_OTHER_FEATURES.label) && (
+          <Box key={5} className=" responsive-box round-tr round-br">
+            <OtherFeatures changesetId={changesetId} />
+          </Box>
+        )}
         {bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label) && (
           <Box key={1} className=" responsive-box  round-tr round-br">
             <Discussions
@@ -183,9 +197,17 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
     this.props.exclusiveKeyToggle &&
       this.props.exclusiveKeyToggle(CHANGESET_DETAILS_SUSPICIOUS.label);
   };
+  toggleOtherFeatures = () => {
+    this.props.exclusiveKeyToggle &&
+      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_OTHER_FEATURES.label);
+  };
   toggleTags = () => {
     this.props.exclusiveKeyToggle &&
       this.props.exclusiveKeyToggle(CHANGESET_DETAILS_TAGS.label);
+  };
+  toggleGeometryChanges = () => {
+    this.props.exclusiveKeyToggle &&
+      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_GEOMETRY_CHANGES.label);
   };
   toggleDiscussions = () => {
     this.props.exclusiveKeyToggle &&
@@ -212,7 +234,9 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
         <ControlLayout
           toggleDetails={this.toggleDetails}
           toggleFeatures={this.toggleFeatures}
+          toggleOtherFeatures={this.toggleOtherFeatures}
           toggleTags={this.toggleTags}
+          toggleGeometryChanges={this.toggleGeometryChanges}
           toggleDiscussions={this.toggleDiscussions}
           toggleUser={this.toggleUser}
           toggleMapOptions={this.toggleMapOptions}
@@ -234,6 +258,8 @@ let Changeset = keyboardToggleEnhancer(
     CHANGESET_DETAILS_DETAILS,
     CHANGESET_DETAILS_SUSPICIOUS,
     CHANGESET_DETAILS_TAGS,
+    CHANGESET_DETAILS_GEOMETRY_CHANGES,
+    CHANGESET_DETAILS_OTHER_FEATURES,
     CHANGESET_DETAILS_USER,
     CHANGESET_DETAILS_DISCUSSIONS,
     CHANGESET_DETAILS_MAP
