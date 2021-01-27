@@ -1,4 +1,4 @@
 {
-  "status": "success",
-  "message": "OSMCha is performing well."
+  "status": "warning",
+  "message": "We are having trouble with changesets visualizations of the last 2 days. A fix will be deployed very soon."
 }
