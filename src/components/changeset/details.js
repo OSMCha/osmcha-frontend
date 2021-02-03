@@ -77,6 +77,7 @@ export function Details({
                   key={k}
                   className="color-blue"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {Array.isArray(
                     e.match(

@@ -147,8 +147,8 @@ class FiltersHeader extends React.Component<any, filterProps, any> {
   renderAoiLink() {
     if (this.props.aoiId) {
       return (
-        <a
-          className="txt--s pl6 pointer"
+        <div
+          className="txt--s pl6 pointer inline"
           onClick={e =>
             navigator.clipboard.writeText(
               `${API_URL.replace('/api/v1', '')}/?aoi=${this.props.aoiId}`
@@ -159,7 +159,7 @@ class FiltersHeader extends React.Component<any, filterProps, any> {
           <svg className="icon icon--s mt-neg3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
             <use xlinkHref="#icon-link" />
           </svg>
-        </a>
+        </div>
       );
     }
   }

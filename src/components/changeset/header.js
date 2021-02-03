@@ -55,9 +55,9 @@ class Header extends React.PureComponent {
           <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
             <span className="txt-s">
               <strong className="txt-underline-on-hover pointer">
-                <a dir="ltr" onClick={this.props.toggleUser}>
+                <span dir="ltr pointer" onClick={this.props.toggleUser}>
                   {user}
-                </a>
+                </span>
               </strong>
               {is_whitelisted && (
                 <svg className="icon inline-block align-middle pl3 w18 h18 color-gray">

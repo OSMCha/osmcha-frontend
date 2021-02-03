@@ -56,7 +56,7 @@ export function* fetchAOISaga(aoiId: string): any {
       return fromJS(
         v.split(',').map(o => ({
           value: o,
-          label: reasons.filter(i => i.id == o)[0]['name']
+          label: reasons.filter(i => i.id === Number(o))[0]['name']
         }))
       );
     }
@@ -64,7 +64,7 @@ export function* fetchAOISaga(aoiId: string): any {
       return fromJS(
         v.split(',').map(o => ({
           value: o,
-          label: tags.filter(i => i.id == o)[0]['name']
+          label: tags.filter(i => i.id === Number(o))[0]['name']
         }))
       );
     }
