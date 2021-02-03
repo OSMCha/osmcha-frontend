@@ -30,7 +30,7 @@ export function blacklistReducer(
           'blacklist',
           state
             .get('blacklist')
-            .filter(item => item.get('uid') != action.blacklist_user)
+            .filter(item => item.get('uid') !== action.blacklist_user)
         )
         .set('loading', false);
     }

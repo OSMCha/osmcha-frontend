@@ -50,13 +50,13 @@ class DropdownContent extends React.PureComponent {
         className="dropdown-content wmin96 round wmax240"
         style={{ display: 'block' }}
       >
-        {this.props.options.map((i, k) =>
+        {this.props.options.map((i, k) => (
           <span
             key={k}
             onClick={this.handleClick.bind(null, i)}
             className="flex-parent flex-parent--row flex-parent--center-cross py6 px12"
           >
-            {this.props.multi &&
+            {this.props.multi && (
               <input
                 data-label={i.label}
                 data-payload={JSON.stringify(i)}
@@ -64,32 +64,32 @@ class DropdownContent extends React.PureComponent {
                 checked={this.isActive(i)}
                 value={i.label}
                 className="cursor-pointer mt6"
-              />}
-            {i.href
-              ? <a
-                  target={'_blank'}
-                  href={i.href}
-                  onClick={this.props.toggleDropdown}
-                  className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${this.isActive(
-                    i
-                  )
-                    ? 'is-active txt-bold'
-                    : ''}`}
-                >
-                  {i.label}
-                </a>
-              : <a
-                  onClick={this.props.toggleDropdown}
-                  className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${this.isActive(
-                    i
-                  )
-                    ? 'is-active txt-bold'
-                    : ''}`}
-                >
-                  {i.label}
-                </a>}
-            {this.props.deletable &&
+              />
+            )}
+            {i.href ? (
               <a
+                target={'_blank'}
+                rel="noopener noreferrer"
+                href={i.href}
+                onClick={this.props.toggleDropdown}
+                className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${
+                  this.isActive(i) ? 'is-active txt-bold' : ''
+                }`}
+              >
+                {i.label}
+              </a>
+            ) : (
+              <span
+                onClick={this.props.toggleDropdown}
+                className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${
+                  this.isActive(i) ? 'is-active txt-bold' : ''
+                }`}
+              >
+                {i.label}
+              </span>
+            )}
+            {this.props.deletable && (
+              <span
                 onClick={e => {
                   e.preventDefault();
                   e.stopPropagation();
@@ -98,9 +98,10 @@ class DropdownContent extends React.PureComponent {
                 }}
               >
                 x
-              </a>}
+              </span>
+            )}
           </span>
-        )}
+        ))}
       </div>
     );
   }
@@ -149,16 +150,15 @@ export class _Dropdown extends React.PureComponent {
           onClick={this.toggleDropdown}
           className="wmin96"
         >
-          <span>
-            {this.props.display}
-          </span>
+          <span>{this.props.display}</span>
         </Button>
-        {this.state.display &&
+        {this.state.display && (
           <DropdownContent
             {...this.props}
             eventTypes={['click', 'touchend']}
             toggleDropdown={this.toggleDropdown}
-          />}
+          />
+        )}
       </div>
     );
   }

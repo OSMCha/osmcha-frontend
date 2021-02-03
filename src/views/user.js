@@ -100,8 +100,8 @@ class User extends React.PureComponent<any, propsType, any> {
               <p className="flex-child txt-bold w120">API key: </p>
               <p className="flex-child">
                 <span className="pre pb6 pt6">Token {this.props.token}</span>
-                <a
-                  className="txt--s pl6 pointer"
+                <div
+                  className="txt--s pl6 pointer inline"
                   onClick={e =>
                     navigator.clipboard.writeText(`Token ${this.props.token}`)
                   }
@@ -110,7 +110,7 @@ class User extends React.PureComponent<any, propsType, any> {
                   <svg className="icon icon--m mt-neg3 inline-block align-middle color-darken25 color-darken50-on-hover transition">
                     <use xlinkHref="#icon-clipboard" />
                   </svg>
-                </a>
+                </div>
               </p>
             </span>
 
