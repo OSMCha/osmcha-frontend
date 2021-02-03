@@ -2,6 +2,19 @@
 
 Log of changes since the 2.0 version
 
+### 0.78.2
+- Update changeset-map to 1.9.3 (#515)
+- Get comments from OSM API (#515)
+- Lint code (#516)
+
+### 0.78.1
+- Update changeset-map to 1.9.2 (#513)
+
+### 0.78.0
+- Update changeset-map to 1.9.1 (#512)
+- List geometry changes, modified relations, created and deleted features (#511)
+- Use json format to get user data from OSM API (#510)
+
 ### 0.76.1
 - Update changeset-map to 1.9.0
 - Update browserslist
