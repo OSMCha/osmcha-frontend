@@ -1,5 +1,5 @@
 // @flow
-import { Map, List } from 'immutable';
+import { Map, List, fromJS } from 'immutable';
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSGroup from 'react-transition-group/CSSTransitionGroup';
@@ -138,7 +138,11 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
           <Box key={1} className=" responsive-box  round-tr round-br">
             <Discussions
               changesetId={changesetId}
-              discussions={data.getIn(['osmComments'], List())}
+              discussions={
+                this.props.osmInfo
+                  ? this.props.osmInfo.getIn(['changeset', 'comments'])
+                  : List()
+              }
               changesetIsHarmful={properties.get('harmful')}
             />
           </Box>
@@ -227,7 +231,7 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
   };
 
   render() {
-    const { data, bindingsState, currentChangeset } = this.props;
+    const { bindingsState, currentChangeset } = this.props;
     const features = currentChangeset.getIn(['properties', 'features']);
     return (
       <div className="flex-child clip">
@@ -242,7 +246,11 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
           toggleMapOptions={this.toggleMapOptions}
           features={features}
           bindingsState={bindingsState}
-          discussions={data && data.getIn(['osmComments'], List())}
+          discussions={
+            this.props.osmInfo
+              ? this.props.osmInfo.getIn(['changeset', 'comments'])
+              : List()
+          }
         />
         <Floater style={{ marginTop: 5, marginLeft: 41 }}>
           {this.showFloaters()}
@@ -278,10 +286,6 @@ Changeset = withFetchDataSilent(
         props.token
       )
     ),
-    osmComments: cancelableFetchJSON(
-      `${API_URL}/changesets/${props.changesetId}/comment/`,
-      props.token
-    ),
     whosThat: cancelablePromise(
       getUsers(props.currentChangeset.getIn(['properties', 'uid'], ''))
     )
@@ -292,7 +296,8 @@ Changeset = withFetchDataSilent(
 );
 
 Changeset = connect((state: RootStateType, props) => ({
-  token: state.auth.get('token')
+  token: state.auth.get('token'),
+  osmInfo: fromJS(state.changeset.getIn(['changesetMap', props.changesetId]))
 }))(Changeset);
 
 export { Changeset };
