@@ -38,19 +38,19 @@ class Discussions extends React.PureComponent {
             >
               <div className="flex-parent flex-parent--row justify--space-between txt-s ">
                 <span>
-                  By <strong>{f.get('userName')}&nbsp;</strong>
+                  By <strong>{f.get('user')}&nbsp;</strong>
                 </span>
-                <span>{moment(f.get('timestamp')).fromNow()}</span>
+                <span>{moment(f.get('date')).fromNow()}</span>
               </div>
               <div className="flex-parent flex-parent--column mt6 mb3">
                 <p className="txt-break-url">
-                  <AnchorifyText text={f.get('comment')}>
+                  <AnchorifyText text={f.get('text')}>
                     <AssemblyAnchor />
                   </AnchorifyText>
                 </p>
               </div>
               <div className="flex-parent justify--flex-end">
-                <TranslateButton text={f.get('comment')} />
+                <TranslateButton text={f.get('text')} />
               </div>
             </div>
           ))}
