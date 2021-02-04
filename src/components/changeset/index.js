@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSGroup from 'react-transition-group/CSSTransitionGroup';
 
-import { cancelablePromise, cancelableFetchJSON } from '../../utils/promise';
+import { cancelablePromise } from '../../utils/promise';
 import { Floater } from './floater';
 import { Header } from './header';
 import { User } from './user';
@@ -18,7 +18,6 @@ import { MapOptions } from './map_options';
 import { ControlLayout } from './control_layout';
 import { keyboardToggleEnhancer } from '../keyboard_enhancer';
 import { withFetchDataSilent } from '../fetch_data_enhancer';
-import { API_URL } from '../../config';
 import { getUserDetails } from '../../network/openstreetmap';
 import { getUsers } from '../../network/whosthat';
 import {
