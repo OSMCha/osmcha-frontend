@@ -7,7 +7,7 @@ The current OSMCHA is broken into two repositories. You can file bug in any of t
 ## Code of Conduct
 
 Please read the project
-[Code of Conduct](CODE_OF_CONDUCT.md) and remember to be nice to one another.
+[Code of Conduct](CODE-OF-CONDUCT.md) and remember to be nice to one another.
 
 ## Reporting Issues
 
