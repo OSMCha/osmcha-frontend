@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { is } from 'immutable';
+import { is, OrderedSet } from 'immutable';
 
 import type { RootStateType } from '../store';
 import { selectFeature } from '../../views/map';
@@ -21,10 +21,15 @@ export function processFeatures(features) {
   analyzedFeatures.map(item =>
     keys.map(key =>
       item.get(key).forEach(tag => {
-        if (finalReport.get(tag)) {
-          finalReport.set(tag, finalReport.get(tag).concat([item.get('id')]));
+        if (finalReport.get(tag[0])) {
+          finalReport.set(
+            tag[0],
+            finalReport
+              .get(tag[0])
+              .concat([{ id: item.get('id'), value: tag[1] }])
+          );
         } else {
-          finalReport.set(tag, [item.get('id')]);
+          finalReport.set(tag[0], [{ id: item.get('id'), value: tag[1] }]);
         }
       })
     )
@@ -33,23 +38,40 @@ export function processFeatures(features) {
 }
 
 export function analyzeFeature(newVersion, oldVersion) {
-  var oldVersionKeys = Object.keys(oldVersion.properties.tags);
-  var newVersionKeys = Object.keys(newVersion.properties.tags);
-  var addedTags = newVersionKeys.filter(tag => !oldVersionKeys.includes(tag));
-  var deletedTags = oldVersionKeys.filter(tag => !newVersionKeys.includes(tag));
-  var changedValues = newVersionKeys
+  const oldVersionKeys = Object.keys(oldVersion.properties.tags);
+  const newVersionKeys = Object.keys(newVersion.properties.tags);
+  const addedTags = newVersionKeys.filter(tag => !oldVersionKeys.includes(tag));
+  const deletedTags = oldVersionKeys.filter(
+    tag => !newVersionKeys.includes(tag)
+  );
+  const changedValues = newVersionKeys
     .filter(tag => !addedTags.includes(tag) && !deletedTags.includes(tag))
     .filter(
       tag => newVersion.properties.tags[tag] !== oldVersion.properties.tags[tag]
     );
-  var result = new Map();
+  const result = new Map();
   result
     .set('id', newVersion.properties.id)
-    .set('addedTags', addedTags.map(tag => `Added tag ${tag}`))
-    .set('deletedTags', deletedTags.map(tag => `Deleted tag ${tag}`))
+    .set(
+      'addedTags',
+      addedTags.map(tag => [
+        `Added tag ${tag}`,
+        newVersion.properties.tags[tag]
+      ])
+    )
+    .set(
+      'deletedTags',
+      deletedTags.map(tag => [
+        `Deleted tag ${tag}`,
+        oldVersion.properties.tags[tag]
+      ])
+    )
     .set(
       'changedValues',
-      changedValues.map(tag => `Changed value of tag ${tag}`)
+      changedValues.map(tag => [
+        `Changed value of tag ${tag}`,
+        [oldVersion.properties.tags[tag], newVersion.properties.tags[tag]]
+      ])
     );
   return result;
 }
@@ -64,6 +86,26 @@ function FeatureListItem(props) {
   );
 }
 
+function ChangeTitle({ value, type }) {
+  if (type.startsWith('Added')) {
+    return <span className="txt-code cmap-bg-create-light">{value}</span>;
+  }
+  if (type.startsWith('Deleted')) {
+    return <span className="txt-code cmap-bg-delete-light">{value}</span>;
+  }
+  if (type.startsWith('Changed')) {
+    const [oldValue, newValue] = value;
+    return (
+      <span>
+        <span className="txt-code cmap-bg-modify-old-light">{oldValue}</span>
+        <strong> ➜ </strong>
+        <span className="txt-code cmap-bg-modify-new-light">{newValue}</span>
+      </span>
+    );
+  }
+  return <div></div>;
+}
+
 export class ChangeItem extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -71,7 +113,8 @@ export class ChangeItem extends React.PureComponent {
       opened: false
     };
     this.tag = props.change[0];
-    this.value = props.change[1];
+    this.features = props.change[1];
+    this.values = new OrderedSet(this.features.map(feature => feature.value));
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange() {
@@ -97,22 +140,32 @@ export class ChangeItem extends React.PureComponent {
               <use xlinkHref={'#icon-chevron-right'} />
             </svg>
           )}
-          {this.tag.slice(0, last_space)}
+          <span className="txt-bold">{this.tag.slice(0, last_space)}</span>
           <span className="txt-code">{this.tag.slice(last_space)}</span>
           <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
-            {this.value.length}
+            {this.features.length}
           </strong>
         </span>
-        <ul
-          className="cmap-vlist"
-          style={{
-            display: this.state.opened ? 'block' : 'none'
-          }}
-        >
-          {this.value.map((id, k) => (
-            <FeatureListItem id={id} key={k} />
-          ))}
-        </ul>
+        {this.values.map((value, n) => (
+          <div
+            className="ml18 py3"
+            style={{ display: this.state.opened ? 'block' : 'none' }}
+            key={n}
+          >
+            <ChangeTitle value={value} type={this.tag} />
+            <ul className="ml6">
+              {this.features
+                .filter(feature => feature.value === value)
+                .map((feature, k) => (
+                  <FeatureListItem
+                    id={feature.id}
+                    value={feature.value}
+                    key={k}
+                  />
+                ))}
+            </ul>
+          </div>
+        ))}
       </div>
     );
   }
@@ -147,11 +200,14 @@ class TagChanges extends React.PureComponent<void, propsType> {
       const changes = this.state.changes.get(this.props.changesetId)[
         'featureMap'
       ];
-      processFeatures(
+      const processed = processFeatures(
         getFeatures(changes).filter(
           item => item.length === 2 && item[0].properties.action === 'modify'
         )
-      ).forEach((featureIDs, tag) => changeReport.push([tag, featureIDs]));
+      );
+      processed.forEach((featureIDs, tag) =>
+        changeReport.push([tag, featureIDs])
+      );
     }
     return (
       <div className="px12 py6">
