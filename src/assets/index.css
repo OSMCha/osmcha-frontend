@@ -343,6 +343,22 @@ img {
   background-color: #cc2c47;
 }
 
+.cmap-bg-create-light {
+  background-color: #beefe7;
+}
+
+.cmap-bg-modify-old-light {
+  background-color: #f4dfb5;
+}
+
+.cmap-bg-modify-new-light {
+  background-color: #f8f8c7;
+}
+
+.cmap-bg-delete-light {
+  background-color: #ebbac2;
+}
+
 /* OSMCha Custom CSS*/
 
 .osmcha-custom-table th,
