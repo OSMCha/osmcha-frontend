@@ -42,11 +42,18 @@ class GeometryChangesItem extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      opened: false
+      opened: props.opened || false
     };
     this.tag = props.action[0];
     this.value = props.action[1];
     this.handleChange = this.handleChange.bind(this);
+  }
+  componentWillReceiveProps(nextProps: propsType) {
+    if (!is(this.props.opened, nextProps.opened)) {
+      this.setState({
+        opened: nextProps.opened
+      });
+    }
   }
   handleChange() {
     this.setState({ opened: !this.state.opened });
@@ -71,7 +78,7 @@ class GeometryChangesItem extends React.PureComponent {
               <use xlinkHref={'#icon-chevron-right'} />
             </svg>
           )}
-          <span>{titles[this.tag]}</span>
+          <span className="txt-bold">{titles[this.tag]}</span>
           <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
             {this.value.length}
           </strong>
@@ -99,7 +106,8 @@ type propsType = {|
 class GeometryChanges extends React.PureComponent<void, propsType> {
   state = {
     changesetId: this.props.changesetId,
-    changes: this.props.changes
+    changes: this.props.changes,
+    openAll: false
   };
 
   componentWillReceiveProps(nextProps: propsType) {
@@ -127,12 +135,30 @@ class GeometryChanges extends React.PureComponent<void, propsType> {
     changeReport = changeReport.filter(changeType => changeType[1].length);
     return (
       <div className="px12 py6">
-        <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
-          Geometry Changes
-        </h2>
+        <div className="pb6">
+          <h2 className="inline txt-m txt-uppercase txt-bold mr6 mb3">
+            Geometry Changes
+          </h2>
+          <div className="inline-block fr">
+            <label class="inline-block txt-s checkbox-container">
+              <input
+                type="checkbox"
+                className="pointer align-b"
+                onChange={() => this.setState({ openAll: !this.state.openAll })}
+              />
+              <span className="txt-s">
+                {this.state.openAll ? 'Close all' : 'Open all'}
+              </span>
+            </label>
+          </div>
+        </div>
         {changeReport.length ? (
           changeReport.map((changeType, k) => (
-            <GeometryChangesItem key={k} action={changeType} />
+            <GeometryChangesItem
+              key={k}
+              action={changeType}
+              opened={this.state.openAll}
+            />
           ))
         ) : (
           <span>No geometry changes in this changeset.</span>
