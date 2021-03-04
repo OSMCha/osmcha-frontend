@@ -2,6 +2,10 @@
 
 Log of changes since the 2.0 version
 
+### 0.79.0
+- Add toggle to open & close all list items on feature tabs (#523, #524)
+- Show tag changes values on the list (#522)
+
 ### 0.78.2
 - Update changeset-map to 1.9.3 (#515)
 - Get comments from OSM API (#515)
