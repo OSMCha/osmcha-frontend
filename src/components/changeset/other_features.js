@@ -7,6 +7,7 @@ import { is } from 'immutable';
 import type { RootStateType } from '../store';
 import { selectFeature } from '../../views/map';
 import { getFeatures } from './tag_changes';
+import { Loading } from '../loading';
 
 function processFeatures(features) {
   const finalReport = new Map();
@@ -144,31 +145,39 @@ class OtherFeatures extends React.PureComponent<void, propsType> {
           <h2 className="inline txt-m txt-uppercase txt-bold mr6 mb3">
             Other features
           </h2>
-          <div className="inline-block fr">
-            <label class="inline-block txt-s checkbox-container">
-              <input
-                type="checkbox"
-                className="pointer align-b"
-                onChange={() => this.setState({ openAll: !this.state.openAll })}
-              />
-              <span className="txt-s">
-                {this.state.openAll ? 'Close all' : 'Open all'}
-              </span>
-            </label>
-          </div>
+          {changeReport.filter(changeType => changeType[1].length).length ? (
+            <div className="inline-block fr">
+              <label className="inline-block txt-s">
+                <input
+                  type="checkbox"
+                  className="pointer align-b"
+                  onChange={() =>
+                    this.setState({ openAll: !this.state.openAll })
+                  }
+                />
+                <span className="txt-s">
+                  {this.state.openAll ? 'Close all' : 'Open all'}
+                </span>
+              </label>
+            </div>
+          ) : null}
         </div>
-        {changeReport.length ? (
-          changeReport
-            .filter(changeType => changeType[1].length)
-            .map((changeType, k) => (
-              <ActionItem
-                key={k}
-                action={changeType}
-                opened={this.state.openAll}
-              />
-            ))
+        {this.state.changes.size ? (
+          changeReport.filter(changeType => changeType[1].length).length ? (
+            changeReport
+              .filter(changeType => changeType[1].length)
+              .map((changeType, k) => (
+                <ActionItem
+                  key={k}
+                  action={changeType}
+                  opened={this.state.openAll}
+                />
+              ))
+          ) : (
+            <span>No created and deleted features in this changeset.</span>
+          )
         ) : (
-          <span>No created and deleted features in this changeset.</span>
+          <Loading className="pt18" />
         )}
       </div>
     );
