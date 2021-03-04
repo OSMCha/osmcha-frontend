@@ -7,6 +7,7 @@ import { is } from 'immutable';
 import type { RootStateType } from '../store';
 import { selectFeature } from '../../views/map';
 import { getFeatures } from './tag_changes';
+import { Loading } from '../loading';
 
 function processFeatures(features) {
   const finalReport = new Map();
@@ -139,29 +140,37 @@ class GeometryChanges extends React.PureComponent<void, propsType> {
           <h2 className="inline txt-m txt-uppercase txt-bold mr6 mb3">
             Geometry Changes
           </h2>
-          <div className="inline-block fr">
-            <label class="inline-block txt-s checkbox-container">
-              <input
-                type="checkbox"
-                className="pointer align-b"
-                onChange={() => this.setState({ openAll: !this.state.openAll })}
-              />
-              <span className="txt-s">
-                {this.state.openAll ? 'Close all' : 'Open all'}
-              </span>
-            </label>
-          </div>
+          {changeReport.length ? (
+            <div className="inline-block fr">
+              <label class="inline-block txt-s checkbox-container">
+                <input
+                  type="checkbox"
+                  className="pointer align-b"
+                  onChange={() =>
+                    this.setState({ openAll: !this.state.openAll })
+                  }
+                />
+                <span className="txt-s">
+                  {this.state.openAll ? 'Close all' : 'Open all'}
+                </span>
+              </label>
+            </div>
+          ) : null}
         </div>
-        {changeReport.length ? (
-          changeReport.map((changeType, k) => (
-            <GeometryChangesItem
-              key={k}
-              action={changeType}
-              opened={this.state.openAll}
-            />
-          ))
+        {this.state.changes.size ? (
+          changeReport.length ? (
+            changeReport.map((changeType, k) => (
+              <GeometryChangesItem
+                key={k}
+                action={changeType}
+                opened={this.state.openAll}
+              />
+            ))
+          ) : (
+            <span>No geometry changes in this changeset.</span>
+          )
         ) : (
-          <span>No geometry changes in this changeset.</span>
+          <Loading className="pt18" />
         )}
       </div>
     );

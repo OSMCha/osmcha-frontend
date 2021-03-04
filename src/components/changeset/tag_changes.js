@@ -6,6 +6,7 @@ import { is, OrderedSet } from 'immutable';
 
 import type { RootStateType } from '../store';
 import { selectFeature } from '../../views/map';
+import { Loading } from '../loading';
 
 export function getFeatures(features) {
   var keys = Object.keys(features);
@@ -199,6 +200,7 @@ class TagChanges extends React.PureComponent<void, propsType> {
   }
 
   render() {
+    console.log(this.state.changes);
     const changeReport = [];
     if (
       this.state &&
@@ -223,27 +225,39 @@ class TagChanges extends React.PureComponent<void, propsType> {
           <h2 className="inline txt-m txt-uppercase txt-bold mr6 mb3">
             Tag changes
           </h2>
-          <div className="inline-block fr">
-            <label class="inline-block txt-s checkbox-container">
-              <input
-                type="checkbox"
-                className="pointer align-b"
-                onChange={() => this.setState({ openAll: !this.state.openAll })}
-              />
-              <span className="txt-s">
-                {this.state.openAll ? 'Close all' : 'Open all'}
-              </span>
-            </label>
-          </div>
+          {changeReport.length ? (
+            <div className="inline-block fr">
+              <label className="inline-block txt-s">
+                <input
+                  type="checkbox"
+                  className="pointer align-b"
+                  onChange={() =>
+                    this.setState({ openAll: !this.state.openAll })
+                  }
+                />
+                <span className="txt-s">
+                  {this.state.openAll ? 'Close all' : 'Open all'}
+                </span>
+              </label>
+            </div>
+          ) : null}
         </div>
-        {changeReport.length ? (
-          changeReport
-            .sort()
-            .map((change, k) => (
-              <ChangeItem key={k} change={change} opened={this.state.openAll} />
-            ))
+        {this.state.changes.size ? (
+          changeReport.length ? (
+            changeReport
+              .sort()
+              .map((change, k) => (
+                <ChangeItem
+                  key={k}
+                  change={change}
+                  opened={this.state.openAll}
+                />
+              ))
+          ) : (
+            <span>No tags were changed in this changeset.</span>
+          )
         ) : (
-          <span>No tags were changed in this changeset.</span>
+          <Loading className="pt18" />
         )}
       </div>
     );
