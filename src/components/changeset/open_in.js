@@ -1,5 +1,27 @@
 import React from 'react';
+
+import { importChangesetMap } from '../../utils/cmap';
 import { Dropdown } from '../dropdown';
+
+function openEditor(selected) {
+  importChangesetMap('getMapInstance')
+    .then(r => r && r() && r().map)
+    .then(map => {
+      let baseUrl;
+      if (selected && selected[0].value === 'iD') {
+        baseUrl = 'https://www.openstreetmap.org/edit?editor=id&';
+      }
+      if (selected && selected[0].value === 'RapiD') {
+        baseUrl = 'https://mapwith.ai/rapid?';
+      }
+      if (baseUrl) {
+        const center = map.getCenter();
+        const zoom = map.getZoom();
+        let windowObjectReference = window.open('editor - OSMCha');
+        windowObjectReference.location.href = `${baseUrl}#map=${zoom}/${center.lat}/${center.lng}`;
+      }
+    });
+}
 
 export function OpenIn({ changesetId, coordinates, className }) {
   return (
@@ -8,6 +30,7 @@ export function OpenIn({ changesetId, coordinates, className }) {
         onAdd={() => {}}
         onRemove={() => {}}
         value={[]}
+        onChange={openEditor}
         options={[
           {
             label: 'Achavi',
@@ -16,9 +39,7 @@ export function OpenIn({ changesetId, coordinates, className }) {
           },
           {
             label: 'iD',
-            value: 'iD',
-            href: `https://www.openstreetmap.org/edit?editor=id&changeset=${changesetId}#map=15/${coordinates &&
-              coordinates.get('1')}/${coordinates && coordinates.get('0')}`
+            value: 'iD'
           },
           {
             label: 'JOSM',
@@ -32,9 +53,7 @@ export function OpenIn({ changesetId, coordinates, className }) {
           },
           {
             label: 'RapiD',
-            value: 'RapiD',
-            href: `https://mapwith.ai/rapid?changeset=${changesetId}#map=15/${coordinates &&
-              coordinates.get('1')}/${coordinates && coordinates.get('0')}`
+            value: 'RapiD'
           }
         ]}
         display="Open with"
