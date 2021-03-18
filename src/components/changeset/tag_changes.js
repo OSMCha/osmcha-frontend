@@ -27,10 +27,14 @@ export function processFeatures(features) {
             tag[0],
             finalReport
               .get(tag[0])
-              .concat([{ id: item.get('id'), value: tag[1] }])
+              .concat([
+                { id: item.get('id'), type: item.get('type'), value: tag[1] }
+              ])
           );
         } else {
-          finalReport.set(tag[0], [{ id: item.get('id'), value: tag[1] }]);
+          finalReport.set(tag[0], [
+            { id: item.get('id'), type: item.get('type'), value: tag[1] }
+          ]);
         }
       })
     )
@@ -53,6 +57,7 @@ export function analyzeFeature(newVersion, oldVersion) {
   const result = new Map();
   result
     .set('id', newVersion.properties.id)
+    .set('type', newVersion.properties.type)
     .set(
       'addedTags',
       addedTags.map(tag => [
@@ -77,11 +82,14 @@ export function analyzeFeature(newVersion, oldVersion) {
   return result;
 }
 
-function FeatureListItem(props) {
+export function FeatureListItem({ id, type }) {
   return (
     <li>
-      <span className="pointer" onClick={() => selectFeature(props.id)}>
-        {props.id}
+      <span
+        className="pointer txt-bold-on-hover"
+        onClick={() => selectFeature(id)}
+      >
+        {type} {id}
       </span>
     </li>
   );
@@ -167,6 +175,7 @@ export class ChangeItem extends React.PureComponent {
                 .map((feature, k) => (
                   <FeatureListItem
                     id={feature.id}
+                    type={feature.type}
                     value={feature.value}
                     key={k}
                   />

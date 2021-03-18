@@ -327,6 +327,10 @@ img {
   z-index: 0 !important;
 }
 
+.txt-bold-on-hover:hover {
+  font-weight: 600;
+}
+
 .cmap-bg-create {
   background-color: #39dbc0;
 }
