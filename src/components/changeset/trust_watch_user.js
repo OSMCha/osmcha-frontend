@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 import { Dropdown } from '../dropdown';
 import {
-  addToBlacklist,
-  removeFromBlacklist
-} from '../../store/blacklist_actions';
+  addToWatchlist,
+  removeFromWatchlist
+} from '../../store/watchlist_actions';
 import {
   addToWhitelist,
   removeFromWhitelist
@@ -14,9 +14,9 @@ import {
 type propsType = {
   user: Map<string, any>,
   whitelisted: Map<string, *>,
-  blacklisted: Map<object, *>,
-  addToBlacklist: string => void,
-  removeFromBlacklist: string => void,
+  watchlisted: Map<object, *>,
+  addToWatchlist: string => void,
+  removeFromWatchlist: string => void,
   addToWhitelist: string => void,
   removeFromWhitelist: string => void
 };
@@ -25,14 +25,11 @@ class TrustWatchUser extends React.PureComponent<any, propsType, any> {
   handleVerify = (arr: Array<Object>) => {
     const username = this.props.user.get('name');
     const uid = this.props.user.get('uid');
-    console.log(uid);
     if (arr.length === 1) {
       if (arr[0].value === false) {
-        console.log('blacklisting');
-        this.props.addToBlacklist({ username, uid });
+        this.props.addToWatchlist({ username, uid });
       }
       if (arr[0].value === true) {
-        console.log('whitelisting');
         this.props.addToWhitelist(username);
       }
     } else if (arr.length > 1) {
@@ -43,22 +40,22 @@ class TrustWatchUser extends React.PureComponent<any, propsType, any> {
   handleVerifyClear = () => {
     const is_whitelisted =
       this.props.whitelisted.indexOf(this.props.user.get('name')) !== -1;
-    const is_blacklisted =
-      this.props.blacklisted
+    const is_watchlisted =
+      this.props.watchlisted
         .map(user => user.get('uid'))
         .indexOf(this.props.user.get('uid')) !== -1;
 
-    if (is_blacklisted) {
-      this.props.removeFromBlacklist(this.props.user.get('uid'));
+    if (is_watchlisted) {
+      this.props.removeFromWatchlist(this.props.user.get('uid'));
     } else if (is_whitelisted) {
       this.props.removeFromWhitelist(this.props.user.get('name'));
     }
   };
 
   render() {
-    const blacklisted = this.props.blacklisted.map(user => user.get('uid'));
+    const watchlisted = this.props.watchlisted.map(user => user.get('uid'));
 
-    if (blacklisted.includes(this.props.user.get('uid'))) {
+    if (watchlisted.includes(this.props.user.get('uid'))) {
       return (
         <div className="flex-parent-inline">
           <span className="btn btn--s border border--1 round color-gray transition pl12 pr6 bg-lighten50 border--red-light">
@@ -70,7 +67,7 @@ class TrustWatchUser extends React.PureComponent<any, propsType, any> {
             </span>
             <svg
               onClick={() =>
-                this.props.removeFromBlacklist(this.props.user.get('uid'))
+                this.props.removeFromWatchlist(this.props.user.get('uid'))
               }
               className="icon inline-block align-middle pl3 pb3 w18 h18 pointer color-gray"
             >
@@ -133,11 +130,11 @@ class TrustWatchUser extends React.PureComponent<any, propsType, any> {
 TrustWatchUser = connect(
   (state: RootStateType, props) => ({
     whitelisted: state.whitelist.get('whitelist'),
-    blacklisted: state.blacklist.get('blacklist')
+    watchlisted: state.watchlist.get('watchlist')
   }),
   {
-    addToBlacklist,
-    removeFromBlacklist,
+    addToWatchlist,
+    removeFromWatchlist,
     addToWhitelist,
     removeFromWhitelist
   }

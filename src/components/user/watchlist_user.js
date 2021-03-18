@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from '../button';
 import { handleErrors } from '../../network/aoi';
 
-export class BlackListUser extends React.Component {
+export class WatchListUser extends React.Component {
   state = {
     username: '',
     uid: '',
@@ -23,27 +23,36 @@ export class BlackListUser extends React.Component {
   };
   fetchUsername = (username: string) =>
     fetch(
-      `https://osm-comments-api.mapbox.com/api/v1/users/name/${
-        this.state.username
-      }`
+      `https://www.openstreetmap.org/api/0.6/changesets?display_name=${this.state.username}`
     )
       .then(handleErrors)
-      .then(r => r.json());
+      .then(r => r.text())
+      .then(r => {
+        try {
+          const parser = new DOMParser();
+          const xml = parser.parseFromString(r, 'text/xml');
+          return (
+            xml.getElementsByTagName('osm')[0] &&
+            xml
+              .getElementsByTagName('osm')[0]
+              .firstElementChild.getAttribute('uid')
+          );
+        } catch (e) {
+          handleErrors();
+        }
+      });
 
   fetchUid = (uid: string) =>
-    fetch(`https://osm-comments-api.mapbox.com/api/v1/users/id/${uid}`)
+    fetch(`https://www.openstreetmap.org/api/0.6/user/${uid}.json`)
       .then(handleErrors)
       .then(r => r.json());
 
   verifyInput = () => {
     if (this.state.uid.length > 0 && this.state.username.length === 0) {
       this.fetchUid(this.state.uid)
-        .then(x => {
-          return x;
-        })
         .then(r => ({
-          uid: r.id.toString(),
-          username: r.name
+          uid: r.user.id.toString(),
+          username: r.user.display_name
         }))
         .then(r =>
           this.setState({
@@ -58,8 +67,8 @@ export class BlackListUser extends React.Component {
     } else if (this.state.username.length > 0 && this.state.uid.length === 0) {
       this.fetchUsername(this.state.username)
         .then(r => ({
-          uid: r.id.toString(),
-          username: r.name
+          uid: r.toString(),
+          username: this.state.username
         }))
         .then(x => {
           return x;

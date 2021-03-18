@@ -14,7 +14,7 @@ class Header extends React.PureComponent {
     userEditCount: number,
     toggleUser: () => mixed,
     whitelisted: Map<string, *>,
-    blacklisted: Map<object, *>
+    watchlisted: Map<object, *>
   };
   render() {
     const user = this.props.properties.get('user');
@@ -22,19 +22,19 @@ class Header extends React.PureComponent {
     const create = this.props.properties.get('create');
     const modify = this.props.properties.get('modify');
     const destroy = this.props.properties.get('delete');
-    let is_whitelisted, is_blacklisted;
+    let is_whitelisted, is_watchlisted;
     try {
       is_whitelisted = this.props.whitelisted.indexOf(user) !== -1;
     } catch (e) {
       is_whitelisted = false;
     }
     try {
-      is_blacklisted =
-        this.props.blacklisted
+      is_watchlisted =
+        this.props.watchlisted
           .map(user => user.get('uid'))
           .indexOf(this.props.properties.get('uid')) !== -1;
     } catch (e) {
-      is_blacklisted = false;
+      is_watchlisted = false;
     }
 
     return (
@@ -64,7 +64,7 @@ class Header extends React.PureComponent {
                   <use xlinkHref="#icon-star" />
                 </svg>
               )}
-              {is_blacklisted && (
+              {is_watchlisted && (
                 <svg className="icon inline-block align-middle pl3 w18 h18 color-gray">
                   <use xlinkHref="#icon-alert" />
                 </svg>
@@ -89,6 +89,6 @@ class Header extends React.PureComponent {
 
 Header = connect((state: RootStateType, props) => ({
   whitelisted: state.whitelist.get('whitelist'),
-  blacklisted: state.blacklist.get('blacklist')
+  watchlisted: state.watchlist.get('watchlist')
 }))(Header);
 export { Header };

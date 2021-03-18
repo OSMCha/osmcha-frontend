@@ -12,11 +12,11 @@ import {
 } from '../network/auth';
 import { getStatus } from '../network/status';
 import { fetchChangeset } from '../network/changeset';
-import { fetchBlackList } from '../network/osmcha_blacklist';
+import { fetchWatchList } from '../network/osmcha_watchlist';
 import { setItem, removeItem } from '../utils/safe_storage';
 import { modal } from './modal_actions';
 import { WHITELIST } from './whitelist_actions';
-import { BLACKLIST } from './blacklist_actions';
+import { WATCHLIST } from './watchlist_actions';
 import { pageIndexSelector, CHANGESETS_PAGE } from './changesets_page_actions';
 import { CHANGESET } from './changeset_actions';
 
@@ -91,10 +91,10 @@ export function* watchAuth(): any {
       }
       const userDetails = fromJS(yield call(fetchUserDetails, token));
       const whitelist = userDetails.get('whitelists');
-      const blacklist = fromJS(yield call(fetchBlackList, token));
+      const watchlist = fromJS(yield call(fetchWatchList, token));
       const status = fromJS(yield call(getStatus));
       yield put(action(WHITELIST.define, { whitelist }));
-      yield put(action(BLACKLIST.define, { blacklist }));
+      yield put(action(WATCHLIST.define, { watchlist }));
       yield put(action(AUTH.userDetails, { userDetails }));
       let pageIndex = yield select(pageIndexSelector);
       if (pageIndex) {
