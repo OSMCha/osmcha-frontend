@@ -14,7 +14,7 @@ import { changesetReducer } from './changeset_reducer';
 import { modalReducer } from './modal_reducer';
 import { filtersReducer } from './filters_reducer';
 import { mapControlsReducer } from './map_controls_reducer';
-import { whitelistReducer } from './whitelist_reducer';
+import { trustedlistReducer } from './trustedlist_reducer';
 import { watchlistReducer } from './blacklist_reducer';
 import { aoiReducer } from './aoi_reducer';
 
@@ -24,7 +24,7 @@ import type { ChangesetType } from './changeset_reducer';
 import type { AuthType } from './auth_reducer';
 import type { filtersReducerType } from './filters_reducer';
 import type { mapControlsReducerType } from './map_controls_reducer';
-import type { whitelistReducerType } from './whitelist_reducer';
+import type { trustedlistReducerType } from './trustedlist_reducer';
 import type { watchlistReducerType } from './blacklist_reducer';
 // Sagas
 import sagas from './sagas';
@@ -37,7 +37,7 @@ export type RootStateType = {
   changeset: ChangesetType,
   modal: ModalType,
   routing: Object,
-  whitelist: whitelistReducerType,
+  trustedlist: trustedlistReducerType,
   watchlist: watchlistReducerType,
   mapControls: mapControlsReducerType
 };
@@ -52,7 +52,7 @@ const reducers = combineReducers({
   routing: routerReducer,
   auth: authReducer,
   modal: modalReducer,
-  whitelist: whitelistReducer,
+  trustedlist: trustedlistReducer,
   watchlist: watchlistReducer
 });
 

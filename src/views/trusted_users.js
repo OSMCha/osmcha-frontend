@@ -9,16 +9,16 @@ import { getObjAsQueryParam } from '../utils/query_params';
 import { BlockMarkup } from '../components/user/block_markup';
 import { SaveUser } from '../components/user/save_user';
 import {
-  addToWhitelist,
-  removeFromWhitelist
-} from '../store/whitelist_actions';
+  addToTrustedlist,
+  removeFromTrustedlist
+} from '../store/trustedlist_actions';
 import { modal } from '../store/modal_actions';
 import { logUserOut } from '../store/auth_actions';
 import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
 import type { RootStateType } from '../store';
 
-const WhiteListBlock = ({ data, removeFromWhiteList }) => (
+const TrustedListBlock = ({ data, removeFromTrustedList }) => (
   <BlockMarkup>
     <span>
       <span>{data}</span>
@@ -39,7 +39,7 @@ const WhiteListBlock = ({ data, removeFromWhiteList }) => (
       >
         OSMCha
       </Link>
-      <Button className="mr3" onClick={() => removeFromWhiteList(data)}>
+      <Button className="mr3" onClick={() => removeFromTrustedList(data)}>
         Remove
       </Button>
     </span>
@@ -72,22 +72,21 @@ type propsType = {
   logUserOut: () => any,
   push: any => any,
   modal: any => any,
-  whitelisted: Map<string, *>,
-  addToWhitelist: string => void,
-  removeFromWhitelist: string => void
+  trustedList: Map<string, *>,
+  addToTrustedlist: string => void,
+  removeFromTrustedlist: string => void
 };
 class TrustedUsers extends React.PureComponent<any, propsType, any> {
   state = {
     userValues: null
   };
-  // whitelist - trusted users
-  addToWhiteList = ({ username }: { username: string }) => {
+  addToTrustedList = ({ username }: { username: string }) => {
     if (!username) return;
-    this.props.addToWhitelist(username);
+    this.props.addToTrustedlist(username);
   };
-  removeFromWhiteList = (username: string) => {
+  removeFromTrustedList = (username: string) => {
     if (!username) return;
-    this.props.removeFromWhitelist(username);
+    this.props.removeFromTrustedlist(username);
   };
   onUserChange = (value: ?Array<Object>) => {
     if (Array.isArray(value) && value.length === 0)
@@ -97,7 +96,7 @@ class TrustedUsers extends React.PureComponent<any, propsType, any> {
     });
   };
   render() {
-    let trustedUsers = this.props.whitelisted ? this.props.whitelisted : List();
+    let trustedUsers = this.props.trustedList ? this.props.trustedList : List();
     trustedUsers = trustedUsers.sortBy(
       a => a,
       (a: string, b: string) => a.localeCompare(b)
@@ -135,11 +134,11 @@ class TrustedUsers extends React.PureComponent<any, propsType, any> {
                   </h2>
                   <ListFortified
                     data={trustedUsers}
-                    TargetBlock={WhiteListBlock}
+                    TargetBlock={TrustedListBlock}
                     propsToPass={{
-                      removeFromWhiteList: this.removeFromWhiteList
+                      removeFromTrustedList: this.removeFromTrustedList
                     }}
-                    SaveComp={<SaveUser onCreate={this.addToWhiteList} />}
+                    SaveComp={<SaveUser onCreate={this.addToTrustedList} />}
                   />
                 </div>
               </div>
@@ -154,7 +153,7 @@ class TrustedUsers extends React.PureComponent<any, propsType, any> {
 TrustedUsers = connect(
   (state: RootStateType, props) => ({
     location: props.location,
-    whitelisted: state.whitelist.get('whitelist'),
+    trustedList: state.trustedlist.get('trustedlist'),
     oAuthToken: state.auth.get('oAuthToken'),
     token: state.auth.get('token'),
     userDetails: state.auth.getIn(['userDetails'], Map()),
@@ -164,8 +163,8 @@ TrustedUsers = connect(
     logUserOut,
     modal,
     push,
-    addToWhitelist,
-    removeFromWhitelist
+    addToTrustedlist,
+    removeFromTrustedlist
   }
 )(TrustedUsers);
 

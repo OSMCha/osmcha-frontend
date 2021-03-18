@@ -13,7 +13,7 @@ class Header extends React.PureComponent {
     changesetId: number,
     userEditCount: number,
     toggleUser: () => mixed,
-    whitelisted: Map<string, *>,
+    trustedlist: Map<string, *>,
     watchlisted: Map<object, *>
   };
   render() {
@@ -22,19 +22,19 @@ class Header extends React.PureComponent {
     const create = this.props.properties.get('create');
     const modify = this.props.properties.get('modify');
     const destroy = this.props.properties.get('delete');
-    let is_whitelisted, is_watchlisted;
+    let isInTrustedlist, isWatchListed;
     try {
-      is_whitelisted = this.props.whitelisted.indexOf(user) !== -1;
+      isInTrustedlist = this.props.trustedlist.indexOf(user) !== -1;
     } catch (e) {
-      is_whitelisted = false;
+      isInTrustedlist = false;
     }
     try {
-      is_watchlisted =
+      isWatchListed =
         this.props.watchlisted
           .map(user => user.get('uid'))
           .indexOf(this.props.properties.get('uid')) !== -1;
     } catch (e) {
-      is_watchlisted = false;
+      isWatchListed = false;
     }
 
     return (
@@ -59,12 +59,12 @@ class Header extends React.PureComponent {
                   {user}
                 </span>
               </strong>
-              {is_whitelisted && (
+              {isInTrustedlist && (
                 <svg className="icon inline-block align-middle pl3 w18 h18 color-gray">
                   <use xlinkHref="#icon-star" />
                 </svg>
               )}
-              {is_watchlisted && (
+              {isWatchListed && (
                 <svg className="icon inline-block align-middle pl3 w18 h18 color-gray">
                   <use xlinkHref="#icon-alert" />
                 </svg>
@@ -88,7 +88,7 @@ class Header extends React.PureComponent {
 }
 
 Header = connect((state: RootStateType, props) => ({
-  whitelisted: state.whitelist.get('whitelist'),
+  trustedlist: state.trustedlist.get('trustedlist'),
   watchlisted: state.watchlist.get('watchlist')
 }))(Header);
 export { Header };

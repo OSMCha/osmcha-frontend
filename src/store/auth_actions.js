@@ -15,7 +15,7 @@ import { fetchChangeset } from '../network/changeset';
 import { fetchWatchList } from '../network/osmcha_watchlist';
 import { setItem, removeItem } from '../utils/safe_storage';
 import { modal } from './modal_actions';
-import { WHITELIST } from './whitelist_actions';
+import { TRUSTEDLIST } from './trustedlist_actions';
 import { WATCHLIST } from './watchlist_actions';
 import { pageIndexSelector, CHANGESETS_PAGE } from './changesets_page_actions';
 import { CHANGESET } from './changeset_actions';
@@ -90,10 +90,10 @@ export function* watchAuth(): any {
         token = yield call(authTokenFlow);
       }
       const userDetails = fromJS(yield call(fetchUserDetails, token));
-      const whitelist = userDetails.get('whitelists');
+      const trustedlist = userDetails.get('whitelists');
       const watchlist = fromJS(yield call(fetchWatchList, token));
       const status = fromJS(yield call(getStatus));
-      yield put(action(WHITELIST.define, { whitelist }));
+      yield put(action(TRUSTEDLIST.define, { trustedlist }));
       yield put(action(WATCHLIST.define, { watchlist }));
       yield put(action(AUTH.userDetails, { userDetails }));
       let pageIndex = yield select(pageIndexSelector);
@@ -153,7 +153,7 @@ export function* logoutFlow(): any {
   yield call(removeItem, 'oauth_token');
   yield call(removeItem, 'oauth_token_secret');
   yield put(action(AUTH.clearSession));
-  yield put(action(WHITELIST.clear));
+  yield put(action(TRUSTEDLIST.clear));
   // get CHANGESET_PAGE without user metadata
   let pageIndex = yield select(pageIndexSelector);
   if (pageIndex) {
