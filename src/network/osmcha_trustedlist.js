@@ -2,7 +2,7 @@
 import { handleErrors } from './aoi';
 import { API_URL } from '../config';
 
-export function fetchWhiteList(token: string): Promise<*> {
+export function fetchTrustedList(token: string): Promise<*> {
   return fetch(`${API_URL}/whitelist-user/`, {
     method: 'GET',
     headers: {
@@ -16,7 +16,7 @@ export function fetchWhiteList(token: string): Promise<*> {
     });
 }
 
-export function deleteFromWhiteList(
+export function deleteFromTrustedList(
   token: string,
   username: string
 ): Promise<*> {
@@ -29,7 +29,7 @@ export function deleteFromWhiteList(
   }).then(handleErrors);
 }
 
-export function postUserToWhiteList(
+export function postUserToTrustedList(
   token: string,
   whitelist_user: string
 ): Promise<*> {

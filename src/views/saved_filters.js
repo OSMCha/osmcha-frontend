@@ -159,23 +159,21 @@ class SavedFilters extends React.PureComponent<any, propsType, any> {
     this.createAOIPromise && this.createAOIPromise.cancel();
   }
 
-  // blacklist
-  addToBlackList = ({ username, uid }: { username: string, uid: string }) => {
+  addToWatchList = ({ username, uid }: { username: string, uid: string }) => {
     if (!username || !uid) return;
-    this.props.addToBlacklist({ username, uid });
+    this.props.addToWatchlist({ username, uid });
   };
-  removeFromBlackList = (uid: number) => {
+  removeFromWatchList = (uid: number) => {
     if (!uid) return;
-    this.props.removeFromBlacklist(uid);
+    this.props.removeFromWatchlist(uid);
   };
-  // whitelist - trusted users
-  addToWhiteList = ({ username }: { username: string }) => {
+  addToTrustedList = ({ username }: { username: string }) => {
     if (!username) return;
-    this.props.addToWhitelist(username);
+    this.props.addToTrustedlist(username);
   };
-  removeFromWhiteList = (username: string) => {
+  removeFromTrustedList = (username: string) => {
     if (!username) return;
-    this.props.removeFromWhitelist(username);
+    this.props.removeFromTrustedlist(username);
   };
   // aoi
   loadAoiId = (aoiId: ?string) => {
