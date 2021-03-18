@@ -2,6 +2,12 @@
 
 Log of changes since the 2.0 version
 
+### 0.79.1
+- Update React to 16.8 (#527)
+- Show feature type on Tag Changes tab + reuse FeatureListItem component (#531)
+- Open iD and RapiD with the current OSMCha map viewport (#528)
+- Update mousetrap and why-did-you-render libraries
+
 ### 0.79.0
 - Add toggle to open & close all list items on feature tabs (#523, #524)
 - Show tag changes values on the list (#522)
