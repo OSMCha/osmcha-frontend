@@ -1,39 +1,39 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9e26a855afc2f219b5921155c3eb734a",
+    "revision": "166230addfdeb6690aab1c82c00759f4",
     "url": "https://osmcha.org/index.html"
   },
   {
-    "revision": "bc59e5d2a061e93f4752",
+    "revision": "249d19bca55901cdfc1e",
     "url": "https://osmcha.org/static/css/2.c91d1892.chunk.css"
   },
   {
-    "revision": "d9d8241907c3b5c64e6d",
-    "url": "https://osmcha.org/static/css/main.5da037a0.chunk.css"
+    "revision": "7ade94d7bd3a9ad66a54",
+    "url": "https://osmcha.org/static/css/main.7b3c9ed0.chunk.css"
   },
   {
-    "revision": "bc59e5d2a061e93f4752",
-    "url": "https://osmcha.org/static/js/2.372fe5d5.chunk.js"
+    "revision": "249d19bca55901cdfc1e",
+    "url": "https://osmcha.org/static/js/2.d54bf682.chunk.js"
   },
   {
-    "revision": "59dc5c12b5002672e7f04fcbf15fc018",
-    "url": "https://osmcha.org/static/js/2.372fe5d5.chunk.js.LICENSE.txt"
+    "revision": "532ca25b7e54476ca4fdd3627c5ce590",
+    "url": "https://osmcha.org/static/js/2.d54bf682.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2762524c0ab45f104549",
-    "url": "https://osmcha.org/static/js/3.66385ca4.chunk.js"
+    "revision": "94e0348bee70756073d6",
+    "url": "https://osmcha.org/static/js/3.f82ec257.chunk.js"
   },
   {
     "revision": "9cf5b22d36e977d966353f8d9f0345ec",
-    "url": "https://osmcha.org/static/js/3.66385ca4.chunk.js.LICENSE.txt"
+    "url": "https://osmcha.org/static/js/3.f82ec257.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d9d8241907c3b5c64e6d",
-    "url": "https://osmcha.org/static/js/main.172d5e1c.chunk.js"
+    "revision": "7ade94d7bd3a9ad66a54",
+    "url": "https://osmcha.org/static/js/main.3dd541b0.chunk.js"
   },
   {
-    "revision": "c7732def7b46d1e49d44",
-    "url": "https://osmcha.org/static/js/runtime-main.3ad67f5a.js"
+    "revision": "4649014804609a58df8e",
+    "url": "https://osmcha.org/static/js/runtime-main.1dcc60b9.js"
   },
   {
     "revision": "ed2bb0d2fecd447f6a74dd7581448589",
