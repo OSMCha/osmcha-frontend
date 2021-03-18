@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '../button';
 
-export class WhiteListUser extends React.Component {
+export class TrustedListUser extends React.Component {
   state = {
     username: ''
   };

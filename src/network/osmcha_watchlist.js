@@ -2,7 +2,7 @@
 import { handleErrors } from './aoi';
 import { API_URL } from '../config';
 
-export function fetchBlackList(token: string): Promise<*> {
+export function fetchWatchList(token: string): Promise<*> {
   return fetch(`${API_URL}/blacklisted-users/`, {
     method: 'GET',
     headers: {
@@ -16,7 +16,7 @@ export function fetchBlackList(token: string): Promise<*> {
     });
 }
 
-export function deleteFromBlackList(token: string, uid: string): Promise<*> {
+export function deleteFromWatchList(token: string, uid: string): Promise<*> {
   return fetch(`${API_URL}/blacklisted-users/${uid}/`, {
     method: 'DELETE',
     headers: {
@@ -26,7 +26,7 @@ export function deleteFromBlackList(token: string, uid: string): Promise<*> {
   }).then(handleErrors);
 }
 
-export function postUserToBlackList(token: string, data: object): Promise<*> {
+export function postUserToWatchList(token: string, data: object): Promise<*> {
   return fetch(`${API_URL}/blacklisted-users/`, {
     method: 'POST',
     headers: {
@@ -34,8 +34,8 @@ export function postUserToBlackList(token: string, data: object): Promise<*> {
       Authorization: token ? `Token ${token}` : ''
     },
     body: JSON.stringify({
-      username: data.blacklist_user.username,
-      uid: data.blacklist_user.uid
+      username: data.watchlist_user.username,
+      uid: data.watchlist_user.uid
     })
   })
     .then(handleErrors)

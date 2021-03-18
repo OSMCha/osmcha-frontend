@@ -9,16 +9,16 @@ import { getObjAsQueryParam } from '../utils/query_params';
 import { BlockMarkup } from '../components/user/block_markup';
 import { SaveUser } from '../components/user/save_user';
 import {
-  addToBlacklist,
-  removeFromBlacklist
-} from '../store/blacklist_actions';
+  addToWatchlist,
+  removeFromWatchlist
+} from '../store/watchlist_actions';
 import { modal } from '../store/modal_actions';
 import { logUserOut } from '../store/auth_actions';
 import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
 import type { RootStateType } from '../store';
 
-const BlackListBlock = ({ data, removeFromBlackList }) => (
+const WatchListBlock = ({ data, removeFromWatchList }) => (
   <BlockMarkup>
     <span>
       <span>{data.getIn(['username'])}</span>
@@ -42,7 +42,7 @@ const BlackListBlock = ({ data, removeFromBlackList }) => (
       </Link>
       <Button
         className="mr3"
-        onClick={() => removeFromBlackList(data.getIn(['uid']))}
+        onClick={() => removeFromWatchList(data.getIn(['uid']))}
       >
         Remove
       </Button>
@@ -76,22 +76,22 @@ type propsType = {
   logUserOut: () => any,
   push: any => any,
   modal: any => any,
-  blacklisted: Map<object, *>,
-  addToBlacklist: string => void,
-  removeFromBlacklist: string => void
+  watchlisted: Map<object, *>,
+  addToWatchlist: string => void,
+  removeFromWatchlist: string => void
 };
 class Watchlist extends React.PureComponent<any, propsType, any> {
   state = {
     userValues: null
   };
   // blacklist
-  addToBlackList = ({ username, uid }: { username: string, uid: string }) => {
+  addToWatchList = ({ username, uid }: { username: string, uid: string }) => {
     if (!username || !uid) return;
-    this.props.addToBlacklist({ username, uid });
+    this.props.addToWatchlist({ username, uid });
   };
-  removeFromBlackList = (uid: number) => {
+  removeFromWatchList = (uid: number) => {
     if (!uid) return;
-    this.props.removeFromBlacklist(uid);
+    this.props.removeFromWatchlist(uid);
   };
   onUserChange = (value: ?Array<Object>) => {
     if (Array.isArray(value) && value.length === 0)
@@ -101,8 +101,8 @@ class Watchlist extends React.PureComponent<any, propsType, any> {
     });
   };
   render() {
-    let blackList = this.props.blacklisted ? this.props.blacklisted : List();
-    blackList = blackList.sortBy(
+    let watchList = this.props.watchlisted ? this.props.watchlisted : List();
+    watchList = watchList.sortBy(
       a => a.get('username'),
       (a: string, b: string) => a.localeCompare(b)
     );
@@ -139,15 +139,15 @@ class Watchlist extends React.PureComponent<any, propsType, any> {
                     My watchlist
                   </h3>
                   <ListFortified
-                    data={blackList}
-                    TargetBlock={BlackListBlock}
+                    data={watchList}
+                    TargetBlock={WatchListBlock}
                     propsToPass={{
-                      removeFromBlackList: this.removeFromBlackList
+                      removeFromWatchList: this.removeFromWatchList
                     }}
                     SaveComp={
                       <SaveUser
-                        onCreate={this.addToBlackList}
-                        forBlacklist={true}
+                        onCreate={this.addToWatchList}
+                        forWatchlist={true}
                       />
                     }
                   />
@@ -178,7 +178,7 @@ class Watchlist extends React.PureComponent<any, propsType, any> {
 Watchlist = connect(
   (state: RootStateType, props) => ({
     location: props.location,
-    blacklisted: state.blacklist.get('blacklist'),
+    watchlisted: state.watchlist.get('watchlist'),
     oAuthToken: state.auth.get('oAuthToken'),
     token: state.auth.get('token'),
     userDetails: state.auth.getIn(['userDetails'], Map()),
@@ -188,8 +188,8 @@ Watchlist = connect(
     logUserOut,
     modal,
     push,
-    addToBlacklist,
-    removeFromBlacklist
+    addToWatchlist,
+    removeFromWatchlist
   }
 )(Watchlist);
 

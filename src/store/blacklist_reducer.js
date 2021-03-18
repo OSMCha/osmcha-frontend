@@ -1,41 +1,41 @@
 import { Map, List, fromJS } from 'immutable';
-import { BLACKLIST } from './blacklist_actions';
+import { WATCHLIST } from './watchlist_actions';
 
-export type blacklistReducerType = Map<'blacklist', 'loading', any>;
+export type watchlistReducerType = Map<'watchlist', 'loading', any>;
 
-const initialState: blacklistReducerType = fromJS({
-  blacklist: List(),
+const initialState: watchlistReducerType = fromJS({
+  watchlist: List(),
   loading: false
 });
 
-export function blacklistReducer(
-  state: blacklistReducerType = initialState,
+export function watchlistReducer(
+  state: watchlistReducerType = initialState,
   action: Object
-): BlacklistType {
+): WatchlistType {
   switch (action.type) {
-    case BLACKLIST.define: {
-      return state.set('blacklist', action.blacklist).set('loading', false);
+    case WATCHLIST.define: {
+      return state.set('watchlist', action.watchlist).set('loading', false);
     }
-    case BLACKLIST.add: {
+    case WATCHLIST.add: {
       return state
         .set(
-          'blacklist',
-          state.get('blacklist').concat([fromJS(action.blacklist_user)])
+          'watchlist',
+          state.get('watchlist').concat([fromJS(action.watchlist_user)])
         )
         .set('loading', false);
     }
-    case BLACKLIST.remove: {
+    case WATCHLIST.remove: {
       return state
         .set(
-          'blacklist',
+          'watchlist',
           state
-            .get('blacklist')
-            .filter(item => item.get('uid') !== action.blacklist_user)
+            .get('watchlist')
+            .filter(item => item.get('uid') !== action.watchlist_user)
         )
         .set('loading', false);
     }
-    case BLACKLIST.clear: {
-      return state.set('blacklist', Map()).set('loading', false);
+    case WATCHLIST.clear: {
+      return state.set('watchlist', Map()).set('loading', false);
     }
     default:
       return state;
