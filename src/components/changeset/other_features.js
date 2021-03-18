@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import { is } from 'immutable';
 
 import type { RootStateType } from '../store';
-import { selectFeature } from '../../views/map';
-import { getFeatures } from './tag_changes';
+import { getFeatures, FeatureListItem } from './tag_changes';
 import { Loading } from '../loading';
 
 function processFeatures(features) {
@@ -29,16 +28,6 @@ function processFeatures(features) {
       .map(item => ({ id: item.properties.id, type: item.properties.type }))
   );
   return finalReport;
-}
-
-function OtherFeaturesListItem({ id, type }) {
-  return (
-    <li>
-      <span className="pointer" onClick={() => selectFeature(id)}>
-        {id} ({type})
-      </span>
-    </li>
-  );
 }
 
 class ActionItem extends React.PureComponent {
@@ -97,7 +86,7 @@ class ActionItem extends React.PureComponent {
           }}
         >
           {this.value.map((item, k) => (
-            <OtherFeaturesListItem id={item.id} type={item.type} key={k} />
+            <FeatureListItem id={item.id} type={item.type} key={k} />
           ))}
         </ul>
       </div>
