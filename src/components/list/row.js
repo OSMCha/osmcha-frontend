@@ -8,7 +8,7 @@ import { PrimaryLine } from './primary_line';
 import { Title } from './title';
 import { history } from '../../store/history';
 
-export class Row extends React.PureComponent {
+export class Row extends React.Component {
   props: {
     properties: Map<string, *>,
     active: ?boolean,

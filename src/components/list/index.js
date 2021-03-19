@@ -13,7 +13,7 @@ type propTypes = {
   pageIndex: number
 };
 
-class List extends React.PureComponent<void, propTypes, *> {
+class List extends React.Component<void, propTypes, *> {
   shouldComponentUpdate(nextProps: propTypes) {
     return (
       nextProps.activeChangesetId !== this.props.activeChangesetId ||
