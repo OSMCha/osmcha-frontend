@@ -2,6 +2,9 @@
 
 Log of changes since the 2.0 version
 
+### 0.79.2
+- Refactor code related to Watch and Trusted lists (#534)
+
 ### 0.79.1
 - Update React to 16.8 (#527)
 - Show feature type on Tag Changes tab + reuse FeatureListItem component (#531)
