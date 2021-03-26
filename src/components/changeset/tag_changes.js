@@ -1,8 +1,7 @@
 // @flow
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-
-import { is, OrderedSet } from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import type { RootStateType } from '../store';
 import { selectFeature } from '../../views/map';
@@ -115,166 +114,138 @@ function ChangeTitle({ value, type }) {
   return <div></div>;
 }
 
-export class ChangeItem extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      opened: props.opened || false
-    };
-    this.tag = props.change[0];
-    this.features = props.change[1];
-    this.values = new OrderedSet(this.features.map(feature => feature.value));
-    this.handleChange = this.handleChange.bind(this);
-  }
-  componentWillReceiveProps(nextProps: propsType) {
-    if (!is(this.props.opened, nextProps.opened)) {
-      this.setState({
-        opened: nextProps.opened
-      });
-    }
-  }
-  handleChange() {
-    this.setState({ opened: !this.state.opened });
-  }
-  render() {
-    var last_space = this.tag.lastIndexOf(' ') + 1;
-    return (
-      <div>
-        <span className="pointer" onClick={this.handleChange}>
-          {this.state.opened ? (
-            <svg
-              className="icon h18 w18 inline-block"
-              style={{ verticalAlign: 'text-bottom' }}
-            >
-              <use xlinkHref={'#icon-chevron-down'} />
-            </svg>
-          ) : (
-            <svg
-              className="icon h18 w18 inline-block"
-              style={{ verticalAlign: 'text-bottom' }}
-            >
-              <use xlinkHref={'#icon-chevron-right'} />
-            </svg>
-          )}
-          <span className="txt-bold">{this.tag.slice(0, last_space)}</span>
-          <span className="txt-code">{this.tag.slice(last_space)}</span>
-          <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
-            {this.features.length}
-          </strong>
-        </span>
-        {this.values.map((value, n) => (
-          <div
-            className="ml18 py3"
-            style={{ display: this.state.opened ? 'block' : 'none' }}
-            key={n}
+export const ChangeItem = ({ opened, tag, features }) => {
+  const [isOpen, setIsOpen] = useState(opened);
+  const values = new OrderedSet(features.map(feature => feature.value));
+  const last_space = tag.lastIndexOf(' ') + 1;
+
+  useEffect(() => setIsOpen(opened), [opened]);
+
+  return (
+    <div>
+      <span className="pointer" onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? (
+          <svg
+            className="icon h18 w18 inline-block"
+            style={{ verticalAlign: 'text-bottom' }}
           >
-            <ChangeTitle value={value} type={this.tag} />
-            <ul className="ml6">
-              {this.features
-                .filter(feature => feature.value === value)
-                .map((feature, k) => (
-                  <FeatureListItem
-                    id={feature.id}
-                    type={feature.type}
-                    value={feature.value}
-                    key={k}
-                  />
-                ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    );
-  }
-}
+            <use xlinkHref={'#icon-chevron-down'} />
+          </svg>
+        ) : (
+          <svg
+            className="icon h18 w18 inline-block"
+            style={{ verticalAlign: 'text-bottom' }}
+          >
+            <use xlinkHref={'#icon-chevron-right'} />
+          </svg>
+        )}
+        <span className="txt-bold">{tag.slice(0, last_space)}</span>
+        <span className="txt-code">{tag.slice(last_space)}</span>
+        <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
+          {features.length}
+        </strong>
+      </span>
+      {values.map((value, n) => (
+        <div
+          className="ml18 py3"
+          style={{ display: isOpen ? 'block' : 'none' }}
+          key={n}
+        >
+          <ChangeTitle value={value} type={tag} />
+          <ul className="ml6">
+            {features
+              .filter(feature => feature.value === value)
+              .map((feature, k) => (
+                <FeatureListItem
+                  id={feature.id}
+                  type={feature.type}
+                  value={feature.value}
+                  key={k}
+                />
+              ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const ChangeItemList = ({ changes, openAll }) => {
+  return (
+    <>
+      {changes.length ? (
+        changes.map((change, k) => (
+          <ChangeItem
+            key={k}
+            tag={change[0]}
+            features={change[1]}
+            opened={openAll}
+          />
+        ))
+      ) : (
+        <span>No tags were changed in this changeset.</span>
+      )}
+    </>
+  );
+};
 
 type propsType = {|
   changesetId: string,
   changes: Object
 |};
 
-class TagChanges extends React.PureComponent<void, propsType> {
-  state = {
-    changesetId: this.props.changesetId,
-    changes: this.props.changes,
-    openAll: false
-  };
+const TagChangesComponent = ({ changesetId, changes }: propsType) => {
+  const [changeReport, setChangeReport] = useState([]);
+  const [openAll, setOpenAll] = useState(false);
 
-  componentWillReceiveProps(nextProps: propsType) {
-    if (!is(this.props.changes, nextProps.changes)) {
-      this.setState({
-        changes: nextProps.changes
-      });
-    }
-  }
-
-  render() {
-    console.log(this.state.changes);
-    const changeReport = [];
-    if (
-      this.state &&
-      this.state.changes &&
-      this.state.changes.get(this.props.changesetId)
-    ) {
-      const changes = this.state.changes.get(this.props.changesetId)[
-        'featureMap'
-      ];
+  useEffect(() => {
+    const newChangeReport = [];
+    if (changes && changes.get(changesetId)) {
+      const changesetData = changes.get(changesetId)['featureMap'];
       const processed = processFeatures(
-        getFeatures(changes).filter(
+        getFeatures(changesetData).filter(
           item => item.length === 2 && item[0].properties.action === 'modify'
         )
       );
       processed.forEach((featureIDs, tag) =>
-        changeReport.push([tag, featureIDs])
+        newChangeReport.push([tag, featureIDs])
       );
+      setChangeReport(newChangeReport.sort());
     }
-    return (
-      <div className="px12 py6">
-        <div className="pb6">
-          <h2 className="inline txt-m txt-uppercase txt-bold mr6 mb3">
-            Tag changes
-          </h2>
-          {changeReport.length ? (
-            <div className="inline-block fr">
-              <label className="inline-block txt-s">
-                <input
-                  type="checkbox"
-                  className="pointer align-b"
-                  onChange={() =>
-                    this.setState({ openAll: !this.state.openAll })
-                  }
-                />
-                <span className="txt-s">
-                  {this.state.openAll ? 'Close all' : 'Open all'}
-                </span>
-              </label>
-            </div>
-          ) : null}
-        </div>
-        {this.state.changes.size ? (
-          changeReport.length ? (
-            changeReport
-              .sort()
-              .map((change, k) => (
-                <ChangeItem
-                  key={k}
-                  change={change}
-                  opened={this.state.openAll}
-                />
-              ))
-          ) : (
-            <span>No tags were changed in this changeset.</span>
-          )
-        ) : (
-          <Loading className="pt18" />
-        )}
-      </div>
-    );
-  }
-}
+  }, [changes, changesetId]);
 
-TagChanges = connect((state: RootStateType, props) => ({
+  return (
+    <div className="px12 py6">
+      <div className="pb6">
+        <h2 className="inline txt-m txt-uppercase txt-bold mr6 mb3">
+          Tag changes
+        </h2>
+        {changeReport.length ? (
+          <div className="inline-block fr">
+            <label className="inline-block txt-s">
+              <input
+                type="checkbox"
+                className="pointer align-b"
+                onChange={() => setOpenAll(!openAll)}
+              />
+              <span className="txt-s">
+                {openAll ? 'Close all' : 'Open all'}
+              </span>
+            </label>
+          </div>
+        ) : null}
+      </div>
+      {changes.get(changesetId) ? (
+        <ChangeItemList changes={changeReport} openAll={openAll} />
+      ) : (
+        <Loading className="pt18" />
+      )}
+    </div>
+  );
+};
+
+const TagChanges = connect((state: RootStateType, props) => ({
   changes: state.changeset.get('changesetMap')
-}))(TagChanges);
+}))(TagChangesComponent);
 
 export { TagChanges };
