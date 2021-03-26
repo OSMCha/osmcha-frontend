@@ -1,13 +1,12 @@
 // @flow
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { is } from 'immutable';
-
 import type { RootStateType } from '../store';
-import { selectFeature } from '../../views/map';
-import { getFeatures } from './tag_changes';
+import { getFeatures, FeatureListItem } from './tag_changes';
 import { Loading } from '../loading';
+import { OpenAll } from '../open_all';
+import { ExpandItemIcon } from '../expand_item_icon';
 
 function processFeatures(features) {
   const finalReport = new Map();
@@ -29,156 +28,83 @@ function processFeatures(features) {
   return finalReport;
 }
 
-function GeometryChangesListItem({ id }) {
-  return (
-    <li>
-      <span className="pointer" onClick={() => selectFeature(id)}>
-        {id}
-      </span>
-    </li>
-  );
-}
+const GeometryChangesItem = ({ tag, features, opened }) => {
+  const titles = { node: 'Nodes', way: 'Ways', relation: 'Relations' };
+  const [isOpen, setIsOpen] = useState(opened);
 
-class GeometryChangesItem extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      opened: props.opened || false
-    };
-    this.tag = props.action[0];
-    this.value = props.action[1];
-    this.handleChange = this.handleChange.bind(this);
-  }
-  componentWillReceiveProps(nextProps: propsType) {
-    if (!is(this.props.opened, nextProps.opened)) {
-      this.setState({
-        opened: nextProps.opened
-      });
-    }
-  }
-  handleChange() {
-    this.setState({ opened: !this.state.opened });
-  }
-  render() {
-    const titles = { node: 'Nodes', way: 'Ways', relation: 'Relations' };
-    return (
-      <div>
-        <span className="pointer" onClick={this.handleChange}>
-          {this.state.opened ? (
-            <svg
-              className="icon h18 w18 inline-block"
-              style={{ verticalAlign: 'text-bottom' }}
-            >
-              <use xlinkHref={'#icon-chevron-down'} />
-            </svg>
-          ) : (
-            <svg
-              className="icon h18 w18 inline-block"
-              style={{ verticalAlign: 'text-bottom' }}
-            >
-              <use xlinkHref={'#icon-chevron-right'} />
-            </svg>
-          )}
-          <span className="txt-bold">{titles[this.tag]}</span>
-          <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
-            {this.value.length}
-          </strong>
-        </span>
-        <ul
-          className="cmap-vlist"
-          style={{
-            display: this.state.opened ? 'block' : 'none'
-          }}
-        >
-          {this.value.map((item, k) => (
-            <GeometryChangesListItem id={item.id} key={k} />
-          ))}
-        </ul>
-      </div>
-    );
-  }
-}
+  useEffect(() => setIsOpen(opened), [opened]);
+
+  return (
+    <div>
+      <span className="pointer" onClick={() => setIsOpen(!isOpen)}>
+        <ExpandItemIcon isOpen={isOpen} />
+        <span className="txt-bold">{titles[tag]}</span>
+        <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
+          {features.length}
+        </strong>
+      </span>
+      <ul className="cmap-vlist" style={{ display: isOpen ? 'block' : 'none' }}>
+        {features.map((item, k) => (
+          <FeatureListItem id={item.id} key={k} />
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 type propsType = {|
   changesetId: string,
   changes: Object
 |};
 
-class GeometryChanges extends React.PureComponent<void, propsType> {
-  state = {
-    changesetId: this.props.changesetId,
-    changes: this.props.changes,
-    openAll: false
-  };
+const GeometryChangesComponent = ({ changesetId, changes }: propsType) => {
+  const [changeReport, setChangeReport] = useState([]);
+  const [openAll, setOpenAll] = useState(false);
 
-  componentWillReceiveProps(nextProps: propsType) {
-    if (!is(this.props.changes, nextProps.changes)) {
-      this.setState({
-        changes: nextProps.changes
-      });
-    }
-  }
-
-  render() {
-    let changeReport = [];
-    if (
-      this.state &&
-      this.state.changes &&
-      this.state.changes.get(this.props.changesetId)
-    ) {
-      const changes = this.state.changes.get(this.props.changesetId)[
-        'featureMap'
-      ];
-      processFeatures(getFeatures(changes)).forEach((featureIDs, tag) =>
-        changeReport.push([tag, featureIDs])
+  useEffect(() => {
+    const newChangeReport = [];
+    if (changes && changes.get(changesetId)) {
+      const changesetData = changes.get(changesetId)['featureMap'];
+      const processed = processFeatures(getFeatures(changesetData));
+      processed.forEach((featureIDs, tag) =>
+        newChangeReport.push([tag, featureIDs])
+      );
+      setChangeReport(
+        newChangeReport.filter(changeType => changeType[1].length)
       );
     }
-    changeReport = changeReport.filter(changeType => changeType[1].length);
-    return (
-      <div className="px12 py6">
-        <div className="pb6">
-          <h2 className="inline txt-m txt-uppercase txt-bold mr6 mb3">
-            Geometry Changes
-          </h2>
-          {changeReport.length ? (
-            <div className="inline-block fr">
-              <label class="inline-block txt-s checkbox-container">
-                <input
-                  type="checkbox"
-                  className="pointer align-b"
-                  onChange={() =>
-                    this.setState({ openAll: !this.state.openAll })
-                  }
-                />
-                <span className="txt-s">
-                  {this.state.openAll ? 'Close all' : 'Open all'}
-                </span>
-              </label>
-            </div>
-          ) : null}
-        </div>
-        {this.state.changes.size ? (
-          changeReport.length ? (
-            changeReport.map((changeType, k) => (
-              <GeometryChangesItem
-                key={k}
-                action={changeType}
-                opened={this.state.openAll}
-              />
-            ))
-          ) : (
-            <span>No geometry changes in this changeset.</span>
-          )
-        ) : (
-          <Loading className="pt18" />
-        )}
+  }, [changes, changesetId]);
+
+  return (
+    <div className="px12 py6">
+      <div className="pb6">
+        <h2 className="inline txt-m txt-uppercase txt-bold mr6 mb3">
+          Geometry Changes
+        </h2>
+        {changeReport.length ? (
+          <OpenAll isActive={openAll} setOpenAll={setOpenAll} />
+        ) : null}
       </div>
-    );
-  }
-}
+      {changes.get(changesetId) ? (
+        changeReport.length ? (
+          changeReport.map((change, k) => (
+            <GeometryChangesItem
+              key={k}
+              tag={change[0]}
+              features={change[1]}
+              opened={openAll}
+            />
+          ))
+        ) : (
+          <span>No geometry changes in this changeset.</span>
+        )
+      ) : (
+        <Loading className="pt18" />
+      )}
+    </div>
+  );
+};
 
-GeometryChanges = connect((state: RootStateType, props) => ({
+export const GeometryChanges = connect((state: RootStateType, props) => ({
   changes: state.changeset.get('changesetMap')
-}))(GeometryChanges);
-
-export { GeometryChanges };
+}))(GeometryChangesComponent);
