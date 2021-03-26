@@ -6,6 +6,8 @@ import { OrderedSet } from 'immutable';
 import type { RootStateType } from '../store';
 import { selectFeature } from '../../views/map';
 import { Loading } from '../loading';
+import { OpenAll } from '../open_all';
+import { ExpandItemIcon } from '../expand_item_icon';
 
 export function getFeatures(features) {
   var keys = Object.keys(features);
@@ -124,21 +126,7 @@ export const ChangeItem = ({ opened, tag, features }) => {
   return (
     <div>
       <span className="pointer" onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? (
-          <svg
-            className="icon h18 w18 inline-block"
-            style={{ verticalAlign: 'text-bottom' }}
-          >
-            <use xlinkHref={'#icon-chevron-down'} />
-          </svg>
-        ) : (
-          <svg
-            className="icon h18 w18 inline-block"
-            style={{ verticalAlign: 'text-bottom' }}
-          >
-            <use xlinkHref={'#icon-chevron-right'} />
-          </svg>
-        )}
+        <ExpandItemIcon isOpen={isOpen} />
         <span className="txt-bold">{tag.slice(0, last_space)}</span>
         <span className="txt-code">{tag.slice(last_space)}</span>
         <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
@@ -221,18 +209,7 @@ const TagChangesComponent = ({ changesetId, changes }: propsType) => {
           Tag changes
         </h2>
         {changeReport.length ? (
-          <div className="inline-block fr">
-            <label className="inline-block txt-s">
-              <input
-                type="checkbox"
-                className="pointer align-b"
-                onChange={() => setOpenAll(!openAll)}
-              />
-              <span className="txt-s">
-                {openAll ? 'Close all' : 'Open all'}
-              </span>
-            </label>
-          </div>
+          <OpenAll isActive={openAll} setOpenAll={setOpenAll} />
         ) : null}
       </div>
       {changes.get(changesetId) ? (

@@ -1,12 +1,12 @@
 // @flow
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-
-import { is } from 'immutable';
 
 import type { RootStateType } from '../store';
 import { getFeatures, FeatureListItem } from './tag_changes';
 import { Loading } from '../loading';
+import { OpenAll } from '../open_all';
+import { ExpandItemIcon } from '../expand_item_icon';
 
 function processFeatures(features) {
   const finalReport = new Map();
@@ -30,151 +30,87 @@ function processFeatures(features) {
   return finalReport;
 }
 
-class ActionItem extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      opened: props.opened || false
-    };
-    this.tag = props.action[0];
-    this.value = props.action[1];
-    this.handleChange = this.handleChange.bind(this);
-  }
-  componentWillReceiveProps(nextProps: propsType) {
-    if (!is(this.props.opened, nextProps.opened)) {
-      this.setState({
-        opened: nextProps.opened
-      });
-    }
-  }
-  handleChange() {
-    this.setState({ opened: !this.state.opened });
-  }
-  render() {
-    const titles = {
-      create: 'Created',
-      modify: 'Modified Relations',
-      delete: 'Deleted'
-    };
-    return (
-      <div>
-        <span className="pointer" onClick={this.handleChange}>
-          {this.state.opened ? (
-            <svg
-              className="icon h18 w18 inline-block"
-              style={{ verticalAlign: 'text-bottom' }}
-            >
-              <use xlinkHref={'#icon-chevron-down'} />
-            </svg>
-          ) : (
-            <svg
-              className="icon h18 w18 inline-block"
-              style={{ verticalAlign: 'text-bottom' }}
-            >
-              <use xlinkHref={'#icon-chevron-right'} />
-            </svg>
-          )}
-          <span className="txt-bold">{titles[this.tag]}</span>
-          <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
-            {this.value.length}
-          </strong>
-        </span>
-        <ul
-          className="cmap-vlist"
-          style={{
-            display: this.state.opened ? 'block' : 'none'
-          }}
-        >
-          {this.value.map((item, k) => (
-            <FeatureListItem id={item.id} type={item.type} key={k} />
-          ))}
-        </ul>
-      </div>
-    );
-  }
-}
+const ActionItem = ({ opened, tag, features }) => {
+  const [isOpen, setIsOpen] = useState(opened);
+  const titles = {
+    create: 'Created',
+    modify: 'Modified Relations',
+    delete: 'Deleted'
+  };
+
+  useEffect(() => setIsOpen(opened), [opened]);
+
+  return (
+    <div>
+      <span className="pointer" onClick={() => setIsOpen(!isOpen)}>
+        <ExpandItemIcon isOpen={isOpen} />
+        <span className="txt-bold">{titles[tag]}</span>
+        <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
+          {features.length}
+        </strong>
+      </span>
+      <ul className="cmap-vlist" style={{ display: isOpen ? 'block' : 'none' }}>
+        {features.map((item, k) => (
+          <FeatureListItem id={item.id} type={item.type} key={k} />
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 type propsType = {|
   changesetId: string,
   changes: Object
 |};
 
-class OtherFeatures extends React.PureComponent<void, propsType> {
-  state = {
-    changesetId: this.props.changesetId,
-    changes: this.props.changes,
-    openAll: false
-  };
+const OtherFeaturesComponent = ({ changesetId, changes }: propsType) => {
+  const [changeReport, setChangeReport] = useState([]);
+  const [openAll, setOpenAll] = useState(false);
 
-  componentWillReceiveProps(nextProps: propsType) {
-    if (!is(this.props.changes, nextProps.changes)) {
-      this.setState({
-        changes: nextProps.changes
-      });
-    }
-  }
-
-  render() {
-    const changeReport = [];
-    if (
-      this.state &&
-      this.state.changes &&
-      this.state.changes.get(this.props.changesetId)
-    ) {
-      const changes = this.state.changes.get(this.props.changesetId)[
-        'featureMap'
-      ];
-      processFeatures(getFeatures(changes)).forEach((featureIDs, tag) =>
-        changeReport.push([tag, featureIDs])
+  useEffect(() => {
+    const newChangeReport = [];
+    if (changes && changes.get(changesetId)) {
+      const changesetData = changes.get(changesetId)['featureMap'];
+      const processed = processFeatures(getFeatures(changesetData));
+      processed.forEach((featureIDs, tag) =>
+        newChangeReport.push([tag, featureIDs])
+      );
+      setChangeReport(
+        newChangeReport.filter(changeType => changeType[1].length)
       );
     }
-    return (
-      <div className="px12 py6">
-        <div className="pb6">
-          <h2 className="inline txt-m txt-uppercase txt-bold mr6 mb3">
-            Other features
-          </h2>
-          {changeReport.filter(changeType => changeType[1].length).length ? (
-            <div className="inline-block fr">
-              <label className="inline-block txt-s">
-                <input
-                  type="checkbox"
-                  className="pointer align-b"
-                  onChange={() =>
-                    this.setState({ openAll: !this.state.openAll })
-                  }
-                />
-                <span className="txt-s">
-                  {this.state.openAll ? 'Close all' : 'Open all'}
-                </span>
-              </label>
-            </div>
-          ) : null}
-        </div>
-        {this.state.changes.size ? (
-          changeReport.filter(changeType => changeType[1].length).length ? (
-            changeReport
-              .filter(changeType => changeType[1].length)
-              .map((changeType, k) => (
-                <ActionItem
-                  key={k}
-                  action={changeType}
-                  opened={this.state.openAll}
-                />
-              ))
-          ) : (
-            <span>No created and deleted features in this changeset.</span>
-          )
-        ) : (
-          <Loading className="pt18" />
-        )}
+  }, [changes, changesetId]);
+
+  return (
+    <div className="px12 py6">
+      <div className="pb6">
+        <h2 className="inline txt-m txt-uppercase txt-bold mr6 mb3">
+          Other features
+        </h2>
+        {changeReport.length ? (
+          <OpenAll isActive={openAll} setOpenAll={setOpenAll} />
+        ) : null}
       </div>
-    );
-  }
-}
+      {changes.get(changesetId) ? (
+        changeReport.length ? (
+          changeReport.map((change, k) => (
+            <ActionItem
+              key={k}
+              tag={change[0]}
+              features={change[1]}
+              opened={openAll}
+            />
+          ))
+        ) : (
+          <span>No created and deleted features in this changeset.</span>
+        )
+      ) : (
+        <Loading className="pt18" />
+      )}
+    </div>
+  );
+};
 
-OtherFeatures = connect((state: RootStateType, props) => ({
+export const OtherFeatures = connect((state: RootStateType, props) => ({
   changes: state.changeset.get('changesetMap')
-}))(OtherFeatures);
-
-export { OtherFeatures };
+}))(OtherFeaturesComponent);
