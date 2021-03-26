@@ -25,11 +25,11 @@
     "moment": "^2.26.0",
     "mousetrap": "^1.6.5",
     "raven-js": "^3.16.1",
-    "react": "^16.8.0",
+    "react": "^16.8.3",
     "react-anchorify-text": "^2.4.1",
     "react-click-outside": "^3.0.1",
     "react-datepicker": "^0.48.0",
-    "react-dom": "^16.8.0",
+    "react-dom": "^16.8.3",
     "react-ga": "^2.7.0",
     "react-notification-system": "^0.2.17",
     "react-redux": "^5.0.5",
@@ -62,7 +62,7 @@
     "prettier": "^1.18.2",
     "prettier-eslint-cli": "^4.1.1",
     "react-scripts": "3.4.3",
-    "react-test-renderer": "^16.8.0",
+    "react-test-renderer": "^16.8.3",
     "redux-saga-test-plan": "^3.1.0"
   },
   "scripts": {
