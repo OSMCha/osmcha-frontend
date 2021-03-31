@@ -2,6 +2,11 @@
 
 Log of changes since the 2.0 version
 
+### 0.79.3
+- Convert Tag Changes, Geometry Changes and Other features tabs components to functions (#537)
+- Update React to 16.8.3 (#539)
+- Update changeset-map to 1.9.4 (#541)
+
 ### 0.79.2
 - Refactor code related to Watch and Trusted lists (#534)
 
