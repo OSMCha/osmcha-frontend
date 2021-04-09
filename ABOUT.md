@@ -342,7 +342,7 @@ Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of chan
 | ------------------------------------------------ | ----------------- |
 | **Navigating changeset list**                    |                   |
 | Go to previous changeset (in the changeset list) | `↑`               |
-| Go to next changeset (in the changeset list)     | `↓`, `→`, `Space` |
+| Go to next changeset (in the changeset list)     | `↓` or `→`        |
 | Refresh changeset list                           | `R`               |
 | **Changeset detail view**                        |                   |
 | Open changeset in JOSM                           | `J`               |
@@ -350,18 +350,20 @@ Yes. Keyboard shortcuts on OSMCha help the reviewer to go through a list of chan
 | Open changeset in OSM                            | `O`               |
 | Open changeset in Achavi                         | `V`               |
 | Open user profile in HDYC                        | `H`               |
-| Open changeset in Level0                        | `L`               |
-| Review changeset as good                         | `G`               |
-| Review changeset as bad                          | `B`               |
+| Open changeset in Level0                         | `L`               |
+| Review changeset as Good                         | `G`               |
+| Review changeset as Bad                          | `B`               |
 | Undo or clear changeset review                   | `U` or `C`        |
 | Filter edits of the current changeset's user     | `A`               |
 | **Changeset panels**                             |                   |
 | Toggle Changeset details                         | `1`               |
 | Toggle Flagged features                          | `2`               |
 | Toggle Tag Changes                               | `3`               |
-| Toggle Changeset discussions                     | `4`               |
-| Toggle User profile                              | `5`               |
-| Toggle Map controls                              | `6`               |
+| Toggle Geometry Changes                          | `4`               |
+| Toggle Other Features                            | `5`               |
+| Toggle Changeset discussions                     | `6`               |
+| Toggle User profile                              | `7`               |
+| Toggle Map controls                              | `8`               |
 | **Other**                                        |                   |
 | Toggle Filters page                              | `\`               |
 | Show this Guide page                             | `?` or `/`        |
