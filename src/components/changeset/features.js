@@ -37,12 +37,14 @@ const Feature = ({
         )}
       </td>
       <td>
-        <strong
-          onClick={() => selectFeature(parseInt(data.get('osm_id'), 10))}
-          className="cursor-pointer txt-underline-on-hover mr6"
+        <span
+          className="cursor-pointer txt-underline-on-hover txt-bold mr6"
+          role="button"
+          tabIndex="0"
+          onFocus={() => selectFeature(parseInt(data.get('osm_id'), 10))}
         >
           Map
-        </strong>
+        </span>
         <strong className="cursor-pointer txt-underline-on-hover">
           <a
             rel="noopener noreferrer"
@@ -71,7 +73,12 @@ export function Features({
     <div className="px12 py6">
       <div>
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
-          Flagged Features {features.size !== 0 ? `(${features.size})` : ''}
+          Flagged Features
+          {features.size > 0 && (
+            <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
+              {features.size}
+            </strong>
+          )}
         </h2>
         {features.size === 0 ? (
           <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
