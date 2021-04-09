@@ -42,13 +42,18 @@ const ActionItem = ({ opened, tag, features }) => {
 
   return (
     <div>
-      <span className="pointer" onClick={() => setIsOpen(!isOpen)}>
+      <button
+        className="pointer"
+        tabIndex="0"
+        aria-pressed={isOpen}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <ExpandItemIcon isOpen={isOpen} />
         <span className="txt-bold">{titles[tag]}</span>
         <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
           {features.length}
         </strong>
-      </span>
+      </button>
       <ul className="cmap-vlist" style={{ display: isOpen ? 'block' : 'none' }}>
         {features.map((item, k) => (
           <FeatureListItem id={item.id} type={item.type} key={k} />

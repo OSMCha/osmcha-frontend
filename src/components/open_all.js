@@ -8,11 +8,14 @@ type propsType = {|
 
 export const OpenAll = ({ isActive, setOpenAll }: propsType) => (
   <div className="inline-block fr">
-    <span
+    <button
       className="txt-s txt-underline pointer"
       onClick={() => setOpenAll(!isActive)}
+      role="switch"
+      aria-checked={isActive}
+      tabIndex="0"
     >
       {isActive ? 'Close all' : 'Open all'}
-    </span>
+    </button>
   </div>
 );

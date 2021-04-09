@@ -10,7 +10,7 @@ export const HELP_BINDING = {
 };
 export const NEXT_CHANGESET = {
   label: 'NEXT_CHANGESET',
-  bindings: ['down', 'right', 'space']
+  bindings: ['down', 'right']
 };
 export const PREV_CHANGESET = {
   label: 'PREV_CHANGESET',

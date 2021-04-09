@@ -88,7 +88,9 @@ export function FeatureListItem({ id, type }) {
     <li>
       <span
         className="pointer txt-bold-on-hover"
-        onClick={() => selectFeature(id)}
+        role="button"
+        tabIndex="0"
+        onFocus={() => selectFeature(id)}
       >
         {type} {id}
       </span>
@@ -125,14 +127,19 @@ export const ChangeItem = ({ opened, tag, features }) => {
 
   return (
     <div>
-      <span className="pointer" onClick={() => setIsOpen(!isOpen)}>
+      <button
+        className="pointer"
+        tabIndex="0"
+        aria-pressed={isOpen}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <ExpandItemIcon isOpen={isOpen} />
         <span className="txt-bold">{tag.slice(0, last_space)}</span>
         <span className="txt-code">{tag.slice(last_space)}</span>
         <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
           {features.length}
         </strong>
-      </span>
+      </button>
       {values.map((value, n) => (
         <div
           className="ml18 py3"
