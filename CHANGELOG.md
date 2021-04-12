@@ -2,6 +2,9 @@
 
 Log of changes since the 2.0 version
 
+### 0.80.0
+- Switch between features with TAB (#543)
+
 ### 0.79.3
 - Convert Tag Changes, Geometry Changes and Other features tabs components to functions (#537)
 - Update React to 16.8.3 (#539)
