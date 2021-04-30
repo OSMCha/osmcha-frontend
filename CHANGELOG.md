@@ -2,6 +2,9 @@
 
 Log of changes since the 2.0 version
 
+### 0.81.0
+- Add icon on changeset list to indicate if user is trusted or watchlisted (#545)
+
 ### 0.80.0
 - Switch between features with TAB (#543)
 
