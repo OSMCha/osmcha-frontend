@@ -6,89 +6,85 @@ import moment from 'moment';
 
 import { CreateDeleteModify } from '../create_delete_modify';
 import { Details } from './details';
+import { useIsUserListed } from '../../hooks/UseIsUserListed';
 
-class Header extends React.PureComponent {
-  props: {
-    properties: Map<string, *>,
-    changesetId: number,
-    userEditCount: number,
-    toggleUser: () => mixed,
-    trustedlist: Map<string, *>,
-    watchlisted: Map<object, *>
-  };
-  render() {
-    const user = this.props.properties.get('user');
-    const date = this.props.properties.get('date');
-    const create = this.props.properties.get('create');
-    const modify = this.props.properties.get('modify');
-    const destroy = this.props.properties.get('delete');
-    let isInTrustedlist, isWatchListed;
-    try {
-      isInTrustedlist = this.props.trustedlist.indexOf(user) !== -1;
-    } catch (e) {
-      isInTrustedlist = false;
-    }
-    try {
-      isWatchListed =
-        this.props.watchlisted
-          .map(user => user.get('uid'))
-          .indexOf(this.props.properties.get('uid')) !== -1;
-    } catch (e) {
-      isWatchListed = false;
-    }
+type propsType = {|
+  properties: Map<string, *>,
+  changesetId: number,
+  userEditCount: number,
+  toggleUser: () => mixed,
+  trustedlist: Map<string, *>,
+  watchlisted: Map<object, *>
+|};
 
-    return (
-      <div className="px12 py6">
-        <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap">
-          <div className="flex-parent flex-parent--row justify--space-between">
-            <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">Details</h2>
-            <div>
-              <CreateDeleteModify
-                showZero
-                className="mr3 mt3"
-                create={create}
-                modify={modify}
-                delete={destroy}
-              />
-            </div>
-          </div>
-          <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
-            <span className="txt-s">
-              <strong className="txt-underline-on-hover pointer">
-                <span dir="ltr pointer" onClick={this.props.toggleUser}>
-                  {user}
-                </span>
-              </strong>
-              {isInTrustedlist && (
-                <svg className="icon inline-block align-middle pl3 w18 h18 color-gray">
-                  <use xlinkHref="#icon-star" />
-                </svg>
-              )}
-              {isWatchListed && (
-                <svg className="icon inline-block align-middle pl3 w18 h18 color-gray">
-                  <use xlinkHref="#icon-alert" />
-                </svg>
-              )}
-              {this.props.userEditCount > 0 && (
-                <span className="txt-s txt-em">
-                  &nbsp;({this.props.userEditCount} edits)
-                </span>
-              )}
-              &nbsp;created&nbsp;{moment(date).fromNow()}
-            </span>
+function HeaderComponent({
+  properties,
+  changesetId,
+  userEditCount,
+  toggleUser,
+  trustedlist,
+  watchlisted
+}: propsType) {
+  const user = properties.get('user');
+  const date = properties.get('date');
+  const create = properties.get('create');
+  const modify = properties.get('modify');
+  const destroy = properties.get('delete');
+  const [isInTrustedlist, isInWatchlist] = useIsUserListed(
+    user,
+    properties.get('uid'),
+    trustedlist,
+    watchlisted
+  );
+
+  return (
+    <div className="px12 py6">
+      <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap">
+        <div className="flex-parent flex-parent--row justify--space-between">
+          <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">Details</h2>
+          <div>
+            <CreateDeleteModify
+              showZero
+              className="mr3 mt3"
+              create={create}
+              modify={modify}
+              delete={destroy}
+            />
           </div>
         </div>
-        <Details
-          changesetId={this.props.changesetId}
-          properties={this.props.properties}
-        />
+        <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
+          <span className="txt-s">
+            <strong className="txt-underline-on-hover pointer">
+              <span dir="ltr pointer" onClick={toggleUser}>
+                {user}
+              </span>
+            </strong>
+            {isInTrustedlist && (
+              <svg className="icon inline-block align-middle pl3 w18 h18 color-yellow">
+                <use xlinkHref="#icon-star" />
+              </svg>
+            )}
+            {isInWatchlist && (
+              <svg className="icon inline-block align-middle pl3 w18 h18 color-red">
+                <use xlinkHref="#icon-alert" />
+              </svg>
+            )}
+            {userEditCount > 0 && (
+              <span className="txt-s txt-em">
+                &nbsp;({userEditCount} edits)
+              </span>
+            )}
+            &nbsp;created&nbsp;{moment(date).fromNow()}
+          </span>
+        </div>
       </div>
-    );
-  }
+      <Details changesetId={changesetId} properties={properties} />
+    </div>
+  );
 }
 
-Header = connect((state: RootStateType, props) => ({
+const Header = connect((state: RootStateType, props) => ({
   trustedlist: state.trustedlist.get('trustedlist'),
   watchlisted: state.watchlist.get('watchlist')
-}))(Header);
+}))(HeaderComponent);
 export { Header };

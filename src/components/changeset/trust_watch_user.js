@@ -60,7 +60,7 @@ class TrustWatchUser extends React.PureComponent<any, propsType, any> {
         <div className="flex-parent-inline">
           <span className="btn btn--s border border--1 round color-gray transition pl12 pr6 bg-lighten50 border--red-light">
             <span>
-              <svg className="icon inline-block align-middle pl3 w18 h18 color-gray">
+              <svg className="icon inline-block align-middle pr3 pb3 w18 h18 color-gray">
                 <use xlinkHref="#icon-alert" />
               </svg>
               Watchlisted user
@@ -69,7 +69,7 @@ class TrustWatchUser extends React.PureComponent<any, propsType, any> {
               onClick={() =>
                 this.props.removeFromWatchlist(this.props.user.get('uid'))
               }
-              className="icon inline-block align-middle pl3 pb3 w18 h18 pointer color-gray"
+              className="icon inline-block align-middle pl6 w24 h24 pointer color-gray"
             >
               <use xlinkHref="#icon-close" />
             </svg>
@@ -82,9 +82,9 @@ class TrustWatchUser extends React.PureComponent<any, propsType, any> {
     ) {
       return (
         <div className="flex-parent-inline">
-          <span className="btn btn--s border border--1 round color-gray transition pl12 pr6 bg-lighten50 border--green-light">
+          <span className="btn btn--s border border--1 round color-gray transition pl12 pr6 bg-lighten50 border--yellow">
             <span>
-              <svg className="icon inline-block align-middle pl3 w18 h18 color-gray">
+              <svg className="icon inline-block align-middle pr3 pb3 w18 h18 color-gray">
                 <use xlinkHref="#icon-star" />
               </svg>
               Trusted user
@@ -93,7 +93,7 @@ class TrustWatchUser extends React.PureComponent<any, propsType, any> {
               onClick={e =>
                 this.props.removeFromTrustedlist(this.props.user.get('name'))
               }
-              className="icon inline-block align-middle pl3 pb3 w18 h18 pointer color-gray"
+              className="icon inline-block align-middle pl6 w24 h24 pointer color-gray"
             >
               <use xlinkHref="#icon-close" />
             </svg>
