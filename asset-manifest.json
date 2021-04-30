@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "https://osmcha.org/static/css/main.a67c979d.chunk.css",
-    "main.js": "https://osmcha.org/static/js/main.8fecb275.chunk.js",
-    "main.js.map": "https://osmcha.org/static/js/main.8fecb275.chunk.js.map",
+    "main.js": "https://osmcha.org/static/js/main.d82cf181.chunk.js",
+    "main.js.map": "https://osmcha.org/static/js/main.d82cf181.chunk.js.map",
     "runtime-main.js": "https://osmcha.org/static/js/runtime-main.897a2b40.js",
     "runtime-main.js.map": "https://osmcha.org/static/js/runtime-main.897a2b40.js.map",
     "static/css/2.f1fc6c57.chunk.css": "https://osmcha.org/static/css/2.f1fc6c57.chunk.css",
-    "static/js/2.3f188fdc.chunk.js": "https://osmcha.org/static/js/2.3f188fdc.chunk.js",
-    "static/js/2.3f188fdc.chunk.js.map": "https://osmcha.org/static/js/2.3f188fdc.chunk.js.map",
+    "static/js/2.494be7e2.chunk.js": "https://osmcha.org/static/js/2.494be7e2.chunk.js",
+    "static/js/2.494be7e2.chunk.js.map": "https://osmcha.org/static/js/2.494be7e2.chunk.js.map",
     "static/js/3.e61d6a76.chunk.js": "https://osmcha.org/static/js/3.e61d6a76.chunk.js",
     "static/js/3.e61d6a76.chunk.js.map": "https://osmcha.org/static/js/3.e61d6a76.chunk.js.map",
     "index.html": "https://osmcha.org/index.html",
-    "precache-manifest.ae4dc7481af02c7c4ce25ba2146bac21.js": "https://osmcha.org/precache-manifest.ae4dc7481af02c7c4ce25ba2146bac21.js",
+    "precache-manifest.6d4b67708a5c694ad6fd5ec7a2489a50.js": "https://osmcha.org/precache-manifest.6d4b67708a5c694ad6fd5ec7a2489a50.js",
     "service-worker.js": "https://osmcha.org/service-worker.js",
     "static/css/2.f1fc6c57.chunk.css.map": "https://osmcha.org/static/css/2.f1fc6c57.chunk.css.map",
     "static/css/main.a67c979d.chunk.css.map": "https://osmcha.org/static/css/main.a67c979d.chunk.css.map",
-    "static/js/2.3f188fdc.chunk.js.LICENSE.txt": "https://osmcha.org/static/js/2.3f188fdc.chunk.js.LICENSE.txt",
+    "static/js/2.494be7e2.chunk.js.LICENSE.txt": "https://osmcha.org/static/js/2.494be7e2.chunk.js.LICENSE.txt",
     "static/js/3.e61d6a76.chunk.js.LICENSE.txt": "https://osmcha.org/static/js/3.e61d6a76.chunk.js.LICENSE.txt",
     "static/media/banner.png": "https://osmcha.org/static/media/banner.ed2bb0d2.png",
     "static/media/thumbs-down.svg": "https://osmcha.org/static/media/thumbs-down.7e04a82a.svg",
@@ -25,8 +25,8 @@
   "entrypoints": [
     "static/js/runtime-main.897a2b40.js",
     "static/css/2.f1fc6c57.chunk.css",
-    "static/js/2.3f188fdc.chunk.js",
+    "static/js/2.494be7e2.chunk.js",
     "static/css/main.a67c979d.chunk.css",
-    "static/js/main.8fecb275.chunk.js"
+    "static/js/main.d82cf181.chunk.js"
   ]
 }

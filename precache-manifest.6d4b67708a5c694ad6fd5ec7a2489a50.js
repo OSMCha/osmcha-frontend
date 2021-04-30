@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1a2576ae8d5d244256d7b48d5bcc1a84",
+    "revision": "b14f3be813bbfa475bd8299b14fc77ed",
     "url": "https://osmcha.org/index.html"
   },
   {
-    "revision": "2907c791aee95abe237a",
+    "revision": "e08e76c628899c2eb1ad",
     "url": "https://osmcha.org/static/css/2.f1fc6c57.chunk.css"
   },
   {
-    "revision": "5537e96d90d85fb957f0",
+    "revision": "d89c9b1493d1fb976322",
     "url": "https://osmcha.org/static/css/main.a67c979d.chunk.css"
   },
   {
-    "revision": "2907c791aee95abe237a",
-    "url": "https://osmcha.org/static/js/2.3f188fdc.chunk.js"
+    "revision": "e08e76c628899c2eb1ad",
+    "url": "https://osmcha.org/static/js/2.494be7e2.chunk.js"
   },
   {
     "revision": "532ca25b7e54476ca4fdd3627c5ce590",
-    "url": "https://osmcha.org/static/js/2.3f188fdc.chunk.js.LICENSE.txt"
+    "url": "https://osmcha.org/static/js/2.494be7e2.chunk.js.LICENSE.txt"
   },
   {
     "revision": "fb2aa2383928e7f6f5e5",
@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://osmcha.org/static/js/3.e61d6a76.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "5537e96d90d85fb957f0",
-    "url": "https://osmcha.org/static/js/main.8fecb275.chunk.js"
+    "revision": "d89c9b1493d1fb976322",
+    "url": "https://osmcha.org/static/js/main.d82cf181.chunk.js"
   },
   {
     "revision": "61f9cedf8df07458bee7",
