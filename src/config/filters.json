@@ -333,7 +333,7 @@
     "range": false,
     "display": "Editor",
     "type": "text",
-    "description": "Filter changesets by text in its source field. This is not case-sensitive.",
+    "description": "Filter changesets by editor used. This is not case-sensitive.",
     "placeholder": "eg. iD, JOSM"
   },
   {
