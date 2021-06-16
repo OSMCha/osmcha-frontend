@@ -77,6 +77,7 @@ class NavbarSidebar extends React.PureComponent {
 
     return (
       <Dropdown
+        className="txt-truncate"
         display={username ? username : 'User'}
         options={[
           { label: 'Account settings', url: '/user' },
