@@ -77,8 +77,7 @@ class NavbarSidebar extends React.PureComponent {
 
     return (
       <Dropdown
-        className="txt-truncate"
-        display={username ? username : 'User'}
+        display={username ? <span className="wmax180 align-middle inline-block txt-truncate">{username}</span> : 'User'}
         options={[
           { label: 'Account settings', url: '/user' },
           { label: 'My saved filters', url: '/saved-filters' },
