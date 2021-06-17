@@ -77,7 +77,7 @@ class NavbarSidebar extends React.PureComponent {
 
     return (
       <Dropdown
-        display={username ? username.slice(0, 10) : 'User'}
+        display={username ? <span className="wmax180 align-middle inline-block txt-truncate">{username}</span> : 'User'}
         options={[
           { label: 'Account settings', url: '/user' },
           { label: 'My saved filters', url: '/saved-filters' },
