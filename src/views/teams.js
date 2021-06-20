@@ -19,6 +19,8 @@ import { Button } from '../components/button';
 import { BlockMarkup } from '../components/user/block_markup';
 import type { RootStateType } from '../store';
 
+import NewTeam from '../components/teams/newTeam';
+
 export type teamsOptionsType = Map<'label' | 'value', ?string>;
 export type teamType = List<filterOptionsType>;
 export type teamsType = Map<string, filterType>;
@@ -29,7 +31,7 @@ class SaveButton extends React.PureComponent {
     this.state = {
       editing: props.editing || false,
       teamName: '',
-      teamUsers: [],
+      // teamUsers: [{ username: '' }],
       validationErrorMessage: ''
     };
   }
@@ -49,6 +51,7 @@ class SaveButton extends React.PureComponent {
       });
     }
   }
+
   onClick = event => {
     this.clicked = true;
     this.setState({ editing: true });
@@ -56,9 +59,7 @@ class SaveButton extends React.PureComponent {
   onChangeTeamName = (event: any) => {
     this.setState({ teamName: event.target.value });
   };
-  onChangeTeamUsers = (event: any) => {
-    this.setState({ teamUsers: event.target.value });
-  };
+
   onKeyDown = event => {
     if (event.keyCode === 27 && this.props.activeTeam === undefined) {
       this.setState({
@@ -73,7 +74,7 @@ class SaveButton extends React.PureComponent {
     }
     if (this.state.teamUsers) {
       try {
-        const users = JSON.parse(this.state.teamUsers);
+        const users = this.state.teamUsers;
         if (typeof users !== 'object') {
           return { valid: false, error: 'User must be a JSON array' };
         }
@@ -108,14 +109,11 @@ class SaveButton extends React.PureComponent {
         this.props.onChange(
           this.props.activeTeam.get('id'),
           this.state.teamName,
-          JSON.parse(this.state.teamUsers)
+          this.state.teamUsers
         );
         this.setState({ validationErrorMessage: '' });
       } else {
-        this.props.onCreate(
-          this.state.teamName,
-          JSON.parse(this.state.teamUsers)
-        );
+        this.props.onCreate(this.state.teamName, this.state.teamUsers);
         this.setState({
           editing: false,
           validationErrorMessage: ''
@@ -125,6 +123,7 @@ class SaveButton extends React.PureComponent {
       this.setState({ validationErrorMessage: validation.error });
     }
   };
+
   render() {
     return (
       <span>
@@ -133,8 +132,8 @@ class SaveButton extends React.PureComponent {
             {this.props.activeTeam ? (
               <span />
             ) : (
-                <h3 className="txt-h4 txt-bold">Add a new mapping team</h3>
-              )}
+              <h3 className="txt-h4 txt-bold">Add a new mapping team</h3>
+            )}
             <strong className="txt-truncate pt6">Name</strong>
             <input
               placeholder="New team name"
@@ -150,11 +149,12 @@ class SaveButton extends React.PureComponent {
               onKeyDown={this.onKeyDown}
               disabled={!this.props.userIsOwner}
             />
-            <strong className="txt-truncate pt6">Users</strong>
-            <textarea
+
+            <NewTeam />
+            {/* <textarea
               placeholder={'[{"username": "name"}, {"username": "other_user"}]'}
               className="textarea h180"
-              ref={r => {
+              ref={(r) => {
                 if (this.clicked) {
                   r && r.select();
                   this.clicked = false;
@@ -164,7 +164,7 @@ class SaveButton extends React.PureComponent {
               onChange={this.onChangeTeamUsers}
               onKeyDown={this.onKeyDown}
               disabled={!this.props.userIsOwner}
-            />
+            /> */}
             <span className="txt-light txt-truncate pt6">
               Check the{' '}
               <a
@@ -276,6 +276,7 @@ type propsType = {
   push: any => any,
   modal: any => any
 };
+
 class MappingTeams extends React.PureComponent<any, propsType, any> {
   createTeamPromise;
   state = {
