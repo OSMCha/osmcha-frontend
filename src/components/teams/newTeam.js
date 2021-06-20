@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import { Button } from '../button';
 
 const NewTeam = props => {
+  const [teamName, setTeamName] = useState('');
   const [teamUsers, setTeamUsers] = useState([{}]);
 
-  useEffect(() => {
-    console.log(teamUsers);
-  }, [teamUsers]);
+  useEffect(() => console.log(teamUsers), [teamUsers]);
+
+  useEffect(() => console.log(teamName), [teamName]);
 
   const onClickRemoveUser = idx => {
     let teamUsersToUpdate = [...teamUsers];
@@ -26,6 +27,21 @@ const NewTeam = props => {
 
   return (
     <>
+      <strong className="txt-truncate pt6">Name</strong>
+      <input
+        placeholder="New team name"
+        className="input wmax180"
+        // ref={(r) => {
+        //   if (this.clicked) {
+        //     r && r.select();
+        //     this.clicked = false;
+        //   }
+        // }}
+        value={teamName}
+        onChange={e => setTeamName(e.target.value)}
+        // onKeyDown={this.onKeyDown}
+        // disabled={!this.props.userIsOwner}
+      />
       <strong className="txt-truncate pt6">Users</strong>
       {teamUsers.map((user, k) => (
         <form key={k} className="grid mb3">
@@ -82,10 +98,9 @@ const NewTeam = props => {
               }}
               className="input col w-1/5"
             >
-              {/* <svg class="icon">
-            <use xlink:href="#icon-trash" />
-          </svg> */}
-              X
+              <svg className="icon w24 h24">
+                <use xlinkHref="#icon-trash" />
+              </svg>
             </Button>
           </label>
         </form>
