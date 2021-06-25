@@ -19,7 +19,7 @@ import { Button } from '../components/button';
 import { BlockMarkup } from '../components/user/block_markup';
 import type { RootStateType } from '../store';
 
-import NewTeam from '../components/teams/newTeam';
+import NewTeam from '../components/teams/new_team';
 
 export type teamsOptionsType = Map<'label' | 'value', ?string>;
 export type teamType = List<filterOptionsType>;

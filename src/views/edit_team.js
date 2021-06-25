@@ -17,7 +17,7 @@ import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
 import { SignIn } from '../components/sign_in';
 import type { RootStateType } from '../store';
-import NewTeam from '../components/teams/newTeam';
+import NewTeam from '../components/teams/new_team';
 
 type propsType = {
   avatar: ?string,

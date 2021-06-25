@@ -10,8 +10,6 @@ const NewTeam = props => {
   const [editing, setEditing] = useState(props.editing || false);
   const [validationErrorMessage, setValidationErrorMessage] = useState('');
 
-  const isValid = property => property !== undefined;
-
   useEffect(() => {
     if (props.activeTeam) {
       setTeamName(props.activeTeam.get('name'));
@@ -41,7 +39,7 @@ const NewTeam = props => {
     setTeamUsers(teamUsersToUpdate);
   };
 
-  const onClickAddOneMoreUser = () => setTeamUsers([...teamUsers, {}]);
+  const onClickAddAnotherUser = () => setTeamUsers([...teamUsers, {}]);
 
   const onChangeInput = (property, value, idx) => {
     let teamUsersToUpdate = [...teamUsers];
@@ -97,34 +95,30 @@ const NewTeam = props => {
   };
 
   return (
-    <>
+    <div className="px12">
       {editing ? (
         <>
           {props.activeTeam ? (
             <></>
           ) : (
-            <h3 className="txt-h4 txt-bold">Add a new mapping team</h3>
+            <h3 className="txt-h4 txt-bold pt12">Add a new mapping team</h3>
           )}
           <>
-            <strong className="txt-truncate pt6">Name</strong>
-            <input
-              placeholder="New team name"
-              className="input wmax180"
-              // ref={(r) => {
-              //   if (this.clicked) {
-              //     r && r.select();
-              //     this.clicked = false;
-              //   }
-              // }}
-              value={teamName}
-              onChange={e => setTeamName(e.target.value)}
-              // onKeyDown={this.onKeyDown}
-              disabled={!props.userIsOwner}
-            />
+            <label className="txt-truncate pt6 txt-bold">
+              Name
+              <input
+                required
+                placeholder="New team name"
+                className="input wmax180 mx3"
+                value={teamName}
+                onChange={e => setTeamName(e.target.value)}
+                disabled={!props.userIsOwner}
+              />
+            </label>
             <strong className="txt-truncate pt6">Users</strong>
             {teamUsers.map((user, k) => (
               <form key={k} className="grid mb3">
-                <label className="col w-1/5">
+                <label className="px3 col w-1/5">
                   Username
                   <input
                     className="input"
@@ -139,7 +133,7 @@ const NewTeam = props => {
                     disabled={!props.userIsOwner}
                   />
                 </label>
-                <label className="col w-1/5">
+                <label className="px3 col w-1/5">
                   UID
                   <input
                     className="input"
@@ -153,7 +147,7 @@ const NewTeam = props => {
                     disabled={!props.userIsOwner}
                   />
                 </label>
-                <label className="col w-1/5">
+                <label className="px3 col w-1/5">
                   Joined the team
                   <input
                     className="input"
@@ -167,7 +161,7 @@ const NewTeam = props => {
                     disabled={!props.userIsOwner}
                   />
                 </label>
-                <label className="col w-1/5">
+                <label className="px3 col w-1/5">
                   Left the team
                   <input
                     className="input"
@@ -180,9 +174,10 @@ const NewTeam = props => {
                     disabled={!props.userIsOwner}
                   />
                 </label>
-                <label>
+                <label className="px3">
                   <br></br>
                   <Button
+                    disabled={teamUsers.length === 1}
                     onClick={e => {
                       e.preventDefault();
                       onClickRemoveUser(k);
@@ -196,20 +191,7 @@ const NewTeam = props => {
                 </label>
               </form>
             ))}
-            <Button onClick={onClickAddOneMoreUser}>Add one more user</Button>
-
-            <span className="txt-light txt-truncate pt6">
-              Check the{' '}
-              <a
-                className="link"
-                href="https://github.com/mapbox/osmcha-frontend/wiki/Mapping-Teams"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                reference
-              </a>{' '}
-              about the users field JSON format.
-            </span>
+            <Button onClick={onClickAddAnotherUser}>Add another user</Button>
 
             <p className="txt-light txt-truncate pt6">
               The mapping team members are <strong>public</strong> and can be
@@ -224,7 +206,7 @@ const NewTeam = props => {
 
             <span className="flex-parent flex-parent--row mt12">
               {props.userIsOwner && (
-                <Button className="input wmax120 ml6" onClick={onSave}>
+                <Button className="input wmax120" onClick={onSave}>
                   Save
                 </Button>
               )}
@@ -248,23 +230,25 @@ const NewTeam = props => {
         </>
       ) : (
         <>
-          <Button
-            className="input wmax120 ml12"
-            onClick={() => setEditing(true)}
-          >
+          <Button className="input wmax120" onClick={() => setEditing(true)}>
             Add+
           </Button>
         </>
       )}
-    </>
+    </div>
   );
 };
 
 NewTeam.propTypes = {
   teamUsers: PropTypes.arrayOf(PropTypes.object),
+  teamName: PropTypes.string,
+  editing: PropTypes.bool,
+  validationErrorMessage: PropTypes.string,
   onClickRemoveUser: PropTypes.func,
-  onClickAddOneMoreUser: PropTypes.func,
-  onChangeInput: PropTypes.func
+  onClickAddAnotherUser: PropTypes.func,
+  onChangeInput: PropTypes.func,
+  onSave: PropTypes.func,
+  validateData: PropTypes.func
 };
 
 export default NewTeam;
