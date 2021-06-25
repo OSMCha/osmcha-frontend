@@ -16,8 +16,8 @@ import { withFetchDataSilent } from '../components/fetch_data_enhancer';
 import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
 import { SignIn } from '../components/sign_in';
-import { SaveButton } from './teams';
 import type { RootStateType } from '../store';
+import NewTeam from '../components/teams/newTeam';
 
 type propsType = {
   avatar: ?string,
@@ -118,7 +118,7 @@ class EditMappingTeam extends React.PureComponent<any, propsType, any> {
                     <strong>Editing mapping team: </strong>
                     {this.props.data.getIn(['team', 'name'])}
                   </h2>
-                  <SaveButton
+                  <NewTeam
                     onChange={this.editTeam}
                     editing={true}
                     activeTeam={this.props.data.get('team')}
