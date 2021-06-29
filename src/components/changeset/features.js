@@ -30,10 +30,19 @@ const Feature = ({
       <td>
         {data.get('note') ? (
           <abbr title={data.get('note')}>
-            <Reasons reasons={reasons} underline={true} color="blue" />
+            <Reasons
+              reasons={reasons}
+              userFlag={data.get('user_flag')}
+              underline={true}
+              color="blue"
+            />
           </abbr>
         ) : (
-          <Reasons reasons={reasons} color="blue" />
+          <Reasons
+            reasons={reasons}
+            color="blue"
+            userFlag={data.get('user_flag')}
+          />
         )}
       </td>
       <td>
@@ -68,7 +77,34 @@ export function Features({
   properties: Map<string, *>,
   changesetId: number
 }) {
-  const features: List<Map<string, *>> = properties.get('features');
+  let features: List<Map<string, *>> = properties.get('features');
+  const reviewedFeatures: List<Map<string, *>> = properties
+    .get('reviewed_features')
+    .map(feature =>
+      Map({
+        url: feature.get('id'),
+        user_flag: `Flagged by ${feature.get('user')}`,
+        osm_id: feature.get('id').split('-')[1],
+        reasons: []
+      })
+    );
+  const reviewedIds = reviewedFeatures.map(feature => feature.get('url'));
+  const featuresIds = features.map(feature => feature.get('url'));
+  const intersection = features
+    .filter(feature => reviewedIds.includes(feature.get('url')))
+    .map((feature, k) => [k, feature.get('url')]);
+  intersection.forEach(item => {
+    features = features.setIn(
+      [item[0], 'user_flag'],
+      reviewedFeatures.find(f => f.get('url') === item[1]).get('user_flag')
+    );
+  });
+  features = features.concat(
+    reviewedFeatures.filter(
+      feature => !featuresIds.includes(feature.get('url'))
+    )
+  );
+
   return (
     <div className="px12 py6">
       <div>
