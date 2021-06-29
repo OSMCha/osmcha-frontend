@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import moment from 'moment';
+import { format } from 'date-fns';
 
 import {
   Text,
@@ -101,7 +101,7 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
         gteValue = this.props.filters.get(f.name + '__gte') || defaultDate;
       }
       const lteValue = this.props.filters.get(f.name + '__lte');
-      const today = moment().format('YYYY-MM-DD');
+      const today = format(new Date(), 'yyyy-MM-dd');
       return (
         <Wrapper
           {...wrapperProps}
