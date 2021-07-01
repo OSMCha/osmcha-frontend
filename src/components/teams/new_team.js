@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import { Button } from '../button';
 
@@ -23,7 +26,7 @@ const NewTeam = props => {
         })
       );
       let cleanedUsers = [];
-      users.map((user, k) => {
+      users.forEach((user, k) => {
         let u = Object.fromEntries(
           Object.entries(user).filter(([_, v]) => v !== undefined)
         );
@@ -61,15 +64,13 @@ const NewTeam = props => {
         } else {
           return {
             valid: false,
-            error:
-              'Each object inside the array needs to have a username property.'
+            error: 'The username field should not be empty.'
           };
         }
       } catch (err) {
         return {
           valid: false,
-          error:
-            'Verify if you pasted a correctly formated JSON array in the users field.'
+          error: 'Verify if there is some wrong user information.'
         };
       }
     } else {
@@ -105,7 +106,7 @@ const NewTeam = props => {
           )}
           <>
             <label className="txt-truncate pt6 txt-bold">
-              Name
+              Name<span className="color-red txt-s">*</span>
               <input
                 required
                 placeholder="New team name"
@@ -119,7 +120,7 @@ const NewTeam = props => {
             {teamUsers.map((user, k) => (
               <form key={k} className="grid mb3">
                 <label className="px3 col w-1/5">
-                  Username
+                  Username<span className="color-red txt-s">*</span>
                   <input
                     className="input"
                     type="text"
@@ -149,27 +150,36 @@ const NewTeam = props => {
                 </label>
                 <label className="px3 col w-1/5">
                   Joined the team
-                  <input
-                    className="input"
-                    type="date"
-                    placeholder="Joined the team"
-                    id="joined"
-                    value={user.joined || ''}
-                    onChange={e =>
-                      onChangeInput(e.target.id, e.target.value, k)
+                  <DatePicker
+                    className="input inline"
+                    dateFormat="YYYY-MM-DD"
+                    isClearable={true}
+                    placeholderText="When user joined the team"
+                    selected={user.joined ? moment(user.joined) : null}
+                    onChange={date =>
+                      onChangeInput(
+                        'joined',
+                        date ? moment(date).format('YYYY-MM-DD') : null,
+                        k
+                      )
                     }
                     disabled={!props.userIsOwner}
                   />
                 </label>
                 <label className="px3 col w-1/5">
                   Left the team
-                  <input
-                    className="input"
-                    type="date"
-                    id="left"
-                    value={user.left || ''}
-                    onChange={e =>
-                      onChangeInput(e.target.id, e.target.value, k)
+                  <DatePicker
+                    className="input inline"
+                    dateFormat="YYYY-MM-DD"
+                    isClearable={true}
+                    placeholderText="When user left the team"
+                    selected={user.left ? moment(user.left) : null}
+                    onChange={date =>
+                      onChangeInput(
+                        'left',
+                        date ? moment(date).format('YYYY-MM-DD') : null,
+                        k
+                      )
                     }
                     disabled={!props.userIsOwner}
                   />
