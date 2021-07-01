@@ -2,6 +2,13 @@
 
 Log of changes since the 2.0 version
 
+### 0.82.0
+- Update changeset-map to 1.10.0 (#553)
+- Allow users to flag features (#553)
+- Remove 10-character limit on the username sidebar button (#551)
+- Fix description of "Editor" filter field (#550)
+- New create and edit teams form (#557)
+
 ### 0.81.0
 - Add icon on changeset list to indicate if user is trusted or watchlisted (#545)
 
