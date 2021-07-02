@@ -2,6 +2,12 @@
 
 Log of changes since the 2.0 version
 
+### 0.82.1
+- Replace momentjs by date-fns (#554)
+- Update react-datepicker to 4.1.1 (#554)
+- Update TurfJS libraries (#558)
+- Improve location filters with debounce and a better geometry simplification (#558)
+
 ### 0.82.0
 - Update changeset-map to 1.10.0 (#553)
 - Allow users to flag features (#553)
