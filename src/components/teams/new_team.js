@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -149,17 +149,17 @@ const NewTeam = props => {
                   />
                 </label>
                 <label className="px3 col w-1/5">
-                  Joined the team
+                  <span className="block">Joined the team</span>
                   <DatePicker
-                    className="input inline"
-                    dateFormat="YYYY-MM-DD"
+                    className="input block date-width-full"
+                    dateFormat="yyyy-MM-dd"
                     isClearable={true}
                     placeholderText="When user joined the team"
-                    selected={user.joined ? moment(user.joined) : null}
+                    selected={user.joined ? Date.parse(user.joined) : null}
                     onChange={date =>
                       onChangeInput(
                         'joined',
-                        date ? moment(date).format('YYYY-MM-DD') : null,
+                        date ? format(date, 'yyyy-MM-dd') : null,
                         k
                       )
                     }
@@ -169,15 +169,15 @@ const NewTeam = props => {
                 <label className="px3 col w-1/5">
                   Left the team
                   <DatePicker
-                    className="input inline"
-                    dateFormat="YYYY-MM-DD"
+                    className="input block date-width-full"
+                    dateFormat="yyyy-MM-dd"
                     isClearable={true}
                     placeholderText="When user left the team"
-                    selected={user.left ? moment(user.left) : null}
+                    selected={user.left ? Date.parse(user.left) : null}
                     onChange={date =>
                       onChangeInput(
                         'left',
-                        date ? moment(date).format('YYYY-MM-DD') : null,
+                        date ? format(date, 'yyyy-MM-dd') : null,
                         k
                       )
                     }

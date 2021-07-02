@@ -1,6 +1,6 @@
 // @flow
 import { List, Map, fromJS } from 'immutable';
-import moment from 'moment';
+import { sub, format } from 'date-fns';
 
 import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '../config/constants';
 import type { filtersType } from '../components/filters';
@@ -34,9 +34,10 @@ export function validateFilters(filters: filtersType): boolean {
 }
 
 export function getDefaultFromDate(): filtersType {
-  const defaultDate = moment()
-    .subtract(DEFAULT_FROM_DATE, 'days')
-    .format('YYYY-MM-DD');
+  const defaultDate = format(
+    sub(new Date(), { days: DEFAULT_FROM_DATE }),
+    'yyyy-MM-dd'
+  );
   return fromJS({
     date__gte: [
       {
@@ -48,10 +49,10 @@ export function getDefaultFromDate(): filtersType {
 }
 
 export function getDefaultToDate(): filtersType {
-  const defaultDate = moment()
-    .subtract(DEFAULT_TO_DATE, 'minutes')
-    .utc()
-    .format('YYYY-MM-DD HH:mm');
+  const defaultDate = format(
+    sub(new Date(), { minutes: DEFAULT_TO_DATE }),
+    'yyyy-MM-dd'
+  );
   return fromJS({
     date__lte: [
       {

@@ -108,7 +108,7 @@ img {
   font-size: 6em;
   line-height: 2em;
 }
-.react-datepicker__input-container {
+.react-datepicker-wrapper {
   width: 100%;
 }
 @media only screen and (max-width: 768px) {
