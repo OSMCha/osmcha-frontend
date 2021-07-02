@@ -7,7 +7,7 @@ export { MappingTeamMultiSelect } from './multi_select';
 export { LocationSelect } from './location';
 export { Wrapper } from './wrapper';
 export { Meta } from './meta';
-export { Date } from './date';
+export { DateField } from './date';
 
 export type InputType = Map<'label' | 'value', string>;
 export type filterOptionsType = Map<'label' | 'value', ?string>;

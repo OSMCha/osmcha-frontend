@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { format } from 'date-fns';
 
 import {
   Text,
@@ -9,7 +8,7 @@ import {
   MultiSelect,
   Wrapper,
   Meta,
-  Date,
+  DateField,
   LocationSelect
 } from './';
 
@@ -101,7 +100,7 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
         gteValue = this.props.filters.get(f.name + '__gte') || defaultDate;
       }
       const lteValue = this.props.filters.get(f.name + '__lte');
-      const today = format(new Date(), 'yyyy-MM-dd');
+      const today = new Date();
       return (
         <Wrapper
           {...wrapperProps}
@@ -111,17 +110,19 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           }
         >
           <span className="flex-parent flex-parent--row h36">
-            <Date
+            <DateField
               {...propsToSend}
               name={f.name + '__gte'}
               value={gteValue}
+              className="mr3"
               placeholder={'From'}
               max={(lteValue && lteValue.getIn([0, 'value'])) || today}
             />
-            <Date
+            <DateField
               {...propsToSend}
               name={f.name + '__lte'}
               value={lteValue}
+              className="ml3"
               placeholder={'To'}
               min={gteValue && gteValue.getIn([0, 'value'])}
               max={today}

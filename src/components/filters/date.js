@@ -2,12 +2,12 @@
 import React from 'react';
 import { fromJS } from 'immutable';
 import DatePicker from 'react-datepicker';
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
 import type { filterType } from './';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-export class Date extends React.Component {
+export class DateField extends React.Component {
   props: {
     name: string,
     display: string,
@@ -45,18 +45,14 @@ export class Date extends React.Component {
     const hasValue = value && value.getIn([0, 'value']);
     return (
       <DatePicker
-        className={`input ${className} date-width-full`}
-        // dateFormat="yyyy-MM-dd"
+        className={`input ${className}`}
         isClearable={true}
-        selected={
-          hasValue
-            ? parse(value.getIn([0, 'value']), 'yyyy-MM-dd', new Date())
-            : null
-        }
+        selected={hasValue ? Date.parse(value.getIn([0, 'value'])) : null}
         placeholderText={placeholder || display}
         onChange={this.handleDateChange}
-        // minDate={min && moment(min)}
-        //maxDate={max && moment(max)}
+        dateFormat="yyyy-MM-dd"
+        minDate={min && Date.parse(min)}
+        maxDate={max && Date.parse(max)}
       />
     );
   }
