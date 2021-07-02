@@ -5,13 +5,13 @@ object-assign
 */
 
 /*!
-    Copyright (c) 2016 Jed Watson.
-    Licensed under the MIT License (MIT), see
-    http://jedwatson.github.io/classnames
-    */
+  Copyright (c) 2017 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
 
 /*!
-  Copyright (c) 2017 Jed Watson.
+  Copyright (c) 2018 Jed Watson.
   Licensed under the MIT License (MIT), see
   http://jedwatson.github.io/classnames
 */
@@ -23,8 +23,6 @@ object-assign
 */
 
 /*! showdown v 1.9.0 - 10-11-2018 */
-
-/*! tether 1.4.0 */
 
 /** @license React v0.19.1
  * scheduler.production.min.js
@@ -61,5 +59,3 @@ object-assign
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
-//! moment.js
