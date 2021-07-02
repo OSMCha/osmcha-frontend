@@ -2,7 +2,7 @@
 import React from 'react';
 import { fromJS } from 'immutable';
 import DatePicker from 'react-datepicker';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import type { filterType } from './';
 
 import 'react-datepicker/dist/react-datepicker.css';
@@ -47,7 +47,11 @@ export class DateField extends React.Component {
       <DatePicker
         className={`input ${className}`}
         isClearable={true}
-        selected={hasValue ? Date.parse(value.getIn([0, 'value'])) : null}
+        selected={
+          hasValue
+            ? parse(value.getIn([0, 'value']), 'yyyy-MM-dd', new Date())
+            : null
+        }
         placeholderText={placeholder || display}
         onChange={this.handleDateChange}
         dateFormat="yyyy-MM-dd"

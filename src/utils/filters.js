@@ -49,9 +49,12 @@ export function getDefaultFromDate(): filtersType {
 }
 
 export function getDefaultToDate(): filtersType {
+  const now = new Date();
   const defaultDate = format(
-    sub(new Date(), { minutes: DEFAULT_TO_DATE }),
-    'yyyy-MM-dd'
+    sub(new Date(now.getTime() + now.getTimezoneOffset() * 60 * 1000), {
+      minutes: DEFAULT_TO_DATE
+    }),
+    'yyyy-MM-dd HH:mm'
   );
   return fromJS({
     date__lte: [
