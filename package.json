@@ -19,7 +19,6 @@
     "animate.css": "^3.7.2",
     "changeset-map": "^1.10.0",
     "date-fns": "^2.22.1",
-    "date-input-polyfill": "^2.14.0",
     "history": "^4.10.1",
     "immutable": "^3.8.2",
     "lodash.debounce": "^4.0.8",
