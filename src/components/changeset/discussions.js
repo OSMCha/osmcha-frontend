@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow, parse } from 'date-fns';
 import AnchorifyText from 'react-anchorify-text';
 
 import AssemblyAnchor from '../assembly_anchor';
@@ -41,7 +41,10 @@ class Discussions extends React.PureComponent {
                   By <strong>{f.get('user')}&nbsp;</strong>
                 </span>
                 <span>
-                  {formatDistanceToNow(f.get('date'), { addSuffix: true })}
+                  {formatDistanceToNow(
+                    parse(f.get('date'), "yyyy-MM-dd'T'HH:mm:ssX", new Date()),
+                    { addSuffix: true }
+                  )}
                 </span>
               </div>
               <div className="flex-parent flex-parent--column mt6 mb3">
