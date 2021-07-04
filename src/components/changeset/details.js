@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useState } from 'react';
 import { Map } from 'immutable';
 import AnchorifyText from 'react-anchorify-text';
 import AssemblyAnchor from '../assembly_anchor';
@@ -17,8 +17,12 @@ export function Details({
   let source = properties.get('source');
   let editor = properties.get('editor');
   let imagery = properties.get('imagery_used');
+  const metadata = properties.get('metadata');
   const reasons = properties.get('reasons');
   const comment = properties.get('comment');
+
+  const [leftLimit, setLeftLimit] = useState(0);
+  const [rightLimit, setRightLimit] = useState(3);
 
   const urlRegex = new RegExp(
     /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/gim
@@ -38,6 +42,86 @@ export function Details({
     imageryMatch = imagery.match(urlRegex);
     imagery = imagery.replace(urlRegex, '');
   }
+
+  const metadataArray = Array.from(metadata, ([property, value]) => (
+    <div key={property} className="flex-parent flex-parent--column ">
+      <strong
+        title={property}
+        className="wmax180 txt-s txt-uppercase txt-truncate"
+      >
+        {property}
+      </strong>
+      <span className="wmax180 txt-break-word txt-s">{value}</span>
+    </div>
+  ));
+
+  const propertiesArray = [
+    <div className="flex-parent flex-parent--column">
+      <strong className="wmax180 txt-s txt-uppercase">Source</strong>
+      <span className="wmax180 txt-break-word txt-s">
+        {source}
+        <span>
+          <br />
+          {sourceMatch.map((e, k) => (
+            <a
+              href={sourceMatch}
+              title={sourceMatch}
+              key={k}
+              className="color-blue"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {Array.isArray(
+                e.match(
+                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                )
+              ) ? (
+                e.match(
+                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                )[0]
+              ) : (
+                <svg className="icon h18 w18 inline-block align-middle ">
+                  <use xlinkHref="#icon-share" />
+                </svg>
+              )}
+            </a>
+          ))}
+        </span>
+      </span>
+    </div>,
+    <div className="flex-parent flex-parent--column ">
+      <strong className="wmax180 txt-s txt-uppercase ">Editor</strong>
+      <span className="wmax180 txt-break-word txt-s">{editor}</span>
+    </div>,
+    <div className="flex-parent flex-parent--column">
+      <strong className="wmax180 txt-s txt-uppercase">Imagery</strong>
+      <span className="wmax180 txt-break-word txt-s">
+        {imagery}
+        <span>
+          <br />
+          {imageryMatch.map((e, k) => (
+            <a href={e} key={k} className="color-blue">
+              {Array.isArray(
+                e.match(
+                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                )
+              ) ? (
+                e.match(
+                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                )[0]
+              ) : (
+                <svg className="icon h18 w18 inline-block align-middle ">
+                  <use xlinkHref="#icon-share" />
+                </svg>
+              )}
+            </a>
+          ))}
+        </span>
+      </span>
+    </div>,
+    ...metadataArray
+  ];
+
   return (
     <div>
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap py12">
@@ -64,69 +148,33 @@ export function Details({
         <Reasons reasons={reasons} color="blue" />
       </div>
       <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap pt12 pb6">
-        <div className="flex-parent flex-parent--column ">
-          <strong className="wmax180 txt-s txt-uppercase">Source</strong>
-          <span className="wmax180 txt-break-word txt-s">
-            {source}
-            <span>
-              <br />
-              {sourceMatch.map((e, k) => (
-                <a
-                  href={sourceMatch}
-                  title={sourceMatch}
-                  key={k}
-                  className="color-blue"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {Array.isArray(
-                    e.match(
-                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                    )
-                  ) ? (
-                    e.match(
-                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                    )[0]
-                  ) : (
-                    <svg className="icon h18 w18 inline-block align-middle ">
-                      <use xlinkHref="#icon-share" />
-                    </svg>
-                  )}
-                </a>
-              ))}
-            </span>
-          </span>
-        </div>
-        <div className="flex-parent flex-parent--column ">
-          <strong className="wmax180 txt-s txt-uppercase">Editor</strong>
-          <span className="wmax180 txt-break-word txt-s">{editor}</span>
-        </div>
-        <div className="flex-parent flex-parent--column">
-          <strong className="wmax180 txt-s txt-uppercase">Imagery</strong>
-          <span className="wmax180 txt-break-word txt-s">
-            {imagery}
-            <span>
-              <br />
-              {imageryMatch.map((e, k) => (
-                <a href={e} key={k} className="color-blue">
-                  {Array.isArray(
-                    e.match(
-                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                    )
-                  ) ? (
-                    e.match(
-                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                    )[0]
-                  ) : (
-                    <svg className="icon h18 w18 inline-block align-middle ">
-                      <use xlinkHref="#icon-share" />
-                    </svg>
-                  )}
-                </a>
-              ))}
-            </span>
-          </span>
-        </div>
+        {leftLimit > 0 && (
+          <button
+            className="wmax12 mr0"
+            onClick={() => {
+              setLeftLimit(leftLimit - 1);
+              setRightLimit(rightLimit - 1);
+            }}
+          >
+            <svg className="icon">
+              <use xlinkHref="#icon-chevron-left" />
+            </svg>
+          </button>
+        )}
+        {propertiesArray.slice(leftLimit, rightLimit)}
+        {rightLimit < propertiesArray.length && (
+          <button
+            className="wmax12"
+            onClick={() => {
+              setLeftLimit(leftLimit + 1);
+              setRightLimit(rightLimit + 1);
+            }}
+          >
+            <svg className="icon">
+              <use xlinkHref="#icon-chevron-right" />
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   );
