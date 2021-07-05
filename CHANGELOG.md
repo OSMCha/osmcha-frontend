@@ -2,6 +2,13 @@
 
 Log of changes since the 2.0 version
 
+### 0.82.3
+- Update default from date query to 2 days or 30 in case of users query (#563)
+- Fix date parsing on the Discussions tab (#561)
+
+### 0.82.2
+- Fix bug in changeset date_lte query format
+
 ### 0.82.1
 - Replace momentjs by date-fns (#554)
 - Update react-datepicker to 4.1.1 (#554)
