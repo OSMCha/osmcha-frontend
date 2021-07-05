@@ -33,9 +33,9 @@ export function validateFilters(filters: filtersType): boolean {
   }
 }
 
-export function getDefaultFromDate(): filtersType {
+export function getDefaultFromDate(extraDays = 0): filtersType {
   const defaultDate = format(
-    sub(new Date(), { days: DEFAULT_FROM_DATE }),
+    sub(new Date(), { days: DEFAULT_FROM_DATE + extraDays }),
     'yyyy-MM-dd'
   );
   return fromJS({
@@ -67,8 +67,17 @@ export function getDefaultToDate(): filtersType {
 }
 
 export function appendDefaultDate(filters: filtersType) {
+  // Set From date to 2 days behind if there isn't a date query.
+  // In case of a users or uids query, set the From date to 30 days behind
   if (filters && !filters.has('date__gte') && !filters.has('date__lte')) {
-    filters = filters.merge(getDefaultFromDate());
+    if (
+      filters.count() === 1 &&
+      (filters.has('users') || filters.has('uids'))
+    ) {
+      filters = filters.merge(getDefaultFromDate(28));
+    } else {
+      filters = filters.merge(getDefaultFromDate());
+    }
   }
   if (filters && !filters.has('date__lte')) {
     filters = filters.merge(getDefaultToDate());
