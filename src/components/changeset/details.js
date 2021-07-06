@@ -5,6 +5,8 @@ import AnchorifyText from 'react-anchorify-text';
 import AssemblyAnchor from '../assembly_anchor';
 import TranslateButton from './translate_button';
 import { Reasons } from '../reasons';
+import PropertyList from './property_list';
+// import Property from './property';
 
 export function Details({
   properties,
@@ -15,21 +17,17 @@ export function Details({
   expanded?: boolean
 }) {
   let source = properties.get('source');
-  let editor = properties.get('editor');
   let imagery = properties.get('imagery_used');
+  const editor = properties.get('editor');
   const metadata = properties.get('metadata');
   const reasons = properties.get('reasons');
   const comment = properties.get('comment');
-
-  const [leftLimit, setLeftLimit] = useState(0);
-  const [rightLimit, setRightLimit] = useState(3);
 
   const urlRegex = new RegExp(
     /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/gim
   );
 
   let sourceMatch = [];
-
   if (source && source.indexOf('{switch:a,b,c}.') > -1) {
     source = source.replace('{switch:a,b,c}.', '');
   }
@@ -37,90 +35,32 @@ export function Details({
     sourceMatch = source.match(urlRegex);
     source = source.replace(urlRegex, '');
   }
+
   let imageryMatch = [];
   if (imagery && imagery.match(urlRegex)) {
     imageryMatch = imagery.match(urlRegex);
     imagery = imagery.replace(urlRegex, '');
   }
 
-  const metadataArray = Array.from(metadata, ([property, value]) => (
-    <div key={property} className="flex-parent flex-parent--column ">
-      <strong
-        title={property}
-        className="wmax180 txt-s txt-uppercase txt-truncate"
-      >
-        {property}
-      </strong>
-      <span className="wmax180 txt-break-word txt-s">{value}</span>
-    </div>
-  ));
+  const propertiesObj = {};
 
-  const propertiesArray = [
-    <div className="flex-parent flex-parent--column">
-      <strong className="wmax180 txt-s txt-uppercase">Source</strong>
-      <span className="wmax180 txt-break-word txt-s">
-        {source}
-        <span>
-          <br />
-          {sourceMatch.map((e, k) => (
-            <a
-              href={sourceMatch}
-              title={sourceMatch}
-              key={k}
-              className="color-blue"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {Array.isArray(
-                e.match(
-                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                )
-              ) ? (
-                e.match(
-                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                )[0]
-              ) : (
-                <svg className="icon h18 w18 inline-block align-middle ">
-                  <use xlinkHref="#icon-share" />
-                </svg>
-              )}
-            </a>
-          ))}
-        </span>
-      </span>
-    </div>,
-    <div className="flex-parent flex-parent--column ">
-      <strong className="wmax180 txt-s txt-uppercase ">Editor</strong>
-      <span className="wmax180 txt-break-word txt-s">{editor}</span>
-    </div>,
-    <div className="flex-parent flex-parent--column">
-      <strong className="wmax180 txt-s txt-uppercase">Imagery</strong>
-      <span className="wmax180 txt-break-word txt-s">
-        {imagery}
-        <span>
-          <br />
-          {imageryMatch.map((e, k) => (
-            <a href={e} key={k} className="color-blue">
-              {Array.isArray(
-                e.match(
-                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                )
-              ) ? (
-                e.match(
-                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                )[0]
-              ) : (
-                <svg className="icon h18 w18 inline-block align-middle ">
-                  <use xlinkHref="#icon-share" />
-                </svg>
-              )}
-            </a>
-          ))}
-        </span>
-      </span>
-    </div>,
-    ...metadataArray
-  ];
+  propertiesObj['editor'] = editor;
+  propertiesObj['imagery'] = imagery;
+  propertiesObj['source'] = source;
+
+  Array.from(metadata, ([p, v]) => {
+    if (
+      !p.startsWith('ideditor') &&
+      !p.startsWith('resolved') &&
+      !p.startsWith('warnings')
+    ) {
+      propertiesObj[p] = v;
+    }
+  });
+
+  const size = Object.keys(propertiesObj).length;
+
+  const [leftLimit, setLeftLimit] = useState(0);
 
   return (
     <div>
@@ -147,13 +87,12 @@ export function Details({
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
         <Reasons reasons={reasons} color="blue" />
       </div>
-      <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap pt12 pb6">
+      <div className="grid pt12 pb6">
         {leftLimit > 0 && (
           <button
-            className="wmax12 mr0"
+            className="wmax12 mr6"
             onClick={() => {
-              setLeftLimit(leftLimit - 1);
-              setRightLimit(rightLimit - 1);
+              setLeftLimit(leftLimit - 2);
             }}
           >
             <svg className="icon">
@@ -161,13 +100,17 @@ export function Details({
             </svg>
           </button>
         )}
-        {propertiesArray.slice(leftLimit, rightLimit)}
-        {rightLimit < propertiesArray.length && (
+        <PropertyList
+          properties={propertiesObj}
+          limit={leftLimit}
+          imageryMatch={imageryMatch}
+          sourceMatch={sourceMatch}
+        />
+        {leftLimit + 2 < size && (
           <button
-            className="wmax12"
+            className="wmax12 ml6"
             onClick={() => {
-              setLeftLimit(leftLimit + 1);
-              setRightLimit(rightLimit + 1);
+              setLeftLimit(leftLimit + 2);
             }}
           >
             <svg className="icon">
