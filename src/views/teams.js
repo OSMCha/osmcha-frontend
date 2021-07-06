@@ -19,205 +19,11 @@ import { Button } from '../components/button';
 import { BlockMarkup } from '../components/user/block_markup';
 import type { RootStateType } from '../store';
 
+import NewTeam from '../components/teams/new_team';
+
 export type teamsOptionsType = Map<'label' | 'value', ?string>;
 export type teamType = List<filterOptionsType>;
 export type teamsType = Map<string, filterType>;
-
-class SaveButton extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editing: props.editing || false,
-      teamName: '',
-      teamUsers: [],
-      validationErrorMessage: ''
-    };
-  }
-  ref;
-  clicked = false;
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.activeTeam) {
-      this.setState({
-        teamName: nextProps.activeTeam.get('name')
-      });
-      this.setState({
-        teamUsers: JSON.stringify(
-          Array.from(nextProps.activeTeam.get('users')).map(i =>
-            Object.fromEntries(i)
-          )
-        )
-      });
-    }
-  }
-  onClick = event => {
-    this.clicked = true;
-    this.setState({ editing: true });
-  };
-  onChangeTeamName = (event: any) => {
-    this.setState({ teamName: event.target.value });
-  };
-  onChangeTeamUsers = (event: any) => {
-    this.setState({ teamUsers: event.target.value });
-  };
-  onKeyDown = event => {
-    if (event.keyCode === 27 && this.props.activeTeam === undefined) {
-      this.setState({
-        editing: false
-      });
-      this.clicked = false;
-    }
-  };
-  validateData() {
-    if (!this.state.teamName) {
-      return { valid: false, error: 'Team name cannot be empty.' };
-    }
-    if (this.state.teamUsers) {
-      try {
-        const users = JSON.parse(this.state.teamUsers);
-        if (typeof users !== 'object') {
-          return { valid: false, error: 'User must be a JSON array' };
-        }
-        if (
-          users.filter(i => i.hasOwnProperty('username')).length ===
-          users.length
-        ) {
-          return { valid: true };
-        } else {
-          return {
-            valid: false,
-            error:
-              'Each object inside the array needs to have a username property.'
-          };
-        }
-      } catch (e) {
-        return {
-          valid: false,
-          error:
-            'Verify if you pasted a correctly formated JSON array in the users field.'
-        };
-      }
-    } else {
-      return { valid: false, error: 'Users cannot be empty' };
-    }
-  }
-  onSave = event => {
-    const validation = this.validateData();
-
-    if (validation.valid) {
-      if (this.props.activeTeam) {
-        this.props.onChange(
-          this.props.activeTeam.get('id'),
-          this.state.teamName,
-          JSON.parse(this.state.teamUsers)
-        );
-        this.setState({ validationErrorMessage: '' });
-      } else {
-        this.props.onCreate(
-          this.state.teamName,
-          JSON.parse(this.state.teamUsers)
-        );
-        this.setState({
-          editing: false,
-          validationErrorMessage: ''
-        });
-      }
-    } else {
-      this.setState({ validationErrorMessage: validation.error });
-    }
-  };
-  render() {
-    return (
-      <span>
-        {this.state.editing ? (
-          <div className="pt18">
-            {this.props.activeTeam ? (
-              <span />
-            ) : (
-                <h3 className="txt-h4 txt-bold">Add a new mapping team</h3>
-              )}
-            <strong className="txt-truncate pt6">Name</strong>
-            <input
-              placeholder="New team name"
-              className="input wmax180"
-              ref={r => {
-                if (this.clicked) {
-                  r && r.select();
-                  this.clicked = false;
-                }
-              }}
-              value={this.state.teamName}
-              onChange={this.onChangeTeamName}
-              onKeyDown={this.onKeyDown}
-              disabled={!this.props.userIsOwner}
-            />
-            <strong className="txt-truncate pt6">Users</strong>
-            <textarea
-              placeholder={'[{"username": "name"}, {"username": "other_user"}]'}
-              className="textarea h180"
-              ref={r => {
-                if (this.clicked) {
-                  r && r.select();
-                  this.clicked = false;
-                }
-              }}
-              value={this.state.teamUsers}
-              onChange={this.onChangeTeamUsers}
-              onKeyDown={this.onKeyDown}
-              disabled={!this.props.userIsOwner}
-            />
-            <span className="txt-light txt-truncate pt6">
-              Check the{' '}
-              <a
-                className="link"
-                href="https://github.com/mapbox/osmcha-frontend/wiki/Mapping-Teams"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                reference
-              </a>{' '}
-              about the users field JSON format.
-            </span>
-            <p className="txt-light txt-truncate pt6">
-              The mapping team members are <strong>public</strong> and can be
-              visualized by any logged in OSMCha user.
-            </p>
-            {this.state.validationErrorMessage && (
-              <span className="flex-parent flex-parent--row mt12 color-red-dark txt-bold">
-                {this.state.validationErrorMessage}
-              </span>
-            )}
-            <span className="flex-parent flex-parent--row mt12">
-              {this.props.userIsOwner && (
-                <Button className="input wmax120 ml6" onClick={this.onSave}>
-                  Save
-                </Button>
-              )}
-              {this.props.activeTeam ? (
-                <Link
-                  to={{ pathname: '/teams' }}
-                  className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition input wmax120 ml6"
-                >
-                  Back to teams
-                </Link>
-              ) : (
-                <Button
-                  className="input wmax120 ml6"
-                  onClick={() => this.setState({ editing: false })}
-                >
-                  Cancel
-                </Button>
-              )}
-            </span>
-          </div>
-        ) : (
-          <Button className="input wmax120 ml12" onClick={this.onClick}>
-            Add+
-          </Button>
-        )}
-      </span>
-    );
-  }
-}
 
 const TeamsBlock = ({ data, removeTeam, editTeam }) => (
   <BlockMarkup>
@@ -276,6 +82,7 @@ type propsType = {
   push: any => any,
   modal: any => any
 };
+
 class MappingTeams extends React.PureComponent<any, propsType, any> {
   createTeamPromise;
   state = {
@@ -366,7 +173,7 @@ class MappingTeams extends React.PureComponent<any, propsType, any> {
                       removeTeam: this.removeTeam
                     }}
                     SaveComp={
-                      <SaveButton
+                      <NewTeam
                         onCreate={this.createTeam}
                         editing={this.state.addingTeam}
                         userIsOwner={true}
@@ -409,4 +216,4 @@ MappingTeams = connect(
   }
 )(MappingTeams);
 
-export { MappingTeams, SaveButton };
+export { MappingTeams };

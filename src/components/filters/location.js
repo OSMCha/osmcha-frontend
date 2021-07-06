@@ -1,11 +1,14 @@
 // @flow
 import React from 'react';
 import { fromJS } from 'immutable';
+import debounce from 'lodash.debounce';
 import { Async } from 'react-select';
 import Select from 'react-select';
 
+import area from '@turf/area';
 import bbox from '@turf/bbox';
 import simplify from '@turf/simplify';
+import truncate from '@turf/truncate';
 import MapboxDraw from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw';
 
 import { nominatimSearch } from '../../network/nominatim';
@@ -134,14 +137,19 @@ export class LocationSelect extends React.PureComponent {
       drawingData.features.length &&
       drawingData.features[0].geometry
     ) {
-      this.updateMap(drawingData.features[0].geometry);
+      this.updateMap(
+        truncate(drawingData.features[0].geometry, {
+          precision: 6,
+          coordinates: 2
+        })
+      );
     } else {
       this.clearMap();
     }
   };
 
   getAsyncOptions = (input: string, cb: (e: ?Error, any) => void) => {
-    if (input.length > 3) {
+    if (input.length >= 3) {
       return nominatimSearch(input, this.state.queryType)
         .then(json => {
           if (!Array.isArray(json)) return cb(null, { options: [] });
@@ -160,8 +168,14 @@ export class LocationSelect extends React.PureComponent {
   onChangeLocal = (data: ?Array<Object>) => {
     if (data) {
       this.draw.deleteAll();
-      const simplified_bounds = simplify(data.value, { tolerance: 0.1 });
-      this.updateMap(simplified_bounds);
+      const tolerance = area(data.value) / 10 ** 6 < 1000 ? 0.01 : 0.1;
+      const simplified_bounds = simplify(data.value, {
+        tolerance: tolerance,
+        highQuality: true
+      });
+      this.updateMap(
+        truncate(simplified_bounds, { precision: 6, coordinates: 2 })
+      );
     }
   };
   handleQueryTypeChange = value => {
@@ -174,8 +188,11 @@ export class LocationSelect extends React.PureComponent {
         name={name}
         className=""
         value={value}
-        loadOptions={this.getAsyncOptions}
-        onChange={this.onChangeLocal} // have to add an identifier for filter name
+        loadOptions={debounce(
+          (input, cb) => this.getAsyncOptions(input, cb),
+          500
+        )}
+        onChange={this.onChangeLocal}
         placeholder={placeholder}
       />
     );
@@ -198,13 +215,13 @@ export class LocationSelect extends React.PureComponent {
         <div className="grid grid--gut12 pt6">
           <div className="col col--12 map-select">
             <div id="geometry-map">
-              <div
+              <button
                 onClick={this.clearMap}
-                className="pointer z5 m3 inline-block px6 py3 txt-s bg-white txt-bold round absolute fl"
+                className="pointer z5 mx1 my1 inline-block px6 py3 txt-s bg-white txt-bold round absolute fl"
                 style={{ zIndex: 2 }}
               >
                 Clear All
-              </div>
+              </button>
             </div>
           </div>
         </div>

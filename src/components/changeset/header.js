@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
-import moment from 'moment';
+import { formatDistanceToNow, parse } from 'date-fns';
 
 import { CreateDeleteModify } from '../create_delete_modify';
 import { Details } from './details';
@@ -26,7 +26,11 @@ function HeaderComponent({
   watchlisted
 }: propsType) {
   const user = properties.get('user');
-  const date = properties.get('date');
+  const date = parse(
+    properties.get('date'),
+    "yyyy-MM-dd'T'HH:mm:ssX",
+    new Date()
+  );
   const create = properties.get('create');
   const modify = properties.get('modify');
   const destroy = properties.get('delete');
@@ -74,7 +78,7 @@ function HeaderComponent({
                 &nbsp;({userEditCount} edits)
               </span>
             )}
-            &nbsp;created&nbsp;{moment(date).fromNow()}
+            &nbsp;created&nbsp;{formatDistanceToNow(date, { addSuffix: true })}
           </span>
         </div>
       </div>

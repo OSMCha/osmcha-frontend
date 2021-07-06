@@ -1,8 +1,15 @@
 import React from 'react';
 
-export function Button({ onClick, children, iconName, className }: Object) {
+export function Button({
+  onClick,
+  children,
+  iconName,
+  className,
+  disabled
+}: Object) {
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
       className={`${className ||
         ''} btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition ${

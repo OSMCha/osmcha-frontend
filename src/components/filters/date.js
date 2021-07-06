@@ -1,14 +1,13 @@
 // @flow
 import React from 'react';
 import { fromJS } from 'immutable';
-import moment from 'moment';
-import type { filterType } from './';
-import type Moment from 'moment';
-
 import DatePicker from 'react-datepicker';
+import { format, parse } from 'date-fns';
+import type { filterType } from './';
+
 import 'react-datepicker/dist/react-datepicker.css';
 
-export class Date extends React.Component {
+export class DateField extends React.Component {
   props: {
     name: string,
     display: string,
@@ -23,10 +22,10 @@ export class Date extends React.Component {
   static defaultProps = {
     className: ''
   };
-  handleDateChange = (momentObj: ?Moment) => {
-    const value = momentObj ? momentObj.format('YYYY-MM-DD') : null;
+  handleDateChange = date => {
     const name = this.props.name;
-    if (value) {
+    if (date) {
+      const value = format(date, 'yyyy-MM-dd');
       this.props.onChange(
         name,
         fromJS([
@@ -46,14 +45,18 @@ export class Date extends React.Component {
     const hasValue = value && value.getIn([0, 'value']);
     return (
       <DatePicker
-        className={`input ${className} date-width-full`}
-        dateFormat="YYYY-MM-DD"
+        className={`input ${className}`}
         isClearable={true}
-        selected={hasValue ? moment(value.getIn([0, 'value'])) : null}
+        selected={
+          hasValue
+            ? parse(value.getIn([0, 'value']), 'yyyy-MM-dd', new Date())
+            : null
+        }
         placeholderText={placeholder || display}
         onChange={this.handleDateChange}
-        minDate={min && moment(min)}
-        maxDate={max && moment(max)}
+        dateFormat="yyyy-MM-dd"
+        minDate={min && Date.parse(min)}
+        maxDate={max && Date.parse(max)}
       />
     );
   }

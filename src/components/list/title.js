@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import { formatDistanceToNow, parse } from 'date-fns';
 
 import { useIsUserListed } from '../../hooks/UseIsUserListed';
 
@@ -34,7 +34,13 @@ function TitleComponent({
             </svg>
           )}
         </strong>
-        <span className="txt-s mr3">&nbsp;{moment(date).fromNow()}</span>
+        <span className="txt-s mr3">
+          &nbsp;
+          {formatDistanceToNow(
+            parse(date, "yyyy-MM-dd'T'HH:mm:ssX", new Date()),
+            { addSuffix: true }
+          )}
+        </span>
       </span>
     </div>
   );
