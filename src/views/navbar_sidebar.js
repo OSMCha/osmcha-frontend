@@ -77,9 +77,25 @@ class NavbarSidebar extends React.PureComponent {
 
     return (
       <Dropdown
-        display={username ? <span className="wmax180 align-middle inline-block txt-truncate">{username}</span> : 'User'}
+        display={
+          username ? (
+            <span className="wmax180 align-middle inline-block txt-truncate">
+              {username}
+            </span>
+          ) : (
+            'User'
+          )
+        }
         options={[
           { label: 'Account settings', url: '/user' },
+          {
+            label: 'My changesets',
+            url: `/?filters=%7B%22users%22%3A%5B%7B%22label%22%3A%22${username}%22%2C%22value%22%3A%22${username}%22%7D%5D%7D`
+          },
+          {
+            label: 'My reviews',
+            url: `/?filters=%7B"checked_by"%3A%5B%7B"label"%3A"${username}"%2C"value"%3A"${username}"%7D%5D%7D`
+          },
           { label: 'My saved filters', url: '/saved-filters' },
           { label: 'My teams', url: '/teams' },
           { label: 'My trusted users list', url: '/trusted-users' },
