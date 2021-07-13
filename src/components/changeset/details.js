@@ -6,7 +6,6 @@ import AssemblyAnchor from '../assembly_anchor';
 import TranslateButton from './translate_button';
 import { Reasons } from '../reasons';
 import PropertyList from './property_list';
-// import Property from './property';
 
 export function Details({
   properties,
@@ -42,11 +41,11 @@ export function Details({
     imagery = imagery.replace(urlRegex, '');
   }
 
-  const propertiesObj = {};
-
-  propertiesObj['editor'] = editor;
-  propertiesObj['imagery'] = imagery;
-  propertiesObj['source'] = source;
+  const propertiesObj = {
+    editor: editor,
+    imagery: imagery,
+    source: source
+  };
 
   Array.from(metadata, ([p, v]) => {
     if (
