@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import showdown from 'showdown';
-import moment from 'moment';
+import { formatDistanceToNow, parse } from 'date-fns';
 
 import { Avatar } from '../avatar';
 import { getObjAsQueryParam } from '../../utils/query_params';
@@ -87,6 +87,16 @@ export class User extends React.PureComponent {
     const UserDescriptionHTML = converter.makeHtml(
       this.props.userDetails.get('description') || ''
     );
+    const registrationDate = this.props.userDetails.get('accountCreated')
+      ? formatDistanceToNow(
+          parse(
+            this.props.userDetails.get('accountCreated'),
+            "yyyy-MM-dd'T'HH:mm:ssX",
+            new Date()
+          ),
+          { addSuffix: true }
+        )
+      : '';
 
     return (
       <div className="px12 py6">
@@ -105,10 +115,7 @@ export class User extends React.PureComponent {
             </div>
             <div>
               <p className="txt-s color-gray align-center">
-                {this.props.userDetails.get('accountCreated') &&
-                  `Joined ${moment(
-                    this.props.userDetails.get('accountCreated')
-                  ).fromNow(true)} ago | `}
+                {`Joined ${registrationDate} | `}
                 {this.props.userDetails.get('count')
                   ? this.renderUidFilterLink()
                   : `${this.props.userDetails.get(

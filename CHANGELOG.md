@@ -2,6 +2,26 @@
 
 Log of changes since the 2.0 version
 
+### 0.82.3
+- Update default from date query to 2 days or 30 in case of users query (#563)
+- Fix date parsing on the Discussions tab (#561)
+
+### 0.82.2
+- Fix bug in changeset date_lte query format
+
+### 0.82.1
+- Replace momentjs by date-fns (#554)
+- Update react-datepicker to 4.1.1 (#554)
+- Update TurfJS libraries (#558)
+- Improve location filters with debounce and a better geometry simplification (#558)
+
+### 0.82.0
+- Update changeset-map to 1.10.0 (#553)
+- Allow users to flag features (#553)
+- Remove 10-character limit on the username sidebar button (#551)
+- Fix description of "Editor" filter field (#550)
+- New create and edit teams form (#557)
+
 ### 0.81.0
 - Add icon on changeset list to indicate if user is trusted or watchlisted (#545)
 
