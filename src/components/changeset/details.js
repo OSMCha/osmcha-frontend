@@ -41,11 +41,22 @@ export function Details({
     imagery = imagery.replace(urlRegex, '');
   }
 
-  const propertiesObj = {
-    editor: editor,
-    imagery: imagery,
-    source: source
-  };
+  let propertiesObj = {};
+  // As JOSM doesn't use the imagery field, change the order
+  // to make the source field visible in the first page
+  if (imagery === 'Not reported') {
+    propertiesObj = {
+      editor: editor,
+      source: source,
+      imagery: imagery
+    };
+  } else {
+    propertiesObj = {
+      editor: editor,
+      imagery: imagery,
+      source: source
+    };
+  }
 
   Array.from(metadata, ([p, v]) => {
     if (
@@ -58,7 +69,6 @@ export function Details({
   });
 
   const size = Object.keys(propertiesObj).length;
-
   const [leftLimit, setLeftLimit] = useState(0);
 
   return (
@@ -90,9 +100,8 @@ export function Details({
         {leftLimit > 0 && (
           <button
             className="wmax12 mr6"
-            onClick={() => {
-              setLeftLimit(leftLimit - 2);
-            }}
+            onClick={() => setLeftLimit(leftLimit - 2)}
+            title="Previous changeset properties"
           >
             <svg className="icon">
               <use xlinkHref="#icon-chevron-left" />
@@ -108,9 +117,8 @@ export function Details({
         {leftLimit + 2 < size && (
           <button
             className="wmax12 ml6"
-            onClick={() => {
-              setLeftLimit(leftLimit + 2);
-            }}
+            onClick={() => setLeftLimit(leftLimit + 2)}
+            title="Next changeset properties"
           >
             <svg className="icon">
               <use xlinkHref="#icon-chevron-right" />
