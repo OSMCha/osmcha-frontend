@@ -1,10 +1,11 @@
 // @flow
-import React from 'react';
+import React, { useState } from 'react';
 import { Map } from 'immutable';
 import AnchorifyText from 'react-anchorify-text';
 import AssemblyAnchor from '../assembly_anchor';
 import TranslateButton from './translate_button';
 import { Reasons } from '../reasons';
+import PropertyList from './property_list';
 
 export function Details({
   properties,
@@ -15,8 +16,9 @@ export function Details({
   expanded?: boolean
 }) {
   let source = properties.get('source');
-  let editor = properties.get('editor');
   let imagery = properties.get('imagery_used');
+  const editor = properties.get('editor');
+  const metadata = properties.get('metadata');
   const reasons = properties.get('reasons');
   const comment = properties.get('comment');
 
@@ -25,7 +27,6 @@ export function Details({
   );
 
   let sourceMatch = [];
-
   if (source && source.indexOf('{switch:a,b,c}.') > -1) {
     source = source.replace('{switch:a,b,c}.', '');
   }
@@ -33,11 +34,43 @@ export function Details({
     sourceMatch = source.match(urlRegex);
     source = source.replace(urlRegex, '');
   }
+
   let imageryMatch = [];
   if (imagery && imagery.match(urlRegex)) {
     imageryMatch = imagery.match(urlRegex);
     imagery = imagery.replace(urlRegex, '');
   }
+
+  let propertiesObj = {};
+  // As JOSM doesn't use the imagery field, change the order
+  // to make the source field visible in the first page
+  if (imagery === 'Not reported') {
+    propertiesObj = {
+      editor: editor,
+      source: source,
+      imagery: imagery
+    };
+  } else {
+    propertiesObj = {
+      editor: editor,
+      imagery: imagery,
+      source: source
+    };
+  }
+
+  Array.from(metadata, ([p, v]) => {
+    if (
+      !p.startsWith('ideditor') &&
+      !p.startsWith('resolved') &&
+      !p.startsWith('warnings')
+    ) {
+      propertiesObj[p] = v;
+    }
+  });
+
+  const size = Object.keys(propertiesObj).length;
+  const [leftLimit, setLeftLimit] = useState(0);
+
   return (
     <div>
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap py12">
@@ -63,70 +96,35 @@ export function Details({
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
         <Reasons reasons={reasons} color="blue" />
       </div>
-      <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap pt12 pb6">
-        <div className="flex-parent flex-parent--column ">
-          <strong className="wmax180 txt-s txt-uppercase">Source</strong>
-          <span className="wmax180 txt-break-word txt-s">
-            {source}
-            <span>
-              <br />
-              {sourceMatch.map((e, k) => (
-                <a
-                  href={sourceMatch}
-                  title={sourceMatch}
-                  key={k}
-                  className="color-blue"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {Array.isArray(
-                    e.match(
-                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                    )
-                  ) ? (
-                    e.match(
-                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                    )[0]
-                  ) : (
-                    <svg className="icon h18 w18 inline-block align-middle ">
-                      <use xlinkHref="#icon-share" />
-                    </svg>
-                  )}
-                </a>
-              ))}
-            </span>
-          </span>
-        </div>
-        <div className="flex-parent flex-parent--column ">
-          <strong className="wmax180 txt-s txt-uppercase">Editor</strong>
-          <span className="wmax180 txt-break-word txt-s">{editor}</span>
-        </div>
-        <div className="flex-parent flex-parent--column">
-          <strong className="wmax180 txt-s txt-uppercase">Imagery</strong>
-          <span className="wmax180 txt-break-word txt-s">
-            {imagery}
-            <span>
-              <br />
-              {imageryMatch.map((e, k) => (
-                <a href={e} key={k} className="color-blue">
-                  {Array.isArray(
-                    e.match(
-                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                    )
-                  ) ? (
-                    e.match(
-                      /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                    )[0]
-                  ) : (
-                    <svg className="icon h18 w18 inline-block align-middle ">
-                      <use xlinkHref="#icon-share" />
-                    </svg>
-                  )}
-                </a>
-              ))}
-            </span>
-          </span>
-        </div>
+      <div className="grid pt12 pb6">
+        {leftLimit > 0 && (
+          <button
+            className="wmax12 mr6"
+            onClick={() => setLeftLimit(leftLimit - 2)}
+            title="Previous changeset properties"
+          >
+            <svg className="icon">
+              <use xlinkHref="#icon-chevron-left" />
+            </svg>
+          </button>
+        )}
+        <PropertyList
+          properties={propertiesObj}
+          limit={leftLimit}
+          imageryMatch={imageryMatch}
+          sourceMatch={sourceMatch}
+        />
+        {leftLimit + 2 < size && (
+          <button
+            className="wmax12 ml6"
+            onClick={() => setLeftLimit(leftLimit + 2)}
+            title="Next changeset properties"
+          >
+            <svg className="icon">
+              <use xlinkHref="#icon-chevron-right" />
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   );
