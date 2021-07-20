@@ -2,6 +2,10 @@
 
 Log of changes since the 2.0 version
 
+### 0.83.0
+- Show additional changeset metadata information (#570)
+- Add My Changesets and My Reviews links to the user menu (#575)
+
 ### 0.82.3
 - Update default from date query to 2 days or 30 in case of users query (#563)
 - Fix date parsing on the Discussions tab (#561)
