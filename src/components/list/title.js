@@ -37,6 +37,7 @@ function TitleComponent({
         <span className="txt-s mr3">
           &nbsp;
           {formatDistanceToNow(
+            // eslint-disable-next-line
             parse(date, "yyyy-MM-dd'T'HH:mm:ssX", new Date()),
             { addSuffix: true }
           )}

@@ -91,6 +91,7 @@ export class User extends React.PureComponent {
       ? formatDistanceToNow(
           parse(
             this.props.userDetails.get('accountCreated'),
+            // eslint-disable-next-line
             "yyyy-MM-dd'T'HH:mm:ssX",
             new Date()
           ),

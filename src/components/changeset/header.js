@@ -28,6 +28,7 @@ function HeaderComponent({
   const user = properties.get('user');
   const date = parse(
     properties.get('date'),
+    // eslint-disable-next-line
     "yyyy-MM-dd'T'HH:mm:ssX",
     new Date()
   );
