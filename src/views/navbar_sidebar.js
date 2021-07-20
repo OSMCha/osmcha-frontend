@@ -57,17 +57,34 @@ class NavbarSidebar extends React.PureComponent {
     });
   };
   onUserMenuSelect = (arr: Array<Object>) => {
+    const username = this.props.username;
+
     if (arr.length === 1) {
       if (arr[0].url === '/logout') {
         this.props.logUserOut();
-      } else {
-        console.log(this.props.push);
+        return;
+      }
+      if (arr[0].url === '/my-changesets') {
         this.props.push({
           ...this.props.location,
-          search: this.props.location.search,
-          pathname: arr[0].url
+          search: `filters={"users":[{"label":"${username}","value":"${username}"}],"date__gte":[{"label":"","value":""}]}`,
+          pathname: '/'
         });
+        return;
       }
+      if (arr[0].url === '/my-reviews') {
+        this.props.push({
+          ...this.props.location,
+          search: `filters={"checked_by":[{"label":"${username}","value":"${username}"}],"date__gte":[{"label":"","value":""}]}`,
+          pathname: '/'
+        });
+        return;
+      }
+      this.props.push({
+        ...this.props.location,
+        search: this.props.location.search,
+        pathname: arr[0].url
+      });
     } else if (arr.length > 1) {
       throw new Error('filter select array is big');
     }
@@ -90,11 +107,11 @@ class NavbarSidebar extends React.PureComponent {
           { label: 'Account settings', url: '/user' },
           {
             label: 'My changesets',
-            url: `/?filters=%7B%22users%22%3A%5B%7B%22label%22%3A%22${username}%22%2C%22value%22%3A%22${username}%22%7D%5D%7D`
+            url: '/my-changesets'
           },
           {
             label: 'My reviews',
-            url: `/?filters=%7B"checked_by"%3A%5B%7B"label"%3A"${username}"%2C"value"%3A"${username}"%7D%5D%7D`
+            url: '/my-reviews'
           },
           { label: 'My saved filters', url: '/saved-filters' },
           { label: 'My teams', url: '/teams' },
