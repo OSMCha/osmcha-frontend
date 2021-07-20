@@ -57,17 +57,34 @@ class NavbarSidebar extends React.PureComponent {
     });
   };
   onUserMenuSelect = (arr: Array<Object>) => {
+    const username = this.props.username;
+
     if (arr.length === 1) {
       if (arr[0].url === '/logout') {
         this.props.logUserOut();
-      } else {
-        console.log(this.props.push);
+        return;
+      }
+      if (arr[0].url === '/my-changesets') {
         this.props.push({
           ...this.props.location,
-          search: this.props.location.search,
-          pathname: arr[0].url
+          search: `filters={"users":[{"label":"${username}","value":"${username}"}],"date__gte":[{"label":"","value":""}]}`,
+          pathname: '/'
         });
+        return;
       }
+      if (arr[0].url === '/my-reviews') {
+        this.props.push({
+          ...this.props.location,
+          search: `filters={"checked_by":[{"label":"${username}","value":"${username}"}],"date__gte":[{"label":"","value":""}]}`,
+          pathname: '/'
+        });
+        return;
+      }
+      this.props.push({
+        ...this.props.location,
+        search: this.props.location.search,
+        pathname: arr[0].url
+      });
     } else if (arr.length > 1) {
       throw new Error('filter select array is big');
     }
@@ -77,9 +94,25 @@ class NavbarSidebar extends React.PureComponent {
 
     return (
       <Dropdown
-        display={username ? <span className="wmax180 align-middle inline-block txt-truncate">{username}</span> : 'User'}
+        display={
+          username ? (
+            <span className="wmax180 align-middle inline-block txt-truncate">
+              {username}
+            </span>
+          ) : (
+            'User'
+          )
+        }
         options={[
           { label: 'Account settings', url: '/user' },
+          {
+            label: 'My changesets',
+            url: '/my-changesets'
+          },
+          {
+            label: 'My reviews',
+            url: '/my-reviews'
+          },
           { label: 'My saved filters', url: '/saved-filters' },
           { label: 'My teams', url: '/teams' },
           { label: 'My trusted users list', url: '/trusted-users' },
