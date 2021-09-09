@@ -17,22 +17,44 @@ This repository contains the frontend code. Other repositories are:
 ## Setting up editor
 
 ### Prettier
+
 This repository uses [prettier](https://github.com/prettier/prettier) to keep the code consistent and formatted. You can config your favourite editor by the following links
 - Atom users can simply install the [prettier-atom](https://atom.io/packages/prettier-atom) package and use Ctrl+Alt+F to format a file (or format on save if enabled).
 - Visual Studio Code users can Search for Prettier - JavaScript formatter.
 
 ### Prerequisite
-- Make sure your node version is *9.1*.
-- Install `yarn` globally using `brew install yarn`.
-- Install `watchman` globally with `brew install watchman`.
+
+1. Install [asdf version manager](https://asdf-vm.com/guide/getting-started.html#getting-started)
+1. `asdf install` to install the required tools from [.tool-versions](./.tool-versions)
+1. `yarn install` (`brew install yarn` if required).
 
 ### Local development
+
 1. `yarn start`
-1. Open [https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]}](https://localhost:3000/?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]}) of e.g. [changeset#68901012](https://localhost:3000/changesets/68901012?filters={%22date__gte%22%3A[{%22label%22%3A%222017-05-01%22%2C%22value%22%3A%222017-05-01%22}]})
+1. Open [https://localhost:3000?filters=%7B%22date__gte%22%3A%5B%7B%22label%22%3A%222020-04-01%22%2C%22value%22%3A%222020-04-01%22%7D%5D%7D](https://localhost:3000?filters=%7B%22date__gte%22%3A%5B%7B%22label%22%3A%222020-04-01%22%2C%22value%22%3A%222020-04-01%22%7D%5D%7D) of e.g. [changeset#91638199](https://localhost:3000/changesets/91638199?filters=%7B%22date__gte%22%3A%5B%7B%22label%22%3A%222020-04-01%22%2C%22value%22%3A%222020-04-01%22%7D%5D%7D)
     - The app runs with https; Firefox is recommended since it allows self signed certificates.
-    - The staging database only has changesets until mid 2017; without the filter you will not see any changesets.
+    - The staging database does not have all the changesets that production has, therefore the filter is needed.
+
+**To also edit the part of the UI that is provided by the OSM Changeset Viewer**
+
+Checkout https://github.com/osmlab/changeset-map in a sibling folder.
+
+_In `./changeset-map`:_
+
+1. `yarn link`
+1. `yarn build --watch`
+
+_In `./osmcha-frontend`_
+
+1. `yarn link "changeset-map"`
+1. `yarn start`
+
+Edits in both projects will result in a rebuild and reload the browser.
+
+When finished, reset "osmcha-frontend" back to the npm version of "changeset-map" with `yarn add changeset-map@latest`
 
 ### Local testing
+
 Test the application before commiting any changes. If you encounter any error make sure you have `watchman` installed. [Installation Guide](https://facebook.github.io/watchman/docs/install.html).
 
 ```bash
@@ -40,6 +62,7 @@ yarn test
 ```
 
 ## Deploy/Release
+
 - There are three stacks to deploy to
 - ~~`yarn deploy:dev` deploys it to `mapbox.github.io`~~ (currently broken)
 - `yarn deploy:staging` deploys it to `staging.osmcha.org`
@@ -54,7 +77,6 @@ yarn test
     ```bash
     npm version minor
     ```
-
 
 3. Then build the app with the following command.
     ```bash
