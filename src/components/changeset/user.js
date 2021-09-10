@@ -7,6 +7,7 @@ import { Avatar } from '../avatar';
 import { getObjAsQueryParam } from '../../utils/query_params';
 import { SignInButton } from './sign_in_button';
 import { TrustWatchUser } from './trust_watch_user';
+import { UserOSMLink } from './user_osm_link';
 
 class UserLink extends React.PureComponent {
   getHarmfulObject() {
@@ -158,17 +159,9 @@ export class User extends React.PureComponent {
               >
                 OSMCha
               </Link>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Open in OSM"
-                className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-                href={`https://www.openstreetmap.org/user/${this.props.userDetails.get(
-                  'name'
-                )}`}
-              >
+              <UserOSMLink userName={this.props.userDetails.get('name')}>
                 OSM
-              </a>
+              </UserOSMLink>
               <a
                 target="_blank"
                 rel="noopener noreferrer"
