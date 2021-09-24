@@ -1,10 +1,11 @@
-import { nominatimUrl } from '../config/constants';
+import { nominatimBaseUrl, nominatimCredentials } from '../config/constants';
 import { handleErrors } from './aoi';
 
 export function nominatimSearch(input, type): Promise<*> {
   return fetch(
-    `${nominatimUrl}?polygon_geojson=1&format=json&${type}=${input}`,
+    `${nominatimBaseUrl}/search.php?polygon_geojson=1&format=json&${type}=${input}`,
     {
+      credentials: nominatimCredentials,
       method: 'GET'
     }
   )

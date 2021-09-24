@@ -17,7 +17,10 @@ export const apiOSM = 'https://api.openstreetmap.org/api/0.6';
 export const whosThat =
   'https://rksbsqdel4.execute-api.us-east-1.amazonaws.com/testing?action=names&id=';
 
-export const nominatimUrl = 'https://nominatim.openstreetmap.org/search.php';
+export const credentialsPolicy =
+    process.env.REACT_APP_CREDENTIALS_POLICY || (process.env.NODE_ENV === 'development' ? 'include' : 'same-origin');
+export const nominatimBaseUrl = process.env.REACT_APP_NOMINATIM_BASE_URL || 'https://nominatim.openstreetmap.org';
+export const nominatimCredentials = (process.env.REACT_APP_NOMINATIM_CREDENTIALS === 'enabled' ? credentialsPolicy : 'omit');
 
 // set a default from date x days before today
 export const DEFAULT_FROM_DATE = 2;
