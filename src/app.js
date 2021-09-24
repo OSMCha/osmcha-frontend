@@ -21,7 +21,6 @@ import { Watchlist } from './views/watchlist';
 import { MappingTeams } from './views/teams';
 import { EditMappingTeam } from './views/edit_team';
 
-import { gaPageView } from './utils/analytics';
 import { getSearchObj } from './utils/query_params';
 
 export class App extends Component {
@@ -37,9 +36,6 @@ export class App extends Component {
           .keySeq()
           .sort((a, b) => a.localeCompare(b))
           .join(',');
-        gaPageView(`/?filters=${filters}`);
-      } else {
-        gaPageView('/');
       }
     }
   }
