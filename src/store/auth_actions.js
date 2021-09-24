@@ -10,7 +10,6 @@ import {
   fetchUserDetails,
   updateUserDetails
 } from '../network/auth';
-import { getStatus } from '../network/status';
 import { fetchChangeset } from '../network/changeset';
 import { fetchWatchList } from '../network/osmcha_watchlist';
 import { setItem, removeItem } from '../utils/safe_storage';
@@ -92,7 +91,6 @@ export function* watchAuth(): any {
       const userDetails = fromJS(yield call(fetchUserDetails, token));
       const trustedlist = userDetails.get('whitelists');
       const watchlist = fromJS(yield call(fetchWatchList, token));
-      const status = fromJS(yield call(getStatus));
       yield put(action(TRUSTEDLIST.define, { trustedlist }));
       yield put(action(WATCHLIST.define, { watchlist }));
       yield put(action(AUTH.userDetails, { userDetails }));
@@ -110,19 +108,6 @@ export function* watchAuth(): any {
           })
         );
       }
-      // show status notification
-      if (status.get('status') !== 'success') {
-        yield put(
-          modal({
-            title: 'OSMCha Status',
-            description: status.get('message'),
-            kind: status.get('status'),
-            autoDismiss: 20,
-            position: 'bc'
-          })
-        );
-      }
-
       yield take(AUTH.logout);
       delayBy = DELAY;
       token = undefined;
