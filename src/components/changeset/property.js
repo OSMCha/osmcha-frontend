@@ -17,11 +17,11 @@ const Property = ({ property, value, imageryMatch, sourceMatch }) => {
             <a href={e} key={k} className="color-blue">
               {Array.isArray(
                 e.match(
-                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                  /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/gim
                 )
               ) ? (
                 e.match(
-                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                  /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/gim
                 )[0]
               ) : (
                 <svg className="icon h18 w18 inline-block align-middle ">
@@ -46,11 +46,11 @@ const Property = ({ property, value, imageryMatch, sourceMatch }) => {
             >
               {Array.isArray(
                 e.match(
-                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                  /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/gim
                 )
               ) ? (
                 e.match(
-                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                  /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/gim
                 )[0]
               ) : (
                 <svg className="icon h18 w18 inline-block align-middle ">

@@ -20,29 +20,29 @@ function formatMarkdown() {
     },
     {
       type: 'output',
-      regex: /\<h3/g,
+      regex: /<h3/g,
       replace: '<h3 class="txt-l txt-bold mt18"'
     },
     {
       type: 'output',
-      regex: /\<h2/g,
+      regex: /<h2/g,
       replace:
         '<h2 class="txt-xl txt-bold mt24 mb12 border-b border--gray-light border--1"'
     },
     {
       type: 'output',
-      regex: /\<h1/g,
+      regex: /<h1/g,
       replace:
         '<h1 class="txt-xl txt-bold mt24 mb12 border-b border--gray-light border--1"'
     },
     {
       type: 'output',
-      regex: /\<ul\>/g,
+      regex: /<ul>/g,
       replace: '<ul class="pl24">'
     },
     {
       type: 'output',
-      regex: /\<li\>/g,
+      regex: /<li>/g,
       replace: '<li style="list-style-type: circle;">'
     },
     {

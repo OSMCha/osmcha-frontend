@@ -23,7 +23,6 @@ exports[`renders correctly 2`] = `
   className="flex-child btn btn--s color-gray round bg-gray-faint bg-darken10-on-active bg-darken5-on-hover
           is-active 
           "
-  disabled={undefined}
   onClick={[Function]}
 >
   5
