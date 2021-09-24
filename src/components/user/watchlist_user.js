@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { osmApiUrl } from '../../config/constants';
 import { Button } from '../button';
 import { handleErrors } from '../../network/aoi';
 
@@ -23,7 +24,7 @@ export class WatchListUser extends React.Component {
   };
   fetchUsername = (username: string) =>
     fetch(
-      `https://www.openstreetmap.org/api/0.6/changesets?display_name=${this.state.username}`
+      `${osmApiUrl}/api/0.6/changesets?display_name=${this.state.username}`
     )
       .then(handleErrors)
       .then(r => r.text())
@@ -43,7 +44,7 @@ export class WatchListUser extends React.Component {
       });
 
   fetchUid = (uid: string) =>
-    fetch(`https://www.openstreetmap.org/api/0.6/user/${uid}.json`)
+    fetch(`${osmApiUrl}/api/0.6/user/${uid}.json`)
       .then(handleErrors)
       .then(r => r.json());
 

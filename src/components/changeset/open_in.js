@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { importChangesetMap } from '../../utils/cmap';
+import { osmApiUrl, osmBaseUrl } from '../../config/constants';
 import { Dropdown } from '../dropdown';
 
 function openEditor(selected) {
@@ -9,7 +10,7 @@ function openEditor(selected) {
     .then(map => {
       let baseUrl;
       if (selected && selected[0].value === 'iD') {
-        baseUrl = 'https://www.openstreetmap.org/edit?editor=id&';
+        baseUrl = `${osmBaseUrl}/edit?editor=id&`;
       }
       if (selected && selected[0].value === 'RapiD') {
         baseUrl = 'https://mapwith.ai/rapid?';
@@ -44,7 +45,7 @@ export function OpenIn({ changesetId, coordinates, className }) {
           {
             label: 'JOSM',
             value: 'JOSM',
-            href: `http://127.0.0.1:8111/import?url=https://www.openstreetmap.org/api/0.6/changeset/${changesetId}/download`
+            href: `http://127.0.0.1:8111/import?url=${osmApiUrl}/api/0.6/changeset/${changesetId}/download`
           },
           {
             label: 'Level0',

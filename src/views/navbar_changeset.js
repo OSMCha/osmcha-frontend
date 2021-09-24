@@ -21,6 +21,7 @@ import {
   OPEN_IN_ACHAVI,
   OPEN_IN_HDYC
 } from '../config/bindings';
+import { osmApiUrl, osmBaseUrl } from '../config/constants';
 import { API_URL } from '../config/index';
 
 import {
@@ -70,7 +71,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       }
       case OPEN_IN_JOSM.label: {
         if (!this.props.changesetId) return;
-        const url = `http://127.0.0.1:8111/import?url=https://www.openstreetmap.org/api/0.6/changeset/${this.props.changesetId}/download`;
+        const url = `http://127.0.0.1:8111/import?url=${osmApiUrl}/api/0.6/changeset/${this.props.changesetId}/download`;
         window.open(url, '_blank');
         break;
       }
@@ -82,7 +83,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
           0,
           0
         ]);
-        const url = `https://www.openstreetmap.org/edit?changeset=${
+        const url = `${osmBaseUrl}/edit?changeset=${
           this.props.changesetId
         }#map=15/${coordinates && coordinates.get('1')}/${coordinates &&
           coordinates.get('0')}`;
@@ -91,7 +92,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       }
       case OPEN_IN_OSM.label: {
         if (!this.props.changesetId) return;
-        const url = `https://www.openstreetmap.org/changeset/${this.props.changesetId}`;
+        const url = `${osmBaseUrl}/changeset/${this.props.changesetId}`;
         window.open(url, '_blank');
         break;
       }
@@ -174,7 +175,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                     </svg>
                   </span>
                   <a
-                    href={`https://www.openstreetmap.org/changeset/${this.props.changesetId}`}
+                    href={`${osmBaseUrl}/changeset/${this.props.changesetId}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     title="See on OSM"

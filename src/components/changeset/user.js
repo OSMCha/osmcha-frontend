@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import showdown from 'showdown';
 import { formatDistanceToNow, parse } from 'date-fns';
-
+import { osmBaseUrl } from '../../config/constants';
 import { Avatar } from '../avatar';
 import { getObjAsQueryParam } from '../../utils/query_params';
 import { SignInButton } from './sign_in_button';
@@ -163,7 +163,7 @@ export class User extends React.PureComponent {
                 rel="noopener noreferrer"
                 title="Open in OSM"
                 className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-                href={`https://www.openstreetmap.org/user/${this.props.userDetails.get(
+                href={`${osmBaseUrl}/user/${this.props.userDetails.get(
                   'name'
                 )}`}
               >

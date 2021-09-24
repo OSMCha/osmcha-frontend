@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { osmTileUrl } from '../../config/constants';
 import { importChangesetMap } from '../../utils/cmap';
 import { updateStyle } from '../../store/map_controls_actions';
 import { Dropdown } from '../dropdown';
@@ -102,11 +103,7 @@ class MapOptions extends React.PureComponent {
       sources: {
         'osm-tiles': {
           type: 'raster',
-          tiles: [
-            'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            'https://b.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png'
-          ],
+          tiles: [osmTileUrl],
           tileSize: 256,
           attribution:
             '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

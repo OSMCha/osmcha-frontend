@@ -1,10 +1,10 @@
 import { fromJS, Map } from 'immutable';
-import { apiOSM } from '../config/constants';
+import { osmApiUrl } from '../config/constants';
 import { API_URL } from '../config';
 
 export function getUserDetails(uid: number, token: string): Map<'string', *> {
   const user = { uid: uid };
-  const fromOSM = fetch(`${apiOSM}/user/${uid}.json`, {
+  const fromOSM = fetch(`${osmApiUrl}/api/0.6/user/${uid}.json`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   })
