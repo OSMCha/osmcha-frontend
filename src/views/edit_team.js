@@ -18,6 +18,7 @@ import { Button } from '../components/button';
 import { SignIn } from '../components/sign_in';
 import type { RootStateType } from '../store';
 import NewTeam from '../components/teams/new_team';
+import { useMobile } from '../utils';
 
 type propsType = {
   avatar: ?string,
@@ -86,10 +87,12 @@ class EditMappingTeam extends React.PureComponent<any, propsType, any> {
   };
 
   render() {
+    const mobile = useMobile();
+
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
-          window.innerWidth < 800 ? 'viewport-full' : ''
+          mobile ? 'viewport-full' : ''
         }`}
       >
         <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
