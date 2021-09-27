@@ -38,6 +38,7 @@ type propsType = {
   handleChangesetModifyTag: (number, Map<string, *>, Object, boolean) => mixed,
   handleChangesetModifyHarmful: (number, Map<string, *>, boolean | -1) => mixed
 };
+
 class NavbarChangeset extends React.PureComponent<void, propsType, *> {
   componentWillReceiveProps(nextProps: propsType) {
     if (!this.props.currentChangeset) return;
@@ -121,6 +122,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       }
     }
   }
+
   handleVerify = (arr: Array<Object>) => {
     if (arr.length === 1) {
       this.props.handleChangesetModifyHarmful(
@@ -132,6 +134,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       throw new Error('verify array is big');
     }
   };
+
   handleVerifyClear = () => {
     this.props.handleChangesetModifyHarmful(
       this.props.changesetId,
@@ -139,6 +142,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       -1
     );
   };
+
   render() {
     const width = window.innerWidth;
     return (
@@ -146,7 +150,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
         className="bg-gray-faint color-gray border-b border--gray-light border--1 px30"
         title={
           <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
-            <span className="flex-parent align-items--center">
+            <div className="flex-parent align-items--center">
               {width < 800 && (
                 <Link
                   to={{ search: this.props.location.search, pathname: '/' }}
@@ -198,50 +202,48 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                   ])
                 }
               />
-            </span>
-            <span>
-              {this.props.currentChangeset && (
-                <span>
-                  {this.props.currentChangeset.getIn([
-                    'properties',
-                    'check_user'
-                  ]) && (
-                    <Tags
-                      changesetId={this.props.changesetId}
-                      currentChangeset={this.props.currentChangeset}
-                      disabled={false}
-                      handleChangesetModifyTag={
-                        this.props.handleChangesetModifyTag
-                      }
-                    />
-                  )}
-                  <Verify
-                    changeset={this.props.currentChangeset}
-                    placeholder="Verify"
-                    value={[]}
-                    onChange={this.handleVerify}
-                    onClear={this.handleVerifyClear}
-                    username={this.props.username}
-                    checkUser={this.props.currentChangeset.getIn([
-                      'properties',
-                      'check_user'
-                    ])}
-                    options={[
-                      {
-                        value: false,
-                        label: 'Good'
-                      },
-                      {
-                        value: true,
-                        label: 'Bad'
-                      }
-                    ]}
-                    className="select--s"
-                  />
-                </span>
-              )}
-            </span>
+            </div>
           </div>
+        }
+        buttons={
+          this.props.currentChangeset && (
+            <>
+              {this.props.currentChangeset.getIn([
+                'properties',
+                'check_user'
+              ]) && (
+                <Tags
+                  changesetId={this.props.changesetId}
+                  currentChangeset={this.props.currentChangeset}
+                  disabled={false}
+                  handleChangesetModifyTag={this.props.handleChangesetModifyTag}
+                />
+              )}
+              <Verify
+                changeset={this.props.currentChangeset}
+                placeholder="Verify"
+                value={[]}
+                onChange={this.handleVerify}
+                onClear={this.handleVerifyClear}
+                username={this.props.username}
+                checkUser={this.props.currentChangeset.getIn([
+                  'properties',
+                  'check_user'
+                ])}
+                options={[
+                  {
+                    value: false,
+                    label: 'Good'
+                  },
+                  {
+                    value: true,
+                    label: 'Bad'
+                  }
+                ]}
+                className="select--s"
+              />
+            </>
+          )
         }
       />
     );
