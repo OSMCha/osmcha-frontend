@@ -20,23 +20,24 @@
 }
 
 .dropdown-content {
-  margin-top: 5px;
-  position: fixed;
+  top: 35px;
+  position: absolute;
+  box-shadow: 0px 0px 1px 1px rgba(204, 204, 204, 1);
   -webkit-box-shadow: 0px 0px 1px 1px rgba(204, 204, 204, 1);
   -moz-box-shadow: 0px 0px 1px 1px rgba(204, 204, 204, 1);
-  box-shadow: 0px 0px 1px 1px rgba(204, 204, 204, 1);
   background-color: #f9f9f9;
-  z-index: 1;
+  z-index: 5;
+  right: 0;
 }
 
 /* Links inside the dropdown */
-.dropdown-content span {
+.dropdown-content-item {
   color: black;
   text-decoration: none;
   display: block;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content span:hover {
+.dropdown-content-item:hover {
   background-color: #ccc;
 }
