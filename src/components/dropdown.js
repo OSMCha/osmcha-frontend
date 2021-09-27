@@ -13,6 +13,7 @@ class DropdownContent extends React.PureComponent {
     }
     return false;
   };
+
   handleClick = (data: Object) => {
     if (data) {
       var label = data.label;
@@ -44,17 +45,15 @@ class DropdownContent extends React.PureComponent {
       this.props.toggleDropdown();
     }
   };
+
   render() {
     return (
-      <div
-        className="dropdown-content wmin96 round wmax240"
-        style={{ display: 'block' }}
-      >
+      <ul className="dropdown-content wmin96 round wmax240">
         {this.props.options.map((i, k) => (
-          <span
+          <li
             key={k}
             onClick={this.handleClick.bind(null, i)}
-            className="flex-parent flex-parent--row flex-parent--center-cross py6 px12"
+            className="dropdown-content-item flex-parent flex-parent--row flex-parent--center-cross py6 px12"
           >
             {this.props.multi && (
               <input
@@ -100,9 +99,9 @@ class DropdownContent extends React.PureComponent {
                 x
               </span>
             )}
-          </span>
+          </li>
         ))}
-      </div>
+      </ul>
     );
   }
 }
@@ -124,16 +123,19 @@ export class _Dropdown extends React.PureComponent {
   state = {
     display: false
   };
+
   handleClickOutside = () => {
     this.setState({
       display: false
     });
   };
+
   toggleDropdown = () => {
     this.setState({
       display: !this.state.display
     });
   };
+
   isActive = (obj: Object) => {
     for (let v of this.props.value) {
       if (v.label === obj.label) {
@@ -142,6 +144,7 @@ export class _Dropdown extends React.PureComponent {
     }
     return false;
   };
+
   render() {
     return (
       <div className={`dropdown mr3 pointer ${this.props.className || ''}`}>
