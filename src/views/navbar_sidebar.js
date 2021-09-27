@@ -56,6 +56,7 @@ class NavbarSidebar extends React.PureComponent {
       this.props.getFinalToken(oAuthObj.oauth_verifier);
     });
   };
+
   onUserMenuSelect = (arr: Array<Object>) => {
     const username = this.props.username;
 
@@ -89,6 +90,7 @@ class NavbarSidebar extends React.PureComponent {
       throw new Error('filter select array is big');
     }
   };
+
   renderUserMenuOptions() {
     const username = this.props.username;
 
@@ -126,72 +128,70 @@ class NavbarSidebar extends React.PureComponent {
       />
     );
   }
+
   openMenu = () => {
     this.setState({
       isMenuOpen: !this.state.isMenuOpen
     });
   };
+
   render() {
     return (
-      <div>
-        <Navbar
-          className="navbar-logo bg-gray-faint border-b border--gray-light border--1"
-          title={
-            <span className="color-gray">
-              <Link
-                to={{
-                  search: window.location.search,
-                  pathname: '/'
-                }}
+      <Navbar
+        className="navbar-logo bg-gray-faint border-b border--gray-light border--1"
+        title={
+          <span className="color-gray">
+            <Link
+              to={{
+                search: window.location.search,
+                pathname: '/'
+              }}
+            >
+              <span className="txt-xl">
+                <strong className="color-blue">OSM</strong>
+                Cha
+              </span>
+            </Link>
+            <span className="relative">
+              <span
+                className="txt-xs txt-mono absolute w72"
+                style={{ top: 17, left: -118 }}
               >
-                <span className="txt-xl">
-                  <strong className="color-blue">OSM</strong>
-                  Cha
-                </span>
-              </Link>
-              <span className="relative">
-                <span
-                  className="txt-xs txt-mono absolute w72"
-                  style={{ top: 17, left: -118 }}
-                >
-                  v{appVersion}
-                  {isDev && ' Dev'}
-                  {isLocal && ' Local'}
-                  {isStaging && ' Staging'}
-                </span>
+                v{appVersion}
+                {isDev && ' Dev'}
+                {isLocal && ' Local'}
+                {isStaging && ' Staging'}
               </span>
             </span>
-          }
-          buttons={
-            <div className="flex-parent flex-parent--row">
-              <Link
-                className="pr3 pointer"
-                to={{
-                  search: window.location.search,
-                  pathname: '/about'
-                }}
+          </span>
+        }
+        buttons={
+          <div className="flex-parent flex-parent--row">
+            <Link
+              className="pr3 pointer"
+              to={{
+                search: window.location.search,
+                pathname: '/about'
+              }}
+            >
+              <svg className="icon icon--m inline-block align-middle color-darken25 color-darken50-on-hover transition">
+                <use xlinkHref="#icon-question" />
+              </svg>
+            </Link>
+            {this.props.token ? (
+              <div className="mr3 pointer">{this.renderUserMenuOptions()}</div>
+            ) : (
+              <Button
+                onClick={this.handleLoginClick}
+                disable={!this.props.oAuthToken}
+                iconName="osm"
               >
-                <svg className="icon icon--m inline-block align-middle color-darken25 color-darken50-on-hover transition">
-                  <use xlinkHref="#icon-question" />
-                </svg>
-              </Link>
-              {this.props.token ? (
-                <div className="mr3 pointer">
-                  {this.renderUserMenuOptions()}
-                </div>
-              ) : (
-                <Button
-                  onClick={this.handleLoginClick}
-                  disable={!this.props.oAuthToken}
-                  iconName="osm"
-                >
-                  Sign in
-                </Button>
-              )}
-            </div>
-          }
-        />
-      </div>
+                Sign in
+              </Button>
+            )}
+          </div>
+        }
+      />
     );
   }
 }
