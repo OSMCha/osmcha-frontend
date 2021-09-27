@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { Navbar } from '../components/navbar';
 import { Verify } from '../components/changeset/verify';
 import { OpenIn } from '../components/changeset/open_in';
+import { useMobile } from '../utils';
 
 import {
   VERIFY_BAD,
@@ -144,14 +145,15 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
   };
 
   render() {
-    const width = window.innerWidth;
+    const mobile = useMobile();
+
     return (
       <Navbar
         className="bg-gray-faint color-gray border-b border--gray-light border--1 px30"
         title={
           <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
             <div className="flex-parent align-items--center">
-              {width < 800 && (
+              {mobile && (
                 <Link
                   to={{ search: this.props.location.search, pathname: '/' }}
                 >

@@ -7,7 +7,7 @@ import { push } from 'react-router-redux';
 import { modal } from '../store/modal_actions';
 import { logUserOut } from '../store/auth_actions';
 import { applyFilters } from '../store/filters_actions';
-import { cancelablePromise } from '../utils/promise';
+import { cancelablePromise, useMobile } from '../utils';
 import { fetchAllAOIs } from '../network/aoi';
 import { Link } from 'react-router-dom';
 import { createAOI, deleteAOI } from '../network/aoi';
@@ -230,10 +230,12 @@ class SavedFilters extends React.PureComponent<any, propsType, any> {
     });
   };
   render() {
+    const mobile = useMobile();
+
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
-          window.innerWidth < 800 ? 'viewport-full' : ''
+          mobile ? 'viewport-full' : ''
         }`}
       >
         <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">

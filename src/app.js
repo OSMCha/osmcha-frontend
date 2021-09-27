@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Map } from 'immutable';
 
+import { useMobile } from './utils';
 import { AppMobile } from './AppMobile';
 import { AppDesktop } from './AppDesktop';
 
@@ -28,11 +29,11 @@ export class App extends Component {
     }
   }
   render() {
-    const width = window.innerWidth;
-    if (width > 800) {
-      return <AppDesktop />;
-    } else {
+    const mobile = useMobile();
+    if (mobile) {
       return <AppMobile />;
+    } else {
+      return <AppDesktop />;
     }
   }
 }

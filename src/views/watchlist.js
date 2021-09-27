@@ -5,7 +5,7 @@ import { Map, List } from 'immutable';
 import { push } from 'react-router-redux';
 import { Link } from 'react-router-dom';
 
-import { getObjAsQueryParam } from '../utils/query_params';
+import { getObjAsQueryParam, useMobile } from '../utils';
 import { BlockMarkup } from '../components/user/block_markup';
 import { SaveUser } from '../components/user/save_user';
 import {
@@ -106,11 +106,12 @@ class Watchlist extends React.PureComponent<any, propsType, any> {
       a => a.get('username'),
       (a: string, b: string) => a.localeCompare(b)
     );
+    const mobile = useMobile();
 
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
-          window.innerWidth < 800 ? 'viewport-full' : ''
+          mobile ? 'viewport-full' : ''
         }`}
       >
         <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
