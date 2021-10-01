@@ -8,11 +8,12 @@ import { push } from 'react-router-redux';
 import { Button } from '../components/button';
 import { Navbar } from '../components/navbar';
 import { Dropdown } from '../components/dropdown';
+import { ChangesetsList } from './changesets_list';
 
 import { createPopup } from '../utils/create_popup';
-import { handlePopupCallback } from '../utils/handle_popup_callback';
+import { handlePopupCallback, useMobile } from '../utils';
 import { osmAuthUrl } from '../config/constants';
-import { appVersion, isDev, isStaging, isLocal } from '../config';
+import { isDev, isLocal } from '../config';
 
 import {
   getOAuthToken,
@@ -36,9 +37,7 @@ class NavbarSidebar extends React.PureComponent {
     logUserOut: () => mixed,
     push: any => any
   };
-  state = {
-    isMenuOpen: false
-  };
+  state = { showChangesetList: false };
 
   handleLoginClick = () => {
     var oAuthToken = this.props.oAuthToken;
@@ -125,73 +124,83 @@ class NavbarSidebar extends React.PureComponent {
         value={[]}
         onAdd={() => {}}
         onRemove={() => {}}
+        position="right"
       />
     );
   }
 
-  openMenu = () => {
+  toggleChangesetList = () => {
     this.setState({
-      isMenuOpen: !this.state.isMenuOpen
+      showChangesetList: !this.state.showChangesetList
     });
   };
 
   render() {
+    const mobile = useMobile();
+
     return (
-      <Navbar
-        className="navbar-logo bg-gray-faint border-b border--gray-light border--1"
-        title={
-          <span className="color-gray">
-            <Link
-              to={{
-                search: window.location.search,
-                pathname: '/'
-              }}
-            >
-              <span className="txt-xl">
-                <strong className="color-blue">OSM</strong>
-                Cha
-              </span>
-            </Link>
-            <span className="relative">
-              <span
-                className="txt-xs txt-mono absolute w72"
-                style={{ top: 17, left: -118 }}
+      <>
+        <Navbar
+          className="navbar-logo bg-gray-faint border-b border--gray-light border--1"
+          title={
+            <div className="color-gray">
+              {mobile ? (
+                <div style={{ fontSize: '1.4em' }}>
+                  <button
+                    style={{ fontSize: mobile && '1.1em' }}
+                    className="btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition pt0 pb6 pl6 pr6 mr2"
+                    onClick={() => this.toggleChangesetList()}
+                  >
+                    ☰
+                  </button>{' '}
+                  <strong className="color-blue">OSM</strong>
+                  Cha
+                </div>
+              ) : (
+                <Link
+                  to={{
+                    search: window.location.search,
+                    pathname: '/'
+                  }}
+                  style={{ fontSize: '1.7em' }}
+                >
+                  <strong className="color-blue">OSM</strong>
+                  Cha
+                </Link>
+              )}
+            </div>
+          }
+          buttons={
+            <div className="flex-parent flex-parent--row">
+              <Link
+                className="pr3 pointer"
+                to={{
+                  search: window.location.search,
+                  pathname: '/about'
+                }}
               >
-                v{appVersion}
-                {isDev && ' Dev'}
-                {isLocal && ' Local'}
-                {isStaging && ' Staging'}
-              </span>
-            </span>
-          </span>
-        }
-        buttons={
-          <div className="flex-parent flex-parent--row">
-            <Link
-              className="pr3 pointer"
-              to={{
-                search: window.location.search,
-                pathname: '/about'
-              }}
-            >
-              <svg className="icon icon--m inline-block align-middle color-darken25 color-darken50-on-hover transition">
-                <use xlinkHref="#icon-question" />
-              </svg>
-            </Link>
-            {this.props.token ? (
-              <div className="mr3 pointer">{this.renderUserMenuOptions()}</div>
-            ) : (
-              <Button
-                onClick={this.handleLoginClick}
-                disable={!this.props.oAuthToken}
-                iconName="osm"
-              >
-                Sign in
-              </Button>
-            )}
-          </div>
-        }
-      />
+                <svg className="icon icon--m inline-block align-middle color-darken25 color-darken50-on-hover transition">
+                  <use xlinkHref="#icon-question" />
+                </svg>
+              </Link>
+              {this.props.token ? (
+                <div className="mr3 pointer">
+                  {this.renderUserMenuOptions()}
+                </div>
+              ) : (
+                <Button
+                  onClick={this.handleLoginClick}
+                  disable={!this.props.oAuthToken}
+                  iconName="osm"
+                >
+                  Sign in
+                </Button>
+              )}
+            </div>
+          }
+        />
+        {this.state.showChangesetList && <ChangesetsList />}
+      </>
     );
   }
 }

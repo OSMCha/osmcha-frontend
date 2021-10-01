@@ -57,6 +57,7 @@ export function OpenIn({ changesetId, coordinates, className }) {
           }
         ]}
         display="Open with"
+        position="left"
       />
     </div>
   );

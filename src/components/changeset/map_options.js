@@ -228,6 +228,7 @@ class MapOptions extends React.PureComponent {
             options={this.layerOptions}
             onChange={this.onLayerChange}
             display={this.getLayerDropdownDisplay(this.props.style)}
+            position="left"
           />
         </section>
       </div>
