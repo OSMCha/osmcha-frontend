@@ -57,6 +57,7 @@ export function Verify({
         options={options}
         onChange={onChange}
         display="Verify"
+        position="right"
       />
     </div>
   );

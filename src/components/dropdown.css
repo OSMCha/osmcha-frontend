@@ -20,14 +20,14 @@
 }
 
 .dropdown-content {
-  top: 35px;
   position: absolute;
+  top: 35px;
+  /* right: 0; or left: 0; <-- specified via <Dropdown position="right" /> (default) or "left" */
   box-shadow: 0px 0px 1px 1px rgba(204, 204, 204, 1);
   -webkit-box-shadow: 0px 0px 1px 1px rgba(204, 204, 204, 1);
   -moz-box-shadow: 0px 0px 1px 1px rgba(204, 204, 204, 1);
   background-color: #f9f9f9;
   z-index: 5;
-  right: 0;
 }
 
 /* Links inside the dropdown */
