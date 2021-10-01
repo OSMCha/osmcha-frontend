@@ -6,6 +6,7 @@ import { Button } from './button';
 
 class DropdownContent extends React.PureComponent {
   isActive = (obj: Object) => {
+    console.log('DropdownContent isActive', this.props.styles, this.props);
     for (let v of this.props.value) {
       if (v.label === obj.label) {
         return true;
@@ -47,8 +48,13 @@ class DropdownContent extends React.PureComponent {
   };
 
   render() {
+    console.log('DropdownContent render', this.props.styles, this.props);
+
     return (
-      <ul className="dropdown-content wmin96 round wmax240">
+      <ul
+        className="dropdown-content wmin96 round wmax240"
+        style={this.props.styles}
+      >
         {this.props.options.map((i, k) => (
           <li
             key={k}
@@ -117,7 +123,8 @@ export class _Dropdown extends React.PureComponent {
     options: Array<Object>,
     display: string,
     deletable?: (value: string) => any,
-    multi: boolean
+    multi: boolean,
+    position: string
   };
 
   state = {
@@ -148,6 +155,7 @@ export class _Dropdown extends React.PureComponent {
   render() {
     return (
       <div className={`dropdown mr3 pointer ${this.props.className || ''}`}>
+        {console.log('_Dropdown', this.props.position, this.props)}
         <Button
           iconName="chevron-down"
           onClick={this.toggleDropdown}
@@ -160,6 +168,9 @@ export class _Dropdown extends React.PureComponent {
             {...this.props}
             eventTypes={['click', 'touchend']}
             toggleDropdown={this.toggleDropdown}
+            styles={
+              this.props.position === 'right' ? { right: 0 } : { left: 0 }
+            }
           />
         )}
       </div>
