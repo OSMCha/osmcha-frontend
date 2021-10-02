@@ -2,6 +2,7 @@
 import React from 'react';
 import showdown from 'showdown';
 import { cancelablePromise } from '../utils/promise';
+import { appVersion, isDev, isStaging, isLocal } from '../config';
 
 const converter = new showdown.Converter({
   ghCompatibleHeaderId: true,
@@ -79,9 +80,15 @@ export class About extends React.PureComponent {
   render() {
     return (
       <div className="scroll-auto about-page-height flex-parent flex-parent--column pb12 flex-parent--center-cross">
+        <div className="txt-xs txt-mono align-right">
+          OSMCha Version {appVersion}
+          {isDev && ' Dev'}
+          {isLocal && ' Local'}
+          {isStaging && ' Staging'}
+        </div>
         <div
           id="guide"
-          className="pb36 px12 wmax720"
+          className="pb36 px12"
           dangerouslySetInnerHTML={{
             __html: this.state.about
           }}

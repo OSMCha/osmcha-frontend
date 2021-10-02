@@ -453,6 +453,7 @@ img {
   padding-bottom: 6px;
   margin: 0 auto;
   display: block;
+  max-width: 100%;
 }
 
 .p6 {
