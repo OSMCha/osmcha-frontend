@@ -55,6 +55,7 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
   componentWillUnmount() {
     this.checkUpdate && this.checkUpdate.cancel();
   }
+
   goUpDownToChangeset = (direction: number) => {
     if (!this.props.currentPage) return;
     let features = this.props.currentPage.get('features');
@@ -73,6 +74,7 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
       }
     }
   };
+
   toggleFilters() {
     if (this.props.location && this.props.location.pathname === '/filters') {
       const location = {
@@ -88,6 +90,7 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
       this.props.push(location);
     }
   }
+
   toggleHelp() {
     if (
       this.props.location &&
@@ -107,6 +110,7 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
       this.props.push(location);
     }
   }
+
   componentWillReceiveProps(nextProps: propsType) {
     const lastKeyStroke: Map<string, *> = nextProps.lastKeyStroke;
     if (is(this.props.lastKeyStroke, lastKeyStroke)) return;
@@ -159,6 +163,7 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
       pageIndex,
       getChangesetsPage
     } = this.props;
+
     return (
       <div className="flex-parent flex-parent--column changesets-list">
         <Header
