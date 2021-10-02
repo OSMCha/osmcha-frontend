@@ -20,12 +20,14 @@ class List extends React.Component<void, propTypes, *> {
       nextProps.currentPage !== this.props.currentPage
     );
   }
+
   handleScroll = (r: HTMLElement) => {
     if (!r) return;
     if (!elementInViewport(r)) {
       r.scrollIntoView({ block: 'end', behavior: 'smooth' });
     }
   };
+
   render() {
     if (
       !this.props.token &&
@@ -44,6 +46,7 @@ class List extends React.Component<void, propTypes, *> {
         </div>
       );
     }
+
     return (
       <ul className="flex-parent flex-parent--column scroll-styled flex-child--grow">
         <div>

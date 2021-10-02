@@ -18,10 +18,11 @@ function TitleComponent({
     trustedlist,
     watchlisted
   );
+
   return (
     <div>
       <span className="flex-parent flex-parent--row justify--space-between align-items--center">
-        <strong className={'txt-m mt3 mr6'}>
+        <strong className="txt-m mt3 mr6">
           {properties.get('user') || <i>OSM User</i>}
           {isInTrustedlist && (
             <svg className="icon inline-block align-middle pl3 w18 h18 color-yellow">
