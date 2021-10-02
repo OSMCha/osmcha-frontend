@@ -7,7 +7,7 @@ import { Stats } from './views/stats';
 import { Filters } from './views/filters';
 import { ChangesetsList } from './views/changesets_list';
 import { CMap } from './views/map';
-// import { NavbarChangeset } from './views/navbar_changeset';
+import { NavbarChangeset } from './views/navbar_changeset';
 import { NavbarSidebar } from './views/navbar_sidebar';
 // import { Home } from './views/home';
 import { Modal } from './views/modal';
@@ -24,6 +24,7 @@ export const AppMobile = () => {
       <div className="col">
         <NavbarSidebar />
         <Route exact path="/" component={ChangesetsList} />
+        <Route path="/changesets" component={NavbarChangeset} />
         <Route
           path="/changesets"
           // Need to use render to avoid unmounting of

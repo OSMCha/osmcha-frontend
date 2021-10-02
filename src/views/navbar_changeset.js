@@ -5,7 +5,6 @@ import { is, Map } from 'immutable';
 
 import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
 import { Tags } from '../components/changeset/tags';
-import { Link } from 'react-router-dom';
 import { Navbar } from '../components/navbar';
 import { Verify } from '../components/changeset/verify';
 import { OpenIn } from '../components/changeset/open_in';
@@ -149,64 +148,68 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
 
     return (
       <Navbar
-        className="bg-gray-faint color-gray border-b border--gray-light border--1 px30"
+        className={`bg-gray-faint color-gray border-b border--gray-light border--1 ${
+          mobile ? '' : 'px30'
+        }`}
+        n
         title={
-          <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
-            <div className="flex-parent align-items--center">
-              {mobile && (
-                <Link
-                  to={{ search: this.props.location.search, pathname: '/' }}
-                >
-                  {'<  '}
-                </Link>
-              )}
-              <span className="txt-l color-gray--dark">
-                <strong>Changeset:</strong>{' '}
-                <span className="mr12">
-                  <span
-                    className="txt--s pl6 pointer"
-                    onClick={e =>
-                      navigator.clipboard.writeText(
-                        `${API_URL.replace('/api/v1', '')}/changesets/${
-                          this.props.changesetId
-                        }`
-                      )
-                    }
-                    title="Copy OSMCha Changeset URL"
-                  >
-                    {this.props.changesetId}
-                    <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
-                      <use xlinkHref="#icon-link" />
-                    </svg>
+          <div
+            className={`flex-parent flex-parent--row flex-parent--wrap ${
+              mobile ? 'align-items--center' : ''
+            }`}
+          >
+            {!mobile && (
+              <>
+                <div className="txt-l color-gray--dark">
+                  <strong>Changeset:</strong> {this.props.changesetId}
+                  <span className="mr6">
+                    <span
+                      className="txt--s pl6 pointer"
+                      onClick={e =>
+                        navigator.clipboard.writeText(
+                          `${API_URL.replace('/api/v1', '')}/changesets/${
+                            this.props.changesetId
+                          }`
+                        )
+                      }
+                      title="Copy OSMCha Changeset URL"
+                    >
+                      <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+                        <use xlinkHref="#icon-link" />
+                      </svg>
+                    </span>
+                    <a
+                      href={`https://www.openstreetmap.org/changeset/${this.props.changesetId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="See on OSM"
+                    >
+                      <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+                        <use xlinkHref="#icon-share" />
+                      </svg>
+                    </a>
                   </span>
-                  <a
-                    href={`https://www.openstreetmap.org/changeset/${this.props.changesetId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="See on OSM"
-                  >
-                    <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
-                      <use xlinkHref="#icon-share" />
-                    </svg>
-                  </a>
-                </span>
-              </span>
-              <OpenIn
-                changesetId={this.props.changesetId}
-                className="ml3"
-                coordinates={
-                  this.props.currentChangeset &&
-                  this.props.currentChangeset.getIn([
-                    'geometry',
-                    'coordinates',
-                    0,
-                    0
-                  ])
-                }
-              />
-            </div>
+                </div>
+              </>
+            )}
+            <OpenIn
+              changesetId={this.props.changesetId}
+              coordinates={
+                this.props.currentChangeset &&
+                this.props.currentChangeset.getIn([
+                  'geometry',
+                  'coordinates',
+                  0,
+                  0
+                ])
+              }
+              display={
+                mobile ? `Changeset ${this.props.changesetId}` : 'Open with'
+              }
+            />
           </div>
         }
+        buttonsClassName="flex-parent"
         buttons={
           this.props.currentChangeset && (
             <>

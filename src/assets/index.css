@@ -71,6 +71,10 @@ img {
   height: 55px !important;
 }
 
+.h40 {
+  height: 40px !important;
+}
+
 .hmin55 {
   min-height: 55px !important;
 }

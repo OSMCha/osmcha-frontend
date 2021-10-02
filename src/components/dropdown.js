@@ -154,7 +154,7 @@ export class _Dropdown extends React.PureComponent {
 
   render() {
     return (
-      <div className={`dropdown mr3 pointer ${this.props.className || ''}`}>
+      <div className={`dropdown pointer ${this.props.className || ''}`}>
         {console.log('_Dropdown', this.props.position, this.props)}
         <Button
           iconName="chevron-down"
