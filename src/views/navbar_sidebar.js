@@ -8,7 +8,6 @@ import { push } from 'react-router-redux';
 import { Button } from '../components/button';
 import { Navbar } from '../components/navbar';
 import { Dropdown } from '../components/dropdown';
-import { ChangesetsList } from './changesets_list';
 
 import { createPopup } from '../utils/create_popup';
 import { handlePopupCallback, useMobile } from '../utils';
@@ -37,7 +36,6 @@ class NavbarSidebar extends React.PureComponent {
     logUserOut: () => mixed,
     push: any => any
   };
-  state = { showChangesetList: false };
 
   handleLoginClick = () => {
     var oAuthToken = this.props.oAuthToken;
@@ -129,12 +127,6 @@ class NavbarSidebar extends React.PureComponent {
     );
   }
 
-  toggleChangesetList = () => {
-    this.setState({
-      showChangesetList: !this.state.showChangesetList
-    });
-  };
-
   render() {
     const mobile = useMobile();
 
@@ -143,32 +135,27 @@ class NavbarSidebar extends React.PureComponent {
         <Navbar
           className="navbar-logo bg-gray-faint border-b border--gray-light border--1"
           title={
-            <div className="color-gray">
-              {mobile ? (
-                <div style={{ fontSize: '1.4em' }}>
+            <Link
+              to={{
+                search: window.location.search,
+                pathname: '/'
+              }}
+              style={mobile ? { fontSize: '1.4em' } : { fontSize: '1.7em' }}
+              className="color-gray"
+            >
+              {mobile && (
+                <>
                   <button
                     style={{ fontSize: mobile && '1.1em' }}
                     className="btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition pt0 pb6 pl6 pr6 mr2"
-                    onClick={() => this.toggleChangesetList()}
                   >
                     ☰
                   </button>{' '}
-                  <strong className="color-blue">OSM</strong>
-                  Cha
-                </div>
-              ) : (
-                <Link
-                  to={{
-                    search: window.location.search,
-                    pathname: '/'
-                  }}
-                  style={{ fontSize: '1.7em' }}
-                >
-                  <strong className="color-blue">OSM</strong>
-                  Cha
-                </Link>
+                </>
               )}
-            </div>
+              <strong className="color-blue">OSM</strong>
+              Cha
+            </Link>
           }
           buttons={
             <div className="flex-parent flex-parent--row">
@@ -184,9 +171,7 @@ class NavbarSidebar extends React.PureComponent {
                 </svg>
               </Link>
               {this.props.token ? (
-                <div className="mr3 pointer">
-                  {this.renderUserMenuOptions()}
-                </div>
+                <div className="pointer">{this.renderUserMenuOptions()}</div>
               ) : (
                 <Button
                   onClick={this.handleLoginClick}
@@ -199,7 +184,6 @@ class NavbarSidebar extends React.PureComponent {
             </div>
           }
         />
-        {this.state.showChangesetList && <ChangesetsList />}
       </>
     );
   }

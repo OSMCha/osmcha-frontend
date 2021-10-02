@@ -15,18 +15,23 @@ export class Tags extends React.PureComponent {
     currentChangeset: Map<string, *>,
     handleChangesetModifyTag: (number, Map<string, *>, Object, boolean) => mixed
   };
+
   state: {
     options: Array<any>,
     allTags: Array<any>
   };
+
   state = {
     allTags: {},
     options: []
   };
+
   tagsData = cacheTagsData;
+
   componentDidMount() {
     this.getAsyncOptions();
   }
+
   getAsyncOptions = () => {
     if (!this.tagsData) {
       this.tagsData = cancelablePromise(
@@ -35,6 +40,7 @@ export class Tags extends React.PureComponent {
         })
       );
     }
+
     return this.tagsData.promise
       .then(json => {
         let data = {};
@@ -50,12 +56,14 @@ export class Tags extends React.PureComponent {
       })
       .catch(e => {});
   };
+
   componentWillUnmount() {
     if (this.tagsData) {
       cacheTagsData = this.tagsData;
       this.tagsData.cancel();
     }
   }
+
   onAdd = (obj: Object) => {
     if (!obj) return;
     const {
@@ -65,6 +73,7 @@ export class Tags extends React.PureComponent {
     } = this.props;
     handleChangesetModifyTag(changesetId, currentChangeset, obj, false);
   };
+
   onRemove = (obj: Object) => {
     if (!obj) return;
     const {
@@ -74,7 +83,9 @@ export class Tags extends React.PureComponent {
     } = this.props;
     handleChangesetModifyTag(changesetId, currentChangeset, obj, true);
   };
+
   defaultValue = new Map();
+
   render() {
     if (!this.props.currentChangeset) return null;
 
@@ -94,7 +105,9 @@ export class Tags extends React.PureComponent {
           onAdd={this.onAdd}
           onRemove={this.onRemove}
           disabled={this.props.disabled}
-          className={`${this.props.disabled ? 'cursor-notallowed' : ''}`}
+          className={`${
+            this.props.disabled ? 'cursor-notallowed' : ''
+          } flex-parent mr3`}
           value={value}
           options={this.state.options}
           onChange={() => {}}

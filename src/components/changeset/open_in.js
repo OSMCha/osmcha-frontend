@@ -2,6 +2,7 @@ import React from 'react';
 
 import { importChangesetMap } from '../../utils/cmap';
 import { Dropdown } from '../dropdown';
+import { useMobile } from '../../utils';
 
 function openEditor(selected) {
   importChangesetMap('getMapInstance')
@@ -23,7 +24,8 @@ function openEditor(selected) {
     });
 }
 
-export function OpenIn({ changesetId, coordinates, className }) {
+export function OpenIn({ display, changesetId, coordinates, className }) {
+  const mobile = useMobile();
   const options = [
     {
       label: 'Achavi',
@@ -49,6 +51,13 @@ export function OpenIn({ changesetId, coordinates, className }) {
       value: 'RapiD'
     }
   ];
+  if (mobile) {
+    options.unshift({
+      label: 'OSM.org',
+      value: 'OSM.org',
+      href: `https://www.openstreetmap.org/changeset/${changesetId}`
+    });
+  }
 
   return (
     <div className={`select-container ${className}`}>
@@ -58,6 +67,7 @@ export function OpenIn({ changesetId, coordinates, className }) {
         value={[]}
         onChange={openEditor}
         options={options}
+        display={display}
         position="left"
       />
     </div>

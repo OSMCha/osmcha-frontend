@@ -16,33 +16,36 @@ export function Verify({
   if (changeset.getIn(['properties', 'checked'])) {
     const isHarmful = changeset.getIn(['properties', 'harmful']);
     return (
-      <div className="flex-parent-inline">
+      <div
+        className={`flex-parent align-items--center btn btn--s border border--1 round color-gray transition pl12 pr6 ${
+          isHarmful
+            ? 'bg-lighten50 border--red-light'
+            : 'bg-lighten50 border--green-light'
+        }`}
+        style={{ maxWidth: '100px' }}
+      >
+        <img
+          src={isHarmful ? thumbsDown : thumbsUp}
+          alt={`Marked as ${isHarmful ? 'bad' : 'good'}`}
+          className="icon inline-block w14 h14"
+        />
         <span
-          className={`btn btn--s border border--1 round color-gray transition pl12 pr6 ${
-            isHarmful
-              ? 'bg-lighten50 border--red-light'
-              : 'bg-lighten50 border--green-light'
-          }`}
+          className="ml6"
+          style={{
+            flex: '1',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          }}
         >
-          <span>
-            <img
-              src={isHarmful ? thumbsDown : thumbsUp}
-              alt={`Marked as ${isHarmful ? 'bad' : 'good'}`}
-              className="icon inline-block mt3 w14 h14"
-            />
-            {checkUser ? (
-              <span className="ml6 mt3">{checkUser}</span>
-            ) : (
-              <span className="ml6 txt-em">Verified</span>
-            )}
-          </span>
-          <svg
-            onClick={onClear}
-            className="icon inline-block align-middle pl3 pb3 w18 h18 pointer color-gray"
-          >
-            <use xlinkHref="#icon-close" />
-          </svg>
+          {checkUser ? <>{checkUser}</> : <em>Verified</em>}
         </span>
+        <svg
+          onClick={onClear}
+          className="icon inline-block align-middle pl3 w18 h18 pointer color-gray"
+        >
+          <use xlinkHref="#icon-close" />
+        </svg>
       </div>
     );
   }
