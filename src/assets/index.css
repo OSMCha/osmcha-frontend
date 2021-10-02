@@ -331,6 +331,10 @@ img {
   font-weight: 600;
 }
 
+.txt-underline-on-hover:hover {
+  text-decoration: underline;
+}
+
 .cmap-bg-create {
   background-color: #39dbc0;
 }

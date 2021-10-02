@@ -18,6 +18,7 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
             search: window.location.search,
             pathname: `/changesets/${changesetId}`
           }}
+          className="txt-underline-on-hover"
         >
           <span className="mr6">{changesetId}</span>
         </Link>
@@ -36,6 +37,7 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
               pathname: '/'
             }}
             title={`See ${properties.get('check_user')}'s changesets`}
+            className="txt-underline-on-hover"
           >
             {properties.get('harmful') ? (
               <img
