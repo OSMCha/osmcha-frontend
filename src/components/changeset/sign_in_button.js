@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { createPopup } from '../../utils/create_popup';
 import { handlePopupCallback } from '../../utils/handle_popup_callback';
 import { osmAuthUrl } from '../../config/constants';
-import { isDev, isLocal } from '../../config';
 import type { RootStateType } from '../../store';
 import { getFinalToken } from '../../store/auth_actions';
 import { getChangesetsPage } from '../../store/changesets_page_actions';
@@ -24,14 +23,7 @@ class SignInButton extends React.PureComponent {
     var oAuthToken = this.props.oAuthToken;
     if (!oAuthToken) return;
 
-    let url;
-    if (isDev || isLocal) {
-      url = `/local-landing.html#${oAuthToken}`;
-    } else {
-      url = `${osmAuthUrl}?oauth_token=${oAuthToken}`;
-    }
-
-    createPopup('oauth_popup', url);
+    createPopup('oauth_popup', `${osmAuthUrl}?oauth_token=${oAuthToken}`);
     handlePopupCallback().then(oAuthObj => {
       this.props.getFinalToken(oAuthObj.oauth_verifier);
     });
