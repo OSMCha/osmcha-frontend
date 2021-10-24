@@ -13,12 +13,12 @@ import {
   deleteMappingTeam
 } from '../network/mapping_team';
 import { withFetchDataSilent } from '../components/fetch_data_enhancer';
-import { Avatar } from '../components/avatar';
+import { SecondaryPagesHeader } from '../components/secondary_pages_header';
 import { Button } from '../components/button';
 import { SignIn } from '../components/sign_in';
 import type { RootStateType } from '../store';
 import NewTeam from '../components/teams/new_team';
-import { useMobile } from '../utils';
+import { isMobile } from '../utils';
 
 type propsType = {
   avatar: ?string,
@@ -87,7 +87,7 @@ class EditMappingTeam extends React.PureComponent<any, propsType, any> {
   };
 
   render() {
-    const mobile = useMobile();
+    const mobile = isMobile();
 
     return (
       <div
@@ -95,23 +95,10 @@ class EditMappingTeam extends React.PureComponent<any, propsType, any> {
           mobile ? 'viewport-full' : ''
         }`}
       >
-        <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
-          <span className="txt-l txt-bold color-gray--dark">
-            <span className="fl">
-              <Avatar size={36} url={this.props.userDetails.get('avatar')} />
-            </span>
-            <span className="pl6 line45">Edit Mapping Team</span>
-          </span>
-
-          <span className="txt-l color-gray--dark">
-            <Button
-              onClick={this.props.logUserOut}
-              className="bg-white-on-hover"
-            >
-              Logout
-            </Button>
-          </span>
-        </header>
+        <SecondaryPagesHeader
+          title="Edit team"
+          avatar={this.props.userDetails.get('avatar')}
+        />
         {this.props.token ? (
           <div className="px30 flex-child  pb60  filters-scroll">
             <div className="flex-parent flex-parent--column align justify--space-between">

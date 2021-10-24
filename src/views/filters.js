@@ -15,7 +15,7 @@ import { FiltersHeader } from '../components/filters/filters_header';
 
 import { deleteAOI } from '../network/aoi';
 import type { RootStateType } from '../store';
-import { delayPromise, gaSendEvent, useMobile } from '../utils';
+import { delayPromise, gaSendEvent, isMobile } from '../utils';
 
 import type { filterType, filtersType } from '../components/filters';
 const NEW_AOI = 'unnamed *';
@@ -167,7 +167,7 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
     this.props.applyUpdateAOI(aoiId, name, this.state.filters);
   };
   render() {
-    const mobile = useMobile();
+    const mobile = isMobile();
 
     return (
       <div

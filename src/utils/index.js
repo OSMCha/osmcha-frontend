@@ -11,4 +11,4 @@ export * from './promise';
 export * from './query_params';
 export * from './routing';
 export * from './safe_storage';
-export * from './useMobile';
+export * from './isMobile';

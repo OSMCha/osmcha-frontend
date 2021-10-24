@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMobile } from '../utils';
+import { isMobile } from '../utils';
 
 export function Navbar({
   className,
@@ -8,7 +8,7 @@ export function Navbar({
   buttons,
   buttonsClassName = ''
 }) {
-  const mobile = useMobile();
+  const mobile = isMobile();
 
   return (
     <nav
