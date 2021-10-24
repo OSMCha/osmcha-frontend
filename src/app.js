@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Map } from 'immutable';
 
-import { useMobile } from './utils';
+import { isMobile } from './utils';
 import { AppMobile } from './AppMobile';
 import { AppDesktop } from './AppDesktop';
 
@@ -29,7 +29,7 @@ export class App extends Component {
     }
   }
   render() {
-    const mobile = useMobile();
+    const mobile = isMobile();
     if (mobile) {
       return <AppMobile />;
     } else {

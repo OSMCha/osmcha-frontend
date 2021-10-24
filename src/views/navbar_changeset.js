@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { is, Map } from 'immutable';
 
 import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
@@ -8,7 +9,7 @@ import { Tags } from '../components/changeset/tags';
 import { Navbar } from '../components/navbar';
 import { Verify } from '../components/changeset/verify';
 import { OpenIn } from '../components/changeset/open_in';
-import { useMobile } from '../utils';
+import { isMobile } from '../utils';
 
 import {
   VERIFY_BAD,
@@ -144,20 +145,36 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
   };
 
   render() {
-    const mobile = useMobile();
+    const mobile = isMobile();
 
     return (
       <Navbar
         className={`bg-gray-faint color-gray border-b border--gray-light border--1 ${
           mobile ? '' : 'px30'
         }`}
-        n
         title={
           <div
             className={`flex-parent flex-parent--row flex-parent--wrap ${
               mobile ? 'align-items--center' : ''
             }`}
           >
+            {mobile && (
+              <Link
+                to={{
+                  search: window.location.search,
+                  pathname: '/'
+                }}
+                style={mobile ? { fontSize: '1.4em' } : { fontSize: '1.7em' }}
+                className="color-gray mr3"
+              >
+                <button
+                  style={{ fontSize: mobile && '1.1em' }}
+                  className="btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition pt0 pb6 pl6 pr6 mr2"
+                >
+                  ☰
+                </button>{' '}
+              </Link>
+            )}
             {!mobile && (
               <>
                 <div className="txt-l color-gray--dark">

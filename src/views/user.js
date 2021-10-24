@@ -10,7 +10,7 @@ import type { filtersType } from '../components/filters';
 import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
 import { EditUserDetails } from '../components/user/details';
-import { useMobile } from '../utils';
+import { isMobile } from '../utils';
 import type { RootStateType } from '../store';
 
 type propsType = {
@@ -38,7 +38,7 @@ class User extends React.PureComponent<any, propsType, any> {
   };
   render() {
     const userDetails = this.props.userDetails;
-    const mobile = useMobile();
+    const mobile = isMobile();
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${

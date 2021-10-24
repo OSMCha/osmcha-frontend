@@ -10,7 +10,7 @@ import { Navbar } from '../components/navbar';
 import { Dropdown } from '../components/dropdown';
 
 import { createPopup } from '../utils/create_popup';
-import { handlePopupCallback, useMobile } from '../utils';
+import { handlePopupCallback, isMobile } from '../utils';
 import { osmAuthUrl } from '../config/constants';
 import { isDev, isLocal } from '../config';
 
@@ -128,7 +128,7 @@ class NavbarSidebar extends React.PureComponent {
   }
 
   render() {
-    const mobile = useMobile();
+    const mobile = isMobile();
 
     return (
       <>
@@ -143,16 +143,6 @@ class NavbarSidebar extends React.PureComponent {
               style={mobile ? { fontSize: '1.4em' } : { fontSize: '1.7em' }}
               className="color-gray"
             >
-              {mobile && (
-                <>
-                  <button
-                    style={{ fontSize: mobile && '1.1em' }}
-                    className="btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition pt0 pb6 pl6 pr6 mr2"
-                  >
-                    ☰
-                  </button>{' '}
-                </>
-              )}
               <strong className="color-blue">OSM</strong>
               Cha
             </Link>

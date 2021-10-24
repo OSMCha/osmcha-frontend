@@ -2,7 +2,7 @@ import React from 'react';
 
 import { importChangesetMap } from '../../utils/cmap';
 import { Dropdown } from '../dropdown';
-import { useMobile } from '../../utils';
+import { isMobile } from '../../utils';
 
 function openEditor(selected) {
   importChangesetMap('getMapInstance')
@@ -25,7 +25,7 @@ function openEditor(selected) {
 }
 
 export function OpenIn({ display, changesetId, coordinates, className }) {
-  const mobile = useMobile();
+  const mobile = isMobile();
   const options = [
     {
       label: 'Achavi',

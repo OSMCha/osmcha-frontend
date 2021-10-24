@@ -1,6 +1,6 @@
 import React from 'react';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { useMobile } from '../../utils';
+import { isMobile } from '../../utils';
 
 export function Wrapper({
   display,
@@ -10,7 +10,7 @@ export function Wrapper({
   name,
   hasValue
 }) {
-  const mobile = useMobile();
+  const mobile = isMobile();
 
   return (
     <div

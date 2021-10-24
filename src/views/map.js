@@ -10,7 +10,7 @@ import { importChangesetMap } from '../utils/cmap';
 
 import 'changeset-map/public/css/style.css';
 import type { RootStateType } from '../store';
-import { useMobile } from '../utils';
+import { isMobile } from '../utils';
 
 let changesetId;
 let currentChangesetMap;
@@ -75,7 +75,7 @@ class CMap extends React.PureComponent {
   componentDidMount() {
     changesetId = this.props.changesetId;
     currentChangesetMap = this.props.currentChangesetMap;
-    const mobile = useMobile();
+    const mobile = isMobile();
 
     if (this.ref) {
       var rect = this.ref.parentNode.getBoundingClientRect();

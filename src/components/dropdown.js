@@ -6,7 +6,6 @@ import { Button } from './button';
 
 class DropdownContent extends React.PureComponent {
   isActive = (obj: Object) => {
-    console.log('DropdownContent isActive', this.props.styles, this.props);
     for (let v of this.props.value) {
       if (v.label === obj.label) {
         return true;
@@ -48,8 +47,6 @@ class DropdownContent extends React.PureComponent {
   };
 
   render() {
-    console.log('DropdownContent render', this.props.styles, this.props);
-
     return (
       <ul
         className="dropdown-content wmin96 round wmax240"
@@ -155,7 +152,6 @@ export class _Dropdown extends React.PureComponent {
   render() {
     return (
       <div className={`dropdown pointer ${this.props.className || ''}`}>
-        {console.log('_Dropdown', this.props.position, this.props)}
         <Button
           iconName="chevron-down"
           onClick={this.toggleDropdown}

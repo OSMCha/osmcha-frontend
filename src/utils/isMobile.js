@@ -1,4 +1,4 @@
 // Very, very basic mobile detection.
-export const useMobile = () => {
+export const isMobile = () => {
   return window.innerWidth <= 800;
 };
