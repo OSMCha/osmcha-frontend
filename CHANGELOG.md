@@ -2,6 +2,9 @@
 
 Log of changes since the 2.0 version
 
+### 0.84.1
+- Fix bug in changeset comment form
+
 ### 0.84.0
 - Improve mobile responsiveness (#591)
 - Refactored some components (#591)
