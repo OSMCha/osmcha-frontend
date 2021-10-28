@@ -13,6 +13,7 @@ import { UserOSMLink } from './user_osm_link';
 class Discussions extends React.PureComponent {
   props: {
     discussions: List<*>,
+    changesetId: number,
     changesetAuthor: string,
     changesetIsHarmful: boolean
   };

@@ -143,6 +143,7 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
                   : List()
               }
               changesetIsHarmful={properties.get('harmful')}
+              changesetId={changesetId}
             />
           </Box>
         )}
