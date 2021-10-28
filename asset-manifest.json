@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "https://osmcha.org/static/css/main.2bb5fb54.chunk.css",
-    "main.js": "https://osmcha.org/static/js/main.2d394e7e.chunk.js",
-    "main.js.map": "https://osmcha.org/static/js/main.2d394e7e.chunk.js.map",
+    "main.js": "https://osmcha.org/static/js/main.b71353b3.chunk.js",
+    "main.js.map": "https://osmcha.org/static/js/main.b71353b3.chunk.js.map",
     "runtime-main.js": "https://osmcha.org/static/js/runtime-main.6ad9ee4a.js",
     "runtime-main.js.map": "https://osmcha.org/static/js/runtime-main.6ad9ee4a.js.map",
     "static/css/2.e6a3113b.chunk.css": "https://osmcha.org/static/css/2.e6a3113b.chunk.css",
@@ -11,7 +11,7 @@
     "static/js/3.a3fbfe7d.chunk.js": "https://osmcha.org/static/js/3.a3fbfe7d.chunk.js",
     "static/js/3.a3fbfe7d.chunk.js.map": "https://osmcha.org/static/js/3.a3fbfe7d.chunk.js.map",
     "index.html": "https://osmcha.org/index.html",
-    "precache-manifest.226b35c52bb572a9e5087b0f0d0b7b60.js": "https://osmcha.org/precache-manifest.226b35c52bb572a9e5087b0f0d0b7b60.js",
+    "precache-manifest.6a9df88f76f13962571bba1d34180a9a.js": "https://osmcha.org/precache-manifest.6a9df88f76f13962571bba1d34180a9a.js",
     "service-worker.js": "https://osmcha.org/service-worker.js",
     "static/css/2.e6a3113b.chunk.css.map": "https://osmcha.org/static/css/2.e6a3113b.chunk.css.map",
     "static/css/main.2bb5fb54.chunk.css.map": "https://osmcha.org/static/css/main.2bb5fb54.chunk.css.map",
@@ -27,6 +27,6 @@
     "static/css/2.e6a3113b.chunk.css",
     "static/js/2.df8bbe99.chunk.js",
     "static/css/main.2bb5fb54.chunk.css",
-    "static/js/main.2d394e7e.chunk.js"
+    "static/js/main.b71353b3.chunk.js"
   ]
 }
