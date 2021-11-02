@@ -12,7 +12,6 @@ import { Dropdown } from '../components/dropdown';
 import { createPopup } from '../utils/create_popup';
 import { handlePopupCallback, isMobile } from '../utils';
 import { osmAuthUrl } from '../config/constants';
-import { isDev, isLocal } from '../config';
 
 import {
   getOAuthToken,

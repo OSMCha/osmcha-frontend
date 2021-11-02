@@ -14,7 +14,6 @@ import {
 } from '../network/mapping_team';
 import { withFetchDataSilent } from '../components/fetch_data_enhancer';
 import { SecondaryPagesHeader } from '../components/secondary_pages_header';
-import { Button } from '../components/button';
 import { SignIn } from '../components/sign_in';
 import type { RootStateType } from '../store';
 import NewTeam from '../components/teams/new_team';
