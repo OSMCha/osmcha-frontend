@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 
 import { modal } from '../store/modal_actions';
 import { logUserOut } from '../store/auth_actions';
-import { cancelablePromise } from '../utils/promise';
+import { cancelablePromise, isMobile } from '../utils';
 import {
   createMappingTeam,
   fetchUserMappingTeams,
@@ -14,8 +14,8 @@ import {
 } from '../network/mapping_team';
 import { Link } from 'react-router-dom';
 import { withFetchDataSilent } from '../components/fetch_data_enhancer';
-import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
+import { SecondaryPagesHeader } from '../components/secondary_pages_header';
 import { BlockMarkup } from '../components/user/block_markup';
 import type { RootStateType } from '../store';
 
@@ -135,29 +135,18 @@ class MappingTeams extends React.PureComponent<any, propsType, any> {
   };
 
   render() {
+    const mobile = isMobile();
+
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
-          window.innerWidth < 800 ? 'viewport-full' : ''
+          mobile ? 'viewport-full' : ''
         }`}
       >
-        <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
-          <span className="txt-l txt-bold color-gray--dark">
-            <span className="fl">
-              <Avatar size={36} url={this.props.userDetails.get('avatar')} />
-            </span>
-            <span className="pl6 line45">My Mapping Teams</span>
-          </span>
-
-          <span className="txt-l color-gray--dark">
-            <Button
-              onClick={this.props.logUserOut}
-              className="bg-white-on-hover"
-            >
-              Logout
-            </Button>
-          </span>
-        </header>
+        <SecondaryPagesHeader
+          title="Teams"
+          avatar={this.props.userDetails.get('avatar')}
+        />
         <div className="px30 flex-child  pb60  filters-scroll">
           <div className="flex-parent flex-parent--column align justify--space-between">
             {this.props.token && (

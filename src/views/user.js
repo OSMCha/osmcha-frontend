@@ -10,6 +10,7 @@ import type { filtersType } from '../components/filters';
 import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
 import { EditUserDetails } from '../components/user/details';
+import { isMobile } from '../utils';
 import type { RootStateType } from '../store';
 
 type propsType = {
@@ -37,10 +38,11 @@ class User extends React.PureComponent<any, propsType, any> {
   };
   render() {
     const userDetails = this.props.userDetails;
+    const mobile = isMobile();
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
-          window.innerWidth < 800 ? 'viewport-full' : ''
+          mobile ? 'viewport-full' : ''
         }`}
       >
         <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">

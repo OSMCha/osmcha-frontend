@@ -2,6 +2,14 @@
 
 Log of changes since the 2.0 version
 
+### 0.84.1
+- Fix bug in changeset comment form
+
+### 0.84.0
+- Improve mobile responsiveness (#591)
+- Refactored some components (#591)
+- Update changeset-map to 1.11.0 (#592)
+
 ### 0.83.0
 - Show additional changeset metadata information (#570)
 - Add My Changesets and My Reviews links to the user menu (#575)

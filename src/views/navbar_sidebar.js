@@ -10,9 +10,9 @@ import { Navbar } from '../components/navbar';
 import { Dropdown } from '../components/dropdown';
 
 import { createPopup } from '../utils/create_popup';
-import { handlePopupCallback } from '../utils/handle_popup_callback';
+import { handlePopupCallback, isMobile } from '../utils';
 import { osmAuthUrl } from '../config/constants';
-import { appVersion, isDev, isStaging, isLocal } from '../config';
+import { isDev, isLocal } from '../config';
 
 import {
   getOAuthToken,
@@ -36,9 +36,6 @@ class NavbarSidebar extends React.PureComponent {
     logUserOut: () => mixed,
     push: any => any
   };
-  state = {
-    isMenuOpen: false
-  };
 
   handleLoginClick = () => {
     var oAuthToken = this.props.oAuthToken;
@@ -49,6 +46,7 @@ class NavbarSidebar extends React.PureComponent {
       this.props.getFinalToken(oAuthObj.oauth_verifier);
     });
   };
+
   onUserMenuSelect = (arr: Array<Object>) => {
     const username = this.props.username;
 
@@ -82,6 +80,7 @@ class NavbarSidebar extends React.PureComponent {
       throw new Error('filter select array is big');
     }
   };
+
   renderUserMenuOptions() {
     const username = this.props.username;
 
@@ -116,44 +115,30 @@ class NavbarSidebar extends React.PureComponent {
         value={[]}
         onAdd={() => {}}
         onRemove={() => {}}
+        position="right"
       />
     );
   }
-  openMenu = () => {
-    this.setState({
-      isMenuOpen: !this.state.isMenuOpen
-    });
-  };
+
   render() {
+    const mobile = isMobile();
+
     return (
-      <div>
+      <>
         <Navbar
           className="navbar-logo bg-gray-faint border-b border--gray-light border--1"
           title={
-            <span className="color-gray">
-              <Link
-                to={{
-                  search: window.location.search,
-                  pathname: '/'
-                }}
-              >
-                <span className="txt-xl">
-                  <strong className="color-blue">OSM</strong>
-                  Cha
-                </span>
-              </Link>
-              <span className="relative">
-                <span
-                  className="txt-xs txt-mono absolute w72"
-                  style={{ top: 17, left: -118 }}
-                >
-                  v{appVersion}
-                  {isDev && ' Dev'}
-                  {isLocal && ' Local'}
-                  {isStaging && ' Staging'}
-                </span>
-              </span>
-            </span>
+            <Link
+              to={{
+                search: window.location.search,
+                pathname: '/'
+              }}
+              style={mobile ? { fontSize: '1.4em' } : { fontSize: '1.7em' }}
+              className="color-gray"
+            >
+              <strong className="color-blue">OSM</strong>
+              Cha
+            </Link>
           }
           buttons={
             <div className="flex-parent flex-parent--row">
@@ -169,9 +154,7 @@ class NavbarSidebar extends React.PureComponent {
                 </svg>
               </Link>
               {this.props.token ? (
-                <div className="mr3 pointer">
-                  {this.renderUserMenuOptions()}
-                </div>
+                <div className="pointer">{this.renderUserMenuOptions()}</div>
               ) : (
                 <Button
                   onClick={this.handleLoginClick}
@@ -184,7 +167,7 @@ class NavbarSidebar extends React.PureComponent {
             </div>
           }
         />
-      </div>
+      </>
     );
   }
 }

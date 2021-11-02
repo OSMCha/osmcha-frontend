@@ -3,6 +3,7 @@ import React from 'react';
 import { importChangesetMap } from '../../utils/cmap';
 import { osmApiUrl, osmBaseUrl } from '../../config/constants';
 import { Dropdown } from '../dropdown';
+import { isMobile } from '../../utils';
 
 function openEditor(selected) {
   importChangesetMap('getMapInstance')
@@ -24,7 +25,41 @@ function openEditor(selected) {
     });
 }
 
-export function OpenIn({ changesetId, coordinates, className }) {
+export function OpenIn({ display, changesetId, coordinates, className }) {
+  const mobile = isMobile();
+  const options = [
+    {
+      label: 'Achavi',
+      value: 'Achavi',
+      href: `https://overpass-api.de/achavi/?changeset=${changesetId}&relations=true`
+    },
+    {
+      label: 'iD',
+      value: 'iD'
+    },
+    {
+      label: 'JOSM',
+      value: 'JOSM',
+       href: `http://127.0.0.1:8111/import?url=${osmApiUrl}/api/0.6/changeset/${changesetId}/download`
+    },
+    {
+      label: 'Level0',
+      value: 'Level0',
+      href: `http://level0.osmz.ru/?url=changeset/${changesetId}`
+    },
+    {
+      label: 'RapiD',
+      value: 'RapiD'
+    }
+  ];
+  if (mobile) {
+    options.unshift({
+      label: 'OSM.org',
+      value: 'OSM.org',
+      href: `${osmBaseUrl}/changeset/${changesetId}`
+    });
+  }
+
   return (
     <div className={`select-container ${className}`}>
       <Dropdown
@@ -32,32 +67,9 @@ export function OpenIn({ changesetId, coordinates, className }) {
         onRemove={() => {}}
         value={[]}
         onChange={openEditor}
-        options={[
-          {
-            label: 'Achavi',
-            value: 'Achavi',
-            href: `https://overpass-api.de/achavi/?changeset=${changesetId}&relations=true`
-          },
-          {
-            label: 'iD',
-            value: 'iD'
-          },
-          {
-            label: 'JOSM',
-            value: 'JOSM',
-            href: `http://127.0.0.1:8111/import?url=${osmApiUrl}/api/0.6/changeset/${changesetId}/download`
-          },
-          {
-            label: 'Level0',
-            value: 'Level0',
-            href: `http://level0.osmz.ru/?url=changeset/${changesetId}`
-          },
-          {
-            label: 'RapiD',
-            value: 'RapiD'
-          }
-        ]}
-        display="Open with"
+        options={options}
+        display={display}
+        position="left"
       />
     </div>
   );

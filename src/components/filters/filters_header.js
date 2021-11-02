@@ -185,6 +185,7 @@ class FiltersHeader extends React.Component<any, filterProps, any> {
         value={[]}
         onAdd={() => {}}
         onRemove={() => {}}
+        position="left"
       />
     );
     if (this.props.token && this.state.aoiList.length) {

@@ -71,6 +71,10 @@ img {
   height: 55px !important;
 }
 
+.h40 {
+  height: 40px !important;
+}
+
 .hmin55 {
   min-height: 55px !important;
 }
@@ -331,6 +335,10 @@ img {
   font-weight: 600;
 }
 
+.txt-underline-on-hover:hover {
+  text-decoration: underline;
+}
+
 .cmap-bg-create {
   background-color: #39dbc0;
 }
@@ -453,6 +461,7 @@ img {
   padding-bottom: 6px;
   margin: 0 auto;
   display: block;
+  max-width: 100%;
 }
 
 .p6 {

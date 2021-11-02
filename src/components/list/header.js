@@ -34,6 +34,7 @@ export function Header({
           value={valueData}
           options={filtersConfig.filter(f => f.name === 'order_by')[0].options}
           display={(valueData[0] && valueData[0].label) || 'Order by'}
+          position="left"
         />
         <NavLink
           activeStyle={{

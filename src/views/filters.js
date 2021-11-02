@@ -15,7 +15,7 @@ import { FiltersHeader } from '../components/filters/filters_header';
 
 import { deleteAOI } from '../network/aoi';
 import type { RootStateType } from '../store';
-import { delayPromise } from '../utils/promise';
+import { delayPromise, isMobile } from '../utils';
 
 import type { filterType, filtersType } from '../components/filters';
 const NEW_AOI = 'unnamed *';
@@ -154,11 +154,12 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
     this.props.applyUpdateAOI(aoiId, name, this.state.filters);
   };
   render() {
-    const width = window.innerWidth;
+    const mobile = isMobile();
+
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white ${
-          width < 800 ? 'viewport-full' : ''
+          mobile ? 'viewport-full' : ''
         }`}
       >
         <FiltersHeader

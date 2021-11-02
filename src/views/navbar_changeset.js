@@ -1,14 +1,15 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { is, Map } from 'immutable';
 
 import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
 import { Tags } from '../components/changeset/tags';
-import { Link } from 'react-router-dom';
 import { Navbar } from '../components/navbar';
 import { Verify } from '../components/changeset/verify';
 import { OpenIn } from '../components/changeset/open_in';
+import { isMobile } from '../utils';
 
 import {
   VERIFY_BAD,
@@ -39,6 +40,7 @@ type propsType = {
   handleChangesetModifyTag: (number, Map<string, *>, Object, boolean) => mixed,
   handleChangesetModifyHarmful: (number, Map<string, *>, boolean | -1) => mixed
 };
+
 class NavbarChangeset extends React.PureComponent<void, propsType, *> {
   componentWillReceiveProps(nextProps: propsType) {
     if (!this.props.currentChangeset) return;
@@ -122,6 +124,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       }
     }
   }
+
   handleVerify = (arr: Array<Object>) => {
     if (arr.length === 1) {
       this.props.handleChangesetModifyHarmful(
@@ -133,6 +136,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       throw new Error('verify array is big');
     }
   };
+
   handleVerifyClear = () => {
     this.props.handleChangesetModifyHarmful(
       this.props.changesetId,
@@ -140,109 +144,129 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       -1
     );
   };
+
   render() {
-    const width = window.innerWidth;
+    const mobile = isMobile();
+
     return (
       <Navbar
-        className="bg-gray-faint color-gray border-b border--gray-light border--1 px30"
+        className={`bg-gray-faint color-gray border-b border--gray-light border--1 ${
+          mobile ? '' : 'px30'
+        }`}
         title={
-          <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
-            <span className="flex-parent align-items--center">
-              {width < 800 && (
-                <Link
-                  to={{ search: this.props.location.search, pathname: '/' }}
+          <div
+            className={`flex-parent flex-parent--row flex-parent--wrap ${
+              mobile ? 'align-items--center' : ''
+            }`}
+          >
+            {mobile && (
+              <Link
+                to={{
+                  search: window.location.search,
+                  pathname: '/'
+                }}
+                style={mobile ? { fontSize: '1.4em' } : { fontSize: '1.7em' }}
+                className="color-gray mr3"
+              >
+                <button
+                  style={{ fontSize: mobile && '1.1em' }}
+                  className="btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition pt0 pb6 pl6 pr6 mr2"
                 >
-                  {'<  '}
-                </Link>
-              )}
-              <span className="txt-l color-gray--dark">
-                <strong>Changeset:</strong>{' '}
-                <span className="mr12">
-                  <span
-                    className="txt--s pl6 pointer"
-                    onClick={e =>
-                      navigator.clipboard.writeText(
-                        `${API_URL.replace('/api/v1', '')}/changesets/${
-                          this.props.changesetId
-                        }`
-                      )
-                    }
-                    title="Copy OSMCha Changeset URL"
-                  >
-                    {this.props.changesetId}
-                    <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
-                      <use xlinkHref="#icon-link" />
-                    </svg>
+                  ☰
+                </button>{' '}
+              </Link>
+            )}
+            {!mobile && (
+              <>
+                <div className="txt-l color-gray--dark">
+                  <strong>Changeset:</strong> {this.props.changesetId}
+                  <span className="mr6">
+                    <span
+                      className="txt--s pl6 pointer"
+                      onClick={e =>
+                        navigator.clipboard.writeText(
+                          `${API_URL.replace('/api/v1', '')}/changesets/${
+                            this.props.changesetId
+                          }`
+                        )
+                      }
+                      title="Copy OSMCha Changeset URL"
+                    >
+                      <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+                        <use xlinkHref="#icon-link" />
+                      </svg>
+                    </span>
+                    <a
+                      href={`${osmBaseUrl}/changeset/${this.props.changesetId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="See on OSM"
+                    >
+                      <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+                        <use xlinkHref="#icon-share" />
+                      </svg>
+                    </a>
                   </span>
-                  <a
-                    href={`${osmBaseUrl}/changeset/${this.props.changesetId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="See on OSM"
-                  >
-                    <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
-                      <use xlinkHref="#icon-share" />
-                    </svg>
-                  </a>
-                </span>
-              </span>
-              <OpenIn
-                changesetId={this.props.changesetId}
-                className="ml3"
-                coordinates={
-                  this.props.currentChangeset &&
-                  this.props.currentChangeset.getIn([
-                    'geometry',
-                    'coordinates',
-                    0,
-                    0
-                  ])
-                }
-              />
-            </span>
-            <span>
-              {this.props.currentChangeset && (
-                <span>
-                  {this.props.currentChangeset.getIn([
-                    'properties',
-                    'check_user'
-                  ]) && (
-                    <Tags
-                      changesetId={this.props.changesetId}
-                      currentChangeset={this.props.currentChangeset}
-                      disabled={false}
-                      handleChangesetModifyTag={
-                        this.props.handleChangesetModifyTag
-                      }
-                    />
-                  )}
-                  <Verify
-                    changeset={this.props.currentChangeset}
-                    placeholder="Verify"
-                    value={[]}
-                    onChange={this.handleVerify}
-                    onClear={this.handleVerifyClear}
-                    username={this.props.username}
-                    checkUser={this.props.currentChangeset.getIn([
-                      'properties',
-                      'check_user'
-                    ])}
-                    options={[
-                      {
-                        value: false,
-                        label: 'Good'
-                      },
-                      {
-                        value: true,
-                        label: 'Bad'
-                      }
-                    ]}
-                    className="select--s"
-                  />
-                </span>
-              )}
-            </span>
+                </div>
+              </>
+            )}
+            <OpenIn
+              changesetId={this.props.changesetId}
+              coordinates={
+                this.props.currentChangeset &&
+                this.props.currentChangeset.getIn([
+                  'geometry',
+                  'coordinates',
+                  0,
+                  0
+                ])
+              }
+              display={
+                mobile ? `Changeset ${this.props.changesetId}` : 'Open with'
+              }
+            />
           </div>
+        }
+        buttonsClassName="flex-parent"
+        buttons={
+          this.props.currentChangeset && (
+            <>
+              {this.props.currentChangeset.getIn([
+                'properties',
+                'check_user'
+              ]) && (
+                <Tags
+                  changesetId={this.props.changesetId}
+                  currentChangeset={this.props.currentChangeset}
+                  disabled={false}
+                  handleChangesetModifyTag={this.props.handleChangesetModifyTag}
+                />
+              )}
+              <Verify
+                changeset={this.props.currentChangeset}
+                placeholder="Verify"
+                value={[]}
+                onChange={this.handleVerify}
+                onClear={this.handleVerifyClear}
+                username={this.props.username}
+                checkUser={this.props.currentChangeset.getIn([
+                  'properties',
+                  'check_user'
+                ])}
+                options={[
+                  {
+                    value: false,
+                    label: 'Good'
+                  },
+                  {
+                    value: true,
+                    label: 'Bad'
+                  }
+                ]}
+                className="select--s"
+              />
+            </>
+          )
         }
       />
     );

@@ -1,16 +1,26 @@
 import React from 'react';
+import { isMobile } from '../utils';
 
-export function Navbar({ title, className, buttons }) {
+export function Navbar({
+  className,
+  title,
+  titleClassName = '',
+  buttons,
+  buttonsClassName = ''
+}) {
+  const mobile = isMobile();
+
   return (
-    <div
-      className={`h55 hmin55 flex-parent px12 py6 bg-gray-dark flex-parent--center-cross justify--space-between ${className}`}
+    <nav
+      className={`
+        ${mobile ? 'h40' : 'h55 flex-parent--center-cross'}
+        flex-parent px12 py6 bg-gray-dark justify--space-between ${className}
+      `}
     >
-      <span className="flex-child flex-child--grow">
+      <div className={`flex-child flex-child--grow ${titleClassName}`}>
         {title || ''}
-      </span>
-      <span className="flex-child">
-        {buttons}
-      </span>
-    </div>
+      </div>
+      <div className={`flex-child ${buttonsClassName}`}>{buttons}</div>
+    </nav>
   );
 }

@@ -15,6 +15,7 @@ export class Row extends React.Component {
     changesetId: number,
     inputRef: ?(any) => any
   };
+
   shouldComponentUpdate(nextProps: Object) {
     return (
       nextProps.properties !== this.props.properties ||
@@ -22,7 +23,9 @@ export class Row extends React.Component {
       nextProps.active
     );
   }
+
   wasOpen = false;
+
   render() {
     const { properties, changesetId, active, inputRef, ...other } = this.props;
     if (!this.wasOpen) {
@@ -41,11 +44,7 @@ export class Row extends React.Component {
 
     let backgroundClass = '';
 
-    backgroundClass += active
-      ? 'light-blue'
-      : this.wasOpen
-      ? ' bg-darken5 '
-      : '';
+    backgroundClass += active ? 'light-blue' : this.wasOpen ? 'bg-darken5' : '';
     return (
       <div
         onClick={() =>
@@ -58,40 +57,30 @@ export class Row extends React.Component {
         <div className={`${backgroundClass} ${borderClass}`} ref={inputRef}>
           <div
             {...other}
-            className={
-              'p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light'
-            }
+            className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light flex-parent flex-parent--column"
           >
-            <div className="flex-parent flex-parent--column">
-              <Link
-                to={{
-                  search: window.location.search,
-                  pathname: `/changesets/${changesetId}`
-                }}
-              >
-                <div>
-                  <Title
-                    properties={properties}
-                    wasOpen={this.wasOpen}
-                    date={properties.get('date')}
-                  />
-                </div>
-                <div>
-                  <PrimaryLine
-                    reasons={properties.get('reasons')}
-                    tags={properties.get('tags')}
-                    comment={properties.get('comment')}
-                  />
-                </div>
-              </Link>
-              <div>
-                <SecondaryLine
-                  changesetId={changesetId}
-                  properties={properties}
-                  date={properties.get('date')}
-                />
-              </div>
-            </div>
+            <Link
+              to={{
+                search: window.location.search,
+                pathname: `/changesets/${changesetId}`
+              }}
+            >
+              <Title
+                properties={properties}
+                wasOpen={this.wasOpen}
+                date={properties.get('date')}
+              />
+              <PrimaryLine
+                reasons={properties.get('reasons')}
+                tags={properties.get('tags')}
+                comment={properties.get('comment')}
+              />
+            </Link>
+            <SecondaryLine
+              changesetId={changesetId}
+              properties={properties}
+              date={properties.get('date')}
+            />
           </div>
         </div>
       </div>

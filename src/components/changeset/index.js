@@ -136,13 +136,14 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
         {bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label) && (
           <Box key={1} className=" responsive-box  round-tr round-br">
             <Discussions
-              changesetId={changesetId}
+              changesetAuthor={currentChangeset.get('properties').get('user')}
               discussions={
                 this.props.osmInfo
                   ? this.props.osmInfo.getIn(['changeset', 'comments'])
                   : List()
               }
               changesetIsHarmful={properties.get('harmful')}
+              changesetId={changesetId}
             />
           </Box>
         )}

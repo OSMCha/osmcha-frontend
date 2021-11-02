@@ -183,7 +183,7 @@ what a problematic edit is on OSM, please refer to our guide on
 
 * Changeset-map is a changeset visualiser for OSM. It helps the reviewer understand the edits of a changeset both in terms of geometry and feature properties.
 
-<img width="600" alt="osmcha-changesetmap" src="https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497443481288_image.png">
+<!--<img width="600" alt="osmcha-changesetmap" src="https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497443481288_image.png">-->
 
 * The reviewer can click on any particular feature edited in that changeset and see the additions, deletions and modifications made to the feature to have an informed decision on quality of the edits.
 

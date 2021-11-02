@@ -10,6 +10,7 @@ import { importChangesetMap } from '../utils/cmap';
 
 import 'changeset-map/public/css/style.css';
 import type { RootStateType } from '../store';
+import { isMobile } from '../utils';
 
 let changesetId;
 let currentChangesetMap;
@@ -62,28 +63,38 @@ class CMap extends React.PureComponent {
     className: string,
     style: string
   };
+
   state = {
     visible: false,
     height: 0,
     width: 0
   };
+
   ref = null;
+
   componentDidMount() {
     changesetId = this.props.changesetId;
     currentChangesetMap = this.props.currentChangesetMap;
+    const mobile = isMobile();
+
     if (this.ref) {
       var rect = this.ref.parentNode.getBoundingClientRect();
-      height = parseInt(window.innerHeight - 1 * 55, 10);
+      // On mobile, above the map are two bars, one 36px, on 40px
+      height = mobile
+        ? parseInt(window.innerHeight - 36 - 40, 10)
+        : parseInt(window.innerHeight - 1 * 55, 10);
       width = parseInt(rect.width, 10);
     }
     window.onresize = debounce(this.setDimensions, 100);
     minDebounce();
   }
+
   componentWillUnmount() {
     window.onresize = null;
     if (this.props.style !== 'satellite') this.props.updateStyle('satellite');
     event && event.emit('remove');
   }
+
   componentDidUpdate(prevProp: Object) {
     if (
       this.props.currentChangesetMap !== prevProp.currentChangesetMap ||
@@ -92,10 +103,12 @@ class CMap extends React.PureComponent {
       minDebounce();
     }
   }
+
   setRef = (r: any) => {
     this.ref = r;
     this.setDimensions();
   };
+
   setDimensions = () => {
     if (!this.ref) return;
     var rect = this.ref.parentNode.getBoundingClientRect();
@@ -112,6 +125,7 @@ class CMap extends React.PureComponent {
       }
     }
   };
+
   render() {
     if (this.props.errorChangesetMap) {
       dispatchEvent('showToast', {
@@ -125,50 +139,47 @@ class CMap extends React.PureComponent {
     }
     changesetId = this.props.changesetId;
     currentChangesetMap = this.props.currentChangesetMap;
+
     if (this.props.token) {
       return (
-        <div className="">
-          <div className="relative" ref={this.setRef}>
-            <div
-              id="container"
-              className="absolute"
-              style={{
-                height: this.state.height,
-                width: this.state.width,
-                visibility: !(
-                  this.props.loadingChangesetMap || this.props.errorChangesetMap
-                )
-                  ? 'visible'
-                  : 'hidden'
-              }}
-            />
-            <CSSTransitionGroup
-              transitionName="map-hide"
-              transitionAppearTimeout={300}
-              transitionAppear={true}
-              transitionEnterTimeout={300}
-              transitionLeaveTimeout={1000} // determines the transition to cMap
-            >
-              {(this.props.loadingChangesetMap ||
-                this.props.errorChangesetMap) && (
-                <div
-                  key={0}
-                  id="placeholder"
-                  className={`absolute z0
-                    ${
-                      this.props.errorChangesetMap ? 'bg-red-faint' : 'bg-black'
-                    }
-                    `}
-                  style={{
-                    height: this.state.height,
-                    width: this.state.width
-                  }}
-                >
-                  <Loading height={this.state.height} />
-                </div>
-              )}
-            </CSSTransitionGroup>
-          </div>
+        <div className="relative" ref={this.setRef}>
+          <div
+            id="container"
+            className="absolute"
+            style={{
+              height: this.state.height,
+              width: this.state.width,
+              visibility: !(
+                this.props.loadingChangesetMap || this.props.errorChangesetMap
+              )
+                ? 'visible'
+                : 'hidden'
+            }}
+          />
+          <CSSTransitionGroup
+            transitionName="map-hide"
+            transitionAppearTimeout={300}
+            transitionAppear={true}
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={1000} // determines the transition to cMap
+          >
+            {(this.props.loadingChangesetMap ||
+              this.props.errorChangesetMap) && (
+              <div
+                key={0}
+                id="placeholder"
+                className={`absolute z0
+                  ${this.props.errorChangesetMap ? 'bg-red-faint' : 'bg-black'}
+                  `}
+                style={{
+                  height: this.state.height,
+                  width: this.state.width
+                }}
+              >
+                <Loading height={this.state.height} />
+              </div>
+            )}
+          </CSSTransitionGroup>
         </div>
       );
     } else {

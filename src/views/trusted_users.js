@@ -5,16 +5,16 @@ import { Map, List } from 'immutable';
 import { push } from 'react-router-redux';
 import { Link } from 'react-router-dom';
 
-import { getObjAsQueryParam } from '../utils/query_params';
+import { getObjAsQueryParam, isMobile } from '../utils';
 import { BlockMarkup } from '../components/user/block_markup';
 import { SaveUser } from '../components/user/save_user';
+import { SecondaryPagesHeader } from '../components/secondary_pages_header';
 import {
   addToTrustedlist,
   removeFromTrustedlist
 } from '../store/trustedlist_actions';
 import { modal } from '../store/modal_actions';
 import { logUserOut } from '../store/auth_actions';
-import { Avatar } from '../components/avatar';
 import { Button } from '../components/button';
 import type { RootStateType } from '../store';
 
@@ -101,29 +101,18 @@ class TrustedUsers extends React.PureComponent<any, propsType, any> {
       a => a,
       (a: string, b: string) => a.localeCompare(b)
     );
+    const mobile = isMobile();
+
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
-          window.innerWidth < 800 ? 'viewport-full' : ''
+          mobile ? 'viewport-full' : ''
         }`}
       >
-        <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
-          <span className="txt-l txt-bold color-gray--dark">
-            <span className="fl">
-              <Avatar size={36} url={this.props.avatar} />
-            </span>
-            <span className="pl6 line45">Trusted users</span>
-          </span>
-
-          <span className="txt-l color-gray--dark">
-            <Button
-              onClick={this.props.logUserOut}
-              className="bg-white-on-hover"
-            >
-              Logout
-            </Button>
-          </span>
-        </header>
+        <SecondaryPagesHeader
+          title="Trusted Users"
+          avatar={this.props.avatar}
+        />
         <div className="px30 flex-child  pb60  filters-scroll">
           <div className="flex-parent flex-parent--column align justify--space-between">
             {this.props.token && (

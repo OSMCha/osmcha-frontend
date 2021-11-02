@@ -1,5 +1,6 @@
 import React from 'react';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { isMobile } from '../../utils';
 
 export function Wrapper({
   display,
@@ -9,6 +10,8 @@ export function Wrapper({
   name,
   hasValue
 }) {
+  const mobile = isMobile();
+
   return (
     <div
       className="ml3 my12 flex-parent flex-parent--column"
@@ -32,7 +35,7 @@ export function Wrapper({
         <span className="col col--6-mxl col--6-ml col--12-mm col--12">
           {children}
         </span>
-        {window.innerWidth > 800 && (
+        {!mobile && (
           <span className="col col--3-mxl col--3-ml col--1-mm">
             <span className="desc block relative ml12 wmin120">
               <CSSTransitionGroup

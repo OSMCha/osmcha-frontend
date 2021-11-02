@@ -121,6 +121,7 @@ class TrustWatchUser extends React.PureComponent<any, propsType, any> {
           ]}
           onChange={this.handleVerify}
           display="Trust / Watch user"
+          position="left"
         />
       </div>
     );
