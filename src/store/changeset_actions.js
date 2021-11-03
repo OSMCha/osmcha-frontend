@@ -6,7 +6,7 @@ import { LOCATION_CHANGE, replace, push } from 'react-router-redux';
 import notifications from '../config/notifications';
 
 import { fetchChangeset, setHarmful, setTag } from '../network/changeset';
-import { importChangesetMap } from '../utils/cmap';
+import { getChangeset as gcs } from '../changeset-map';
 
 import {
   getChangesetIdFromLocation,
@@ -263,9 +263,7 @@ export function* fetchChangesetAction(changesetId: number): Object {
 }
 
 export function changesetMapModule(changesetId: number): any {
-  return importChangesetMap('getChangeset').then((getCMapData: any) =>
-    getCMapData(changesetId)
-  );
+  return gcs(changesetId);
 }
 export const changesetMapSelector = (state: RootStateType) =>
   state.changeset.getIn(['changesetMap'], Map());

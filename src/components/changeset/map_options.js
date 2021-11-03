@@ -3,7 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { osmTileUrl } from '../../config/constants';
-import { importChangesetMap } from '../../utils/cmap';
+import { getMapInstance } from '../../changeset-map';
+
 import { updateStyle } from '../../store/map_controls_actions';
 import { Dropdown } from '../dropdown';
 
@@ -44,28 +45,18 @@ class MapOptions extends React.PureComponent {
       this.props.updateStyle(layer[0].value);
     }
   };
-  onChange = () => {
-    importChangesetMap('getMapInstance').then(
-      r => r && r() && r().filterLayers()
-    );
+ onChange = () => {
+    getMapInstance() && getMapInstance().filterLayers();
   };
   toggleSatellite = () => {
-    importChangesetMap('getMapInstance').then(
-      r =>
-        r &&
-        r() &&
-        r().renderMap('mapbox://styles/openstreetmap/cjnd8lj0e10i42spfo4nsvoay')
-    );
+    getMapInstance() &&
+    getMapInstance().renderMap('mapbox://styles/openstreetmap/cjnd8lj0e10i42spfo4nsvoay');
   };
   toggleDark = () => {
-    importChangesetMap('getMapInstance').then(
-      r => r && r() && r().renderMap('mapbox://styles/mapbox/dark-v9')
-    );
+    getMapInstance() && getMapInstance().renderMap('mapbox://styles/mapbox/dark-v9');
   };
   toggleStreet = () => {
-    importChangesetMap('getMapInstance').then(
-      r => r && r() && r().renderMap('mapbox://styles/mapbox/streets-v9')
-    );
+    getMapInstance() && getMapInstance().renderMap('mapbox://styles/mapbox/streets-v9');
   };
   toggleBing = () => {
     const bingStyle = {
@@ -93,9 +84,7 @@ class MapOptions extends React.PureComponent {
         }
       ]
     };
-    importChangesetMap('getMapInstance').then(
-      r => r && r() && r().renderMap(bingStyle)
-    );
+    getMapInstance() && getMapInstance().renderMap(bingStyle);
   };
   toggleOsm = () => {
     const osmStyle = {
@@ -119,9 +108,7 @@ class MapOptions extends React.PureComponent {
         }
       ]
     };
-    importChangesetMap('getMapInstance').then(
-      r => r && r() && r().renderMap(osmStyle)
-    );
+    getMapInstance() && getMapInstance().renderMap(osmStyle);
   };
   render() {
     return (

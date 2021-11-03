@@ -13,7 +13,8 @@ import MapboxDraw from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw';
 
 import { nominatimSearch } from '../../network/nominatim';
 import { mapboxAccessToken } from '../../config/constants';
-import { importChangesetMap } from '../../utils/cmap';
+import { getGL } from '../../changeset-map';
+
 
 export class LocationSelect extends React.PureComponent {
   props: {
@@ -76,42 +77,40 @@ export class LocationSelect extends React.PureComponent {
   }
 
   componentDidMount() {
-    importChangesetMap('getGL').then((getGL: any) => {
-      if (getGL) {
-        var mapboxgl = getGL();
-        mapboxgl.accessToken = mapboxAccessToken;
-        const map = new mapboxgl.Map({
-          container: 'geometry-map',
-          style: 'mapbox://styles/mapbox/light-v9'
-        });
-        this.map = map;
-        this.draw = new MapboxDraw({
-          displayControlsDefault: false,
-          controls: {
-            polygon: true
-          }
-        });
-        map.addControl(this.draw);
+    if (getGL) {
+      var mapboxgl = getGL();
+      mapboxgl.accessToken = mapboxAccessToken;
+      const map = new mapboxgl.Map({
+        container: 'geometry-map',
+        style: 'mapbox://styles/mapbox/light-v9'
+      });
+      this.map = map;
+      this.draw = new MapboxDraw({
+        displayControlsDefault: false,
+        controls: {
+          polygon: true
+        }
+      });
+      map.addControl(this.draw);
 
-        map.on('draw.create', this.drawingUpdate);
-        map.on('draw.modechange', this.clearBeforeDraw);
-        map.on('draw.delete', this.drawingUpdate);
-        map.on('draw.update', this.drawingUpdate);
-        map.on('style.load', () => {
-          try {
-            this.updateMap(
-              this.props.value
-                .get('0')
-                .get('value')
-                .toJS()
-            );
-          } catch (e) {
-            if (e instanceof TypeError) {
-            }
+      map.on('draw.create', this.drawingUpdate);
+      map.on('draw.modechange', this.clearBeforeDraw);
+      map.on('draw.delete', this.drawingUpdate);
+      map.on('draw.update', this.drawingUpdate);
+      map.on('style.load', () => {
+        try {
+          this.updateMap(
+            this.props.value
+              .get('0')
+              .get('value')
+              .toJS()
+          );
+        } catch (e) {
+          if (e instanceof TypeError) {
           }
-        });
-      }
-    });
+        }
+      });
+    }
   }
 
   clearBeforeDraw = e => {

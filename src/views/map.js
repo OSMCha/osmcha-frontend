@@ -6,7 +6,7 @@ import { Loading } from '../components/loading';
 import { SignIn } from '../components/sign_in';
 import { dispatchEvent } from '../utils/dispatch_event';
 import { updateStyle } from '../store/map_controls_actions';
-import { importChangesetMap } from '../utils/cmap';
+import { getMapInstance as gmi, render } from '../changeset-map';
 
 import 'changeset-map/public/css/style.css';
 import type { RootStateType } from '../store';
@@ -28,8 +28,8 @@ export function selectFeature(id: number) {
 function loadingChangesetMapAsync() {
   if (cMapRender) return Promise.resolve(cMapRender);
   return Promise.all([
-    importChangesetMap('render'),
-    importChangesetMap('getMapInstance')
+    render,
+    gmi
   ]).then(res => {
     cMapRender = res[0];
     getMapInstance = res[1];

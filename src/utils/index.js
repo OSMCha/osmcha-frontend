@@ -1,4 +1,3 @@
-export * from './cmap';
 export * from './component';
 export * from './create_popup';
 export * from './dispatch_event';

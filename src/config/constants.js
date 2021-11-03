@@ -2,7 +2,7 @@
 import { API_URL } from './';
 
 export const PAGE_SIZE = 75;
-export const overpassBase = process.env.REACT_APP_OVERPASS_API_URL || 'https://overpass-api.de/api/interpreter';
+export const overpassApiUrl = process.env.REACT_APP_OVERPASS_API_URL || 'https://overpass-api.de/api/interpreter';
 export const osmBaseUrl = process.env.REACT_APP_OSM_BASE_URL || 'https://www.openstreetmap.org';
 export const osmApiUrl = process.env.REACT_APP_OSM_API_URL || 'https://api.openstreetmap.org';
 export const osmAuthUrl = process.env.REACT_APP_OSM_AUTH_URL || `${osmBaseUrl}/oauth/authorize`;

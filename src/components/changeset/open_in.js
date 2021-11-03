@@ -1,28 +1,26 @@
 import React from 'react';
 
-import { importChangesetMap } from '../../utils/cmap';
 import { osmApiUrl, osmBaseUrl } from '../../config/constants';
+import { getMapInstance } from '../../changeset-map';
 import { Dropdown } from '../dropdown';
 import { isMobile } from '../../utils';
 
 function openEditor(selected) {
-  importChangesetMap('getMapInstance')
-    .then(r => r && r() && r().map)
-    .then(map => {
-      let baseUrl;
-      if (selected && selected[0].value === 'iD') {
-        baseUrl = `${osmBaseUrl}/edit?editor=id&`;
-      }
-      if (selected && selected[0].value === 'RapiD') {
-        baseUrl = 'https://mapwith.ai/rapid?';
-      }
-      if (baseUrl) {
-        const center = map.getCenter();
-        const zoom = map.getZoom();
-        let windowObjectReference = window.open('editor - OSMCha');
-        windowObjectReference.location.href = `${baseUrl}#map=${zoom}/${center.lat}/${center.lng}`;
-      }
-    });
+  getMapInstance();
+  let map = getMapInstance().map;
+  let baseUrl;
+  if (selected && selected[0].value === 'iD') {
+    baseUrl = `${osmBaseUrl}/edit?editor=id&`;
+  }
+  if (selected && selected[0].value === 'RapiD') {
+    baseUrl = 'https://mapwith.ai/rapid?';
+  }
+  if (baseUrl) {
+    const center = map.getCenter();
+    const zoom = map.getZoom();
+    let windowObjectReference = window.open('editor - OSMCha');
+    windowObjectReference.location.href = `${baseUrl}#map=${zoom}/${center.lat}/${center.lng}`;
+  }
 }
 
 export function OpenIn({ display, changesetId, coordinates, className }) {
