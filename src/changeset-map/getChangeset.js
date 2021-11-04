@@ -1,38 +1,21 @@
 import adiffParser from 'osm-adiff-parser-saxjs';
 import jsonParser from 'real-changesets-parser';
 import { query } from './query';
-import { overpassApiUrl as overpassDefault } from '../config/constants';
+import { overpassApiUrl, overpassCredentials } from '../config/constants';
 
-export function getChangeset(changesetID, overpassApiUrl = overpassDefault) {
+export function getChangeset(changesetID) {
   return query(changesetID).then(changeset => {
-    var url = 'http://invalid.arpa/changeset/' + changesetID + '.json';
-    return fetch(url)
-      .then(r => {
-        if (r.ok) return r.json();
-        // Fallback to overpass
-        return Promise.reject();
-      })
-      .then(r => {
-        if (r.elements.length === 0) return Promise.reject();
-        var geojson = jsonParser(r);
-        var featureMap = getFeatureMap(geojson);
-        var ret = {
-          geojson: geojson,
-          featureMap: featureMap,
-          changeset: changeset
-        };
-        return ret;
-      })
-      .catch(() => fetchFromOverPass(changesetID, changeset, overpassApiUrl));
+    return fetchFromOverPass(changesetID, changeset);
   });
 }
 
-function fetchFromOverPass(changesetID, changeset, overpassApiUrl) {
+function fetchFromOverPass(changesetID, changeset) {
   var data = getDataParam(changeset);
   var bbox = getBboxParam(changeset.bbox);
   var url = overpassApiUrl + '?data=' + data + '&bbox=' + bbox;
 
-  return fetch(url, {
+ return fetch(url, {
+    'credentials': overpassCredentials,
     'Response-Type': 'application/osm3s+xml'
   })
     .then(r => r.text())
