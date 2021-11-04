@@ -6,7 +6,6 @@ import { fromJS } from 'immutable';
 import { mapboxAccessToken } from '../config/constants';
 import { getGL } from '../changeset-map';
 
-
 export class BBoxPicker extends React.Component {
   update = debounce(() => {
     if (!this.map) return;
