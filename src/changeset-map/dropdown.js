@@ -77,6 +77,7 @@ class DropdownContent extends React.PureComponent {
                 {i.label}
               </a>
             ) : (
+              // eslint-disable-next-line
               <a
                 onClick={this.props.toggleDropdown}
                 className={`${this.isActive(i) ? 'is-active' : ''}`}
@@ -85,6 +86,7 @@ class DropdownContent extends React.PureComponent {
               </a>
             )}
             {this.props.deletable && (
+              // eslint-disable-next-line
               <a
                 onClick={e => {
                   e.preventDefault();

@@ -58,6 +58,7 @@ export function Details({
     };
   }
 
+  // eslint-disable-next-line
   Array.from(metadata, ([p, v]) => {
     if (
       !p.startsWith('ideditor') &&
