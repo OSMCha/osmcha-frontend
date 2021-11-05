@@ -14,8 +14,6 @@ export const osmApiUrl = process.env.REACT_APP_OSM_API_URL || 'https://api.opens
 export const osmAuthUrl = process.env.REACT_APP_OSM_AUTH_URL || `${osmBaseUrl}/oauth/authorize`;
 export const osmTileUrl = process.env.REACT_APP_OSM_TILE_URL || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 export const osmchaSocialTokenUrl = `${API_URL}/social-auth/`;
-export const whosThat =
-  'https://rksbsqdel4.execute-api.us-east-1.amazonaws.com/testing?action=names&id=';
 
 // set a default from date x days before today
 export const DEFAULT_FROM_DATE = parseInt(process.env.REACT_APP_DEFAULT_FROM_DATE || 2);

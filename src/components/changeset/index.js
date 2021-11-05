@@ -19,7 +19,6 @@ import { ControlLayout } from './control_layout';
 import { keyboardToggleEnhancer } from '../keyboard_enhancer';
 import { withFetchDataSilent } from '../fetch_data_enhancer';
 import { getUserDetails } from '../../network/openstreetmap';
-import { getUsers } from '../../network/whosthat';
 import {
   CHANGESET_DETAILS_DETAILS,
   CHANGESET_DETAILS_SUSPICIOUS,
@@ -46,11 +45,9 @@ type propsType = {|
 // presentational component for view/changeset.js
 export class _Changeset extends React.PureComponent<*, propsType, *> {
   getUserDetailsPromise;
-  getWhosThatPromise;
 
   state = {
-    userDetails: null,
-    whosThat: null
+    userDetails: null
   };
 
   static defaultProps = {
@@ -73,15 +70,6 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
       this.getUserDetailsPromise.promise
         .then(r => {
           this.setState({ userDetails: r });
-        })
-        .catch(e => console.log(e));
-
-      this.getWhosThatPromise = cancelablePromise(
-        getUsers(this.props.currentChangeset.getIn(['properties', 'uid'], ''))
-      );
-      this.getWhosThatPromise.promise
-        .then(r => {
-          this.setState({ whosThat: List(r[0].names) });
         })
         .catch(e => console.log(e));
     }
@@ -178,11 +166,6 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
                         data.getIn(['userDetails', 'changesets_in_osmcha'])
                       ]
                     ])
-              }
-              whosThat={
-                data.getIn(['userDetails', 'name'])
-                  ? data.getIn(['whosThat', 0, 'names'], List())
-                  : this.state.whosThat || List()
               }
               changesetUsername
             />
@@ -285,9 +268,6 @@ Changeset = withFetchDataSilent(
         props.currentChangeset.getIn(['properties', 'uid'], null),
         props.token
       )
-    ),
-    whosThat: cancelablePromise(
-      getUsers(props.currentChangeset.getIn(['properties', 'uid'], ''))
     )
   }),
   (nextProps: propsType, props: propsType) =>

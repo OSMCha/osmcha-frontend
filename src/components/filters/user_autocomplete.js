@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import { Async } from 'react-select';
-import { getUsers } from '../../network/whosthat';
 
 export class UserAutocomplete extends React.PureComponent {
   state = {
@@ -14,19 +13,6 @@ export class UserAutocomplete extends React.PureComponent {
     onChange: (value: any) => void,
     value: any,
     multi?: boolean
-  };
-  getAsyncOptions = (input: string, cb: (e: ?Error, any) => void) => {
-    return getUsers(input)
-      .then(json => {
-        if (!Array.isArray(json)) return cb(null, { options: [] });
-
-        const data = json.map(d => ({
-          label: d.names.slice(-1)[0],
-          value: d.id
-        }));
-        return cb(null, { options: data });
-      })
-      .catch(e => cb(e, null));
   };
   //   onChange = (value: ?Array<Object>) => {
   //     if (Array.isArray(value) && value.length === 0)
@@ -45,7 +31,6 @@ export class UserAutocomplete extends React.PureComponent {
         cache={false}
         value={this.props.value || null}
         onChange={this.props.onChange}
-        loadOptions={this.getAsyncOptions}
         placeholder={this.props.placeholder || 'users'}
         autoload={false}
       />

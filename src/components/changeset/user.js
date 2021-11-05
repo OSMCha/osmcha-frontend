@@ -184,17 +184,6 @@ export class User extends React.PureComponent {
                 Missing Maps
               </a>
             </div>
-
-            {this.props.whosThat.size > 1 && (
-              <div className="txt-s color-gray">
-                Past usernames: &nbsp;
-                {this.props.whosThat.slice(0, -1).map((e, k) => (
-                  <span key={k} className="txt-em">
-                    {e}&nbsp;
-                  </span>
-                ))}
-              </div>
-            )}
             <div className="mt12">
               <p
                 className="txt-subhead txt-s txt-break-url user-description"
