@@ -18,9 +18,9 @@ export const whosThat =
   'https://rksbsqdel4.execute-api.us-east-1.amazonaws.com/testing?action=names&id=';
 
 // set a default from date x days before today
-export const DEFAULT_FROM_DATE = 2;
+export const DEFAULT_FROM_DATE = parseInt(process.env.REACT_APP_DEFAULT_FROM_DATE || 2);
 // exclude changesets newer than x minutes. It's needed because of the difference
 // between the time a changeset is processed by OSMCha and the time its map
 // visualization is available
-export const DEFAULT_TO_DATE = 5;
-export const PAGE_SIZE = 75;
+export const DEFAULT_TO_DATE = parseInt(process.env.REACT_APP_DEFAULT_TO_DATE || 5);
+export const PAGE_SIZE = parseInt(process.env.REACT_APP_PAGE_SIZE || 75);
