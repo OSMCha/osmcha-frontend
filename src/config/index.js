@@ -6,6 +6,7 @@ export const isLocal = process.env.NODE_ENV === 'development';
 export const stack = process.env.REACT_APP_STACK;
 export const appVersion = process.env.REACT_APP_VERSION;
 export const API_URL = process.env.REACT_APP_API_URL || (isProd ? 'https://osmcha.org/api/v1': 'https://staging.osmcha.org/api/v1');
+export const PUBLIC_URL = process.env.REACT_APP_PUBLIC_URL;
 
 window.debug_info = () =>
   `isDev=${isDev.toString()} isStaging=${isStaging.toString()} isProd=${isProd.toString()} isLocal=${isLocal.toString()} stack=${stack ||

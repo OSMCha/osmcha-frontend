@@ -22,8 +22,8 @@ import {
   OPEN_IN_ACHAVI,
   OPEN_IN_HDYC
 } from '../config/bindings';
+import { PUBLIC_URL } from '../config';
 import { osmApiUrl, osmBaseUrl } from '../config/constants';
-import { API_URL } from '../config/index';
 
 import {
   handleChangesetModifyTag,
@@ -184,11 +184,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                     <span
                       className="txt--s pl6 pointer"
                       onClick={e =>
-                        navigator.clipboard.writeText(
-                          `${API_URL.replace('/api/v1', '')}/changesets/${
-                            this.props.changesetId
-                          }`
-                        )
+                        navigator.clipboard.writeText(`${PUBLIC_URL}/changesets/${this.props.changesetId}`)
                       }
                       title="Copy OSMCha Changeset URL"
                     >
