@@ -135,6 +135,7 @@ class MappingTeams extends React.PureComponent<any, propsType, any> {
   };
 
   render() {
+    let teamsList = this.props.data.getIn(['teams', 'results'], List());
     const mobile = isMobile();
 
     return (
@@ -156,7 +157,7 @@ class MappingTeams extends React.PureComponent<any, propsType, any> {
                     My mapping teams
                   </h2>
                   <ListFortified
-                    data={this.props.data.getIn(['teams'], List())}
+                    data={teamsList}
                     TargetBlock={TeamsBlock}
                     propsToPass={{
                       removeTeam: this.removeTeam
@@ -184,7 +185,7 @@ class MappingTeams extends React.PureComponent<any, propsType, any> {
 MappingTeams = withFetchDataSilent(
   (props: propsType) => ({
     teams: cancelablePromise(
-      fetchUserMappingTeams(props.token, props.userDetails.get('username'))
+      fetchUserMappingTeams(props.token, props.userDetails.get('id'))
     )
   }),
   (nextProps: propsType, props: propsType) => true,

@@ -101,7 +101,7 @@ class Watchlist extends React.PureComponent<any, propsType, any> {
     });
   };
   render() {
-    let watchList = this.props.watchlisted ? this.props.watchlisted : List();
+    let watchList = this.props.watchlisted.get("count") > 0 ? this.props.watchlisted.get("results") : List();
     watchList = watchList.sortBy(
       a => a.get('username'),
       (a: string, b: string) => a.localeCompare(b)

@@ -161,28 +161,6 @@ export class User extends React.PureComponent {
               <UserOSMLink userName={this.props.userDetails.get('name')}>
                 OSM
               </UserOSMLink>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Open in HDYC"
-                className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-                href={`https://hdyc.neis-one.org/?${this.props.userDetails.get(
-                  'name'
-                )}`}
-              >
-                HDYC
-              </a>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Open in Missing Maps"
-                className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-                href={`https://www.missingmaps.org/users/#/${this.props.userDetails.get(
-                  'name'
-                )}`}
-              >
-                Missing Maps
-              </a>
             </div>
             <div className="mt12">
               <p

@@ -1,3 +1,4 @@
+import { List } from 'immutable';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -42,6 +43,7 @@ class TrustWatchUser extends React.PureComponent<any, propsType, any> {
       this.props.trustedlist.indexOf(this.props.user.get('name')) !== -1;
     const is_watchlisted =
       this.props.watchlist
+        .get('results')
         .map(user => user.get('uid'))
         .indexOf(this.props.user.get('uid')) !== -1;
 
@@ -53,7 +55,7 @@ class TrustWatchUser extends React.PureComponent<any, propsType, any> {
   };
 
   render() {
-    const watchlist = this.props.watchlist.map(user => user.get('uid'));
+    const watchlist = this.props.watchlist.get('count', 0) > 0 ? this.props.watchlist.get('results').map(user => user.get('uid')) : List();
 
     if (watchlist.includes(this.props.user.get('uid'))) {
       return (

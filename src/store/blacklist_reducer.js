@@ -20,16 +20,19 @@ export function watchlistReducer(
       return state
         .set(
           'watchlist',
-          state.get('watchlist').concat([fromJS(action.watchlist_user)])
+          state
+            .get('watchlist')
+            .concat([fromJS(action.watchlist_user)])
         )
         .set('loading', false);
     }
-    case WATCHLIST.remove: {
+  case WATCHLIST.remove: {
+      console.log(state.getIn(['watchlist', 'results']));
       return state
         .set(
           'watchlist',
           state
-            .get('watchlist')
+            .getIn(['watchlist', 'results'])
             .filter(item => item.get('uid') !== action.watchlist_user)
         )
         .set('loading', false);
