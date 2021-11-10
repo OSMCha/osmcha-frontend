@@ -55,10 +55,9 @@ class Discussions extends React.PureComponent {
                 </span>
                 <span>
                   {formatDistanceToNow(
-                    // eslint-disable-next-line
                     parse(
                       comment.get('date'),
-                      "yyyy-MM-dd'T'HH:mm:ssX",
+                      'yyyy-MM-dd\'T\'HH:mm:ssX',
                       new Date()
                     ),
                     { addSuffix: true }
