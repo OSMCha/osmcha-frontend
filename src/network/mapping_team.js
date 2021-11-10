@@ -1,9 +1,10 @@
-import { API_URL } from '../config';
+import { API_URL, apiCredentials } from '../config';
 import { handleErrors } from './aoi';
 
 export function createMappingTeam(token: string, name: string, users: string) {
   return fetch(`${API_URL}/mapping-team/`, {
     method: 'POST',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -22,6 +23,7 @@ export function createMappingTeam(token: string, name: string, users: string) {
 export function fetchMappingTeam(token: string, id: number) {
   return fetch(`${API_URL}/mapping-team/${id}/`, {
     method: 'GET',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -35,6 +37,7 @@ export function fetchMappingTeam(token: string, id: number) {
 export function deleteMappingTeam(token: string, id: number) {
   return fetch(`${API_URL}/mapping-team/${id}/`, {
     method: 'DELETE',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -45,6 +48,7 @@ export function deleteMappingTeam(token: string, id: number) {
 export function fetchUserMappingTeams(token: string, owner: string) {
   return fetch(`${API_URL}/mapping-team/?owner=${owner}`, {
     method: 'GET',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -59,6 +63,7 @@ export function fetchUserMappingTeams(token: string, owner: string) {
 export function fetchTrustedMappingTeams(token: string) {
   return fetch(`${API_URL}/mapping-team/?trusted=true`, {
     method: 'GET',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -78,6 +83,7 @@ export function updateMappingTeam(
 ) {
   return fetch(`${API_URL}/mapping-team/${id}`, {
     method: 'PUT',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''

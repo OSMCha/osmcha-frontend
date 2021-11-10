@@ -1,6 +1,6 @@
 // @flow
 import { Iterable, List, Map } from 'immutable';
-import { API_URL } from '../config';
+import { API_URL, apiCredentials } from '../config';
 import { PAGE_SIZE } from '../config/constants';
 import { appendDefaultDate } from '../utils/filters';
 import { handleErrors, getString } from './aoi';
@@ -40,6 +40,7 @@ export function fetchChangesetsPage(
   }
   return fetch(url, {
     method: 'GET',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -74,6 +75,7 @@ export function fetchAOIChangesetPage(
       1}`,
     {
       method: 'GET',
+      credentials: apiCredentials,
       headers: {
         'Content-Type': 'application/json',
         Authorization: token ? `Token ${token}` : ''

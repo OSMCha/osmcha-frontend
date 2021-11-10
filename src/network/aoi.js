@@ -1,7 +1,7 @@
 // @flow
 import { Iterable } from 'immutable';
 
-import { API_URL } from '../config';
+import { API_URL, apiCredentials } from '../config';
 import type { filtersType, filterType } from '../components/filters';
 
 export function getString(input) {
@@ -50,6 +50,7 @@ export function createAOI(
   });
   return fetch(`${API_URL}/aoi/`, {
     method: 'POST',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -68,6 +69,7 @@ export function createAOI(
 export function fetchAOI(token: string, aoiId: number): Promise<*> {
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
     method: 'GET',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -83,6 +85,7 @@ export function fetchAllAOIs(token?: string): Promise<*> {
   if (token == null) return Promise.resolve();
   return fetch(`${API_URL}/aoi/`, {
     method: 'GET',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -111,6 +114,7 @@ export function updateAOI(
   });
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
     method: 'PUT',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -129,6 +133,7 @@ export function updateAOI(
 export function deleteAOI(token: string, aoiId: string): Promise<*> {
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
     method: 'DELETE',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''

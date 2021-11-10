@@ -1,10 +1,11 @@
 // @flow
 import { handleErrors } from './aoi';
-import { API_URL } from '../config';
+import { API_URL, apiCredentials } from '../config';
 
 export function fetchTrustedList(token: string): Promise<*> {
   return fetch(`${API_URL}/whitelist-user/`, {
     method: 'GET',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -22,6 +23,7 @@ export function deleteFromTrustedList(
 ): Promise<*> {
   return fetch(`${API_URL}/whitelist-user/${username}/`, {
     method: 'DELETE',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -35,6 +37,7 @@ export function postUserToTrustedList(
 ): Promise<*> {
   return fetch(`${API_URL}/whitelist-user/`, {
     method: 'POST',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''

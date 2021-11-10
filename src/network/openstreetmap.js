@@ -1,12 +1,15 @@
 import { fromJS, Map } from 'immutable';
-import { osmApiUrl } from '../config/constants';
-import { API_URL } from '../config';
+import { osmApiUrl, osmCredentials } from '../config/constants';
+import { API_URL, apiCredentials } from '../config';
 
 export function getUserDetails(uid: number, token: string): Map<'string', *> {
   const user = { uid: uid };
   const fromOSM = fetch(`${osmApiUrl}/api/0.6/user/${uid}.json`, {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
+    credentials: osmCredentials,
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
     .then(r => r.json())
     .then(r => {
@@ -22,6 +25,7 @@ export function getUserDetails(uid: number, token: string): Map<'string', *> {
 
   const fromOSMCha = fetch(`${API_URL}/user-stats/${uid}/`, {
     method: 'GET',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''

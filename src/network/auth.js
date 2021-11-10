@@ -1,7 +1,7 @@
 // @flow
 import request from 'superagent';
 import { osmchaSocialTokenUrl } from '../config/constants';
-import { API_URL } from '../config';
+import { API_URL, apiCredentials } from '../config';
 import { handleErrors } from './aoi';
 
 export function postFinalTokensOSMCha(
@@ -37,6 +37,7 @@ export function postTokensOSMCha() {
 export function fetchUserDetails(token: string) {
   return fetch(`${API_URL}/users/`, {
     method: 'GET',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -56,6 +57,7 @@ export function updateUserDetails(
 ) {
   return fetch(`${API_URL}/users/`, {
     method: 'PATCH',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''

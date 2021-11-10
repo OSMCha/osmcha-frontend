@@ -1,10 +1,11 @@
 // @flow
 import { handleErrors } from './aoi';
-import { API_URL } from '../config';
+import { API_URL, apiCredentials } from '../config';
 
 export function fetchWatchList(token: string): Promise<*> {
   return fetch(`${API_URL}/blacklisted-users/`, {
     method: 'GET',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -19,6 +20,7 @@ export function fetchWatchList(token: string): Promise<*> {
 export function deleteFromWatchList(token: string, uid: string): Promise<*> {
   return fetch(`${API_URL}/blacklisted-users/${uid}/`, {
     method: 'DELETE',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -29,6 +31,7 @@ export function deleteFromWatchList(token: string, uid: string): Promise<*> {
 export function postUserToWatchList(token: string, data: object): Promise<*> {
   return fetch(`${API_URL}/blacklisted-users/`, {
     method: 'POST',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''

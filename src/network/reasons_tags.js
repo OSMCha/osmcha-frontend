@@ -1,9 +1,10 @@
 // @flow
-import { API_URL } from '../config';
+import { API_URL, apiCredentials } from '../config';
 import { handleErrors } from './aoi';
 
 export function fetchReasons(token: ?string) {
   return fetch(`${API_URL}/suspicion-reasons/`, {
+    credentials: apiCredentials,
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -18,6 +19,7 @@ export function fetchReasons(token: ?string) {
 
 export function fetchTags(token: ?string) {
   return fetch(`${API_URL}/tags/`, {
+    credentials: apiCredentials,
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

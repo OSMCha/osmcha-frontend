@@ -1,10 +1,11 @@
 // @flow
-import { API_URL } from '../config';
+import { API_URL, apiCredentials } from '../config';
 import { handleErrors } from './aoi';
 
 export function fetchChangeset(id: number, token: ?string) {
   return fetch(`${API_URL}/changesets/${id}/`, {
     method: 'GET',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -29,6 +30,7 @@ export function setHarmful(id: number, token: string, harmful: boolean | -1) {
 
   return fetch(url, {
     method: 'PUT',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -59,6 +61,7 @@ export function setTag(
   }
   return fetch(`${API_URL}/changesets/${id}/tags/${tag.value}/`, {
     method: remove ? 'DELETE' : 'POST',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
@@ -77,6 +80,7 @@ export function setTag(
 export function postComment(id: number, token: string, comment: string) {
   return fetch(`${API_URL}/changesets/${id}/comment/`, {
     method: 'POST',
+    credentials: apiCredentials,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Token ${token}` : ''
