@@ -144,6 +144,10 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
     );
   };
 
+  isChecked = () =>
+    this.props.currentChangeset &&
+    this.props.currentChangeset.getIn(['properties', 'checked']);
+
   render() {
     const mobile = isMobile();
 
@@ -221,7 +225,11 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                 ])
               }
               display={
-                mobile ? `Changeset ${this.props.changesetId}` : 'Open with'
+                mobile
+                  ? `${this.isChecked() ? '' : 'Changeset'} ${
+                      this.props.changesetId
+                    }`
+                  : 'Open with'
               }
             />
           </div>
