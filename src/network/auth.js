@@ -12,6 +12,7 @@ export function postFinalTokensOSMCha(
   return request
     .post(osmchaSocialTokenUrl)
     .type('form')
+    .withCredentials(apiCredentials !== 'omit')
     .send({ oauth_token: oauth_token })
     .send({ oauth_verifier: oauth_verifier })
     .send({ oauth_token_secret: oauth_token_secret })
@@ -27,6 +28,7 @@ export function postTokensOSMCha() {
   return request
     .post(osmchaSocialTokenUrl)
     .type('form')
+    .withCredentials(apiCredentials !== 'omit')
     .then(r => r.body)
     .catch(e => {
       console.error(e);

@@ -7,7 +7,7 @@ export const stack = process.env.REACT_APP_STACK;
 export const appVersion = process.env.REACT_APP_VERSION;
 export const credentialsPolicy =
     process.env.REACT_APP_CREDENTIALS_POLICY || (process.env.NODE_ENV === 'development' ? 'include' : 'same-origin');
-export const apiCredentials = (process.env.REACT_APP_API_CREDENTIALS === 'enabled' ? credentialsPolicy : 'omit');
+export const apiCredentials = (process.env.REACT_APP_OSMCHA_CREDENTIALS === 'enabled' ? credentialsPolicy : 'omit');
 export const API_URL = process.env.REACT_APP_API_URL || (isProd ? 'https://osmcha.org/api/v1': 'https://staging.osmcha.org/api/v1');
 export const PUBLIC_URL = process.env.REACT_APP_PUBLIC_URL;
 
