@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import { BASE_PATH } from '../../config';
 import { Button } from '../button';
 
 const NewTeam = props => {
@@ -222,7 +223,7 @@ const NewTeam = props => {
               )}
               {props.activeTeam ? (
                 <Link
-                  to={{ pathname: '/teams' }}
+                  to={{ pathname: `${BASE_PATH}/teams` }}
                   className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition input wmax120 ml6"
                 >
                   Back to teams

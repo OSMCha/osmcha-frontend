@@ -18,6 +18,7 @@ import type { RootStateType } from '../store';
 import { delayPromise, isMobile } from '../utils';
 
 import type { filterType, filtersType } from '../components/filters';
+import { BASE_PATH } from '../config';
 const NEW_AOI = 'unnamed *';
 
 type propsType = {|
@@ -75,11 +76,11 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
       if (is(this.state.filters, this.props.filters)) {
         this.props.push({
           ...this.props.location,
-          pathname: '/'
+          pathname: `${BASE_PATH}/`
         });
         return;
       }
-      this.props.applyFilters(this.state.filters, '/');
+      this.props.applyFilters(this.state.filters, `${BASE_PATH}/`);
       // show user if there were any new changesets
       // incase service had cached the request
       delayPromise(3000).promise.then(() =>
@@ -125,7 +126,7 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
     this.setState({ filters });
   };
   handleClear = () => {
-    this.props.applyFilters(new Map(), '/');
+    this.props.applyFilters(new Map(), `${BASE_PATH}/`);
   };
   loadAoiId = (aoiId: string) => {
     this.props.push({

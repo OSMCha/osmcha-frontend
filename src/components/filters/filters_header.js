@@ -8,7 +8,7 @@ import { cancelablePromise } from '../../utils/promise';
 import { fetchAllAOIs } from '../../network/aoi';
 import { Button } from '../button';
 import { Dropdown } from '../dropdown';
-import { API_URL } from '../../config';
+import { API_URL, BASE_PATH, PUBLIC_URL } from '../../config';
 
 class SaveAOI extends React.PureComponent {
   constructor(props) {
@@ -119,7 +119,7 @@ class FiltersHeader extends React.Component<any, filterProps, any> {
       this.getAoisPromise = cancelablePromise(fetchAllAOIs(this.props.token));
       this.getAoisPromise.promise
         .then(r => {
-          let aoiList = r.features.map(aoi => {
+          let aoiList = r.results.features.map(aoi => {
             return { label: aoi.properties.name, value: aoi.id };
           });
           this.setState({ aoiList: aoiList });
@@ -151,7 +151,7 @@ class FiltersHeader extends React.Component<any, filterProps, any> {
           className="txt--s pl6 pointer inline"
           onClick={e =>
             navigator.clipboard.writeText(
-              `${API_URL.replace('/api/v1', '')}/?aoi=${this.props.aoiId}`
+              `${PUBLIC_URL}/?aoi=${this.props.aoiId}`
             )
           }
           title="Copy filter URL"
@@ -169,7 +169,7 @@ class FiltersHeader extends React.Component<any, filterProps, any> {
       this.props.push({
         ...this.props.location,
         search: `aoi=${arr[0].value}`,
-        path: '/filters'
+        path: `${BASE_PATH}/filters`
       });
     } else if (arr.length > 1) {
       throw new Error('filter select array is big');
@@ -232,7 +232,7 @@ class FiltersHeader extends React.Component<any, filterProps, any> {
             Apply
           </Button>
           <Link
-            to={{ search: this.props.search, pathname: '/' }}
+            to={{ search: this.props.search, pathname: `${BASE_PATH}/` }}
             className="mx3 pointer"
           >
             <svg className="icon icon--m inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">

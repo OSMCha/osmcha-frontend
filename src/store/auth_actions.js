@@ -4,6 +4,7 @@ import { delay as delayPromise } from 'redux-saga';
 import { push } from 'react-router-redux';
 import { fromJS } from 'immutable';
 
+import { BASE_PATH } from '../config';
 import {
   postTokensOSMCha,
   postFinalTokensOSMCha,
@@ -149,7 +150,7 @@ export function* logoutFlow(): any {
   yield put(
     push({
       ...location,
-      pathname: '/'
+      pathname: `${BASE_PATH}/`
     })
   );
 }

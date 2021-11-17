@@ -16,6 +16,7 @@ import { List } from '../components/list';
 import { Footer } from '../components/list/footer';
 import { Header } from '../components/list/header';
 import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
+import { BASE_PATH } from '../config';
 import {
   NEXT_CHANGESET,
   PREV_CHANGESET,
@@ -68,7 +69,7 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
       if (nextFeature) {
         const location = {
           ...this.props.location, //  clone it
-          pathname: `/changesets/${nextFeature.get('id')}`
+          pathname: `${BASE_PATH}/changesets/${nextFeature.get('id')}`
         };
         this.props.push(location);
       }
@@ -76,16 +77,16 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
   };
 
   toggleFilters() {
-    if (this.props.location && this.props.location.pathname === '/filters') {
+    if (this.props.location && this.props.location.pathname === `${BASE_PATH}/filters`) {
       const location = {
         ...this.props.location, //  clone it
-        pathname: '/'
+        pathname: `${BASE_PATH}/`
       };
       this.props.push(location);
     } else {
       const location = {
         ...this.props.location, //  clone it
-        pathname: '/filters'
+        pathname: `${BASE_PATH}/filters`
       };
       this.props.push(location);
     }
@@ -94,18 +95,18 @@ class ChangesetsList extends React.PureComponent<void, propsType, *> {
   toggleHelp() {
     if (
       this.props.location &&
-      this.props.location.pathname.startsWith('/about')
+      this.props.location.pathname.startsWith(`${BASE_PATH}/about`)
     ) {
       const location = {
         ...this.props.location, //  clone it
-        pathname: '/'
+        pathname: `${BASE_PATH}/`
       };
       this.props.push(location);
     } else {
       console.log(...this.props.location);
       const location = {
         ...this.props.location, //  clone it
-        pathname: '/about'
+        pathname: `${BASE_PATH}/about`
       };
       this.props.push(location);
     }

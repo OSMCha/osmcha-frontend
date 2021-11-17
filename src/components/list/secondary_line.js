@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { CreateDeleteModify } from '../create_delete_modify';
 import { NumberOfComments } from './comments';
 import { getObjAsQueryParam } from '../../utils/query_params';
+import { BASE_PATH } from '../../config'
 
 import thumbsUp from '../../assets/thumbs-up.svg';
 import thumbsDown from '../../assets/thumbs-down.svg';
@@ -16,7 +17,7 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
         <Link
           to={{
             search: window.location.search,
-            pathname: `/changesets/${changesetId}`
+            pathname: `${BASE_PATH}/changesets/${changesetId}`
           }}
           className="txt-underline-on-hover"
         >
@@ -34,7 +35,7 @@ export function SecondaryLine({ changesetId, date, properties }: Object) {
                 ],
                 date__gte: [{ label: '', value: '' }]
               }),
-              pathname: '/'
+              pathname: `${BASE_PATH}/`
             }}
             title={`See ${properties.get('check_user')}'s changesets`}
             className="txt-underline-on-hover"

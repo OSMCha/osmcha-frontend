@@ -7,11 +7,12 @@
 
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
+import { PUBLIC_URL } from './config';
 
 export function registerServiceWorker() {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      const swUrl = `${process.env.REACT_APP_PUBLIC_URL}/service-worker.js`;
+      const swUrl = `${PUBLIC_URL}/service-worker.js`;
       navigator.serviceWorker
         .register(swUrl)
         .then(registration => {

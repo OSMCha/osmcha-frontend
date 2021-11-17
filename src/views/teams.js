@@ -17,6 +17,7 @@ import { withFetchDataSilent } from '../components/fetch_data_enhancer';
 import { Button } from '../components/button';
 import { SecondaryPagesHeader } from '../components/secondary_pages_header';
 import { BlockMarkup } from '../components/user/block_markup';
+import { BASE_PATH } from '../config';
 import type { RootStateType } from '../store';
 
 import NewTeam from '../components/teams/new_team';
@@ -37,14 +38,14 @@ const TeamsBlock = ({ data, removeTeam, editTeam }) => (
           search: `filters={"mapping_teams":[{"label":"${data.getIn([
             'name'
           ])}","value":"${data.getIn(['name'])}"}]}`,
-          pathname: '/filters'
+          pathname: `${BASE_PATH}/filters`
         }}
       >
         Filter team changesets
       </Link>
       <Link
         className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-        to={{ pathname: `/teams/${data.getIn(['id'])}` }}
+        to={{ pathname: `${BASE_PATH}/teams/${data.getIn(['id'])}` }}
       >
         Edit
       </Link>

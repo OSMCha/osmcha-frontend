@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { appVersion, isDev, isStaging, isLocal } from '../config';
 import banner from '../assets/banner.png';
 import work_flow from '../assets/work_flow.png';
+import { BASE_PATH } from '../config';
 
 export function Home() {
   return (
@@ -29,7 +30,7 @@ export function Home() {
         <div className="flex-parent flex-parent--row flex-parent--center-main">
           <Link
             className="link link--gray flex-parent flex-parent--row flex-parent--center-cross mx6"
-            to="/about"
+            to={`${BASE_PATH}/about`}
           >
             <svg className="icon">
               <use xlinkHref="#icon-info" />
@@ -40,7 +41,7 @@ export function Home() {
           <a
             target="__blank"
             className="link link--gray  flex-parent flex-parent--row flex-parent--center-cross mx6"
-            href="https://github.com/mapbox/osmcha-frontend/blob/master/CONTRIBUTING.md"
+            href="https://github.com/radiant-maxar/osmcha-frontend/blob/master/CONTRIBUTING.md"
           >
             <svg className="icon">
               <use xlinkHref="#icon-github" />
@@ -51,7 +52,7 @@ export function Home() {
           <a
             target="__blank"
             className="link link--gray  flex-parent flex-parent--row flex-parent--center-cross mx6"
-            href="https://github.com/mapbox/osmcha-frontend/issues"
+            href="https://github.com/radiant-maxar/osmcha-frontend/issues"
           >
             <svg className="icon">
               <use xlinkHref="#icon-bug" />

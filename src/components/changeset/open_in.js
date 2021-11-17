@@ -12,9 +12,6 @@ function openEditor(selected) {
   if (selected && selected[0].value === 'iD') {
     baseUrl = `${osmBaseUrl}/edit?editor=id&`;
   }
-  if (selected && selected[0].value === 'RapiD') {
-    baseUrl = 'https://mapwith.ai/rapid?';
-  }
   if (baseUrl) {
     const center = map.getCenter();
     const zoom = map.getZoom();
@@ -27,11 +24,6 @@ export function OpenIn({ display, changesetId, coordinates, className }) {
   const mobile = isMobile();
   const options = [
     {
-      label: 'Achavi',
-      value: 'Achavi',
-      href: `https://overpass-api.de/achavi/?changeset=${changesetId}&relations=true`
-    },
-    {
       label: 'iD',
       value: 'iD'
     },
@@ -39,15 +31,6 @@ export function OpenIn({ display, changesetId, coordinates, className }) {
       label: 'JOSM',
       value: 'JOSM',
        href: `http://127.0.0.1:8111/import?url=${osmApiUrl}/api/0.6/changeset/${changesetId}/download`
-    },
-    {
-      label: 'Level0',
-      value: 'Level0',
-      href: `http://level0.osmz.ru/?url=changeset/${changesetId}`
-    },
-    {
-      label: 'RapiD',
-      value: 'RapiD'
     }
   ];
   if (mobile) {

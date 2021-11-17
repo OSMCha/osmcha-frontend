@@ -6,6 +6,7 @@ import { Row } from './row';
 import { SignInButton } from '../changeset/sign_in_button.js';
 import { elementInViewport } from '../../utils/element_in_view';
 import { loadingEnhancer } from '../loading_enhancer';
+import { BASE_PATH } from '../../config';
 
 type propTypes = {
   currentPage: ?Map<string, *>,
@@ -31,7 +32,7 @@ class List extends React.Component<void, propTypes, *> {
   render() {
     if (
       !this.props.token &&
-      ['/about', '/filters', '/user', '/'].includes(this.props.location)
+      [`${BASE_PATH}/about`, `${BASE_PATH}/filters`, `${BASE_PATH}/user`, `${BASE_PATH}/`].includes(this.props.location)
     ) {
       return (
         <div className="flex-parent flex-parent--column scroll-styled flex-child--grow py36">

@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { Dropdown } from '../dropdown';
 import { Button } from '../button';
 import numberWithCommas from '../../utils/number_with_commas.js';
+import { BASE_PATH } from '../../config';
 import filtersConfig from '../../config/filters.json';
 
 export function Header({
@@ -43,7 +44,7 @@ export function Header({
           to={{
             search: location.search,
             pathname:
-              location.pathname.indexOf('/filters') > -1 ? '/' : '/filters'
+              location.pathname.indexOf(`${BASE_PATH}/filters`) > -1 ? `${BASE_PATH}/` : `${BASE_PATH}/filters`
           }}
         >
           <Button className="mx3">

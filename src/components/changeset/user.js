@@ -7,6 +7,7 @@ import { getObjAsQueryParam } from '../../utils/query_params';
 import { SignInButton } from './sign_in_button';
 import { TrustWatchUser } from './trust_watch_user';
 import { UserOSMLink } from './user_osm_link';
+import { BASE_PATH } from '../../config';
 
 class UserLink extends React.PureComponent {
   getHarmfulObject() {
@@ -47,7 +48,7 @@ class UserLink extends React.PureComponent {
             harmful: [this.getHarmfulObject()],
             date__gte: [{ label: '', value: '' }]
           }),
-          pathname: '/'
+          pathname: `${BASE_PATH}/`
         }}
       >
         {this.getLinkContent()}
@@ -72,7 +73,7 @@ export class User extends React.PureComponent {
             ],
             date__gte: [{ label: '', value: '' }]
           }),
-          pathname: '/'
+          pathname: `${BASE_PATH}/`
         }}
       >
         {`${this.props.userDetails.get('count')} edits`}
@@ -153,7 +154,7 @@ export class User extends React.PureComponent {
                     ],
                     date__gte: [{ label: '', value: '' }]
                   }),
-                  pathname: '/'
+                  pathname: `${BASE_PATH}/`
                 }}
               >
                 OSMCha

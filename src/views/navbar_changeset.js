@@ -22,7 +22,7 @@ import {
   OPEN_IN_ACHAVI,
   OPEN_IN_HDYC
 } from '../config/bindings';
-import { PUBLIC_URL } from '../config';
+import { BASE_PATH, PUBLIC_URL } from '../config';
 import { osmApiUrl, osmBaseUrl } from '../config/constants';
 
 import {
@@ -163,7 +163,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
               <Link
                 to={{
                   search: window.location.search,
-                  pathname: '/'
+                  pathname: `${BASE_PATH}/`
                 }}
                 style={mobile ? { fontSize: '1.4em' } : { fontSize: '1.7em' }}
                 className="color-gray mr3"

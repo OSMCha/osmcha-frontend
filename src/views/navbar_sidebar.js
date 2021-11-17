@@ -11,6 +11,7 @@ import { Dropdown } from '../components/dropdown';
 
 import { createPopup } from '../utils/create_popup';
 import { handlePopupCallback, isMobile } from '../utils';
+import { BASE_PATH } from '../config'
 import { osmAuthUrl } from '../config/constants';
 
 import {
@@ -50,23 +51,23 @@ class NavbarSidebar extends React.PureComponent {
     const username = this.props.username;
 
     if (arr.length === 1) {
-      if (arr[0].url === '/logout') {
+      if (arr[0].url === `${BASE_PATH}/logout`) {
         this.props.logUserOut();
         return;
       }
-      if (arr[0].url === '/my-changesets') {
+      if (arr[0].url === `${BASE_PATH}/my-changesets`) {
         this.props.push({
           ...this.props.location,
           search: `filters={"users":[{"label":"${username}","value":"${username}"}],"date__gte":[{"label":"","value":""}]}`,
-          pathname: '/'
+          pathname: `${BASE_PATH}/`
         });
         return;
       }
-      if (arr[0].url === '/my-reviews') {
+      if (arr[0].url === `${BASE_PATH}/my-reviews`) {
         this.props.push({
           ...this.props.location,
           search: `filters={"checked_by":[{"label":"${username}","value":"${username}"}],"date__gte":[{"label":"","value":""}]}`,
-          pathname: '/'
+          pathname: `${BASE_PATH}/`
         });
         return;
       }
@@ -95,20 +96,20 @@ class NavbarSidebar extends React.PureComponent {
           )
         }
         options={[
-          { label: 'Account settings', url: '/user' },
+          { label: 'Account settings', url: `${BASE_PATH}/user` },
           {
             label: 'My changesets',
-            url: '/my-changesets'
+            url: `${BASE_PATH}/my-changesets`
           },
           {
             label: 'My reviews',
-            url: '/my-reviews'
+            url: `${BASE_PATH}/my-reviews`
           },
-          { label: 'My saved filters', url: '/saved-filters' },
-          { label: 'My teams', url: '/teams' },
-          { label: 'My trusted users list', url: '/trusted-users' },
-          { label: 'My watchlist', url: '/watchlist' },
-          { label: 'Logout', url: '/logout' }
+          { label: 'My saved filters', url: `${BASE_PATH}/saved-filters` },
+          { label: 'My teams', url: `${BASE_PATH}/teams` },
+          { label: 'My trusted users list', url: `${BASE_PATH}/trusted-users` },
+          { label: 'My watchlist', url: `${BASE_PATH}/watchlist` },
+          { label: 'Logout', url: `${BASE_PATH}/logout` }
         ]}
         onChange={this.onUserMenuSelect}
         value={[]}
@@ -130,7 +131,7 @@ class NavbarSidebar extends React.PureComponent {
             <Link
               to={{
                 search: window.location.search,
-                pathname: '/'
+                pathname: `${BASE_PATH}/`
               }}
               style={mobile ? { fontSize: '1.4em' } : { fontSize: '1.7em' }}
               className="color-gray"
@@ -145,7 +146,7 @@ class NavbarSidebar extends React.PureComponent {
                 className="pr3 pointer"
                 to={{
                   search: window.location.search,
-                  pathname: '/about'
+                  pathname: `${BASE_PATH}/about`
                 }}
               >
                 <svg className="icon icon--m inline-block align-middle color-darken25 color-darken50-on-hover transition">

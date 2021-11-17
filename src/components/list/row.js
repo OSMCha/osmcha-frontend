@@ -7,6 +7,7 @@ import { SecondaryLine } from './secondary_line';
 import { PrimaryLine } from './primary_line';
 import { Title } from './title';
 import { history } from '../../store/history';
+import { BASE_PATH } from '../../config'
 
 export class Row extends React.Component {
   props: {
@@ -50,7 +51,7 @@ export class Row extends React.Component {
         onClick={() =>
           history.push({
             search: window.location.search,
-            pathname: `/changesets/${changesetId}`
+            pathname: `${BASE_PATH}/changesets/${changesetId}`
           })
         }
       >
@@ -62,7 +63,7 @@ export class Row extends React.Component {
             <Link
               to={{
                 search: window.location.search,
-                pathname: `/changesets/${changesetId}`
+                pathname: `${BASE_PATH}/changesets/${changesetId}`
               }}
             >
               <Title

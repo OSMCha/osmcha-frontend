@@ -3,6 +3,7 @@ import { put, call, take, fork, select, cancel } from 'redux-saga/effects';
 
 import { fromJS, Map, List } from 'immutable';
 import { LOCATION_CHANGE, replace, push } from 'react-router-redux';
+import { BASE_PATH } from '../config';
 import notifications from '../config/notifications';
 
 import { fetchChangeset, setHarmful, setTag } from '../network/changeset';
@@ -106,7 +107,7 @@ export function* shouldUpdateSaga(location: Object): any {
     yield put(
       replace({
         ...location,
-        pathname: '/changesets/' + legacy
+        pathname: BASE_PATH + '/changesets/' + legacy
       })
     );
     return false;

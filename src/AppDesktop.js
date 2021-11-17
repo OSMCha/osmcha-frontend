@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
+import { BASE_PATH } from './config';
 import { Changeset } from './views/changeset';
 import { About } from './views/about';
 import { Stats } from './views/stats';
@@ -35,31 +36,31 @@ export const AppDesktop = () => {
                 transitionEnterTimeout={300}
                 transitionLeaveTimeout={300}
               >
-                <Route exact path="/" component={Home} />
+                <Route exact path={`${BASE_PATH}/`} component={Home} />
                 <Route
                   location={location}
-                  path="/filters"
+                  path={`${BASE_PATH}/filters`}
                   component={Filters}
                   key={location.key}
                 />
-                <Route path="/changesets" component={NavbarChangeset} />
+                <Route path={`${BASE_PATH}/changesets`} component={NavbarChangeset} />
                 <Route
-                  path="/changesets"
+                  path={`${BASE_PATH}/changesets`}
                   // Need to use render to avoid unmounting of
                   // CMap Ref: https://reacttraining.com/react-router/web/api/Route/render-func
                   // CMap and views/changeset.js are clubbed so they can be
                   // loaded on demand in future.
                   render={() => <CMap className="z0 fixed bottom right" />}
                 />
-                <Route path="/changesets/:id" component={Changeset} />
-                <Route path="/about" component={About} />
-                <Route path="/stats" component={Stats} />
-                <Route path="/user" component={User} />
-                <Route exact path="/teams" component={MappingTeams} />
-                <Route path="/teams/:id" component={EditMappingTeam} />
-                <Route path="/saved-filters" component={SavedFilters} />
-                <Route path="/trusted-users" component={TrustedUsers} />
-                <Route path="/watchlist" component={Watchlist} />
+                <Route path={`${BASE_PATH}/changesets/:id`} component={Changeset} />
+                <Route path={`${BASE_PATH}/about`} component={About} />
+                <Route path={`${BASE_PATH}/stats`} component={Stats} />
+                <Route path={`${BASE_PATH}/user`} component={User} />
+                <Route exact path={`${BASE_PATH}/teams`} component={MappingTeams} />
+                <Route path={`${BASE_PATH}/teams/:id`} component={EditMappingTeam} />
+                <Route path={`${BASE_PATH}/saved-filters`} component={SavedFilters} />
+                <Route path={`${BASE_PATH}/trusted-users`} component={TrustedUsers} />
+                <Route path={`${BASE_PATH}/watchlist`} component={Watchlist} />
               </CSSTransitionGroup>
             )}
           />

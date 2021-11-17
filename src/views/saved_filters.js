@@ -18,7 +18,7 @@ import { CustomURL } from '../components/customURL';
 import { BlockMarkup } from '../components/user/block_markup';
 import type { filtersType } from '../components/filters';
 import type { RootStateType } from '../store';
-import { API_URL } from '../config';
+import { API_URL, BASE_PATH } from '../config';
 
 class SaveButton extends React.PureComponent {
   constructor(props) {
@@ -103,7 +103,7 @@ const AOIsBlock = ({ data, activeAoiId, removeAoi }) => (
         className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
         to={{
           search: `aoi=${data.getIn(['id'])}`,
-          pathname: '/filters'
+          pathname: `${BASE_PATH}/filters`
         }}
       >
         {activeAoiId === data.getIn(['id']) ? 'Active' : 'Load'}
@@ -181,7 +181,7 @@ class SavedFilters extends React.PureComponent<any, propsType, any> {
     this.props.push({
       ...this.props.location,
       search: `aoi=${aoiId}`,
-      path: '/filters'
+      path: `${BASE_PATH}/filters`
     });
   };
   createAOI = (name: string) => {
@@ -199,11 +199,11 @@ class SavedFilters extends React.PureComponent<any, propsType, any> {
     deleteAOI(this.props.token, aoiId)
       .then(r => {
         if (aoiId === this.props.aoiId) {
-          this.props.applyFilters(new Map(), '/user');
+          this.props.applyFilters(new Map(), `${BASE_PATH}/user`);
         } else {
           // const location = {
           //   ...this.props.location, //  clone it
-          //   pathname: '/user'
+          //   pathname: `${BASE_PATH}/user`
           // };
           this.props.reloadData();
         }
@@ -251,7 +251,7 @@ class SavedFilters extends React.PureComponent<any, propsType, any> {
                     My saved filters
                   </h2>
                   <ListFortified
-                    data={this.props.data.getIn(['aoi', 'features'], List())}
+                    data={this.props.data.getIn(['aoi', 'results', 'features'], List())}
                     TargetBlock={AOIsBlock}
                     propsToPass={{
                       activeAoiId: this.props.aoiId,
