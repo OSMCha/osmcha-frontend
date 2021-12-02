@@ -7,10 +7,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mapbox/osmcha-frontend.git"
+    "url": "https://github.com/radiant-maxar/osmcha-frontend.git"
   },
   "bugs": {
-    "url": "https://github.com/mapbox/osmcha-frontend/issues"
+    "url": "https://github.com/radiant-maxar/osmcha-frontend/issues"
   },
   "dependencies": {
     "@mapbox/mapbox-gl-draw": "^1.3.0",
