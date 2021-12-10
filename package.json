@@ -25,7 +25,7 @@
     "history": "^4.10.1",
     "immutable": "^3.8.2",
     "lodash.debounce": "^4.0.8",
-    "mapbox-gl": "^1.13.1",
+    "maplibre-gl": "^1.15.2",
     "mousetrap": "^1.6.5",
     "osm-adiff-parser-saxjs": "^1.0.0",
     "platform-detect": "^3.0.1",

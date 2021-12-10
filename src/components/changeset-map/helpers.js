@@ -1,4 +1,4 @@
-import mapboxgl from 'mapbox-gl';
+import maplibregl from 'maplibre-gl';
 import { featureCollection } from '@turf/helpers';
 import bbox from '@turf/bbox';
 import bboxPolygon from '@turf/bbox-polygon';
@@ -9,9 +9,9 @@ export function getBounds(bbox) {
     top = +bbox.top,
     bottom = +bbox.bottom;
 
-  return new mapboxgl.LngLatBounds(
-    new mapboxgl.LngLat(left, bottom),
-    new mapboxgl.LngLat(right, top)
+  return new maplibregl.LngLatBounds(
+    new maplibregl.LngLat(left, bottom),
+    new maplibregl.LngLat(right, top)
   );
 }
 

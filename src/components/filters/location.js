@@ -11,8 +11,8 @@ import simplify from '@turf/simplify';
 import truncate from '@turf/truncate';
 import MapboxDraw from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw';
 
+import { osmMapStyle } from '../../config/styles';
 import { nominatimSearch } from '../../network/nominatim';
-import { mapboxAccessToken } from '../../config/constants';
 import { getGL } from '../changeset-map';
 
 
@@ -78,11 +78,10 @@ export class LocationSelect extends React.PureComponent {
 
   componentDidMount() {
     if (getGL) {
-      var mapboxgl = getGL();
-      mapboxgl.accessToken = mapboxAccessToken;
-      const map = new mapboxgl.Map({
+      var maplibregl = getGL();
+      const map = new maplibregl.Map({
         container: 'geometry-map',
-        style: 'mapbox://styles/mapbox/light-v9'
+        style: osmMapStyle
       });
       this.map = map;
       this.draw = new MapboxDraw({

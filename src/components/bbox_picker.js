@@ -3,7 +3,7 @@ import React from 'react';
 import debounce from 'lodash.debounce';
 import { fromJS } from 'immutable';
 
-import { mapboxAccessToken } from '../config/constants';
+import { osmMapStyle } from '../config/styles';
 import { getGL } from './changeset-map';
 
 export class BBoxPicker extends React.Component {
@@ -36,14 +36,13 @@ export class BBoxPicker extends React.Component {
   map = null;
   componentDidMount() {
     if (getGL) {
-      var mapboxgl = getGL();
-      mapboxgl.accessToken = mapboxAccessToken;
+      var maplibregl = getGL();
       if (this.props.value) {
         // let bbox = this.props.value.getIn(['0', 'value'], '').split(',');
       }
-      const map = new mapboxgl.Map({
+      const map = new maplibregl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/light-v9'
+        style: osmMapStyle,
       });
       map.on('dragend', this.update);
       map.on('zoomend', this.update);

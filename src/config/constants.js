@@ -1,8 +1,6 @@
 //@flow
 import { API_URL, credentialsPolicy } from './';
 
-export const mapboxAccessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN ||
-  'pk.eyJ1Ijoib3BlbnN0cmVldG1hcCIsImEiOiJjam10OXpmc2YwMXI5M3BqeTRiMDBqMHVyIn0.LIcIDe3TZLSDdTWDoojzNg';
 export const nominatimBaseUrl = process.env.REACT_APP_NOMINATIM_BASE_URL || 'https://nominatim.openstreetmap.org';
 export const nominatimCredentials = (process.env.REACT_APP_NOMINATIM_CREDENTIALS === 'enabled' ? credentialsPolicy : 'omit');
 export const overpassApiUrl = process.env.REACT_APP_OVERPASS_API_URL || 'https://overpass-api.de/api/interpreter';
@@ -11,7 +9,6 @@ export const osmBaseUrl = process.env.REACT_APP_OSM_BASE_URL || 'https://www.ope
 export const osmApiUrl = process.env.REACT_APP_OSM_API_URL || 'https://api.openstreetmap.org';
 export const osmAuthUrl = process.env.REACT_APP_OSM_AUTH_URL || `${osmBaseUrl}/oauth/authorize`;
 export const osmCredentials = (process.env.REACT_APP_OSM_CREDENTIALS === 'enabled' ? credentialsPolicy : 'omit');
-export const osmTileUrl = process.env.REACT_APP_OSM_TILE_URL || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 export const osmchaSocialTokenUrl = `${API_URL}/social-auth/`;
 
 // set a default from date x days before today

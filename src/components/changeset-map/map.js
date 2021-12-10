@@ -1,7 +1,8 @@
-import mapboxgl from 'mapbox-gl';
+import maplibregl from 'maplibre-gl';
 import platform from 'platform-detect';
 import { featureCollection } from '@turf/helpers';
 
+import { osmMapStyle } from '../../config/styles';
 import { getBoundingBox, getBounds, getFeatureBBOX } from './helpers';
 import { cmap } from './render';
 import { renderFeatureDiff } from './featureDiff/renderFeatureDiff';
@@ -1170,20 +1171,19 @@ export class Map {
       return;
     }
 
-    this.map = new mapboxgl.Map({
+    this.map = new maplibregl.Map({
       container: document.querySelector('.cmap-map'),
-      style:
-        baseLayer || 'mapbox://styles/openstreetmap/cjnd8lj0e10i42spfo4nsvoay',
+      style: baseLayer || osmMapStyle,
       center: bounds.getCenter(),
       zoom: 14,
       dragRotate: false,
       touchZoomRotate: false,
       attributionControl: false
-    }).addControl(new mapboxgl.AttributionControl({ compact: false }));
+    }).addControl(new maplibregl.AttributionControl({ compact: false }));
 
     if (platform.touch && !platform.mouse) {
       this.map.addControl(
-        new mapboxgl.NavigationControl({ showCompass: false }),
+        new maplibregl.NavigationControl({ showCompass: false }),
         'top-right'
       );
     }

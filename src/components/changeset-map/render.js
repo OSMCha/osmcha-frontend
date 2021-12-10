@@ -1,4 +1,4 @@
-import mapboxgl from 'mapbox-gl';
+import maplibregl from 'maplibre-gl';
 import { EventEmitter as Events } from 'events';
 import ReactDom from 'react-dom';
 import React from 'react';
@@ -7,7 +7,7 @@ import { getChangeset } from './getChangeset';
 import { Sidebar } from './sidebar';
 import { Map as GlMap } from './map';
 //filterLayers, renderMap, selectFeature, clearFeature
-import { mapboxAccessToken, overpassApiUrl } from '../../config/constants';
+import { overpassApiUrl } from '../../config/constants';
 
 export const cmap = new Events();
 
@@ -21,7 +21,6 @@ export function render(container, changesetId, options) {
 
   options = options || {};
   options.overpassApiUrl = options.overpassApiUrl || overpassApiUrl;
-  mapboxgl.accessToken = mapboxAccessToken;
   container.classList.add('cmap-loading');
   if (!map) {
     map = new GlMap();
@@ -43,7 +42,7 @@ export function getMapInstance() {
   return map;
 }
 export function getGL() {
-  return mapboxgl;
+  return maplibregl;
 }
 
 function _render(container, changesetId, result, disableSidebar) {

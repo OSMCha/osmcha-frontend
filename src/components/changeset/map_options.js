@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { osmTileUrl } from '../../config/constants';
+import { dgMapStyle, osmMapStyle } from '../../config/styles';
 import { getMapInstance } from '../changeset-map';
 
 import { updateStyle } from '../../store/map_controls_actions';
@@ -17,17 +17,15 @@ class MapOptions extends React.PureComponent {
   };
   layerOptions = [
     {
-      label: 'Mapbox Satellite',
-      value: 'satellite',
-      function: () => this.toggleSatellite()
+      label: 'Bing',
+      value: 'bing',
+      function: () => this.toggleBing()
     },
     {
-      label: 'Mapbox Streets',
-      value: 'streets',
-      function: () => this.toggleStreet()
+      label: 'DigitalGlobe',
+      value: 'dg',
+      function: () => this.toggleDg()
     },
-    { label: 'Mapbox Dark', value: 'dark', function: () => this.toggleDark() },
-    { label: 'Bing', value: 'bing', function: () => this.toggleBing() },
     {
       label: 'OpenStreetMap Carto',
       value: 'carto',
@@ -47,16 +45,6 @@ class MapOptions extends React.PureComponent {
   };
  onChange = () => {
     getMapInstance() && getMapInstance().filterLayers();
-  };
-  toggleSatellite = () => {
-    getMapInstance() &&
-    getMapInstance().renderMap('mapbox://styles/openstreetmap/cjnd8lj0e10i42spfo4nsvoay');
-  };
-  toggleDark = () => {
-    getMapInstance() && getMapInstance().renderMap('mapbox://styles/mapbox/dark-v9');
-  };
-  toggleStreet = () => {
-    getMapInstance() && getMapInstance().renderMap('mapbox://styles/mapbox/streets-v9');
   };
   toggleBing = () => {
     const bingStyle = {
@@ -86,29 +74,11 @@ class MapOptions extends React.PureComponent {
     };
     getMapInstance() && getMapInstance().renderMap(bingStyle);
   };
+    toggleDg = () => {
+    getMapInstance() && getMapInstance().renderMap(dgMapStyle);
+  };
   toggleOsm = () => {
-    const osmStyle = {
-      version: 8,
-      sources: {
-        'osm-tiles': {
-          type: 'raster',
-          tiles: [osmTileUrl],
-          tileSize: 256,
-          attribution:
-            '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }
-      },
-      layers: [
-        {
-          id: 'osm',
-          type: 'raster',
-          source: 'osm-tiles',
-          minzoom: 0,
-          maxzoom: 22
-        }
-      ]
-    };
-    getMapInstance() && getMapInstance().renderMap(osmStyle);
+    getMapInstance() && getMapInstance().renderMap(osmMapStyle);
   };
   render() {
     return (
