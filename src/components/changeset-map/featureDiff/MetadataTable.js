@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { osmBaseUrl } from '../../config/constants';
+import { osmBaseUrl } from '../../../config/constants';
 import { propsDiff } from '../propsDiff';
 import { Dropdown } from '../dropdown';
 import { DiffTable } from './DiffTable';

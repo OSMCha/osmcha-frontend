@@ -13,7 +13,7 @@ import MapboxDraw from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw';
 
 import { nominatimSearch } from '../../network/nominatim';
 import { mapboxAccessToken } from '../../config/constants';
-import { getGL } from '../../changeset-map';
+import { getGL } from '../changeset-map';
 
 
 export class LocationSelect extends React.PureComponent {

@@ -3148,21 +3148,6 @@ changelog@^1.3.0:
     semver "5.5.0"
     wordwrap "1.0.0"
 
-changeset-map@^1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/changeset-map/-/changeset-map-1.11.0.tgz#dafb8e504e5bca872630300118b9221399a77157"
-  integrity sha512-Zfn8uuo7U58Hu9vffQY94foVXIXuE7dJ9wdDVUOkWmYZmT7YSovsZ2Dv6tNplHpWfVjwv0+MFIsmU62fEylaDw==
-  dependencies:
-    "@turf/bbox" "^6.4.0"
-    "@turf/bbox-polygon" "^6.4.0"
-    "@turf/helpers" "^6.4.0"
-    date-fns "^2.22.1"
-    mapbox-gl "^1.13.1"
-    osm-adiff-parser-saxjs "^1.0.0"
-    platform-detect "^3.0.1"
-    react-click-outside "^3.0.1"
-    real-changesets-parser "^1.3.0"
-
 chardet@^0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.4.2.tgz#b5473b33dc97c424e5d98dc87d55d4d8a29c8bf2"
@@ -10659,7 +10644,7 @@ readdirp@~3.6.0:
   dependencies:
     picomatch "^2.2.1"
 
-real-changesets-parser@^1.3.0:
+real-changesets-parser@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/real-changesets-parser/-/real-changesets-parser-1.3.1.tgz#f8607ee4c2dfd74f1aa6b1160bc363ca23f646d6"
   integrity sha512-3u7L1rTOELKwVRgot+Vz2eNPwW60g8yDgyM/63XEIpiHTRnlnrm+k38XaQeg2E7O48UOsDPF26OxbMrZugwMjA==

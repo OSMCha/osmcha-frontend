@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { osmTileUrl } from '../../config/constants';
-import { getMapInstance } from '../../changeset-map';
+import { getMapInstance } from '../changeset-map';
 
 import { updateStyle } from '../../store/map_controls_actions';
 import { Dropdown } from '../dropdown';

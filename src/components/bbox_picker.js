@@ -4,7 +4,7 @@ import debounce from 'lodash.debounce';
 import { fromJS } from 'immutable';
 
 import { mapboxAccessToken } from '../config/constants';
-import { getGL } from '../changeset-map';
+import { getGL } from './changeset-map';
 
 export class BBoxPicker extends React.Component {
   update = debounce(() => {

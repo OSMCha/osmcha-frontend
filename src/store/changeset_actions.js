@@ -7,7 +7,7 @@ import { BASE_PATH } from '../config';
 import notifications from '../config/notifications';
 
 import { fetchChangeset, setHarmful, setTag } from '../network/changeset';
-import { getChangeset as gcs } from '../changeset-map';
+import { getChangeset as gcs } from '../components/changeset-map';
 
 import {
   getChangesetIdFromLocation,

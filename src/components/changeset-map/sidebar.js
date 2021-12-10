@@ -3,7 +3,7 @@ import { formatDistanceToNow } from 'date-fns';
 
 import { getBounds } from './helpers';
 import { cmap } from './render';
-import { osmBaseUrl } from '../config/constants'
+import { osmBaseUrl } from '../../config/constants'
 
 export function getFeatures(features) {
   var keys = Object.keys(features);

@@ -6,9 +6,9 @@ import { Loading } from '../components/loading';
 import { SignIn } from '../components/sign_in';
 import { dispatchEvent } from '../utils/dispatch_event';
 import { updateStyle } from '../store/map_controls_actions';
-import { getMapInstance as gmi, render } from '../changeset-map';
+import { getMapInstance as gmi, render } from '../components/changeset-map';
 
-import 'changeset-map/public/css/style.css';
+import '../assets/style.css';
 import type { RootStateType } from '../store';
 import { isMobile } from '../utils';
 

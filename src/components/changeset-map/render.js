@@ -7,7 +7,7 @@ import { getChangeset } from './getChangeset';
 import { Sidebar } from './sidebar';
 import { Map as GlMap } from './map';
 //filterLayers, renderMap, selectFeature, clearFeature
-import { mapboxAccessToken, overpassApiUrl } from '../config/constants';
+import { mapboxAccessToken, overpassApiUrl } from '../../config/constants';
 
 export const cmap = new Events();
 

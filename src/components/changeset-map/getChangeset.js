@@ -1,7 +1,7 @@
 import adiffParser from 'osm-adiff-parser-saxjs';
 import jsonParser from 'real-changesets-parser';
 import { query } from './query';
-import { overpassApiUrl, overpassCredentials } from '../config/constants';
+import { overpassApiUrl, overpassCredentials } from '../../config/constants';
 
 export function getChangeset(changesetID) {
   return query(changesetID).then(changeset => {

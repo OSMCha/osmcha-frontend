@@ -1,0 +1,122 @@
+/* Namespaced reset
+------------------------------------------------------- */
+.cmap-container html,
+.cmap-container body,
+.cmap-container div,
+.cmap-container span,
+.cmap-container applet,
+.cmap-container object,
+.cmap-container iframe,
+.cmap-container h1,
+.cmap-container h2,
+.cmap-container h3,
+.cmap-container h4,
+.cmap-container h5,
+.cmap-container h6,
+.cmap-container p,
+.cmap-container blockquote,
+.cmap-container pre,
+.cmap-container a,
+.cmap-container abbr,
+.cmap-container acronym,
+.cmap-container address,
+.cmap-container big,
+.cmap-container cite,
+.cmap-container code,
+.cmap-container del,
+.cmap-container dfn,
+.cmap-container em,
+.cmap-container img,
+.cmap-container ins,
+.cmap-container kbd,
+.cmap-container q,
+.cmap-container s,
+.cmap-container samp,
+.cmap-container small,
+.cmap-container strike,
+.cmap-container strong,
+.cmap-container sub,
+.cmap-container sup,
+.cmap-container tt,
+.cmap-container var,
+.cmap-container b,
+.cmap-container u,
+.cmap-container i,
+.cmap-container center,
+.cmap-container dl,
+.cmap-container dt,
+.cmap-container dd,
+.cmap-container ol,
+.cmap-container ul,
+.cmap-container li,
+.cmap-container fieldset,
+.cmap-container form,
+.cmap-container label,
+.cmap-container legend,
+.cmap-container table,
+.cmap-container caption,
+.cmap-container tbody,
+.cmap-container tfoot,
+.cmap-container thead,
+.cmap-container tr,
+.cmap-container th,
+.cmap-container td,
+.cmap-container article,
+.cmap-container aside,
+.cmap-container canvas,
+.cmap-container details,
+.cmap-container embed,
+.cmap-container figure,
+.cmap-container figcaption,
+.cmap-container footer,
+.cmap-container header,
+.cmap-container hgroup,
+.cmap-container menu,
+.cmap-container nav,
+.cmap-container output,
+.cmap-container ruby,
+.cmap-container section,
+.cmap-container summary,
+.cmap-container time,
+.cmap-container mark,
+.cmap-container audio,
+.cmap-container video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+.cmap-container article,
+.cmap-container aside,
+.cmap-container details,
+.cmap-container figcaption,
+.cmap-container figure,
+.cmap-container footer,
+.cmap-container header,
+.cmap-container hgroup,
+.cmap-container menu,
+.cmap-container nav,
+.cmap-container section {
+  display: block;
+}
+.cmap-container ol,
+.cmap-container ul {
+  list-style: none;
+}
+.cmap-container blockquote,
+.cmap-container q {
+  quotes: none;
+}
+.cmap-container blockquote:before,
+.cmap-container blockquote:after,
+.cmap-container q:before,
+.cmap-container q:after {
+  content: '';
+  content: none;
+}
+.cmap-container table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}

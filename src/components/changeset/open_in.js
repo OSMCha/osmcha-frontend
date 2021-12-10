@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { osmApiUrl, osmBaseUrl } from '../../config/constants';
-import { getMapInstance } from '../../changeset-map';
+import { getMapInstance } from '../changeset-map';
 import { Dropdown } from '../dropdown';
 import { isMobile } from '../../utils';
 

@@ -1,5 +1,5 @@
 import { parse, subSeconds } from 'date-fns';
-import { osmApiUrl } from '../config/constants';
+import { osmApiUrl } from '../../config/constants';
 
 export function query(changesetID) {
   var url = `${osmApiUrl}/api/0.6/changeset/${changesetID}.json?include_discussion=true`;

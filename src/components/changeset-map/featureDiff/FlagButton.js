@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { API_URL } from '../../config';
+import { API_URL } from '../../../config';
 import { ThumbsDownIcon } from './ThumbsDownIcon';
 
 export class FlagButton extends React.PureComponent {
