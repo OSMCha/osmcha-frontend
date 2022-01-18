@@ -1,4 +1,4 @@
 {
   "status": "error",
-  "message": "Our Overpass instance is not working properly. The visualization of changesets created after Jan 21 09:05 GMT is not available yet."
+  "message": "Our Overpass instance is recovering from a crash. Some changesets of Jan 18th are not available yet."
 }
