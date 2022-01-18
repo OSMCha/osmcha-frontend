@@ -1,4 +1,4 @@
 {
-  "status": "error",
-  "message": "Our Overpass instance is recovering from a crash. Some changesets of Jan 18th are not available yet."
+  "status": "success",
+  "message": "Working fine."
 }
