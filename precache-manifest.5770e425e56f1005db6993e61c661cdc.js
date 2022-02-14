@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a25d8eaf3dfa3f50a24d24d1efe62ab1",
+    "revision": "e7f7d0fe45f7e74d4e14311807730c88",
     "url": "https://osmcha.org/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://osmcha.org/static/css/2.e6a3113b.chunk.css"
   },
   {
-    "revision": "4d289ad0ff84784bbedf",
+    "revision": "0a6caf714a59c39b5347",
     "url": "https://osmcha.org/static/css/main.2bb5fb54.chunk.css"
   },
   {
@@ -20,20 +20,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://osmcha.org/static/js/2.df8bbe99.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "a332a5f782c3427cafb5",
-    "url": "https://osmcha.org/static/js/3.a3fbfe7d.chunk.js"
+    "revision": "df8ff7da9997bc7a5833",
+    "url": "https://osmcha.org/static/js/3.46b9ef34.chunk.js"
   },
   {
     "revision": "cc111eb067dd9513fd4e32ee464287ae",
-    "url": "https://osmcha.org/static/js/3.a3fbfe7d.chunk.js.LICENSE.txt"
+    "url": "https://osmcha.org/static/js/3.46b9ef34.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4d289ad0ff84784bbedf",
-    "url": "https://osmcha.org/static/js/main.b71353b3.chunk.js"
+    "revision": "0a6caf714a59c39b5347",
+    "url": "https://osmcha.org/static/js/main.daa3fd45.chunk.js"
   },
   {
-    "revision": "a09711f7ec8bc5cea695",
-    "url": "https://osmcha.org/static/js/runtime-main.6ad9ee4a.js"
+    "revision": "d5307f52bc76570c3889",
+    "url": "https://osmcha.org/static/js/runtime-main.10aebb47.js"
   },
   {
     "revision": "ed2bb0d2fecd447f6a74dd7581448589",
