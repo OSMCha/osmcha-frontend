@@ -13,7 +13,7 @@ export function SignIn() {
         </svg>
       </div>
       <div className="flex-parent flex-parent--column align-center txt-l txt-bold pt12">
-        Sign in with your OpenStreetMap account to use OSMCha.
+        Sign in with your MapEdit account to use OSMCha.
       </div>
       <div className="flex-parent flex-parent--column align-center txt-l pt36">
         <SignInButton

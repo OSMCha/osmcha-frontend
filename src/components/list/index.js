@@ -42,7 +42,7 @@ class List extends React.Component<void, propTypes, *> {
             </svg>
           </div>
           <div className="flex-parent flex-parent--center-main align-center txt-l pt36">
-            <SignInButton text="Sign in with your OpenStreetMap account" />
+            <SignInButton text="Sign in with your MapEdit account" />
           </div>
         </div>
       );
