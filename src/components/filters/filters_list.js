@@ -235,10 +235,17 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           .slice(0, 5)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
+          OSM Features
+        </h2>
+        {filtersData
+          .slice(5, 6)
+          .map((f: Object, k) => this.renderFilters(f, k))}
+        <span className="flex-child flex-child--grow wmin420 wmax435" />
+        <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Flags
         </h2>
         {filtersData
-          .slice(5, 7)
+          .slice(6, 8)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 
@@ -246,7 +253,7 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           Review
         </h2>
         {filtersData
-          .slice(7, 11)
+          .slice(8, 12)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 
@@ -254,14 +261,14 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           Users & Teams
         </h2>
         {filtersData
-          .slice(11, 18)
+          .slice(12, 19)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Changeset Details
         </h2>
-        {filtersData.slice(18).map((f: Object, k) => this.renderFilters(f, k))}
+        {filtersData.slice(19).map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
       </div>
     );
