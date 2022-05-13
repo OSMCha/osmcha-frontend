@@ -37,7 +37,6 @@ export function ControlLayout({
       <Control
         active={bindingsState.get(CHANGESET_DETAILS_DETAILS.label)}
         onClick={toggleDetails}
-        bg={'gray-faint'}
         className="unround-r unround-bl"
       >
         <svg className="icon h18 w18 inline-block align-middle ">
@@ -47,7 +46,6 @@ export function ControlLayout({
       <Control
         active={bindingsState.get(CHANGESET_DETAILS_SUSPICIOUS.label)}
         onClick={toggleFeatures}
-        bg={'gray-faint'}
         className="unround"
       >
         <svg
@@ -61,7 +59,6 @@ export function ControlLayout({
       <Control
         active={bindingsState.get(CHANGESET_DETAILS_TAGS.label)}
         onClick={toggleTags}
-        bg={'gray-faint'}
         className="unround"
       >
         <svg className="icon h18 w18 inline-block align-middle">
@@ -71,7 +68,6 @@ export function ControlLayout({
       <Control
         active={bindingsState.get(CHANGESET_DETAILS_GEOMETRY_CHANGES.label)}
         onClick={toggleGeometryChanges}
-        bg={'gray-faint'}
         className="unround"
       >
         <svg className="icon h18 w18 inline-block align-middle">
@@ -81,7 +77,6 @@ export function ControlLayout({
       <Control
         active={bindingsState.get(CHANGESET_DETAILS_OTHER_FEATURES.label)}
         onClick={toggleOtherFeatures}
-        bg={'gray-faint'}
         className="unround"
       >
         <svg className="icon h18 w18 inline-block align-middle">
@@ -91,7 +86,6 @@ export function ControlLayout({
       <Control
         active={bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label)}
         onClick={toggleDiscussions}
-        bg={'white'}
         className="unround"
       >
         <svg
@@ -105,7 +99,6 @@ export function ControlLayout({
       <Control
         active={bindingsState.get(CHANGESET_DETAILS_USER.label)}
         onClick={toggleUser}
-        bg={'white'}
         className="unround"
       >
         <svg className="icon h18 w18 inline-block align-middle">
@@ -115,7 +108,6 @@ export function ControlLayout({
       <Control
         active={bindingsState.get(CHANGESET_DETAILS_MAP.label)}
         onClick={toggleMapOptions}
-        bg={'white'}
         className="unround-r unround-tl"
       >
         <svg className="icon h18 w18 inline-block align-middle">
