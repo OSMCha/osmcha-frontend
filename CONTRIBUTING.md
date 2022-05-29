@@ -24,9 +24,9 @@ and browser extensions you have installed
 What happened instead?
 * We love screenshots.  If you can take a picture of the issue, that is extra helpful.
 You can drag the image file onto the GitHub issue and it will be included with your bug report.
-* You can use a program like [LICEcap](http://www.cockos.com/licecap/) to record an animated gif.
+* You can use a program like [LICEcap](https://www.cockos.com/licecap/) to record an animated gif.
 * Please keep bug reports professional and straightforward: trust us, we share your dismay at software breaking.
-* If you can, [enable web developer extensions](http://debugbrowser.com/) and report the
+* If you can, [enable web developer extensions](https://debugbrowser.com/) and report the
 JavaScript error message.
 
 When in doubt, be over-descriptive of the bug and how you discovered it.
