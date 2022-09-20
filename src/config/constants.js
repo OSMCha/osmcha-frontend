@@ -1,7 +1,7 @@
 //@flow
 import { API_URL } from './';
 
-export const PAGE_SIZE = 75;
+export const PAGE_SIZE = 25;
 export const overpassBase = '//overpass.osmcha.org/api/interpreter';
 export const osmBase = '//www.openstreetmap.org/api/0.6/';
 export const mapboxAccessToken =
