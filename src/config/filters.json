@@ -52,7 +52,7 @@
   {
     "name": "tag_changes",
     "icontains": false,
-    "all": false,
+    "all": true,
     "range": false,
     "display": "OSM features tags",
     "cache": true,
