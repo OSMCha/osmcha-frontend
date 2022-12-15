@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f3913094d7b064511855b4a7c5a5667b",
+    "revision": "79bef69356dba3c4591c144d402a935e",
     "url": "https://osmcha.org/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://osmcha.org/static/css/2.e6a3113b.chunk.css"
   },
   {
-    "revision": "d110035206812591014b",
+    "revision": "deddf861a67e8882b2a4",
     "url": "https://osmcha.org/static/css/main.2bb5fb54.chunk.css"
   },
   {
@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://osmcha.org/static/js/3.46b9ef34.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d110035206812591014b",
-    "url": "https://osmcha.org/static/js/main.f400662a.chunk.js"
+    "revision": "deddf861a67e8882b2a4",
+    "url": "https://osmcha.org/static/js/main.11fcc33b.chunk.js"
   },
   {
     "revision": "d5307f52bc76570c3889",
