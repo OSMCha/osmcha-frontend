@@ -2,6 +2,16 @@
 
 Log of changes since the 2.0 version
 
+### 0.85.2
+- Add ANY and ALL options to tag_changes filter field
+
+### 0.85.1
+- Change default changesets API page_size to 25
+
+### 0.85.0
+- Add tag_changes field to Filters page (#619)
+- Small code improvements (#620)
+
 ### 0.84.1
 - Fix bug in changeset comment form
 
