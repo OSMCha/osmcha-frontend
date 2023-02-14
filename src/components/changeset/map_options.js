@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { dgMapStyle, osmMapStyle } from '../../config/styles';
+import { bingStyle, bingTileLabel, esriMapStyle, esriTileLabel, maxarMapStyle, maxarTileLabel, osmMapStyle, osmTileLabel } from '../../config/styles';
 import { getMapInstance } from '../changeset-map';
 
 import { updateStyle } from '../../store/map_controls_actions';
@@ -17,18 +17,23 @@ class MapOptions extends React.PureComponent {
   };
   layerOptions = [
     {
-      label: 'Bing',
+      label: bingTileLabel,
       value: 'bing',
       function: () => this.toggleBing()
     },
     {
-      label: 'DigitalGlobe',
-      value: 'dg',
-      function: () => this.toggleDg()
+      label: esriTileLabel,
+      value: 'esri',
+      function: () => this.toggleEsri()
     },
     {
-      label: 'OpenStreetMap Carto',
-      value: 'carto',
+      label: maxarTileLabel,
+      value: 'maxar',
+      function: () => this.toggleMaxar()
+    },
+    {
+      label: osmTileLabel,
+      value: 'osm',
       function: () => this.toggleOsm()
     }
   ];
@@ -47,35 +52,13 @@ class MapOptions extends React.PureComponent {
     getMapInstance() && getMapInstance().filterLayers();
   };
   toggleBing = () => {
-    const bingStyle = {
-      version: 8,
-      sources: {
-        'bing-tiles': {
-          type: 'raster',
-          tiles: [
-            'https://ecn.t0.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
-            'https://ecn.t1.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
-            'https://ecn.t2.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
-            'https://ecn.t3.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z'
-          ],
-          attribution:
-            '© <a href="https://blog.openstreetmap.org/2010/11/30/microsoft-imagery-details">Microsoft Corporation</a>'
-        }
-      },
-      layers: [
-        {
-          id: 'bing',
-          type: 'raster',
-          source: 'bing-tiles',
-          minzoom: 0,
-          maxzoom: 22
-        }
-      ]
-    };
     getMapInstance() && getMapInstance().renderMap(bingStyle);
   };
-    toggleDg = () => {
-    getMapInstance() && getMapInstance().renderMap(dgMapStyle);
+  toggleEsri = () => {
+    getMapInstance() && getMapInstance().renderMap(esriMapStyle);
+  };
+  toggleMaxar = () => {
+    getMapInstance() && getMapInstance().renderMap(maxarMapStyle);
   };
   toggleOsm = () => {
     getMapInstance() && getMapInstance().renderMap(osmMapStyle);
