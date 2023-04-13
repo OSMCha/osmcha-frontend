@@ -37,9 +37,15 @@ const TrustedListBlock = ({ data, removeFromTrustedList }) => (
           })
         }}
       >
-        OSMCha
+        Changesets
       </Link>
-      <Button className="mr3" onClick={() => removeFromTrustedList(data)}>
+      <Button
+        className="mr3 bg-transparent border--0"
+        onClick={() => removeFromTrustedList(data)}
+      >
+        <svg className={'icon txt-m mb3 inline-block align-middle'}>
+          <use xlinkHref="#icon-trash" />
+        </svg>
         Remove
       </Button>
     </span>
@@ -95,6 +101,7 @@ class TrustedUsers extends React.PureComponent<any, propsType, any> {
       userValues: value
     });
   };
+
   render() {
     let trustedUsers = this.props.trustedList ? this.props.trustedList : List();
     trustedUsers = trustedUsers.sortBy(
@@ -106,7 +113,7 @@ class TrustedUsers extends React.PureComponent<any, propsType, any> {
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
-          mobile ? 'viewport-full' : ''
+          mobile ? ' viewport-full' : ''
         }`}
       >
         <SecondaryPagesHeader
@@ -118,9 +125,6 @@ class TrustedUsers extends React.PureComponent<any, propsType, any> {
             {this.props.token && (
               <div>
                 <div className="mt24 mb12">
-                  <h2 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-                    My trusted users list
-                  </h2>
                   <ListFortified
                     data={trustedUsers}
                     TargetBlock={TrustedListBlock}

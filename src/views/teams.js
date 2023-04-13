@@ -43,13 +43,19 @@ const TeamsBlock = ({ data, removeTeam, editTeam }) => (
         Filter team changesets
       </Link>
       <Link
-        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken5 bg-lighten25-on-hover color-gray transition"
         to={{ pathname: `/teams/${data.getIn(['id'])}` }}
       >
         Edit
       </Link>
-      <Button className="mr3" onClick={() => removeTeam(data.getIn(['id']))}>
-        Remove
+      <Button
+        className="mr3 bg-transparent border--0"
+        onClick={() => removeTeam(data.getIn(['id']))}
+      >
+        <svg className={'icon txt-m mb3 inline-block align-middle'}>
+          <use xlinkHref="#icon-trash" />
+        </svg>
+        Delete
       </Button>
     </span>
   </BlockMarkup>
@@ -152,9 +158,6 @@ class MappingTeams extends React.PureComponent<any, propsType, any> {
             {this.props.token && (
               <div>
                 <div className="mt24 mb12">
-                  <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
-                    My mapping teams
-                  </h2>
                   <ListFortified
                     data={this.props.data.getIn(['teams'], List())}
                     TargetBlock={TeamsBlock}

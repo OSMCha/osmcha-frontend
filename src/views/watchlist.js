@@ -38,12 +38,15 @@ const WatchListBlock = ({ data, removeFromWatchList }) => (
           })
         }}
       >
-        OSMCha
+        Changesets
       </Link>
       <Button
-        className="mr3"
+        className="mr3 bg-transparent border--0"
         onClick={() => removeFromWatchList(data.getIn(['uid']))}
       >
+        <svg className={'icon txt-m mb3 inline-block align-middle'}>
+          <use xlinkHref="#icon-trash" />
+        </svg>
         Remove
       </Button>
     </span>
@@ -124,9 +127,6 @@ class Watchlist extends React.PureComponent<any, propsType, any> {
             {this.props.token && (
               <div>
                 <div className="mt24 mb12">
-                  <h3 className="pl12 txt-xl mr6 txt-bold mt24 mb12 border-b border--gray-light border--1">
-                    My watched users list
-                  </h3>
                   <ListFortified
                     data={watchList}
                     TargetBlock={WatchListBlock}
@@ -146,14 +146,17 @@ class Watchlist extends React.PureComponent<any, propsType, any> {
             {this.props.token && (
               <span>
                 <Link
-                  className="input wmax140 ml12 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+                  className="input wmax180 ml12 btn btn--s border border--1 border--lighten25 border--lighten50-on-hover round bg-darken5 bg-lighten25-on-hover color-gray transition"
                   to={{
                     search: getObjAsQueryParam('filters', {
                       blacklist: [{ label: 'Yes', value: 'True' }]
                     })
                   }}
                 >
-                  Filter changesets
+                  <svg className={'icon txt-m mb3 inline-block align-middle'}>
+                    <use xlinkHref="#icon-filter" />
+                  </svg>
+                  Watchlist's changesets
                 </Link>
               </span>
             )}

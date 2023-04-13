@@ -105,17 +105,17 @@ class NavbarSidebar extends React.PureComponent {
         options={[
           { label: 'Account settings', url: '/user' },
           {
-            label: 'My changesets',
+            label: 'My Changesets',
             url: '/my-changesets'
           },
           {
-            label: 'My reviews',
+            label: 'My Reviews',
             url: '/my-reviews'
           },
-          { label: 'My saved filters', url: '/saved-filters' },
-          { label: 'My teams', url: '/teams' },
-          { label: 'My trusted users list', url: '/trusted-users' },
-          { label: 'My watchlist', url: '/watchlist' },
+          { label: 'My Saved Filters', url: '/saved-filters' },
+          { label: 'My Teams', url: '/teams' },
+          { label: 'My Trusted Users List', url: '/trusted-users' },
+          { label: 'My Watchlist', url: '/watchlist' },
           { label: 'Logout', url: '/logout' }
         ]}
         onChange={this.onUserMenuSelect}
