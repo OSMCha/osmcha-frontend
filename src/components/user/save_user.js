@@ -32,10 +32,13 @@ export class SaveUser extends React.PureComponent {
           </span>
         ) : (
           <Button
-            className="input wmax120 ml12"
+            className="input wmax120 ml12 mt12"
             onClick={() => this.setState({ showInput: true })}
           >
-            Add+
+            <svg className={'icon txt-m mb3 inline-block align-middle'}>
+              <use xlinkHref="#icon-plus" />
+            </svg>
+            Add User
           </Button>
         )}
       </span>

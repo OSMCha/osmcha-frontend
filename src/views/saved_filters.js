@@ -49,12 +49,14 @@ class SaveButton extends React.PureComponent {
       this.clicked = false;
     }
   };
+
   onSave = event => {
     this.setState({
       editing: false
     });
     this.props.onCreate(this.state.value);
   };
+
   render() {
     return (
       <span>
@@ -78,8 +80,8 @@ class SaveButton extends React.PureComponent {
             </Button>
           </span>
         ) : (
-          <Button className="input wmax120 ml12" onClick={this.onClick}>
-            Add+
+          <Button className="input wmax120 ml12 mt12" onClick={this.onClick}>
+            Save Filter
           </Button>
         )}
       </span>
@@ -89,33 +91,39 @@ class SaveButton extends React.PureComponent {
 
 const AOIsBlock = ({ data, activeAoiId, removeAoi }) => (
   <BlockMarkup>
-    <span>
-      <span
-        className={`${activeAoiId === data.getIn(['id']) ? 'txt-bold' : ''}`}
-      >
+    <Link
+      className="mx3"
+      to={{
+        search: `aoi=${data.getIn(['id'])}`,
+        pathname: '/filters'
+      }}
+    >
+      <span className="txt-bold">
         {data.getIn(['properties', 'name'])}
-        {activeAoiId === data.getIn(['id']) ? '*' : ''}
+        {activeAoiId === data.getIn(['id']) && (
+          <span class="ml12 btn btn--s px6 py0 bg-darken25 events-none">
+            Active
+          </span>
+        )}
       </span>
-      <span className="txt-em color-gray pl6">({data.getIn(['id'])})</span>
-    </span>
+    </Link>
     <span>
-      <Link
-        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-        to={{
-          search: `aoi=${data.getIn(['id'])}`,
-          pathname: '/filters'
-        }}
-      >
-        {activeAoiId === data.getIn(['id']) ? 'Active' : 'Load'}
-      </Link>
-      <Button className="mr3" onClick={() => removeAoi(data.getIn(['id']))}>
-        Remove
-      </Button>
       <CustomURL
         href={`${API_URL}/aoi/${data.getIn(['id'])}/changesets/feed/`}
         className="mr3"
         iconName="rss"
-      />
+      >
+        RSS Feed
+      </CustomURL>
+      <Button
+        className="mr3 bg-transparent border--0"
+        onClick={() => removeAoi(data.getIn(['id']))}
+      >
+        <svg className={'icon txt-m mb3 inline-block align-middle color-gray'}>
+          <use xlinkHref="#icon-trash" />
+        </svg>
+        Delete
+      </Button>
     </span>
   </BlockMarkup>
 );
@@ -247,9 +255,6 @@ class SavedFilters extends React.PureComponent<any, propsType, any> {
             {this.props.token && (
               <div>
                 <div className="mt24 mb12">
-                  <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
-                    My saved filters
-                  </h2>
                   <ListFortified
                     data={this.props.data.getIn(['aoi', 'features'], List())}
                     TargetBlock={AOIsBlock}
@@ -287,7 +292,7 @@ SavedFilters = connect(
     token: state.auth.get('token'),
     userDetails: state.auth.getIn(['userDetails'], Map()),
     avatar: state.auth.getIn(['userDetails', 'avatar']),
-    aoiId: state.filters.getIn(['aoi', 'id'], null)
+    aoiId: state.aoi.getIn(['aoi', 'id'], null)
   }),
   {
     applyFilters,

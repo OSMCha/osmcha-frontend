@@ -23,20 +23,13 @@ export class WatchListUser extends React.Component {
   };
   fetchUsername = (username: string) =>
     fetch(
-      `https://www.openstreetmap.org/api/0.6/changesets?display_name=${this.state.username}`
+      `https://www.openstreetmap.org/api/0.6/changesets.json?display_name=${this.state.username}`
     )
       .then(handleErrors)
-      .then(r => r.text())
+      .then(r => r.json())
       .then(r => {
         try {
-          const parser = new DOMParser();
-          const xml = parser.parseFromString(r, 'text/xml');
-          return (
-            xml.getElementsByTagName('osm')[0] &&
-            xml
-              .getElementsByTagName('osm')[0]
-              .firstElementChild.getAttribute('uid')
-          );
+          return r.changesets[0].uid;
         } catch (e) {
           handleErrors();
         }
@@ -126,6 +119,7 @@ export class WatchListUser extends React.Component {
       <span className="flex-parent flex-parent--row">
         <input
           className={`input ${this.state.isValidUsername ? '' : errorClass}`}
+          style={{ marginRight: '6px !important' }}
           value={this.state.username}
           onChange={this.setUsername}
           placeholder="Username"
@@ -138,7 +132,10 @@ export class WatchListUser extends React.Component {
           placeholder="UID"
           type="text"
         />
-        <Button className={'btn max120 ml12 '} onClick={this.verifyInput}>
+        <Button
+          className={'wmax180 ml12 bg-transparent border--0'}
+          onClick={this.verifyInput}
+        >
           {this.state.verified ? 'Verified' : 'Verify'}
         </Button>
         <Button

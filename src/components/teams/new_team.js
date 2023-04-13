@@ -184,24 +184,30 @@ const NewTeam = props => {
                     disabled={!props.userIsOwner}
                   />
                 </label>
-                <label className="px3">
-                  <br></br>
+                <div className="px3">
+                  <br />
                   <Button
                     disabled={teamUsers.length === 1}
                     onClick={e => {
                       e.preventDefault();
                       onClickRemoveUser(k);
                     }}
-                    className="input col w-1/5"
+                    className="mt3 bg-transparent border--0 col w-1/5"
+                    title="Remove user"
                   >
                     <svg className="icon w24 h24">
                       <use xlinkHref="#icon-trash" />
                     </svg>
                   </Button>
-                </label>
+                </div>
               </form>
             ))}
-            <Button onClick={onClickAddAnotherUser}>Add another user</Button>
+            <Button className="mt6 mb2" onClick={onClickAddAnotherUser}>
+              <svg className="icon txt-m mb3 inline-block align-middle">
+                <use xlinkHref="#icon-plus" />
+              </svg>
+              Add user
+            </Button>
 
             <p className="txt-light txt-truncate pt6">
               The mapping team members are <strong>public</strong> and can be
@@ -223,7 +229,7 @@ const NewTeam = props => {
               {props.activeTeam ? (
                 <Link
                   to={{ pathname: '/teams' }}
-                  className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition input wmax120 ml6"
+                  className="input mx3 wmax120 bg-transparent border--white btn btn--s border--1-on-hover border--darken5 border--darken25-on-hover round bg-darken5-on-hover color-gray transition"
                 >
                   Back to teams
                 </Link>
@@ -240,8 +246,14 @@ const NewTeam = props => {
         </>
       ) : (
         <>
-          <Button className="input wmax120" onClick={() => setEditing(true)}>
-            Add+
+          <Button
+            className="input wmax120 mt12"
+            onClick={() => setEditing(true)}
+          >
+            <svg className={'icon txt-m mb3 inline-block align-middle'}>
+              <use xlinkHref="#icon-plus" />
+            </svg>
+            New team
           </Button>
         </>
       )}
