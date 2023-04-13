@@ -2,6 +2,12 @@
 
 Log of changes since the 2.0 version
 
+### 0.85.4
+-  Improve UI on My Teams, Saved Filters, Watchlist & Trusted users pages (#654)
+
+### 0.85.3
+- Downgrade changeset-map version (#638)
+
 ### 0.85.2
 - Add ANY and ALL options to tag_changes filter field
 
