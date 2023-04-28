@@ -40,7 +40,7 @@ const TeamsBlock = ({ data, removeTeam, editTeam }) => (
           pathname: '/filters'
         }}
       >
-        Filter team changesets
+        Changesets
       </Link>
       <Link
         className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken5 bg-lighten25-on-hover color-gray transition"
