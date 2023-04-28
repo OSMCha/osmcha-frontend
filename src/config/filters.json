@@ -44,10 +44,10 @@
     "icontains": false,
     "range": false,
     "all": false,
-    "display": "BBox size bound",
+    "display": "Changeset size bound",
     "type": "number",
-    "description": "Filter changesets that have a bbox area lower than X times the area of your BBox or geometry filter. For example, if the geometry you defined in your filter has an area of 1 degree and you set the 'BBox size bound' to 2, it will filter the changesets whose bbox area is lower than 2 degrees.",
-    "placeholder": "Upper bound of bbox area"
+    "description": "Filter changesets that have an area lower than X times the area of your BBox or geometry filter. For example, if the geometry you defined in your filter has an area of 1 degree and you set the 'Changeset size bound' to 2, it will filter the changesets whose area is lower than 2 degrees.",
+    "placeholder": "Upper bound of changeset area"
   },
   {
     "name": "tag_changes",
@@ -98,10 +98,7 @@
     "all": false,
     "display": "Review Status",
     "type": "meta",
-    "metaOf": [
-      "harmful",
-      "checked"
-    ],
+    "metaOf": ["harmful", "checked"],
     "options": [
       {
         "label": "Bad only",
