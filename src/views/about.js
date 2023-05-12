@@ -90,7 +90,8 @@ export class About extends React.PureComponent {
           id="guide"
           className="pb36 px12"
           dangerouslySetInnerHTML={{
-            __html: this.state.about
+            // eslint-disable-next-line
+            __html: sanitize(this.state.about)
           }}
         />
       </div>
