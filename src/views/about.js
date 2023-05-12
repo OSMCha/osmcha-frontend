@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
 import showdown from 'showdown';
+import DOMPurify from 'dompurify';
+
 import { cancelablePromise } from '../utils/promise';
 import { appVersion, isDev, isStaging, isLocal } from '../config';
 
@@ -90,8 +92,7 @@ export class About extends React.PureComponent {
           id="guide"
           className="pb36 px12"
           dangerouslySetInnerHTML={{
-            // eslint-disable-next-line
-            __html: sanitize(this.state.about)
+            __html: DOMPurify.sanitize(this.state.about)
           }}
         />
       </div>

@@ -21,6 +21,7 @@
     "animate.css": "^3.7.2",
     "changeset-map": "^1.11.2",
     "date-fns": "^2.22.1",
+    "dompurify": "^3.0.3",
     "history": "^4.10.1",
     "immutable": "^3.8.2",
     "lodash.debounce": "^4.0.8",
