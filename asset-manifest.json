@@ -1,32 +1,32 @@
 {
   "files": {
     "main.css": "https://osmcha.org/static/css/main.2bb5fb54.chunk.css",
-    "main.js": "https://osmcha.org/static/js/main.4592509d.chunk.js",
-    "main.js.map": "https://osmcha.org/static/js/main.4592509d.chunk.js.map",
-    "runtime-main.js": "https://osmcha.org/static/js/runtime-main.f55e874f.js",
-    "runtime-main.js.map": "https://osmcha.org/static/js/runtime-main.f55e874f.js.map",
+    "main.js": "https://osmcha.org/static/js/main.802b86df.chunk.js",
+    "main.js.map": "https://osmcha.org/static/js/main.802b86df.chunk.js.map",
+    "runtime-main.js": "https://osmcha.org/static/js/runtime-main.e3c6e2c3.js",
+    "runtime-main.js.map": "https://osmcha.org/static/js/runtime-main.e3c6e2c3.js.map",
     "static/css/2.e6a3113b.chunk.css": "https://osmcha.org/static/css/2.e6a3113b.chunk.css",
-    "static/js/2.df8bbe99.chunk.js": "https://osmcha.org/static/js/2.df8bbe99.chunk.js",
-    "static/js/2.df8bbe99.chunk.js.map": "https://osmcha.org/static/js/2.df8bbe99.chunk.js.map",
-    "static/js/3.18209c6b.chunk.js": "https://osmcha.org/static/js/3.18209c6b.chunk.js",
-    "static/js/3.18209c6b.chunk.js.map": "https://osmcha.org/static/js/3.18209c6b.chunk.js.map",
+    "static/js/2.f57de4cf.chunk.js": "https://osmcha.org/static/js/2.f57de4cf.chunk.js",
+    "static/js/2.f57de4cf.chunk.js.map": "https://osmcha.org/static/js/2.f57de4cf.chunk.js.map",
+    "static/js/3.efac37f7.chunk.js": "https://osmcha.org/static/js/3.efac37f7.chunk.js",
+    "static/js/3.efac37f7.chunk.js.map": "https://osmcha.org/static/js/3.efac37f7.chunk.js.map",
     "index.html": "https://osmcha.org/index.html",
-    "precache-manifest.a9b45af3bae7818908fee6a34ce9b6fb.js": "https://osmcha.org/precache-manifest.a9b45af3bae7818908fee6a34ce9b6fb.js",
+    "precache-manifest.d7136a6efdfa51c8c04732bbaf846867.js": "https://osmcha.org/precache-manifest.d7136a6efdfa51c8c04732bbaf846867.js",
     "service-worker.js": "https://osmcha.org/service-worker.js",
     "static/css/2.e6a3113b.chunk.css.map": "https://osmcha.org/static/css/2.e6a3113b.chunk.css.map",
     "static/css/main.2bb5fb54.chunk.css.map": "https://osmcha.org/static/css/main.2bb5fb54.chunk.css.map",
-    "static/js/2.df8bbe99.chunk.js.LICENSE.txt": "https://osmcha.org/static/js/2.df8bbe99.chunk.js.LICENSE.txt",
-    "static/js/3.18209c6b.chunk.js.LICENSE.txt": "https://osmcha.org/static/js/3.18209c6b.chunk.js.LICENSE.txt",
+    "static/js/2.f57de4cf.chunk.js.LICENSE.txt": "https://osmcha.org/static/js/2.f57de4cf.chunk.js.LICENSE.txt",
+    "static/js/3.efac37f7.chunk.js.LICENSE.txt": "https://osmcha.org/static/js/3.efac37f7.chunk.js.LICENSE.txt",
     "static/media/banner.png": "https://osmcha.org/static/media/banner.ed2bb0d2.png",
     "static/media/thumbs-down.svg": "https://osmcha.org/static/media/thumbs-down.7e04a82a.svg",
     "static/media/thumbs-up.svg": "https://osmcha.org/static/media/thumbs-up.13d765c5.svg",
     "static/media/work_flow.png": "https://osmcha.org/static/media/work_flow.195ff4f9.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.f55e874f.js",
+    "static/js/runtime-main.e3c6e2c3.js",
     "static/css/2.e6a3113b.chunk.css",
-    "static/js/2.df8bbe99.chunk.js",
+    "static/js/2.f57de4cf.chunk.js",
     "static/css/main.2bb5fb54.chunk.css",
-    "static/js/main.4592509d.chunk.js"
+    "static/js/main.802b86df.chunk.js"
   ]
 }
