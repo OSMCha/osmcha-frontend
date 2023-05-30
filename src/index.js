@@ -17,7 +17,7 @@ import 'react-select/dist/react-select.css';
 
 import { App } from './app';
 
-ReactGA.initialize('UA-100686765-1', {
+ReactGA.initialize('G-05Y4GLDM03', {
   gaOptions: {
     anonymizeIp: true,
     screenResolution: `${window.screen.availWidth}X${window.screen.availHeight}`,

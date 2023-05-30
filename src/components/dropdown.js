@@ -82,7 +82,9 @@ class DropdownContent extends React.PureComponent {
               </a>
             ) : (
               <span
-                onClick={this.props.toggleDropdown}
+                onClick={
+                  this.props.multi ? () => {} : this.props.toggleDropdown
+                }
                 className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${
                   this.isActive(i) ? 'is-active txt-bold' : ''
                 }`}
