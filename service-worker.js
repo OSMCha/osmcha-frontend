@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "https://osmcha.org/precache-manifest.d7136a6efdfa51c8c04732bbaf846867.js"
+  "https://osmcha.org/precache-manifest.04e8d867e0af66dfd47d47ac43eae081.js"
 );
 
 self.addEventListener('message', (event) => {
