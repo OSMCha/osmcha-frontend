@@ -1,6 +1,6 @@
 {
   "name": "osmcha-frontend",
-  "version": "0.85.6",
+  "version": "0.85.7",
   "license": "ISC",
   "engines": {
     "node": ">=7.0"
@@ -32,7 +32,7 @@
     "react-click-outside": "^3.0.1",
     "react-datepicker": "^4.1.1",
     "react-dom": "^16.8.3",
-    "react-ga": "^2.7.0",
+    "react-ga4": "^2.1.0",
     "react-notification-system": "^0.2.17",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",

@@ -1,18 +1,15 @@
-import { isProd } from '../config';
-let ReactGA;
+import ReactGA from 'react-ga4';
 
-if (isProd) {
-  ReactGA = require('react-ga');
-}
+import { isProd } from '../config';
 
 export function gaPageView(page: string) {
-  if (ReactGA) {
-    ReactGA.pageview(page);
+  if (isProd) {
+    ReactGA.send(page);
   }
 }
 
 export function gaSendEvent(obj: Object) {
-  if (ReactGA) {
+  if (isProd) {
     ReactGA.event(obj);
   }
 }
