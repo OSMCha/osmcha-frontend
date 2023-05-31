@@ -22,9 +22,13 @@ export class App extends Component {
           .keySeq()
           .sort((a, b) => a.localeCompare(b))
           .join(',');
-        gaPageView(`/?filters=${filters}`);
+        gaPageView({
+          page: `/?filters=${filters}`,
+          title: 'Filters',
+          hitType: 'pageview'
+        });
       } else {
-        gaPageView('/');
+        gaPageView({ page: '/', title: 'Home', hitType: 'pageview' });
       }
     }
   }
