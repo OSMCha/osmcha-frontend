@@ -149,7 +149,7 @@ export class LocationSelect extends React.PureComponent {
   };
 
   getAsyncOptions = (input: string, cb: (e: ?Error, any) => void) => {
-    if (input.length >= 3) {
+    if (input.length >= 2) {
       return nominatimSearch(input, this.state.queryType)
         .then(json => {
           if (!Array.isArray(json)) return cb(null, { options: [] });
