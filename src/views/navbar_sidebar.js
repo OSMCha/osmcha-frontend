@@ -24,10 +24,8 @@ import type { RootStateType } from '../store';
 
 class NavbarSidebar extends React.PureComponent {
   props: {
-    changesetId: ?number,
     location: Object,
-    avatar: ?string,
-    currentChangeset: Map<string, *>,
+    uid: ?string,
     username: ?string,
     token: ?string,
     oAuthToken: ?string,
@@ -56,6 +54,7 @@ class NavbarSidebar extends React.PureComponent {
 
   onUserMenuSelect = (arr: Array<Object>) => {
     const username = this.props.username;
+    const uid = this.props.uid;
 
     if (arr.length === 1) {
       if (arr[0].url === '/logout') {
@@ -65,7 +64,7 @@ class NavbarSidebar extends React.PureComponent {
       if (arr[0].url === '/my-changesets') {
         this.props.push({
           ...this.props.location,
-          search: `filters={"users":[{"label":"${username}","value":"${username}"}],"date__gte":[{"label":"","value":""}]}`,
+          search: `filters={"uids":[{"label":"${uid}","value":"${uid}"}],"date__gte":[{"label":"","value":""}]}`,
           pathname: '/'
         });
         return;
@@ -182,15 +181,10 @@ class NavbarSidebar extends React.PureComponent {
 NavbarSidebar = connect(
   (state: RootStateType, props) => ({
     location: state.routing.location,
-    changesetId: parseInt(state.changeset.get('changesetId'), 10),
-    currentChangeset: state.changeset.getIn([
-      'changesets',
-      parseInt(state.changeset.get('changesetId'), 10)
-    ]),
     oAuthToken: state.auth.get('oAuthToken'),
     token: state.auth.get('token'),
     username: state.auth.getIn(['userDetails', 'username']),
-    avatar: state.auth.getIn(['userDetails', 'avatar'])
+    uid: state.auth.getIn(['userDetails', 'uid'])
   }),
   {
     getOAuthToken,
