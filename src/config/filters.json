@@ -440,7 +440,7 @@
       }
     ],
     "description": "Order changesets by one of the following fields: id, date, check_date, create, modify, delete or number of comments.",
-    "placeholder": "Asceding/Descending "
+    "placeholder": "Ascending/Descending "
   },
   {
     "name": "powerfull_editor",
