@@ -6,10 +6,11 @@ export const isLocal = process.env.NODE_ENV === 'development';
 export const stack = process.env.REACT_APP_STACK;
 export const appVersion = process.env.REACT_APP_VERSION;
 
-let url = 'https://staging.osmcha.org/api/v1';
+let url =
+  process.env.REACT_APP_STAGING_API_URL || 'https://staging.osmcha.org/api/v1';
 
 if (isProd) {
-  url = 'https://osmcha.org/api/v1';
+  url = process.env.REACT_APP_PRODUCTION_API_URL || 'https://osmcha.org/api/v1';
 }
 
 window.debug_info = () =>

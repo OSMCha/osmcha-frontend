@@ -7,6 +7,12 @@ import { SignIn } from '../components/sign_in';
 import { dispatchEvent } from '../utils/dispatch_event';
 import { updateStyle } from '../store/map_controls_actions';
 import { importChangesetMap } from '../utils/cmap';
+import {
+  mapboxAccessToken,
+  osmUrl,
+  isOfficialOSM,
+  enableRealChangesets
+} from '../config/constants';
 
 import 'changeset-map/public/css/style.css';
 import type { RootStateType } from '../store';
@@ -47,7 +53,11 @@ function loadMap() {
       width: width + 'px',
       height: Math.max(400, height) + 'px',
       data: currentChangesetMap,
-      disableSidebar: true
+      disableSidebar: true,
+      enableRealChangesets: enableRealChangesets,
+      mapboxAccessToken: mapboxAccessToken,
+      osmBase: osmUrl,
+      isOSMApp: isOfficialOSM
     });
   });
 }
