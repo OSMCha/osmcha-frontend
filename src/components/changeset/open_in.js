@@ -13,7 +13,7 @@ function openEditor(selected) {
         baseUrl = 'https://www.openstreetmap.org/edit?editor=id&';
       }
       if (selected && selected[0].value === 'RapiD') {
-        baseUrl = 'https://mapwith.ai/rapid?';
+        baseUrl = 'https://rapideditor.org/edit?';
       }
       if (baseUrl) {
         const center = map.getCenter();
