@@ -12,7 +12,7 @@ function openEditor(selected) {
       if (selected && selected[0].value === 'iD') {
         baseUrl = 'https://www.openstreetmap.org/edit?editor=id&';
       }
-      if (selected && selected[0].value === 'RapiD') {
+      if (selected && selected[0].value === 'Rapid') {
         baseUrl = 'https://rapideditor.org/edit?';
       }
       if (baseUrl) {
@@ -47,8 +47,8 @@ export function OpenIn({ display, changesetId, coordinates, className }) {
       href: `http://level0.osmz.ru/?url=changeset/${changesetId}`
     },
     {
-      label: 'RapiD',
-      value: 'RapiD'
+      label: 'Rapid',
+      value: 'Rapid'
     }
   ];
   if (mobile) {
