@@ -12,8 +12,8 @@ function openEditor(selected) {
       if (selected && selected[0].value === 'iD') {
         baseUrl = 'https://www.openstreetmap.org/edit?editor=id&';
       }
-      if (selected && selected[0].value === 'RapiD') {
-        baseUrl = 'https://mapwith.ai/rapid?';
+      if (selected && selected[0].value === 'Rapid') {
+        baseUrl = 'https://rapideditor.org/edit?';
       }
       if (baseUrl) {
         const center = map.getCenter();
@@ -47,14 +47,19 @@ export function OpenIn({ display, changesetId, coordinates, className }) {
       href: `http://level0.osmz.ru/?url=changeset/${changesetId}`
     },
     {
-      label: 'RapiD',
-      value: 'RapiD'
+      label: 'osm-revert',
+      value: 'osm-revert',
+      href: `https://revert.monicz.dev/?changesets=${changesetId}`
+    },
+    {
+      label: 'Rapid',
+      value: 'Rapid'
     },
     {
       label: 'ResultMaps',
       value: 'ResultMaps',
       href: `https://resultmaps.neis-one.org/osm-change-viz?c=${changesetId}`
-    },
+    }
   ];
   if (mobile) {
     options.unshift({
