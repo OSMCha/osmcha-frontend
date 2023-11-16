@@ -12,8 +12,8 @@ function openEditor(selected) {
       if (selected && selected[0].value === 'iD') {
         baseUrl = 'https://www.openstreetmap.org/edit?editor=id&';
       }
-      if (selected && selected[0].value === 'RapiD') {
-        baseUrl = 'https://mapwith.ai/rapid?';
+      if (selected && selected[0].value === 'Rapid') {
+        baseUrl = 'https://rapideditor.org/edit?';
       }
       if (baseUrl) {
         const center = map.getCenter();
@@ -52,8 +52,8 @@ export function OpenIn({ display, changesetId, coordinates, className }) {
       href: `https://revert.monicz.dev/?changesets=${changesetId}`
     },
     {
-      label: 'RapiD',
-      value: 'RapiD'
+      label: 'Rapid',
+      value: 'Rapid'
     }
   ];
   if (mobile) {
