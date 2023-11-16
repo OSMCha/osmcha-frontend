@@ -47,6 +47,11 @@ export function OpenIn({ display, changesetId, coordinates, className }) {
       href: `http://level0.osmz.ru/?url=changeset/${changesetId}`
     },
     {
+      label: 'osm-revert',
+      value: 'osm-revert',
+      href: `https://revert.monicz.dev/?changesets=${changesetId}`
+    },
+    {
       label: 'Rapid',
       value: 'Rapid'
     }
