@@ -10,9 +10,8 @@ export const mapboxAccessToken =
   'pk.eyJ1Ijoib3BlbnN0cmVldG1hcCIsImEiOiJjam10OXpmc2YwMXI5M3BqeTRiMDBqMHVyIn0.LIcIDe3TZLSDdTWDoojzNg';
 export const statusUrl =
   'https://raw.githubusercontent.com/mapbox/osmcha-frontend/status/status.json';
-export const enableRealChangesets = process.env.REACT_APP_ENABLE_REAL_CHANGESETS
-  ? Boolean(process.env.REACT_APP_ENABLE_REAL_CHANGESETS)
-  : true;
+export const enableRealChangesets = !process.env
+  .REACT_APP_DISABLE_REAL_CHANGESETS;
 
 export const osmchaSocialTokenUrl = `${API_URL}/social-auth/`;
 export const osmchaUrl = API_URL.replace('api/v1', '');
