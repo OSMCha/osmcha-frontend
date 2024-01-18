@@ -89,9 +89,8 @@ export function fetchAllAOIs(token?: string): Promise<*> {
     }
   })
     .then(handleErrors)
-    .then(res => {
-      return res.json();
-    });
+    .then(res => res.json())
+    .then(res => res.results);
 }
 
 export function updateAOI(

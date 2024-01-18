@@ -11,9 +11,8 @@ export function fetchWatchList(token: string): Promise<*> {
     }
   })
     .then(handleErrors)
-    .then(res => {
-      return res.json();
-    });
+    .then(res => res.json())
+    .then(res => res.results);
 }
 
 export function deleteFromWatchList(token: string, uid: string): Promise<*> {
