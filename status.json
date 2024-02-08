@@ -1,4 +1,4 @@
 {
-  "status": "success",
-  "message": "Working normally."
+  "status": "warning",
+  "message": "OSMCha will be under maintenance starting from February 13th, 15:00 UTC. We foresee a downtime of 2 hours."
 }
