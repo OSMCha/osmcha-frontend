@@ -9,7 +9,7 @@ export const mapboxAccessToken =
   process.env.REACT_APP_MAPBOX_ACCESS_TOKEN ||
   'pk.eyJ1Ijoib3BlbnN0cmVldG1hcCIsImEiOiJjam10OXpmc2YwMXI5M3BqeTRiMDBqMHVyIn0.LIcIDe3TZLSDdTWDoojzNg';
 export const statusUrl =
-  'https://raw.githubusercontent.com/mapbox/osmcha-frontend/status/status.json';
+  'https://raw.githubusercontent.com/osmcha/osmcha-frontend/status/status.json';
 export const enableRealChangesets = !process.env
   .REACT_APP_DISABLE_REAL_CHANGESETS;
 

@@ -1,16 +1,16 @@
 {
   "name": "osmcha-frontend",
-  "version": "0.86.0",
+  "version": "0.87.0",
   "license": "ISC",
   "engines": {
     "node": ">=7.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mapbox/osmcha-frontend.git"
+    "url": "https://github.com/osmcha/osmcha-frontend.git"
   },
   "bugs": {
-    "url": "https://github.com/mapbox/osmcha-frontend/issues"
+    "url": "https://github.com/osmcha/osmcha-frontend/issues"
   },
   "dependencies": {
     "@mapbox/mapbox-gl-draw": "^1.3.0",

@@ -2,58 +2,58 @@
 
 <!-- toc -->
 
-* [Introduction to OSMCha](#introduction-to-osmcha)
-    * [Why use OSMCha?](#why-use-osmcha)
-    * [What is vandalism?](#what-is-vandalism)
-    * [What are flagged changesets and how are they automatically flagged?](#what-are-flagged-changesets-and-how-are-they-automatically-flagged)
-    * [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad----)
-    * [Future of OSMCha and validation using OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
-* [Usage](#usage)
-    * [How to review a changeset?](#how-to-review-a-changeset)
-        * [Changeset and Mapper details](#changeset-and-mapper-details)
-        * [Using Changeset-map](#using-changeset-map)
-        * [Reviewing changesets in OSMCha from OpenStreetMap](#reviewing-changesets-in-osmcha-from-openstreetmap)
-    * [Filters](#filters)
-        * [Basic filters](#basic-filters)
-        * [Applications for edit based search](#applications-for-edit-based-search)
-        * [Saving and sharing custom filters](#saving-and-sharing-custom-filters)
-        * [Setting up RSS feed - Area of Interest](#setting-up-rss-feed---area-of-interest)
-    * [User page](#user-page)
-* [FAQ](#faq)
-    * [How are the changesets presented?](#how-are-the-changesets-presented)
-    * [How can I sign-in into OSMCha?](#how-can-i-sign-in-into-osmcha)
-    * [Can I view the changesets and use filters without logging into OSMCha?](#can-i-view-the-changesets-and-use-filters-without-logging-into-osmcha)
-    * [How do I logout of OSMCha?](#how-do-i-logout-of-osmcha)
-    * [My changeset has been flagged by a reason, am I doing something wrong?](#my-changeset-has-been-flagged-by-a-reason-am-i-doing-something-wrong)
-    * [Are there keyboard shortcuts in OSMCha?](#are-there-keyboard-shortcuts-in-osmcha)
-    * [What are tags on OSMCha?](#what-are-tags-on-osmcha)
-    * [What if I want to change my review for a changeset?](#what-if-i-want-to-change-my-review-for-a-changeset)
-    * [Can I review my own changesets?](#can-i-review-my-own-changesets)
-* [Frequent error messages](#frequent-error-messages)
-    * [Changeset views error messages](#changeset-views-error-messages)
-        * [Changeset was already checked.](#changeset-was-already-checked)
-        * [User can not check their own changeset.](#user-can-not-check-their-own-changeset)
-        * [Changeset is not checked.](#changeset-is-not-checked)
-        * [User does not have permission to uncheck this changeset.](#user-does-not-have-permission-to-uncheck-this-changeset)
-        * [User can not add tags to their own changeset.](#user-can-not-add-tags-to-their-own-changeset)
-        * [User can not add tags to a changeset checked by another user.](#user-can-not-add-tags-to-a-changeset-checked-by-another-user)
-        * [User can not remove tags from their own changeset.](#user-can-not-remove-tags-from-their-own-changeset)
-        * [User can not remove tags from a changeset checked by another user.](#user-can-not-remove-tags-from-a-changeset-checked-by-another-user)
-* [References](#references)
-* [Other tools for validation](#other-tools-for-validation)
-* [Feedback](#feedback)
-* [Trademark notice](#trademark-notice)
+- [Introduction to OSMCha](#introduction-to-osmcha)
+    - [Why use OSMCha?](#why-use-osmcha)
+    - [What is vandalism?](#what-is-vandalism)
+    - [What are flagged changesets and how are they automatically flagged?](#what-are-flagged-changesets-and-how-are-they-automatically-flagged)
+    - [Why to review a changeset as Good/Bad 👍 / 👎 ?](#why-to-review-a-changeset-as-goodbad----)
+    - [Future of OSMCha and validation using OSM-Compare](#future-of-osmcha-and-validation-using-osm-compare)
+- [Usage](#usage)
+  - [How to review a changeset?](#how-to-review-a-changeset)
+    - [Changeset and Mapper details](#changeset-and-mapper-details)
+    - [Using Changeset-map](#using-changeset-map)
+    - [Reviewing changesets in OSMCha from OpenStreetMap](#reviewing-changesets-in-osmcha-from-openstreetmap)
+  - [Filters](#filters)
+    - [Basic filters](#basic-filters)
+    - [Applications for edit based search](#applications-for-edit-based-search)
+    - [Saving and sharing custom filters](#saving-and-sharing-custom-filters)
+    - [Setting up RSS feed - Area of Interest](#setting-up-rss-feed---area-of-interest)
+  - [User page](#user-page)
+- [FAQ](#faq)
+    - [How are the changesets presented?](#how-are-the-changesets-presented)
+    - [How can I sign-in into OSMCha?](#how-can-i-sign-in-into-osmcha)
+    - [Can I view the changesets and use filters without logging into OSMCha?](#can-i-view-the-changesets-and-use-filters-without-logging-into-osmcha)
+    - [How do I logout of OSMCha?](#how-do-i-logout-of-osmcha)
+    - [My changeset has been flagged by a reason, am I doing something wrong?](#my-changeset-has-been-flagged-by-a-reason-am-i-doing-something-wrong)
+    - [Are there keyboard shortcuts in OSMCha?](#are-there-keyboard-shortcuts-in-osmcha)
+    - [What are tags on OSMCha?](#what-are-tags-on-osmcha)
+    - [What if I want to change my review for a changeset?](#what-if-i-want-to-change-my-review-for-a-changeset)
+    - [Can I review my own changesets?](#can-i-review-my-own-changesets)
+- [Frequent error messages](#frequent-error-messages)
+  - [Changeset views error messages](#changeset-views-error-messages)
+    - [Changeset was already checked.](#changeset-was-already-checked)
+    - [User can not check their own changeset.](#user-can-not-check-their-own-changeset)
+    - [Changeset is not checked.](#changeset-is-not-checked)
+    - [User does not have permission to uncheck this changeset.](#user-does-not-have-permission-to-uncheck-this-changeset)
+    - [User can not add tags to their own changeset.](#user-can-not-add-tags-to-their-own-changeset)
+    - [User can not add tags to a changeset checked by another user.](#user-can-not-add-tags-to-a-changeset-checked-by-another-user)
+    - [User can not remove tags from their own changeset.](#user-can-not-remove-tags-from-their-own-changeset)
+    - [User can not remove tags from a changeset checked by another user.](#user-can-not-remove-tags-from-a-changeset-checked-by-another-user)
+- [References](#references)
+- [Other tools for validation](#other-tools-for-validation)
+- [Feedback](#feedback)
+- [Donate](#donate)
+- [Trademark notice](#trademark-notice)
 
 <!-- tocstop -->
 
 # Introduction to OSMCha
 
-OSMCha is short for OpenStreetMap Changeset Analyser. OSMCha is a web tool to
+OSMCha is short for OpenStreetMap Changeset Analyser. It is a web tool to
 help visualise and analyse edits made by mappers on OpenStreetMap (OSM). OSMCha
 was originally written by
 [Wille Marcel](https://www.openstreetmap.org/user/wille) in 2015 to validate
-changesets. In collaboration with Wille, this global instance is hosted by
-Mapbox as an additional data Quality Analysis tool for the community.
+changesets. After almost 10 years being supported by Mapbox, OSMCha became an [OpenStreetMap US](https://openstreetmap.us/) charter project in 2023.
 
 ### Why use OSMCha?
 
@@ -461,9 +461,13 @@ This is raised when someone tries to remove tags in a changeset that are added b
 # Feedback
 
 * To file bugs, feature requests on OSMCha - please file issues at
-  https://github.com/mapbox/osmcha-frontend/issues
+  https://github.com/osmcha/osmcha-frontend/issues
 * To file bugs, feature requests on Changeset map - please file issues at
   https://github.com/osmlab/changeset-map/issues
+
+# Donate
+
+Support OSMCha's hosting and development by making a donation: [https://openstreetmap.app.neoncrm.com/forms/osmcha](https://openstreetmap.app.neoncrm.com/forms/osmcha).
 
 # Trademark notice
 

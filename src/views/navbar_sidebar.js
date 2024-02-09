@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';
 

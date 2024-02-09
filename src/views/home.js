@@ -40,7 +40,7 @@ export function Home() {
           <a
             target="__blank"
             className="link link--gray  flex-parent flex-parent--row flex-parent--center-cross mx6"
-            href="https://github.com/mapbox/osmcha-frontend/blob/master/CONTRIBUTING.md"
+            href="https://github.com/osmcha/osmcha-frontend/blob/master/CONTRIBUTING.md"
           >
             <svg className="icon">
               <use xlinkHref="#icon-github" />
@@ -51,7 +51,18 @@ export function Home() {
           <a
             target="__blank"
             className="link link--gray  flex-parent flex-parent--row flex-parent--center-cross mx6"
-            href="https://github.com/mapbox/osmcha-frontend/issues"
+            href="https://openstreetmap.app.neoncrm.com/forms/osmcha"
+          >
+            <svg className="icon">
+              <use xlinkHref="#icon-creditcard" />
+            </svg>{' '}
+            <span>Donate</span>
+          </a>
+          |{' '}
+          <a
+            target="__blank"
+            className="link link--gray  flex-parent flex-parent--row flex-parent--center-cross mx6"
+            href="https://github.com/osmcha/osmcha-frontend/issues"
           >
             <svg className="icon">
               <use xlinkHref="#icon-bug" />

@@ -69,7 +69,7 @@ export class About extends React.PureComponent {
   componentDidMount() {
     this.cancellablePromise = cancelablePromise(
       fetch(
-        'https://raw.githubusercontent.com/mapbox/osmcha-frontend/master/ABOUT.md'
+        'https://raw.githubusercontent.com/osmcha/osmcha-frontend/master/ABOUT.md'
       ).then(r => r.text())
     );
     this.cancellablePromise.promise
