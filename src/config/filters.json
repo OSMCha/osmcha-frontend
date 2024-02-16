@@ -383,10 +383,6 @@
     "type": "radio",
     "options": [
       {
-        "label": "Ascending ID",
-        "value": "id"
-      },
-      {
         "label": "Ascending Date",
         "value": "date"
       },
@@ -409,10 +405,6 @@
       {
         "label": "Ascending number of comments",
         "value": "comments_count"
-      },
-      {
-        "label": "Descending ID",
-        "value": "-id"
       },
       {
         "label": "Descending Date",
