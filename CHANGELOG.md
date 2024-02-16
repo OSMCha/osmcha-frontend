@@ -2,6 +2,23 @@
 
 Log of changes since the 2.0 version
 
+### 0.87.1
+- Remove order_by id option
+- Fix bugs in Tags dropdown loading
+
+### 0.87.0
+- Add Github action to build and publish docker images
+- Update Github URLs
+- Add Donate link
+- Fix error when reading the AOI and Watchlist response format (#700)
+- Switch env variable to REACT_APP_DISABLE_REAL_CHANGESETS (#696)
+- Update url for Rapid (#689)
+- Add support for osm-revert (#691)
+
+### 0.86.0
+- Update changeset-map version
+- Pass configuration to changeset-map
+
 ### 0.85.4
 -  Improve UI on My Teams, Saved Filters, Watchlist & Trusted users pages (#654)
 
