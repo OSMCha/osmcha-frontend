@@ -44,7 +44,9 @@ export class Tags extends React.PureComponent {
     return this.tagsData.promise
       .then(json => {
         let data = {};
-        let selectData = json.filter(d => d.is_visible && d.for_changeset);
+        let selectData = json.results.filter(
+          d => d.is_visible && d.for_changeset
+        );
 
         selectData.forEach(d => {
           data[d.name] = { ...d, value: d.id, label: d.name };
