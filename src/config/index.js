@@ -4,6 +4,7 @@ export const isStaging = process.env.REACT_APP_STACK === 'STAGING';
 export const isProd = process.env.REACT_APP_STACK === 'PRODUCTION';
 export const isLocal = process.env.NODE_ENV === 'development';
 export const stack = process.env.REACT_APP_STACK;
+export const isOsmTeamsEnabled = false;
 export const appVersion = process.env.REACT_APP_VERSION;
 
 let url =
@@ -18,3 +19,4 @@ window.debug_info = () =>
     'null'} appVersion=${appVersion || 'null'} url=${url}`;
 
 export const API_URL = url;
+export const OSM_TEAMS_API_URL = 'https://dev.mapping.team/api/teams';

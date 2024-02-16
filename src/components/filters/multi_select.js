@@ -2,7 +2,7 @@
 import React from 'react';
 import { fromJS } from 'immutable';
 import { Creatable, Async } from 'react-select';
-import { API_URL } from '../../config';
+import { API_URL, OSM_TEAMS_API_URL, isOsmTeamsEnabled } from '../../config';
 import type { filterType } from './';
 
 export class MultiSelect extends React.PureComponent {
@@ -128,34 +128,51 @@ export class MultiSelect extends React.PureComponent {
 }
 
 export class MappingTeamMultiSelect extends MultiSelect {
-  getAsyncOptions = () => {
+  getAsyncOptions = async () => {
     if (!this.props.dataURL) return;
-    return fetch(`${API_URL}/${this.props.dataURL}/`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: this.props.token ? `Token ${this.props.token}` : ''
-      }
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        const data = json.map(d => {
-          if (d.trusted) {
-            return { ...d, label: `${d.name} (verified)`, value: d.name };
-          } else {
-            return {
-              ...d,
-              label: d.name.replace('(verified)', ''),
-              value: d.name
-            };
-          }
-        });
-        return { options: data };
+    if (isOsmTeamsEnabled) {
+      const teams = await fetch(OSM_TEAMS_API_URL, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(response => response.json());
+      const data = teams.map(team => {
+        return {
+          ...team,
+          label: `${team.name} (verified)`,
+          value: team.name
+        };
       });
+      return { options: data };
+    } else {
+      return await fetch(`${API_URL}/${this.props.dataURL}/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: this.props.token ? `Token ${this.props.token}` : ''
+        }
+      })
+        .then(response => {
+          return response.json();
+        })
+        .then(json => {
+          const data = json.map(d => {
+            if (d.trusted) {
+              return { ...d, label: `${d.name} (verified)`, value: d.name };
+            } else {
+              return {
+                ...d,
+                label: d.name.replace('(verified)', ''),
+                value: d.name
+              };
+            }
+          });
+          return { options: data };
+        });
+    }
   };
-  sendData = (allToggle: boolean, data: Array<Object>) => {
+  sendData = async (allToggle: boolean, data: Array<Object>) => {
     let name =
       this.props.name.slice(0, 4) === 'all_'
         ? this.props.name.slice(4)
@@ -163,7 +180,31 @@ export class MappingTeamMultiSelect extends MultiSelect {
 
     name = `${allToggle ? 'all_' : ''}${name}`;
     if (data.length === 0) return this.props.onChange(name);
-    var processed = data.map(o => ({ label: o.label, value: o.value })); // remove any bogus keys
+    let processed;
+    if (isOsmTeamsEnabled) {
+      const teams_with_members = await Promise.all(
+        data.map(team =>
+          fetch(`${OSM_TEAMS_API_URL}/${team.id}`).then(async response => {
+            const json = await response.json();
+            return {
+              ...json,
+              label: team.label
+            };
+          })
+        )
+      );
+      // remove any bogus keys
+      processed = teams_with_members.map(team => {
+        return {
+          id: team.id, // need to persist this for team filter lookups
+          label: team.label,
+          value: team.members.map(member => parseInt(member.id, 10))
+        };
+      });
+    } else {
+      processed = data.map(o => ({ label: o.label, value: o.value })); // remove any bogus keys
+    }
+
     this.props.onChange(name, fromJS(processed));
   };
 }

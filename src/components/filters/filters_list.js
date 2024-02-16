@@ -15,6 +15,7 @@ import {
 import { BBoxPicker } from '../bbox_picker';
 import { loadingEnhancer } from '../loading_enhancer';
 import filters from '../../config/filters.json';
+import { isOsmTeamsEnabled } from '../../config';
 import { getDefaultFromDate } from '../../utils/filters';
 import type { filterType, filtersType } from './';
 
@@ -35,11 +36,13 @@ type propsType = {|
 |};
 class FiltersList extends React.PureComponent<void, propsType, *> {
   renderFilters = (f: Object, k: number) => {
+    const namesOverride =
+      isOsmTeamsEnabled && f.name === 'mapping_teams' ? 'uids' : f.name;
     const propsToSend = {
       name: f.name,
       type: f.type,
       display: f.display,
-      value: this.props.filters.get(f.name),
+      value: this.props.filters.get(namesOverride),
       placeholder: f.placeholder,
       options: f.options || [],
       onChange: this.props.handleChange,
@@ -187,7 +190,7 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           {name.endsWith('_teams') ? (
             <MappingTeamMultiSelect
               {...propsToSend}
-              name={name}
+              name={isOsmTeamsEnabled ? 'uids' : name}
               value={value}
               onChange={onChange}
               showAllToggle={f.all}
