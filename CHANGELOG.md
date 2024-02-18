@@ -2,6 +2,9 @@
 
 Log of changes since the 2.0 version
 
+### 0.87.2
+- Filter error in async Multiselect components of Filters page
+
 ### 0.87.1
 - Remove order_by id option
 - Fix bugs in Tags dropdown loading

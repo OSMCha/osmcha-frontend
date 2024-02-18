@@ -14,9 +14,7 @@ export function createMappingTeam(token: string, name: string, users: string) {
     })
   })
     .then(handleErrors)
-    .then(res => {
-      return res.json();
-    });
+    .then(res => res.json());
 }
 
 export function fetchMappingTeam(token: string, id: number) {
@@ -28,9 +26,7 @@ export function fetchMappingTeam(token: string, id: number) {
     }
   })
     .then(handleErrors)
-    .then(res => {
-      return res.json();
-    });
+    .then(res => res.json());
 }
 export function deleteMappingTeam(token: string, id: number) {
   return fetch(`${API_URL}/mapping-team/${id}/`, {
@@ -51,9 +47,8 @@ export function fetchUserMappingTeams(token: string, owner: string) {
     }
   })
     .then(handleErrors)
-    .then(res => {
-      return res.json();
-    });
+    .then(res => res.json())
+    .then(res => res.results);
 }
 
 export function fetchTrustedMappingTeams(token: string) {
@@ -65,9 +60,7 @@ export function fetchTrustedMappingTeams(token: string) {
     }
   })
     .then(handleErrors)
-    .then(res => {
-      return res.json();
-    });
+    .then(res => res.json());
 }
 
 export function updateMappingTeam(
@@ -88,7 +81,5 @@ export function updateMappingTeam(
     })
   })
     .then(handleErrors)
-    .then(res => {
-      return res.json();
-    });
+    .then(res => res.json());
 }
