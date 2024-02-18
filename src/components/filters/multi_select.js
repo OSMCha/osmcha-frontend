@@ -34,7 +34,7 @@ export class MultiSelect extends React.PureComponent {
         return response.json();
       })
       .then(json => {
-        const data = json
+        const data = json.results
           .filter(d => d.for_changeset)
           .map(d => ({ ...d, label: d.name, value: d.id }));
         return { options: data };
@@ -141,7 +141,7 @@ export class MappingTeamMultiSelect extends MultiSelect {
         return response.json();
       })
       .then(json => {
-        const data = json.map(d => {
+        const data = json.results.map(d => {
           if (d.trusted) {
             return { ...d, label: `${d.name} (verified)`, value: d.name };
           } else {
