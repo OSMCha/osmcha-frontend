@@ -11,9 +11,8 @@ export function fetchReasons(token: ?string) {
     }
   })
     .then(handleErrors)
-    .then(res => {
-      return res.json();
-    });
+    .then(res => res.json())
+    .then(res => res.results);
 }
 
 export function fetchTags(token: ?string) {
@@ -25,7 +24,6 @@ export function fetchTags(token: ?string) {
     }
   })
     .then(handleErrors)
-    .then(res => {
-      return res.json();
-    });
+    .then(res => res.json())
+    .then(res => res.results);
 }
