@@ -2,6 +2,9 @@
 
 Log of changes since the 2.0 version
 
+### 0.87.3
+- Fix error when loading AOIs with tags or flags filters
+
 ### 0.87.2
 - Filter error in async Multiselect components of Filters page
 
