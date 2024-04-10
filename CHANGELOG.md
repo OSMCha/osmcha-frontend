@@ -2,6 +2,9 @@
 
 Log of changes since the 2.0 version
 
+### 0.87.4
+- Fix error in the copy changeset url link
+  
 ### 0.87.3
 - Fix error when loading AOIs with tags or flags filters
 
