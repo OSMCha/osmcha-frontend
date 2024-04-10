@@ -187,11 +187,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                     <span
                       className="txt--s pl6 pointer"
                       onClick={e =>
-                        navigator.clipboard.writeText(
-                          `${API_URL.replace('/api/v1', '')}/changesets/${
-                            this.props.changesetId
-                          }`
-                        )
+                        navigator.clipboard.writeText(window.location.href)
                       }
                       title="Copy OSMCha Changeset URL"
                     >
