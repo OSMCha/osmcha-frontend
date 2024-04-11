@@ -149,7 +149,7 @@ export class LocationSelect extends React.PureComponent {
   };
 
   getAsyncOptions = (input: string, cb: (e: ?Error, any) => void) => {
-    if (input.length >= 3) {
+    if (input.length >= 2 || this.isOneCharInputAllowed(input)) {
       return nominatimSearch(input, this.state.queryType)
         .then(json => {
           if (!Array.isArray(json)) return cb(null, { options: [] });
@@ -163,6 +163,18 @@ export class LocationSelect extends React.PureComponent {
         .catch(e => cb(e, null));
     } else {
       return cb(null, { options: [] });
+    }
+  };
+  isOneCharInputAllowed = (input: string) => {
+    // Allowing one character input if it contains characters from certain scripts while
+    // guarding against browsers that don't support this kind of regular expression
+    try {
+      return /\p{scx=Han}|\p{scx=Hangul}|\p{scx=Hiragana}|\p{scx=Katakana}/u.test(
+        input
+      );
+    } catch {
+      // Allowing always is better than never allowing for the above-mentioned scripts
+      return true;
     }
   };
   onChangeLocal = (data: ?Array<Object>) => {
