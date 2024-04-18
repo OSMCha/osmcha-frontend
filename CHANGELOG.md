@@ -2,6 +2,9 @@
 
 Log of changes since the 2.0 version
 
+### 0.87.5
+- Update changeset-map version to 1.12.1
+
 ### 0.87.4
 - Fix error in the copy changeset url link
   

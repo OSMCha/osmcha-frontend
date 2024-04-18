@@ -3140,10 +3140,10 @@ changelog@^1.3.0:
     semver "5.5.0"
     wordwrap "1.0.0"
 
-changeset-map@^1.12.0:
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/changeset-map/-/changeset-map-1.12.0.tgz#fc30ccae03e09527a92b73c651565c2496bbc8f0"
-  integrity sha512-oCAF9UK9gW0rOLtmScL4kn8O/z9xFTsqh9NL4/4Zv9+lBRYL012fky29lYCXTr/MlxWjnVYuyucM6eLimTPsmQ==
+changeset-map@^1.12.1:
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/changeset-map/-/changeset-map-1.12.1.tgz#0012e2503c34fd97d110554594a3a3f6d9f94af3"
+  integrity sha512-0uqIS4osPkDAMo59JPr60/CXlK+mRLBDkwGuLlOiJdJuXsaUhI8VnvNYOSKypP5/6FzSlZRAnP47GAZFybYswg==
   dependencies:
     "@turf/bbox" "^6.4.0"
     "@turf/bbox-polygon" "^6.4.0"
