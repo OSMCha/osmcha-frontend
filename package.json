@@ -1,6 +1,6 @@
 {
   "name": "osmcha-frontend",
-  "version": "0.87.5",
+  "version": "0.88.0",
   "license": "ISC",
   "engines": {
     "node": ">=7.0"
@@ -70,7 +70,7 @@
   "scripts": {
     "precommit": "lint-staged",
     "flow": "flow",
-    "start": "HTTPS=true react-scripts start",
+    "start": "react-scripts start",
     "lint": "eslint src",
     "test": "npm run lint && react-scripts test --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
