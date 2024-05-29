@@ -15,19 +15,13 @@ import { watchAuth, authTokenFlow, AUTH, tokenSelector } from '../auth_actions';
 import { authReducer } from '../auth_reducer';
 
 const token = '2d2289bd78985b2b46af29607ee50fa37cb1723a';
-const oauth_verifier = 'xbiZdWS1EYS608suvHrL';
-const oauth_token_secret = 'C2l9h7YEC1AzSyCi1aTKmsOi0WmEU7DMolabWrPZ';
-const oauth_token = 'zi2Lu2r5H1z5ZTbQ2YIjZJHRnwmOHKpBfvWu83ZG';
+const code = 'xbiZdWS1EYS608suvHrL';
 
 describe('auth actions testing', () => {
   it('test authTokenFlow ', async () => {
     const result = await expectSaga(authTokenFlow)
       .withReducer(authReducer)
       .provide([
-        [
-          matchers.call.fn(postTokensOSMCha),
-          { oauth_token_secret, oauth_token }
-        ],
         [
           matchers.call.fn(postFinalTokensOSMCha),
           {
@@ -36,37 +30,23 @@ describe('auth actions testing', () => {
         ],
         [matchers.call.fn(setItem)]
       ])
-      .put({
-        type: AUTH.saveOAuth,
-        oauth_token_secret,
-        oauth_token
-      })
       .dispatch({
         type: AUTH.getFinalToken,
-        oauth_verifier
+        code
       })
       .delay(100)
       .dispatch({
         type: AUTH.saveToken,
         token,
-        oauth_verifier
+        code
       })
       .run();
     const { effects, storeState } = result;
     expect(effects.call).toHaveLength(5);
     expect(effects.put).toHaveLength(1);
     expect(effects.call[0]).toEqual(call(postTokensOSMCha));
-    expect(effects.call[1]).toEqual(
-      call(
-        postFinalTokensOSMCha,
-        oauth_token,
-        oauth_token_secret,
-        oauth_verifier
-      )
-    );
+    expect(effects.call[1]).toEqual(call(postFinalTokensOSMCha, code));
     const finalStore = fromJS({
-      oAuthToken: oauth_token,
-      oAuthTokenSecret: oauth_token_secret,
       error: null,
       token,
       userDetails: null

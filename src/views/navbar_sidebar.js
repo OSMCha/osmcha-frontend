@@ -8,10 +8,8 @@ import { Button } from '../components/button';
 import { Navbar } from '../components/navbar';
 import { Dropdown } from '../components/dropdown';
 
-import { createPopup } from '../utils/create_popup';
-import { handlePopupCallback, isMobile } from '../utils';
-import { osmAuthUrl } from '../config/constants';
-import { isDev, isLocal } from '../config';
+import { isMobile } from '../utils';
+import { getAuthUrl } from '../network/auth';
 
 import {
   getOAuthToken,
@@ -35,19 +33,8 @@ class NavbarSidebar extends React.PureComponent {
   };
 
   handleLoginClick = () => {
-    var oAuthToken = this.props.oAuthToken;
-    if (!oAuthToken) return;
-
-    let url;
-    if (isDev || isLocal) {
-      url = `/local-landing.html#${oAuthToken}`;
-    } else {
-      url = `${osmAuthUrl}?oauth_token=${oAuthToken}`;
-    }
-
-    createPopup('oauth_popup', url);
-    handlePopupCallback().then(oAuthObj => {
-      this.props.getFinalToken(oAuthObj.oauth_verifier);
+    getAuthUrl().then(res => {
+      window.location.assign(res.auth_url);
     });
   };
 

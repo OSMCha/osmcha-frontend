@@ -18,7 +18,6 @@ export const osmchaUrl = API_URL.replace('api/v1', '');
 
 export const osmUrl =
   process.env.REACT_APP_OSM_URL || 'https://www.openstreetmap.org';
-export const osmAuthUrl = `${osmUrl}/oauth/authorize`;
 export const isOfficialOSM = osmUrl === 'https://www.openstreetmap.org';
 export const apiOSM =
   process.env.REACT_APP_OSM_API || 'https://api.openstreetmap.org/api/0.6';

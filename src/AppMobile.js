@@ -9,7 +9,7 @@ import { ChangesetsList } from './views/changesets_list';
 import { CMap } from './views/map';
 import { NavbarChangeset } from './views/navbar_changeset';
 import { NavbarSidebar } from './views/navbar_sidebar';
-// import { Home } from './views/home';
+import { Authorized } from './views/authorized';
 import { Modal } from './views/modal';
 import { User } from './views/user';
 import { SavedFilters } from './views/saved_filters';
@@ -41,6 +41,7 @@ export const AppMobile = () => {
         <Route path="/saved-filters" component={SavedFilters} />
         <Route path="/trusted-users" component={TrustedUsers} />
         <Route path="/watchlist" component={Watchlist} />
+        <Route path="/authorized" component={Authorized} />
         <Route exact path="/teams" component={MappingTeams} />
         <Route path={'/teams/:id'} component={EditMappingTeam} />
       </div>

@@ -4,17 +4,11 @@ import { osmchaSocialTokenUrl } from '../config/constants';
 import { API_URL } from '../config';
 import { handleErrors } from './aoi';
 
-export function postFinalTokensOSMCha(
-  oauth_token: string,
-  oauth_token_secret: string,
-  oauth_verifier: string
-) {
+export function postFinalTokensOSMCha(code: string) {
   return request
     .post(osmchaSocialTokenUrl)
     .type('form')
-    .send({ oauth_token: oauth_token })
-    .send({ oauth_verifier: oauth_verifier })
-    .send({ oauth_token_secret: oauth_token_secret })
+    .send({ code: code })
     .then(r => {
       return r.body;
     })
@@ -23,14 +17,15 @@ export function postFinalTokensOSMCha(
       return Promise.reject(e);
     });
 }
-export function postTokensOSMCha() {
-  return request
-    .post(osmchaSocialTokenUrl)
-    .type('form')
-    .then(r => r.body)
-    .catch(e => {
-      console.error(e);
-      return Promise.reject(e);
+
+export function getAuthUrl() {
+  return fetch(`${API_URL}/social-auth/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
+  })
+    .then(handleErrors)
+    .then(res => {
+      return res.json();
     });
 }
 
