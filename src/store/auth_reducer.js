@@ -20,12 +20,6 @@ export function authReducer(
   action: Object
 ): AuthType {
   switch (action.type) {
-    case AUTH.saveOAuth: {
-      return state
-        .set('oAuthToken', action.oauth_token)
-        .set('oAuthTokenSecret', action.oauth_token_secret)
-        .set('error', null);
-    }
     case AUTH.saveToken: {
       return state.set('token', action.token).set('error', null);
     }

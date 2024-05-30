@@ -1,39 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { createPopup } from '../../utils/create_popup';
-import { handlePopupCallback } from '../../utils/handle_popup_callback';
-import { osmAuthUrl } from '../../config/constants';
-import { isDev, isLocal } from '../../config';
 import type { RootStateType } from '../../store';
-import { getFinalToken } from '../../store/auth_actions';
-import { getChangesetsPage } from '../../store/changesets_page_actions';
-import { getChangeset } from '../../store/changeset_actions';
+import { getAuthUrl } from '../../network/auth';
 
 class SignInButton extends React.PureComponent {
   props: {
     text: string,
     oAuthToken: ?string,
-    pageIndex: number,
-    getFinalToken: string => mixed,
-    getChangeset: string => mixed,
-    getChangesetsPage: string => mixed
+    pageIndex: number
   };
 
   handleLoginClick = () => {
-    var oAuthToken = this.props.oAuthToken;
-    if (!oAuthToken) return;
-
-    let url;
-    if (isDev || isLocal) {
-      url = `/local-landing.html#${oAuthToken}`;
-    } else {
-      url = `${osmAuthUrl}?oauth_token=${oAuthToken}`;
-    }
-
-    createPopup('oauth_popup', url);
-    handlePopupCallback().then(oAuthObj => {
-      this.props.getFinalToken(oAuthObj.oauth_verifier);
+    getAuthUrl().then(res => {
+      window.location.assign(res.auth_url);
     });
   };
   render() {
@@ -54,16 +34,9 @@ class SignInButton extends React.PureComponent {
   }
 }
 
-SignInButton = connect(
-  (state: RootStateType, props) => ({
-    oAuthToken: state.auth.get('oAuthToken'),
-    pageIndex: state.changesetsPage.get('pageIndex') || 0
-  }),
-  {
-    getFinalToken,
-    getChangeset,
-    getChangesetsPage
-  }
-)(SignInButton);
+SignInButton = connect((state: RootStateType, props) => ({
+  oAuthToken: state.auth.get('oAuthToken'),
+  pageIndex: state.changesetsPage.get('pageIndex') || 0
+}))(SignInButton);
 
 export { SignInButton };

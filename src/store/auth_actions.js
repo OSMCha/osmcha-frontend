@@ -5,7 +5,6 @@ import { push } from 'react-router-redux';
 import { fromJS } from 'immutable';
 
 import {
-  postTokensOSMCha,
   postFinalTokensOSMCha,
   fetchUserDetails,
   updateUserDetails
@@ -24,7 +23,6 @@ import type { RootStateType } from './';
 
 export const AUTH = {
   postSocialToken: 'AUTH_POST_SOCIAL_TOKEN',
-  saveOAuth: 'AUTH_SAVE_OAUTH_OBJ',
   getFinalToken: 'AUTH_GET_FINAL_TOKEN',
   saveToken: 'AUTH_SAVE_TOKEN',
   logout: 'AUTH_LOGOUT',
@@ -43,8 +41,8 @@ export function action(type: string, payload: ?Object) {
 // starting point for react component to start fetch
 export const getOAuthToken = () => action(AUTH.postSocialToken);
 
-export const getFinalToken = (oauth_verifier: string) =>
-  action(AUTH.getFinalToken, { oauth_verifier });
+export const getFinalToken = (code: string) =>
+  action(AUTH.getFinalToken, { code });
 
 export const logUserOut = () => action(AUTH.logout);
 
@@ -150,8 +148,6 @@ export function* watchAuth(): any {
 
 export function* logoutFlow(): any {
   yield call(removeItem, 'token');
-  yield call(removeItem, 'oauth_token');
-  yield call(removeItem, 'oauth_token_secret');
   yield put(action(AUTH.clearSession));
   yield put(action(TRUSTEDLIST.clear));
   // get CHANGESET_PAGE without user metadata
@@ -170,34 +166,36 @@ export function* logoutFlow(): any {
 }
 
 export function* authTokenFlow(): any {
-  const { oauth_token, oauth_token_secret } = yield call(postTokensOSMCha);
-  yield put(
-    action(AUTH.saveOAuth, {
-      oauth_token,
-      oauth_token_secret
-    })
-  );
+  console.log('Authorization flow started');
   // yield take(ACTION) waits for the particular action
   // to emit and resume the flow. next in action would
   // be to wait for the action `GET_FINAL_TOKEN`
   // and resume the flow
-  const { oauth_verifier } = yield take(AUTH.getFinalToken);
-  const { token } = yield call(
-    postFinalTokensOSMCha,
-    oauth_token,
-    oauth_token_secret,
-    oauth_verifier
+  const { code } = yield take(AUTH.getFinalToken);
+  yield put(
+    modal({
+      kind: 'warning',
+      title: 'Login in progress',
+      description: 'Please, wait. We are logging you in.',
+      autoDismiss: 1
+    })
   );
+  const { token } = yield call(postFinalTokensOSMCha, code);
   if (!token || token === '') {
     throw new Error('invalid token');
   }
+  yield put(
+    modal({
+      kind: 'success',
+      title: 'Successful authentication',
+      description: 'You are now logged in!',
+      autoDismiss: 2
+    })
+  );
   yield call(setItem, 'token', token);
-  yield call(setItem, 'oauth_token', oauth_token);
-  yield call(setItem, 'oauth_token_secret', oauth_token_secret);
   yield put(
     action(AUTH.saveToken, {
-      token,
-      oauth_verifier
+      token
     })
   );
   return token;
