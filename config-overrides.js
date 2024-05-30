@@ -26,7 +26,7 @@ const RUNTIME_CACHING = [
     }
   },
   {
-    urlPattern: /real-changesets.s3.us-west-2.amazonaws.com\//,
+    urlPattern: /^https:\/\/real-changesets\.s3\.us-west-2\.amazonaws\.com\/.*/,
     handler: 'cacheFirst',
     options: {
       cache: {
