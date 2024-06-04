@@ -3,7 +3,7 @@ import { API_URL } from '../config';
 import { handleErrors } from './aoi';
 
 export function fetchReasons(token: ?string) {
-  return fetch(`${API_URL}/suspicion-reasons/`, {
+  return fetch(`${API_URL}/suspicion-reasons/?page_size=200`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export function fetchReasons(token: ?string) {
 }
 
 export function fetchTags(token: ?string) {
-  return fetch(`${API_URL}/tags/`, {
+  return fetch(`${API_URL}/tags/?page_size=200`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
