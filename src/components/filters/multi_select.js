@@ -23,7 +23,7 @@ export class MultiSelect extends React.PureComponent {
   };
   getAsyncOptions = () => {
     if (!this.props.dataURL) return;
-    return fetch(`${API_URL}/${this.props.dataURL}/`, {
+    return fetch(`${API_URL}/${this.props.dataURL}/?page_size=200`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

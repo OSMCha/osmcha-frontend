@@ -2,6 +2,12 @@
 
 Log of changes since the 2.0 version
 
+### 0.88.1
+- Loads all tags and reasons to avoid errors
+
+### 0.88.0
+- Enable oauth2 authorization (#733)
+
 ### 0.87.5
 - Update changeset-map version to 1.12.1
 
