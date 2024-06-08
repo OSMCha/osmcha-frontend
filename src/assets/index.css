@@ -446,11 +446,15 @@ img {
 
 /*home images*/
 .osmcha-logo {
-  width: 40vw;
+  width: 35vw;
 }
 
 .workflow-img {
-  width: 35vw;
+  width: 30vw;
+}
+
+.osmus-img {
+  width: 14vw;
 }
 
 #guide > p {

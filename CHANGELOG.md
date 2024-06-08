@@ -2,6 +2,9 @@
 
 Log of changes since the 2.0 version
 
+### 1.0.0
+- Add OSM US logo and update main logo
+
 ### 0.88.1
 - Loads all tags and reasons to avoid errors
 
