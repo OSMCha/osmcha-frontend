@@ -1,8 +1,9 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { formatDistanceToNow, parse } from 'date-fns';
+import { parse } from 'date-fns';
 
+import { RelativeTime } from '../relative_time';
 import { useIsUserListed } from '../../hooks/UseIsUserListed';
 
 function TitleComponent({
@@ -37,11 +38,9 @@ function TitleComponent({
         </strong>
         <span className="txt-s mr3">
           &nbsp;
-          {formatDistanceToNow(
-            // eslint-disable-next-line
-            parse(date, "yyyy-MM-dd'T'HH:mm:ssX", new Date()),
-            { addSuffix: true }
-          )}
+          <RelativeTime
+            datetime={parse(date, "yyyy-MM-dd'T'HH:mm:ssX", new Date())}
+          />
         </span>
       </span>
     </div>

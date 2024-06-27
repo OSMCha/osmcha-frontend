@@ -2,10 +2,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
-import { formatDistanceToNow, parse } from 'date-fns';
+import { parse } from 'date-fns';
 
 import { CreateDeleteModify } from '../create_delete_modify';
 import { Details } from './details';
+import { RelativeTime } from '../relative_time';
 import { useIsUserListed } from '../../hooks/UseIsUserListed';
 
 type propsType = {|
@@ -79,7 +80,8 @@ function HeaderComponent({
                 &nbsp;({userEditCount} edits)
               </span>
             )}
-            &nbsp;created&nbsp;{formatDistanceToNow(date, { addSuffix: true })}
+            &nbsp;created&nbsp;
+            <RelativeTime datetime={date} />
           </span>
         </div>
       </div>
