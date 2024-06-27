@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import showdown from 'showdown';
-import { formatDistanceToNow, parse } from 'date-fns';
+import { parse } from 'date-fns';
 
 import { Avatar } from '../avatar';
 import { getObjAsQueryParam } from '../../utils/query_params';
+import { RelativeTime } from '../relative_time';
 import { SignInButton } from './sign_in_button';
 import { TrustWatchUser } from './trust_watch_user';
 import { UserOSMLink } from './user_osm_link';
@@ -89,16 +90,13 @@ export class User extends React.PureComponent {
       this.props.userDetails.get('description') || ''
     );
     const registrationDate = this.props.userDetails.get('accountCreated')
-      ? formatDistanceToNow(
-          parse(
-            this.props.userDetails.get('accountCreated'),
-            // eslint-disable-next-line
-            "yyyy-MM-dd'T'HH:mm:ssX",
-            new Date()
-          ),
-          { addSuffix: true }
+      ? parse(
+          this.props.userDetails.get('accountCreated'),
+          // eslint-disable-next-line
+          "yyyy-MM-dd'T'HH:mm:ssX",
+          new Date()
         )
-      : '';
+      : null;
 
     return (
       <div className="px12 py6">
@@ -117,7 +115,13 @@ export class User extends React.PureComponent {
             </div>
             <div>
               <p className="txt-s color-gray align-center">
-                {`Joined ${registrationDate} | `}
+                {registrationDate != null && (
+                  <React.Fragment>
+                    Joined&nbsp;
+                    <RelativeTime datetime={registrationDate} />
+                    {' | '}
+                  </React.Fragment>
+                )}
                 {this.props.userDetails.get('count')
                   ? this.renderUidFilterLink()
                   : `${this.props.userDetails.get(
