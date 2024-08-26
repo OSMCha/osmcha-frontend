@@ -36,7 +36,10 @@ class NavbarSidebar extends React.PureComponent {
     getAuthUrl().then(res => {
       const authUrl = new URL(res.auth_url);
       if (process.env.REACT_APP_STACK === 'DEV') {
-        authUrl.searchParams.set('redirect_uri', 'http://localhost:3000');
+        authUrl.searchParams.set(
+          'redirect_uri',
+          'http://127.0.0.1:3000/authorized'
+        );
       }
       window.location.assign(authUrl.href);
     });
