@@ -23,7 +23,7 @@ export const apiOSM =
   process.env.REACT_APP_OSM_API || 'https://api.openstreetmap.org/api/0.6';
 
 export const whosThat =
-  'https://rksbsqdel4.execute-api.us-east-1.amazonaws.com/testing?action=names&id=';
+  'https://whosthat.osmz.ru/whosthat.php?action=names&id=';
 
 export const nominatimUrl =
   process.env.REACT_APP_NOMINATIM_URL ||
