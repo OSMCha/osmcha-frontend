@@ -1,12 +1,13 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { formatDistanceToNow, parse } from 'date-fns';
+import { parse } from 'date-fns';
 import AnchorifyText from 'react-anchorify-text';
 
 import AssemblyAnchor from '../assembly_anchor';
 import { CommentForm } from './comment';
 import TranslateButton from './translate_button';
+import { RelativeTime } from '../relative_time';
 import { SignInButton } from './sign_in_button';
 import { UserOSMLink } from './user_osm_link';
 
@@ -54,15 +55,16 @@ class Discussions extends React.PureComponent {
                   )}
                 </span>
                 <span>
-                  {formatDistanceToNow(
-                    // eslint-disable-next-line
-                    parse(
-                      comment.get('date'),
-                      "yyyy-MM-dd'T'HH:mm:ssX",
-                      new Date()
-                    ),
-                    { addSuffix: true }
-                  )}
+                  <RelativeTime
+                    datetime={
+                      // eslint-disable-next-line
+                      parse(
+                        comment.get('date'),
+                        "yyyy-MM-dd'T'HH:mm:ssX",
+                        new Date()
+                      )
+                    }
+                  />
                 </span>
               </div>
               <div className="flex-parent flex-parent--column mt6 mb3">
