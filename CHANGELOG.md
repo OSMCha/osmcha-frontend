@@ -2,6 +2,10 @@
 
 Log of changes since the 2.0 version
 
+### 1.0.2
+- Update changeset-map to 1.14.0
+- Update @turf dependencies to 7.1.0
+
 ### 1.0.1
 - Update changeset-map to 1.13.0
 - Update Who's That server URL

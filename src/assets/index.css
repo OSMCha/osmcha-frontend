@@ -331,6 +331,10 @@ img {
   z-index: 0 !important;
 }
 
+.cmap-changeset-link, .cmap-wikidata-link {
+  text-decoration: underline;
+}
+
 .txt-bold-on-hover:hover {
   font-weight: 600;
 }
@@ -399,10 +403,6 @@ img {
 
 .changesets-list .border-l--4 {
   border-left-width: 4px !important;
-}
-
-.cmap-changeset-link {
-  text-decoration: underline;
 }
 
 /* bbox map*/
