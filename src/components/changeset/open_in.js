@@ -54,6 +54,11 @@ export function OpenIn({ display, changesetId, coordinates, className }) {
     {
       label: 'Rapid',
       value: 'Rapid'
+    },
+    {
+      label: 'ResultMaps',
+      value: 'ResultMaps',
+      href: `https://resultmaps.neis-one.org/osm-change-viz?c=${changesetId}`
     }
   ];
   if (mobile) {
