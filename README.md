@@ -1,5 +1,4 @@
 # osmcha-frontend
-[![CircleCI](https://circleci.com/gh/mapbox/osmcha-frontend.svg?style=svg)](https://circleci.com/gh/mapbox/osmcha-frontend)
 
 OSMCha is composed by a group of softwares that together has the aim to make it
 easier to monitor and validate the changes in OpenStreetMap. [Learn more …](ABOUT.md)
