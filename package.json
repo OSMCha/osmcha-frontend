@@ -73,11 +73,10 @@
     "lint": "eslint src",
     "test": "npm run lint && react-scripts test --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
-    "build": "REACT_APP_STACK=DEV react-scripts build",
-    "build:dev": "REACT_APP_STACK=DEV PUBLIC_URL=https://mapbox.github.io/osmcha-frontend react-scripts build",
-    "build:staging": "REACT_APP_STACK=STAGING PUBLIC_URL=https://staging.osmcha.org react-scripts build",
-    "build:prod": "REACT_APP_STACK=PRODUCTION PUBLIC_URL=https://osmcha.org react-scripts build",
-    "build:test": "REACT_APP_STACK=PRODUCTION PUBLIC_URL=https://osmcha-test.ds.io react-scripts build"
+    "build": "npm run build:dev",
+    "build:dev": "REACT_APP_STACK=DEV react-scripts build",
+    "build:staging": "REACT_APP_STACK=STAGING react-scripts build",
+    "build:prod": "REACT_APP_STACK=PRODUCTION react-scripts build"
   },
   "lint-staged": {
     "*.js": [
