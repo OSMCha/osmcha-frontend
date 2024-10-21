@@ -5,8 +5,6 @@ import { Map } from 'immutable';
 import { isMobile } from './utils';
 import { AppMobile } from './AppMobile';
 import { AppDesktop } from './AppDesktop';
-
-import { gaPageView } from './utils/analytics';
 import { getSearchObj } from './utils/query_params';
 
 export class App extends Component {
@@ -22,13 +20,6 @@ export class App extends Component {
           .keySeq()
           .sort((a, b) => a.localeCompare(b))
           .join(',');
-        gaPageView({
-          page: `/?filters=${filters}`,
-          title: 'Filters',
-          hitType: 'pageview'
-        });
-      } else {
-        gaPageView({ page: '/', title: 'Home', hitType: 'pageview' });
       }
     }
   }
