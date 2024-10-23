@@ -15,7 +15,7 @@ import { FiltersHeader } from '../components/filters/filters_header';
 
 import { deleteAOI } from '../network/aoi';
 import type { RootStateType } from '../store';
-import { delayPromise, gaSendEvent, isMobile } from '../utils';
+import { delayPromise, isMobile } from '../utils';
 
 import type { filterType, filtersType } from '../components/filters';
 const NEW_AOI = 'unnamed *';
@@ -80,25 +80,12 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
         return;
       }
       this.props.applyFilters(this.state.filters, '/');
-      this.sendToAnalytics();
       // show user if there were any new changesets
       // incase service had cached the request
       delayPromise(3000).promise.then(() =>
         this.props.checkForNewChangesets(true)
       );
     }
-  };
-  sendToAnalytics = () => {
-    const filters = this.state.filters;
-    filters.forEach((v, k) => {
-      v.forEach(vv => {
-        gaSendEvent({
-          category: 'Filters',
-          action: k,
-          label: vv.get('label')
-        });
-      });
-    });
   };
   handleChange = (name: string, values?: filterType) => {
     let filters = this.state.filters;
