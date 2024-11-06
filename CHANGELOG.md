@@ -2,6 +2,13 @@
 
 Log of changes since the 2.0 version
 
+### 1.1.0
+
+- Fix Chinese text input in location search bar (#671)
+- Add link to Pascal Neis' Changeset Visualization app (#690)
+- Simplify Docker image configuration and deployment (#749)
+- Switch to Plausible analytics (#750)
+
 ### 1.0.2
 - Update changeset-map to 1.14.0
 - Update @turf dependencies to 7.1.0
