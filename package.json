@@ -53,7 +53,6 @@
     "check-node-version": "^2.0.1",
     "enzyme": "^2.9.1",
     "flow-bin": "^0.54.1",
-    "gh-pages": "^1.0.0",
     "husky": "^0.14.2",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
@@ -73,14 +72,10 @@
     "lint": "eslint src",
     "test": "npm run lint && react-scripts test --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
-    "build": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV react-scripts build",
-    "build:dev": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=DEV PUBLIC_URL=https://mapbox.github.io/osmcha-frontend react-scripts build",
-    "deploy:dev": "gh-pages -d build",
-    "build:staging": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=STAGING PUBLIC_URL=https://staging.osmcha.org react-scripts build",
-    "deploy:staging": "gh-pages -d build -b oh-pages",
-    "build:prod": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=PRODUCTION PUBLIC_URL=https://osmcha.org react-scripts build",
-    "deploy:prod": "gh-pages -d build -b oh-pages",
-    "build:test": "REACT_APP_VERSION=\"$(node -e \"console.log(require('./package.json').version)\")\" REACT_APP_STACK=PRODUCTION PUBLIC_URL=https://osmcha-test.ds.io react-scripts build"
+    "build": "npm run build:dev",
+    "build:dev": "REACT_APP_STACK=DEV react-scripts build",
+    "build:staging": "REACT_APP_STACK=STAGING react-scripts build",
+    "build:prod": "REACT_APP_STACK=PRODUCTION react-scripts build"
   },
   "lint-staged": {
     "*.js": [
