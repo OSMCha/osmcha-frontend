@@ -13,6 +13,7 @@ import { createPopup } from '../utils/create_popup';
 import { handlePopupCallback, isMobile } from '../utils';
 import { BASE_PATH } from '../config'
 import { osmAuthUrl } from '../config/constants';
+import { josmAuthUrl } from '../config/constants';
 
 import {
   getOAuthToken,
@@ -113,8 +114,8 @@ class NavbarSidebar extends React.PureComponent {
         ]}
         onChange={this.onUserMenuSelect}
         value={[]}
-        onAdd={() => {}}
-        onRemove={() => {}}
+        onAdd={() => { }}
+        onRemove={() => { }}
         position="right"
       />
     );

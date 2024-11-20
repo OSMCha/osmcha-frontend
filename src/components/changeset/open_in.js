@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { osmApiUrl, osmBaseUrl } from '../../config/constants';
+import { josmApiUrl, josmBaseUrl } from '../../config/constants';
 import { getMapInstance } from '../changeset-map';
 import { Dropdown } from '../dropdown';
 import { isMobile } from '../../utils';
@@ -30,7 +31,7 @@ export function OpenIn({ display, changesetId, coordinates, className }) {
     {
       label: 'JOSM',
       value: 'JOSM',
-       href: `http://127.0.0.1:8111/import?url=${osmApiUrl}/api/0.6/changeset/${changesetId}/download`
+      href: `http://127.0.0.1:8111/import?url=${josmApiUrl}/api/0.6/changeset/${changesetId}/download`
     }
   ];
   if (mobile) {
@@ -44,8 +45,8 @@ export function OpenIn({ display, changesetId, coordinates, className }) {
   return (
     <div className={`select-container ${className}`}>
       <Dropdown
-        onAdd={() => {}}
-        onRemove={() => {}}
+        onAdd={() => { }}
+        onRemove={() => { }}
         value={[]}
         onChange={openEditor}
         options={options}
