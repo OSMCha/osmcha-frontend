@@ -240,7 +240,7 @@ export class Sidebar extends React.PureComponent {
                 rel="noopener noreferrer"
                 className="cmap-hlist-item cmap-noselect cmap-pointer cmap-c-link-josm"
                 href={
-                  'http://127.0.0.1:8111/import?url=http://www.openstreetmap.org/api/0.6/changeset/' +
+                  'http://127.0.0.1:8111/import?url=https://cert.gemini.nga.mil/api/0.6/changeset/' +
                   changesetId +
                   '/download'
                 }
