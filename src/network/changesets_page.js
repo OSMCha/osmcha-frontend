@@ -26,17 +26,15 @@ export function fetchChangesetsPage(
     if (filterJoined === '') return;
     flatFilters += `&${k}=${encodeURIComponent(filterJoined)}`;
   });
-  let url = `${API_URL}/changesets/?${
-    nocache // for cache busting of this pattern /\/changesets\/#nocache\?page=/
+  let url = `${API_URL}/changesets/?${nocache // for cache busting of this pattern /\/changesets\/#nocache\?page=/
       ? `page_size=${PAGE_SIZE}&page=${pageIndex + 1}`
       : `page=${pageIndex + 1}&page_size=${PAGE_SIZE}`
-  }${flatFilters}`;
+    }${flatFilters}`;
   if (aoiId) {
-    url = `${API_URL}/aoi/${aoiId}/changesets/?${
-      nocache
+    url = `${API_URL}/aoi/${aoiId}/changesets/?${nocache
         ? `page_size=${PAGE_SIZE}&page=${pageIndex + 1}`
         : `page=${pageIndex + 1}&page_size=${PAGE_SIZE}`
-    }`;
+      }`;
   }
   return fetch(url, {
     method: 'GET',
@@ -52,7 +50,7 @@ export function fetchChangesetsPage(
       );
     }
     if (res.status === 403) {
-      return Promise.reject(Error('Operation not allowed.'));
+      return Promise.reject(Error('Authentication error. Sign in again and repeat the operation.'));
     }
     if (res.status >= 400 && res.status < 600) {
       return Promise.reject(
@@ -72,7 +70,7 @@ export function fetchAOIChangesetPage(
 ) {
   return fetch(
     `${API_URL}/aoi/${aoiId}/changesets/?page_size=${PAGE_SIZE}&page=${pageIndex +
-      1}`,
+    1}`,
     {
       method: 'GET',
       credentials: apiCredentials,

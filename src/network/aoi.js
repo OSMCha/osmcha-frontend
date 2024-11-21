@@ -21,7 +21,7 @@ export function handleErrors(response: Object) {
         );
       }
       if (response.status === 401) {
-        throw new Error('Operation not allowed.');
+        throw new Error('Authentication error. Sign in again and repeat the operation.');
       }
       if (response.status === 404) {
         throw new Error('Resource not found.');
