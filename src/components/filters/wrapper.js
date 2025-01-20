@@ -1,5 +1,4 @@
 import React from 'react';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { isMobile } from '../../utils';
 
 export function Wrapper({
@@ -38,22 +37,15 @@ export function Wrapper({
         {!mobile && (
           <span className="col col--3-mxl col--3-ml col--1-mm">
             <span className="desc block relative ml12 wmin120">
-              <CSSTransitionGroup
-                transitionName="filters-desc"
-                transitionAppearTimeout={300}
-                transitionEnterTimeout={300}
-                transitionLeaveTimeout={200}
-              >
-                {description && (
-                  <span
-                    key={0}
-                    className="absolute wmin300 bg-white"
-                    style={{ marginTop: -5 }}
-                  >
-                    {description}
-                  </span>
-                )}
-              </CSSTransitionGroup>
+              {description && (
+                <span
+                  key={0}
+                  className="absolute wmin300 color-gray bg-white"
+                  style={{ marginTop: -5 }}
+                >
+                  {description}
+                </span>
+              )}
             </span>
           </span>
         )}

@@ -502,3 +502,126 @@ img {
 .txt-underline-dotted {
   text-decoration: underline dotted !important;
 }
+
+table {
+  width: 100%;
+}
+
+th {
+  text-align: left;
+}
+
+.element-info {
+  --color-create: #007554;
+  --color-modify: #b77a00;
+  --color-delete: #ee0028;
+}
+
+.element-info hr {
+  border-bottom: 1px solid #ddd;
+  margin: 1em 0;
+}
+
+.element-info menu {
+  display: flex;
+  gap: 0.5em;
+  margin: 0.25em 0;
+}
+
+.element-info h2 a {
+  /* assembly.js removes link styles, so add them back here */
+  text-decoration: underline;
+}
+
+.element-info table {
+  font-family: monospace;
+  line-height: 1.1;
+  white-space: pre-wrap;
+}
+
+.metadata-table td:first-child {
+  font-weight: bold;
+}
+
+.metadata-table td:not(:last-child) {
+  padding-right: 1ch;
+}
+
+.tag-table {
+  text-indent: 3ch hanging;
+}
+
+.element-info tr.create {
+  color: var(--color-create);
+  background-color: #dbfff5;
+}
+
+.element-info tr.modify {
+  color: var(--color-modify);
+  background-color: #fff3da;
+}
+
+.element-info tr.delete {
+  color: var(--color-delete);
+  background-color: #ffe3e7;
+}
+
+.element-info table ins {
+  color: var(--color-create);
+  text-decoration: none;
+}
+
+.element-info table del {
+  color: var(--color-delete);
+  text-decoration: none;
+}
+
+.element-info tr td:first-child::before {
+  content: " ";
+  display: inline;
+  margin-right: 0.5ch;
+}
+
+.element-info tr td:first-child {
+  /* prevent line break between ::before content and tag key when key is very long */
+  text-wrap: nowrap;
+}
+
+.element-info tr.create td:first-child::before {
+  content: "+";
+  color: var(--color-create);
+}
+
+.element-info tr.modify td:first-child::before {
+  content: "~";
+  color: var(--color-modify);
+}
+
+.element-info tr.delete td:first-child::before {
+  content: "-";
+  color: var(--color-delete);
+}
+
+.element-info th:first-child {
+  padding-left: 1.5ch;
+}
+
+.tag-table th:last-child {
+  padding-left: 3ch;
+}
+
+.tag-table tbody td:last-child::before {
+  content: "=";
+  color: #999;
+  display: inline;
+  margin-left: 1ch;
+  margin-right: 1ch;
+}
+
+.member-table tr {
+  cursor: pointer;
+}
+
+.member-table tr:hover {
+  font-weight: bold;
+}

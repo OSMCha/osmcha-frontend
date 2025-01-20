@@ -5,17 +5,13 @@ import { fromJS, Map, List } from 'immutable';
 import { LOCATION_CHANGE, replace, push } from 'react-router-redux';
 import notifications from '../config/notifications';
 
-import { fetchChangeset, setHarmful, setTag } from '../network/changeset';
-import { importChangesetMap } from '../utils/cmap';
 import {
-  apiOSM,
-  osmUrl,
-  isOfficialOSM,
-  osmchaUrl,
-  overpassBase,
-  enableRealChangesets,
-  mapboxAccessToken
-} from '../config/constants';
+  fetchChangeset,
+  fetchAndParseAugmentedDiff,
+  setHarmful,
+  setTag
+} from '../network/changeset';
+import { fetchChangesetMetadata } from '../network/openstreetmap';
 
 import {
   getChangesetIdFromLocation,
@@ -271,19 +267,6 @@ export function* fetchChangesetAction(changesetId: number): Object {
   }
 }
 
-export function changesetMapModule(changesetId: number): any {
-  return importChangesetMap('getChangeset').then((getCMapData: any) =>
-    getCMapData(changesetId, {
-      osmApiBase: apiOSM,
-      osmBase: osmUrl,
-      enableRealChangesets,
-      overpassBase,
-      mapboxAccessToken,
-      isOSMApp: isOfficialOSM,
-      osmchaBase: osmchaUrl
-    })
-  );
-}
 export const changesetMapSelector = (state: RootStateType) =>
   state.changeset.getIn(['changesetMap'], Map());
 
@@ -305,10 +288,12 @@ export function* fetchChangesetMapAction(changesetId: number): Object {
     })
   );
   try {
-    changesetMap = yield call(changesetMapModule, changesetId);
+    let metadata = yield call(fetchChangesetMetadata, changesetId);
+    let adiff = yield call(fetchAndParseAugmentedDiff, changesetId);
+
     yield put(
       action(CHANGESET_MAP.fetched, {
-        data: changesetMap,
+        data: { metadata, adiff },
         changesetId
       })
     );

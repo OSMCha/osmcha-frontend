@@ -2,14 +2,17 @@
 import React from 'react';
 import { Map, List } from 'immutable';
 import { Reasons } from '../reasons';
-import { selectFeature } from '../../views/map';
 
 const Feature = ({
   data,
-  changesetReasons
+  changesetReasons,
+  setHighlight,
+  zoomToAndSelect
 }: {
   data: Map<string, any>,
-  changesetReasons: Map<string, any>
+  changesetReasons: Map<string, any>,
+  setHighlight: (type: string, id: number, isHighlighted: boolean) => void,
+  zoomToAndSelect: (type: string, id: number) => void
 }) => {
   let reasons;
   // operation necessary to the change
@@ -50,7 +53,15 @@ const Feature = ({
           className="cursor-pointer txt-underline-on-hover txt-bold mr6"
           role="button"
           tabIndex="0"
-          onFocus={() => selectFeature(parseInt(data.get('osm_id'), 10))}
+          onMouseEnter={() =>
+            setHighlight(data.get('type'), data.get('id'), true)
+          }
+          onMouseLeave={() =>
+            setHighlight(data.get('type'), data.get('id'), false)
+          }
+          onFocus={() => setHighlight(data.get('type'), data.get('id'), true)}
+          onBlur={() => setHighlight(data.get('type'), data.get('id'), false)}
+          onClick={() => zoomToAndSelect(data.get('type'), data.get('id'))}
         >
           Map
         </span>
@@ -72,10 +83,14 @@ const Feature = ({
 
 export function Features({
   properties,
-  changesetId
+  changesetId,
+  setHighlight,
+  zoomToAndSelect
 }: {
   properties: Map<string, *>,
-  changesetId: number
+  changesetId: number,
+  setHighlight: (type: string, id: number, isHighlighted: boolean) => void,
+  zoomToAndSelect: (type: string, id: number) => void
 }) {
   let features: List<Map<string, *>> = properties.get('features');
   const reviewedFeatures: List<Map<string, *>> = properties
@@ -139,6 +154,8 @@ export function Features({
                   key={k}
                   data={f}
                   changesetReasons={properties.get('reasons')}
+                  setHighlight={setHighlight}
+                  zoomToAndSelect={zoomToAndSelect}
                 />
               ))}
             </tbody>

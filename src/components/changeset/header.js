@@ -60,8 +60,8 @@ function HeaderComponent({
         </div>
         <div className="flex-parent flex-parent--row justify--space-between flex-parent--wrap">
           <span className="txt-s">
-            <strong className="txt-underline-on-hover pointer">
-              <span dir="ltr pointer" onClick={toggleUser}>
+            <strong className="txt-underline-on-hover cursor-pointer">
+              <span dir="ltr cursor-pointer" onClick={toggleUser}>
                 {user}
               </span>
             </strong>

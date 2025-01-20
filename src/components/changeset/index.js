@@ -2,7 +2,7 @@
 import { Map, List, fromJS } from 'immutable';
 import React from 'react';
 import { connect } from 'react-redux';
-import CSSGroup from 'react-transition-group/CSSTransitionGroup';
+import bbox from '@turf/bbox';
 
 import { cancelablePromise } from '../../utils/promise';
 import { Floater } from './floater';
@@ -30,11 +30,22 @@ import {
   CHANGESET_DETAILS_DISCUSSIONS,
   CHANGESET_DETAILS_MAP
 } from '../../config/bindings';
+import ElementInfo from '../element_info';
 
 // | denote strict props
 type propsType = {|
   changesetId: number,
   currentChangeset: Map<string, any>,
+  showElements: Array<string>,
+  showActions: Array<string>,
+  setShowElements: (elements: Array<string>) => any,
+  setShowActions: (actions: Array<string>) => any,
+  mapRef: React.RefObject<{
+    map: maplibre.Map,
+    adiffViewer: MapLibreAugmentedDiffViewer
+  }>,
+  selected: Map<string, any>,
+  setSelected: (selected: Map<string, any>) => void,
   // The props below come from HOCs, they are not optional!
   // to circumvent the $Diff bug  ref: https://github.com/facebook/flow/issues/1601
   // have to make them optional for flow to not throw error.
@@ -43,7 +54,11 @@ type propsType = {|
   exclusiveKeyToggle?: (label: string) => any
 |};
 
-// presentational component for view/changeset.js
+/**
+ * This is the UI overlay that appears on top of the map in the changeset view.
+ * It displays information about the changeset in the upper left, and may also display
+ * information about the currently selected element in the lower right.
+ */
 export class _Changeset extends React.PureComponent<*, propsType, *> {
   getUserDetailsPromise;
   getWhosThatPromise;
@@ -87,18 +102,21 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
     }
   }
   showFloaters = () => {
-    const { changesetId, currentChangeset, bindingsState, data } = this.props;
+    const {
+      changesetId,
+      currentChangeset,
+      showElements,
+      showActions,
+      setShowElements,
+      setShowActions,
+      bindingsState,
+      data
+    } = this.props;
+
     if (!bindingsState || !data) return;
     const properties = currentChangeset.get('properties');
     return (
-      <CSSGroup
-        name="floaters"
-        transitionName="floaters"
-        transitionAppearTimeout={300}
-        transitionAppear={true}
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={250}
-      >
+      <React.Fragment>
         {bindingsState.get(CHANGESET_DETAILS_DETAILS.label) && (
           <Box key={3} className=" responsive-box round-tr round-br">
             <Header
@@ -115,22 +133,39 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
         )}
         {bindingsState.get(CHANGESET_DETAILS_SUSPICIOUS.label) && (
           <Box key={2} className=" responsive-box round-tr round-br">
-            <Features changesetId={changesetId} properties={properties} />
+            <Features
+              changesetId={changesetId}
+              properties={properties}
+              setHighlight={this.setHighlight}
+              zoomToAndSelect={this.zoomToAndSelect}
+            />
           </Box>
         )}
         {bindingsState.get(CHANGESET_DETAILS_TAGS.label) && (
           <Box key={5} className=" responsive-box round-tr round-br">
-            <TagChanges changesetId={changesetId} />
+            <TagChanges
+              changesetId={changesetId}
+              setHighlight={this.setHighlight}
+              zoomToAndSelect={this.zoomToAndSelect}
+            />
           </Box>
         )}
         {bindingsState.get(CHANGESET_DETAILS_GEOMETRY_CHANGES.label) && (
           <Box key={5} className=" responsive-box round-tr round-br">
-            <GeometryChanges changesetId={changesetId} />
+            <GeometryChanges
+              changesetId={changesetId}
+              setHighlight={this.setHighlight}
+              zoomToAndSelect={this.zoomToAndSelect}
+            />
           </Box>
         )}
         {bindingsState.get(CHANGESET_DETAILS_OTHER_FEATURES.label) && (
           <Box key={5} className=" responsive-box round-tr round-br">
-            <OtherFeatures changesetId={changesetId} />
+            <OtherFeatures
+              changesetId={changesetId}
+              setHighlight={this.setHighlight}
+              zoomToAndSelect={this.zoomToAndSelect}
+            />
           </Box>
         )}
         {bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label) && (
@@ -138,9 +173,11 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
             <Discussions
               changesetAuthor={currentChangeset.get('properties').get('user')}
               discussions={
-                this.props.osmInfo
-                  ? this.props.osmInfo.getIn(['changeset', 'comments'])
-                  : List()
+                this.props.osmInfo?.getIn([
+                  'metadata',
+                  'changeset',
+                  'comments'
+                ]) ?? List()
               }
               changesetIsHarmful={properties.get('harmful')}
               changesetId={changesetId}
@@ -190,10 +227,15 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
         )}
         {bindingsState.get(CHANGESET_DETAILS_MAP.label) && (
           <Box key={4} className="responsive-box round-tr round-br">
-            <MapOptions />
+            <MapOptions
+              showElements={showElements}
+              showActions={showActions}
+              setShowElements={setShowElements}
+              setShowActions={setShowActions}
+            />
           </Box>
         )}
-      </CSSGroup>
+      </React.Fragment>
     );
   };
 
@@ -230,32 +272,99 @@ export class _Changeset extends React.PureComponent<*, propsType, *> {
       this.props.exclusiveKeyToggle(CHANGESET_DETAILS_MAP.label);
   };
 
+  /// Given an OSM Element type (node/way/relation) and ID number,
+  /// add or remove a highlight effect for the corresponding map features.
+  /// (Used for indicating elements when references to them in the UI are hovered)
+  setHighlight = (type: string, id: number, isHighlighted: boolean) => {
+    let { adiffViewer } = this.props.mapRef.current;
+    if (isHighlighted) {
+      adiffViewer.highlight(type, id);
+    } else {
+      adiffViewer.unhighlight(type, id);
+    }
+  };
+
+  /// Given an OSM Element type (node/way/relation) and ID number,
+  /// zoom the map to show that element, and select it in the overlay.
+  zoomToAndSelect = (type: string, id: number) => {
+    let { map, adiffViewer } = this.props.mapRef.current;
+
+    // find the feature(s) in the geojson that represent this element
+    // (there may be two, the old and new versions, if the element was modified)
+    let features = adiffViewer.geojson.features.filter(
+      feature =>
+        feature.properties.type === type && feature.properties.id === id
+    );
+    // zoom the map to the bounding box of the feature(s)
+    let bounds = bbox({ type: 'FeatureCollection', features });
+    map.jumpTo(map.cameraForBounds(bounds, { padding: 50, maxZoom: 18 }));
+    // style the feature(s) on the map to indicate that they're selected
+    adiffViewer.select(type, id);
+
+    // find the action in the adiff that affects this element
+    let action = adiffViewer.adiff.actions.find(action => {
+      let element = action.new ?? action.old;
+      return element.type === type && element.id === id;
+    });
+
+    // show the ElementInfo overlay for that action
+    this.props.setSelected(action);
+  };
+
   render() {
     const { bindingsState, currentChangeset } = this.props;
     const features = currentChangeset.getIn(['properties', 'features']);
     return (
-      <div className="flex-child clip">
-        <ControlLayout
-          toggleDetails={this.toggleDetails}
-          toggleFeatures={this.toggleFeatures}
-          toggleOtherFeatures={this.toggleOtherFeatures}
-          toggleTags={this.toggleTags}
-          toggleGeometryChanges={this.toggleGeometryChanges}
-          toggleDiscussions={this.toggleDiscussions}
-          toggleUser={this.toggleUser}
-          toggleMapOptions={this.toggleMapOptions}
-          features={features}
-          bindingsState={bindingsState}
-          discussions={
-            this.props.osmInfo
-              ? this.props.osmInfo.getIn(['changeset', 'comments'])
-              : List()
-          }
-        />
-        <Floater style={{ marginTop: 5, marginLeft: 41 }}>
-          {this.showFloaters()}
-        </Floater>
-      </div>
+      <React.Fragment>
+        <div
+          className="absolute flex-parent flex-parent--column clip"
+          style={{ top: 0, left: 0 }}
+        >
+          <div className="flex-child clip">
+            <ControlLayout
+              toggleDetails={this.toggleDetails}
+              toggleFeatures={this.toggleFeatures}
+              toggleOtherFeatures={this.toggleOtherFeatures}
+              toggleTags={this.toggleTags}
+              toggleGeometryChanges={this.toggleGeometryChanges}
+              toggleDiscussions={this.toggleDiscussions}
+              toggleUser={this.toggleUser}
+              toggleMapOptions={this.toggleMapOptions}
+              features={features}
+              bindingsState={bindingsState}
+              discussions={
+                this.props.osmInfo?.getIn([
+                  'metadata',
+                  'changeset',
+                  'comments'
+                ]) ?? List()
+              }
+            />
+            <Floater style={{ marginTop: 5, marginLeft: 41 }}>
+              {this.showFloaters()}
+            </Floater>
+          </div>
+        </div>
+        {this.props.selected && (
+          <div
+            className="absolute bg-white px12 py6 z5 round"
+            style={{
+              bottom: 0,
+              right: 0,
+              margin: '10px',
+              minWidth: '400px',
+              maxWidth: '550px',
+              maxHeight: '60vh',
+              overflowY: 'auto'
+            }}
+          >
+            <ElementInfo
+              action={this.props.selected}
+              setHighlight={this.setHighlight}
+            />
+          </div>
+        )}
+      </React.Fragment>
     );
   }
 }

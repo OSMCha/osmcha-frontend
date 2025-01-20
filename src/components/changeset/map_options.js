@@ -2,234 +2,151 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { importChangesetMap } from '../../utils/cmap';
 import { updateStyle } from '../../store/map_controls_actions';
-import { Dropdown } from '../dropdown';
+
+// helper functions for adding/removing elements from an array when a
+// checkbox is toggled
+const add = (arr, elem) => {
+  let set = new Set(arr);
+  set.add(elem);
+  return [...set];
+};
+
+const remove = (arr, elem) => {
+  let set = new Set(arr);
+  set.delete(elem);
+  return [...set];
+};
+
+const toggle = (arr, elem) => {
+  return arr.indexOf(elem) === -1 ? add(arr, elem) : remove(arr, elem);
+};
 
 class MapOptions extends React.PureComponent {
-  state = {
-    actions: true,
-    type: true,
-    mapStyle: true,
-    user: true
-  };
   layerOptions = [
-    {
-      label: 'Mapbox Satellite',
-      value: 'satellite',
-      function: () => this.toggleSatellite()
-    },
-    {
-      label: 'Mapbox Streets',
-      value: 'streets',
-      function: () => this.toggleStreet()
-    },
-    { label: 'Mapbox Dark', value: 'dark', function: () => this.toggleDark() },
-    { label: 'Bing', value: 'bing', function: () => this.toggleBing() },
-    {
-      label: 'OpenStreetMap Carto',
-      value: 'carto',
-      function: () => this.toggleOsm()
-    }
+    { label: 'Bing aerial imagery', value: 'bing' },
+    { label: 'OpenStreetMap Carto', value: 'carto' }
   ];
-  getLayerDropdownDisplay = id => {
-    const filteredLayer = this.layerOptions.filter(l => l.value === id);
-    if (filteredLayer.length) return filteredLayer[0].label;
-    return 'Select a style';
-  };
-  onLayerChange = layer => {
-    if (layer && layer.length) {
-      layer[0].function();
-      this.props.updateStyle(layer[0].value);
-    }
-  };
-  onChange = () => {
-    importChangesetMap('getMapInstance').then(
-      r => r && r() && r().filterLayers()
-    );
-  };
-  toggleSatellite = () => {
-    importChangesetMap('getMapInstance').then(
-      r =>
-        r &&
-        r() &&
-        r().renderMap('mapbox://styles/openstreetmap/cjnd8lj0e10i42spfo4nsvoay')
-    );
-  };
-  toggleDark = () => {
-    importChangesetMap('getMapInstance').then(
-      r => r && r() && r().renderMap('mapbox://styles/mapbox/dark-v9')
-    );
-  };
-  toggleStreet = () => {
-    importChangesetMap('getMapInstance').then(
-      r => r && r() && r().renderMap('mapbox://styles/mapbox/streets-v9')
-    );
-  };
-  toggleBing = () => {
-    const bingStyle = {
-      version: 8,
-      sources: {
-        'bing-tiles': {
-          type: 'raster',
-          tiles: [
-            'https://ecn.t0.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
-            'https://ecn.t1.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
-            'https://ecn.t2.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
-            'https://ecn.t3.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z'
-          ],
-          attribution:
-            '© <a href="https://blog.openstreetmap.org/2010/11/30/microsoft-imagery-details">Microsoft Corporation</a>'
-        }
-      },
-      layers: [
-        {
-          id: 'bing',
-          type: 'raster',
-          source: 'bing-tiles',
-          minzoom: 0,
-          maxzoom: 22
-        }
-      ]
-    };
-    importChangesetMap('getMapInstance').then(
-      r => r && r() && r().renderMap(bingStyle)
-    );
-  };
-  toggleOsm = () => {
-    const osmStyle = {
-      version: 8,
-      sources: {
-        'osm-tiles': {
-          type: 'raster',
-          tiles: [
-            'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            'https://b.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png'
-          ],
-          tileSize: 256,
-          attribution:
-            '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }
-      },
-      layers: [
-        {
-          id: 'osm',
-          type: 'raster',
-          source: 'osm-tiles',
-          minzoom: 0,
-          maxzoom: 22
-        }
-      ]
-    };
-    importChangesetMap('getMapInstance').then(
-      r => r && r() && r().renderMap(osmStyle)
-    );
-  };
+
   render() {
+    const {
+      showElements,
+      showActions,
+      setShowElements,
+      setShowActions
+    } = this.props;
+
     return (
       <div className="px12 py6">
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">Map Controls</h2>
         <section className="cmap-filter-action-section cmap-pt3">
-          <h6 className="cmap-heading pointer txt-bold">Filter by actions</h6>
+          <h6 className="cmap-heading cursor-pointer txt-bold">
+            Filter by actions
+          </h6>
 
-          <ul className="cmap-hlist">
-            <li>
-              <label className="cmap-hlist-item cmap-noselect cmap-pointer">
+          <ul className="flex-parent">
+            <li className="px6">
+              <label>
                 <input
                   type="checkbox"
-                  value="added"
-                  defaultChecked="true"
-                  id="cmap-layer-selector-added"
-                  onChange={this.onChange}
+                  style={{ accentColor: '#39DBC0' }}
+                  checked={showActions.includes('create')}
+                  onChange={() => setShowActions(toggle(showActions, 'create'))}
                 />
-                <span className="cmap-label-text">Added</span>
-                <span className="cmap-color-box cmap-color-added" />
+                Added
               </label>
             </li>
-            <li>
-              <label className="cmap-hlist-item cmap-noselect cmap-pointer">
+            <li className="px6">
+              <label>
                 <input
                   type="checkbox"
-                  value="modified"
-                  defaultChecked="true"
-                  onChange={this.onChange}
-                  id="cmap-layer-selector-modified"
+                  style={{ accentColor: '#E7BA60' }}
+                  checked={showActions.includes('modify')}
+                  onChange={() => setShowActions(toggle(showActions, 'modify'))}
                 />
-                <span className="cmap-label-text">Modified</span>
-                <span className="cmap-color-box cmap-color-modified-old" />
-                <span className="cmap-unicode">→</span>
-                <span className="cmap-color-box cmap-color-modified-new" />
+                Modified
               </label>
             </li>
-            <li>
-              <label className="cmap-hlist-item cmap-noselect cmap-pointer">
+            <li className="px6">
+              <label>
                 <input
                   type="checkbox"
-                  value="deleted"
-                  defaultChecked="true"
-                  onChange={this.onChange}
-                  id="cmap-layer-selector-deleted"
+                  style={{ accentColor: '#CC2C47' }}
+                  checked={showActions.includes('delete')}
+                  onChange={() => setShowActions(toggle(showActions, 'delete'))}
                 />
-                <span className="cmap-label-text">Deleted</span>
-                <span className="cmap-color-box cmap-color-deleted" />
+                Deleted
+              </label>
+            </li>
+            <li className="px6">
+              <label>
+                <input
+                  type="checkbox"
+                  style={{ accentColor: '#8B79C4' }}
+                  checked={showActions.includes('noop')}
+                  onChange={() => setShowActions(toggle(showActions, 'noop'))}
+                />
+                Unchanged
               </label>
             </li>
           </ul>
         </section>
         <section className="cmap-filter-type-section">
-          <h6 className="cmap-heading pointer txt-bold">Filter by type</h6>
-          <ul className="cmap-hlist">
-            <li>
-              <label className="cmap-hlist-item cmap-noselect cmap-pointer">
+          <h6 className="txt-bold">Filter by type</h6>
+          <ul className="flex-parent">
+            <li className="px6">
+              <label>
                 <input
                   type="checkbox"
-                  value="nodes"
-                  defaultChecked="true"
-                  id="cmap-type-selector-nodes"
-                  onChange={this.onChange}
+                  checked={showElements.includes('node')}
+                  onChange={() => setShowElements(toggle(showElements, 'node'))}
                 />
-                <span className="cmap-label-text">Nodes</span>
+                Nodes{' '}
+                <svg className="icon h18 w18 inline-block align-middle color-black">
+                  <use xlinkHref="#icon-marker" />
+                </svg>
               </label>
             </li>
-            <li>
-              <label className="cmap-hlist-item cmap-noselect cmap-pointer">
+            <li className="px6">
+              <label>
                 <input
                   type="checkbox"
-                  value="ways"
-                  defaultChecked="true"
-                  id="cmap-type-selector-ways"
-                  onChange={this.onChange}
+                  checked={showElements.includes('way')}
+                  onChange={() => setShowElements(toggle(showElements, 'way'))}
                 />
-                <span className="cmap-label-text">Ways</span>
+                Ways{' '}
+                <svg className="icon h18 w18 inline-block align-middle color-black">
+                  <use xlinkHref="#icon-polyline" />
+                </svg>
               </label>
             </li>
-            <li>
-              <label className="cmap-hlist-item cmap-noselect cmap-pointer">
+            <li className="px6">
+              <label>
                 <input
                   type="checkbox"
-                  value="relations"
-                  defaultChecked="true"
-                  id="cmap-type-selector-relations"
-                  onChange={this.onChange}
+                  checked={showElements.includes('relation')}
+                  onChange={() =>
+                    setShowElements(toggle(showElements, 'relation'))
+                  }
                 />
-                <span className="cmap-label-text">Relations</span>
+                Relations{' '}
+                <svg className="icon h18 w18 inline-block align-middle color-black">
+                  <use xlinkHref="#icon-viewport" />
+                </svg>
               </label>
             </li>
           </ul>
         </section>
         <section className="cmap-map-style-section cmap-pb3">
-          <h6 className="cmap-heading pointer txt-bold">Map style</h6>
-          <Dropdown
-            eventTypes={['click', 'touchend']}
+          <h6 className="cmap-heading cursor-pointer txt-bold">Map style</h6>
+          <select
             value={this.props.style}
-            onAdd={() => {}}
-            onRemove={() => {}}
-            options={this.layerOptions}
-            onChange={this.onLayerChange}
-            display={this.getLayerDropdownDisplay(this.props.style)}
-            position="left"
-          />
+            onChange={e => this.props.updateStyle(e.target.value)}
+          >
+            {this.layerOptions.map(opt => (
+              <option value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
         </section>
       </div>
     );

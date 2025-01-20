@@ -45,7 +45,7 @@ class Discussions extends React.PureComponent {
                   <strong>
                     <UserOSMLink
                       userName={comment.get('user')}
-                      linkClasses={'txt-underline-on-hover pointer'}
+                      linkClasses={'txt-underline-on-hover cursor-pointer'}
                     >
                       {comment.get('user')}
                     </UserOSMLink>{' '}

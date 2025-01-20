@@ -1,30 +1,30 @@
 import React from 'react';
 
-import { importChangesetMap } from '../../utils/cmap';
 import { Dropdown } from '../dropdown';
 import { isMobile } from '../../utils';
 
-function openEditor(selected) {
-  importChangesetMap('getMapInstance')
-    .then(r => r && r() && r().map)
-    .then(map => {
-      let baseUrl;
-      if (selected && selected[0].value === 'iD') {
-        baseUrl = 'https://www.openstreetmap.org/edit?editor=id&';
-      }
-      if (selected && selected[0].value === 'Rapid') {
-        baseUrl = 'https://rapideditor.org/edit?';
-      }
-      if (baseUrl) {
-        const center = map.getCenter();
-        const zoom = map.getZoom();
-        let windowObjectReference = window.open('editor - OSMCha');
-        windowObjectReference.location.href = `${baseUrl}#map=${zoom}/${center.lat}/${center.lng}`;
-      }
-    });
+function openEditor(selected, camera) {
+  let baseUrl;
+  if (selected && selected[0].value === 'iD') {
+    baseUrl = 'https://www.openstreetmap.org/edit?editor=id&';
+  }
+  if (selected && selected[0].value === 'Rapid') {
+    baseUrl = 'https://rapideditor.org/edit?';
+  }
+  if (baseUrl) {
+    let { lng, lat } = camera.center;
+    // iD, Rapid etc match their zoom parameters to Leaflet (raster) zoom
+    // levels, which are off by one from MapLibre (vector) zoom levels
+    let zoom = camera.zoom + 1;
+
+    let windowObjectReference = window.open('editor - OSMCha');
+    let url = `${baseUrl}#map=${zoom}/${lat}/${lng}`;
+
+    windowObjectReference.location.href = url;
+  }
 }
 
-export function OpenIn({ display, changesetId, coordinates, className }) {
+export function OpenIn({ display, changesetId, camera, className }) {
   const mobile = isMobile();
   const options = [
     {
@@ -75,7 +75,7 @@ export function OpenIn({ display, changesetId, coordinates, className }) {
         onAdd={() => {}}
         onRemove={() => {}}
         value={[]}
-        onChange={openEditor}
+        onChange={value => openEditor(value, camera)}
         options={options}
         display={display}
         position="left"

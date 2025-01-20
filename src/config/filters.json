@@ -20,26 +20,6 @@
     "placeholder": "Enter a keyword like hotosm, import or fixme"
   },
   {
-    "name": "geometry",
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Location",
-    "type": "location",
-    "description": "Filter changesets whose bbox intersect with a location boundary.",
-    "placeholder": "Type a place on the world"
-  },
-  {
-    "name": "in_bbox",
-    "icontains": false,
-    "all": false,
-    "range": false,
-    "display": "Bounding Box (BBox)",
-    "type": "map",
-    "description": "Scroll",
-    "placeholder": "Pan to the location of interest in the map"
-  },
-  {
     "name": "area_lt",
     "icontains": false,
     "range": false,

@@ -69,7 +69,7 @@ class TrustWatchUser extends React.PureComponent<any, propsType, any> {
               onClick={() =>
                 this.props.removeFromWatchlist(this.props.user.get('uid'))
               }
-              className="icon inline-block align-middle pl6 w24 h24 pointer color-gray"
+              className="icon inline-block align-middle pl6 w24 h24 cursor-pointer color-gray"
             >
               <use xlinkHref="#icon-close" />
             </svg>
@@ -93,7 +93,7 @@ class TrustWatchUser extends React.PureComponent<any, propsType, any> {
               onClick={e =>
                 this.props.removeFromTrustedlist(this.props.user.get('name'))
               }
-              className="icon inline-block align-middle pl6 w24 h24 pointer color-gray"
+              className="icon inline-block align-middle pl6 w24 h24 cursor-pointer color-gray"
             >
               <use xlinkHref="#icon-close" />
             </svg>

@@ -4,21 +4,13 @@ import { connect } from 'react-redux';
 import { OrderedSet } from 'immutable';
 
 import type { RootStateType } from '../store';
-import { selectFeature } from '../../views/map';
 import { Loading } from '../loading';
 import { OpenAll } from '../open_all';
 import { ExpandItemIcon } from '../expand_item_icon';
 
-export function getFeatures(features) {
-  var keys = Object.keys(features);
-  return keys.map(item => features[item]);
-}
-
-export function processFeatures(features) {
+export function tagChangesFromActions(actions) {
   const finalReport = new Map();
-  const analyzedFeatures = features.map(feature =>
-    analyzeFeature(feature[0], feature[1])
-  );
+  const analyzedFeatures = actions.map(analyzeAction);
   const keys = ['addedTags', 'changedValues', 'deletedTags'];
   analyzedFeatures.map(item =>
     keys.map(key =>
@@ -43,56 +35,48 @@ export function processFeatures(features) {
   return finalReport;
 }
 
-export function analyzeFeature(newVersion, oldVersion) {
-  const oldVersionKeys = Object.keys(oldVersion.properties.tags);
-  const newVersionKeys = Object.keys(newVersion.properties.tags);
+export function analyzeAction(action) {
+  const oldVersionKeys = Object.keys(action.old.tags);
+  const newVersionKeys = Object.keys(action.new.tags);
   const addedTags = newVersionKeys.filter(tag => !oldVersionKeys.includes(tag));
   const deletedTags = oldVersionKeys.filter(
     tag => !newVersionKeys.includes(tag)
   );
   const changedValues = newVersionKeys
     .filter(tag => !addedTags.includes(tag) && !deletedTags.includes(tag))
-    .filter(
-      tag => newVersion.properties.tags[tag] !== oldVersion.properties.tags[tag]
-    );
+    .filter(tag => action.new.tags[tag] !== action.old.tags[tag]);
   const result = new Map();
   result
-    .set('id', newVersion.properties.id)
-    .set('type', newVersion.properties.type)
+    .set('id', action.new.id)
+    .set('type', action.new.type)
     .set(
       'addedTags',
-      addedTags.map(tag => [
-        `Added tag ${tag}`,
-        newVersion.properties.tags[tag]
-      ])
+      addedTags.map(tag => [`Added tag ${tag}`, action.new.tags[tag]])
     )
     .set(
       'deletedTags',
-      deletedTags.map(tag => [
-        `Deleted tag ${tag}`,
-        oldVersion.properties.tags[tag]
-      ])
+      deletedTags.map(tag => [`Deleted tag ${tag}`, action.old.tags[tag]])
     )
     .set(
       'changedValues',
       changedValues.map(tag => [
         `Changed value of tag ${tag}`,
-        [oldVersion.properties.tags[tag], newVersion.properties.tags[tag]]
+        [action.old.tags[tag], action.new.tags[tag]]
       ])
     );
   return result;
 }
 
-export function FeatureListItem({ id, type }) {
+export function FeatureListItem({ id, type, ...props }) {
   return (
     <li>
       <span
-        className="pointer txt-bold-on-hover"
+        className="cursor-pointer txt-bold-on-hover"
         role="button"
         tabIndex="0"
-        onFocus={() => selectFeature(id)}
+        {...props}
       >
-        {type} {id}
+        {type}/{id}
       </span>
     </li>
   );
@@ -124,7 +108,13 @@ function ChangeTitle({ value, type }) {
   return <div></div>;
 }
 
-export const ChangeItem = ({ opened, tag, features }) => {
+export const ChangeItem = ({
+  opened,
+  tag,
+  features,
+  setHighlight,
+  zoomToAndSelect
+}) => {
   const [isOpen, setIsOpen] = useState(opened);
   const values = new OrderedSet(features.map(feature => feature.value));
   const last_space = tag.lastIndexOf(' ') + 1;
@@ -134,7 +124,7 @@ export const ChangeItem = ({ opened, tag, features }) => {
   return (
     <div>
       <button
-        className="pointer"
+        className="cursor-pointer"
         tabIndex="0"
         aria-pressed={isOpen}
         onClick={() => setIsOpen(!isOpen)}
@@ -158,10 +148,19 @@ export const ChangeItem = ({ opened, tag, features }) => {
               .filter(feature => feature.value === value)
               .map((feature, k) => (
                 <FeatureListItem
-                  id={feature.id}
                   type={feature.type}
+                  id={feature.id}
                   value={feature.value}
                   key={k}
+                  onMouseEnter={() =>
+                    setHighlight(feature.type, feature.id, true)
+                  }
+                  onMouseLeave={() =>
+                    setHighlight(feature.type, feature.id, false)
+                  }
+                  onFocus={() => setHighlight(feature.type, feature.id, true)}
+                  onBlur={() => setHighlight(feature.type, feature.id, false)}
+                  onClick={() => zoomToAndSelect(feature.type, feature.id)}
                 />
               ))}
           </ul>
@@ -171,7 +170,12 @@ export const ChangeItem = ({ opened, tag, features }) => {
   );
 };
 
-const ChangeItemList = ({ changes, openAll }) => {
+const ChangeItemList = ({
+  changes,
+  openAll,
+  setHighlight,
+  zoomToAndSelect
+}) => {
   return (
     <>
       {changes.length ? (
@@ -181,6 +185,8 @@ const ChangeItemList = ({ changes, openAll }) => {
             tag={change[0]}
             features={change[1]}
             opened={openAll}
+            setHighlight={setHighlight}
+            zoomToAndSelect={zoomToAndSelect}
           />
         ))
       ) : (
@@ -192,22 +198,30 @@ const ChangeItemList = ({ changes, openAll }) => {
 
 type propsType = {|
   changesetId: string,
-  changes: Object
+  changes: Object,
+  mapRef: React.RefObject<{
+    adiffViewer: MapLibreAugmentedDiffViewer
+  }>
 |};
 
-const TagChangesComponent = ({ changesetId, changes }: propsType) => {
+const TagChangesComponent = ({
+  changesetId,
+  changes,
+  setHighlight,
+  zoomToAndSelect
+}: propsType) => {
   const [changeReport, setChangeReport] = useState([]);
   const [openAll, setOpenAll] = useState(false);
 
   useEffect(() => {
     const newChangeReport = [];
     if (changes && changes.get(changesetId)) {
-      const changesetData = changes.get(changesetId)['featureMap'];
-      const processed = processFeatures(
-        getFeatures(changesetData).filter(
-          item => item.length === 2 && item[0].properties.action === 'modify'
-        )
+      const adiff = changes.get(changesetId)['adiff'];
+      const modifyActions = adiff.actions.filter(
+        action => action.type === 'modify'
       );
+
+      const processed = tagChangesFromActions(modifyActions);
       processed.forEach((featureIDs, tag) =>
         newChangeReport.push([tag, featureIDs])
       );
@@ -226,7 +240,12 @@ const TagChangesComponent = ({ changesetId, changes }: propsType) => {
         ) : null}
       </div>
       {changes.get(changesetId) ? (
-        <ChangeItemList changes={changeReport} openAll={openAll} />
+        <ChangeItemList
+          changes={changeReport}
+          openAll={openAll}
+          setHighlight={setHighlight}
+          zoomToAndSelect={zoomToAndSelect}
+        />
       ) : (
         <Loading className="pt18" />
       )}

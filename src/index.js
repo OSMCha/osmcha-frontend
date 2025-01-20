@@ -7,11 +7,9 @@ import Raven from 'raven-js';
 import { history } from './store/history';
 import { store } from './store';
 import { isDev, appVersion } from './config';
-import { unregisterServiceWorker } from './serviceworker';
 
 import './assets/index.css';
 import 'animate.css/animate.css';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import 'react-select/dist/react-select.css';
 
 import { App } from './app';
@@ -35,4 +33,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-unregisterServiceWorker();
