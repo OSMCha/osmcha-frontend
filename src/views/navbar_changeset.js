@@ -37,7 +37,7 @@ type propsType = {
   username: ?string,
   lastKeyStroke: Map<string, *>,
   handleChangesetModifyTag: (number, Map<string, *>, Object, boolean) => mixed,
-  handleChangesetModifyHarmful: (number, Map<string, *>, boolean | -1) => mixed
+    handleChangesetModifyHarmful: (number, Map < string, *>, boolean | -1) => mixed
 };
 
 class NavbarChangeset extends React.PureComponent<void, propsType, *> {
@@ -72,7 +72,7 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
       }
       case OPEN_IN_JOSM.label: {
         if (!this.props.changesetId) return;
-        const url = `http://127.0.0.1:8111/import?url=https://www.openstreetmap.org/api/0.6/changeset/${this.props.changesetId}/download`;
+        const url = `http://127.0.0.1:8111/import?url=https://www.openhistoricalmap.org/api/0.6/changeset/${this.props.changesetId}/download`;
         window.open(url, '_blank');
         break;
       }
@@ -84,16 +84,15 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
           0,
           0
         ]);
-        const url = `https://www.openstreetmap.org/edit?changeset=${
-          this.props.changesetId
-        }#map=15/${coordinates && coordinates.get('1')}/${coordinates &&
+        const url = `https://www.openhistoricalmap.org/edit?changeset=${this.props.changesetId
+          }#map=15/${coordinates && coordinates.get('1')}/${coordinates &&
           coordinates.get('0')}`;
         window.open(url, '_blank');
         break;
       }
       case OPEN_IN_OSM.label: {
         if (!this.props.changesetId) return;
-        const url = `https://www.openstreetmap.org/changeset/${this.props.changesetId}`;
+        const url = `https://www.openhistoricalmap.org/changeset/${this.props.changesetId}`;
         window.open(url, '_blank');
         break;
       }
@@ -153,14 +152,12 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
 
     return (
       <Navbar
-        className={`bg-gray-faint color-gray border-b border--gray-light border--1 ${
-          mobile ? '' : 'px30'
-        }`}
+        className={`bg-gray-faint color-gray border-b border--gray-light border--1 ${mobile ? '' : 'px30'
+          }`}
         title={
           <div
-            className={`flex-parent flex-parent--row flex-parent--wrap ${
-              mobile ? 'align-items--center' : ''
-            }`}
+            className={`flex-parent flex-parent--row flex-parent--wrap ${mobile ? 'align-items--center' : ''
+              }`}
           >
             {mobile && (
               <Link
@@ -196,10 +193,10 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                       </svg>
                     </span>
                     <a
-                      href={`https://www.openstreetmap.org/changeset/${this.props.changesetId}`}
+                      href={`https://www.openhistoricalmap.org/changeset/${this.props.changesetId}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      title="See on OSM"
+                      title="See on OHM"
                     >
                       <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
                         <use xlinkHref="#icon-share" />
@@ -222,9 +219,8 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
               }
               display={
                 mobile
-                  ? `${this.isChecked() ? '' : 'Changeset'} ${
-                      this.props.changesetId
-                    }`
+                  ? `${this.isChecked() ? '' : 'Changeset'} ${this.props.changesetId
+                  }`
                   : 'Open with'
               }
             />
@@ -238,13 +234,13 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                 'properties',
                 'check_user'
               ]) && (
-                <Tags
-                  changesetId={this.props.changesetId}
-                  currentChangeset={this.props.currentChangeset}
-                  disabled={false}
-                  handleChangesetModifyTag={this.props.handleChangesetModifyTag}
-                />
-              )}
+                  <Tags
+                    changesetId={this.props.changesetId}
+                    currentChangeset={this.props.currentChangeset}
+                    disabled={false}
+                    handleChangesetModifyTag={this.props.handleChangesetModifyTag}
+                  />
+                )}
               <Verify
                 changeset={this.props.currentChangeset}
                 placeholder="Verify"

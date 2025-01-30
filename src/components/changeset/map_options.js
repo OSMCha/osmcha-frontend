@@ -109,7 +109,7 @@ class MapOptions extends React.PureComponent {
           ],
           tileSize: 256,
           attribution:
-            '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            '© <a href="https://www.openhistoricalmap.org/copyright">OpenStreetMap</a> contributors'
         }
       },
       layers: [
@@ -223,8 +223,8 @@ class MapOptions extends React.PureComponent {
           <Dropdown
             eventTypes={['click', 'touchend']}
             value={this.props.style}
-            onAdd={() => {}}
-            onRemove={() => {}}
+            onAdd={() => { }}
+            onRemove={() => { }}
             options={this.layerOptions}
             onChange={this.onLayerChange}
             display={this.getLayerDropdownDisplay(this.props.style)}

@@ -3,7 +3,7 @@ import React from 'react';
 export const UserOSMLink = ({ userName, linkClasses, children }) => {
   if (!userName) return null;
 
-  const url = `https://www.openstreetmap.org/user/${userName}`;
+  const url = `https://www.openhistoricalmap.org/user/${userName}`;
 
   return (
     <a

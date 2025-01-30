@@ -17,17 +17,17 @@ export const osmchaSocialTokenUrl = `${API_URL}/social-auth/`;
 export const osmchaUrl = API_URL.replace('api/v1', '');
 
 export const osmUrl =
-  process.env.REACT_APP_OSM_URL || 'https://www.openstreetmap.org';
-export const isOfficialOSM = osmUrl === 'https://www.openstreetmap.org';
+  process.env.REACT_APP_OSM_URL || 'https://www.openhistoricalmap.org';
+export const isOfficialOSM = osmUrl === 'https://www.openhistoricalmap.org';
 export const apiOSM =
-  process.env.REACT_APP_OSM_API || 'https://api.openstreetmap.org/api/0.6';
+  process.env.REACT_APP_OSM_API || 'https://api.openhistoricalmap.org/api/0.6';
 
 export const whosThat =
   'https://whosthat.osmz.ru/whosthat.php?action=names&id=';
 
 export const nominatimUrl =
   process.env.REACT_APP_NOMINATIM_URL ||
-  'https://nominatim.openstreetmap.org/search.php';
+  'https://nominatim-api.openhistoricalmap.org/search.php';
 
 // set a default from date x days before today
 export const DEFAULT_FROM_DATE = process.env.REACT_APP_DEFAULT_FROM_DATE || 2;
