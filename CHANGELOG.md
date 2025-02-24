@@ -2,6 +2,10 @@
 
 Log of changes since the 2.0 version
 
+### 1.1.1
+
+- Fix display order of RTL tag values in Tag Changes view (#766)
+
 ### 1.1.0
 
 - Fix Chinese text input in location search bar (#671)
