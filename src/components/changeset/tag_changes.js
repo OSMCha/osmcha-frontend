@@ -107,11 +107,17 @@ function ChangeTitle({ value, type }) {
   }
   if (type.startsWith('Changed')) {
     const [oldValue, newValue] = value;
+    // dir="auto" solves a display issue when tag values are in RTL scripts (e.g. Arabic, Hebrew).
+    // See https://github.com/OSMCha/osmcha-frontend/issues/765
     return (
       <span>
-        <span className="txt-code cmap-bg-modify-old-light">{oldValue}</span>
+        <span className="txt-code cmap-bg-modify-old-light" dir="auto">
+          {oldValue}
+        </span>
         <strong> ➜ </strong>
-        <span className="txt-code cmap-bg-modify-new-light">{newValue}</span>
+        <span className="txt-code cmap-bg-modify-new-light" dir="auto">
+          {newValue}
+        </span>
       </span>
     );
   }
