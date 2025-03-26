@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { OrderedSet } from 'immutable';
 
-import type { RootStateType } from '../store';
+import type { RootStateType } from '../../store';
 import { Loading } from '../loading';
 import { OpenAll } from '../open_all';
 import { ExpandItemIcon } from '../expand_item_icon';

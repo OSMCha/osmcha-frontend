@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import type { RootStateType } from '../store';
+import type { RootStateType } from '../../store';
 import { FeatureListItem } from './tag_changes';
 import { Loading } from '../loading';
 import { OpenAll } from '../open_all';
