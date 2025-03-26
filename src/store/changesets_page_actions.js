@@ -50,9 +50,8 @@ export const locationSelector = (state: RootStateType) =>
 
 /** Sagas **/
 
-export const pageIndexSelector = (state: RootStateType) => [
-  state.changesetsPage.getIn(['pageIndex'], 0)
-];
+export const pageIndexSelector = (state: RootStateType) =>
+  state.changesetsPage.getIn(['pageIndex'], 0);
 export const tokenSelector = (state: RootStateType) => state.auth.get('token');
 
 export const aoiIdSelector = (state: RootStateType) =>
