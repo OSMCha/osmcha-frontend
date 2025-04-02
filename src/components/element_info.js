@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
+import { osmUrl } from '../config/constants.js';
 import { flagFeature, unflagFeature } from '../network/changeset';
 import { Dropdown } from './dropdown';
 import { Button } from './button';
@@ -214,7 +215,9 @@ function MetadataTable({ changesetId, action }) {
         <tr>
           <td>username</td>
           {elements.map(element => (
-            <td>{element.user}</td>
+            <td>
+              <a href={`${osmUrl}/user/${element.user}`}>{element.user}</a>
+            </td>
           ))}
         </tr>
       </tbody>
