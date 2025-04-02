@@ -43,7 +43,7 @@ function ElementInfo({ changeset, action, token, setHighlight }) {
         <OpenInDropdown id={id} />
         <FlagButton changeset={changeset} featureId={id} token={token} />
       </menu>
-      <MetadataTable action={action} />
+      <MetadataTable changesetId={changeset.get('id')} action={action} />
       <hr />
       <TagsTable action={action} />
       {action.new.type === 'relation' && (
@@ -160,47 +160,62 @@ function FlagButton({ changeset, featureId, token }) {
   }
 }
 
-function MetadataTable({ action }) {
+function MetadataTable({ changesetId, action }) {
+  let showPrevious =
+    action.type === 'delete' ||
+    (action.type === 'modify' && action.old.version !== action.new.version);
+
+  let elements = showPrevious ? [action.old, action.new] : [action.new];
+
   return (
     <table className="metadata-table">
       <thead>
         <tr>
           <th />
-          {action.old && <th>Previous</th>}
+          {showPrevious && <th>Previous</th>}
           <th>Current</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>version</td>
-          {action.old && <td>{action.old.version}</td>}
-          <td>{action.new.version}</td>
+          {elements.map(element => (
+            <td>{element.version}</td>
+          ))}
         </tr>
         <tr>
           <td>timestamp</td>
-          {action.old && <td>{action.old.timestamp}</td>}
-          <td>{action.new.timestamp}</td>
+          {elements.map(element => (
+            <td>{element.timestamp}</td>
+          ))}
         </tr>
         <tr>
           <td>changeset</td>
-          {action.old && (
-            <td>
-              <a href={`/changesets/${action.old.changeset}`}>
-                {action.old.changeset}
-              </a>
-            </td>
-          )}
-          <td>{action.new.changeset}</td>
+          {elements.map(element => {
+            if (element.changeset !== changesetId) {
+              return (
+                <td>
+                  <a href={`/changesets/${element.changeset}`}>
+                    {element.changeset}
+                  </a>
+                </td>
+              );
+            } else {
+              return <td>{element.changeset}</td>;
+            }
+          })}
         </tr>
         <tr>
           <td>uid</td>
-          {action.old && <td>{action.old.uid}</td>}
-          <td>{action.new.uid}</td>
+          {elements.map(element => (
+            <td>{element.uid}</td>
+          ))}
         </tr>
         <tr>
           <td>username</td>
-          {action.old && <td>{action.old.user}</td>}
-          <td>{action.new.user}</td>
+          {elements.map(element => (
+            <td>{element.user}</td>
+          ))}
         </tr>
       </tbody>
     </table>
