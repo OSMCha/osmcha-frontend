@@ -153,15 +153,21 @@ class CMap extends React.PureComponent {
 
     map.on('load', async () => {
       this.setState({ loading: false });
+      adiffViewer.addTo(map);
 
-      if (adiffViewer) {
-        adiffViewer.addTo(map);
+      if (adiff.actions.length > 0) {
         map.jumpTo(
           map.cameraForBounds(adiffViewer.bounds(), {
             padding: 50,
             maxZoom: 18
           })
         );
+      } else {
+        this.props.modal({
+          kind: 'error',
+          title: 'Problem loading augmented diff file',
+          description: 'The augmented diff contains no elements'
+        });
       }
     });
 
