@@ -528,7 +528,7 @@ th {
   margin: 0.25em 0;
 }
 
-.element-info h2 a {
+.element-info a {
   /* assembly.js removes link styles, so add them back here */
   text-decoration: underline;
 }
@@ -537,6 +537,11 @@ th {
   font-family: monospace;
   line-height: 1.1;
   white-space: pre-wrap;
+}
+
+.element-info table a {
+  /* bump the underline a bit further down for monospace fonts */
+  text-underline-offset: 2px;
 }
 
 .metadata-table td:first-child {

@@ -30,11 +30,14 @@
   z-index: 5;
 }
 
-/* Links inside the dropdown */
+/* List items inside the dropdown */
 .dropdown-content-item {
   color: black;
-  text-decoration: none;
   display: block;
+}
+
+.dropdown a {
+  text-decoration: none;
 }
 
 /* Change color of dropdown links on hover */

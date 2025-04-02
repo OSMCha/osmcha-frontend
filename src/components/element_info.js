@@ -183,7 +183,13 @@ function MetadataTable({ action }) {
         </tr>
         <tr>
           <td>changeset</td>
-          {action.old && <td>{action.old.changeset}</td>}
+          {action.old && (
+            <td>
+              <a href={`/changesets/${action.old.changeset}`}>
+                {action.old.changeset}
+              </a>
+            </td>
+          )}
           <td>{action.new.changeset}</td>
         </tr>
         <tr>
