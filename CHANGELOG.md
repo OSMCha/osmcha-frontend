@@ -2,6 +2,21 @@
 
 Log of changes since the 2.0 version
 
+### 1.2.0
+
+- Switch from using s3://real-changesets JSONs to using adiffs.osmcha.org
+  augmented diffs (XML) for visualizing changesets on the map
+- Remove dependency on changeset-map; add dependencies on
+  @osmcha/maplibre-adiff-viewer and @osmcha/osm-adiff-parser
+- Map rendering now uses MapLibre GL JS v5.1.0 (we were previously using
+  Mapbox GL JS v1.13, via changeset-map)
+- Clicking on a map element reveals a new details panel (the old one was part
+  of changeset-map)
+- New bounding box input for filtering, implemented using Terra Draw
+
+More detailed description of the above changes available here:
+https://github.com/OSMCha/osmcha-frontend/pull/772
+
 ### 1.1.1
 
 - Fix display order of RTL tag values in Tag Changes view (#766)
