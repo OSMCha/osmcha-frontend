@@ -37,7 +37,7 @@ class UserLink extends React.PureComponent {
   render() {
     return (
       <Link
-        className="txt-underline-on-hover txt-bold pointer color-gray"
+        className="txt-underline-on-hover txt-bold cursor-pointer color-gray"
         to={{
           search: getObjAsQueryParam('filters', {
             uids: [
@@ -63,7 +63,7 @@ export class User extends React.PureComponent {
   renderUidFilterLink() {
     return (
       <Link
-        className="txt-underline-on-hover txt-bold pointer color-gray"
+        className="txt-underline-on-hover txt-bold cursor-pointer color-gray"
         to={{
           search: getObjAsQueryParam('filters', {
             uids: [

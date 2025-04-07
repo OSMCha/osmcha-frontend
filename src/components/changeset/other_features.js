@@ -2,35 +2,41 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import type { RootStateType } from '../store';
-import { getFeatures, FeatureListItem } from './tag_changes';
+import type { RootStateType } from '../../store';
+import { FeatureListItem } from './tag_changes';
 import { Loading } from '../loading';
 import { OpenAll } from '../open_all';
 import { ExpandItemIcon } from '../expand_item_icon';
 
-function processFeatures(features) {
+function otherChangesFromActions(actions) {
   const finalReport = new Map();
-  features = features.map(item => item[0]);
-  const keys = ['create', 'delete'];
-  keys.map(key =>
+
+  for (const actionType of ['create', 'delete']) {
     finalReport.set(
-      key,
-      features
-        .filter(item => item.properties.action === key)
-        .map(item => ({ id: item.properties.id, type: item.properties.type }))
-    )
-  );
+      actionType,
+      actions
+        .filter(action => action.type === actionType)
+        .map(action => ({ id: action.new.id, type: action.new.type }))
+    );
+  }
+
   finalReport.set(
     'modify',
-    features
-      .filter(item => item.properties.action === 'modify')
-      .filter(item => item.properties.type === 'relation')
-      .map(item => ({ id: item.properties.id, type: item.properties.type }))
+    actions
+      .filter(action => action.type === 'modify' && action.type === 'relation')
+      .map(action => ({ id: action.new.id, type: action.new.type }))
   );
+
   return finalReport;
 }
 
-const ActionItem = ({ opened, tag, features }) => {
+const ActionItem = ({
+  opened,
+  tag,
+  features,
+  setHighlight,
+  zoomToAndSelect
+}) => {
   const [isOpen, setIsOpen] = useState(opened);
   const titles = {
     create: 'Created',
@@ -43,7 +49,7 @@ const ActionItem = ({ opened, tag, features }) => {
   return (
     <div>
       <button
-        className="pointer"
+        className="cursor-pointer"
         tabIndex="0"
         aria-pressed={isOpen}
         onClick={() => setIsOpen(!isOpen)}
@@ -56,7 +62,16 @@ const ActionItem = ({ opened, tag, features }) => {
       </button>
       <ul className="cmap-vlist" style={{ display: isOpen ? 'block' : 'none' }}>
         {features.map((item, k) => (
-          <FeatureListItem id={item.id} type={item.type} key={k} />
+          <FeatureListItem
+            id={item.id}
+            type={item.type}
+            key={k}
+            onMouseEnter={() => setHighlight(item.type, item.id, true)}
+            onMouseLeave={() => setHighlight(item.type, item.id, false)}
+            onFocus={() => setHighlight(item.type, item.id, true)}
+            onBlur={() => setHighlight(item.type, item.id, false)}
+            onClick={() => zoomToAndSelect(item.type, item.id)}
+          />
         ))}
       </ul>
     </div>
@@ -65,18 +80,25 @@ const ActionItem = ({ opened, tag, features }) => {
 
 type propsType = {|
   changesetId: string,
-  changes: Object
+  changes: Object,
+  setHighlight: (type: string, id: number, isHighlighted: boolean) => void,
+  zoomToAndSelect: (type: string, id: number) => void
 |};
 
-const OtherFeaturesComponent = ({ changesetId, changes }: propsType) => {
+const OtherFeaturesComponent = ({
+  changesetId,
+  changes,
+  setHighlight,
+  zoomToAndSelect
+}: propsType) => {
   const [changeReport, setChangeReport] = useState([]);
   const [openAll, setOpenAll] = useState(false);
 
   useEffect(() => {
     const newChangeReport = [];
     if (changes && changes.get(changesetId)) {
-      const changesetData = changes.get(changesetId)['featureMap'];
-      const processed = processFeatures(getFeatures(changesetData));
+      const adiff = changes.get(changesetId)['adiff'];
+      const processed = otherChangesFromActions(adiff.actions);
       processed.forEach((featureIDs, tag) =>
         newChangeReport.push([tag, featureIDs])
       );
@@ -104,6 +126,8 @@ const OtherFeaturesComponent = ({ changesetId, changes }: propsType) => {
               tag={change[0]}
               features={change[1]}
               opened={openAll}
+              setHighlight={setHighlight}
+              zoomToAndSelect={zoomToAndSelect}
             />
           ))
         ) : (

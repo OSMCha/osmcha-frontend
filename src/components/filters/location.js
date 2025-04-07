@@ -5,15 +5,19 @@ import debounce from 'lodash.debounce';
 import { Async } from 'react-select';
 import Select from 'react-select';
 
+import maplibre from 'maplibre-gl';
+import {
+  TerraDraw,
+  TerraDrawRectangleMode,
+  TerraDrawRenderMode
+} from 'terra-draw';
+import { TerraDrawMapLibreGLAdapter } from 'terra-draw-maplibre-gl-adapter';
 import area from '@turf/area';
 import bbox from '@turf/bbox';
 import simplify from '@turf/simplify';
 import truncate from '@turf/truncate';
-import MapboxDraw from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw';
 
 import { nominatimSearch } from '../../network/nominatim';
-import { mapboxAccessToken } from '../../config/constants';
-import { importChangesetMap } from '../../utils/cmap';
 
 export class LocationSelect extends React.PureComponent {
   props: {
@@ -41,7 +45,75 @@ export class LocationSelect extends React.PureComponent {
   map = null;
   draw = null;
 
+  componentDidMount() {
+    let map = new maplibre.Map({
+      container: 'geometry-map',
+      style: '/positron.json'
+    });
+    map.setMaxPitch(0);
+    map.dragRotate.disable();
+    map.boxZoom.disable();
+    map.touchZoomRotate.disableRotation();
+    map.keyboard.disableRotation();
+
+    map.on('style.load', () => {
+      map.setProjection({ type: 'globe' });
+    });
+
+    if (this.props.value) {
+      // FIXME: this doesn't work; how can we draw an existing geometry on the map?
+      this.updateMap(this.props.value);
+    }
+
+    let draw = new TerraDraw({
+      adapter: new TerraDrawMapLibreGLAdapter({ map, lib: maplibre }),
+      modes: [
+        new TerraDrawRectangleMode(),
+        new TerraDrawRenderMode({ modeName: 'render' })
+      ]
+    });
+
+    draw.start();
+
+    draw.on('finish', (id, context) => {
+      const snapshot = draw.getSnapshot();
+      const feature = snapshot.find(f => f.id === id);
+      const bounds = bbox(feature); // even though the user drew a box, 'feature' is a Polygon
+      const wsen = bounds.map(v => v.toFixed(4)).join(',');
+
+      this.props.onChange('geometry', undefined);
+      this.props.onChange('in_bbox', fromJS([{ label: wsen, value: wsen }]));
+    });
+
+    this.map = map;
+    this.draw = draw;
+
+    document.addEventListener('keydown', this.handleKeyDown);
+    document.addEventListener('keyup', this.handleKeyUp);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown);
+    document.removeEventListener('keyup', this.handleKeyUp);
+  }
+
+  handleKeyDown = event => {
+    if (event.key === 'Shift') {
+      this.draw.clear();
+      this.draw.setMode('rectangle');
+    }
+  };
+
+  handleKeyUp = event => {
+    if (event.key === 'Shift') {
+      this.draw.setMode('render');
+    }
+  };
+
   updateMap(data) {
+    // called with geojson polygon of a feature that was retrieved by
+    // name from Nominatim
+
     if (this.map.getSource('feature')) {
       this.map.getSource('feature').setData(data);
     } else {
@@ -53,6 +125,7 @@ export class LocationSelect extends React.PureComponent {
         }
       });
     }
+
     if (this.map.getLayer('geometry') === undefined) {
       this.map.addLayer({
         id: 'geometry',
@@ -64,89 +137,13 @@ export class LocationSelect extends React.PureComponent {
         }
       });
     }
+
     this.setState({ geometry: data });
-    this.props.onChange(
-      this.props.name,
-      fromJS([{ label: data, value: data }])
-    );
-    const geom_bbox = bbox(data);
-    this.map.fitBounds([geom_bbox.slice(0, 2), geom_bbox.slice(2)], {
-      padding: 20
-    });
+    this.props.onChange('in_bbox', undefined);
+    this.props.onChange('geometry', fromJS([{ label: data, value: data }]));
+    const bounds = bbox(data);
+    this.map.fitBounds([bounds.slice(0, 2), bounds.slice(2)], { padding: 20 });
   }
-
-  componentDidMount() {
-    importChangesetMap('getGL').then((getGL: any) => {
-      if (getGL) {
-        var mapboxgl = getGL();
-        mapboxgl.accessToken = mapboxAccessToken;
-        const map = new mapboxgl.Map({
-          container: 'geometry-map',
-          style: 'mapbox://styles/mapbox/light-v9'
-        });
-        this.map = map;
-        this.draw = new MapboxDraw({
-          displayControlsDefault: false,
-          controls: {
-            polygon: true
-          }
-        });
-        map.addControl(this.draw);
-
-        map.on('draw.create', this.drawingUpdate);
-        map.on('draw.modechange', this.clearBeforeDraw);
-        map.on('draw.delete', this.drawingUpdate);
-        map.on('draw.update', this.drawingUpdate);
-        map.on('style.load', () => {
-          try {
-            this.updateMap(
-              this.props.value
-                .get('0')
-                .get('value')
-                .toJS()
-            );
-          } catch (e) {
-            if (e instanceof TypeError) {
-            }
-          }
-        });
-      }
-    });
-  }
-
-  clearBeforeDraw = e => {
-    if (e.mode === 'draw_polygon') {
-      this.clearMap();
-      this.draw.changeMode('draw_polygon');
-    }
-  };
-  clearMap = () => {
-    this.draw.deleteAll();
-    this.props.onChange(this.props.name, null);
-    if (this.map.getSource('feature')) {
-      this.map.getSource('feature').setData({});
-    }
-    if (this.map.getLayer('geometry')) {
-      this.map.removeLayer('geometry');
-    }
-  };
-  drawingUpdate = e => {
-    const drawingData = this.draw.getAll();
-    if (
-      drawingData &&
-      drawingData.features.length &&
-      drawingData.features[0].geometry
-    ) {
-      this.updateMap(
-        truncate(drawingData.features[0].geometry, {
-          precision: 6,
-          coordinates: 2
-        })
-      );
-    } else {
-      this.clearMap();
-    }
-  };
 
   getAsyncOptions = (input: string, cb: (e: ?Error, any) => void) => {
     if (input.length >= 2 || this.isOneCharInputAllowed(input)) {
@@ -158,6 +155,7 @@ export class LocationSelect extends React.PureComponent {
             label: d.display_name,
             value: d.geojson
           }));
+
           return cb(null, { options: data });
         })
         .catch(e => cb(e, null));
@@ -165,6 +163,7 @@ export class LocationSelect extends React.PureComponent {
       return cb(null, { options: [] });
     }
   };
+
   isOneCharInputAllowed = (input: string) => {
     // Allowing one character input if it contains characters from certain scripts while
     // guarding against browsers that don't support this kind of regular expression
@@ -177,9 +176,10 @@ export class LocationSelect extends React.PureComponent {
       return true;
     }
   };
+
   onChangeLocal = (data: ?Array<Object>) => {
     if (data) {
-      this.draw.deleteAll();
+      this.draw.clear();
       const tolerance = area(data.value) / 10 ** 6 < 1000 ? 0.01 : 0.1;
       const simplified_bounds = simplify(data.value, {
         tolerance: tolerance,
@@ -190,9 +190,11 @@ export class LocationSelect extends React.PureComponent {
       );
     }
   };
+
   handleQueryTypeChange = value => {
     this.setState({ queryType: value });
   };
+
   renderSelect = () => {
     const { name, placeholder, value } = this.props;
     return (
@@ -209,6 +211,7 @@ export class LocationSelect extends React.PureComponent {
       />
     );
   };
+
   render() {
     return (
       <div>
@@ -226,17 +229,12 @@ export class LocationSelect extends React.PureComponent {
         </div>
         <div className="grid grid--gut12 pt6">
           <div className="col col--12 map-select">
-            <div id="geometry-map">
-              <button
-                onClick={this.clearMap}
-                className="pointer z5 mx1 my1 inline-block px6 py3 txt-s bg-white txt-bold round absolute fl"
-                style={{ zIndex: 2 }}
-              >
-                Clear All
-              </button>
-            </div>
+            <div id="geometry-map" />
           </div>
         </div>
+        <p>
+          Hold <kbd>Shift</kbd> and click to draw a bounding box.
+        </p>
       </div>
     );
   }

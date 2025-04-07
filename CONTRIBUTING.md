@@ -1,8 +1,8 @@
 # Contributing to OSMCha
 
 The current OSMCHA is broken into two repositories. You can file bug in any of these repositories.
-1. [osmcha-django](https://github.com/willemarcel/osmcha-django) Handles the backend of the OSMCha.
-2. [osmcha-frontend](https://github.com/mapbox/osmcha-frontend) Is the frontend application.
+1. [osmcha-django](https://github.com/OSMCha/osmcha-django) Handles the backend of the OSMCha.
+2. [osmcha-frontend](https://github.com/OSMCha/osmcha-frontend) Is the frontend application.
 
 ## Code of Conduct
 
@@ -14,7 +14,8 @@ Please read the project
 We'd love to hear what you think about OSMCha, about any specific problems or
 concerns you have. Here's a quick list of things to consider:
 
-Please [search for your issue before filing it: many bugs and improvements have already been reported](https://github.com/search?l=&q=repo%3Amapbox%2Fosmcha-frontend&type=Issues)
+Please [search for your issue](https://github.com/search?l=&q=repo%3AOSMCha%2Fosmcha-frontend&type=Issues)
+before filing it; many bugs and improvements have already been reported.
 
 To report a bug:
 

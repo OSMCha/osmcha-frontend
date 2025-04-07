@@ -1,11 +1,11 @@
 // @flow
-import { parse, stringify } from 'query-string';
+import querystring from 'query-string';
 import { fromJS, Map } from 'immutable';
 
 export function getSearchObj(searchParam: string = ''): Map<string, *> {
   let result = {};
   try {
-    result = parse(searchParam);
+    result = querystring.parse(searchParam);
     if (result.filters) {
       result.filters = JSON.parse(result.filters);
     }
@@ -20,7 +20,7 @@ export function getObjAsQueryParam(key: string, obj: Object) {
   if (!obj || Object.keys(obj).length === 0) {
     return '';
   }
-  return stringify({
+  return querystring.stringify({
     [key]: JSON.stringify(obj)
   });
 }

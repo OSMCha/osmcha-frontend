@@ -6,6 +6,8 @@ import { Button } from './button';
 
 class DropdownContent extends React.PureComponent {
   isActive = (obj: Object) => {
+    if (!this.props.value) return false;
+
     for (let v of this.props.value) {
       if (v.label === obj.label) {
         return true;

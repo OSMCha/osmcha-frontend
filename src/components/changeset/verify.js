@@ -42,7 +42,7 @@ export function Verify({
         </span>
         <svg
           onClick={onClear}
-          className="icon inline-block align-middle pl3 w18 h18 pointer color-gray"
+          className="icon inline-block align-middle pl3 w18 h18 cursor-pointer color-gray"
         >
           <use xlinkHref="#icon-close" />
         </svg>

@@ -7,11 +7,9 @@ easier to monitor and validate the changes in OpenStreetMap. [Learn more …](AB
 - Test instance: http://osmcha-django-staging.tilestream.net/
 
 This repository contains the frontend code. Other repositories are:
-* [OSMCha backend code](https://github.com/willemarcel/osmcha-django)
-* [OSMCha python library](https://github.com/willemarcel/osmcha) is used to analyse the OSM changesets
-* [OSM Compare](https://github.com/mapbox/osm-compare) is used to analyse OSM features
-* [OSM Changeset Viewer](https://github.com/osmlab/changeset-map) is used to display the changeset on the main map
-
+* [`osmcha-django`](https://github.com/OSMCha/osmcha-django) - the backend Django application
+* [`osmcha` (python library)](https://github.com/OSMCha/osmcha) - used by the backend to analyse OSM changesets
+* [`maplibre-adiff-viewer`](https://github.com/OSMCha/maplibre-adiff-viewer) - used to display the changeset on the main map
 
 ## Setting up editor
 
@@ -30,27 +28,21 @@ This repository uses [prettier](https://github.com/prettier/prettier) to keep th
 ### Local development
 
 1. `yarn start`
-1. Open [https://localhost:3000?filters=%7B%22date__gte%22%3A%5B%7B%22label%22%3A%222020-04-01%22%2C%22value%22%3A%222020-04-01%22%7D%5D%7D](https://localhost:3000?filters=%7B%22date__gte%22%3A%5B%7B%22label%22%3A%222020-04-01%22%2C%22value%22%3A%222020-04-01%22%7D%5D%7D) of e.g. [changeset#91638199](https://localhost:3000/changesets/91638199?filters=%7B%22date__gte%22%3A%5B%7B%22label%22%3A%222020-04-01%22%2C%22value%22%3A%222020-04-01%22%7D%5D%7D)
-    - The app runs with https; Firefox is recommended since it allows self signed certificates.
-    - The staging database does not have all the changesets that production has, therefore the filter is needed.
+1. Open [http://127.0.0.1:3000](http://127.0.0.1:3000)
 
-**To also edit the part of the UI that is provided by the OSM Changeset Viewer**
+Note: if you are running the frontend against the production backend (the
+default), you won't be able to use OAuth to log in through the UI. Instead
+you can copy your auth token from the DevTools console on the production
+website (`localStorage.getItem("token")`) and then paste it into the console
+on the development site (`localStorage.setItem("token", <value>)`). Refresh
+the page and you should now be logged in.
 
-Checkout https://github.com/osmlab/changeset-map in a sibling folder.
-
-_In `./changeset-map`:_
-
-1. `yarn link`
-1. `yarn build --watch`
-
-_In `./osmcha-frontend`_
-
-1. `yarn link "changeset-map"`
-1. `yarn start`
-
-Edits in both projects will result in a rebuild and reload the browser.
-
-When finished, reset "osmcha-frontend" back to the npm version of "changeset-map" with `yarn add changeset-map@latest`
+If you are running your own local copy of the
+[`osmcha-django`](https://github.com/OSMCha/osmcha-django) backend, you'll
+need to register your own OAuth app on openstreetmap.org, configure the backend
+to use that secret key, and then point this frontend at your local backend by
+setting the `REACT_APP_PRODUCTION_API_URL` environment variable. After that,
+normal OAuth login through the frontend UI should work.
 
 ### Local testing
 
@@ -60,44 +52,11 @@ Test the application before commiting any changes. If you encounter any error ma
 yarn test
 ```
 
-## Deploy/Release
+## Releasing and Deployment
 
-- There are three stacks to deploy to
-- ~~`yarn deploy:dev` deploys it to `mapbox.github.io`~~ (currently broken)
-- `yarn deploy:staging` deploys it to `staging.osmcha.org`
-- `yarn deploy:prod` deploys it to `osmcha.org`
+Deployment of the [osmcha.org](https://osmcha.org) instance is managed in the [`osmcha-deploy`](https://github.com/OSMCha/osmcha-deploy). Tags pushed to this repo are automatically built into container images. Modifying the code in `osmcha-deploy` to change the pinned image version will automatically redeploy the production website.
 
-1. Run the tests with `yarn test`
-
-2. (optional) before deploy, you might want to increment the version number of application.
-    * We use `minor` for all non-drastic changes.
-    * The `patch` is reserved for minor changes.
-    * We try to stick to sem-ver.
-    ```bash
-    npm version minor
-    ```
-
-3. Then build the app with the following command.
-    ```bash
-    yarn build:<stack>
-    ```
-    * here stack could be `dev`, `staging`, `prod`. Refer to package.json for more info.
-
-4. The next step involves deploying the `build` folder to github. If you get an error like this `error: failed to push some refs to 'git'` while doing the deploy step. Run `rm -rf node_modules/gh-pages/.cache/`.
-    ```
-    yarn deploy:<stack>
-    ```
-    * here stack could be `dev`, `staging`, `prod`. Refer to package.json for more info.
-    * `oh-pages` branch handles the build for `staging`, `prod` stacks.
-    * `gh-pages` branch handles the build for `dev` stack.
-
-
-5. (optional) If you want to see the new changes on a `staging` or `prod` stack. You will need to draft a new github release. The convention is to append `-staging` or `-production` or just `-server` to the current version tag for the server to consume the build and separate concerns.
-    * for eg. if the version npm module version was `v0.16.3`.
-    * draft a github release with a tag `v0.16.3-staging`. (Note the name spacing)
-    * supply this version tag to the server.
-    * Refer to githubs [article](https://help.github.com/articles/creating-releases/) for creating releases.
-
+When tagging a new release, be sure to also update the [CHANGELOG](./CHANGELOG.md) file to describe what's changed.
 
 ## Issues and feature requests
 

@@ -12,7 +12,6 @@ import {
   LocationSelect
 } from './';
 
-import { BBoxPicker } from '../bbox_picker';
 import { loadingEnhancer } from '../loading_enhancer';
 import filters from '../../config/filters.json';
 import { getDefaultFromDate } from '../../utils/filters';
@@ -131,13 +130,6 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
         </Wrapper>
       );
     }
-    if (f.type === 'location') {
-      return (
-        <Wrapper {...wrapperProps}>
-          <LocationSelect {...propsToSend} />
-        </Wrapper>
-      );
-    }
     if (f.type === 'text') {
       return (
         <Wrapper {...wrapperProps}>
@@ -206,46 +198,52 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
         </Wrapper>
       );
     }
-    if (f.type === 'map') {
-      return (
-        <Wrapper
-          {...wrapperProps}
-          description={
-            this.props.active === f.name && (
-              <BBoxPicker
-                onChange={this.props.handleChange}
-                name={f.name}
-                value={this.props.filters.get(f.name)}
-              />
-            )
-          }
-        >
-          <Text {...propsToSend} />
-        </Wrapper>
-      );
-    }
   };
+
   render() {
     return (
       <div className="px30 flex-child filters-scroll">
-        <h2 className="txt-xl mr6 txt-bold mt24   border-b border--gray-light border--1">
+        <h2 className="txt-xl mr6 txt-bold mt24 border-b border--gray-light border--1">
           Basic
         </h2>
         {filtersData
-          .slice(0, 5)
+          .slice(0, 2)
+          .map((f: Object, k) => this.renderFilters(f, k))}
+        <Wrapper
+          name="location"
+          display="Location"
+          hasValue={
+            this.props.filters.has('geometry') ||
+            this.props.filters.has('in_bbox')
+          }
+          handleFocus={this.props.handleFocus}
+          description={
+            this.props.active === 'location' &&
+            'Filter changesets whose bounding box intersects a chosen area'
+          }
+        >
+          <LocationSelect
+            name="location"
+            value=""
+            placeholder="Type a place name"
+            onChange={this.props.handleChange}
+          />
+        </Wrapper>
+        {filtersData
+          .slice(2, 3)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           OSM Features
         </h2>
         {filtersData
-          .slice(5, 6)
+          .slice(3, 4)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Flags
         </h2>
         {filtersData
-          .slice(6, 8)
+          .slice(4, 6)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 
@@ -253,7 +251,7 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           Review
         </h2>
         {filtersData
-          .slice(8, 12)
+          .slice(6, 10)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 
@@ -261,14 +259,14 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
           Users & Teams
         </h2>
         {filtersData
-          .slice(12, 19)
+          .slice(10, 17)
           .map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Changeset Details
         </h2>
-        {filtersData.slice(19).map((f: Object, k) => this.renderFilters(f, k))}
+        {filtersData.slice(17).map((f: Object, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
       </div>
     );

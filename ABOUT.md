@@ -11,7 +11,6 @@
 - [Usage](#usage)
   - [How to review a changeset?](#how-to-review-a-changeset)
     - [Changeset and Mapper details](#changeset-and-mapper-details)
-    - [Using Changeset-map](#using-changeset-map)
     - [Reviewing changesets in OSMCha from OpenStreetMap](#reviewing-changesets-in-osmcha-from-openstreetmap)
   - [Filters](#filters)
     - [Basic filters](#basic-filters)
@@ -136,7 +135,7 @@ It is important that the reviewer has the necessary information about the
 changeset and understand the diff of modifications in the OSM data.
 
 For this purpose, OSMCha offers an interface similar to OpenStreetMap but with
-additional tools such as [changeset-map](https://github.com/osmlab/changeset-map) to visualise the edits, information about
+additional tools to visualise the edits, information about
 the mapper, other information related to the changeset and OSM user history that
 can help the reviewer identify a problematic edits on OSM. For a deep-dive into
 what a problematic edit is on OSM, please refer to our guide on
@@ -179,9 +178,9 @@ what a problematic edit is on OSM, please refer to our guide on
 
 * More details on the mapper can be found under the `User tab`. This gives more context to the reviewer about the user history and their pattern of contribution to OpenStreetMap.
 
-### Using Changeset-map
+### Using the map view
 
-* Changeset-map is a changeset visualiser for OSM. It helps the reviewer understand the edits of a changeset both in terms of geometry and feature properties.
+* One of OSMCha's core features is the ability to visualize a changeset on a map. Every map element that the changeset touched is shown, colored to indicate whether the element was created, modified, or deleted. Clicking on a map element reveals additional details about what was changed (for example, which OSM tags were modified). The map view helps you understand the complete effect of a changeset.
 
 <!--<img width="600" alt="osmcha-changesetmap" src="https://d2mxuefqeaa7sj.cloudfront.net/s_97A29C4444FB7626533E7DD42C06D768BD5A4FA0D1B3C76327F305F832774967_1497443481288_image.png">-->
 
@@ -191,7 +190,7 @@ what a problematic edit is on OSM, please refer to our guide on
 
 <img width="300" alt="osmcha-mapcontrols" src="https://user-images.githubusercontent.com/8921295/35940114-236f8314-0c1c-11e8-9649-47c1f077ab02.png">
 
-* The reviewer can also change the background map on the changeset-map by
+* The reviewer can also change the background map by
   toggling through the map style in `Map controls` tab.
 
 <img width="300" alt="osmcha-flagged" src="https://user-images.githubusercontent.com/8921295/35940146-333e3d94-0c1c-11e8-8036-5adbbfea35be.png">
@@ -460,10 +459,8 @@ This is raised when someone tries to remove tags in a changeset that are added b
 
 # Feedback
 
-* To file bugs, feature requests on OSMCha - please file issues at
-  https://github.com/osmcha/osmcha-frontend/issues
-* To file bugs, feature requests on Changeset map - please file issues at
-  https://github.com/osmlab/changeset-map/issues
+To file bugs, feature requests on OSMCha - please file issues at
+https://github.com/osmcha/osmcha-frontend/issues
 
 # Donate
 

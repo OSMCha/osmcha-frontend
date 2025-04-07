@@ -2,12 +2,17 @@ import { fromJS, Map } from 'immutable';
 import { apiOSM } from '../config/constants';
 import { API_URL } from '../config';
 
+export async function fetchChangesetMetadata(id: number): Map<'string', *> {
+  let res = await fetch(
+    `${apiOSM}/changeset/${id}.json?include_discussion=true`
+  );
+  let metadata = await res.json();
+  return metadata;
+}
+
 export function getUserDetails(uid: number, token: string): Map<'string', *> {
   const user = { uid: uid };
-  const fromOSM = fetch(`${apiOSM}/user/${uid}.json`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
-  })
+  const fromOSM = fetch(`${apiOSM}/user/${uid}.json`)
     .then(r => r.json())
     .then(r => {
       const u = r.user;

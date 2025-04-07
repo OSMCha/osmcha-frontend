@@ -1,4 +1,3 @@
-export * from './cmap';
 export * from './component';
 export * from './dispatch_event';
 export * from './element_in_view';
