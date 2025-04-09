@@ -503,6 +503,11 @@ img {
   text-decoration: underline dotted !important;
 }
 
+.react-select input:focus {
+  /* assembly.js adds a focus (not focus-visible) style, which we remove since react-select has its own focus styles */
+  box-shadow: none !important;
+}
+
 table {
   width: 100%;
 }

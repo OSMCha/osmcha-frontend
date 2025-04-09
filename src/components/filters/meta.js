@@ -47,12 +47,13 @@ export class Meta extends React.PureComponent {
     let value = this.findCurrentValue();
     return (
       <Select
+        className="react-select"
         name={name}
         value={value} // always takes 1st item array to keep things consistent with multiselect InputTypes
         options={this.props.options}
         placeholder={placeholder}
-        className=""
         onChange={this.handleChange}
+        isClearable={true}
       />
     );
   }

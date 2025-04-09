@@ -40,7 +40,7 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
       display: f.display,
       value: this.props.filters.get(f.name),
       placeholder: f.placeholder,
-      options: f.options || [],
+      options: f.options,
       onChange: this.props.handleChange,
       dataURL: f.data_url,
       min: f.min,
@@ -65,7 +65,7 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
             this.props.filters.has(f.name + '__lte')
           }
         >
-          <span className="flex-parent flex-parent--row  ">
+          <span className="flex-parent flex-parent--row">
             <Text
               {...propsToSend}
               className="mr3"
@@ -224,7 +224,10 @@ class FiltersList extends React.PureComponent<void, propsType, *> {
         >
           <LocationSelect
             name="location"
-            value=""
+            value={
+              this.props.filters.get('geometry') ||
+              this.props.filters.get('in_bbox')
+            }
             placeholder="Type a place name"
             onChange={this.props.handleChange}
           />

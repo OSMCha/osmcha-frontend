@@ -10,7 +10,6 @@ import { isDev, appVersion } from './config';
 
 import './assets/index.css';
 import 'animate.css/animate.css';
-import 'react-select/dist/react-select.css';
 
 import { App } from './app';
 

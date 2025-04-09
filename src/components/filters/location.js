@@ -1,9 +1,9 @@
 // @flow
-import React from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { fromJS } from 'immutable';
 import debounce from 'lodash.debounce';
-import { Async } from 'react-select';
 import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 
 import maplibre from 'maplibre-gl';
 import {
@@ -14,58 +14,90 @@ import {
 import { TerraDrawMapLibreGLAdapter } from 'terra-draw-maplibre-gl-adapter';
 import area from '@turf/area';
 import bbox from '@turf/bbox';
+import bboxPolygon from '@turf/bbox-polygon';
 import simplify from '@turf/simplify';
 import truncate from '@turf/truncate';
 
 import { nominatimSearch } from '../../network/nominatim';
 
-export class LocationSelect extends React.PureComponent {
-  props: {
-    name: string,
-    display: string,
-    value: Object,
-    type: string,
-    placeholder: string,
-    options: Array<Object>,
-    onChange: (string, value: Object) => any
-  };
-  state = {
-    geometry: Object,
-    location: '',
-    queryType: 'q',
-    lastSearch: new Date()
-  };
-  queryTypeOptions = [
+const LocationSelect = props => {
+  const { name, value, placeholder, onChange } = props;
+
+  // State
+  const [queryType, setQueryType] = useState('q');
+  const [isLoading, setIsLoading] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+
+  // Refs
+  const mapRef = useRef(null);
+  const drawRef = useRef(null);
+
+  // Query type options
+  const queryTypeOptions = [
     { value: 'q', label: 'Any' },
     { value: 'city', label: 'City' },
     { value: 'county', label: 'County' },
     { value: 'state', label: 'State' },
     { value: 'country', label: 'Country' }
   ];
-  map = null;
-  draw = null;
 
-  componentDidMount() {
-    let map = new maplibre.Map({
+  // Update map with new data
+  const updateMap = useCallback(
+    data => {
+      const map = mapRef.current;
+      if (!map) return;
+
+      // called with geojson polygon of a feature that was retrieved by
+      // name from Nominatim
+      if (map.getSource('feature')) {
+        map.getSource('feature').setData(data);
+      } else {
+        map.addSource('feature', {
+          type: 'geojson',
+          data: {
+            type: 'Feature',
+            geometry: data
+          }
+        });
+      }
+
+      if (map.getLayer('geometry') === undefined) {
+        map.addLayer({
+          id: 'geometry',
+          type: 'fill',
+          source: 'feature',
+          paint: {
+            'fill-color': '#088',
+            'fill-opacity': 0.6
+          }
+        });
+      }
+
+      onChange('in_bbox', undefined);
+      onChange('geometry', fromJS([{ label: data, value: data }]));
+
+      const bounds = bbox(data);
+      map.fitBounds([bounds.slice(0, 2), bounds.slice(2)], { padding: 20 });
+    },
+    [onChange]
+  );
+
+  // Initialize map and draw
+  useEffect(() => {
+    // Create map
+    const map = new maplibre.Map({
       container: 'geometry-map',
       style: '/positron.json'
     });
+
     map.setMaxPitch(0);
     map.dragRotate.disable();
     map.boxZoom.disable();
     map.touchZoomRotate.disableRotation();
     map.keyboard.disableRotation();
 
-    map.on('style.load', () => {
-      map.setProjection({ type: 'globe' });
-    });
-
-    if (this.props.value) {
-      // FIXME: this doesn't work; how can we draw an existing geometry on the map?
-      this.updateMap(this.props.value);
-    }
-
-    let draw = new TerraDraw({
+    // Create draw
+    const draw = new TerraDraw({
       adapter: new TerraDrawMapLibreGLAdapter({ map, lib: maplibre }),
       modes: [
         new TerraDrawRectangleMode(),
@@ -81,90 +113,68 @@ export class LocationSelect extends React.PureComponent {
       const bounds = bbox(feature); // even though the user drew a box, 'feature' is a Polygon
       const wsen = bounds.map(v => v.toFixed(4)).join(',');
 
-      this.props.onChange('geometry', undefined);
-      this.props.onChange('in_bbox', fromJS([{ label: wsen, value: wsen }]));
+      onChange('geometry', undefined);
+      onChange('in_bbox', fromJS([{ label: wsen, value: wsen }]));
     });
 
-    this.map = map;
-    this.draw = draw;
+    // Store refs
+    mapRef.current = map;
+    drawRef.current = draw;
 
-    document.addEventListener('keydown', this.handleKeyDown);
-    document.addEventListener('keyup', this.handleKeyUp);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown);
-    document.removeEventListener('keyup', this.handleKeyUp);
-  }
-
-  handleKeyDown = event => {
-    if (event.key === 'Shift') {
-      this.draw.clear();
-      this.draw.setMode('rectangle');
-    }
-  };
-
-  handleKeyUp = event => {
-    if (event.key === 'Shift') {
-      this.draw.setMode('render');
-    }
-  };
-
-  updateMap(data) {
-    // called with geojson polygon of a feature that was retrieved by
-    // name from Nominatim
-
-    if (this.map.getSource('feature')) {
-      this.map.getSource('feature').setData(data);
-    } else {
-      this.map.addSource('feature', {
-        type: 'geojson',
-        data: {
+    // Set up event listeners
+    const handleKeyDown = event => {
+      if (event.key === 'Shift') {
+        draw.clear();
+        map.getSource('feature')?.setData({
           type: 'Feature',
-          geometry: data
+          geometry: null
+        });
+        draw.setMode('rectangle');
+      }
+    };
+
+    const handleKeyUp = event => {
+      if (event.key === 'Shift') {
+        draw.setMode('render');
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+
+    map.on('style.load', () => {
+      map.setProjection({ type: 'globe' });
+
+      // Display initial bbox or polygon (if it exists) on the map
+      if (value && value.size > 0) {
+        const { value: geometry } = value.get(0).toJS();
+        console.log('geometry', geometry);
+        if (geometry && typeof geometry === 'object') {
+          // geometry is a GeoJSON polygon
+          updateMap(geometry);
+        } else if (geometry && typeof geometry === 'string') {
+          // geometry is a bbox string (WSEN, comma-separated)
+          const bounds = geometry.split(',').map(Number);
+          console.log('bounds', bounds);
+          console.log('bboxPolygon', bboxPolygon(bounds));
+          updateMap(bboxPolygon(bounds).geometry);
         }
-      });
-    }
+      }
+    });
 
-    if (this.map.getLayer('geometry') === undefined) {
-      this.map.addLayer({
-        id: 'geometry',
-        type: 'fill',
-        source: 'feature',
-        paint: {
-          'fill-color': '#088',
-          'fill-opacity': 0.6
-        }
-      });
-    }
+    // Cleanup
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
 
-    this.setState({ geometry: data });
-    this.props.onChange('in_bbox', undefined);
-    this.props.onChange('geometry', fromJS([{ label: data, value: data }]));
-    const bounds = bbox(data);
-    this.map.fitBounds([bounds.slice(0, 2), bounds.slice(2)], { padding: 20 });
-  }
+      if (map) {
+        map.remove();
+      }
+    };
+  }, [onChange, updateMap]);
 
-  getAsyncOptions = (input: string, cb: (e: ?Error, any) => void) => {
-    if (input.length >= 2 || this.isOneCharInputAllowed(input)) {
-      return nominatimSearch(input, this.state.queryType)
-        .then(json => {
-          if (!Array.isArray(json)) return cb(null, { options: [] });
-
-          const data = json.map(d => ({
-            label: d.display_name,
-            value: d.geojson
-          }));
-
-          return cb(null, { options: data });
-        })
-        .catch(e => cb(e, null));
-    } else {
-      return cb(null, { options: [] });
-    }
-  };
-
-  isOneCharInputAllowed = (input: string) => {
+  // Check if one character input is allowed (for East Asian languages)
+  const isOneCharInputAllowed = useCallback(input => {
     // Allowing one character input if it contains characters from certain scripts while
     // guarding against browsers that don't support this kind of regular expression
     try {
@@ -175,67 +185,120 @@ export class LocationSelect extends React.PureComponent {
       // Allowing always is better than never allowing for the above-mentioned scripts
       return true;
     }
-  };
+  }, []);
 
-  onChangeLocal = (data: ?Array<Object>) => {
-    if (data) {
-      this.draw.clear();
-      const tolerance = area(data.value) / 10 ** 6 < 1000 ? 0.01 : 0.1;
-      const simplified_bounds = simplify(data.value, {
-        tolerance: tolerance,
-        highQuality: true
-      });
-      this.updateMap(
-        truncate(simplified_bounds, { precision: 6, coordinates: 2 })
-      );
-    }
-  };
+  // Load options from server
+  const loadOptions = useCallback(
+    async inputValue => {
+      setIsLoading(true);
 
-  handleQueryTypeChange = value => {
-    this.setState({ queryType: value });
-  };
+      if (inputValue.length >= 2 || isOneCharInputAllowed(inputValue)) {
+        try {
+          const json = await nominatimSearch(inputValue, queryType);
 
-  renderSelect = () => {
-    const { name, placeholder, value } = this.props;
-    return (
-      <Async
-        name={name}
-        className=""
-        value={value}
-        loadOptions={debounce(
-          (input, cb) => this.getAsyncOptions(input, cb),
-          500
-        )}
-        onChange={this.onChangeLocal}
-        placeholder={placeholder}
-      />
-    );
-  };
+          if (!Array.isArray(json)) {
+            setIsLoading(false);
+            return [];
+          }
 
-  render() {
-    return (
-      <div>
-        <div className="grid grid--gut12">
-          <div className="col col--4">
-            <Select
-              onChange={this.handleQueryTypeChange}
-              options={this.queryTypeOptions}
-              simpleValue
-              value={this.state.queryType}
-              placeholder="Place Type"
-            />
-          </div>
-          <div className="col col--8 pl3">{this.renderSelect()}</div>
+          const data = json.map(d => ({
+            label: d.display_name,
+            value: d.geojson
+          }));
+
+          setIsLoading(false);
+          return data;
+        } catch (e) {
+          setIsLoading(false);
+          return [];
+        }
+      } else {
+        setIsLoading(false);
+        return [];
+      }
+    },
+    [queryType, isOneCharInputAllowed]
+  );
+
+  // Create debounced version of loadOptions
+  const debouncedLoadOptions = useCallback(
+    debounce((inputValue, callback) => {
+      loadOptions(inputValue).then(callback);
+    }, 500),
+    [loadOptions]
+  );
+
+  // Handle selection change
+  const handleChange = useCallback(
+    selectedOption => {
+      if (selectedOption) {
+        const draw = drawRef.current;
+        if (draw) {
+          draw.clear();
+        }
+
+        const tolerance =
+          area(selectedOption.value) / 10 ** 6 < 1000 ? 0.01 : 0.1;
+        const simplified_bounds = simplify(selectedOption.value, {
+          tolerance: tolerance,
+          highQuality: true
+        });
+
+        updateMap(
+          truncate(simplified_bounds, { precision: 6, coordinates: 2 })
+        );
+      }
+    },
+    [updateMap]
+  );
+
+  // Handle query type change
+  const handleQueryTypeChange = useCallback(selectedOption => {
+    setQueryType(selectedOption.value);
+  }, []);
+
+  // Handle input change
+  const handleInputChange = useCallback(newValue => {
+    setInputValue(newValue);
+  }, []);
+
+  return (
+    <div>
+      <div className="grid grid--gut12">
+        <div className="col col--4">
+          <Select
+            onChange={handleQueryTypeChange}
+            options={queryTypeOptions}
+            value={queryTypeOptions.find(option => option.value === queryType)}
+            placeholder="Place Type"
+          />
         </div>
-        <div className="grid grid--gut12 pt6">
-          <div className="col col--12 map-select">
-            <div id="geometry-map" />
-          </div>
+        <div className="col col--8 pl3">
+          <AsyncSelect
+            name={name}
+            className="react-select"
+            loadOptions={debouncedLoadOptions}
+            onChange={handleChange}
+            onInputChange={handleInputChange}
+            inputValue={inputValue}
+            isLoading={isLoading}
+            placeholder={placeholder}
+            cacheOptions={false}
+            defaultOptions={false}
+            minimumInput={2}
+          />
         </div>
-        <p>
-          Hold <kbd>Shift</kbd> and click to draw a bounding box.
-        </p>
       </div>
-    );
-  }
-}
+      <div className="grid grid--gut12 pt6">
+        <div className="col col--12 map-select">
+          <div id="geometry-map" />
+        </div>
+      </div>
+      <p>
+        Hold <kbd>Shift</kbd> and click to draw a bounding box.
+      </p>
+    </div>
+  );
+};
+
+export { LocationSelect };
