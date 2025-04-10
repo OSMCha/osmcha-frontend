@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { diffArrays } from 'diff';
 
 import { osmUrl } from '../config/constants.js';
 import { flagFeature, unflagFeature } from '../network/changeset';
@@ -295,16 +296,12 @@ function TagsTable({ action }) {
 }
 
 function RelationMembersTable({ action, setHighlight }) {
-  let allMembers;
+  let oldMemberIds = action.old?.members.map(m => `${m.type}/${m.ref}`) ?? [];
+  let newMemberIds = action.new?.members.map(m => `${m.type}/${m.ref}`) ?? [];
 
-  if (action.type === 'create') {
-    allMembers = action.new.members;
-  } else {
-    allMembers = [...action.old.members, ...action.new.members];
-  }
-
-  let allMemberIds = new Set(allMembers.map(m => `${m.type}/${m.ref}`));
-  allMemberIds = [...allMemberIds].sort();
+  let diff = diffArrays(oldMemberIds, newMemberIds, {
+    oneChangePerToken: true
+  });
 
   return (
     <table className="member-table">
@@ -315,7 +312,8 @@ function RelationMembersTable({ action, setHighlight }) {
         </tr>
       </thead>
       <tbody>
-        {allMemberIds.map(id => {
+        {diff.map(({ value }) => {
+          const id = value[0];
           const [type, ref] = id.split('/');
           const oldMember = action.old?.members.find(
             m => m.type === type && m.ref === +ref
