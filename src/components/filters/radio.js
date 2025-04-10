@@ -24,12 +24,13 @@ export class Radio extends React.PureComponent {
     const { name, options, placeholder, value } = this.props;
     return (
       <Select
+        className="react-select"
         name={name}
         value={value && value.get(0) && value.get(0).toJS()} // always takes 1st item array to keep things consistent with multiselect InputTypes
         options={options}
         placeholder={placeholder}
-        className=""
         onChange={this.onChangeLocal}
+        isClearable
       />
     );
   }
