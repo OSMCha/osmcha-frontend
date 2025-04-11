@@ -2,6 +2,13 @@
 
 Log of changes since the 2.0 version
 
+### 1.2.1
+
+- Upgrade to maplibre-adiff-viewer 1.3.0, which contains tweaks to improve
+  the visibility of elements on the map.
+- Fix some filter input bugs (#779)
+- Preserve order of relation members in the element info table (#780)
+
 ### 1.2.0
 
 - Switch from using s3://real-changesets JSONs to using adiffs.osmcha.org

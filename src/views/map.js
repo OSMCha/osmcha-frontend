@@ -158,7 +158,7 @@ class CMap extends React.PureComponent {
       if (adiff.actions.length > 0) {
         map.jumpTo(
           map.cameraForBounds(adiffViewer.bounds(), {
-            padding: 50,
+            padding: 200,
             maxZoom: 18
           })
         );
