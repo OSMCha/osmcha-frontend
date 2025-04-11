@@ -13,7 +13,7 @@
     "url": "https://github.com/osmcha/osmcha-frontend/issues"
   },
   "dependencies": {
-    "@osmcha/maplibre-adiff-viewer": "^1.2.1",
+    "@osmcha/maplibre-adiff-viewer": "^1.3.0",
     "@osmcha/osm-adiff-parser": "^3.0.0",
     "@turf/area": "^7.1.0",
     "@turf/bbox": "^7.1.0",
