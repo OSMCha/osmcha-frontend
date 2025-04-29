@@ -259,7 +259,9 @@ function TagsTable({ action }) {
           if (oldval === newval) {
             return (
               <tr>
-                <td>{key}</td>
+                <td>
+                  <span dir="auto">{key}</span>
+                </td>
                 <td>
                   <span dir="auto">{newval}</span>
                 </td>
@@ -268,7 +270,9 @@ function TagsTable({ action }) {
           } else if (oldval === undefined) {
             return (
               <tr className="create">
-                <td>{key}</td>
+                <td>
+                  <span dir="auto">{key}</span>
+                </td>
                 <td>
                   <span dir="auto">{newval}</span>
                 </td>
@@ -277,7 +281,9 @@ function TagsTable({ action }) {
           } else if (newval === undefined) {
             return (
               <tr className="delete">
-                <td>{key}</td>
+                <td>
+                  <span dir="auto">{key}</span>
+                </td>
                 <td>
                   <span dir="auto">{oldval}</span>
                 </td>
@@ -286,7 +292,9 @@ function TagsTable({ action }) {
           } else {
             return (
               <tr className="modify">
-                <td>{key}</td>
+                <td>
+                  <span dir="auto">{key}</span>
+                </td>
                 <td>
                   <del dir="auto">{oldval}</del>
                   {' → '}
