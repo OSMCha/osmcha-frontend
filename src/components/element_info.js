@@ -259,32 +259,46 @@ function TagsTable({ action }) {
           if (oldval === newval) {
             return (
               <tr>
-                <td>{key}</td>
-                <td>{newval}</td>
+                <td>
+                  <span dir="auto">{key}</span>
+                </td>
+                <td>
+                  <span dir="auto">{newval}</span>
+                </td>
               </tr>
             );
           } else if (oldval === undefined) {
             return (
               <tr className="create">
-                <td>{key}</td>
-                <td>{newval}</td>
+                <td>
+                  <span dir="auto">{key}</span>
+                </td>
+                <td>
+                  <span dir="auto">{newval}</span>
+                </td>
               </tr>
             );
           } else if (newval === undefined) {
             return (
               <tr className="delete">
-                <td>{key}</td>
-                <td>{oldval}</td>
+                <td>
+                  <span dir="auto">{key}</span>
+                </td>
+                <td>
+                  <span dir="auto">{oldval}</span>
+                </td>
               </tr>
             );
           } else {
             return (
               <tr className="modify">
-                <td>{key}</td>
                 <td>
-                  <del>{oldval}</del>
+                  <span dir="auto">{key}</span>
+                </td>
+                <td>
+                  <del dir="auto">{oldval}</del>
                   {' → '}
-                  <ins>{newval}</ins>
+                  <ins dir="auto">{newval}</ins>
                 </td>
               </tr>
             );
@@ -332,21 +346,27 @@ function RelationMembersTable({ action, setHighlight }) {
             return (
               <tr {...interactions}>
                 <td>{id}</td>
-                <td>{newrole}</td>
+                <td>
+                  <span dir="auto">{newrole}</span>
+                </td>
               </tr>
             );
           } else if (oldrole === undefined) {
             return (
               <tr className="create" {...interactions}>
                 <td>{id}</td>
-                <td>{newrole}</td>
+                <td>
+                  <span dir="auto">{newrole}</span>
+                </td>
               </tr>
             );
           } else if (newrole === undefined) {
             return (
               <tr className="delete" {...interactions}>
                 <td>{id}</td>
-                <td>{oldrole}</td>
+                <td>
+                  <span dir="auto">{oldrole}</span>
+                </td>
               </tr>
             );
           } else {
@@ -354,9 +374,9 @@ function RelationMembersTable({ action, setHighlight }) {
               <tr className="modify" {...interactions}>
                 <td>{id}</td>
                 <td>
-                  <del>{oldrole}</del>
+                  <del dir="auto">{oldrole}</del>
                   {' → '}
-                  <ins>{newrole}</ins>
+                  <ins dir="auto">{newrole}</ins>
                 </td>
               </tr>
             );
