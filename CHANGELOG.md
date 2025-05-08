@@ -2,6 +2,13 @@
 
 Log of changes since the 2.0 version
 
+### 1.2.2
+
+- Fix display of RTL tag and role values in the element info table (#790)
+- Add polygon drawing mode to location filter, and change interface so that
+  drawing a bounding box does not require holding the Shift key (as this was
+  not working on Windows for some reason). (#792)
+
 ### 1.2.1
 
 - Upgrade to maplibre-adiff-viewer 1.3.0, which contains tweaks to improve
