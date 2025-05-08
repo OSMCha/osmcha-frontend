@@ -1,0 +1,31 @@
+name: Bug report
+description: Let us know if you've found a bug in OSMCha
+labels: ["bug"]
+body:
+  - type: textarea
+    id: describe-bug
+    attributes:
+      label: Describe the bug
+      description: Be as clear and concise as you can. Include steps to reproduce the bug if necessary.
+    validations:
+      required: true
+
+  - type: input
+    id: changeset-url
+    attributes:
+      label: Changeset URL
+      description: If this bug happens when viewing a particular changeset, please paste the link to that changeset here
+    
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Your browser (including version) and operating system (e.g. "Chrome 137 on macOS")
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional information
+      description: Screenshots, console logs, or any other details that might help us understand the issue (optional)
