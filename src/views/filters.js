@@ -88,20 +88,20 @@ class Filters extends React.PureComponent<void, propsType, stateType> {
     }
   };
   handleChange = (name: string, values?: filterType) => {
-    let filters = this.state.filters;
-    // if someone cleared date__gte filter
-    // we use the convention defined at `noDateGte`
-    // to signify no default gte.
-    if (name === 'date__gte' && values == null) {
-      filters = filters.merge(noDateGte);
-    } else if (values == null) {
-      // clear this filter
-      filters = filters.delete(name);
-    } else {
-      filters = filters.set(name, values);
-    }
-    return this.setState({
-      filters
+    this.setState(state => {
+      let filters = state.filters;
+      // if someone cleared date__gte filter
+      // we use the convention defined at `noDateGte`
+      // to signify no default gte.
+      if (name === 'date__gte' && values == null) {
+        filters = filters.merge(noDateGte);
+      } else if (values == null) {
+        // clear this filter
+        filters = filters.delete(name);
+      } else {
+        filters = filters.set(name, values);
+      }
+      return { filters };
     });
   };
   handleToggleAll = (name: string, values?: filterType) => {
