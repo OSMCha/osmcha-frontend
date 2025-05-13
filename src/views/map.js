@@ -110,7 +110,7 @@ class CMap extends React.PureComponent {
   }
 
   initializeMap() {
-    if (!this.props.changeset) {
+    if (!this.props.token || !this.props.changeset) {
       return;
     }
 
