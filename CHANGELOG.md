@@ -2,6 +2,12 @@
 
 Log of changes since the 2.0 version
 
+### 1.2.3
+
+- Fix blank page when loading a changeset while not logged in (#796)
+- Remove Plausible analytics (for cost reasons; we may investigate adding
+  it back or switching to another analytics provider in the future)
+
 ### 1.2.2
 
 - Fix display of RTL tag and role values in the element info table (#790)
