@@ -33,6 +33,18 @@ function ElementInfo({ changeset, action, token, setHighlight }) {
     actionPhrase = 'deleted';
   }
 
+  const getCoord = key => {
+    return (
+      action.new?.[key] || // point
+      action.new?.nodes?.at(0)?.[key] || // added, modified line/area
+      action.old?.nodes?.at(0)?.[key] || // deleted line/area
+      action.new?.members?.at(0)?.[key] || // relation point, then line/area
+      action.new?.members?.at(0)?.nodes?.at(0)?.[key] ||
+      action.old?.members?.at(0)?.[key] ||
+      action.old?.members?.at(0)?.nodes?.at(0)?.[key]
+    );
+  };
+
   return (
     <div className="element-info">
       <h2>
@@ -42,7 +54,7 @@ function ElementInfo({ changeset, action, token, setHighlight }) {
       </h2>
       <menu>
         <HistoryDropdown id={id} />
-        <OpenInDropdown id={id} />
+        <OpenInDropdown id={id} lat={getCoord('lat')} lng={getCoord('lon')} />
         <FlagButton changeset={changeset} featureId={id} token={token} />
       </menu>
       <MetadataTable changesetId={changeset.get('id')} action={action} />
@@ -93,7 +105,7 @@ function idToMinimalForm(id) {
   return `${type[0]}${num}`;
 }
 
-function OpenInDropdown({ id }) {
+function OpenInDropdown({ id, lat, lng }) {
   let options = [
     {
       label: 'OSM',
@@ -121,6 +133,26 @@ function OpenInDropdown({ id }) {
       href: `https://rapideditor.org/edit#id=${idToMinimalForm(id)}`
     }
   ];
+
+  if (lat && lng) {
+    options = [
+      ...options,
+      {
+        label: 'Mapillary',
+        href: `https://www.mapillary.com/app/?lat=${lat}&lng=${lng}&z=16`
+      },
+      {
+        label: 'Panoramax',
+        href: `https://api.panoramax.xyz/?focus=map&map=16/${lat}/${lng}`
+      }
+    ];
+  } else {
+    console.info(
+      'OpenInDropdown: lat, lng missing; cannot add Mapillary link',
+      lat,
+      lng
+    );
+  }
 
   return <Dropdown display="Open in" options={options} />;
 }
