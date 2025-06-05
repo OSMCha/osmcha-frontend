@@ -15,6 +15,7 @@ const BING_AERIAL_IMAGERY_STYLE = {
   sources: {
     bing: {
       type: 'raster',
+      scheme: 'xyz',
       tiles: [
         'https://ecn.t0.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
         'https://ecn.t1.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
@@ -31,6 +32,53 @@ const BING_AERIAL_IMAGERY_STYLE = {
       id: 'imagery',
       type: 'raster',
       source: 'bing'
+    }
+  ]
+};
+
+const ESRI_WORLD_IMAGERY_STYLE = {
+  version: 8,
+  sources: {
+    esri: {
+      type: 'raster',
+      scheme: 'xyz',
+      tiles: [
+        'https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}?blankTile=false',
+        'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}?blankTile=false'
+      ],
+      tileSize: 256,
+      maxzoom: 20,
+      attribution: 'Imagery © Esri'
+    }
+  },
+  layers: [
+    {
+      id: 'imagery',
+      type: 'raster',
+      source: 'esri'
+    }
+  ]
+};
+
+const ESRI_WORLD_IMAGERY_CLARITY_STYLE = {
+  version: 8,
+  sources: {
+    esri: {
+      type: 'raster',
+      scheme: 'xyz',
+      tiles: [
+        'https://clarity.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}?blankTile=false'
+      ],
+      tileSize: 256,
+      maxzoom: 20,
+      attribution: 'Imagery © Esri'
+    }
+  },
+  layers: [
+    {
+      id: 'imagery',
+      type: 'raster',
+      source: 'esri'
     }
   ]
 };
@@ -60,6 +108,15 @@ const OPENSTREETMAP_CARTO_STYLE = {
     }
   ]
 };
+
+const BASEMAP_STYLES = {
+  bing: BING_AERIAL_IMAGERY_STYLE,
+  esri: ESRI_WORLD_IMAGERY_STYLE,
+  'esri-clarity': ESRI_WORLD_IMAGERY_CLARITY_STYLE,
+  carto: OPENSTREETMAP_CARTO_STYLE
+};
+
+const DEFAULT_BASEMAP_STYLE = BING_AERIAL_IMAGERY_STYLE;
 
 class CMap extends React.PureComponent {
   props: {
@@ -120,11 +177,7 @@ class CMap extends React.PureComponent {
       this.map.remove();
     }
 
-    let style = BING_AERIAL_IMAGERY_STYLE;
-
-    if (this.props.style === 'carto') {
-      style = OPENSTREETMAP_CARTO_STYLE;
-    }
+    let style = BASEMAP_STYLES[this.props.style] ?? DEFAULT_BASEMAP_STYLE;
 
     let map = new maplibre.Map({
       container,
@@ -194,11 +247,7 @@ class CMap extends React.PureComponent {
   updateMap() {
     if (this.state.loading || !this.map || !this.adiffViewer) return;
 
-    let style = BING_AERIAL_IMAGERY_STYLE;
-
-    if (this.props.style === 'carto') {
-      style = OPENSTREETMAP_CARTO_STYLE;
-    }
+    let style = BASEMAP_STYLES[this.props.style] ?? DEFAULT_BASEMAP_STYLE;
 
     this.map.setStyle(style);
 
