@@ -24,7 +24,9 @@ const toggle = (arr, elem) => {
 
 class MapOptions extends React.PureComponent {
   layerOptions = [
-    { label: 'Bing aerial imagery', value: 'bing' },
+    { label: 'Bing Maps Aerial', value: 'bing' },
+    { label: 'Esri World Imagery', value: 'esri' },
+    { label: 'Esri World Imagery (Clarity) Beta', value: 'esri-clarity' },
     { label: 'OpenStreetMap Carto', value: 'carto' }
   ];
 
