@@ -33,6 +33,10 @@ function ElementInfo({ changeset, action, token, setHighlight }) {
     actionPhrase = 'deleted';
   }
 
+  // Get a 'lon' or 'lat' (the key argument specifies which) representing position
+  // of the selected feature/action.
+  // TODO: it would be more correct to convert the feature to GeoJSON and then
+  // find its centroid or bounding box center.
   const getCoord = key => {
     return (
       action.new?.[key] || // point
@@ -134,6 +138,10 @@ function OpenInDropdown({ id, lat, lng }) {
     }
   ];
 
+  // TODO: for now we've added Mapillary and Panoramax to the "Open In" list,
+  // but this is a bit confusing since really it's just viewing the location of
+  // the feature (not editing the feature, like the other options). We should
+  // split this out into a separate menu - maybe "View in" and "Edit in".
   if (lat && lng) {
     options = [
       ...options,
