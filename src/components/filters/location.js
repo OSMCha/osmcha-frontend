@@ -206,13 +206,19 @@ const LocationSelect = props => {
 
         const tolerance =
           area(selectedOption.value) / 10 ** 6 < 1000 ? 0.01 : 0.1;
-        const simplified_bounds = simplify(selectedOption.value, {
+        const simplified_geometry = simplify(selectedOption.value, {
           tolerance: tolerance,
           highQuality: true
         });
 
+        onChange(
+          'geometry',
+          fromJS([{ label: simplified_geometry, value: simplified_geometry }])
+        );
+        onChange('in_bbox', null);
+
         updateMap(
-          truncate(simplified_bounds, { precision: 6, coordinates: 2 })
+          truncate(simplified_geometry, { precision: 6, coordinates: 2 })
         );
       }
     },
