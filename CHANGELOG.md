@@ -1,6 +1,17 @@
-# Change Log
+# Changelog
 
-Log of changes since the 2.0 version
+This is a log of notable changes to the OSMCha frontend. It records history
+as far back as very early versions of this codebase, which was started in 2017
+(though note that there was an earlier version of OSMCha whose code is not
+included in the history of this repository).
+
+### 1.2.4
+- Add Mapillary and Panoramax links to the "Open In..." dropdown on selected
+  features (#805)
+- Add Esri World imagery and Esri Clarity (Beta) imagery layers to the list of
+  available satellite imagery basemaps (#808)
+- Fix bug in location search bar (#810). Choosing a location from the search
+  resulits will now correctly add that location as a polygon filter.
 
 ### 1.2.3
 
