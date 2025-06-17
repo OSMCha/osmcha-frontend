@@ -14381,6 +14381,11 @@ table@4.0.2:
     slice-ansi "1.0.0"
     string-width "^2.1.1"
 
+tag2link@^2025.5.21:
+  version "2025.5.21"
+  resolved "https://registry.yarnpkg.com/tag2link/-/tag2link-2025.5.21.tgz#5f02fd412e854744a141b4d6217e6acf33e23d93"
+  integrity sha512-vcz6/6U5V3QYPA7geLrtzLMqhCwg6OvoGP665DbGgPRSWASjFn0J4jA/NyifD3Tmp2yf8RnEuI6QBvhXGBVSHg==
+
 tailwindcss@^3.0.2:
   version "3.4.15"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.4.15.tgz#04808bf4bf1424b105047d19e7d4bfab368044a9"
