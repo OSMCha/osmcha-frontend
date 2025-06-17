@@ -8,6 +8,7 @@ import { Dropdown } from './dropdown';
 import { Button } from './button';
 import thumbsDown from '../assets/thumbs-down.svg';
 import type { RootStateType } from '../store';
+import { TagValue } from './tag_value.js';
 
 /*
  * Displays info about an element that was created/modified/deleted.
@@ -303,7 +304,9 @@ function TagsTable({ action }) {
                   <span dir="auto">{key}</span>
                 </td>
                 <td>
-                  <span dir="auto">{newval}</span>
+                  <span dir="auto">
+                    <TagValue k={key} v={newval} />
+                  </span>
                 </td>
               </tr>
             );
@@ -314,7 +317,9 @@ function TagsTable({ action }) {
                   <span dir="auto">{key}</span>
                 </td>
                 <td>
-                  <span dir="auto">{newval}</span>
+                  <span dir="auto">
+                    <TagValue k={key} v={newval} />
+                  </span>
                 </td>
               </tr>
             );
@@ -325,7 +330,9 @@ function TagsTable({ action }) {
                   <span dir="auto">{key}</span>
                 </td>
                 <td>
-                  <span dir="auto">{oldval}</span>
+                  <span dir="auto">
+                    <TagValue k={key} v={oldval} />
+                  </span>
                 </td>
               </tr>
             );
@@ -336,9 +343,13 @@ function TagsTable({ action }) {
                   <span dir="auto">{key}</span>
                 </td>
                 <td>
-                  <del dir="auto">{oldval}</del>
+                  <del dir="auto">
+                    <TagValue k={key} v={oldval} />
+                  </del>
                   {' → '}
-                  <ins dir="auto">{newval}</ins>
+                  <ins dir="auto">
+                    <TagValue k={key} v={newval} />
+                  </ins>
                 </td>
               </tr>
             );
