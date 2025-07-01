@@ -52,6 +52,7 @@
     "showdown": "^1.8.6",
     "stream": "^0.0.3",
     "superagent": "^3.5.2",
+    "tag2link": "^2025.5.21",
     "terra-draw": "^1.1.0",
     "terra-draw-maplibre-gl-adapter": "^1.0.1"
   },
