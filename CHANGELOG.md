@@ -5,6 +5,11 @@ as far back as very early versions of this codebase, which was started in 2017
 (though note that there was an earlier version of OSMCha whose code is not
 included in the history of this repository).
 
+### 1.2.5
+
+- Make external links and foreign keys clickable in the element info view
+  using JOSM's tag2link package (#813)
+
 ### 1.2.4
 - Add Mapillary and Panoramax links to the "Open In..." dropdown on selected
   features (#805)
