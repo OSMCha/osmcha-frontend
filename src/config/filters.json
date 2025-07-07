@@ -228,10 +228,9 @@
     "all": false,
     "range": false,
     "display": "Mapping teams",
-    "data_url": "mapping-team",
     "type": "text_comma",
-    "description": "Show changesets created by users that are part of a Mapping Team. Start typing to select one or more teams.",
-    "placeholder": "Enter mapping teams"
+    "description": "Show changesets created by users that are part of a Mapping Team. Type the team name as listed on your Teams page and use tab to confirm or add another team name.",
+    "placeholder": "Enter mapping team names"
   },
   {
     "name": "exclude_teams",
@@ -239,10 +238,9 @@
     "all": false,
     "range": false,
     "display": "Hide mapping teams",
-    "data_url": "mapping-team",
     "type": "text_comma",
-    "description": "Exclude changesets created by users that are part of a Mapping Team. Start typing to select one or more teams.",
-    "placeholder": "Enter mapping teams"
+    "description": "Exclude changesets created by users that are part of a Mapping Team. Type the team name as listed on your Teams page and use tab to confirm or add another team name.",
+    "placeholder": "Enter mapping team names"
   },
   {
     "name": "exclude_trusted_teams",
