@@ -168,7 +168,7 @@
     "display": "Users",
     "cache": true,
     "type": "text_comma",
-    "description": "Show changesets created by the users. Start typing to select one or more users.",
+    "description": "Show changesets created by the users. Type the user name and use tab to confirm or add another user name.",
     "placeholder": "Enter OSM usernames"
   },
   {
