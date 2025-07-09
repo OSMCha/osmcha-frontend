@@ -5,6 +5,15 @@ as far back as very early versions of this codebase, which was started in 2017
 (though note that there was an earlier version of OSMCha whose code is not
 included in the history of this repository).
 
+### 1.2.6
+
+- Correct help text for User field in filter UI (#817)
+- Remove broken autocomplete behavior for Teams field in filter UI; update
+  wording on help text (#818)
+- Switch from overpass.osmcha.org to overpass-api.de as default Overpass
+  provider (only used when a user views a changeset that is very old, or very
+  new).
+
 ### 1.2.5
 
 - Make external links and foreign keys clickable in the element info view
