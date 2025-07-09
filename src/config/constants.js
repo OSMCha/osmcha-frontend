@@ -4,7 +4,7 @@ import { API_URL } from './';
 export const PAGE_SIZE = process.env.REACT_APP_PAGE_SIZE || 25;
 export const overpassBase =
   process.env.REACT_APP_OVERPASS_BASE ||
-  '//overpass.osmcha.org/api/interpreter';
+  'https://overpass-api.de/api/interpreter';
 export const statusUrl =
   'https://raw.githubusercontent.com/osmcha/osmcha-frontend/status/status.json';
 export const enableRealChangesets = !process.env
