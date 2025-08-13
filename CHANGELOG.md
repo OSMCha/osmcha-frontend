@@ -5,6 +5,12 @@ as far back as very early versions of this codebase, which was started in 2017
 (though note that there was an earlier version of OSMCha whose code is not
 included in the history of this repository).
 
+### 1.2.7
+
+- Fix an issue where changesets with only geometry changes (no tag changes)
+  would not have their bounding boxes computed correctly, causing a zoomed
+  out map of the whole world to display instead of zooming to the changeset
+
 ### 1.2.6
 
 - Correct help text for User field in filter UI (#817)
