@@ -7,6 +7,7 @@ import { push } from 'react-router-redux';
 import { Button } from '../components/button';
 import { Navbar } from '../components/navbar';
 import { Dropdown } from '../components/dropdown';
+import { ThemeToggle } from '../components/theme_toggle';
 
 import { isMobile } from '../utils';
 import { getAuthUrl } from '../network/auth';
@@ -133,9 +134,10 @@ class NavbarSidebar extends React.PureComponent {
             </Link>
           }
           buttons={
-            <div className="flex-parent flex-parent--row">
+            <div className="flex-parent flex-parent--row align-items--center">
+              <ThemeToggle />
               <Link
-                className="pr3 pointer"
+                className="pr3 pointer ml3"
                 to={{
                   search: window.location.search,
                   pathname: '/about'
@@ -146,15 +148,19 @@ class NavbarSidebar extends React.PureComponent {
                 </svg>
               </Link>
               {this.props.token ? (
-                <div className="pointer">{this.renderUserMenuOptions()}</div>
+                <div className="pointer ml3">
+                  {this.renderUserMenuOptions()}
+                </div>
               ) : (
-                <Button
-                  onClick={this.handleLoginClick}
-                  disable={!this.props.oAuthToken}
-                  iconName="osm"
-                >
-                  Sign in
-                </Button>
+                <div className="ml3">
+                  <Button
+                    onClick={this.handleLoginClick}
+                    disable={!this.props.oAuthToken}
+                    iconName="osm"
+                  >
+                    Sign in
+                  </Button>
+                </div>
               )}
             </div>
           }

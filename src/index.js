@@ -7,6 +7,7 @@ import Raven from 'raven-js';
 import { history } from './store/history';
 import { store } from './store';
 import { isDev, appVersion } from './config';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 import './assets/index.css';
 import 'animate.css/animate.css';
@@ -26,9 +27,11 @@ if (process.env.NODE_ENV === 'production') {
 // }
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
+    <ThemeProvider>
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
+    </ThemeProvider>
   </Provider>,
   document.getElementById('root')
 );
