@@ -44,3 +44,20 @@
 .dropdown-content-item:hover {
   background-color: #ccc;
 }
+
+/* Dark mode styles for dropdown */
+@media (prefers-color-scheme: dark) {
+  .dropdown-content {
+    background-color: #2a2a2a !important;
+    border-color: #404040 !important;
+    box-shadow: 0px 0px 1px 1px rgba(64, 64, 64, 1) !important;
+  }
+
+  .dropdown-content-item {
+    color: #e0e0e0 !important;
+  }
+
+  .dropdown-content-item:hover {
+    background-color: #3a3a3a !important;
+  }
+}

@@ -635,3 +635,559 @@ th {
 .member-table tr:hover {
   font-weight: bold;
 }
+
+/* Dark Theme Styles - Support both data-theme attribute and prefers-color-scheme */
+/* Only apply prefers-color-scheme when data-theme is not set (auto mode) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]):not([data-theme='light']) {
+    color-scheme: dark;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) body {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .bg-gray-faint,
+  :root:not([data-theme]):not([data-theme='light']) .bg-gray--faint {
+    background-color: #2a2a2a !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .bg-gray-dark {
+    background-color: #1f1f1f !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .bg-darken5,
+  :root:not([data-theme]):not([data-theme='light']) .bg-darken10 {
+    background-color: #2a2a2a !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .color-gray {
+    color: #e0e0e0 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .color-darken25 {
+    color: #b0b0b0 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .color-darken50 {
+    color: #808080 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .color-blue {
+    color: #4a9eff !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .border--gray-light {
+    border-color: #404040 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .border-b--1 {
+    border-bottom-color: #404040 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .border-r {
+    border-right-color: #404040 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .border--darken5,
+  :root:not([data-theme]):not([data-theme='light']) .border--darken25 {
+    border-color: #404040 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .light-blue,
+  :root:not([data-theme]):not([data-theme='light']) .light-blue-on-hover:hover {
+    background-color: #1e3a4a !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .dropdown-content {
+    background-color: #2a2a2a !important;
+    border-color: #404040 !important;
+    box-shadow: 0px 0px 1px 1px rgba(64, 64, 64, 1) !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .dropdown-content-item {
+    color: #e0e0e0 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .dropdown-content-item:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .tippy-tooltip.osmcha-theme {
+    background-color: #2a2a2a !important;
+    border-color: #404040 !important;
+    color: #e0e0e0 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .element-info hr {
+    border-bottom-color: #404040 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .element-info tr.create {
+    background-color: #0d3d2e !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .element-info tr.modify {
+    background-color: #3d2e0d !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .element-info tr.delete {
+    background-color: #3d0d15 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) input,
+  :root:not([data-theme]):not([data-theme='light']) textarea,
+  :root:not([data-theme]):not([data-theme='light']) select {
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+    border-color: #404040 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) ::-webkit-input-placeholder {
+    color: #808080 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) ::-moz-placeholder {
+    color: #808080 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .scroll-styled::-webkit-scrollbar {
+    background-color: #2a2a2a;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .scroll-styled::-webkit-scrollbar-thumb {
+    background-color: #404040;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .scroll-styled::-webkit-scrollbar-thumb:hover {
+    background-color: #505050;
+  }
+
+  /* Button styles */
+  :root:not([data-theme]):not([data-theme='light']) .btn {
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+    border-color: #404040 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .btn:hover:not(:disabled) {
+    background-color: #3a3a3a !important;
+    border-color: #505050 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Link styles */
+  :root:not([data-theme]):not([data-theme='light']) a {
+    color: #4a9eff !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) a:hover {
+    color: #6bb3ff !important;
+  }
+
+  /* Navbar styles */
+  :root:not([data-theme]):not([data-theme='light']) .navbar-logo {
+    background-color: #2a2a2a !important;
+    border-bottom-color: #404040 !important;
+  }
+
+  /* Table styles */
+  :root:not([data-theme]):not([data-theme='light']) table {
+    background-color: #2a2a2a !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) th {
+    background-color: #1f1f1f !important;
+    color: #e0e0e0 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) td {
+    color: #e0e0e0 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) tr:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  /* Card/Box styles */
+  :root:not([data-theme]):not([data-theme='light']) .round,
+  :root:not([data-theme]):not([data-theme='light']) .responsive-box {
+    background-color: #2a2a2a !important;
+    border-color: #404040 !important;
+  }
+
+  /* SVG icon colors */
+  :root:not([data-theme]):not([data-theme='light']) .icon {
+    fill: currentColor;
+  }
+
+  /* Code/Pre blocks */
+  :root:not([data-theme]):not([data-theme='light']) code,
+  :root:not([data-theme]):not([data-theme='light']) pre {
+    background-color: #1f1f1f !important;
+    color: #e0e0e0 !important;
+    border-color: #404040 !important;
+  }
+
+  /* Notification system (react-notification-system) */
+  :root:not([data-theme]):not([data-theme='light']) .notification {
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+    border-color: #404040 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .notification-title {
+    color: #e0e0e0 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .notification-message {
+    color: #b0b0b0 !important;
+  }
+
+  /* React Select component */
+  :root:not([data-theme]):not([data-theme='light']) .react-select__control {
+    background-color: #2a2a2a !important;
+    border-color: #404040 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .react-select__menu {
+    background-color: #2a2a2a !important;
+    border-color: #404040 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .react-select__option {
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .react-select__option:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .react-select__single-value {
+    color: #e0e0e0 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .react-select__input {
+    color: #e0e0e0 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .react-select__placeholder {
+    color: #808080 !important;
+  }
+
+  /* Date picker */
+  :root:not([data-theme]):not([data-theme='light']) .react-datepicker {
+    background-color: #2a2a2a !important;
+    border-color: #404040 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .react-datepicker__header {
+    background-color: #1f1f1f !important;
+    border-bottom-color: #404040 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .react-datepicker__current-month,
+  :root:not([data-theme]):not([data-theme='light']) .react-datepicker__day-name {
+    color: #e0e0e0 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .react-datepicker__day {
+    color: #e0e0e0 !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .react-datepicker__day:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .react-datepicker__day--selected {
+    background-color: #4a9eff !important;
+    color: #fff !important;
+  }
+
+  :root:not([data-theme]):not([data-theme='light']) .react-datepicker__day--today {
+    border-color: #4a9eff !important;
+  }
+}
+
+/* Manual theme override - when data-theme attribute is set */
+/* Light theme - explicitly override any dark mode styles */
+[data-theme='light'] {
+  color-scheme: light;
+}
+
+[data-theme='light'] body {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+/* Dark theme */
+[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+[data-theme='dark'] body {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+[data-theme='dark'] .bg-gray-faint,
+[data-theme='dark'] .bg-gray--faint {
+  background-color: #2a2a2a !important;
+}
+
+[data-theme='dark'] .bg-gray-dark {
+  background-color: #1f1f1f !important;
+}
+
+[data-theme='dark'] .bg-darken5,
+[data-theme='dark'] .bg-darken10 {
+  background-color: #2a2a2a !important;
+}
+
+[data-theme='dark'] .color-gray {
+  color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .color-darken25 {
+  color: #b0b0b0 !important;
+}
+
+[data-theme='dark'] .color-darken50 {
+  color: #808080 !important;
+}
+
+[data-theme='dark'] .color-blue {
+  color: #4a9eff !important;
+}
+
+[data-theme='dark'] .border--gray-light {
+  border-color: #404040 !important;
+}
+
+[data-theme='dark'] .border-b--1 {
+  border-bottom-color: #404040 !important;
+}
+
+[data-theme='dark'] .border-r {
+  border-right-color: #404040 !important;
+}
+
+[data-theme='dark'] .border--darken5,
+[data-theme='dark'] .border--darken25 {
+  border-color: #404040 !important;
+}
+
+[data-theme='dark'] .light-blue,
+[data-theme='dark'] .light-blue-on-hover:hover {
+  background-color: #1e3a4a !important;
+}
+
+[data-theme='dark'] .dropdown-content {
+  background-color: #2a2a2a !important;
+  border-color: #404040 !important;
+  box-shadow: 0px 0px 1px 1px rgba(64, 64, 64, 1) !important;
+}
+
+[data-theme='dark'] .dropdown-content-item {
+  color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .dropdown-content-item:hover {
+  background-color: #3a3a3a !important;
+}
+
+[data-theme='dark'] .tippy-tooltip.osmcha-theme {
+  background-color: #2a2a2a !important;
+  border-color: #404040 !important;
+  color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .element-info hr {
+  border-bottom-color: #404040 !important;
+}
+
+[data-theme='dark'] .element-info tr.create {
+  background-color: #0d3d2e !important;
+}
+
+[data-theme='dark'] .element-info tr.modify {
+  background-color: #3d2e0d !important;
+}
+
+[data-theme='dark'] .element-info tr.delete {
+  background-color: #3d0d15 !important;
+}
+
+[data-theme='dark'] input,
+[data-theme='dark'] textarea,
+[data-theme='dark'] select {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border-color: #404040 !important;
+}
+
+[data-theme='dark'] ::-webkit-input-placeholder {
+  color: #808080 !important;
+}
+
+[data-theme='dark'] ::-moz-placeholder {
+  color: #808080 !important;
+}
+
+[data-theme='dark'] .scroll-styled::-webkit-scrollbar {
+  background-color: #2a2a2a;
+}
+
+[data-theme='dark'] .scroll-styled::-webkit-scrollbar-thumb {
+  background-color: #404040;
+}
+
+[data-theme='dark'] .scroll-styled::-webkit-scrollbar-thumb:hover {
+  background-color: #505050;
+}
+
+[data-theme='dark'] .btn {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border-color: #404040 !important;
+}
+
+[data-theme='dark'] .btn:hover:not(:disabled) {
+  background-color: #3a3a3a !important;
+  border-color: #505050 !important;
+}
+
+[data-theme='dark'] .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+[data-theme='dark'] a {
+  color: #4a9eff !important;
+}
+
+[data-theme='dark'] a:hover {
+  color: #6bb3ff !important;
+}
+
+[data-theme='dark'] .navbar-logo {
+  background-color: #2a2a2a !important;
+  border-bottom-color: #404040 !important;
+}
+
+[data-theme='dark'] table {
+  background-color: #2a2a2a !important;
+}
+
+[data-theme='dark'] th {
+  background-color: #1f1f1f !important;
+  color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] td {
+  color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] tr:hover {
+  background-color: #3a3a3a !important;
+}
+
+[data-theme='dark'] .round,
+[data-theme='dark'] .responsive-box {
+  background-color: #2a2a2a !important;
+  border-color: #404040 !important;
+}
+
+[data-theme='dark'] .icon {
+  fill: currentColor;
+}
+
+[data-theme='dark'] code,
+[data-theme='dark'] pre {
+  background-color: #1f1f1f !important;
+  color: #e0e0e0 !important;
+  border-color: #404040 !important;
+}
+
+[data-theme='dark'] .notification {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border-color: #404040 !important;
+}
+
+[data-theme='dark'] .notification-title {
+  color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .notification-message {
+  color: #b0b0b0 !important;
+}
+
+[data-theme='dark'] .react-select__control {
+  background-color: #2a2a2a !important;
+  border-color: #404040 !important;
+}
+
+[data-theme='dark'] .react-select__menu {
+  background-color: #2a2a2a !important;
+  border-color: #404040 !important;
+}
+
+[data-theme='dark'] .react-select__option {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .react-select__option:hover {
+  background-color: #3a3a3a !important;
+}
+
+[data-theme='dark'] .react-select__single-value {
+  color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .react-select__input {
+  color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .react-select__placeholder {
+  color: #808080 !important;
+}
+
+[data-theme='dark'] .react-datepicker {
+  background-color: #2a2a2a !important;
+  border-color: #404040 !important;
+}
+
+[data-theme='dark'] .react-datepicker__header {
+  background-color: #1f1f1f !important;
+  border-bottom-color: #404040 !important;
+}
+
+[data-theme='dark'] .react-datepicker__current-month,
+[data-theme='dark'] .react-datepicker__day-name {
+  color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .react-datepicker__day {
+  color: #e0e0e0 !important;
+}
+
+[data-theme='dark'] .react-datepicker__day:hover {
+  background-color: #3a3a3a !important;
+}
+
+[data-theme='dark'] .react-datepicker__day--selected {
+  background-color: #4a9eff !important;
+  color: #fff !important;
+}
+
+[data-theme='dark'] .react-datepicker__day--today {
+  border-color: #4a9eff !important;
+}
