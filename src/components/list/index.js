@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { Row } from './row';
 import { SignInButton } from '../changeset/sign_in_button.js';
+import { Button } from '../button';
 import { elementInViewport } from '../../utils/element_in_view';
 import { loadingEnhancer } from '../loading_enhancer';
 
@@ -14,11 +15,23 @@ type propTypes = {
 };
 
 class List extends React.Component<void, propTypes, *> {
-  shouldComponentUpdate(nextProps: propTypes) {
+  state = {
+    displayCount: 10 // Start by showing 10 changesets
+  };
+
+  shouldComponentUpdate(nextProps: propTypes, nextState) {
     return (
       nextProps.activeChangesetId !== this.props.activeChangesetId ||
-      nextProps.currentPage !== this.props.currentPage
+      nextProps.currentPage !== this.props.currentPage ||
+      nextState.displayCount !== this.state.displayCount
     );
+  }
+
+  componentDidUpdate(prevProps) {
+    // Reset display count when page changes
+    if (prevProps.currentPage !== this.props.currentPage) {
+      this.setState({ displayCount: 10 });
+    }
   }
 
   handleScroll = (r: HTMLElement) => {
@@ -26,6 +39,12 @@ class List extends React.Component<void, propTypes, *> {
     if (!elementInViewport(r)) {
       r.scrollIntoView({ block: 'end', behavior: 'smooth' });
     }
+  };
+
+  handleLoadMore = () => {
+    this.setState(prevState => ({
+      displayCount: prevState.displayCount + 10
+    }));
   };
 
   render() {
@@ -47,25 +66,67 @@ class List extends React.Component<void, propTypes, *> {
       );
     }
 
+    // Handle case when currentPage is null/undefined (during initial load)
+    if (!this.props.currentPage) {
+      return (
+        <div className="flex-parent flex-parent--column flex-child--grow">
+          <ul className="flex-parent flex-parent--column scroll-styled flex-child--grow">
+            <div />
+          </ul>
+        </div>
+      );
+    }
+
+    const features = this.props.currentPage.get('features');
+    const totalCount = features?.size || 0;
+
+    // Handle case when features is null/undefined or empty
+    if (!features || totalCount === 0) {
+      return (
+        <div className="flex-parent flex-parent--column flex-child--grow">
+          <ul className="flex-parent flex-parent--column scroll-styled flex-child--grow">
+            <div className="flex-parent flex-parent--column flex-parent--center-cross flex-parent--center-main py36">
+              <svg className="icon icon--xxl color-darken25">
+                <use xlinkHref="#icon-contact" />
+              </svg>
+              <p className="txt-m mt12">No changesets found.</p>
+            </div>
+          </ul>
+        </div>
+      );
+    }
+
+    const displayedFeatures = features.slice(0, this.state.displayCount);
+    const hasMore = this.state.displayCount < totalCount;
+
     return (
-      <ul className="flex-parent flex-parent--column scroll-styled flex-child--grow">
-        <div>
-          {this.props.currentPage &&
-            this.props.currentPage.get('features').map((f, k) => (
+      <div className="flex-parent flex-parent--column flex-child--grow">
+        <ul className="flex-parent flex-parent--column scroll-styled flex-child--grow">
+          <div>
+            {displayedFeatures.map((f, k) => (
               <Row
                 active={f.get('id') === this.props.activeChangesetId}
                 properties={f.get('properties')}
                 changesetId={f.get('id')}
                 inputRef={
-                  f.get('id') === this.props.activeChangesetId // only saves the ref of currently active changesetId
+                  f.get('id') === this.props.activeChangesetId
                     ? this.handleScroll
                     : null
                 }
                 key={k}
               />
             ))}
-        </div>
-      </ul>
+          </div>
+        </ul>
+
+        {hasMore && (
+          <div className="flex-parent flex-parent--center-main p12 border-t border--gray-light bg-gray-faint">
+            <Button onClick={this.handleLoadMore} className="wmin180">
+              Load More ({this.state.displayCount} of {totalCount})
+            </Button>
+          </div>
+        )}
+      </div>
     );
   }
 }

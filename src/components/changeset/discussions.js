@@ -10,7 +10,6 @@ import TranslateButton from './translate_button';
 import { RelativeTime } from '../relative_time';
 import { SignInButton } from './sign_in_button';
 import { UserOSMLink } from './user_osm_link';
-import { Button } from '../button';
 
 class Discussions extends React.PureComponent {
   props: {
@@ -20,26 +19,8 @@ class Discussions extends React.PureComponent {
     changesetIsHarmful: boolean
   };
 
-  state = {
-    displayCount: 10 // Start by showing 10 discussions
-  };
-
-  componentDidUpdate(prevProps) {
-    // Reset display count when discussions change
-    if (prevProps.discussions !== this.props.discussions) {
-      this.setState({ displayCount: 10 });
-    }
-  }
-
-  handleLoadMore = () => {
-    this.setState(prevState => ({
-      displayCount: prevState.displayCount + 10
-    }));
-  };
-
   renderComments() {
     const { discussions, changesetAuthor } = this.props;
-    const { displayCount } = this.state;
 
     if (discussions.size === 0) {
       return (
@@ -51,12 +32,9 @@ class Discussions extends React.PureComponent {
         </div>
       );
     } else {
-      const displayedDiscussions = discussions.slice(0, displayCount);
-      const hasMore = displayCount < discussions.size;
-
       return (
         <div className="">
-          {displayedDiscussions.map((comment, i) => (
+          {discussions.map((comment, i) => (
             <div
               key={i}
               className="flex-parent flex-parent--column justify--space-between border border--gray-light round p6 my6 mt12"
@@ -101,13 +79,6 @@ class Discussions extends React.PureComponent {
               </div>
             </div>
           ))}
-          {hasMore && (
-            <div className="flex-parent flex-parent--center-main mt12 mb6">
-              <Button onClick={this.handleLoadMore} className="wmin180">
-                Load More ({displayCount} of {discussions.size})
-              </Button>
-            </div>
-          )}
         </div>
       );
     }

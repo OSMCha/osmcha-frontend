@@ -1,0 +1,17 @@
+/* Ensure the list container uses flex layout properly */
+.flex-parent--column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-child--grow {
+  flex-grow: 1;
+}
+
+/* Style for the load more button container */
+.load-more-container {
+  position: sticky;
+  bottom: 0;
+  background: #f9f9f9;
+  z-index: 1;
+}
