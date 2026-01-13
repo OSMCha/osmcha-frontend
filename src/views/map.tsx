@@ -1,0 +1,335 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import * as maplibre from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import { MapLibreAugmentedDiffViewer } from '@osmcha/maplibre-adiff-viewer';
+
+import { Loading } from '../components/loading';
+import { SignIn } from '../components/sign_in';
+import { updateStyle } from '../store/map_controls_actions';
+import { modal } from '../store/modal_actions';
+import type { RootStateType } from '../store';
+
+const BING_AERIAL_IMAGERY_STYLE = {
+  version: 8,
+  sources: {
+    bing: {
+      type: 'raster',
+      scheme: 'xyz',
+      tiles: [
+        'https://ecn.t0.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
+        'https://ecn.t1.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
+        'https://ecn.t2.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
+        'https://ecn.t3.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z',
+      ],
+      tileSize: 256,
+      maxzoom: 20,
+      attribution: 'Imagery © Microsoft Corporation',
+    },
+  },
+  layers: [
+    {
+      id: 'imagery',
+      type: 'raster',
+      source: 'bing',
+    },
+  ],
+};
+
+const ESRI_WORLD_IMAGERY_STYLE = {
+  version: 8,
+  sources: {
+    esri: {
+      type: 'raster',
+      scheme: 'xyz',
+      tiles: [
+        'https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}?blankTile=false',
+        'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}?blankTile=false',
+      ],
+      tileSize: 256,
+      maxzoom: 20,
+      attribution: 'Imagery © Esri',
+    },
+  },
+  layers: [
+    {
+      id: 'imagery',
+      type: 'raster',
+      source: 'esri',
+    },
+  ],
+};
+
+const ESRI_WORLD_IMAGERY_CLARITY_STYLE = {
+  version: 8,
+  sources: {
+    esri: {
+      type: 'raster',
+      scheme: 'xyz',
+      tiles: [
+        'https://clarity.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}?blankTile=false',
+      ],
+      tileSize: 256,
+      maxzoom: 20,
+      attribution: 'Imagery © Esri',
+    },
+  },
+  layers: [
+    {
+      id: 'imagery',
+      type: 'raster',
+      source: 'esri',
+    },
+  ],
+};
+
+const OPENSTREETMAP_CARTO_STYLE = {
+  version: 8,
+  sources: {
+    'osm-tiles': {
+      type: 'raster',
+      tiles: [
+        'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        'https://b.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      ],
+      tileSize: 256,
+      attribution:
+        '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  },
+  layers: [
+    {
+      id: 'osm',
+      type: 'raster',
+      source: 'osm-tiles',
+      minzoom: 0,
+      maxzoom: 22,
+    },
+  ],
+};
+
+const BASEMAP_STYLES = {
+  bing: BING_AERIAL_IMAGERY_STYLE,
+  esri: ESRI_WORLD_IMAGERY_STYLE,
+  'esri-clarity': ESRI_WORLD_IMAGERY_CLARITY_STYLE,
+  carto: OPENSTREETMAP_CARTO_STYLE,
+};
+
+const DEFAULT_BASEMAP_STYLE = BING_AERIAL_IMAGERY_STYLE;
+
+interface CMapProps {
+  changesetId: number;
+  className: string;
+  style: string;
+  token?: string;
+  changeset?: any;
+  showElements: Array<string>;
+  showActions: Array<string>;
+  mapRef: React.MutableRefObject<{
+    map: maplibre.Map;
+    adiffViewer: MapLibreAugmentedDiffViewer;
+  } | null>;
+  setSelected: (action: any) => void;
+  setCamera: (camera: any) => void;
+  modal?: (options: any) => void;
+}
+
+interface CMapState {
+  loading: boolean;
+}
+
+class _CMap extends React.PureComponent<CMapProps, CMapState> {
+  state: CMapState = {
+    loading: true,
+  };
+
+  map: maplibre.Map | null = null;
+  adiffViewer: MapLibreAugmentedDiffViewer | null = null;
+
+  componentDidMount() {
+    this.initializeMap();
+  }
+
+  componentWillUnmount() {
+    if (this.props.mapRef) {
+      this.props.mapRef.current = null;
+    }
+  }
+
+  componentDidUpdate(prevProps: any) {
+    if (
+      this.props.token !== prevProps.token ||
+      this.props.changesetId !== prevProps.changesetId ||
+      !prevProps.changeset
+    ) {
+      this.setState({ loading: true });
+      this.initializeMap();
+    } else if (
+      this.props.style !== prevProps.style ||
+      this.props.showElements !== prevProps.showElements ||
+      this.props.showActions !== prevProps.showActions
+    ) {
+      this.updateMap();
+    }
+  }
+
+  initializeMap() {
+    if (!this.props.token || !this.props.changeset) {
+      return;
+    }
+
+    let container = document.getElementById('container');
+
+    if (!container) {
+      return;
+    }
+
+    if (this.map) {
+      this.map.remove();
+    }
+
+    let style = BASEMAP_STYLES[this.props.style] ?? DEFAULT_BASEMAP_STYLE;
+
+    let map = new maplibre.Map({
+      container,
+      style,
+      maxZoom: 22,
+      hash: false,
+      attributionControl: false, // we're moving this to the other corner
+    });
+
+    map.addControl(new maplibre.AttributionControl(), 'bottom-left');
+
+    map.setMaxPitch(0);
+    map.dragRotate.disable();
+    map.touchZoomRotate.disableRotation();
+    map.keyboard.disableRotation();
+
+    let { adiff } = this.props.changeset;
+    // HACK: override attribution string (the string Overpass sends is wordier and doesn't have a hyperlink)
+    adiff.note =
+      'Map data from <a href=https://openstreetmap.org/copyright>OpenStreetMap</a>';
+    const adiffViewer = new MapLibreAugmentedDiffViewer(adiff, {
+      onClick: this.handleClick,
+      showElements: this.props.showElements,
+      showActions: this.props.showActions,
+    });
+
+    map.on('load', async () => {
+      this.setState({ loading: false });
+      adiffViewer.addTo(map);
+
+      if (adiff.actions.length > 0) {
+        const camera = map.cameraForBounds(adiffViewer.bounds(), {
+          padding: 200,
+          maxZoom: 18,
+        });
+        if (camera) {
+          map.jumpTo(camera);
+        }
+      } else {
+        this.props.modal?.({
+          kind: 'error',
+          title: 'Problem loading augmented diff file',
+          description: 'The augmented diff contains no elements',
+        });
+      }
+    });
+
+    map.on('moveend', () => {
+      this.props.setCamera({
+        center: map.getCenter(),
+        zoom: map.getZoom(),
+      });
+    });
+
+    this.map = map;
+    this.adiffViewer = adiffViewer;
+
+    // Store the map and adiffViewer in the ref passed from the parent component
+    // (this allows other components to imperatively update the map state)
+    if (this.props.mapRef) {
+      this.props.mapRef.current = {
+        map: this.map,
+        adiffViewer: this.adiffViewer,
+      };
+    }
+  }
+
+  updateMap() {
+    if (this.state.loading || !this.map || !this.adiffViewer) return;
+
+    let style = BASEMAP_STYLES[this.props.style] ?? DEFAULT_BASEMAP_STYLE;
+
+    this.map.setStyle(style);
+
+    this.adiffViewer.options = {
+      onClick: this.handleClick,
+      showElements: this.props.showElements,
+      showActions: this.props.showActions,
+    };
+
+    this.adiffViewer.refresh();
+  }
+
+  handleClick = (event, action) => {
+    // Update the selected action in the parent component
+    // (so we can render it in the element info panel)
+    this.props.setSelected(action);
+
+    // Update the selection state on the map
+    // (highlighting/unhighlighting the geometry of the selected element)
+    if (action) {
+      let element = action.new ?? action.old;
+      this.adiffViewer.select(element.type, element.id);
+    } else {
+      this.adiffViewer.deselect();
+    }
+  };
+
+  setHighlight = (type, id, highlighted) => {
+    this.adiffViewer.setHighlight(type, id, highlighted);
+  };
+
+  render() {
+    if (this.props.token) {
+      return (
+        <React.Fragment>
+          <div id="container" className="w-full h-full" />
+          {this.state.loading && (
+            <div
+              className="absolute z0"
+              style={{
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+                background: 'rgba(0, 0, 0, 0.5)',
+              }}
+            >
+              <Loading height="100%" className="" />
+            </div>
+          )}
+        </React.Fragment>
+      );
+    } else {
+      return <SignIn />;
+    }
+  }
+}
+
+const CMap = connect(
+  (state: RootStateType, props) => ({
+    changesetId: state.changeset.get('changesetId'),
+    changeset: state.changeset.getIn([
+      'changesetMap',
+      state.changeset.get('changesetId'),
+    ]),
+    style: state.mapControls.get('style'),
+    token: state.auth.get('token'),
+  }),
+  { updateStyle, modal }
+)(_CMap);
+
+export { CMap };
