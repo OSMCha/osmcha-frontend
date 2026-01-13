@@ -23,11 +23,11 @@ This repository uses [prettier](https://github.com/prettier/prettier) to keep th
 
 1. Install [asdf version manager](https://asdf-vm.com/guide/getting-started.html#getting-started)
 1. `asdf install` to install the required tools from [.tool-versions](./.tool-versions)
-1. `yarn install` (`brew install yarn` if required).
+1. `npm install`
 
 ### Local development
 
-1. `yarn start`
+1. `npm start`
 1. Open [http://127.0.0.1:3000](http://127.0.0.1:3000)
 
 Note: if you are running the frontend against the production backend (the
@@ -49,7 +49,7 @@ normal OAuth login through the frontend UI should work.
 Test the application before commiting any changes. If you encounter any error make sure you have `watchman` installed. [Installation Guide](https://facebook.github.io/watchman/docs/install.html).
 
 ```bash
-yarn test
+npm test
 ```
 
 ## Releasing and Deployment
