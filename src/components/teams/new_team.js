@@ -270,7 +270,11 @@ NewTeam.propTypes = {
   onClickAddAnotherUser: PropTypes.func,
   onChangeInput: PropTypes.func,
   onSave: PropTypes.func,
-  validateData: PropTypes.func
+  validateData: PropTypes.func,
+  onChange: PropTypes.func,
+  onCreate: PropTypes.func,
+  activeTeam: PropTypes.object,
+  userIsOwner: PropTypes.bool
 };
 
 export default NewTeam;
