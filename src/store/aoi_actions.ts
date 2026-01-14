@@ -67,11 +67,12 @@ export function* fetchAOISaga(aoiId: string): any {
       );
     }
     try {
-      if (JSON.parse(v) && Object.hasOwn(JSON.parse(v), "coordinates")) {
+      const parsed = JSON.parse(v);
+      if (parsed && "coordinates" in parsed) {
         return fromJS([
           {
-            value: JSON.parse(v),
-            label: JSON.parse(v),
+            value: parsed,
+            label: parsed,
           },
         ]);
       } else {

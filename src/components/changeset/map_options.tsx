@@ -151,7 +151,9 @@ class _MapOptions extends React.PureComponent<MapOptionsProps> {
             onChange={(e) => this.props.updateStyle?.(e.target.value)}
           >
             {this.layerOptions.map((opt) => (
-              <option value={opt.value}>{opt.label}</option>
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
             ))}
           </select>
         </section>

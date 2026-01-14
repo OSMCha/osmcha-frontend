@@ -10,9 +10,8 @@ export function getSearchObj(searchParam: string = ""): Map<string, any> {
     }
   } catch (e) {
     console.error(e);
-  } finally {
-    return fromJS(result);
   }
+  return fromJS(result);
 }
 
 export function getObjAsQueryParam(key: string, obj: any) {

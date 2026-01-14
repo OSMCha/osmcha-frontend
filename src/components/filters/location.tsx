@@ -154,7 +154,6 @@ const LocationSelect = (props) => {
     // Allowing one character input if it contains characters from certain scripts while
     // guarding against browsers that don't support this kind of regular expression
     try {
-      // @ts-expect-error - Unicode property escapes require ES2018+, but we have fallback
       return /\p{scx=Han}|\p{scx=Hangul}|\p{scx=Hiragana}|\p{scx=Katakana}/u.test(
         input,
       );
