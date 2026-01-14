@@ -1,5 +1,5 @@
 import { Map } from "immutable";
-import { LOCATION_CHANGE, push } from "react-router-redux";
+import { LOCATION_CHANGE, push } from "redux-first-history";
 import {
   all,
   call,
@@ -52,7 +52,7 @@ export function* watchLocationChange(): any {
   let lastSearchString;
   while (true) {
     const action = yield take(LOCATION_CHANGE);
-    const location = action.payload;
+    const location = action.payload.location;
 
     if (lastSearchString === location.search) {
       continue;
@@ -130,8 +130,7 @@ export function* filtersSaga(location: any): any {
   }
 }
 
-export const locationSelector = (state: RootStateType) =>
-  state.routing.location;
+export const locationSelector = (state: RootStateType) => state.router.location;
 
 /** Sagas **/
 

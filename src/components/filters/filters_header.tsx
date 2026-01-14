@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { push } from "react-router-redux";
+import { push } from "redux-first-history";
 import { API_URL } from "../../config";
+import { withRouter } from "../../utils/withRouter";
 import { fetchAllAOIs } from "../../network/aoi";
 import type { RootStateType } from "../../store";
 import { cancelablePromise } from "../../utils/promise";
@@ -261,13 +262,15 @@ class _FiltersHeader extends React.Component<filterProps, FiltersHeaderState> {
   }
 }
 
-const FiltersHeader = connect(
-  (state: RootStateType, props) => ({
-    location: props.location,
-  }),
-  {
-    push,
-  },
-)(_FiltersHeader);
+const FiltersHeader = withRouter(
+  connect(
+    (state: RootStateType, props: any) => ({
+      location: props.location,
+    }),
+    {
+      push,
+    },
+  )(_FiltersHeader),
+);
 
 export { FiltersHeader };

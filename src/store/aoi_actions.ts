@@ -1,5 +1,5 @@
 import { fromJS, Map } from "immutable";
-import { push } from "react-router-redux";
+import { push } from "redux-first-history";
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import type { filtersType } from "../components/filters";
 import { createAOI, fetchAOI, updateAOI } from "../network/aoi";
@@ -166,5 +166,4 @@ export function* updateAOISaga({
   }
 }
 
-export const locationSelector = (state: RootStateType) =>
-  state.routing.location;
+export const locationSelector = (state: RootStateType) => state.router.location;

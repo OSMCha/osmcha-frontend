@@ -10,6 +10,7 @@ import { FILTER_BY_USER } from "../config/bindings";
 import type { RootStateType } from "../store";
 import { applyFilters } from "../store/filters_actions";
 import { dispatchEvent } from "../utils/dispatch_event";
+import { withRouter } from "../utils/withRouter";
 import { CMap } from "../views/map";
 import { NavbarChangeset } from "../views/navbar_changeset";
 
@@ -121,7 +122,6 @@ class _Changeset extends React.PureComponent<ChangesetProps, ChangesetState> {
       <ChangesetOverlay
         changesetId={changesetId}
         currentChangeset={currentChangeset}
-        token={token}
         showElements={this.state.showElements}
         showActions={this.state.showActions}
         setShowElements={(showElements) => this.setState({ showElements })}
@@ -154,20 +154,22 @@ class _Changeset extends React.PureComponent<ChangesetProps, ChangesetState> {
   }
 }
 
-const Changeset = connect(
-  (state: RootStateType, props) => ({
-    changeset: state.changeset,
-    location: props.location,
-    changesetId: parseInt(props.match.params.id, 10),
-    currentChangeset: state.changeset.getIn([
-      "changesets",
-      parseInt(props.match.params.id, 10),
-    ]),
-    errorChangeset: state.changeset.get("errorChangeset"),
-    loading: state.changeset.get("loading"),
-    token: state.auth.get("token"),
-  }),
-  { applyFilters },
-)(_Changeset);
+const Changeset = withRouter(
+  connect(
+    (state: RootStateType, props: any) => ({
+      changeset: state.changeset,
+      location: props.location,
+      changesetId: parseInt(props.match.params.id, 10),
+      currentChangeset: state.changeset.getIn([
+        "changesets",
+        parseInt(props.match.params.id, 10),
+      ]),
+      errorChangeset: state.changeset.get("errorChangeset"),
+      loading: state.changeset.get("loading"),
+      token: state.auth.get("token"),
+    }),
+    { applyFilters },
+  )(_Changeset),
+);
 
 export { Changeset };

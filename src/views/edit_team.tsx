@@ -1,8 +1,9 @@
 import { Map } from "immutable";
 import React from "react";
 import { connect } from "react-redux";
-import { push } from "react-router-redux";
+import { push } from "redux-first-history";
 import { withFetchDataSilent } from "../components/fetch_data_enhancer";
+import { withRouter } from "../utils/withRouter";
 import { SecondaryPagesHeader } from "../components/secondary_pages_header";
 import { SignIn } from "../components/sign_in";
 import NewTeam from "../components/teams/new_team";
@@ -139,19 +140,21 @@ const _EditMappingTeamWithData = withFetchDataSilent(
   _EditMappingTeam,
 );
 
-const EditMappingTeam = connect(
-  (state: RootStateType, props) => ({
-    location: props.location,
-    teamId: parseInt(props.match.params.id, 10),
-    oAuthToken: state.auth.get("oAuthToken"),
-    token: state.auth.get("token"),
-    userDetails: state.auth.getIn(["userDetails"], Map()),
-  }),
-  {
-    modal,
-    logUserOut,
-    push,
-  },
-)(_EditMappingTeamWithData);
+const EditMappingTeam = withRouter(
+  connect(
+    (state: RootStateType, props: any) => ({
+      location: props.location,
+      teamId: parseInt(props.match.params.id, 10),
+      oAuthToken: state.auth.get("oAuthToken"),
+      token: state.auth.get("token"),
+      userDetails: state.auth.getIn(["userDetails"], Map()),
+    }),
+    {
+      modal,
+      logUserOut,
+      push,
+    },
+  )(_EditMappingTeamWithData),
+);
 
 export { EditMappingTeam };

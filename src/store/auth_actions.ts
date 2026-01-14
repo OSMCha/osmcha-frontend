@@ -1,7 +1,14 @@
 import { fromJS } from "immutable";
-import { push } from "react-router-redux";
-import { delay as delayPromise } from "redux-saga";
-import { all, call, put, select, take, takeLatest } from "redux-saga/effects";
+import { push } from "redux-first-history";
+import {
+  all,
+  call,
+  delay as delayPromise,
+  put,
+  select,
+  take,
+  takeLatest,
+} from "redux-saga/effects";
 
 import {
   fetchUserDetails,
@@ -46,8 +53,7 @@ export const logUserOut = () => action(AUTH.logout);
 
 export const tokenSelector = (state: RootStateType) => state.auth.get("token");
 
-export const locationSelector = (state: RootStateType) =>
-  state.routing.location;
+export const locationSelector = (state: RootStateType) => state.router.location;
 
 export const changesetIdSelector = (state: RootStateType) =>
   state.changeset.get("changesetId");

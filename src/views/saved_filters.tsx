@@ -2,7 +2,7 @@ import { List, Map } from "immutable";
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { push } from "react-router-redux";
+import { push } from "redux-first-history";
 import { Button } from "../components/button";
 import { CustomURL } from "../components/customURL";
 import { withFetchDataSilent } from "../components/fetch_data_enhancer";
@@ -16,6 +16,7 @@ import { logUserOut } from "../store/auth_actions";
 import { applyFilters } from "../store/filters_actions";
 import { modal } from "../store/modal_actions";
 import { cancelablePromise, isMobile } from "../utils";
+import { withRouter } from "../utils/withRouter";
 
 interface SaveButtonProps {
   onCreate: (value: string) => void;
@@ -293,8 +294,7 @@ const SavedFiltersWithData = withFetchDataSilent(
   _SavedFilters,
 );
 
-const SavedFilters = connect(
-  (state: RootStateType, props) => ({
+const SavedFilters = withRouter(connect((state: RootStateType, props: any) => ({
     location: props.location,
     filters: state.filters.get("filters"),
     oAuthToken: state.auth.get("oAuthToken"),
@@ -309,6 +309,6 @@ const SavedFilters = connect(
     modal,
     push,
   },
-)(SavedFiltersWithData);
+)(SavedFiltersWithData));
 
 export { SavedFilters };

@@ -1,7 +1,7 @@
 import { fromJS, type List as ImmutableList, is, type Map } from "immutable";
 import React from "react";
 import { connect } from "react-redux";
-import { push } from "react-router-redux";
+import { push } from "redux-first-history";
 import { keyboardToggleEnhancer } from "../components/keyboard_enhancer";
 import { List } from "../components/list";
 import { Footer } from "../components/list/footer";
@@ -32,7 +32,7 @@ type propsType = {
   filters: Map<string, ImmutableList<any>>;
   aoiId: string | undefined | null;
   lastKeyStroke: Map<string, any>;
-  getChangesetsPage: (b: number, a?: boolean | null) => unknown; // base 0;
+  getChangesetsPage: (b: number, a?: boolean) => unknown; // base 0;
   checkForNewChangesets: (a: boolean) => any;
   push: (a: any) => unknown;
   applyFilters: (a: Map<string, ImmutableList<any>>) => unknown; // base 0;
@@ -202,7 +202,7 @@ const _ChangesetsListWithKeyboard = keyboardToggleEnhancer(
 
 const ChangesetsList = connect(
   (state: RootStateType, props) => ({
-    location: state.routing.location,
+    location: state.router.location,
     loading: state.changesetsPage.get("loading"),
     error: state.changesetsPage.get("error"),
     currentPage: state.changesetsPage.get("currentPage"),
@@ -220,5 +220,5 @@ const ChangesetsList = connect(
     applyFilters,
     push,
   },
-)(_ChangesetsListWithKeyboard);
+)(_ChangesetsListWithKeyboard) as any;
 export { ChangesetsList };

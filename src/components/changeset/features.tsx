@@ -149,7 +149,7 @@ export function Features({
               </tr>
             </thead>
             <tbody>
-              {features.map((f, k) => (
+              {features.toArray().map((f, k) => (
                 <Feature
                   key={k}
                   data={f!}

@@ -1,18 +1,20 @@
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { ConnectedRouter } from "react-router-redux";
-import { store } from "./store";
-import { history } from "./store/history";
+import { HistoryRouter as Router } from "redux-first-history/rr6";
+import { history, store } from "./store";
 
 import "./assets/index.css";
 
 import { App } from "./app";
 
-ReactDOM.render(
+const container = document.getElementById("root");
+if (!container) throw new Error("Root element not found");
+
+const root = createRoot(container);
+root.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
+    <Router history={history}>
       <App />
-    </ConnectedRouter>
+    </Router>
   </Provider>,
-  document.getElementById("root"),
 );

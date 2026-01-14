@@ -9,7 +9,7 @@ export function fetchChangesetsPage(
   pageIndex: number,
   filters: filtersType = Map(),
   token: string | undefined | null,
-  nocache: boolean,
+  nocache?: boolean,
   aoiId?: string | null,
 ) {
   let flatFilters = "";

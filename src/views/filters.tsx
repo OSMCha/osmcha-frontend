@@ -1,7 +1,7 @@
 import { fromJS, is, type List, Map } from "immutable";
 import React from "react";
 import { connect } from "react-redux";
-import { push } from "react-router-redux";
+import { push } from "redux-first-history";
 import type { filtersType, filterType } from "../components/filters";
 import { FiltersHeader } from "../components/filters/filters_header";
 import { FiltersList } from "../components/filters/filters_list";
@@ -12,6 +12,7 @@ import { checkForNewChangesets } from "../store/changesets_page_actions";
 import { applyFilters } from "../store/filters_actions";
 import { modal } from "../store/modal_actions";
 import { delayPromise, isMobile } from "../utils";
+import { withRouter } from "../utils/withRouter";
 
 const NEW_AOI = "unnamed *";
 
@@ -186,8 +187,7 @@ class _Filters extends React.PureComponent<propsType, stateType> {
   }
 }
 
-const Filters = connect(
-  (state: RootStateType, props) => ({
+const Filters = withRouter(connect((state: RootStateType, props: any) => ({
     filters: state.filters.get("filters"),
     aoi: state.aoi.get("aoi"),
     loading: state.filters.get("loading"),
@@ -203,6 +203,6 @@ const Filters = connect(
     push,
     modal,
   },
-)(_Filters);
+)(_Filters));
 
 export { Filters };

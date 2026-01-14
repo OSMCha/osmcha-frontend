@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { About } from "./views/about";
 import { Authorized } from "./views/authorized";
 import { Changeset } from "./views/changeset";
@@ -24,18 +24,20 @@ export const AppDesktop = () => {
           <ChangesetsList />
         </div>
         <div className="col col--9-mxl col--8-ml col--12-mm">
-          <Route path="/" exact component={Home} />
-          <Route path="/filters" component={Filters} />
-          <Route path="/changesets/:id" component={Changeset} />
-          <Route path="/about" component={About} />
-          <Route path="/stats" component={Stats} />
-          <Route path="/user" component={User} />
-          <Route path="/teams" exact component={MappingTeams} />
-          <Route path="/teams/:id" component={EditMappingTeam} />
-          <Route path="/saved-filters" component={SavedFilters} />
-          <Route path="/trusted-users" component={TrustedUsers} />
-          <Route path="/watchlist" component={Watchlist} />
-          <Route path="/authorized" component={Authorized} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/filters" element={<Filters />} />
+            <Route path="/changesets/:id" element={<Changeset />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/stats" element={<Stats />} />
+            <Route path="/user" element={<User />} />
+            <Route path="/teams" element={<MappingTeams />} />
+            <Route path="/teams/:id" element={<EditMappingTeam />} />
+            <Route path="/saved-filters" element={<SavedFilters />} />
+            <Route path="/trusted-users" element={<TrustedUsers />} />
+            <Route path="/watchlist" element={<Watchlist />} />
+            <Route path="/authorized" element={<Authorized />} />
+          </Routes>
         </div>
       </div>
       <Modal />

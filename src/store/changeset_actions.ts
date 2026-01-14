@@ -1,5 +1,5 @@
 import { fromJS, type List, Map } from "immutable";
-import { LOCATION_CHANGE, push, replace } from "react-router-redux";
+import { LOCATION_CHANGE, push, replace } from "redux-first-history";
 import { call, cancel, fork, put, select, take } from "redux-saga/effects";
 import notifications from "../config/notifications";
 
@@ -81,7 +81,8 @@ export function* watchChangeset(): any {
   let changesetTask;
   let changesetMapTask;
   while (true) {
-    const { payload: location } = yield take(LOCATION_CHANGE);
+    const action = yield take(LOCATION_CHANGE);
+    const location = action.payload.location;
     const changesetId = yield call(shouldUpdateSaga, location);
     if (changesetId) {
       /**
@@ -211,8 +212,7 @@ export const changesetsSelector = (state: RootStateType) => {
   return state.changeset.getIn(["changesets"], Map());
 };
 export const tokenSelector = (state: RootStateType) => state.auth.get("token");
-export const locationSelector = (state: RootStateType) =>
-  state.routing.location;
+export const locationSelector = (state: RootStateType) => state.router.location;
 
 /** Sagas **/
 export function* fetchChangesetAction(changesetId: number): any {

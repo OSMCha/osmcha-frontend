@@ -1,6 +1,5 @@
 import { fromJS, type List, Map } from "immutable";
-import { delay } from "redux-saga";
-import { all, call, put, select, takeLatest } from "redux-saga/effects";
+import { all, call, delay, put, select, takeLatest } from "redux-saga/effects";
 import type { filtersType } from "../components/filters";
 import { fetchChangesetsPage } from "../network/changesets_page";
 import type { RootStateType } from "./";
@@ -24,7 +23,7 @@ export function action(type: string, payload?: any | null) {
 
 // public
 // starting point for react component to start fetch
-export const getChangesetsPage = (pageIndex: number, nocache: boolean) =>
+export const getChangesetsPage = (pageIndex: number, nocache?: boolean) =>
   action(CHANGESETS_PAGE.fetch, { pageIndex, nocache });
 
 // this just checks for new changesets and updates the
@@ -42,7 +41,7 @@ export function* watchChangesetsPage(): any {
 }
 
 export const locationSelector = (state: RootStateType) =>
-  state.routing.location;
+  state.router.location;
 
 /** Sagas **/
 

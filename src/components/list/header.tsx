@@ -36,9 +36,9 @@ export function Header({
           position="left"
         />
         <NavLink
-          activeStyle={{
-            fontWeight: "bold",
-          }}
+          style={({ isActive }) => ({
+            fontWeight: isActive ? "bold" : "normal",
+          })}
           to={{
             search: location.search,
             pathname:

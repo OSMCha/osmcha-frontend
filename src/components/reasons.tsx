@@ -14,7 +14,7 @@ export function Reasons({
   const extraClass = underline ? "txt-underline-dotted" : "";
   return (
     <span className="mb3">
-      {reasons.map((r: Map<string, any>, k) => (
+      {reasons.toArray().map((r: Map<string, any>, k) => (
         <Reason
           key={k}
           text={r.get("name")}

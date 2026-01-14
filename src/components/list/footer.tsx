@@ -5,7 +5,9 @@ import { PageRange } from "./page_range";
 const RANGE = 6;
 
 function range(start, end) {
-  return Range(start, end).map((k, i) => i + start);
+  return Range(start, end)
+    .map((k, i) => i + start)
+    .toArray();
 }
 
 export function Footer({
@@ -14,7 +16,7 @@ export function Footer({
   count,
 }: {
   pageIndex: number;
-  getChangesetsPage: (b: number, a?: boolean | null) => unknown;
+  getChangesetsPage: (b: number, a?: boolean) => unknown;
   count: number | undefined | null;
 }) {
   const base = Math.floor(pageIndex / RANGE) * RANGE;

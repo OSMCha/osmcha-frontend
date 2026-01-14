@@ -2,7 +2,7 @@ import { List, Map } from "immutable";
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { push } from "react-router-redux";
+import { push } from "redux-first-history";
 import { Button } from "../components/button";
 import { SecondaryPagesHeader } from "../components/secondary_pages_header";
 import { BlockMarkup } from "../components/user/block_markup";
@@ -14,6 +14,7 @@ import {
   addToWatchlist,
   removeFromWatchlist,
 } from "../store/watchlist_actions";
+import { withRouter } from "../utils/withRouter";
 import { getObjAsQueryParam, isMobile } from "../utils";
 
 const WatchListBlock = ({ data, removeFromWatchList }) => (
@@ -168,8 +169,7 @@ class _Watchlist extends React.PureComponent<propsType, any> {
   }
 }
 
-const Watchlist = connect(
-  (state: RootStateType, props) => ({
+const Watchlist = withRouter(connect((state: RootStateType, props: any) => ({
     location: props.location,
     watchlisted: state.watchlist.get("watchlist"),
     oAuthToken: state.auth.get("oAuthToken"),
@@ -184,6 +184,6 @@ const Watchlist = connect(
     addToWatchlist,
     removeFromWatchlist,
   },
-)(_Watchlist);
+)(_Watchlist));
 
 export { Watchlist };

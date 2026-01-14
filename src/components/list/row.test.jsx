@@ -1,7 +1,7 @@
 import { fromJS } from "immutable";
 import MockDate from "mockdate";
 import { Provider } from "react-redux";
-import { StaticRouter } from "react-router";
+import { StaticRouter } from "react-router-dom/server";
 import renderer from "react-test-renderer";
 import { createStore } from "redux";
 import { PrimaryLine } from "./primary_line";

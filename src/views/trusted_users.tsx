@@ -2,7 +2,7 @@ import { List, Map } from "immutable";
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { push } from "react-router-redux";
+import { push } from "redux-first-history";
 import { Button } from "../components/button";
 import { SecondaryPagesHeader } from "../components/secondary_pages_header";
 import { BlockMarkup } from "../components/user/block_markup";
@@ -14,6 +14,7 @@ import {
   addToTrustedlist,
   removeFromTrustedlist,
 } from "../store/trustedlist_actions";
+import { withRouter } from "../utils/withRouter";
 import { getObjAsQueryParam, isMobile } from "../utils";
 
 const TrustedListBlock = ({ data, removeFromTrustedList }) => (
@@ -144,8 +145,7 @@ class _TrustedUsers extends React.PureComponent<propsType, any> {
   }
 }
 
-const TrustedUsers = connect(
-  (state: RootStateType, props) => ({
+const TrustedUsers = withRouter(connect((state: RootStateType, props: any) => ({
     location: props.location,
     trustedList: state.trustedlist.get("trustedlist"),
     oAuthToken: state.auth.get("oAuthToken"),
@@ -160,6 +160,6 @@ const TrustedUsers = connect(
     addToTrustedlist,
     removeFromTrustedlist,
   },
-)(_TrustedUsers);
+)(_TrustedUsers));
 
 export { TrustedUsers };
