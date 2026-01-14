@@ -62,7 +62,7 @@ function formatMarkdown() {
 
 export class About extends React.PureComponent {
   state = {
-    about: null,
+    about: '',
   };
   cancellablePromise: { promise: Promise<any>; cancel(): void } | null = null;
   componentDidMount() {

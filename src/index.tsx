@@ -12,10 +12,10 @@ import 'animate.css/animate.css';
 
 import { App } from './app';
 
-if (process.env.NODE_ENV === 'production') {
+if (import.meta.env.MODE === 'production') {
   Raven.config('https://5637ef87f5794e2fb9e1e5fe9119688d@sentry.io/175926', {
     release: appVersion,
-    environment: process.env.NODE_ENV,
+    environment: import.meta.env.MODE,
     debug: isDev,
   }).install();
 }

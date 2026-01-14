@@ -53,7 +53,7 @@ export const locationSelector = (state: RootStateType) =>
 export const changesetIdSelector = (state: RootStateType) =>
   state.changeset.get('changesetId');
 
-const delay = process.env.NODE_ENV === 'test' ? () => {} : delayPromise;
+const delay = import.meta.env.MODE === 'test' ? () => {} : delayPromise;
 const DELAY = 1000;
 
 export const applyUpdateUserDetails = (
