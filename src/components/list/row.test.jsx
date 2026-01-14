@@ -1,13 +1,19 @@
-import { fromJS } from "immutable";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import MockDate from "mockdate";
-import { Provider } from "react-redux";
 import { StaticRouter } from "react-router-dom/server";
 import renderer from "react-test-renderer";
-import { createStore } from "redux";
 import { PrimaryLine } from "./primary_line";
 import { Row } from "./row";
 
-const changeset = fromJS({
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
+
+const changeset = {
   id: 49328744,
   type: "Feature",
   geometry: {
@@ -57,12 +63,7 @@ const changeset = fromJS({
     checked: true,
     check_date: "2017-06-08T08:51:29.983657Z",
   },
-});
-
-const mockStore = createStore(() => ({
-  trustedlist: fromJS({ trustedlist: [] }),
-  watchlist: fromJS({ watchlist: [] }),
-}));
+};
 
 it("renders PrimaryLine correctly", () => {
   MockDate.set(1497172627326);
@@ -70,9 +71,9 @@ it("renders PrimaryLine correctly", () => {
   const tree = renderer
     .create(
       <PrimaryLine
-        reasons={changeset.getIn(["properties", "reasons"])}
-        tags={changeset.getIn(["properties", "tags"])}
-        comment={changeset.getIn(["properties", "comment"])}
+        reasons={changeset.properties.reasons}
+        tags={changeset.properties.tags}
+        comment={changeset.properties.comment}
       />,
     )
     .toJSON();
@@ -85,16 +86,16 @@ it("renders active row properly", () => {
 
   const tree1 = renderer
     .create(
-      <Provider store={mockStore}>
-        <StaticRouter context={{}}>
+      <QueryClientProvider client={queryClient}>
+        <StaticRouter location="/">
           <Row
-            properties={changeset.getIn(["properties"])}
+            properties={changeset.properties}
             active
-            changesetId={changeset.getIn(["id"])}
+            changesetId={changeset.id}
             inputRef={() => {}}
           />
         </StaticRouter>
-      </Provider>,
+      </QueryClientProvider>,
     )
     .toJSON();
   expect(tree1).toMatchSnapshot();
@@ -106,16 +107,16 @@ it("renders inactive row properly", () => {
 
   const tree1 = renderer
     .create(
-      <Provider store={mockStore}>
-        <StaticRouter context={{}}>
+      <QueryClientProvider client={queryClient}>
+        <StaticRouter location="/">
           <Row
-            properties={changeset.getIn(["properties"])}
+            properties={changeset.properties}
             active={false}
-            changesetId={changeset.getIn(["id"])}
+            changesetId={changeset.id}
             inputRef={() => {}}
           />
         </StaticRouter>
-      </Provider>,
+      </QueryClientProvider>,
     )
     .toJSON();
   expect(tree1).toMatchSnapshot();

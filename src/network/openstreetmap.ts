@@ -1,4 +1,3 @@
-import { fromJS, Map } from "immutable";
 import { API_URL } from "../config";
 import { apiOSM } from "../config/constants";
 
@@ -10,10 +9,7 @@ export async function fetchChangesetMetadata(id: number): Promise<any> {
   return metadata;
 }
 
-export function getUserDetails(
-  uid: number,
-  token: string,
-): Promise<Map<string, any>> {
+export function getUserDetails(uid: number, token: string): Promise<any> {
   const user: any = { uid: uid };
   const fromOSM = fetch(`${apiOSM}/user/${uid}.json`)
     .then((r) => r.json())
@@ -24,7 +20,7 @@ export function getUserDetails(
       user.description = u.description;
       user.img = u.img && u.img.href;
       user.name = u.display_name;
-      return fromJS(user);
+      return user;
     })
     .catch((e) => user);
 
@@ -36,8 +32,10 @@ export function getUserDetails(
     },
   })
     .then((r) => r.json())
-    .then((r) => fromJS(r))
-    .catch((e) => Map());
+    .catch((e) => ({}));
 
-  return Promise.all([fromOSMCha, fromOSM]).then(([r1, r2]) => r1.merge(r2));
+  return Promise.all([fromOSMCha, fromOSM]).then(([r1, r2]) => ({
+    ...r2,
+    ...r1,
+  }));
 }

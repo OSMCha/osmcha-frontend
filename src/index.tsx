@@ -1,7 +1,9 @@
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRoot } from "react-dom/client";
-import { Provider } from "react-redux";
-import { HistoryRouter as Router } from "redux-first-history/rr6";
-import { history, store } from "./store";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Toaster } from "sonner";
+import { queryClient } from "./query/client";
 
 import "./assets/index.css";
 
@@ -12,9 +14,11 @@ if (!container) throw new Error("Root element not found");
 
 const root = createRoot(container);
 root.render(
-  <Provider store={store}>
-    <Router history={history}>
+  <QueryClientProvider client={queryClient}>
+    <Router>
       <App />
+      <Toaster position="bottom-center" />
     </Router>
-  </Provider>,
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>,
 );

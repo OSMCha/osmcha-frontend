@@ -1,27 +1,32 @@
-import { List, Map } from "immutable";
 import React from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { push } from "redux-first-history";
 import { Button } from "../components/button";
 import { SecondaryPagesHeader } from "../components/secondary_pages_header";
 import { BlockMarkup } from "../components/user/block_markup";
 import { SaveUser } from "../components/user/save_user";
-import type { RootStateType } from "../store";
-import { logUserOut } from "../store/auth_actions";
-import { modal } from "../store/modal_actions";
+import { useAuth } from "../hooks/useAuth";
 import {
-  addToWatchlist,
-  removeFromWatchlist,
-} from "../store/watchlist_actions";
-import { withRouter } from "../utils/withRouter";
+  useAddToWatchlist,
+  useRemoveFromWatchlist,
+} from "../query/hooks/useWatchlistMutations";
+import { useWatchlist } from "../query/hooks/useWatchlist";
 import { getObjAsQueryParam, isMobile } from "../utils";
 
-const WatchListBlock = ({ data, removeFromWatchList }) => (
+interface WatchlistUser {
+  username: string;
+  uid: string;
+}
+
+interface WatchListBlockProps {
+  data: WatchlistUser;
+  removeFromWatchList: (uid: string) => void;
+}
+
+const WatchListBlock = ({ data, removeFromWatchList }: WatchListBlockProps) => (
   <BlockMarkup>
     <span>
-      <span>{data.getIn(["username"])}</span>
-      <span className="txt-em color-gray pl6">({data.getIn(["uid"])})</span>
+      <span>{data.username}</span>
+      <span className="txt-em color-gray pl6">({data.uid})</span>
     </span>
     <span>
       <Link
@@ -30,8 +35,8 @@ const WatchListBlock = ({ data, removeFromWatchList }) => (
           search: getObjAsQueryParam("filters", {
             users: [
               {
-                label: data.getIn(["username"]),
-                value: data.getIn(["username"]),
+                label: data.username,
+                value: data.username,
               },
             ],
           }),
@@ -41,7 +46,7 @@ const WatchListBlock = ({ data, removeFromWatchList }) => (
       </Link>
       <Button
         className="mr3 bg-transparent border--0"
-        onClick={() => removeFromWatchList(data.getIn(["uid"]))}
+        onClick={() => removeFromWatchList(data.uid)}
       >
         <svg className={"icon txt-m mb3 inline-block align-middle"}>
           <use xlinkHref="#icon-trash" />
@@ -52,14 +57,19 @@ const WatchListBlock = ({ data, removeFromWatchList }) => (
   </BlockMarkup>
 );
 
+interface ListFortifiedProps {
+  data: WatchlistUser[];
+  TargetBlock: React.ComponentType<WatchListBlockProps>;
+  propsToPass: { removeFromWatchList: (uid: string) => void };
+  SaveComp: React.ReactNode;
+}
+
 const ListFortified = ({
-  onAdd,
-  onRemove,
   data,
   TargetBlock,
   propsToPass,
   SaveComp,
-}) => (
+}: ListFortifiedProps) => (
   <div>
     {data.map((e, i) => (
       <TargetBlock key={i} data={e} {...propsToPass} />
@@ -68,122 +78,75 @@ const ListFortified = ({
   </div>
 );
 
-type propsType = {
-  avatar: string | undefined | null;
-  token: string;
-  data: Map<string, any>;
-  location: any;
-  userDetails: Map<string, any>;
-  reloadData: () => any;
-  logUserOut: () => any;
-  push: (a: any) => any;
-  modal: (a: any) => any;
-  watchlisted: Map<object, any>;
-  addToWatchlist: (watchlist_user: string, uid: string) => void;
-  removeFromWatchlist: (watchlist_user: string) => void;
-};
+function Watchlist() {
+  const { token, user } = useAuth();
+  const { data: watchlist = [] } = useWatchlist(token);
+  const addMutation = useAddToWatchlist(token);
+  const removeMutation = useRemoveFromWatchlist(token);
 
-class _Watchlist extends React.PureComponent<propsType, any> {
-  state = {
-    userValues: null,
-  };
-  // blacklist
-  addToWatchList = ({ username, uid }: { username: string; uid: string }) => {
+  const addToWatchList = ({ username, uid }: WatchlistUser) => {
     if (!username || !uid) return;
-    this.props.addToWatchlist(username, uid);
+    addMutation.mutate({ username, uid });
   };
-  removeFromWatchList = (uid: number) => {
-    if (!uid) return;
-    this.props.removeFromWatchlist(uid.toString());
-  };
-  onUserChange = (value?: Array<any> | null) => {
-    if (Array.isArray(value) && value.length === 0)
-      return this.setState({ userValues: null });
-    this.setState({
-      userValues: value,
-    });
-  };
-  render() {
-    let watchList = this.props.watchlisted ? this.props.watchlisted : List();
-    watchList = watchList.sortBy(
-      (a) => a.get("username"),
-      (a: string, b: string) => a.localeCompare(b),
-    ) as List<any>;
-    const mobile = isMobile();
 
-    return (
+  const removeFromWatchList = (uid: string) => {
+    if (!uid) return;
+    removeMutation.mutate(uid);
+  };
+
+  const sortedWatchlist = [...watchlist].sort((a, b) =>
+    a.username.localeCompare(b.username),
+  );
+  const mobile = isMobile();
+
+  return (
+    <div
+      className={`flex-parent flex-parent--column changesets-filters bg-white ${
+        mobile ? "viewport-full" : ""
+      }`}
+    >
+      <SecondaryPagesHeader title="Watchlist" avatar={user?.avatar} />
       <div
-        className={`flex-parent flex-parent--column changesets-filters bg-white ${
-          mobile ? "viewport-full" : ""
-        }`}
+        className={`${mobile ? "px12" : "px30"} flex-child pb60 filters-scroll`}
       >
-        <SecondaryPagesHeader title="Watchlist" avatar={this.props.avatar} />
-        <div
-          className={`${
-            mobile ? "px12" : "px30"
-          } flex-child pb60 filters-scroll`}
-        >
-          <div className="flex-parent flex-parent--column align justify--space-between">
-            {this.props.token && (
-              <div>
-                <div className="mt24 mb12">
-                  <ListFortified
-                    onAdd={() => {}}
-                    onRemove={() => {}}
-                    data={watchList}
-                    TargetBlock={WatchListBlock}
-                    propsToPass={{
-                      removeFromWatchList: this.removeFromWatchList,
-                    }}
-                    SaveComp={
-                      <SaveUser
-                        onCreate={this.addToWatchList}
-                        forWatchlist={true}
-                      />
-                    }
-                  />
-                </div>
-              </div>
-            )}
-            {this.props.token && (
-              <span>
-                <Link
-                  className="input wmax180 ml12 btn btn--s border border--1 border--lighten25 border--lighten50-on-hover round bg-darken5 bg-lighten25-on-hover color-gray transition"
-                  to={{
-                    search: getObjAsQueryParam("filters", {
-                      blacklist: [{ label: "Yes", value: "True" }],
-                    }),
+        <div className="flex-parent flex-parent--column align justify--space-between">
+          {token && (
+            <div>
+              <div className="mt24 mb12">
+                <ListFortified
+                  data={sortedWatchlist}
+                  TargetBlock={WatchListBlock}
+                  propsToPass={{
+                    removeFromWatchList,
                   }}
-                >
-                  <svg className={"icon txt-m mb3 inline-block align-middle"}>
-                    <use xlinkHref="#icon-filter" />
-                  </svg>
-                  Watchlist's changesets
-                </Link>
-              </span>
-            )}
-          </div>
+                  SaveComp={
+                    <SaveUser onCreate={addToWatchList} forWatchlist={true} />
+                  }
+                />
+              </div>
+            </div>
+          )}
+          {token && (
+            <span>
+              <Link
+                className="input wmax180 ml12 btn btn--s border border--1 border--lighten25 border--lighten50-on-hover round bg-darken5 bg-lighten25-on-hover color-gray transition"
+                to={{
+                  search: getObjAsQueryParam("filters", {
+                    blacklist: [{ label: "Yes", value: "True" }],
+                  }),
+                }}
+              >
+                <svg className={"icon txt-m mb3 inline-block align-middle"}>
+                  <use xlinkHref="#icon-filter" />
+                </svg>
+                Watchlist's changesets
+              </Link>
+            </span>
+          )}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-const Watchlist = withRouter(connect((state: RootStateType, props: any) => ({
-    location: props.location,
-    watchlisted: state.watchlist.get("watchlist"),
-    oAuthToken: state.auth.get("oAuthToken"),
-    token: state.auth.get("token"),
-    userDetails: state.auth.getIn(["userDetails"], Map()),
-    avatar: state.auth.getIn(["userDetails", "avatar"]),
-  }),
-  {
-    logUserOut,
-    modal,
-    push,
-    addToWatchlist,
-    removeFromWatchlist,
-  },
-)(_Watchlist));
 
 export { Watchlist };

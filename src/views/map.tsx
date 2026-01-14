@@ -1,14 +1,13 @@
-import * as maplibre from "maplibre-gl";
-import React from "react";
-import { connect } from "react-redux";
-import "maplibre-gl/dist/maplibre-gl.css";
 import { MapLibreAugmentedDiffViewer } from "@osmcha/maplibre-adiff-viewer";
-
+import * as maplibre from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import React, { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { Loading } from "../components/loading";
 import { SignIn } from "../components/sign_in";
-import type { RootStateType } from "../store";
-import { updateStyle } from "../store/map_controls_actions";
-import { modal } from "../store/modal_actions";
+import { useAuth } from "../hooks/useAuth";
+import { useChangesetMap } from "../query/hooks/useChangesetMap";
+import { useMapStore } from "../stores/mapStore";
 
 const BING_AERIAL_IMAGERY_STYLE = {
   version: 8,
@@ -119,11 +118,8 @@ const BASEMAP_STYLES = {
 const DEFAULT_BASEMAP_STYLE = BING_AERIAL_IMAGERY_STYLE;
 
 interface CMapProps {
-  changesetId: number;
+  changesetId: number | null;
   className: string;
-  style: string;
-  token?: string;
-  changeset?: any;
   showElements: Array<string>;
   showActions: Array<string>;
   mapRef: React.MutableRefObject<{
@@ -132,71 +128,57 @@ interface CMapProps {
   } | null>;
   setSelected: (action: any) => void;
   setCamera: (camera: any) => void;
-  modal?: (options: any) => void;
 }
 
-interface CMapState {
-  loading: boolean;
-}
+function CMap(props: CMapProps) {
+  const { token } = useAuth();
+  const style = useMapStore((state) => state.style);
+  const changesetQuery = useChangesetMap(props.changesetId);
+  const [loading, setLoading] = useState(true);
+  const mapRef = useRef<maplibre.Map | null>(null);
+  const adiffViewerRef = useRef<MapLibreAugmentedDiffViewer | null>(null);
 
-class _CMap extends React.PureComponent<CMapProps, CMapState> {
-  state: CMapState = {
-    loading: true,
+  const changeset = changesetQuery.data;
+
+  const handleClick = (event: any, action: any) => {
+    props.setSelected(action);
+
+    if (action) {
+      const element = action.new ?? action.old;
+      adiffViewerRef.current?.select(element.type, element.id);
+    } else {
+      adiffViewerRef.current?.deselect();
+    }
   };
 
-  map: maplibre.Map | null = null;
-  adiffViewer: MapLibreAugmentedDiffViewer | null = null;
-
-  componentDidMount() {
-    this.initializeMap();
-  }
-
-  componentWillUnmount() {
-    if (this.props.mapRef) {
-      this.props.mapRef.current = null;
-    }
-  }
-
-  componentDidUpdate(prevProps: any) {
-    if (
-      this.props.token !== prevProps.token ||
-      this.props.changesetId !== prevProps.changesetId ||
-      !prevProps.changeset
-    ) {
-      this.setState({ loading: true });
-      this.initializeMap();
-    } else if (
-      this.props.style !== prevProps.style ||
-      this.props.showElements !== prevProps.showElements ||
-      this.props.showActions !== prevProps.showActions
-    ) {
-      this.updateMap();
-    }
-  }
-
-  initializeMap() {
-    if (!this.props.token || !this.props.changeset) {
+  // Initialize map when changeset data is loaded
+  useEffect(() => {
+    if (!token || !changeset) {
       return;
     }
 
     const container = document.getElementById("container");
-
     if (!container) {
       return;
     }
 
-    if (this.map) {
-      this.map.remove();
+    // Clean up previous map if it exists
+    if (mapRef.current) {
+      mapRef.current.remove();
+      mapRef.current = null;
+      adiffViewerRef.current = null;
     }
 
-    const style = BASEMAP_STYLES[this.props.style] ?? DEFAULT_BASEMAP_STYLE;
+    setLoading(true);
+
+    const basemapStyle = BASEMAP_STYLES[style] ?? DEFAULT_BASEMAP_STYLE;
 
     const map = new maplibre.Map({
       container,
-      style,
+      style: basemapStyle,
       maxZoom: 22,
       hash: false,
-      attributionControl: false, // we're moving this to the other corner
+      attributionControl: false,
     });
 
     map.addControl(new maplibre.AttributionControl(), "bottom-left");
@@ -206,18 +188,17 @@ class _CMap extends React.PureComponent<CMapProps, CMapState> {
     map.touchZoomRotate.disableRotation();
     map.keyboard.disableRotation();
 
-    const { adiff } = this.props.changeset;
-    // HACK: override attribution string (the string Overpass sends is wordier and doesn't have a hyperlink)
+    const { adiff } = changeset;
     adiff.note =
       "Map data from <a href=https://openstreetmap.org/copyright>OpenStreetMap</a>";
     const adiffViewer = new MapLibreAugmentedDiffViewer(adiff, {
-      onClick: this.handleClick,
-      showElements: this.props.showElements,
-      showActions: this.props.showActions,
+      onClick: handleClick,
+      showElements: props.showElements,
+      showActions: props.showActions,
     });
 
     map.on("load", async () => {
-      this.setState({ loading: false });
+      setLoading(false);
       adiffViewer.addTo(map);
 
       if (adiff.actions.length > 0) {
@@ -229,107 +210,75 @@ class _CMap extends React.PureComponent<CMapProps, CMapState> {
           map.jumpTo(camera);
         }
       } else {
-        this.props.modal?.({
-          kind: "error",
-          title: "Problem loading augmented diff file",
+        toast.error("Problem loading augmented diff file", {
           description: "The augmented diff contains no elements",
         });
       }
     });
 
     map.on("moveend", () => {
-      this.props.setCamera({
+      props.setCamera({
         center: map.getCenter(),
         zoom: map.getZoom(),
       });
     });
 
-    this.map = map;
-    this.adiffViewer = adiffViewer;
+    mapRef.current = map;
+    adiffViewerRef.current = adiffViewer;
 
-    // Store the map and adiffViewer in the ref passed from the parent component
-    // (this allows other components to imperatively update the map state)
-    if (this.props.mapRef) {
-      this.props.mapRef.current = {
-        map: this.map,
-        adiffViewer: this.adiffViewer,
+    if (props.mapRef) {
+      props.mapRef.current = {
+        map: map,
+        adiffViewer: adiffViewer,
       };
     }
-  }
 
-  updateMap() {
-    if (this.state.loading || !this.map || !this.adiffViewer) return;
+    return () => {
+      if (props.mapRef) {
+        props.mapRef.current = null;
+      }
+    };
+  }, [token, changeset, props.changesetId]);
 
-    const style = BASEMAP_STYLES[this.props.style] ?? DEFAULT_BASEMAP_STYLE;
+  // Update map when style or filter options change
+  useEffect(() => {
+    if (!mapRef.current || !adiffViewerRef.current || loading) return;
 
-    this.map.setStyle(style);
+    const basemapStyle = BASEMAP_STYLES[style] ?? DEFAULT_BASEMAP_STYLE;
+    mapRef.current.setStyle(basemapStyle);
 
-    this.adiffViewer.options = {
-      onClick: this.handleClick,
-      showElements: this.props.showElements,
-      showActions: this.props.showActions,
+    adiffViewerRef.current.options = {
+      onClick: handleClick,
+      showElements: props.showElements,
+      showActions: props.showActions,
     };
 
-    this.adiffViewer.refresh();
+    adiffViewerRef.current.refresh();
+  }, [style, props.showElements, props.showActions, loading]);
+
+  if (!token) {
+    return <SignIn />;
   }
 
-  handleClick = (event, action) => {
-    // Update the selected action in the parent component
-    // (so we can render it in the element info panel)
-    this.props.setSelected(action);
-
-    // Update the selection state on the map
-    // (highlighting/unhighlighting the geometry of the selected element)
-    if (action) {
-      const element = action.new ?? action.old;
-      this.adiffViewer.select(element.type, element.id);
-    } else {
-      this.adiffViewer.deselect();
-    }
-  };
-
-  setHighlight = (type, id, highlighted) => {
-    this.adiffViewer.setHighlight(type, id, highlighted);
-  };
-
-  render() {
-    if (this.props.token) {
-      return (
-        <React.Fragment>
-          <div id="container" className="w-full h-full" />
-          {this.state.loading && (
-            <div
-              className="absolute z0"
-              style={{
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0,
-                background: "rgba(0, 0, 0, 0.5)",
-              }}
-            >
-              <Loading height="100%" className="" />
-            </div>
-          )}
-        </React.Fragment>
-      );
-    } else {
-      return <SignIn />;
-    }
-  }
+  return (
+    <React.Fragment>
+      <div id="container" className="w-full h-full" />
+      {(loading || changesetQuery.isLoading) && (
+        <div
+          className="absolute z0"
+          style={{
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            background: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <Loading height="100%" className="" />
+        </div>
+      )}
+    </React.Fragment>
+  );
 }
-
-const CMap = connect(
-  (state: RootStateType, props) => ({
-    changesetId: state.changeset.get("changesetId"),
-    changeset: state.changeset.getIn([
-      "changesetMap",
-      state.changeset.get("changesetId"),
-    ]),
-    style: state.mapControls.get("style"),
-    token: state.auth.get("token"),
-  }),
-  { updateStyle, modal },
-)(_CMap);
 
 export { CMap };

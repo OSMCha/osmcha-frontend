@@ -1,19 +1,31 @@
 import { diffArrays } from "diff";
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { useEffect, useState } from "react";
 import thumbsDown from "../assets/thumbs-down.svg";
 import { osmUrl } from "../config/constants";
+import { useAuth } from "../hooks/useAuth";
 import { flagFeature, unflagFeature } from "../network/changeset";
-import type { RootStateType } from "../store";
 import { Button } from "./button";
 import { Dropdown } from "./dropdown";
 import { TagValue } from "./tag_value";
+
+interface ElementInfoProps {
+  changeset: any;
+  changesetId: number;
+  action: any;
+  setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
+}
 
 /*
  * Displays info about an element that was created/modified/deleted.
  * Shown when an element is selected on the changeset map.
  */
-function ElementInfo({ changeset, action, token, setHighlight }) {
+function ElementInfo({
+  changeset,
+  changesetId,
+  action,
+  setHighlight,
+}: ElementInfoProps) {
+  const { token } = useAuth();
   const id = action.new.type + "/" + action.new.id;
 
   if (!changeset) {
@@ -39,7 +51,7 @@ function ElementInfo({ changeset, action, token, setHighlight }) {
   // of the selected feature/action.
   // TODO: it would be more correct to convert the feature to GeoJSON and then
   // find its centroid or bounding box center.
-  const getCoord = (key) => {
+  const getCoord = (key: string) => {
     return (
       action.new?.[key] || // point
       action.new?.nodes?.at(0)?.[key] || // added, modified line/area
@@ -61,30 +73,29 @@ function ElementInfo({ changeset, action, token, setHighlight }) {
       <menu>
         <HistoryDropdown id={id} />
         <OpenInDropdown id={id} lat={getCoord("lat")} lng={getCoord("lon")} />
-        <FlagButton changeset={changeset} featureId={id} token={token} />
+        <FlagButton
+          changeset={changeset}
+          changesetId={changesetId}
+          featureId={id}
+          token={token}
+        />
       </menu>
-      <MetadataTable changesetId={changeset.get("id")} action={action} />
+      <MetadataTable changesetId={changesetId} action={action} />
       <hr />
       <TagsTable action={action} />
       {action.new.type === "relation" && (
-        <React.Fragment>
+        <>
           <hr />
           <RelationMembersTable action={action} setHighlight={setHighlight} />
-        </React.Fragment>
+        </>
       )}
     </div>
   );
 }
 
-export default connect((state: RootStateType, props) => ({
-  token: state.auth.get("token"),
-  changeset: state.changeset.getIn([
-    "changesets",
-    +state.changeset.get("changesetId"),
-  ]),
-}))(ElementInfo);
+export default ElementInfo;
 
-function HistoryDropdown({ id }) {
+function HistoryDropdown({ id }: { id: string }) {
   const options = [
     {
       label: "OSM",
@@ -106,12 +117,20 @@ function HistoryDropdown({ id }) {
 /*
  * Convert a slashed element ID (like way/123456) to minimal form (w123456)
  */
-function idToMinimalForm(id) {
+function idToMinimalForm(id: string) {
   const [type, num] = id.split("/");
   return `${type[0]}${num}`;
 }
 
-function OpenInDropdown({ id, lat, lng }) {
+function OpenInDropdown({
+  id,
+  lat,
+  lng,
+}: {
+  id: string;
+  lat: number;
+  lng: number;
+}) {
   let options = [
     {
       label: "OSM",
@@ -119,16 +138,11 @@ function OpenInDropdown({ id, lat, lng }) {
     },
     {
       label: "iD",
-      href: `https://www.openstreetmap.org/edit?editor=id&${id.replace(
-        "/",
-        "=",
-      )}`,
+      href: `https://www.openstreetmap.org/edit?editor=id&${id.replace("/", "=")}`,
     },
     {
       label: "JOSM",
-      href: `http://127.0.0.1:8111/load_object?new_layer=true&objects=${idToMinimalForm(
-        id,
-      )}`,
+      href: `http://127.0.0.1:8111/load_object?new_layer=true&objects=${idToMinimalForm(id)}`,
     },
     {
       label: "Level0",
@@ -167,19 +181,30 @@ function OpenInDropdown({ id, lat, lng }) {
   return <Dropdown display="Open in" options={options} />;
 }
 
-function FlagButton({ changeset, featureId, token }) {
-  const changesetId = changeset.get("id");
+function FlagButton({
+  changeset,
+  changesetId,
+  featureId,
+  token,
+}: {
+  changeset: any;
+  changesetId: number;
+  featureId: string;
+  token: string | null;
+}) {
   const [flagged, setFlagged] = useState(false);
 
   useEffect(() => {
+    const reviewedFeatures = changeset?.properties?.reviewed_features || [];
     const isFlagged =
-      changeset
-        .getIn(["properties", "reviewed_features"])
-        .find((e) => e.get("id") === featureId.replace("/", "-")) !== undefined;
+      reviewedFeatures.find(
+        (e: any) => e.id === featureId.replace("/", "-"),
+      ) !== undefined;
     setFlagged(isFlagged);
   }, [changeset, featureId]);
 
   const handleClick = async () => {
+    if (!token) return;
     if (flagged) {
       unflagFeature(changesetId, featureId, token);
     } else {
@@ -204,7 +229,13 @@ function FlagButton({ changeset, featureId, token }) {
   }
 }
 
-function MetadataTable({ changesetId, action }) {
+function MetadataTable({
+  changesetId,
+  action,
+}: {
+  changesetId: number;
+  action: any;
+}) {
   const showPrevious =
     action.type === "delete" ||
     (action.type === "modify" && action.old.version !== action.new.version);
@@ -268,19 +299,21 @@ function MetadataTable({ changesetId, action }) {
   );
 }
 
-function TagsTable({ action }) {
-  let allKeys;
+function TagsTable({ action }: { action: any }) {
+  let allKeys: string[];
 
   if (action.type === "create") {
-    allKeys = new Set(Object.keys(action.new.tags));
+    allKeys = Object.keys(action.new.tags);
   } else {
-    allKeys = new Set([
-      ...Object.keys(action.old.tags),
-      ...Object.keys(action.new.tags),
-    ]);
+    allKeys = [
+      ...new Set([
+        ...Object.keys(action.old.tags),
+        ...Object.keys(action.new.tags),
+      ]),
+    ];
   }
 
-  allKeys = [...allKeys].sort();
+  allKeys = allKeys.sort();
 
   if (allKeys.length === 0) {
     return <span>No tags</span>;
@@ -300,7 +333,7 @@ function TagsTable({ action }) {
           const newval = action.new ? action.new.tags[key] : undefined;
           if (oldval === newval) {
             return (
-              <tr>
+              <tr key={key}>
                 <td>
                   <span dir="auto">{key}</span>
                 </td>
@@ -313,7 +346,7 @@ function TagsTable({ action }) {
             );
           } else if (oldval === undefined) {
             return (
-              <tr className="create">
+              <tr key={key} className="create">
                 <td>
                   <span dir="auto">{key}</span>
                 </td>
@@ -326,7 +359,7 @@ function TagsTable({ action }) {
             );
           } else if (newval === undefined) {
             return (
-              <tr className="delete">
+              <tr key={key} className="delete">
                 <td>
                   <span dir="auto">{key}</span>
                 </td>
@@ -339,7 +372,7 @@ function TagsTable({ action }) {
             );
           } else {
             return (
-              <tr className="modify">
+              <tr key={key} className="modify">
                 <td>
                   <span dir="auto">{key}</span>
                 </td>
@@ -361,11 +394,17 @@ function TagsTable({ action }) {
   );
 }
 
-function RelationMembersTable({ action, setHighlight }) {
+function RelationMembersTable({
+  action,
+  setHighlight,
+}: {
+  action: any;
+  setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
+}) {
   const oldMemberIds =
-    action.old?.members.map((m) => `${m.type}/${m.ref}`) ?? [];
+    action.old?.members.map((m: any) => `${m.type}/${m.ref}`) ?? [];
   const newMemberIds =
-    action.new?.members.map((m) => `${m.type}/${m.ref}`) ?? [];
+    action.new?.members.map((m: any) => `${m.type}/${m.ref}`) ?? [];
 
   const diff = diffArrays(oldMemberIds, newMemberIds, {
     oneChangePerToken: true,
@@ -380,14 +419,14 @@ function RelationMembersTable({ action, setHighlight }) {
         </tr>
       </thead>
       <tbody>
-        {diff.map(({ value }) => {
+        {diff.map(({ value }: any) => {
           const id = value[0];
           const [type, ref] = id.split("/");
           const oldMember = action.old?.members.find(
-            (m) => m.type === type && m.ref === +ref,
+            (m: any) => m.type === type && m.ref === +ref,
           );
           const newMember = action.new?.members.find(
-            (m) => m.type === type && m.ref === +ref,
+            (m: any) => m.type === type && m.ref === +ref,
           );
           const oldrole = oldMember?.role;
           const newrole = newMember?.role;
@@ -398,7 +437,7 @@ function RelationMembersTable({ action, setHighlight }) {
 
           if (oldrole === newrole) {
             return (
-              <tr {...interactions}>
+              <tr key={id} {...interactions}>
                 <td>{id}</td>
                 <td>
                   <span dir="auto">{newrole}</span>
@@ -407,7 +446,7 @@ function RelationMembersTable({ action, setHighlight }) {
             );
           } else if (oldrole === undefined) {
             return (
-              <tr className="create" {...interactions}>
+              <tr key={id} className="create" {...interactions}>
                 <td>{id}</td>
                 <td>
                   <span dir="auto">{newrole}</span>
@@ -416,7 +455,7 @@ function RelationMembersTable({ action, setHighlight }) {
             );
           } else if (newrole === undefined) {
             return (
-              <tr className="delete" {...interactions}>
+              <tr key={id} className="delete" {...interactions}>
                 <td>{id}</td>
                 <td>
                   <span dir="auto">{oldrole}</span>
@@ -425,7 +464,7 @@ function RelationMembersTable({ action, setHighlight }) {
             );
           } else {
             return (
-              <tr className="modify" {...interactions}>
+              <tr key={id} className="modify" {...interactions}>
                 <td>{id}</td>
                 <td>
                   <del dir="auto">{oldrole}</del>

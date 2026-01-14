@@ -1,43 +1,33 @@
 import { parse } from "date-fns";
-import type { Map } from "immutable";
-import { connect } from "react-redux";
 import { useIsUserListed } from "../../hooks/UseIsUserListed";
-import type { RootStateType } from "../../store";
+import { useAuth } from "../../hooks/useAuth";
 import { CreateDeleteModify } from "../create_delete_modify";
 import { RelativeTime } from "../relative_time";
 import { Details } from "./details";
 
 type propsType = {
-  properties: Map<string, any>;
+  properties: any;
   changesetId: number;
   userEditCount: number;
   toggleUser: () => unknown;
-  trustedlist: Map<string, any>;
-  watchlisted: Map<object, any>;
 };
 
-function HeaderComponent({
+function Header({
   properties,
   changesetId,
   userEditCount,
   toggleUser,
-  trustedlist,
-  watchlisted,
 }: propsType) {
-  const user = properties.get("user");
-  const date = parse(
-    properties.get("date"),
-    "yyyy-MM-dd'T'HH:mm:ssX",
-    new Date(),
-  );
-  const create = properties.get("create");
-  const modify = properties.get("modify");
-  const destroy = properties.get("delete");
+  const { token } = useAuth();
+  const user = properties.user;
+  const date = parse(properties.date, "yyyy-MM-dd'T'HH:mm:ssX", new Date());
+  const create = properties.create;
+  const modify = properties.modify;
+  const destroy = properties.delete;
   const [isInTrustedlist, isInWatchlist] = useIsUserListed(
     user,
-    properties.get("uid"),
-    trustedlist,
-    watchlisted,
+    properties.uid,
+    token,
   );
 
   return (
@@ -87,8 +77,4 @@ function HeaderComponent({
   );
 }
 
-const Header = connect((state: RootStateType, props) => ({
-  trustedlist: state.trustedlist.get("trustedlist"),
-  watchlisted: state.watchlist.get("watchlist"),
-}))(HeaderComponent);
 export { Header };

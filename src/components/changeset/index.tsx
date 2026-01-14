@@ -1,9 +1,8 @@
 import type { MapLibreAugmentedDiffViewer } from "@osmcha/maplibre-adiff-viewer";
 import bbox from "@turf/bbox";
-import { fromJS, List, Map } from "immutable";
 import type * as maplibre from "maplibre-gl";
-import React from "react";
-import { connect } from "react-redux";
+import Mousetrap from "mousetrap";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   CHANGESET_DETAILS_DETAILS,
   CHANGESET_DETAILS_DISCUSSIONS,
@@ -14,13 +13,11 @@ import {
   CHANGESET_DETAILS_TAGS,
   CHANGESET_DETAILS_USER,
 } from "../../config/bindings";
+import { useAuth } from "../../hooks/useAuth";
 import { getUserDetails } from "../../network/openstreetmap";
 import { getUsers } from "../../network/whosthat";
-import type { RootStateType } from "../../store";
-import { cancelablePromise } from "../../utils/promise";
+import { useChangesetMap } from "../../query/hooks/useChangesetMap";
 import ElementInfo from "../element_info";
-import { withFetchDataSilent } from "../fetch_data_enhancer";
-import { keyboardToggleEnhancer } from "../keyboard_enhancer";
 import { Box } from "./box";
 import { ControlLayout } from "./control_layout";
 import { Discussions } from "./discussions";
@@ -33,10 +30,9 @@ import { OtherFeatures } from "./other_features";
 import { TagChanges } from "./tag_changes";
 import { User } from "./user";
 
-// | denote strict props
-type propsType = {
+type ChangesetProps = {
   changesetId: number;
-  currentChangeset: Map<string, any>;
+  currentChangeset: any;
   showElements: Array<string>;
   showActions: Array<string>;
   setShowElements: (elements: Array<string>) => any;
@@ -45,391 +41,312 @@ type propsType = {
     map: maplibre.Map;
     adiffViewer: MapLibreAugmentedDiffViewer;
   }>;
-  selected: Map<string, any>;
-  setSelected: (selected: Map<string, any>) => void;
-  // The props below come from HOCs, they are not optional!
-  // to circumvent the $Diff bug  ref: https://github.com/facebook/flow/issues/1601
-  // have to make them optional for flow to not throw error.
-  data?: Map<string, any>;
-  bindingsState?: Map<string, boolean | undefined | null>;
-  exclusiveKeyToggle?: (label: string) => any;
-  token?: string;
-  osmInfo?: Map<string, any>;
+  selected: any;
+  setSelected: (selected: any) => void;
 };
 
-type changesetStateType = {
-  userDetails: any;
-  whosThat: any;
-};
+const toggleOptions = [
+  CHANGESET_DETAILS_DETAILS,
+  CHANGESET_DETAILS_SUSPICIOUS,
+  CHANGESET_DETAILS_TAGS,
+  CHANGESET_DETAILS_GEOMETRY_CHANGES,
+  CHANGESET_DETAILS_OTHER_FEATURES,
+  CHANGESET_DETAILS_USER,
+  CHANGESET_DETAILS_DISCUSSIONS,
+  CHANGESET_DETAILS_MAP,
+];
 
 /**
  * This is the UI overlay that appears on top of the map in the changeset view.
  * It displays information about the changeset in the upper left, and may also display
  * information about the currently selected element in the lower right.
  */
-export class _Changeset extends React.PureComponent<
-  propsType,
-  changesetStateType
-> {
-  getUserDetailsPromise: any;
-  getWhosThatPromise: any;
+function Changeset({
+  changesetId,
+  currentChangeset,
+  showElements,
+  showActions,
+  setShowElements,
+  setShowActions,
+  mapRef,
+  selected,
+  setSelected,
+}: ChangesetProps) {
+  const { token } = useAuth();
+  const { data: osmInfo } = useChangesetMap(changesetId);
 
-  state: changesetStateType = {
-    userDetails: null,
-    whosThat: null,
-  };
+  const [userDetails, setUserDetails] = useState<any>(null);
+  const [whosThat, setWhosThat] = useState<any>(null);
 
-  static defaultProps = {
-    data: Map<string, any>(),
-  };
-  componentDidMount() {
-    this.toggleDetails();
-  }
-  componentDidUpdate(prevProps) {
-    if (
-      !prevProps.currentChangeset.getIn(["properties", "uid"]) &&
-      this.props.currentChangeset.getIn(["properties", "uid"])
-    ) {
-      this.getUserDetailsPromise = cancelablePromise(
-        getUserDetails(
-          this.props.currentChangeset.getIn(["properties", "uid"], null),
-          this.props.token || "",
-        ),
-      );
-      this.getUserDetailsPromise.promise
-        .then((r) => {
-          this.setState({ userDetails: r });
-        })
-        .catch((e) => console.log(e));
+  // Keyboard toggle state - track which sections are visible
+  const [bindingsState, setBindingsState] = useState<Record<string, boolean>>(
+    () => {
+      const initial: Record<string, boolean> = {};
+      toggleOptions.forEach((opt) => {
+        initial[opt.label] = opt === CHANGESET_DETAILS_DETAILS; // Only details visible by default
+      });
+      return initial;
+    },
+  );
 
-      this.getWhosThatPromise = cancelablePromise(
-        getUsers(this.props.currentChangeset.getIn(["properties", "uid"], "")),
-      );
-      this.getWhosThatPromise.promise
-        .then((r) => {
-          this.setState({ whosThat: List(r[0].names) });
-        })
-        .catch((e) => console.log(e));
-    }
-  }
-  showFloaters = () => {
-    const {
-      changesetId,
-      currentChangeset,
-      showElements,
-      showActions,
-      setShowElements,
-      setShowActions,
-      bindingsState,
-      data,
-    } = this.props;
+  const exclusiveKeyToggle = useCallback((label: string) => {
+    setBindingsState((prev) => {
+      const newState: Record<string, boolean> = {};
+      toggleOptions.forEach((opt) => {
+        newState[opt.label] = opt.label === label ? !prev[label] : false;
+      });
+      return newState;
+    });
+  }, []);
 
-    if (!bindingsState || !data) return;
-    const properties = currentChangeset.get("properties");
-    return (
-      <React.Fragment>
-        {bindingsState.get(CHANGESET_DETAILS_DETAILS.label) && (
-          <Box key={3} className=" responsive-box round-tr round-br">
-            <Header
-              toggleUser={this.toggleUser}
-              changesetId={changesetId}
-              properties={properties}
-              userEditCount={
-                this.state.userDetails != null
-                  ? this.state.userDetails.get("count")
-                  : 0 || data.getIn(["userDetails", "count"], 0)
-              }
-            />
-          </Box>
-        )}
-        {bindingsState.get(CHANGESET_DETAILS_SUSPICIOUS.label) && (
-          <Box key={2} className=" responsive-box round-tr round-br">
-            <Features
-              changesetId={changesetId}
-              properties={properties}
-              setHighlight={this.setHighlight}
-              zoomToAndSelect={this.zoomToAndSelect}
-            />
-          </Box>
-        )}
-        {bindingsState.get(CHANGESET_DETAILS_TAGS.label) && (
-          <Box key={5} className=" responsive-box round-tr round-br">
-            <TagChanges
-              changesetId={changesetId}
-              setHighlight={this.setHighlight}
-              zoomToAndSelect={this.zoomToAndSelect}
-            />
-          </Box>
-        )}
-        {bindingsState.get(CHANGESET_DETAILS_GEOMETRY_CHANGES.label) && (
-          <Box key={5} className=" responsive-box round-tr round-br">
-            <GeometryChanges
-              changesetId={changesetId}
-              setHighlight={this.setHighlight}
-              zoomToAndSelect={this.zoomToAndSelect}
-            />
-          </Box>
-        )}
-        {bindingsState.get(CHANGESET_DETAILS_OTHER_FEATURES.label) && (
-          <Box key={5} className=" responsive-box round-tr round-br">
-            <OtherFeatures
-              changesetId={changesetId}
-              setHighlight={this.setHighlight}
-              zoomToAndSelect={this.zoomToAndSelect}
-            />
-          </Box>
-        )}
-        {bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label) && (
-          <Box key={1} className=" responsive-box  round-tr round-br">
-            <Discussions
-              changesetAuthor={currentChangeset.get("properties").get("user")}
-              discussions={
-                this.props.osmInfo?.getIn([
-                  "metadata",
-                  "changeset",
-                  "comments",
-                ]) ?? List()
-              }
-              changesetIsHarmful={properties.get("harmful")}
-              changesetId={changesetId}
-            />
-          </Box>
-        )}
-        {bindingsState.get(CHANGESET_DETAILS_USER.label) && (
-          <Box key={0} className="responsive-box round-tr round-br">
-            <User
-              userDetails={
-                data.getIn(["userDetails", "name"])
-                  ? data.getIn(["userDetails"], Map())
-                  : Map([
-                      [
-                        "uid",
-                        this.props.currentChangeset.getIn([
-                          "properties",
-                          "uid",
-                        ]),
-                      ],
-                      [
-                        "name",
-                        this.props.currentChangeset.getIn([
-                          "properties",
-                          "user",
-                        ]),
-                      ],
-                      [
-                        "harmful_changesets",
-                        data.getIn(["userDetails", "harmful_changesets"]),
-                      ],
-                      [
-                        "checked_changesets",
-                        data.getIn(["userDetails", "checked_changesets"]),
-                      ],
-                      [
-                        "changesets_in_osmcha",
-                        data.getIn(["userDetails", "changesets_in_osmcha"]),
-                      ],
-                    ])
-              }
-              whosThat={
-                data.getIn(["userDetails", "name"])
-                  ? data.getIn(["whosThat", 0, "names"], List())
-                  : this.state.whosThat || List()
-              }
-              changesetUsername
-            />
-          </Box>
-        )}
-        {bindingsState.get(CHANGESET_DETAILS_MAP.label) && (
-          <Box key={4} className="responsive-box round-tr round-br">
-            <MapOptions
-              showElements={showElements}
-              showActions={showActions}
-              setShowElements={setShowElements}
-              setShowActions={setShowActions}
-            />
-          </Box>
-        )}
-      </React.Fragment>
-    );
-  };
+  // Fetch user details when changeset changes
+  useEffect(() => {
+    const uid = currentChangeset?.properties?.uid;
+    if (!uid || !token) return;
 
-  toggleFeatures = () => {
-    this.props.exclusiveKeyToggle &&
-      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_SUSPICIOUS.label);
-  };
-  toggleOtherFeatures = () => {
-    this.props.exclusiveKeyToggle &&
-      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_OTHER_FEATURES.label);
-  };
-  toggleTags = () => {
-    this.props.exclusiveKeyToggle &&
-      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_TAGS.label);
-  };
-  toggleGeometryChanges = () => {
-    this.props.exclusiveKeyToggle &&
-      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_GEOMETRY_CHANGES.label);
-  };
-  toggleDiscussions = () => {
-    this.props.exclusiveKeyToggle &&
-      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_DISCUSSIONS.label);
-  };
-  toggleDetails = () => {
-    this.props.exclusiveKeyToggle &&
-      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_DETAILS.label);
-  };
-  toggleUser = () => {
-    this.props.exclusiveKeyToggle &&
-      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_USER.label);
-  };
-  toggleMapOptions = () => {
-    this.props.exclusiveKeyToggle &&
-      this.props.exclusiveKeyToggle(CHANGESET_DETAILS_MAP.label);
-  };
+    let cancelled = false;
+
+    getUserDetails(uid, token)
+      .then((details) => {
+        if (!cancelled) {
+          setUserDetails(details);
+        }
+      })
+      .catch((e) => console.log(e));
+
+    getUsers(uid)
+      .then((users) => {
+        if (!cancelled && users[0]?.names) {
+          setWhosThat(users[0].names);
+        }
+      })
+      .catch((e) => console.log(e));
+
+    return () => {
+      cancelled = true;
+    };
+  }, [currentChangeset?.properties?.uid, token]);
+
+  // Setup keyboard shortcuts
+  useEffect(() => {
+    toggleOptions.forEach((opt) => {
+      Mousetrap.bind(opt.bindings, () => exclusiveKeyToggle(opt.label));
+    });
+
+    return () => {
+      toggleOptions.forEach((opt) => {
+        opt.bindings.forEach((binding) => Mousetrap.unbind(binding));
+      });
+    };
+  }, [exclusiveKeyToggle]);
 
   /// Given an OSM Element type (node/way/relation) and ID number,
   /// add or remove a highlight effect for the corresponding map features.
   /// (Used for indicating elements when references to them in the UI are hovered)
-  setHighlight = (type: string, id: number, isHighlighted: boolean) => {
-    if (!this.props.mapRef.current) return;
-    const { adiffViewer } = this.props.mapRef.current;
-    if (isHighlighted) {
-      adiffViewer.highlight(type, id);
-    } else {
-      adiffViewer.unhighlight(type, id);
-    }
-  };
+  const setHighlight = useCallback(
+    (type: string, id: number, isHighlighted: boolean) => {
+      if (!mapRef.current) return;
+      const { adiffViewer } = mapRef.current;
+      if (isHighlighted) {
+        adiffViewer.highlight(type, id);
+      } else {
+        adiffViewer.unhighlight(type, id);
+      }
+    },
+    [mapRef],
+  );
 
   /// Given an OSM Element type (node/way/relation) and ID number,
   /// zoom the map to show that element, and select it in the overlay.
-  zoomToAndSelect = (type: string, id: number) => {
-    if (!this.props.mapRef.current) return;
-    const { map, adiffViewer } = this.props.mapRef.current;
+  const zoomToAndSelect = useCallback(
+    (type: string, id: number) => {
+      if (!mapRef.current) return;
+      const { map, adiffViewer } = mapRef.current;
 
-    // find the feature(s) in the geojson that represent this element
-    // (there may be two, the old and new versions, if the element was modified)
-    const features = adiffViewer.geojson.features.filter(
-      (feature) =>
-        feature.properties.type === type && feature.properties.id === id,
-    );
-    // zoom the map to the bounding box of the feature(s)
-    const bounds = bbox({ type: "FeatureCollection", features });
-    // bbox returns [minX, minY, minZ?, maxX, maxY, maxZ?], but maplibre expects [minX, minY, maxX, maxY]
-    const bounds2d = bounds.slice(0, 4) as [number, number, number, number];
-    const camera = map.cameraForBounds(bounds2d, { padding: 50, maxZoom: 18 });
-    if (camera) {
-      map.jumpTo(camera);
-    }
-    // style the feature(s) on the map to indicate that they're selected
-    adiffViewer.select(type, id);
+      // find the feature(s) in the geojson that represent this element
+      // (there may be two, the old and new versions, if the element was modified)
+      const features = adiffViewer.geojson.features.filter(
+        (feature: any) =>
+          feature.properties.type === type && feature.properties.id === id,
+      );
 
-    // find the action in the adiff that affects this element
-    const action = adiffViewer.adiff.actions.find((action) => {
-      const element = action.new ?? action.old;
-      return element.type === type && element.id === id;
-    });
+      // zoom the map to the bounding box of the feature(s)
+      let bounds = bbox({ type: "FeatureCollection", features });
+      if (bounds.length === 6) {
+        bounds = [bounds[0], bounds[1], bounds[3], bounds[4]];
+      }
+      const camera = map.cameraForBounds(bounds, {
+        padding: 50,
+        maxZoom: 18,
+      });
+      if (camera) {
+        map.jumpTo(camera);
+      }
 
-    // show the ElementInfo overlay for that action
-    this.props.setSelected(action);
-  };
+      // style the feature(s) on the map to indicate that they're selected
+      adiffViewer.select(type, id);
 
-  render() {
-    const { bindingsState, currentChangeset } = this.props;
-    const features = currentChangeset.getIn(["properties", "features"]);
-    return (
-      <React.Fragment>
-        <div
-          className="absolute flex-parent flex-parent--column clip"
-          style={{ top: 0, left: 0 }}
-        >
-          <div className="flex-child clip">
-            <ControlLayout
-              toggleDetails={this.toggleDetails}
-              toggleFeatures={this.toggleFeatures}
-              toggleOtherFeatures={this.toggleOtherFeatures}
-              toggleTags={this.toggleTags}
-              toggleGeometryChanges={this.toggleGeometryChanges}
-              toggleDiscussions={this.toggleDiscussions}
-              toggleUser={this.toggleUser}
-              toggleMapOptions={this.toggleMapOptions}
-              features={features}
-              bindingsState={bindingsState}
-              discussions={
-                this.props.osmInfo?.getIn([
-                  "metadata",
-                  "changeset",
-                  "comments",
-                ]) ?? List()
-              }
-            />
-            <Floater style={{ marginTop: 5, marginLeft: 41 }}>
-              {this.showFloaters()}
-            </Floater>
-          </div>
+      // find the action in the adiff that affects this element
+      const action = adiffViewer.adiff.actions.find((action: any) => {
+        const element = action.new ?? action.old;
+        return element.type === type && element.id === id;
+      });
+
+      // show the ElementInfo overlay for that action
+      setSelected(action);
+    },
+    [mapRef, setSelected],
+  );
+
+  const toggleDetails = () =>
+    exclusiveKeyToggle(CHANGESET_DETAILS_DETAILS.label);
+  const toggleFeatures = () =>
+    exclusiveKeyToggle(CHANGESET_DETAILS_SUSPICIOUS.label);
+  const toggleOtherFeatures = () =>
+    exclusiveKeyToggle(CHANGESET_DETAILS_OTHER_FEATURES.label);
+  const toggleTags = () => exclusiveKeyToggle(CHANGESET_DETAILS_TAGS.label);
+  const toggleGeometryChanges = () =>
+    exclusiveKeyToggle(CHANGESET_DETAILS_GEOMETRY_CHANGES.label);
+  const toggleDiscussions = () =>
+    exclusiveKeyToggle(CHANGESET_DETAILS_DISCUSSIONS.label);
+  const toggleUser = () => exclusiveKeyToggle(CHANGESET_DETAILS_USER.label);
+  const toggleMapOptions = () =>
+    exclusiveKeyToggle(CHANGESET_DETAILS_MAP.label);
+
+  const properties = currentChangeset?.properties || {};
+  const features = properties.features || [];
+  const discussions = osmInfo?.metadata?.changeset?.comments || [];
+
+  return (
+    <React.Fragment>
+      <div
+        className="absolute flex-parent flex-parent--column clip"
+        style={{ top: 0, left: 0 }}
+      >
+        <div className="flex-child clip">
+          <ControlLayout
+            toggleDetails={toggleDetails}
+            toggleFeatures={toggleFeatures}
+            toggleOtherFeatures={toggleOtherFeatures}
+            toggleTags={toggleTags}
+            toggleGeometryChanges={toggleGeometryChanges}
+            toggleDiscussions={toggleDiscussions}
+            toggleUser={toggleUser}
+            toggleMapOptions={toggleMapOptions}
+            features={features}
+            bindingsState={bindingsState}
+            discussions={discussions}
+          />
+          <Floater style={{ marginTop: 5, marginLeft: 41 }}>
+            {bindingsState[CHANGESET_DETAILS_DETAILS.label] && (
+              <Box key={3} className=" responsive-box round-tr round-br">
+                <Header
+                  toggleUser={toggleUser}
+                  changesetId={changesetId}
+                  properties={properties}
+                  userEditCount={userDetails?.count || 0}
+                />
+              </Box>
+            )}
+            {bindingsState[CHANGESET_DETAILS_SUSPICIOUS.label] && (
+              <Box key={2} className=" responsive-box round-tr round-br">
+                <Features
+                  changesetId={changesetId}
+                  properties={properties}
+                  setHighlight={setHighlight}
+                  zoomToAndSelect={zoomToAndSelect}
+                />
+              </Box>
+            )}
+            {bindingsState[CHANGESET_DETAILS_TAGS.label] && (
+              <Box key={5} className=" responsive-box round-tr round-br">
+                <TagChanges
+                  changesetId={changesetId}
+                  adiff={osmInfo?.adiff}
+                  setHighlight={setHighlight}
+                  zoomToAndSelect={zoomToAndSelect}
+                />
+              </Box>
+            )}
+            {bindingsState[CHANGESET_DETAILS_GEOMETRY_CHANGES.label] && (
+              <Box key={5} className=" responsive-box round-tr round-br">
+                <GeometryChanges
+                  changesetId={changesetId}
+                  adiff={osmInfo?.adiff}
+                  setHighlight={setHighlight}
+                  zoomToAndSelect={zoomToAndSelect}
+                />
+              </Box>
+            )}
+            {bindingsState[CHANGESET_DETAILS_OTHER_FEATURES.label] && (
+              <Box key={5} className=" responsive-box round-tr round-br">
+                <OtherFeatures
+                  changesetId={changesetId}
+                  adiff={osmInfo?.adiff}
+                  setHighlight={setHighlight}
+                  zoomToAndSelect={zoomToAndSelect}
+                />
+              </Box>
+            )}
+            {bindingsState[CHANGESET_DETAILS_DISCUSSIONS.label] && (
+              <Box key={1} className=" responsive-box  round-tr round-br">
+                <Discussions
+                  changesetAuthor={properties.user}
+                  discussions={discussions}
+                  changesetIsHarmful={properties.harmful}
+                  changesetId={changesetId}
+                />
+              </Box>
+            )}
+            {bindingsState[CHANGESET_DETAILS_USER.label] && (
+              <Box key={0} className="responsive-box round-tr round-br">
+                <User
+                  userDetails={{
+                    uid: properties.uid,
+                    name: properties.user,
+                    ...userDetails,
+                  }}
+                  whosThat={whosThat || []}
+                  changesetUsername
+                />
+              </Box>
+            )}
+            {bindingsState[CHANGESET_DETAILS_MAP.label] && (
+              <Box key={4} className="responsive-box round-tr round-br">
+                <MapOptions
+                  showElements={showElements}
+                  showActions={showActions}
+                  setShowElements={setShowElements}
+                  setShowActions={setShowActions}
+                />
+              </Box>
+            )}
+          </Floater>
         </div>
-        {this.props.selected && (
-          <div
-            className="absolute bg-white px12 py6 z5 round"
-            style={{
-              bottom: 0,
-              right: 0,
-              margin: "10px",
-              minWidth: "400px",
-              maxWidth: "550px",
-              maxHeight: "60vh",
-              overflowY: "auto",
-            }}
-          >
-            <ElementInfo
-              action={this.props.selected}
-              setHighlight={this.setHighlight}
-            />
-          </div>
-        )}
-      </React.Fragment>
-    );
-  }
+      </div>
+      {selected && (
+        <div
+          className="absolute bg-white px12 py6 z5 round"
+          style={{
+            bottom: 0,
+            right: 0,
+            margin: "10px",
+            minWidth: "400px",
+            maxWidth: "550px",
+            maxHeight: "60vh",
+            overflowY: "auto",
+          }}
+        >
+          <ElementInfo
+            action={selected}
+            setHighlight={setHighlight}
+            changeset={currentChangeset}
+            changesetId={changesetId}
+          />
+        </div>
+      )}
+    </React.Fragment>
+  );
 }
-
-const ChangesetWithKeyboard = keyboardToggleEnhancer(
-  true,
-  [
-    CHANGESET_DETAILS_DETAILS,
-    CHANGESET_DETAILS_SUSPICIOUS,
-    CHANGESET_DETAILS_TAGS,
-    CHANGESET_DETAILS_GEOMETRY_CHANGES,
-    CHANGESET_DETAILS_OTHER_FEATURES,
-    CHANGESET_DETAILS_USER,
-    CHANGESET_DETAILS_DISCUSSIONS,
-    CHANGESET_DETAILS_MAP,
-  ],
-  _Changeset,
-);
-
-/**
- * Never use props not required by the Basecomponent in HOCs
- */
-const ChangesetWithData = withFetchDataSilent(
-  (props: propsType) => ({
-    userDetails: cancelablePromise(
-      getUserDetails(
-        props.currentChangeset.getIn(["properties", "uid"], null),
-        props.token || "",
-      ),
-    ),
-    whosThat: cancelablePromise(
-      getUsers(props.currentChangeset.getIn(["properties", "uid"], "")),
-    ),
-  }),
-  (nextProps: propsType, props: propsType) =>
-    props.changesetId !== nextProps.changesetId,
-  ChangesetWithKeyboard,
-);
-
-const Changeset = connect(
-  (state: RootStateType, props: { changesetId: number }) => ({
-    token: state.auth.get("token"),
-    osmInfo: fromJS(state.changeset.getIn(["changesetMap", props.changesetId])),
-  }),
-)(ChangesetWithData);
 
 export { Changeset };

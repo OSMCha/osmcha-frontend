@@ -1,5 +1,19 @@
-import { type List, Map } from "immutable";
 import { Reasons } from "../reasons";
+
+type FeatureData = {
+  osm_id: number;
+  name?: string;
+  note?: string;
+  reasons: number[] | Array<{ id: number }>;
+  user_flag?: string;
+  type: string;
+  id: number;
+  url: string;
+};
+
+type ChangesetReason = {
+  id: number;
+};
 
 const Feature = ({
   data,
@@ -7,43 +21,35 @@ const Feature = ({
   setHighlight,
   zoomToAndSelect,
 }: {
-  data: Map<string, any>;
-  changesetReasons: Map<string, any>;
+  data: FeatureData;
+  changesetReasons: ChangesetReason[];
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 }) => {
   let reasons;
-  // operation necessary to the change
-  if (
-    data.get("reasons").size &&
-    typeof data.get("reasons").get(0) === "number"
-  ) {
+  if (data.reasons.length && typeof data.reasons[0] === "number") {
     reasons = changesetReasons.filter((reason) =>
-      data.get("reasons").contains(reason.get("id")),
+      (data.reasons as number[]).includes(reason.id),
     );
   } else {
-    reasons = data.get("reasons");
+    reasons = data.reasons;
   }
   return (
     <tr className="txt-s">
-      <td>{data.get("osm_id")}</td>
-      <td>{data.get("name")}</td>
+      <td>{data.osm_id}</td>
+      <td>{data.name}</td>
       <td>
-        {data.get("note") ? (
-          <abbr title={data.get("note")}>
+        {data.note ? (
+          <abbr title={data.note}>
             <Reasons
               reasons={reasons}
-              userFlag={data.get("user_flag")}
+              userFlag={data.user_flag}
               underline={true}
               color="blue"
             />
           </abbr>
         ) : (
-          <Reasons
-            reasons={reasons}
-            color="blue"
-            userFlag={data.get("user_flag")}
-          />
+          <Reasons reasons={reasons} color="blue" userFlag={data.user_flag} />
         )}
       </td>
       <td>
@@ -51,15 +57,11 @@ const Feature = ({
           className="cursor-pointer txt-underline-on-hover txt-bold mr6"
           role="button"
           tabIndex={0}
-          onMouseEnter={() =>
-            setHighlight(data.get("type"), data.get("id"), true)
-          }
-          onMouseLeave={() =>
-            setHighlight(data.get("type"), data.get("id"), false)
-          }
-          onFocus={() => setHighlight(data.get("type"), data.get("id"), true)}
-          onBlur={() => setHighlight(data.get("type"), data.get("id"), false)}
-          onClick={() => zoomToAndSelect(data.get("type"), data.get("id"))}
+          onMouseEnter={() => setHighlight(data.type, data.id, true)}
+          onMouseLeave={() => setHighlight(data.type, data.id, false)}
+          onFocus={() => setHighlight(data.type, data.id, true)}
+          onBlur={() => setHighlight(data.type, data.id, false)}
+          onClick={() => zoomToAndSelect(data.type, data.id)}
         >
           Map
         </span>
@@ -67,9 +69,9 @@ const Feature = ({
           <a
             rel="noopener noreferrer"
             target="_blank"
-            href={`http://localhost:8111/load_object?objects=${data
-              .getIn(["url"], "")
-              .charAt(0)}${data.get("osm_id")}`}
+            href={`http://localhost:8111/load_object?objects=${
+              data.url?.charAt(0) || ""
+            }${data.osm_id}`}
           >
             JOSM
           </a>
@@ -79,59 +81,71 @@ const Feature = ({
   );
 };
 
+type ReviewedFeature = {
+  id: string;
+  user: string;
+};
+
+type Properties = {
+  features: FeatureData[];
+  reviewed_features: ReviewedFeature[];
+  reasons: ChangesetReason[];
+};
+
 export function Features({
   properties,
   changesetId,
   setHighlight,
   zoomToAndSelect,
 }: {
-  properties: Map<string, any>;
+  properties: Properties;
   changesetId: number;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 }) {
-  let features: List<Map<string, any>> = properties.get("features");
-  const reviewedFeatures: List<Map<string, any>> = properties
-    .get("reviewed_features")
-    .map((feature) =>
-      Map({
-        url: feature.get("id"),
-        user_flag: `Flagged by ${feature.get("user")}`,
-        osm_id: feature.get("id").split("-")[1],
-        reasons: [],
-      }),
-    );
-  const reviewedIds = reviewedFeatures.map((feature) => feature?.get("url"));
-  const featuresIds = features.map((feature) => feature?.get("url"));
+  let features: FeatureData[] = [...properties.features];
+  const reviewedFeatures: FeatureData[] = properties.reviewed_features.map(
+    (feature) => ({
+      url: feature.id,
+      user_flag: `Flagged by ${feature.user}`,
+      osm_id: Number.parseInt(feature.id.split("-")[1]),
+      reasons: [],
+      type: "",
+      id: 0,
+    }),
+  );
+  const reviewedIds = reviewedFeatures.map((feature) => feature.url);
+  const featuresIds = features.map((feature) => feature.url);
   const intersection = features
-    .filter((feature) => reviewedIds.includes(feature?.get("url")))
-    .map((feature, k) => [k, feature?.get("url")]);
-  intersection.forEach((item) => {
-    features = features.setIn(
-      [item?.[0], "user_flag"],
-      reviewedFeatures
-        .find((f) => f?.get("url") === item?.[1])
-        ?.get("user_flag"),
-    );
-  });
+    .map((feature, k) => [k, feature.url] as [number, string])
+    .filter(([_, url]) => reviewedIds.includes(url));
+
+  for (const [index, url] of intersection) {
+    const reviewedFeature = reviewedFeatures.find((f) => f.url === url);
+    if (reviewedFeature) {
+      features[index] = {
+        ...features[index],
+        user_flag: reviewedFeature.user_flag,
+      };
+    }
+  }
+
   features = features.concat(
-    reviewedFeatures.filter(
-      (feature) => !featuresIds.includes(feature?.get("url")),
-    ),
-  ) as List<Map<string, any>>;
+    reviewedFeatures.filter((feature) => !featuresIds.includes(feature.url)),
+  );
 
   return (
     <div className="px12 py6">
       <div>
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
           Flagged Features
-          {features.size > 0 && (
+          {features.length > 0 && (
             <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
-              {features.size}
+              {features.length}
             </strong>
           )}
         </h2>
-        {features.size === 0 ? (
+        {features.length === 0 ? (
           <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
             <svg className="icon icon--xxl color-darken25">
               <use xlinkHref="#icon-alert" />
@@ -149,11 +163,11 @@ export function Features({
               </tr>
             </thead>
             <tbody>
-              {features.toArray().map((f, k) => (
+              {features.map((f, k) => (
                 <Feature
                   key={k}
-                  data={f!}
-                  changesetReasons={properties.get("reasons")}
+                  data={f}
+                  changesetReasons={properties.reasons}
                   setHighlight={setHighlight}
                   zoomToAndSelect={zoomToAndSelect}
                 />

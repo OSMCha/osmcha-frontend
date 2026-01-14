@@ -1,18 +1,17 @@
-import { Map } from "immutable";
 import Mousetrap from "mousetrap";
 import React from "react";
 
 import { getDisplayName } from "../utils/component";
 
 type stateType = {
-  bindings: Map<string, any>;
-  lastKeyStroke: Map<string, any>;
+  bindings: Record<string, boolean>;
+  lastKeyStroke: Record<string, boolean>;
 };
 
 /**
  * @param exclusive - flag to toggle one key and switch off all other keys
- * @prop `bindingsState` - immutable Map containing toggleState(true/false) for each of the bindings.
- * @prop `lastKeyStroke` - immutable Map containg the state of last key pressed only.
+ * @prop `bindingsState` - object containing toggleState(true/false) for each of the bindings.
+ * @prop `lastKeyStroke` - object containing the state of last key pressed only.
  */
 export function keyboardToggleEnhancer<P extends {}, S extends {}>(
   exclusive: boolean,
@@ -26,8 +25,8 @@ export function keyboardToggleEnhancer<P extends {}, S extends {}>(
     static displayName = `HOCKeyboard${getDisplayName(WrappedComponent)}`;
 
     state: stateType = {
-      bindings: Map<string, any>(),
-      lastKeyStroke: Map<string, any>(),
+      bindings: {},
+      lastKeyStroke: {},
     };
     componentDidMount() {
       bindings.forEach((item) =>
@@ -42,7 +41,6 @@ export function keyboardToggleEnhancer<P extends {}, S extends {}>(
     }
 
     componentWillUnmount() {
-      // unbind all bindings
       bindings.forEach((item) =>
         item.bindings.forEach((b) => {
           Mousetrap.unbind(b);
@@ -50,25 +48,22 @@ export function keyboardToggleEnhancer<P extends {}, S extends {}>(
       );
     }
 
-    // allow toggling the state of a particular key
     toggleKey = (label: string) => {
-      let prev = this.state.bindings;
-      const lastKeyStroke = Map<string, any>().set(label, !prev.get(label));
-      prev = prev.set(label, !prev.get(label));
+      const prev = this.state.bindings;
+      const lastKeyStroke = { [label]: !prev[label] };
+      const newBindings = { ...prev, [label]: !prev[label] };
       this.setState({
-        bindings: prev,
+        bindings: newBindings,
         lastKeyStroke,
       });
     };
 
-    // exclusively toggle this label and switch off others
     exclusiveKeyToggle = (label: string) => {
-      let newBindingState = Map<string, any>();
-      const prevBindingValue = this.state.bindings.get(label);
-      newBindingState = newBindingState.set(label, !prevBindingValue);
+      const prevBindingValue = this.state.bindings[label];
+      const newBindingState = { [label]: !prevBindingValue };
       this.setState({
         bindings: newBindingState,
-        lastKeyStroke: newBindingState, // will be same as state.bindings as size=1
+        lastKeyStroke: newBindingState,
       });
     };
 

@@ -1,10 +1,9 @@
-import { fromJS, Map } from "immutable";
 import debounce from "lodash.debounce";
 import React from "react";
 import { getDisplayName } from "../utils/component";
 
 type stateType = {
-  data: Map<string, any>;
+  data: Record<string, any>;
 };
 
 /**
@@ -20,7 +19,7 @@ export function withFetchDataSilent<P extends {}, S extends {}>(
   return class FetchDataEnhancer extends React.PureComponent<P, stateType> {
     static displayName = `HOCFetchData${getDisplayName(WrappedComponent)}`;
     state: stateType = {
-      data: Map<string, any>(),
+      data: {},
     };
     fetchedData: any;
     initFetching: (props: P) => void;
@@ -38,14 +37,13 @@ export function withFetchDataSilent<P extends {}, S extends {}>(
     }
     _initFetching = (props: P) => {
       this.fetchedData = dataToFetch(props);
-      // iterate through all of cancelable promises, one for each api request
       Object.keys(this.fetchedData).forEach((k) => {
         var prom = this.fetchedData[k];
         prom.promise
           .then((x) => {
-            let data = this.state.data;
-            data = data.set(k, fromJS(x));
-            this.setState({ data });
+            this.setState((prevState) => ({
+              data: { ...prevState.data, [k]: x },
+            }));
           })
           .catch((e) => console.error(e));
       });

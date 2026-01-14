@@ -1,4 +1,3 @@
-import { fromJS } from "immutable";
 import React from "react";
 import type { filterType } from "./";
 
@@ -33,16 +32,12 @@ export class Text extends React.Component<TextProps, TextState> {
     if (!value || value === "") {
       return this.props.onChange(name);
     }
-    this.props.onChange(
-      name,
-      fromJS([
-        // allways sends 1 size array to keep things consistent
-        {
-          label: value,
-          value,
-        },
-      ]),
-    );
+    this.props.onChange(name, [
+      {
+        label: value,
+        value,
+      },
+    ]);
   };
   render() {
     const { name, type, placeholder, display, value, className, min, max } =
@@ -53,7 +48,7 @@ export class Text extends React.Component<TextProps, TextState> {
       <input
         name={name}
         className={`input ${className} ${isValid ? "" : errorClass}`}
-        value={(value && value.getIn([0, "value"])) || ""} // allways sends 1 size array to keep things consistent
+        value={value?.[0]?.value || ""}
         onChange={this.handleFormChange}
         type={type}
         placeholder={placeholder || display}

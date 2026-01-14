@@ -1,77 +1,68 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { push } from "redux-first-history";
-
+import { useQueryClient } from "@tanstack/react-query";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../components/button";
 import { Dropdown } from "../components/dropdown";
 import { Navbar } from "../components/navbar";
+import { useAuth } from "../hooks/useAuth";
 import { getAuthUrl } from "../network/auth";
-import type { RootStateType } from "../store";
-
-import {
-  getFinalToken,
-  getOAuthToken,
-  logUserOut,
-} from "../store/auth_actions";
+import { useAuthStore } from "../stores/authStore";
 import { isMobile } from "../utils";
 
-interface NavbarSidebarProps {
-  location: any;
-  uid: string | undefined | null;
-  username: string | undefined | null;
-  token: string | undefined | null;
-  oAuthToken: string | undefined | null;
-  getOAuthToken: () => unknown;
-  getFinalToken: (a: string) => unknown;
-  logUserOut: () => unknown;
-  push: (a: any) => any;
-}
+function NavbarSidebar() {
+  const { token, user } = useAuth();
+  const oAuthToken = useAuthStore((s) => s.oAuthToken);
+  const clearAuth = useAuthStore((s) => s.clearAuth);
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const mobile = isMobile();
 
-class _NavbarSidebar extends React.PureComponent<NavbarSidebarProps> {
-  handleLoginClick = () => {
+  const handleLoginClick = () => {
     getAuthUrl().then((res) => {
       window.location.assign(res.auth_url);
     });
   };
 
-  onUserMenuSelect = (arr: Array<any>) => {
-    const username = this.props.username;
-    const uid = this.props.uid;
+  const handleLogout = () => {
+    clearAuth();
+    queryClient.clear();
+    navigate("/");
+  };
+
+  const onUserMenuSelect = (arr: Array<any>) => {
+    const username = user?.username;
+    const uid = user?.uid;
 
     if (arr.length === 1) {
       if (arr[0].url === "/logout") {
-        this.props.logUserOut();
+        handleLogout();
         return;
       }
       if (arr[0].url === "/my-changesets") {
-        this.props.push({
-          ...this.props.location,
-          search: `filters={"uids":[{"label":"${uid}","value":"${uid}"}],"date__gte":[{"label":"","value":""}]}`,
+        navigate({
           pathname: "/",
+          search: `filters={"uids":[{"label":"${uid}","value":"${uid}"}],"date__gte":[{"label":"","value":""}]}`,
         });
         return;
       }
       if (arr[0].url === "/my-reviews") {
-        this.props.push({
-          ...this.props.location,
-          search: `filters={"checked_by":[{"label":"${username}","value":"${username}"}],"date__gte":[{"label":"","value":""}]}`,
+        navigate({
           pathname: "/",
+          search: `filters={"checked_by":[{"label":"${username}","value":"${username}"}],"date__gte":[{"label":"","value":""}]}`,
         });
         return;
       }
-      this.props.push({
-        ...this.props.location,
-        search: this.props.location.search,
+      navigate({
         pathname: arr[0].url,
+        search: location.search,
       });
     } else if (arr.length > 1) {
       throw new Error("filter select array is big");
     }
   };
 
-  renderUserMenuOptions() {
-    const username = this.props.username;
+  const renderUserMenuOptions = () => {
+    const username = user?.username;
 
     return (
       <Dropdown
@@ -100,79 +91,59 @@ class _NavbarSidebar extends React.PureComponent<NavbarSidebarProps> {
           { label: "My Watchlist", url: "/watchlist" },
           { label: "Logout", url: "/logout" },
         ]}
-        onChange={this.onUserMenuSelect}
+        onChange={onUserMenuSelect}
         value={[]}
         onAdd={() => {}}
         onRemove={() => {}}
         position="right"
       />
     );
-  }
+  };
 
-  render() {
-    const mobile = isMobile();
-
-    return (
-      <Navbar
-        className="navbar-logo bg-gray-faint border-b border--gray-light border--1"
-        title={
+  return (
+    <Navbar
+      className="navbar-logo bg-gray-faint border-b border--gray-light border--1"
+      title={
+        <Link
+          to={{
+            search: window.location.search,
+            pathname: "/",
+          }}
+          style={mobile ? { fontSize: "1.4em" } : { fontSize: "1.7em" }}
+          className="color-gray"
+        >
+          <strong className="color-blue">OSM</strong>
+          Cha
+        </Link>
+      }
+      buttons={
+        <div className="flex-parent flex-parent--row">
           <Link
+            className="pr3 pointer"
             to={{
               search: window.location.search,
-              pathname: "/",
+              pathname: "/about",
             }}
-            style={mobile ? { fontSize: "1.4em" } : { fontSize: "1.7em" }}
-            className="color-gray"
           >
-            <strong className="color-blue">OSM</strong>
-            Cha
+            <svg className="icon icon--m inline-block align-middle color-darken25 color-darken50-on-hover transition">
+              <use xlinkHref="#icon-question" />
+            </svg>
           </Link>
-        }
-        buttons={
-          <div className="flex-parent flex-parent--row">
-            <Link
-              className="pr3 pointer"
-              to={{
-                search: window.location.search,
-                pathname: "/about",
-              }}
+          {token ? (
+            <div className="pointer">{renderUserMenuOptions()}</div>
+          ) : (
+            <Button
+              onClick={handleLoginClick}
+              disable={!oAuthToken}
+              iconName="osm"
             >
-              <svg className="icon icon--m inline-block align-middle color-darken25 color-darken50-on-hover transition">
-                <use xlinkHref="#icon-question" />
-              </svg>
-            </Link>
-            {this.props.token ? (
-              <div className="pointer">{this.renderUserMenuOptions()}</div>
-            ) : (
-              <Button
-                onClick={this.handleLoginClick}
-                disable={!this.props.oAuthToken}
-                iconName="osm"
-              >
-                Sign in
-              </Button>
-            )}
-          </div>
-        }
-      />
-    );
-  }
+              Sign in
+            </Button>
+          )}
+        </div>
+      }
+    />
+  );
 }
-
-const NavbarSidebar = connect(
-  (state: RootStateType, props) => ({
-    location: state.router.location,
-    oAuthToken: state.auth.get("oAuthToken"),
-    token: state.auth.get("token"),
-    username: state.auth.getIn(["userDetails", "username"]),
-    uid: state.auth.getIn(["userDetails", "uid"]),
-  }),
-  {
-    getOAuthToken,
-    getFinalToken,
-    logUserOut,
-    push,
-  },
-)(_NavbarSidebar);
 
 export { NavbarSidebar };

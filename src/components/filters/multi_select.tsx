@@ -1,4 +1,3 @@
-import { fromJS } from "immutable";
 import React from "react";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
@@ -17,7 +16,7 @@ interface MultiSelectProps {
   dataURL: string | undefined | null;
   onChange: (a: string, value?: filterType) => any;
   showAllToggle: boolean;
-  token: string;
+  token: string | null;
 }
 
 interface MultiSelectState {
@@ -93,7 +92,7 @@ export class MultiSelect extends React.PureComponent<
     name = `${allToggle ? "all_" : ""}${name}`;
     if (data.length === 0) return this.props.onChange(name);
     var processed = data.map((o) => ({ label: o.label, value: o.value })); // remove any bogus keys
-    this.props.onChange(name, fromJS(processed));
+    this.props.onChange(name, processed);
   };
 
   renderSelect = () => {
@@ -102,7 +101,7 @@ export class MultiSelect extends React.PureComponent<
     const handleKeyDown: React.KeyboardEventHandler = (event) => {
       if (this.state.inputValue === "") return;
       if (event.key === "Enter" || event.key === "Tab") {
-        const oldValues = value?.toJS() ?? [];
+        const oldValues = Array.isArray(value) ? value : [];
         const newValue = {
           value: this.state.inputValue,
           label: this.state.inputValue,
@@ -128,7 +127,7 @@ export class MultiSelect extends React.PureComponent<
             isMulti
             name={name}
             className="react-select"
-            value={value && value.toJS()}
+            value={value}
             options={options}
             onChange={this.onChangeLocal}
             placeholder={placeholder}
@@ -142,7 +141,7 @@ export class MultiSelect extends React.PureComponent<
           isMulti
           name={name}
           className="react-select"
-          value={value && value.toJS()}
+          value={value}
           loadOptions={this.getAsyncOptions}
           onChange={this.onChangeLocal}
           placeholder={placeholder}
@@ -160,7 +159,7 @@ export class MultiSelect extends React.PureComponent<
           isClearable
           formatCreateLabel={(label) => `Add ${label} to ${display}`}
           name={name}
-          value={value && value.toJS()}
+          value={value}
           options={options}
           onChange={this.onChangeLocal}
           placeholder={placeholder}
@@ -179,7 +178,7 @@ export class MultiSelect extends React.PureComponent<
           components={{ DropdownIndicator: null }}
           formatCreateLabel={(label) => `Add ${label} to ${display}`}
           name={name}
-          value={value && value.toJS()}
+          value={value}
           inputValue={this.state.inputValue}
           onChange={this.onChangeLocal}
           onInputChange={(inputValue) => this.setState({ inputValue })}
@@ -192,9 +191,8 @@ export class MultiSelect extends React.PureComponent<
 
   handleToggle = (e: React.MouseEvent) => {
     const { value } = this.props;
-    const jsValue = value && value.toJS();
-    if (jsValue && Array.isArray(jsValue)) {
-      this.sendData(!this.state.allToggle, jsValue);
+    if (value && Array.isArray(value)) {
+      this.sendData(!this.state.allToggle, value);
     }
     this.setState({
       allToggle: !this.state.allToggle,
@@ -274,6 +272,6 @@ export class MappingTeamMultiSelect extends MultiSelect {
     name = `${allToggle ? "all_" : ""}${name}`;
     if (data.length === 0) return this.props.onChange(name);
     var processed = data.map((o) => ({ label: o.label, value: o.value })); // remove any bogus keys
-    this.props.onChange(name, fromJS(processed));
+    this.props.onChange(name, processed);
   };
 }

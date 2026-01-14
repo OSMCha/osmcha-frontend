@@ -1,25 +1,26 @@
-import { Iterable, Map } from "immutable";
-import type { filtersType, filterType } from "../components/filters";
 import { API_URL } from "../config";
 import { PAGE_SIZE } from "../config/constants";
 import { appendDefaultDate } from "../utils/filters";
-import { getString, handleErrors } from "./aoi";
+import { handleErrors } from "./aoi";
 
 export function fetchChangesetsPage(
   pageIndex: number,
-  filters: filtersType = Map(),
+  filters: any = {},
   token: string | undefined | null,
   nocache?: boolean,
   aoiId?: string | null,
 ) {
   let flatFilters = "";
   filters = appendDefaultDate(filters);
-  filters.forEach((v: filterType | undefined, k: string | undefined) => {
-    if (!Iterable.isIterable(v) || !k) return;
-    const filter = v!;
-    const filterJoined = filter
-      .filter((x) => !!x && Iterable.isIterable(x) && x.get("value") !== "")
-      .map((x) => getString(x?.get("value")))
+
+  // Handle plain JavaScript objects (new approach)
+  Object.keys(filters).forEach((k) => {
+    const v = filters[k];
+    if (!Array.isArray(v) || !k) return;
+
+    const filterJoined = v
+      .filter((x) => !!x && typeof x === "object" && x.value !== "")
+      .map((x) => String(x.value))
       .join(",");
 
     if (filterJoined === "") return;

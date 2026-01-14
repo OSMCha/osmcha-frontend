@@ -24,13 +24,9 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks: {
-            "react-vendor": ["react", "react-dom", "react-redux", "redux"],
+            "react-vendor": ["react", "react-dom"],
             "maplibre-vendor": ["maplibre-gl", "@osmcha/maplibre-adiff-viewer"],
-            "router-vendor": [
-              "react-router",
-              "react-router-dom",
-              "redux-first-history",
-            ],
+            "router-vendor": ["react-router", "react-router-dom"],
           },
         },
       },

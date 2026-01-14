@@ -1,5 +1,4 @@
 import { format } from "date-fns";
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
@@ -7,36 +6,46 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { Button } from "../button";
 
-const NewTeam = (props) => {
+interface TeamUser {
+  username?: string;
+  uid?: string;
+  joined?: string;
+  left?: string;
+}
+
+interface Team {
+  id: number;
+  name: string;
+  users: TeamUser[];
+}
+
+interface NewTeamProps {
+  editing?: boolean;
+  activeTeam?: Team;
+  onChange: (id: number, teamName: string, teamUsers: TeamUser[]) => void;
+  onCreate: (teamName: string, teamUsers: TeamUser[]) => void;
+  userIsOwner: boolean;
+}
+
+const NewTeam = (props: NewTeamProps) => {
   const [teamName, setTeamName] = useState("");
-  const [teamUsers, setTeamUsers] = useState([{}]);
+  const [teamUsers, setTeamUsers] = useState<TeamUser[]>([{}]);
   const [editing, setEditing] = useState(props.editing || false);
   const [validationErrorMessage, setValidationErrorMessage] = useState("");
 
   useEffect(() => {
     if (props.activeTeam) {
-      setTeamName(props.activeTeam.get("name"));
-      const users = [];
-      props.activeTeam.get("users").map((user) =>
-        users.push({
-          username: user.get("username"),
-          uid: user.get("uid"),
-          joined: user.get("joined"),
-          left: user.get("left"),
-        }),
-      );
-      const cleanedUsers = [];
-      users.forEach((user, k) => {
-        const u = Object.fromEntries(
+      setTeamName(props.activeTeam.name);
+      const cleanedUsers = props.activeTeam.users.map((user) => {
+        return Object.fromEntries(
           Object.entries(user).filter(([_, v]) => v !== undefined),
         );
-        cleanedUsers.push(u);
       });
       setTeamUsers([...cleanedUsers]);
     }
   }, [props.activeTeam]);
 
-  const onClickRemoveUser = (idx) => {
+  const onClickRemoveUser = (idx: number) => {
     const teamUsersToUpdate = [...teamUsers];
     teamUsersToUpdate.splice(idx, 1);
     setTeamUsers(teamUsersToUpdate);
@@ -44,7 +53,7 @@ const NewTeam = (props) => {
 
   const onClickAddAnotherUser = () => setTeamUsers([...teamUsers, {}]);
 
-  const onChangeInput = (property, value, idx) => {
+  const onChangeInput = (property: keyof TeamUser, value: string | null, idx: number) => {
     const teamUsersToUpdate = [...teamUsers];
     teamUsersToUpdate[idx] = { ...teamUsersToUpdate[idx], [property]: value };
     setTeamUsers(teamUsersToUpdate);
@@ -78,12 +87,12 @@ const NewTeam = (props) => {
     }
   };
 
-  const onSave = (e) => {
+  const onSave = () => {
     const validation = validateData();
 
     if (validation.valid) {
       if (props.activeTeam) {
-        props.onChange(props.activeTeam.get("id"), teamName, teamUsers);
+        props.onChange(props.activeTeam.id, teamName, teamUsers);
         setValidationErrorMessage("");
       } else {
         props.onCreate(teamName, teamUsers);
@@ -253,22 +262,6 @@ const NewTeam = (props) => {
       )}
     </div>
   );
-};
-
-NewTeam.propTypes = {
-  teamUsers: PropTypes.arrayOf(PropTypes.object),
-  teamName: PropTypes.string,
-  editing: PropTypes.bool,
-  validationErrorMessage: PropTypes.string,
-  onClickRemoveUser: PropTypes.func,
-  onClickAddAnotherUser: PropTypes.func,
-  onChangeInput: PropTypes.func,
-  onSave: PropTypes.func,
-  validateData: PropTypes.func,
-  onChange: PropTypes.func,
-  onCreate: PropTypes.func,
-  activeTeam: PropTypes.object,
-  userIsOwner: PropTypes.bool,
 };
 
 export default NewTeam;

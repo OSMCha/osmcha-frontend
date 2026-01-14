@@ -1,12 +1,10 @@
-import type { List } from "immutable";
-
 export function Reasons({
   reasons,
   userFlag,
   underline,
   color,
 }: {
-  reasons: List<any>;
+  reasons: any[];
   userFlag?: string;
   underline?: boolean;
   color: string;
@@ -14,13 +12,8 @@ export function Reasons({
   const extraClass = underline ? "txt-underline-dotted" : "";
   return (
     <span className="mb3">
-      {reasons.toArray().map((r: Map<string, any>, k) => (
-        <Reason
-          key={k}
-          text={r.get("name")}
-          color={color}
-          extraClass={extraClass}
-        />
+      {reasons.map((r: any, k) => (
+        <Reason key={k} text={r.name} color={color} extraClass={extraClass} />
       ))}
       {userFlag && (
         <Reason text={userFlag} color="purple" extraClass={extraClass} />

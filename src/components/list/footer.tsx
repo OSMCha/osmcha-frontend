@@ -1,13 +1,10 @@
-import { Range } from "immutable";
 import { PAGE_SIZE } from "../../config/constants";
 import { PageRange } from "./page_range";
 
 const RANGE = 6;
 
-function range(start, end) {
-  return Range(start, end)
-    .map((k, i) => i + start)
-    .toArray();
+function range(start: number, end: number): number[] {
+  return Array.from({ length: end - start }, (_, i) => i + start);
 }
 
 export function Footer({

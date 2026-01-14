@@ -1,13 +1,11 @@
-import type { Map } from "immutable";
 import React from "react";
 import { Link } from "react-router-dom";
-import { history } from "../../store";
 import { PrimaryLine } from "./primary_line";
 import { SecondaryLine } from "./secondary_line";
 import { Title } from "./title";
 
 interface RowProps {
-  properties: Map<string, any>;
+  properties: any;
   active: boolean | undefined | null;
   changesetId: number;
   inputRef: ((a: any) => any) | undefined | null;
@@ -35,23 +33,16 @@ export class Row extends React.Component<RowProps> {
     }
 
     let borderClass = "border-l border-l--4 border-color-neutral";
-    if (properties.get("harmful") === true)
+    if (properties.harmful === true)
       borderClass = "border-l border-l--4 border-color-bad";
-    if (properties.get("harmful") === false)
+    if (properties.harmful === false)
       borderClass = "border-l border-l--4 border-color-good";
 
     let backgroundClass = "";
 
     backgroundClass += active ? "light-blue" : this.wasOpen ? "bg-darken5" : "";
     return (
-      <div
-        onClick={() =>
-          history.push({
-            search: window.location.search,
-            pathname: `/changesets/${changesetId}`,
-          })
-        }
-      >
+      <div>
         <div className={`${backgroundClass} ${borderClass}`} ref={inputRef}>
           <div
             {...other}
@@ -66,18 +57,18 @@ export class Row extends React.Component<RowProps> {
               <Title
                 properties={properties}
                 wasOpen={this.wasOpen}
-                date={properties.get("date")}
+                date={properties.date}
               />
               <PrimaryLine
-                reasons={properties.get("reasons")}
-                tags={properties.get("tags")}
-                comment={properties.get("comment")}
+                reasons={properties.reasons}
+                tags={properties.tags}
+                comment={properties.comment}
               />
             </Link>
             <SecondaryLine
               changesetId={changesetId}
               properties={properties}
-              date={properties.get("date")}
+              date={properties.date}
             />
           </div>
         </div>

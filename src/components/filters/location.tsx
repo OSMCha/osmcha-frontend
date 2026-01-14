@@ -3,7 +3,6 @@ import bbox from "@turf/bbox";
 import bboxPolygon from "@turf/bbox-polygon";
 import simplify from "@turf/simplify";
 import truncate from "@turf/truncate";
-import { fromJS } from "immutable";
 import debounce from "lodash.debounce";
 import maplibre from "maplibre-gl";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -110,12 +109,11 @@ const LocationSelect = (props) => {
             const bounds = bbox(feature);
             const wsen = bounds.map((v) => v.toFixed(4)).join(",");
             onChange("geometry", null);
-            onChange("in_bbox", fromJS([{ label: wsen, value: wsen }]));
+            onChange("in_bbox", [{ label: wsen, value: wsen }]);
           } else {
-            onChange(
-              "geometry",
-              fromJS([{ label: feature.geometry, value: feature.geometry }]),
-            );
+            onChange("geometry", [
+              { label: feature.geometry, value: feature.geometry },
+            ]);
             onChange("in_bbox", null);
           }
         }
@@ -131,8 +129,8 @@ const LocationSelect = (props) => {
       map.setProjection({ type: "globe" });
 
       // Display initial bbox or polygon (if it exists) on the map
-      if (value && value.size > 0) {
-        const { value: geometry } = value.get(0).toJS();
+      if (value && value.length > 0) {
+        const { value: geometry } = value[0];
         if (geometry && typeof geometry === "object") {
           // geometry is a GeoJSON polygon
           updateMap(geometry);
@@ -147,7 +145,7 @@ const LocationSelect = (props) => {
     });
 
     return () => map?.remove();
-  }, [onChange, updateMap, value]);
+  }, []);
 
   // Check if one character input is allowed (for East Asian languages)
   const isOneCharInputAllowed = useCallback((input) => {
@@ -218,10 +216,9 @@ const LocationSelect = (props) => {
           highQuality: true,
         });
 
-        onChange(
-          "geometry",
-          fromJS([{ label: simplified_geometry, value: simplified_geometry }]),
-        );
+        onChange("geometry", [
+          { label: simplified_geometry, value: simplified_geometry },
+        ]);
         onChange("in_bbox", null);
 
         updateMap(

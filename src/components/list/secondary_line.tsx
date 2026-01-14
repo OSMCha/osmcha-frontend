@@ -18,24 +18,24 @@ export function SecondaryLine({ changesetId, date, properties }: any) {
         >
           <span className="mr6">{changesetId}</span>
         </Link>
-        {properties.get("checked") ? (
+        {properties.checked ? (
           <Link
             to={{
               search: getObjAsQueryParam("filters", {
                 users: [
                   {
-                    label: properties.get("check_user"),
-                    value: properties.get("check_user"),
+                    label: properties.check_user,
+                    value: properties.check_user,
                   },
                 ],
                 date__gte: [{ label: "", value: "" }],
               }),
               pathname: "/",
             }}
-            title={`See ${properties.get("check_user")}'s changesets`}
+            title={`See ${properties.check_user}'s changesets`}
             className="txt-underline-on-hover"
           >
-            {properties.get("harmful") ? (
+            {properties.harmful ? (
               <img
                 src={thumbsDown}
                 alt="Marked as bad"
@@ -48,24 +48,22 @@ export function SecondaryLine({ changesetId, date, properties }: any) {
                 className="icon inline-block"
               />
             )}
-            {properties.get("check_user") && (
-              <span className="pl6">{`by ${properties.get(
-                "check_user",
-              )}`}</span>
+            {properties.check_user && (
+              <span className="pl6">{`by ${properties.check_user}`}</span>
             )}
           </Link>
         ) : null}
       </span>
       <span className="flex-parent flex-parent--row">
-        {properties.get("comments_count") > 0 && (
-          <NumberOfComments count={properties.get("comments_count")} />
+        {properties.comments_count > 0 && (
+          <NumberOfComments count={properties.comments_count} />
         )}
         <CreateDeleteModify
           showZero
           className="mr3"
-          create={properties.get("create")}
-          modify={properties.get("modify")}
-          delete={properties.get("delete")}
+          create={properties.create}
+          modify={properties.modify}
+          delete={properties.delete}
         />
       </span>
     </span>

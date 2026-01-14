@@ -25,11 +25,11 @@ class UserLink extends React.PureComponent {
   }
   getLinkContent() {
     if (this.props.harmful) {
-      return `${this.props.userDetails.get("harmful_changesets")} Bad`;
+      return `${this.props.userDetails.harmful_changesets} Bad`;
     } else {
       const count =
-        this.props.userDetails.get("checked_changesets") -
-        this.props.userDetails.get("harmful_changesets");
+        this.props.userDetails.checked_changesets -
+        this.props.userDetails.harmful_changesets;
       return `${count} Good`;
     }
   }
@@ -41,8 +41,8 @@ class UserLink extends React.PureComponent {
           search: getObjAsQueryParam("filters", {
             uids: [
               {
-                label: this.props.userDetails.get("uid"),
-                value: this.props.userDetails.get("uid"),
+                label: this.props.userDetails.uid,
+                value: this.props.userDetails.uid,
               },
             ],
             harmful: [this.getHarmfulObject()],
@@ -67,8 +67,8 @@ export class User extends React.PureComponent {
           search: getObjAsQueryParam("filters", {
             uids: [
               {
-                label: this.props.userDetails.get("uid"),
-                value: this.props.userDetails.get("uid"),
+                label: this.props.userDetails.uid,
+                value: this.props.userDetails.uid,
               },
             ],
             date__gte: [{ label: "", value: "" }],
@@ -76,7 +76,7 @@ export class User extends React.PureComponent {
           pathname: "/",
         }}
       >
-        {`${this.props.userDetails.get("count")} edits`}
+        {`${this.props.userDetails.count} edits`}
       </Link>
     );
   }
@@ -86,11 +86,11 @@ export class User extends React.PureComponent {
       simplifiedAutoLink: true,
     });
     const UserDescriptionHTML = converter.makeHtml(
-      this.props.userDetails.get("description") || "",
+      this.props.userDetails.description || "",
     );
-    const registrationDate = this.props.userDetails.get("accountCreated")
+    const registrationDate = this.props.userDetails.accountCreated
       ? parse(
-          this.props.userDetails.get("accountCreated"),
+          this.props.userDetails.accountCreated,
           "yyyy-MM-dd'T'HH:mm:ssX",
           new Date(),
         )
@@ -99,16 +99,14 @@ export class User extends React.PureComponent {
     return (
       <div className="px12 py6">
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
-          User{" "}
-          {this.props.userDetails.get("uid") &&
-            `/ ${this.props.userDetails.get("uid")}`}
+          User {this.props.userDetails.uid && `/ ${this.props.userDetails.uid}`}
         </h2>
-        {this.props.userDetails.get("name") ? (
+        {this.props.userDetails.name ? (
           <div className="flex-parent flex-parent--column align-items--center justify--space-between mb6">
             <div>
-              <Avatar size={96} url={this.props.userDetails.get("img")} />
+              <Avatar size={96} url={this.props.userDetails.img} />
               <div className="mt6 txt-bold color-gray align-center">
-                {this.props.userDetails.get("name")}
+                {this.props.userDetails.name}
               </div>
             </div>
             <div>
@@ -120,11 +118,9 @@ export class User extends React.PureComponent {
                     {" | "}
                   </React.Fragment>
                 )}
-                {this.props.userDetails.get("count")
+                {this.props.userDetails.count
                   ? this.renderUidFilterLink()
-                  : `${this.props.userDetails.get(
-                      "changesets_in_osmcha",
-                    )} edits registered on OSMCha`}
+                  : `${this.props.userDetails.changesets_in_osmcha} edits registered on OSMCha`}
               </p>
             </div>
             <div>
@@ -150,8 +146,8 @@ export class User extends React.PureComponent {
                   search: getObjAsQueryParam("filters", {
                     users: [
                       {
-                        label: this.props.userDetails.get("name"),
-                        value: this.props.userDetails.get("name"),
+                        label: this.props.userDetails.name,
+                        value: this.props.userDetails.name,
                       },
                     ],
                     date__gte: [{ label: "", value: "" }],
@@ -161,7 +157,7 @@ export class User extends React.PureComponent {
               >
                 OSMCha
               </Link>
-              <UserOSMLink userName={this.props.userDetails.get("name")}>
+              <UserOSMLink userName={this.props.userDetails.name}>
                 OSM
               </UserOSMLink>
               <a
@@ -169,9 +165,7 @@ export class User extends React.PureComponent {
                 rel="noopener noreferrer"
                 title="Open in HDYC"
                 className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-                href={`https://hdyc.neis-one.org/?${this.props.userDetails.get(
-                  "name",
-                )}`}
+                href={`https://hdyc.neis-one.org/?${this.props.userDetails.name}`}
               >
                 HDYC
               </a>
@@ -180,15 +174,13 @@ export class User extends React.PureComponent {
                 rel="noopener noreferrer"
                 title="Open in Missing Maps"
                 className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-                href={`https://www.missingmaps.org/users/#/${this.props.userDetails.get(
-                  "name",
-                )}`}
+                href={`https://www.missingmaps.org/users/#/${this.props.userDetails.name}`}
               >
                 Missing Maps
               </a>
             </div>
 
-            {this.props.whosThat.size > 1 && (
+            {this.props.whosThat.length > 1 && (
               <div className="txt-s color-gray">
                 Past usernames: &nbsp;
                 {this.props.whosThat.slice(0, -1).map((e, k) => (
@@ -208,9 +200,9 @@ export class User extends React.PureComponent {
         ) : (
           <div className="flex-parent flex-parent--column align-items--center justify--space-between mb6">
             <div>
-              <Avatar size={96} url={this.props.userDetails.get("img")} />
+              <Avatar size={96} url={this.props.userDetails.img} />
               <div className="mt6 txt-bold color-gray align-center">
-                {this.props.userDetails.get("name")}
+                {this.props.userDetails.name}
               </div>
             </div>
             <div className="flex-parent flex-parent--column mt6 mb3">

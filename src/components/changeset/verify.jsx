@@ -12,8 +12,8 @@ export function Verify({
   username,
   checkUser,
 }) {
-  if (changeset.getIn(["properties", "checked"])) {
-    const isHarmful = changeset.getIn(["properties", "harmful"]);
+  if (changeset.properties?.checked) {
+    const isHarmful = changeset.properties.harmful;
     return (
       <div
         className={`flex-parent align-items--center btn btn--s border border--1 round color-gray transition pl12 pr6 ${

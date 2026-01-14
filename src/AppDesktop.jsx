@@ -6,7 +6,6 @@ import { ChangesetsList } from "./views/changesets_list";
 import { EditMappingTeam } from "./views/edit_team";
 import { Filters } from "./views/filters";
 import { Home } from "./views/home";
-import { Modal } from "./views/modal";
 import { NavbarSidebar } from "./views/navbar_sidebar";
 import { SavedFilters } from "./views/saved_filters";
 import { Stats } from "./views/stats";
@@ -40,7 +39,6 @@ export const AppDesktop = () => {
           </Routes>
         </div>
       </div>
-      <Modal />
     </>
   );
 };

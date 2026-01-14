@@ -1,4 +1,3 @@
-import { Map } from "immutable";
 import { Component } from "react";
 import { AppDesktop } from "./AppDesktop";
 import { AppMobile } from "./AppMobile";
@@ -9,13 +8,10 @@ export class App extends Component {
   resize = null;
   componentDidMount() {
     if (document && document.body) {
-      var filters = getSearchObj(window.location.search).getIn(
-        ["filters"],
-        Map(),
-      );
-      if (filters && filters.size > 0) {
-        filters = filters
-          .keySeq()
+      const searchObj = getSearchObj(window.location.search);
+      const filters = searchObj.filters || {};
+      if (filters && Object.keys(filters).length > 0) {
+        const filterKeys = Object.keys(filters)
           .sort((a, b) => a.localeCompare(b))
           .join(",");
       }
