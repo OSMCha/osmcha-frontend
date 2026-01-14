@@ -10,11 +10,11 @@ RUN npm clean-install --legacy-peer-deps
 
 COPY src/ /app/src
 COPY public/ /app/public
-ENV REACT_APP_PRODUCTION_API_URL /api/v1
-
-# fix for openssl ERR_OSSL_EVP_UNSUPPORTED
-# 'error:03000086:digital envelope routines::initialization error'
-ENV NODE_OPTIONS --openssl-legacy-provider
+COPY index.html /app/
+COPY vite.config.ts /app/
+COPY tsconfig.json /app/
+COPY tsconfig.node.json /app/
+ENV VITE_PRODUCTION_API_URL /api/v1
 
 RUN npm run build:${BUILD_ENV}
 

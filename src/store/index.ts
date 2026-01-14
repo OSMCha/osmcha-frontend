@@ -3,6 +3,7 @@ import { Map } from 'immutable';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { history } from './history';
 import createSagaMiddleware from 'redux-saga';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import * as safeStorage from '../utils/safe_storage';
 
@@ -61,7 +62,7 @@ const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
 let appliedMiddlewares = applyMiddleware(...middlewares);
-if (process.env.NODE_ENV !== 'production') {
+if (import.meta.env.MODE !== 'production') {
   // const { createLogger } = require('redux-logger');
 
   // const logger = createLogger({
@@ -79,7 +80,6 @@ if (process.env.NODE_ENV !== 'production') {
   //   }
   // });
   // middlewares.push(logger);
-  const { composeWithDevTools } = require('redux-devtools-extension');
   appliedMiddlewares = composeWithDevTools(appliedMiddlewares);
 }
 

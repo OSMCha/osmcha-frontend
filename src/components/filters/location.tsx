@@ -97,37 +97,39 @@ const LocationSelect = (props) => {
       ],
     });
 
-    draw.start();
-
-    draw.on('finish', (id, context) => {
-      const snapshot = draw.getSnapshot();
-      const feature = snapshot.find((f) => f.id === id);
-
-      if (!feature) return;
-
-      if (feature.geometry.type === 'Polygon') {
-        if (draw.getMode() === 'rectangle') {
-          const bounds = bbox(feature);
-          const wsen = bounds.map((v) => v.toFixed(4)).join(',');
-          onChange('geometry', null);
-          onChange('in_bbox', fromJS([{ label: wsen, value: wsen }]));
-        } else {
-          onChange(
-            'geometry',
-            fromJS([{ label: feature.geometry, value: feature.geometry }])
-          );
-          onChange('in_bbox', null);
-        }
-      }
-
-      // Set mode back to render after completing a shape
-      draw.setMode('render');
-      setActiveMode('render');
-      updateMap(feature.geometry);
-    });
-
     mapRef.current = map;
     drawRef.current = draw;
+
+    map.on('load', () => {
+      draw.start();
+
+      draw.on('finish', (id, context) => {
+        const snapshot = draw.getSnapshot();
+        const feature = snapshot.find((f) => f.id === id);
+
+        if (!feature) return;
+
+        if (feature.geometry.type === 'Polygon') {
+          if (draw.getMode() === 'rectangle') {
+            const bounds = bbox(feature);
+            const wsen = bounds.map((v) => v.toFixed(4)).join(',');
+            onChange('geometry', null);
+            onChange('in_bbox', fromJS([{ label: wsen, value: wsen }]));
+          } else {
+            onChange(
+              'geometry',
+              fromJS([{ label: feature.geometry, value: feature.geometry }])
+            );
+            onChange('in_bbox', null);
+          }
+        }
+
+        // Set mode back to render after completing a shape
+        draw.setMode('render');
+        setActiveMode('render');
+        updateMap(feature.geometry);
+      });
+    });
 
     map.on('style.load', () => {
       map.setProjection({ type: 'globe' });
