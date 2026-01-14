@@ -1,10 +1,10 @@
-import querystring from 'query-string';
 import { fromJS, Map } from 'immutable';
 
 export function getSearchObj(searchParam: string = ''): Map<string, any> {
   let result: any = {};
   try {
-    result = querystring.parse(searchParam);
+    const params = new URLSearchParams(searchParam);
+    result = Object.fromEntries(params.entries());
     if (result.filters) {
       result.filters = JSON.parse(result.filters);
     }
@@ -19,7 +19,7 @@ export function getObjAsQueryParam(key: string, obj: any) {
   if (!obj || Object.keys(obj).length === 0) {
     return '';
   }
-  return querystring.stringify({
-    [key]: JSON.stringify(obj),
-  });
+  const params = new URLSearchParams();
+  params.set(key, JSON.stringify(obj));
+  return params.toString();
 }
