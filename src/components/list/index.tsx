@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Map } from 'immutable';
-import { Row } from './row';
-import { SignInButton } from '../changeset/sign_in_button';
-import { elementInViewport } from '../../utils/element_in_view';
-import { loadingEnhancer } from '../loading_enhancer';
-import type { RootStateType } from '../../store';
+import type { Map } from "immutable";
+import React from "react";
+import { connect } from "react-redux";
+import type { RootStateType } from "../../store";
+import { elementInViewport } from "../../utils/element_in_view";
+import { SignInButton } from "../changeset/sign_in_button";
+import { loadingEnhancer } from "../loading_enhancer";
+import { Row } from "./row";
 
 type propTypes = {
   currentPage: Map<string, any> | undefined | null;
@@ -26,7 +26,7 @@ class _List extends React.Component<propTypes> {
   handleScroll = (r: HTMLElement) => {
     if (!r) return;
     if (!elementInViewport(r)) {
-      r.scrollIntoView({ block: 'end', behavior: 'smooth' });
+      r.scrollIntoView({ block: "end", behavior: "smooth" });
     }
   };
 
@@ -34,7 +34,7 @@ class _List extends React.Component<propTypes> {
     if (
       !this.props.token &&
       this.props.location &&
-      ['/about', '/filters', '/user', '/'].includes(this.props.location)
+      ["/about", "/filters", "/user", "/"].includes(this.props.location)
     ) {
       return (
         <div className="flex-parent flex-parent--column scroll-styled flex-child--grow py36">
@@ -54,13 +54,13 @@ class _List extends React.Component<propTypes> {
       <ul className="flex-parent flex-parent--column scroll-styled flex-child--grow">
         <div>
           {this.props.currentPage &&
-            this.props.currentPage.get('features').map((f, k) => (
+            this.props.currentPage.get("features").map((f, k) => (
               <Row
-                active={f.get('id') === this.props.activeChangesetId}
-                properties={f.get('properties')}
-                changesetId={f.get('id')}
+                active={f.get("id") === this.props.activeChangesetId}
+                properties={f.get("properties")}
+                changesetId={f.get("id")}
                 inputRef={
-                  f.get('id') === this.props.activeChangesetId // only saves the ref of currently active changesetId
+                  f.get("id") === this.props.activeChangesetId // only saves the ref of currently active changesetId
                     ? this.handleScroll
                     : null
                 }
@@ -75,7 +75,7 @@ class _List extends React.Component<propTypes> {
 
 const ListWithLoading = loadingEnhancer(_List);
 const List = connect((state: RootStateType, props) => ({
-  token: state.auth.get('token'),
+  token: state.auth.get("token"),
 }))(ListWithLoading);
 
 export { List };

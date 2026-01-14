@@ -1,18 +1,18 @@
-import { Map, fromJS } from 'immutable';
-import { SHOW_MODAL } from './modal_actions';
+import { fromJS, type Map } from "immutable";
+import { SHOW_MODAL } from "./modal_actions";
 
 export type ModalType = Map<
-  | 'error'
-  | 'kind'
-  | 'duration'
-  | 'title'
-  | 'description'
-  | 'callback'
-  | 'callbackLabel'
-  | 'dismiss'
-  | 'uid'
-  | 'autoDismiss'
-  | 'position',
+  | "error"
+  | "kind"
+  | "duration"
+  | "title"
+  | "description"
+  | "callback"
+  | "callbackLabel"
+  | "dismiss"
+  | "uid"
+  | "autoDismiss"
+  | "position",
   any
 >; // osmcha uses this
 
@@ -23,27 +23,27 @@ const initialState: ModalType = fromJS({
   title: null,
   dismiss: true,
   autoDismiss: 5, // number
-  position: 'tr',
+  position: "tr",
   description: null,
   uid: null, // number
 });
 
 export function modalReducer(
   state: ModalType = initialState,
-  action: any
+  action: any,
 ): ModalType {
   switch (action.type) {
     case SHOW_MODAL: {
       return state
-        .set('kind', action.kind)
-        .set('error', action.error)
-        .set('callbackLabel', action.callbackLabel)
-        .set('title', action.title)
-        .set('dismiss', action.dismiss)
-        .set('uid', action.uid)
-        .set('autoDismiss', action.autoDismiss)
-        .set('position', action.position)
-        .set('description', action.description);
+        .set("kind", action.kind)
+        .set("error", action.error)
+        .set("callbackLabel", action.callbackLabel)
+        .set("title", action.title)
+        .set("dismiss", action.dismiss)
+        .set("uid", action.uid)
+        .set("autoDismiss", action.autoDismiss)
+        .set("position", action.position)
+        .set("description", action.description);
     }
     default:
       return state;

@@ -1,22 +1,22 @@
-import { put, call, take, takeEvery } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import { delay } from "redux-saga";
+import { call, put, take, takeEvery } from "redux-saga/effects";
 
-export const SHOW_MODAL = 'SHOW_MODAL';
-export const INIT_MODAL = 'INIT_MODAL';
-export const ACTIVATE_MODAL_CALLBACK = 'ACTIVATE_MODAL_CALLBACK';
-export const DISMISS_MODAL = 'DISMISS_MODAL';
+export const SHOW_MODAL = "SHOW_MODAL";
+export const INIT_MODAL = "INIT_MODAL";
+export const ACTIVATE_MODAL_CALLBACK = "ACTIVATE_MODAL_CALLBACK";
+export const DISMISS_MODAL = "DISMISS_MODAL";
 
 // public
 // starting point for react component to start fetch
 
 export function modal({
-  kind = 'error',
+  kind = "error",
   error,
   title,
   dismiss = true,
   autoDismiss = 5,
-  position = 'tr',
-  description = 'Please reload the application. If it still doesnt work please refer to usage guide.',
+  position = "tr",
+  description = "Please reload the application. If it still doesnt work please refer to usage guide.",
   callback,
   callbackArgs,
   callbackLabel,
@@ -38,11 +38,11 @@ export function modal({
   if (error && error.name) {
     title = error.name;
   }
-  if (kind === 'error') {
+  if (kind === "error") {
     autoDismiss = 10;
   }
   return {
-    type: 'INIT_MODAL',
+    type: "INIT_MODAL",
     payload: {
       kind,
       error,
@@ -69,11 +69,11 @@ export const dismissModalCallback = (uid: number) =>
   action(DISMISS_MODAL, { uid });
 
 export function* watchModal(): any {
-  yield takeEvery('INIT_MODAL', handleModal);
+  yield takeEvery("INIT_MODAL", handleModal);
 }
 
 function* handleModal({ payload, callback, callbackArgs }: any): any {
-  var uidOriginal = new Date().getTime() + Math.floor(1000 * Math.random());
+  var uidOriginal = Date.now() + Math.floor(1000 * Math.random());
   payload.uid = uidOriginal;
   yield put(action(SHOW_MODAL, payload));
   if (!callback) return;

@@ -1,10 +1,9 @@
-import { Iterable } from 'immutable';
-
-import { API_URL } from '../config';
-import type { filtersType, filterType } from '../components/filters';
+import { Iterable } from "immutable";
+import type { filtersType, filterType } from "../components/filters";
+import { API_URL } from "../config";
 
 export function getString(input) {
-  if (typeof input === 'object') {
+  if (typeof input === "object") {
     return JSON.stringify(input);
   } else {
     return input;
@@ -16,18 +15,18 @@ export function handleErrors(response: any) {
     return response.json().then((r) => {
       if (response.status === 401) {
         throw new Error(
-          'Authentication error. Sign in again and repeat the operation.'
+          "Authentication error. Sign in again and repeat the operation.",
         );
       }
       if (response.status === 401) {
-        throw new Error('Operation not allowed.');
+        throw new Error("Operation not allowed.");
       }
       if (response.status === 404) {
-        throw new Error('Resource not found.');
+        throw new Error("Resource not found.");
       }
       if (r && r.detail) throw new Error(r.detail);
       if (response.statusText) throw new Error(response.statusText);
-      return Promise.reject('network request failed');
+      return Promise.reject("network request failed");
     });
   }
   return response;
@@ -36,22 +35,22 @@ export function handleErrors(response: any) {
 export function createAOI(
   token: string,
   name: string,
-  filters: filtersType
+  filters: filtersType,
 ): Promise<any> {
-  let serverFilters = {};
+  const serverFilters = {};
   filters.forEach((v: filterType | undefined, k: string | undefined) => {
     if (!Iterable.isIterable(v) || !k) return;
-    let filter = v!;
+    const filter = v!;
     serverFilters[k] = filter
-      .filter((x) => !!x && Iterable.isIterable(x) && x.get('value') !== '')
-      .map((x) => getString(x!.get('value')))
-      .join(',');
+      .filter((x) => !!x && Iterable.isIterable(x) && x.get("value") !== "")
+      .map((x) => getString(x?.get("value")))
+      .join(",");
   });
   return fetch(`${API_URL}/aoi/`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
     body: JSON.stringify({
       name,
@@ -66,10 +65,10 @@ export function createAOI(
 
 export function fetchAOI(token: string, aoiId: number): Promise<any> {
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   })
     .then(handleErrors)
@@ -81,10 +80,10 @@ export function fetchAOI(token: string, aoiId: number): Promise<any> {
 export function fetchAllAOIs(token?: string): Promise<any> {
   if (token == null) return Promise.resolve();
   return fetch(`${API_URL}/aoi/`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   })
     .then(handleErrors)
@@ -96,22 +95,22 @@ export function updateAOI(
   token: string,
   aoiId: number,
   name: string,
-  filters: filtersType
+  filters: filtersType,
 ): Promise<any> {
-  let serverFilters = {};
+  const serverFilters = {};
   filters.forEach((v: filterType | undefined, k: string | undefined) => {
     if (!Iterable.isIterable(v) || !k) return;
-    let filter = v!;
+    const filter = v!;
     serverFilters[k] = filter
-      .filter((x) => !!x && Iterable.isIterable(x) && x.get('value') !== '')
-      .map((x) => getString(x!.get('value')))
-      .join(',');
+      .filter((x) => !!x && Iterable.isIterable(x) && x.get("value") !== "")
+      .map((x) => getString(x?.get("value")))
+      .join(",");
   });
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
     body: JSON.stringify({
       name,
@@ -126,10 +125,10 @@ export function updateAOI(
 
 export function deleteAOI(token: string, aoiId: string): Promise<any> {
   return fetch(`${API_URL}/aoi/${aoiId}/`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   }).then(handleErrors);
 }

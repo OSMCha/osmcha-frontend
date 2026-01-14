@@ -9,8 +9,8 @@
 function getItem(key: string): string | undefined | null {
   try {
     return localStorage.getItem(key) || null;
-  } catch (err) {
-    console.warn('Could not read from localStorage.');
+  } catch (_err) {
+    console.warn("Could not read from localStorage.");
     return null;
   }
 }
@@ -21,8 +21,8 @@ function getItem(key: string): string | undefined | null {
 function setItem(key: string, value: string): void {
   try {
     localStorage.setItem(key, value);
-  } catch (err) {
-    console.warn('Could not write to localStorage.');
+  } catch (_err) {
+    console.warn("Could not write to localStorage.");
   }
 }
 
@@ -32,8 +32,8 @@ function setItem(key: string, value: string): void {
 function removeItem(key: string): void {
   try {
     localStorage.removeItem(key);
-  } catch (err) {
-    console.warn('Could not delete from localStorage.');
+  } catch (_err) {
+    console.warn("Could not delete from localStorage.");
   }
 }
 

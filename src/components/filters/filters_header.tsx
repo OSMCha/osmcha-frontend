@@ -1,14 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { push } from 'react-router-redux';
-
-import type { RootStateType } from '../../store';
-import { cancelablePromise } from '../../utils/promise';
-import { fetchAllAOIs } from '../../network/aoi';
-import { Button } from '../button';
-import { Dropdown } from '../dropdown';
-import { API_URL } from '../../config';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { push } from "react-router-redux";
+import { API_URL } from "../../config";
+import { fetchAllAOIs } from "../../network/aoi";
+import type { RootStateType } from "../../store";
+import { cancelablePromise } from "../../utils/promise";
+import { Button } from "../button";
+import { Dropdown } from "../dropdown";
 
 interface SaveAOIProps {
   name?: string;
@@ -28,14 +27,14 @@ class SaveAOI extends React.PureComponent<SaveAOIProps, SaveAOIState> {
     super(props);
     this.state = {
       editing: false,
-      value: props.name || '',
+      value: props.name || "",
     };
   }
   ref;
   clicked = false;
   onClick = (event) => {
     this.clicked = true;
-    this.setState({ editing: true, value: this.props.name || '' });
+    this.setState({ editing: true, value: this.props.name || "" });
   };
   onChange = (event: any) => {
     this.setState({ value: event.target.value });
@@ -46,7 +45,7 @@ class SaveAOI extends React.PureComponent<SaveAOIProps, SaveAOIState> {
     } else if (event.keyCode === 27) {
       this.setState({
         editing: false,
-        value: this.props.name || '',
+        value: this.props.name || "",
       });
       this.clicked = false;
     }
@@ -56,7 +55,7 @@ class SaveAOI extends React.PureComponent<SaveAOIProps, SaveAOIState> {
       editing: false,
     });
     const aoiList = this.props.aoiList.filter(
-      (aoi) => aoi.value === this.props.aoiId
+      (aoi) => aoi.value === this.props.aoiId,
     );
     if (this.props.aoiId && aoiList.length) {
       this.props.updateAOI(this.props.aoiId, this.state.value);
@@ -136,7 +135,7 @@ class _FiltersHeader extends React.Component<filterProps, FiltersHeaderState> {
       this.getAoisPromise = cancelablePromise(fetchAllAOIs(this.props.token));
       this.getAoisPromise.promise
         .then((r) => {
-          let aoiList = r.features.map((aoi) => {
+          const aoiList = r.features.map((aoi) => {
             return { label: aoi.properties.name, value: aoi.id };
           });
           this.setState({ aoiList: aoiList });
@@ -168,7 +167,7 @@ class _FiltersHeader extends React.Component<filterProps, FiltersHeaderState> {
           className="txt--s pl6 pointer inline"
           onClick={(e) =>
             navigator.clipboard.writeText(
-              `${API_URL.replace('/api/v1', '')}/?aoi=${this.props.aoiId}`
+              `${API_URL.replace("/api/v1", "")}/?aoi=${this.props.aoiId}`,
             )
           }
           title="Copy filter URL"
@@ -186,17 +185,17 @@ class _FiltersHeader extends React.Component<filterProps, FiltersHeaderState> {
       this.props.push({
         ...this.props.location,
         search: `aoi=${arr[0].value}`,
-        path: '/filters',
+        path: "/filters",
       });
     } else if (arr.length > 1) {
-      throw new Error('filter select array is big');
+      throw new Error("filter select array is big");
     }
   };
 
   renderFilterInfo() {
     const dropdown = (
       <Dropdown
-        display={'My Filters'}
+        display={"My Filters"}
         options={this.state.aoiList}
         onChange={this.onAoiSelect}
         value={[]}
@@ -211,7 +210,7 @@ class _FiltersHeader extends React.Component<filterProps, FiltersHeaderState> {
   }
 
   render() {
-    var save_aoi: React.ReactNode = '';
+    var save_aoi: React.ReactNode = "";
     if (this.props.token) {
       save_aoi = (
         <SaveAOI
@@ -249,7 +248,7 @@ class _FiltersHeader extends React.Component<filterProps, FiltersHeaderState> {
             Apply
           </Button>
           <Link
-            to={{ search: this.props.search, pathname: '/' }}
+            to={{ search: this.props.search, pathname: "/" }}
             className="mx3 pointer"
           >
             <svg className="icon icon--m inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
@@ -268,7 +267,7 @@ const FiltersHeader = connect(
   }),
   {
     push,
-  }
+  },
 )(_FiltersHeader);
 
 export { FiltersHeader };

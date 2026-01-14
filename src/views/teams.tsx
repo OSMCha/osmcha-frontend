@@ -1,28 +1,26 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Map, List } from 'immutable';
-import { push } from 'react-router-redux';
-
-import { modal } from '../store/modal_actions';
-import { logUserOut } from '../store/auth_actions';
-import { cancelablePromise, isMobile } from '../utils';
+import { List, Map } from "immutable";
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { push } from "react-router-redux";
+import { Button } from "../components/button";
+import { withFetchDataSilent } from "../components/fetch_data_enhancer";
+import type { filterOptionsType, filterType } from "../components/filters";
+import { SecondaryPagesHeader } from "../components/secondary_pages_header";
+import NewTeam from "../components/teams/new_team";
+import { BlockMarkup } from "../components/user/block_markup";
 import {
   createMappingTeam,
-  fetchUserMappingTeams,
   deleteMappingTeam,
-} from '../network/mapping_team';
-import { Link } from 'react-router-dom';
-import { withFetchDataSilent } from '../components/fetch_data_enhancer';
-import { Button } from '../components/button';
-import { SecondaryPagesHeader } from '../components/secondary_pages_header';
-import { BlockMarkup } from '../components/user/block_markup';
-import type { RootStateType } from '../store';
-import type { filterOptionsType, filterType } from '../components/filters';
-
-import NewTeam from '../components/teams/new_team';
+  fetchUserMappingTeams,
+} from "../network/mapping_team";
+import type { RootStateType } from "../store";
+import { logUserOut } from "../store/auth_actions";
+import { modal } from "../store/modal_actions";
+import { cancelablePromise, isMobile } from "../utils";
 
 export type teamsOptionsType = Map<
-  'label' | 'value',
+  "label" | "value",
   string | undefined | null
 >;
 export type teamType = List<filterOptionsType>;
@@ -31,31 +29,31 @@ export type teamsType = Map<string, filterType>;
 const TeamsBlock = ({ data, removeTeam, editTeam }) => (
   <BlockMarkup>
     <span>
-      <span>{data.get('name')}</span>
+      <span>{data.get("name")}</span>
     </span>
     <span>
       <Link
         className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
         to={{
           search: `filters={"mapping_teams":[{"label":"${data.getIn([
-            'name',
-          ])}","value":"${data.getIn(['name'])}"}]}`,
-          pathname: '/filters',
+            "name",
+          ])}","value":"${data.getIn(["name"])}"}]}`,
+          pathname: "/filters",
         }}
       >
         Changesets
       </Link>
       <Link
         className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken5 bg-lighten25-on-hover color-gray transition"
-        to={{ pathname: `/teams/${data.getIn(['id'])}` }}
+        to={{ pathname: `/teams/${data.getIn(["id"])}` }}
       >
         Edit
       </Link>
       <Button
         className="mr3 bg-transparent border--0"
-        onClick={() => removeTeam(data.getIn(['id']))}
+        onClick={() => removeTeam(data.getIn(["id"]))}
       >
-        <svg className={'icon txt-m mb3 inline-block align-middle'}>
+        <svg className={"icon txt-m mb3 inline-block align-middle"}>
           <use xlinkHref="#icon-trash" />
         </svg>
         Delete
@@ -104,16 +102,16 @@ class _MappingTeams extends React.PureComponent<propsType, any> {
   }
 
   createTeam = (name: string, users: object) => {
-    if (name === '' || !name || !users) return;
+    if (name === "" || !name || !users) return;
     this.setState({ addingTeam: true });
     this.createTeamPromise = cancelablePromise(
-      createMappingTeam(this.props.token, name, users)
+      createMappingTeam(this.props.token, name, users),
     );
     this.createTeamPromise.promise
       .then((r) => {
         this.props.modal({
-          kind: 'success',
-          title: 'Team Created ',
+          kind: "success",
+          title: "Team Created ",
           description: `The team ${name} was created successfully!`,
         });
         this.props.reloadData();
@@ -127,8 +125,8 @@ class _MappingTeams extends React.PureComponent<propsType, any> {
     deleteMappingTeam(this.props.token, parseInt(teamId, 10))
       .then((r) => {
         this.props.modal({
-          kind: 'success',
-          title: 'Team Deleted ',
+          kind: "success",
+          title: "Team Deleted ",
           description: `The team with id ${teamId} was deleted`,
         });
         this.props.reloadData();
@@ -136,8 +134,8 @@ class _MappingTeams extends React.PureComponent<propsType, any> {
       .catch((e) => {
         this.props.reloadData();
         this.props.modal({
-          kind: 'error',
-          title: 'Deletion failed ',
+          kind: "error",
+          title: "Deletion failed ",
           error: e,
         });
       });
@@ -149,12 +147,12 @@ class _MappingTeams extends React.PureComponent<propsType, any> {
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
-          mobile ? 'viewport-full' : ''
+          mobile ? "viewport-full" : ""
         }`}
       >
         <SecondaryPagesHeader
           title="Teams"
-          avatar={this.props.userDetails.get('avatar')}
+          avatar={this.props.userDetails.get("avatar")}
         />
         <div className="px30 flex-child  pb60  filters-scroll">
           <div className="flex-parent flex-parent--column align justify--space-between">
@@ -164,7 +162,7 @@ class _MappingTeams extends React.PureComponent<propsType, any> {
                   <ListFortified
                     onAdd={() => {}}
                     onRemove={() => {}}
-                    data={this.props.data.getIn(['teams'], List())}
+                    data={this.props.data.getIn(["teams"], List())}
                     TargetBlock={TeamsBlock}
                     propsToPass={{
                       removeTeam: this.removeTeam,
@@ -192,25 +190,25 @@ class _MappingTeams extends React.PureComponent<propsType, any> {
 const MappingTeamsWithData = withFetchDataSilent(
   (props: propsType) => ({
     teams: cancelablePromise(
-      fetchUserMappingTeams(props.token, props.userDetails.get('username'))
+      fetchUserMappingTeams(props.token, props.userDetails.get("username")),
     ),
   }),
   (nextProps: propsType, props: propsType) => true,
-  _MappingTeams
+  _MappingTeams,
 );
 
 const MappingTeams = connect(
   (state: RootStateType, props) => ({
     location: props.location,
-    oAuthToken: state.auth.get('oAuthToken'),
-    token: state.auth.get('token'),
-    userDetails: state.auth.getIn(['userDetails'], Map()),
+    oAuthToken: state.auth.get("oAuthToken"),
+    token: state.auth.get("token"),
+    userDetails: state.auth.getIn(["userDetails"], Map()),
   }),
   {
     modal,
     logUserOut,
     push,
-  }
+  },
 )(MappingTeamsWithData);
 
 export { MappingTeams };

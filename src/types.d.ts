@@ -1,36 +1,36 @@
 // Type declarations for importing static assets
 
-declare module '*.jpg' {
+declare module "*.jpg" {
   const value: string;
   export default value;
 }
 
-declare module '*.jpeg' {
+declare module "*.jpeg" {
   const value: string;
   export default value;
 }
 
-declare module '*.png' {
+declare module "*.png" {
   const value: string;
   export default value;
 }
 
-declare module '*.svg' {
+declare module "*.svg" {
   const value: string;
   export default value;
 }
 
-declare module '*.gif' {
+declare module "*.gif" {
   const value: string;
   export default value;
 }
 
-declare module '*.webp' {
+declare module "*.webp" {
   const value: string;
   export default value;
 }
 
-declare module '*.ico' {
+declare module "*.ico" {
   const value: string;
   export default value;
 }

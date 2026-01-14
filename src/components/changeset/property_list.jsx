@@ -1,5 +1,4 @@
-import React from 'react';
-import Property from './property';
+import Property from "./property";
 
 const PropertyList = ({ limit, properties, imageryMatch, sourceMatch }) => {
   return (

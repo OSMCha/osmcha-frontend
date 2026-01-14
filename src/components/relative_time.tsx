@@ -1,5 +1,4 @@
-import React from 'react';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from "date-fns";
 
 export function RelativeTime({ datetime, addSuffix = true }: any) {
   return (

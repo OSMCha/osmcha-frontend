@@ -1,25 +1,24 @@
-import { all, put, call, takeEvery, select } from 'redux-saga/effects';
+import { all, call, put, select, takeEvery } from "redux-saga/effects";
 
 import {
-  postUserToWatchList,
   deleteFromWatchList,
-} from '../network/osmcha_watchlist';
-import { modal } from './modal_actions';
-
-import type { RootStateType } from './';
+  postUserToWatchList,
+} from "../network/osmcha_watchlist";
+import type { RootStateType } from "./";
+import { modal } from "./modal_actions";
 
 export const WATCHLIST = {
-  define: 'WATCHLIST.define',
-  add: 'WATCHLIST.add',
-  remove: 'WATCHLIST.remove',
-  clear: 'WATCHLIST.clear',
+  define: "WATCHLIST.define",
+  add: "WATCHLIST.add",
+  remove: "WATCHLIST.remove",
+  clear: "WATCHLIST.clear",
 };
 
 export function action(type: string, payload?: any | null) {
   return { type, ...payload };
 }
 
-export const tokenSelector = (state: RootStateType) => state.auth.get('token');
+export const tokenSelector = (state: RootStateType) => state.auth.get("token");
 
 export const addToWatchlist = (watchlist_user: string, uid: string) =>
   action(WATCHLIST.add, { watchlist_user, uid });
@@ -46,17 +45,17 @@ export function* addToWatchlistSaga({
     yield call(postUserToWatchList, token, { watchlist_user, uid });
     yield put(
       modal({
-        title: 'Success',
+        title: "Success",
         description: `User ${watchlist_user} (${uid}) added to your watchlist.`,
-        kind: 'success',
-      })
+        kind: "success",
+      }),
     );
   } catch (e) {
     console.error(e);
     yield put(
       modal({
         error: e as Error,
-      })
+      }),
     );
   }
 }
@@ -70,17 +69,17 @@ export function* removeFromWatchlistSaga({
     yield call(deleteFromWatchList, token, watchlist_user);
     yield put(
       modal({
-        title: 'Success',
+        title: "Success",
         description: `User ${watchlist_user} removed from your watchlist.`,
-        kind: 'success',
-      })
+        kind: "success",
+      }),
     );
   } catch (e) {
     console.error(e);
     yield put(
       modal({
         error: e as Error,
-      })
+      }),
     );
   }
 }

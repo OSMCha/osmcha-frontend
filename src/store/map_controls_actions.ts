@@ -1,5 +1,5 @@
 export const MAPCONTROLS = {
-  setStyle: 'SET_STYLE',
+  setStyle: "SET_STYLE",
 };
 
 export function action(type: string, payload?: any | null) {

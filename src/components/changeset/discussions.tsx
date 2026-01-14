@@ -1,16 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { parse } from 'date-fns';
-import AnchorifyText from 'react-anchorify-text';
-import { List } from 'immutable';
-import type { RootStateType } from '../../store';
+import { parse } from "date-fns";
+import type { List } from "immutable";
+import React from "react";
+import AnchorifyText from "react-anchorify-text";
+import { connect } from "react-redux";
+import type { RootStateType } from "../../store";
 
-import AssemblyAnchor from '../assembly_anchor';
-import { CommentForm } from './comment';
-import TranslateButton from './translate_button';
-import { RelativeTime } from '../relative_time';
-import { SignInButton } from './sign_in_button';
-import { UserOSMLink } from './user_osm_link';
+import AssemblyAnchor from "../assembly_anchor";
+import { RelativeTime } from "../relative_time";
+import { CommentForm } from "./comment";
+import { SignInButton } from "./sign_in_button";
+import TranslateButton from "./translate_button";
+import { UserOSMLink } from "./user_osm_link";
 
 interface DiscussionsProps {
   discussions: List<any>;
@@ -22,7 +22,6 @@ interface DiscussionsProps {
 }
 
 class DiscussionsComponent extends React.PureComponent<DiscussionsProps> {
-
   renderComments() {
     const { discussions, changesetAuthor } = this.props;
 
@@ -32,7 +31,7 @@ class DiscussionsComponent extends React.PureComponent<DiscussionsProps> {
           <svg className="icon icon--xxl color-darken25">
             <use xlinkHref="#icon-contact" />
           </svg>
-          <p className="txt-m">{'No discussions, yet.'}</p>
+          <p className="txt-m">{"No discussions, yet."}</p>
         </div>
       );
     } else {
@@ -45,27 +44,26 @@ class DiscussionsComponent extends React.PureComponent<DiscussionsProps> {
             >
               <div className="flex-parent flex-parent--row justify--space-between txt-s ">
                 <span>
-                  By{' '}
+                  By{" "}
                   <strong>
                     <UserOSMLink
-                      userName={comment.get('user')}
-                      linkClasses={'txt-underline-on-hover cursor-pointer'}
+                      userName={comment.get("user")}
+                      linkClasses={"txt-underline-on-hover cursor-pointer"}
                     >
-                      {comment.get('user')}
-                    </UserOSMLink>{' '}
+                      {comment.get("user")}
+                    </UserOSMLink>{" "}
                   </strong>
-                  {changesetAuthor === comment.get('user') && (
-                    <span style={{ color: '#aaa' }}>(changeset author)</span>
+                  {changesetAuthor === comment.get("user") && (
+                    <span style={{ color: "#aaa" }}>(changeset author)</span>
                   )}
                 </span>
                 <span>
                   <RelativeTime
                     datetime={
-                      // eslint-disable-next-line
                       parse(
-                        comment.get('date'),
+                        comment.get("date"),
                         "yyyy-MM-dd'T'HH:mm:ssX",
-                        new Date()
+                        new Date(),
                       )
                     }
                   />
@@ -73,13 +71,13 @@ class DiscussionsComponent extends React.PureComponent<DiscussionsProps> {
               </div>
               <div className="flex-parent flex-parent--column mt6 mb3">
                 <p className="txt-break-url">
-                  <AnchorifyText text={comment.get('text')}>
+                  <AnchorifyText text={comment.get("text")}>
                     <AssemblyAnchor />
                   </AnchorifyText>
                 </p>
               </div>
               <div className="flex-parent justify--flex-end">
-                <TranslateButton text={comment.get('text')} />
+                <TranslateButton text={comment.get("text")} />
               </div>
             </div>
           ))}
@@ -128,8 +126,8 @@ class DiscussionsComponent extends React.PureComponent<DiscussionsProps> {
 }
 
 const Discussions = connect((state: RootStateType) => ({
-  token: state.auth.get('token'),
-  userDetails: state.auth.get('userDetails'),
+  token: state.auth.get("token"),
+  userDetails: state.auth.get("userDetails"),
 }))(DiscussionsComponent);
 
 export { Discussions };

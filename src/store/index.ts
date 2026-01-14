@@ -1,33 +1,30 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { Map } from 'immutable';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
-import { history } from './history';
-import createSagaMiddleware from 'redux-saga';
-
-import * as safeStorage from '../utils/safe_storage';
-
+import { Map } from "immutable";
+import { routerMiddleware, routerReducer } from "react-router-redux";
+import { applyMiddleware, combineReducers, createStore } from "redux";
+import createSagaMiddleware from "redux-saga";
+import * as safeStorage from "../utils/safe_storage";
+import type { aoiReducerType } from "./aoi_reducer";
+import { aoiReducer } from "./aoi_reducer";
+import type { AuthType } from "./auth_reducer";
 // Reducers
-import { authReducer } from './auth_reducer';
-import { changesetsPageReducer } from './changesets_page_reducer';
-import { changesetReducer } from './changeset_reducer';
-import { modalReducer } from './modal_reducer';
-import { filtersReducer } from './filters_reducer';
-import { mapControlsReducer } from './map_controls_reducer';
-import { trustedlistReducer } from './trustedlist_reducer';
-import { watchlistReducer } from './blacklist_reducer';
-import { aoiReducer } from './aoi_reducer';
-
-import type { ModalType } from './modal_reducer';
-import type { ChangesetsPageType } from './changesets_page_reducer';
-import type { ChangesetType } from './changeset_reducer';
-import type { AuthType } from './auth_reducer';
-import type { filtersReducerType } from './filters_reducer';
-import type { mapControlsReducerType } from './map_controls_reducer';
-import type { trustedlistReducerType } from './trustedlist_reducer';
-import type { watchlistReducerType } from './blacklist_reducer';
-import type { aoiReducerType } from './aoi_reducer';
+import { authReducer } from "./auth_reducer";
+import type { watchlistReducerType } from "./blacklist_reducer";
+import { watchlistReducer } from "./blacklist_reducer";
+import type { ChangesetType } from "./changeset_reducer";
+import { changesetReducer } from "./changeset_reducer";
+import type { ChangesetsPageType } from "./changesets_page_reducer";
+import { changesetsPageReducer } from "./changesets_page_reducer";
+import type { filtersReducerType } from "./filters_reducer";
+import { filtersReducer } from "./filters_reducer";
+import { history } from "./history";
+import type { mapControlsReducerType } from "./map_controls_reducer";
+import { mapControlsReducer } from "./map_controls_reducer";
+import type { ModalType } from "./modal_reducer";
+import { modalReducer } from "./modal_reducer";
 // Sagas
-import sagas from './sagas';
+import sagas from "./sagas";
+import type { trustedlistReducerType } from "./trustedlist_reducer";
+import { trustedlistReducer } from "./trustedlist_reducer";
 
 export type RootStateType = {
   auth: AuthType;
@@ -65,9 +62,9 @@ const appliedMiddlewares = applyMiddleware(...middlewares);
 // Persisted state
 const persistedState = {
   auth: Map({
-    token: safeStorage.getItem('token'),
-    oAuthToken: safeStorage.getItem('oauth_token'),
-    oAuthTokenSecret: safeStorage.getItem('oauth_token_secret'),
+    token: safeStorage.getItem("token"),
+    oAuthToken: safeStorage.getItem("oauth_token"),
+    oAuthTokenSecret: safeStorage.getItem("oauth_token_secret"),
     error: null,
   }),
 };

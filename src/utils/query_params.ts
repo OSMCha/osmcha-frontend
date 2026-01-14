@@ -1,6 +1,6 @@
-import { fromJS, Map } from 'immutable';
+import { fromJS, type Map } from "immutable";
 
-export function getSearchObj(searchParam: string = ''): Map<string, any> {
+export function getSearchObj(searchParam: string = ""): Map<string, any> {
   let result: any = {};
   try {
     const params = new URLSearchParams(searchParam);
@@ -17,7 +17,7 @@ export function getSearchObj(searchParam: string = ''): Map<string, any> {
 
 export function getObjAsQueryParam(key: string, obj: any) {
   if (!obj || Object.keys(obj).length === 0) {
-    return '';
+    return "";
   }
   const params = new URLSearchParams();
   params.set(key, JSON.stringify(obj));

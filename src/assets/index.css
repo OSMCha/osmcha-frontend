@@ -16,10 +16,10 @@ img {
 }
 
 ::-webkit-input-placeholder {
-  color: #aaa !important;
+  color: #aaa;
 }
 ::-moz-placeholder {
-  color: #aaa !important;
+  color: #aaa;
 }
 
 .justify--space-between {
@@ -55,28 +55,28 @@ img {
 }
 
 .icon--m {
-  height: 28px !important;
-  width: 28px !important;
+  height: 28px;
+  width: 28px;
 }
 
 .h14 {
-  height: 14px !important;
+  height: 14px;
 }
 
 .w14 {
-  width: 14px !important;
+  width: 14px;
 }
 
 .h55 {
-  height: 55px !important;
+  height: 55px;
 }
 
 .h40 {
-  height: 40px !important;
+  height: 40px;
 }
 
 .hmin55 {
-  min-height: 55px !important;
+  min-height: 55px;
 }
 
 .hfull-55 {
@@ -84,24 +84,24 @@ img {
 }
 
 .h160 {
-  height: 160px !important;
+  height: 160px;
 }
 .w160 {
-  width: 160px !important;
+  width: 160px;
 }
 
 .wmin435 {
-  min-width: 435px !important;
+  min-width: 435px;
 }
 
 .wmax435 {
-  max-width: 435px !important;
+  max-width: 435px;
 }
 .wmax140 {
-  max-width: 140px !important;
+  max-width: 140px;
 }
 .btn--stroke--1 {
-  box-shadow: inset 0 0 0 1px currentColor !important;
+  box-shadow: inset 0 0 0 1px currentColor;
 }
 
 .half-body-margin-top {
@@ -117,8 +117,8 @@ img {
 }
 @media only screen and (max-width: 768px) {
   .responsive-box {
-    width: 75vw !important;
-    max-width: 420px !important;
+    width: 75vw;
+    max-width: 420px;
   }
 }
 .responsive-box {
@@ -155,7 +155,7 @@ img {
 
 .filters-desc-appear.example-appear-active {
   opacity: 1;
-  transition: opacity .3s ease-in;
+  transition: opacity 0.3s ease-in;
 }
 
 .filters-desc-enter {
@@ -211,7 +211,7 @@ img {
 /* hide ... if we have text, which is less than or equal to max lines */
 .truncate-3-lines:after {
   /* points in the end */
-  content: '';
+  content: "";
   /* absolute position */
   position: absolute;
   /* set position to right bottom corner of text */
@@ -230,32 +230,34 @@ img {
 }
 /* changeset map*/
 .cmap-container .cmap-sidebar {
-  position: fixed !important;
+  position: fixed;
   bottom: 0px;
   padding: 5px;
-  top: inherit !important;
-  left: inherit !important;
+  top: inherit;
+  left: inherit;
 }
 
 .cmap-container .cmap-map {
-  background: #000 !important;
+  background: #000;
 }
 
-.cmap-changeset-section, .cmap-sidebar {
-  display: none !important;
+.cmap-changeset-section,
+.cmap-sidebar {
+  display: none;
 }
 
 .cmap-diff {
-  position: fixed !important;
+  position: fixed;
   bottom: 14px;
   right: 0px;
   padding: 5px;
-  top: inherit !important;
-  left: inherit !important;
-  z-index: 0 !important;
+  top: inherit;
+  left: inherit;
+  z-index: 0;
 }
 
-.cmap-changeset-link, .cmap-wikidata-link {
+.cmap-changeset-link,
+.cmap-wikidata-link {
   text-decoration: underline;
 }
 
@@ -303,30 +305,30 @@ img {
 
 .osmcha-custom-table th,
 .osmcha-custom-table td {
-  padding: 6px !important;
+  padding: 6px;
 }
 
 /* Changeset list color hacks */
 
 .light-blue,
 .light-blue-on-hover:hover {
-  background-color: #eef4fa !important;
+  background-color: #eef4fa;
 }
 
 .changesets-list .border-color-good {
-  border-color: rgba(57, 219, 192, 0.75) !important;
+  border-color: rgba(57, 219, 192, 0.75);
 }
 
 .changesets-list .border-color-bad {
-  border-color: rgba(204, 44, 71, 0.75) !important;
+  border-color: rgba(204, 44, 71, 0.75);
 }
 
 .changesets-list .border-color-neutral {
-  border-color: #d8d8d8 !important;
+  border-color: #d8d8d8;
 }
 
 .changesets-list .border-l--4 {
-  border-left-width: 4px !important;
+  border-left-width: 4px;
 }
 
 /* bbox map*/
@@ -357,8 +359,8 @@ img {
 }
 
 .icon--xxl {
-  height: 144px !important;
-  width: 144px !important;
+  height: 144px;
+  width: 144px;
 }
 
 .user-description a {
@@ -401,7 +403,7 @@ img {
 }
 
 .border--darken5 {
-  border-color:rgba(0,0,0,.05) !important;
+  border-color: rgba(0, 0, 0, 0.05);
 }
 
 .w72 {
@@ -424,12 +426,12 @@ img {
 }
 
 .txt-underline-dotted {
-  text-decoration: underline dotted !important;
+  text-decoration: underline dotted;
 }
 
 .react-select input:focus {
   /* assembly.js adds a focus (not focus-visible) style, which we remove since react-select has its own focus styles */
-  box-shadow: none !important;
+  box-shadow: none;
 }
 
 table {

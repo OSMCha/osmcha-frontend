@@ -1,28 +1,28 @@
-import { Iterable, Map } from 'immutable';
-import { API_URL } from '../config';
-import { PAGE_SIZE } from '../config/constants';
-import { appendDefaultDate } from '../utils/filters';
-import { handleErrors, getString } from './aoi';
-import type { filtersType, filterType } from '../components/filters';
+import { Iterable, Map } from "immutable";
+import type { filtersType, filterType } from "../components/filters";
+import { API_URL } from "../config";
+import { PAGE_SIZE } from "../config/constants";
+import { appendDefaultDate } from "../utils/filters";
+import { getString, handleErrors } from "./aoi";
 
 export function fetchChangesetsPage(
   pageIndex: number,
   filters: filtersType = Map(),
   token: string | undefined | null,
   nocache: boolean,
-  aoiId?: string | null
+  aoiId?: string | null,
 ) {
-  let flatFilters = '';
+  let flatFilters = "";
   filters = appendDefaultDate(filters);
   filters.forEach((v: filterType | undefined, k: string | undefined) => {
     if (!Iterable.isIterable(v) || !k) return;
-    let filter = v!;
-    let filterJoined = filter
-      .filter((x) => !!x && Iterable.isIterable(x) && x.get('value') !== '')
-      .map((x) => getString(x!.get('value')))
-      .join(',');
+    const filter = v!;
+    const filterJoined = filter
+      .filter((x) => !!x && Iterable.isIterable(x) && x.get("value") !== "")
+      .map((x) => getString(x?.get("value")))
+      .join(",");
 
-    if (filterJoined === '') return;
+    if (filterJoined === "") return;
     flatFilters += `&${k}=${encodeURIComponent(filterJoined)}`;
   });
   let url = `${API_URL}/changesets/?${
@@ -38,25 +38,25 @@ export function fetchChangesetsPage(
     }`;
   }
   return fetch(url, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   }).then((res) => {
     if (res.status === 401) {
       return Promise.reject(
-        Error('Authentication error. Sign in again and repeat the operation.')
+        Error("Authentication error. Sign in again and repeat the operation."),
       );
     }
     if (res.status === 403) {
-      return Promise.reject(Error('Operation not allowed.'));
+      return Promise.reject(Error("Operation not allowed."));
     }
     if (res.status >= 400 && res.status < 600) {
       return Promise.reject(
         Error(
-          'Bad request. Please check your filters or your network connection.'
-        )
+          "Bad request. Please check your filters or your network connection.",
+        ),
       );
     }
     return res.json();
@@ -66,19 +66,19 @@ export function fetchChangesetsPage(
 export function fetchAOIChangesetPage(
   pageIndex: number,
   aoiId: string,
-  token: string
+  token: string,
 ) {
   return fetch(
     `${API_URL}/aoi/${aoiId}/changesets/?page_size=${PAGE_SIZE}&page=${
       pageIndex + 1
     }`,
     {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: token ? `Token ${token}` : '',
+        "Content-Type": "application/json",
+        Authorization: token ? `Token ${token}` : "",
       },
-    }
+    },
   )
     .then(handleErrors)
     .then((res) => {

@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import { Button } from '../button';
-import { WatchListUser } from './watchlist_user';
-import { TrustedListUser } from './trustedlist_user';
+import { Button } from "../button";
+import { TrustedListUser } from "./trustedlist_user";
+import { WatchListUser } from "./watchlist_user";
 
 export class SaveUser extends React.PureComponent {
   state = {
-    showInput: false
+    showInput: false,
   };
   onSave = (username, uid) => {
     if (this.props.forWatchlist) {
@@ -35,7 +35,7 @@ export class SaveUser extends React.PureComponent {
             className="input wmax120 ml12 mt12"
             onClick={() => this.setState({ showInput: true })}
           >
-            <svg className={'icon txt-m mb3 inline-block align-middle'}>
+            <svg className={"icon txt-m mb3 inline-block align-middle"}>
               <use xlinkHref="#icon-plus" />
             </svg>
             Add User

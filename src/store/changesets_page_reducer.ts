@@ -1,9 +1,9 @@
-import { Map, fromJS } from 'immutable';
+import { fromJS, type Map } from "immutable";
 
-import { CHANGESETS_PAGE } from './changesets_page_actions';
+import { CHANGESETS_PAGE } from "./changesets_page_actions";
 
 export type ChangesetsPageType = Map<
-  'currentPage' | 'pageIndex' | 'loading' | 'error' | 'diff' | 'diffLoading',
+  "currentPage" | "pageIndex" | "loading" | "error" | "diff" | "diffLoading",
   any
 >;
 
@@ -18,36 +18,36 @@ const changesetsInitial: ChangesetsPageType = fromJS({
 
 export function changesetsPageReducer(
   state: ChangesetsPageType = changesetsInitial,
-  action: any
+  action: any,
 ): ChangesetsPageType {
   switch (action.type) {
     case CHANGESETS_PAGE.updateNewCount: {
-      return state.set('diff', action.diff).set('diffLoading', false);
+      return state.set("diff", action.diff).set("diffLoading", false);
     }
     case CHANGESETS_PAGE.checkNewLoading: {
-      return state.set('diffLoading', true);
+      return state.set("diffLoading", true);
     }
     case CHANGESETS_PAGE.loading: {
       return state
-        .set('pageIndex', action.pageIndex)
-        .set('loading', true)
-        .set('diff', 0)
-        .set('diffLoading', false)
-        .set('error', null);
+        .set("pageIndex", action.pageIndex)
+        .set("loading", true)
+        .set("diff", 0)
+        .set("diffLoading", false)
+        .set("error", null);
     }
     case CHANGESETS_PAGE.fetched: {
       return state
-        .set('currentPage', action.data)
-        .set('pageIndex', action.pageIndex)
-        .set('loading', false)
-        .set('error', null);
+        .set("currentPage", action.data)
+        .set("pageIndex", action.pageIndex)
+        .set("loading", false)
+        .set("error", null);
     }
     case CHANGESETS_PAGE.error: {
       return state
-        .set('pageIndex', action.pageIndex)
-        .set('diff', 0)
-        .set('loading', false)
-        .set('error', action.error);
+        .set("pageIndex", action.pageIndex)
+        .set("diff", 0)
+        .set("loading", false)
+        .set("error", action.error);
     }
     default: {
       return state;

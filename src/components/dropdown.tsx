@@ -1,7 +1,7 @@
-import React from 'react';
-import './dropdown.css';
-import onClickOutside from 'react-click-outside';
-import { Button } from './button';
+import React from "react";
+import "./dropdown.css";
+import onClickOutside from "react-click-outside";
+import { Button } from "./button";
 
 interface DropdownContentProps {
   value: Array<any>;
@@ -19,7 +19,7 @@ class _DropdownContent extends React.PureComponent<DropdownContentProps> {
   isActive = (obj: any) => {
     if (!this.props.value) return false;
 
-    for (let v of this.props.value) {
+    for (const v of this.props.value) {
       if (v.label === obj.label) {
         return true;
       }
@@ -32,7 +32,7 @@ class _DropdownContent extends React.PureComponent<DropdownContentProps> {
       var label = data.label;
       if (!label || !this.props.value || !this.props.onChange) return;
       const value = this.props.value;
-      let ourObj = data;
+      const ourObj = data;
       if (!ourObj) return;
 
       let isRemove = false;
@@ -83,12 +83,12 @@ class _DropdownContent extends React.PureComponent<DropdownContentProps> {
             )}
             {i.href ? (
               <a
-                target={'_blank'}
+                target={"_blank"}
                 rel="noopener noreferrer"
                 href={i.href}
                 onClick={this.props.toggleDropdown}
                 className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${
-                  this.isActive(i) ? 'is-active txt-bold' : ''
+                  this.isActive(i) ? "is-active txt-bold" : ""
                 }`}
               >
                 {i.label}
@@ -99,7 +99,7 @@ class _DropdownContent extends React.PureComponent<DropdownContentProps> {
                   this.props.multi ? () => {} : this.props.toggleDropdown
                 }
                 className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${
-                  this.isActive(i) ? 'is-active txt-bold' : ''
+                  this.isActive(i) ? "is-active txt-bold" : ""
                 }`}
               >
                 {i.label}
@@ -144,7 +144,10 @@ interface DropdownState {
   display: boolean;
 }
 
-export class _Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
+export class _Dropdown extends React.PureComponent<
+  DropdownProps,
+  DropdownState
+> {
   state: DropdownState = {
     display: false,
   };
@@ -162,7 +165,7 @@ export class _Dropdown extends React.PureComponent<DropdownProps, DropdownState>
   };
 
   isActive = (obj: any) => {
-    for (let v of this.props.value) {
+    for (const v of this.props.value) {
       if (v.label === obj.label) {
         return true;
       }
@@ -172,7 +175,7 @@ export class _Dropdown extends React.PureComponent<DropdownProps, DropdownState>
 
   render() {
     return (
-      <div className={`dropdown pointer ${this.props.className || ''}`}>
+      <div className={`dropdown pointer ${this.props.className || ""}`}>
         <Button
           iconName="chevron-down"
           onClick={this.toggleDropdown}
@@ -183,10 +186,10 @@ export class _Dropdown extends React.PureComponent<DropdownProps, DropdownState>
         {this.state.display && (
           <DropdownContent
             {...this.props}
-            eventTypes={['click', 'touchend']}
+            eventTypes={["click", "touchend"]}
             toggleDropdown={this.toggleDropdown}
             styles={
-              this.props.position === 'right' ? { right: 0 } : { left: 0 }
+              this.props.position === "right" ? { right: 0 } : { left: 0 }
             }
           />
         )}

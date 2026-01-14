@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { diffArrays } from 'diff';
-
-import { osmUrl } from '../config/constants';
-import { flagFeature, unflagFeature } from '../network/changeset';
-import { Dropdown } from './dropdown';
-import { Button } from './button';
-import thumbsDown from '../assets/thumbs-down.svg';
-import type { RootStateType } from '../store';
-import { TagValue } from './tag_value';
+import { diffArrays } from "diff";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import thumbsDown from "../assets/thumbs-down.svg";
+import { osmUrl } from "../config/constants";
+import { flagFeature, unflagFeature } from "../network/changeset";
+import type { RootStateType } from "../store";
+import { Button } from "./button";
+import { Dropdown } from "./dropdown";
+import { TagValue } from "./tag_value";
 
 /*
  * Displays info about an element that was created/modified/deleted.
  * Shown when an element is selected on the changeset map.
  */
 function ElementInfo({ changeset, action, token, setHighlight }) {
-  let id = action.new.type + '/' + action.new.id;
+  const id = action.new.type + "/" + action.new.id;
 
   if (!changeset) {
     return null;
@@ -23,17 +22,17 @@ function ElementInfo({ changeset, action, token, setHighlight }) {
 
   let actionPhrase: string;
 
-  if (action.type === 'create') {
-    actionPhrase = 'created';
-  } else if (action.type === 'modify') {
+  if (action.type === "create") {
+    actionPhrase = "created";
+  } else if (action.type === "modify") {
     // NOTE: adiffs sometimes contain 'modify' actions that are actually no-ops;
     // in this case the old and new versions are the same
     actionPhrase =
-      action.old.version === action.new.version ? 'not changed' : 'modified';
-  } else if (action.type === 'delete') {
-    actionPhrase = 'deleted';
+      action.old.version === action.new.version ? "not changed" : "modified";
+  } else if (action.type === "delete") {
+    actionPhrase = "deleted";
   } else {
-    actionPhrase = 'unknown action';
+    actionPhrase = "unknown action";
   }
 
   // Get a 'lon' or 'lat' (the key argument specifies which) representing position
@@ -56,18 +55,18 @@ function ElementInfo({ changeset, action, token, setHighlight }) {
     <div className="element-info">
       <h2>
         <a href={`https://www.openstreetmap.org/${id}`}>{id}</a>
-        {' was '}
+        {" was "}
         {actionPhrase}
       </h2>
       <menu>
         <HistoryDropdown id={id} />
-        <OpenInDropdown id={id} lat={getCoord('lat')} lng={getCoord('lon')} />
+        <OpenInDropdown id={id} lat={getCoord("lat")} lng={getCoord("lon")} />
         <FlagButton changeset={changeset} featureId={id} token={token} />
       </menu>
-      <MetadataTable changesetId={changeset.get('id')} action={action} />
+      <MetadataTable changesetId={changeset.get("id")} action={action} />
       <hr />
       <TagsTable action={action} />
-      {action.new.type === 'relation' && (
+      {action.new.type === "relation" && (
         <React.Fragment>
           <hr />
           <RelationMembersTable action={action} setHighlight={setHighlight} />
@@ -78,25 +77,25 @@ function ElementInfo({ changeset, action, token, setHighlight }) {
 }
 
 export default connect((state: RootStateType, props) => ({
-  token: state.auth.get('token'),
+  token: state.auth.get("token"),
   changeset: state.changeset.getIn([
-    'changesets',
-    +state.changeset.get('changesetId'),
+    "changesets",
+    +state.changeset.get("changesetId"),
   ]),
 }))(ElementInfo);
 
 function HistoryDropdown({ id }) {
-  let options = [
+  const options = [
     {
-      label: 'OSM',
+      label: "OSM",
       href: `https://www.openstreetmap.org/${id}/history`,
     },
     {
-      label: 'Deep History',
+      label: "Deep History",
       href: `https://osmlab.github.io/osm-deep-history/#/${id}`,
     },
     {
-      label: 'PeWu',
+      label: "PeWu",
       href: `https://pewu.github.io/osm-history/#/${id}`,
     },
   ];
@@ -108,35 +107,35 @@ function HistoryDropdown({ id }) {
  * Convert a slashed element ID (like way/123456) to minimal form (w123456)
  */
 function idToMinimalForm(id) {
-  let [type, num] = id.split('/');
+  const [type, num] = id.split("/");
   return `${type[0]}${num}`;
 }
 
 function OpenInDropdown({ id, lat, lng }) {
   let options = [
     {
-      label: 'OSM',
+      label: "OSM",
       href: `https://www.openstreetmap.org/${id}`,
     },
     {
-      label: 'iD',
+      label: "iD",
       href: `https://www.openstreetmap.org/edit?editor=id&${id.replace(
-        '/',
-        '='
+        "/",
+        "=",
       )}`,
     },
     {
-      label: 'JOSM',
+      label: "JOSM",
       href: `http://127.0.0.1:8111/load_object?new_layer=true&objects=${idToMinimalForm(
-        id
+        id,
       )}`,
     },
     {
-      label: 'Level0',
+      label: "Level0",
       href: `http://level0.osmz.ru/?url=${id}`,
     },
     {
-      label: 'RapiD',
+      label: "RapiD",
       href: `https://rapideditor.org/edit#id=${idToMinimalForm(id)}`,
     },
   ];
@@ -149,19 +148,19 @@ function OpenInDropdown({ id, lat, lng }) {
     options = [
       ...options,
       {
-        label: 'Mapillary',
+        label: "Mapillary",
         href: `https://www.mapillary.com/app/?lat=${lat}&lng=${lng}&z=16`,
       },
       {
-        label: 'Panoramax',
+        label: "Panoramax",
         href: `https://api.panoramax.xyz/?focus=map&map=16/${lat}/${lng}`,
       },
     ];
   } else {
     console.info(
-      'OpenInDropdown: lat, lng missing; cannot add Mapillary link',
+      "OpenInDropdown: lat, lng missing; cannot add Mapillary link",
       lat,
-      lng
+      lng,
     );
   }
 
@@ -169,18 +168,18 @@ function OpenInDropdown({ id, lat, lng }) {
 }
 
 function FlagButton({ changeset, featureId, token }) {
-  let changesetId = changeset.get('id');
-  let [flagged, setFlagged] = useState(false);
+  const changesetId = changeset.get("id");
+  const [flagged, setFlagged] = useState(false);
 
   useEffect(() => {
-    let isFlagged =
+    const isFlagged =
       changeset
-        .getIn(['properties', 'reviewed_features'])
-        .find((e) => e.get('id') === featureId.replace('/', '-')) !== undefined;
+        .getIn(["properties", "reviewed_features"])
+        .find((e) => e.get("id") === featureId.replace("/", "-")) !== undefined;
     setFlagged(isFlagged);
-  }, [changeset, changesetId, featureId]);
+  }, [changeset, featureId]);
 
-  let handleClick = async () => {
+  const handleClick = async () => {
     if (flagged) {
       unflagFeature(changesetId, featureId, token);
     } else {
@@ -197,7 +196,7 @@ function FlagButton({ changeset, featureId, token }) {
           alt=""
           className="icon inline-block align-middle mr6"
         />
-        {'Flagged (click to remove)'}
+        {"Flagged (click to remove)"}
       </Button>
     );
   } else {
@@ -206,11 +205,11 @@ function FlagButton({ changeset, featureId, token }) {
 }
 
 function MetadataTable({ changesetId, action }) {
-  let showPrevious =
-    action.type === 'delete' ||
-    (action.type === 'modify' && action.old.version !== action.new.version);
+  const showPrevious =
+    action.type === "delete" ||
+    (action.type === "modify" && action.old.version !== action.new.version);
 
-  let elements = showPrevious ? [action.old, action.new] : [action.new];
+  const elements = showPrevious ? [action.old, action.new] : [action.new];
 
   return (
     <table className="metadata-table">
@@ -272,7 +271,7 @@ function MetadataTable({ changesetId, action }) {
 function TagsTable({ action }) {
   let allKeys;
 
-  if (action.type === 'create') {
+  if (action.type === "create") {
     allKeys = new Set(Object.keys(action.new.tags));
   } else {
     allKeys = new Set([
@@ -297,8 +296,8 @@ function TagsTable({ action }) {
       </thead>
       <tbody>
         {allKeys.map((key) => {
-          let oldval = action.old ? action.old.tags[key] : undefined;
-          let newval = action.new ? action.new.tags[key] : undefined;
+          const oldval = action.old ? action.old.tags[key] : undefined;
+          const newval = action.new ? action.new.tags[key] : undefined;
           if (oldval === newval) {
             return (
               <tr>
@@ -348,7 +347,7 @@ function TagsTable({ action }) {
                   <del dir="auto">
                     <TagValue k={key} v={oldval} />
                   </del>
-                  {' → '}
+                  {" → "}
                   <ins dir="auto">
                     <TagValue k={key} v={newval} />
                   </ins>
@@ -363,10 +362,12 @@ function TagsTable({ action }) {
 }
 
 function RelationMembersTable({ action, setHighlight }) {
-  let oldMemberIds = action.old?.members.map((m) => `${m.type}/${m.ref}`) ?? [];
-  let newMemberIds = action.new?.members.map((m) => `${m.type}/${m.ref}`) ?? [];
+  const oldMemberIds =
+    action.old?.members.map((m) => `${m.type}/${m.ref}`) ?? [];
+  const newMemberIds =
+    action.new?.members.map((m) => `${m.type}/${m.ref}`) ?? [];
 
-  let diff = diffArrays(oldMemberIds, newMemberIds, {
+  const diff = diffArrays(oldMemberIds, newMemberIds, {
     oneChangePerToken: true,
   });
 
@@ -381,12 +382,12 @@ function RelationMembersTable({ action, setHighlight }) {
       <tbody>
         {diff.map(({ value }) => {
           const id = value[0];
-          const [type, ref] = id.split('/');
+          const [type, ref] = id.split("/");
           const oldMember = action.old?.members.find(
-            (m) => m.type === type && m.ref === +ref
+            (m) => m.type === type && m.ref === +ref,
           );
           const newMember = action.new?.members.find(
-            (m) => m.type === type && m.ref === +ref
+            (m) => m.type === type && m.ref === +ref,
           );
           const oldrole = oldMember?.role;
           const newrole = newMember?.role;
@@ -428,7 +429,7 @@ function RelationMembersTable({ action, setHighlight }) {
                 <td>{id}</td>
                 <td>
                   <del dir="auto">{oldrole}</del>
-                  {' → '}
+                  {" → "}
                   <ins dir="auto">{newrole}</ins>
                 </td>
               </tr>

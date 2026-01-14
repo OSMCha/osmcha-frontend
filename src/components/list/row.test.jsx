@@ -1,51 +1,53 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { fromJS } from 'immutable';
-import { StaticRouter } from 'react-router';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { PrimaryLine } from './primary_line';
-import { Row } from './row';
-import MockDate from 'mockdate';
+import { fromJS } from "immutable";
+import MockDate from "mockdate";
+import { Provider } from "react-redux";
+import { StaticRouter } from "react-router";
+import renderer from "react-test-renderer";
+import { createStore } from "redux";
+import { PrimaryLine } from "./primary_line";
+import { Row } from "./row";
 
 const changeset = fromJS({
   id: 49328744,
-  type: 'Feature',
+  type: "Feature",
   geometry: {
-    type: 'Polygon',
+    type: "Polygon",
     coordinates: [
       [
         [-3.8867418, 15.0599119],
         [-3.874586, 15.0599119],
         [-3.874586, 15.0771946],
         [-3.8867418, 15.0771946],
-        [-3.8867418, 15.0599119]
-      ]
-    ]
+        [-3.8867418, 15.0599119],
+      ],
+    ],
   },
   properties: {
-    check_user: 'nammala',
+    check_user: "nammala",
     reasons: [
-      { id: 4, name: 'mass deletion' },
-      { id: 72, name: 'Randomized flag' }
+      { id: 4, name: "mass deletion" },
+      { id: 72, name: "Randomized flag" },
     ],
-    tags: [{ id: 1, name: 'intentional' }, { id: 2, name: 'unintentional' }],
+    tags: [
+      { id: 1, name: "intentional" },
+      { id: 2, name: "unintentional" },
+    ],
     features: [
       {
         osm_id: 498804541,
-        url: 'way-498804541',
+        url: "way-498804541",
         name: null,
-        reasons: [{ id: 72, name: 'Randomized flag' }]
-      }
+        reasons: [{ id: 72, name: "Randomized flag" }],
+      },
     ],
-    user: 'DaryR',
-    uid: '4569402',
-    editor: 'JOSM/1.5 (10966 en)',
-    comment: '#hotosm-project-2999 #MissingMaps #EndMalaria #Mali',
+    user: "DaryR",
+    uid: "4569402",
+    editor: "JOSM/1.5 (10966 en)",
+    comment: "#hotosm-project-2999 #MissingMaps #EndMalaria #Mali",
     source:
-      'tms[19]:http://{switch:a,b,c}.tiles.mapbox.com/v4/digitalglobe.316c9a2e/{zoom}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNqMmFxdGp5aTAwOWIzM3M1NDZ2eGU1a2QifQ.JN5adNxCwK_oprEwFEtjjg',
-    imagery_used: 'Not reported',
-    date: '2017-06-07T08:25:38Z',
+      "tms[19]:http://{switch:a,b,c}.tiles.mapbox.com/v4/digitalglobe.316c9a2e/{zoom}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNqMmFxdGp5aTAwOWIzM3M1NDZ2eGU1a2QifQ.JN5adNxCwK_oprEwFEtjjg",
+    imagery_used: "Not reported",
+    date: "2017-06-07T08:25:38Z",
     create: 1624,
     modify: 26,
     delete: 2666,
@@ -53,8 +55,8 @@ const changeset = fromJS({
     is_suspect: true,
     harmful: true,
     checked: true,
-    check_date: '2017-06-08T08:51:29.983657Z'
-  }
+    check_date: "2017-06-08T08:51:29.983657Z",
+  },
 });
 
 const mockStore = createStore(() => ({
@@ -62,23 +64,23 @@ const mockStore = createStore(() => ({
   watchlist: fromJS({ watchlist: [] }),
 }));
 
-it('renders PrimaryLine correctly', () => {
+it("renders PrimaryLine correctly", () => {
   MockDate.set(1497172627326);
 
   const tree = renderer
     .create(
       <PrimaryLine
-        reasons={changeset.getIn(['properties', 'reasons'])}
-        tags={changeset.getIn(['properties', 'tags'])}
-        comment={changeset.getIn(['properties', 'comment'])}
-      />
+        reasons={changeset.getIn(["properties", "reasons"])}
+        tags={changeset.getIn(["properties", "tags"])}
+        comment={changeset.getIn(["properties", "comment"])}
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
   MockDate.reset();
 });
 
-it('renders active row properly', () => {
+it("renders active row properly", () => {
   MockDate.set(1497172627326);
 
   const tree1 = renderer
@@ -86,20 +88,20 @@ it('renders active row properly', () => {
       <Provider store={mockStore}>
         <StaticRouter context={{}}>
           <Row
-            properties={changeset.getIn(['properties'])}
+            properties={changeset.getIn(["properties"])}
             active
-            changesetId={changeset.getIn(['id'])}
+            changesetId={changeset.getIn(["id"])}
             inputRef={() => {}}
           />
         </StaticRouter>
-      </Provider>
+      </Provider>,
     )
     .toJSON();
   expect(tree1).toMatchSnapshot();
   MockDate.reset();
 });
 
-it('renders inactive row properly', () => {
+it("renders inactive row properly", () => {
   MockDate.set(1497172627326);
 
   const tree1 = renderer
@@ -107,13 +109,13 @@ it('renders inactive row properly', () => {
       <Provider store={mockStore}>
         <StaticRouter context={{}}>
           <Row
-            properties={changeset.getIn(['properties'])}
+            properties={changeset.getIn(["properties"])}
             active={false}
-            changesetId={changeset.getIn(['id'])}
+            changesetId={changeset.getIn(["id"])}
             inputRef={() => {}}
           />
         </StaticRouter>
-      </Provider>
+      </Provider>,
     )
     .toJSON();
   expect(tree1).toMatchSnapshot();

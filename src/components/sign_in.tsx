@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { SignInButton } from './changeset/sign_in_button';
+import { SignInButton } from "./changeset/sign_in_button";
 
 export function SignIn() {
   return (

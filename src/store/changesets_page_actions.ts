@@ -1,24 +1,21 @@
-import { put, call, takeLatest, select, all } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
-
-import { fromJS, List, Map } from 'immutable';
-import { fetchChangesetsPage } from '../network/changesets_page';
-import { filtersSelector } from './filters_actions';
-
-import { modal } from './modal_actions';
-
-import type { RootStateType } from './';
-import type { filtersType } from '../components/filters';
+import { fromJS, type List, Map } from "immutable";
+import { delay } from "redux-saga";
+import { all, call, put, select, takeLatest } from "redux-saga/effects";
+import type { filtersType } from "../components/filters";
+import { fetchChangesetsPage } from "../network/changesets_page";
+import type { RootStateType } from "./";
+import { filtersSelector } from "./filters_actions";
+import { modal } from "./modal_actions";
 
 export const CHANGESETS_PAGE = {
-  fetch: 'CHANGESETS_PAGE_FETCH',
-  fetched: 'CHANGESETS_PAGE_FETCHED',
-  modify: 'CHANGESETS_PAGE_MODIFY_CHANGESET',
-  loading: 'CHANGESETS_PAGE_LOADING',
-  error: 'CHANGESETS_PAGE_ERROR',
-  checkNew: 'CHANGESETS_PAGE_CHECK_NEW_CHANGESETS',
-  updateNewCount: 'CHANGESETS_PAGE_UPDATE_NEW_COUNT',
-  checkNewLoading: 'CHANGESETS_PAGE_CHECK_NEW_LOADING',
+  fetch: "CHANGESETS_PAGE_FETCH",
+  fetched: "CHANGESETS_PAGE_FETCHED",
+  modify: "CHANGESETS_PAGE_MODIFY_CHANGESET",
+  loading: "CHANGESETS_PAGE_LOADING",
+  error: "CHANGESETS_PAGE_ERROR",
+  checkNew: "CHANGESETS_PAGE_CHECK_NEW_CHANGESETS",
+  updateNewCount: "CHANGESETS_PAGE_UPDATE_NEW_COUNT",
+  checkNewLoading: "CHANGESETS_PAGE_CHECK_NEW_LOADING",
 };
 
 export function action(type: string, payload?: any | null) {
@@ -50,11 +47,11 @@ export const locationSelector = (state: RootStateType) =>
 /** Sagas **/
 
 export const pageIndexSelector = (state: RootStateType) =>
-  state.changesetsPage.getIn(['pageIndex'], 0);
-export const tokenSelector = (state: RootStateType) => state.auth.get('token');
+  state.changesetsPage.getIn(["pageIndex"], 0);
+export const tokenSelector = (state: RootStateType) => state.auth.get("token");
 
 export const aoiIdSelector = (state: RootStateType) =>
-  state.aoi.getIn(['aoi', 'id']);
+  state.aoi.getIn(["aoi", "id"]);
 
 export function* fetchChangesetsPageSaga({
   pageIndex,
@@ -73,7 +70,7 @@ export function* fetchChangesetsPageSaga({
   if (!aoiId) {
     aoiId = yield select(aoiIdSelector);
   }
-  let oldPageIndex: number = yield select(pageIndexSelector);
+  const oldPageIndex: number = yield select(pageIndexSelector);
 
   // checks both undefined and null
   if (pageIndex == null) {
@@ -82,10 +79,10 @@ export function* fetchChangesetsPageSaga({
   yield put(
     action(CHANGESETS_PAGE.loading, {
       pageIndex,
-    })
+    }),
   );
   try {
-    let token = yield select(tokenSelector);
+    const token = yield select(tokenSelector);
     let thisPage;
     if (aoiId) {
       thisPage = yield call(
@@ -94,7 +91,7 @@ export function* fetchChangesetsPageSaga({
         filters,
         token,
         nocache,
-        aoiId
+        aoiId,
       );
     } else {
       thisPage = yield call(
@@ -102,14 +99,14 @@ export function* fetchChangesetsPageSaga({
         pageIndex,
         filters,
         token,
-        nocache
+        nocache,
       );
     }
     yield put(
       action(CHANGESETS_PAGE.fetched, {
         data: fromJS(thisPage),
         pageIndex,
-      })
+      }),
     );
   } catch (error) {
     const err = error as Error;
@@ -118,7 +115,7 @@ export function* fetchChangesetsPageSaga({
       action(CHANGESETS_PAGE.error, {
         pageIndex: oldPageIndex,
         error: err,
-      })
+      }),
     );
     err.name = `Failed to load page ${pageIndex}`;
     if (token) {
@@ -126,18 +123,18 @@ export function* fetchChangesetsPageSaga({
         modal({
           error: err,
           callback: action,
-          callbackLabel: 'Retry',
+          callbackLabel: "Retry",
           callbackArgs: [CHANGESETS_PAGE.fetch, { pageIndex }],
           autoDismiss: 1,
-        })
+        }),
       );
     }
   }
 }
 
 export const currentPageAndIndexSelector = (state: RootStateType) => [
-  state.changesetsPage.getIn(['currentPage'], Map()),
-  state.changesetsPage.getIn(['pageIndex'], 0),
+  state.changesetsPage.getIn(["currentPage"], Map()),
+  state.changesetsPage.getIn(["pageIndex"], 0),
 ];
 
 export function* modifyChangesetPageSaga({ changesetId, changeset }: any): any {
@@ -146,16 +143,16 @@ export function* modifyChangesetPageSaga({ changesetId, changeset }: any): any {
     // to reflect any kind of changes in the changesetList
     let [currentPage, pageIndex] = yield select(currentPageAndIndexSelector);
 
-    let features: List<Map<string, any>> = currentPage.get('features');
+    const features: List<Map<string, any>> = currentPage.get("features");
 
-    const index = features.findIndex((f) => f!.get('id') === changesetId);
+    const index = features.findIndex((f) => f?.get("id") === changesetId);
     if (index > -1) {
-      currentPage = currentPage.setIn(['features', index], changeset);
+      currentPage = currentPage.setIn(["features", index], changeset);
       yield put(
         action(CHANGESETS_PAGE.fetched, {
           data: currentPage,
           pageIndex,
-        })
+        }),
       );
       // check for new changesets
       yield put(action(CHANGESETS_PAGE.checkNew));
@@ -175,11 +172,11 @@ export function* checkForNewChangesetsSaga({
     yield call(delay, 3000 + Math.random() * 2000);
     const [filters, pageIndex, token, aoiId] = yield select(
       (state: RootStateType) => [
-        state.filters.get('filters'),
-        state.changesetsPage.get('pageIndex'),
-        state.auth.get('token'),
-        state.aoi.get('aoi').get('id'),
-      ]
+        state.filters.get("filters"),
+        state.changesetsPage.get("pageIndex"),
+        state.auth.get("token"),
+        state.aoi.get("aoi").get("id"),
+      ],
     );
     let newData = yield call(
       fetchChangesetsPage,
@@ -187,24 +184,24 @@ export function* checkForNewChangesetsSaga({
       filters,
       token,
       nocache,
-      aoiId
+      aoiId,
     );
     let oldData = yield select((state: RootStateType) =>
-      state.changesetsPage.get('currentPage')
+      state.changesetsPage.get("currentPage"),
     );
     let diff = 0;
     if (oldData) {
       newData = fromJS(newData.features.map((f) => f.id)).toSet();
       oldData = oldData
-        .get('features')
-        .map((f) => f.get('id'))
+        .get("features")
+        .map((f) => f.get("id"))
         .toSet();
       diff = newData.subtract(oldData).size;
     }
     yield put(
       action(CHANGESETS_PAGE.updateNewCount, {
         diff,
-      })
+      }),
     );
   } catch (e) {
     console.error(e);

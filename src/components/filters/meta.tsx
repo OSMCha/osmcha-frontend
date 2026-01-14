@@ -1,7 +1,7 @@
-import React from 'react';
-import { Map, fromJS } from 'immutable';
-import Select from 'react-select';
-import type { filtersType } from './';
+import { fromJS, Map } from "immutable";
+import React from "react";
+import Select from "react-select";
+import type { filtersType } from "./";
 
 interface MetaProps {
   placeholder: string;
@@ -33,7 +33,7 @@ export class Meta extends React.PureComponent<MetaProps> {
           if (
             v &&
             Object.keys(option.value)[0] === k &&
-            v.getIn([0, 'value']) === option.value[k][0].value
+            v.getIn([0, "value"]) === option.value[k][0].value
           ) {
             value = option;
           }
@@ -44,7 +44,7 @@ export class Meta extends React.PureComponent<MetaProps> {
   };
   render() {
     const { name, placeholder } = this.props;
-    let value = this.findCurrentValue();
+    const value = this.findCurrentValue();
     return (
       <Select
         className="react-select"

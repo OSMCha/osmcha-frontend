@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 
-import type { RootStateType } from '../../store';
-import { FeatureListItem } from './tag_changes';
-import { Loading } from '../loading';
-import { OpenAll } from '../open_all';
-import { ExpandItemIcon } from '../expand_item_icon';
+import type { RootStateType } from "../../store";
+import { ExpandItemIcon } from "../expand_item_icon";
+import { Loading } from "../loading";
+import { OpenAll } from "../open_all";
+import { FeatureListItem } from "./tag_changes";
 
 function otherChangesFromActions(actions) {
   const finalReport = new Map();
 
-  for (const actionType of ['create', 'delete']) {
+  for (const actionType of ["create", "delete"]) {
     finalReport.set(
       actionType,
       actions
         .filter((action) => action.type === actionType)
-        .map((action) => ({ id: action.new.id, type: action.new.type }))
+        .map((action) => ({ id: action.new.id, type: action.new.type })),
     );
   }
 
   finalReport.set(
-    'modify',
+    "modify",
     actions
       .filter(
-        (action) => action.type === 'modify' && action.type === 'relation'
+        (action) => action.type === "modify" && action.type === "relation",
       )
-      .map((action) => ({ id: action.new.id, type: action.new.type }))
+      .map((action) => ({ id: action.new.id, type: action.new.type })),
   );
 
   return finalReport;
@@ -40,9 +40,9 @@ const ActionItem = ({
 }) => {
   const [isOpen, setIsOpen] = useState(opened);
   const titles = {
-    create: 'Created',
-    modify: 'Modified Relations',
-    delete: 'Deleted',
+    create: "Created",
+    modify: "Modified Relations",
+    delete: "Deleted",
   };
 
   useEffect(() => setIsOpen(opened), [opened]);
@@ -61,7 +61,7 @@ const ActionItem = ({
           {features.length}
         </strong>
       </button>
-      <ul className="cmap-vlist" style={{ display: isOpen ? 'block' : 'none' }}>
+      <ul className="cmap-vlist" style={{ display: isOpen ? "block" : "none" }}>
         {features.map((item, k) => (
           <FeatureListItem
             id={item.id}
@@ -98,13 +98,13 @@ const OtherFeaturesComponent = ({
   useEffect(() => {
     const newChangeReport: Array<[string, any[]]> = [];
     if (changes && changes.get(changesetId)) {
-      const adiff = changes.get(changesetId)['adiff'];
+      const adiff = changes.get(changesetId).adiff;
       const processed = otherChangesFromActions(adiff.actions);
       processed.forEach((featureIDs, tag) =>
-        newChangeReport.push([tag, featureIDs])
+        newChangeReport.push([tag, featureIDs]),
       );
       setChangeReport(
-        newChangeReport.filter((changeType) => changeType[1].length)
+        newChangeReport.filter((changeType) => changeType[1].length),
       );
     }
   }, [changes, changesetId]);
@@ -142,5 +142,5 @@ const OtherFeaturesComponent = ({
 };
 
 export const OtherFeatures = connect((state: RootStateType, props) => ({
-  changes: state.changeset.get('changesetMap'),
+  changes: state.changeset.get("changesetMap"),
 }))(OtherFeaturesComponent);

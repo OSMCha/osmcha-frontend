@@ -1,13 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Map } from 'immutable';
-import { parse } from 'date-fns';
-
-import type { RootStateType } from '../../store';
-import { CreateDeleteModify } from '../create_delete_modify';
-import { Details } from './details';
-import { RelativeTime } from '../relative_time';
-import { useIsUserListed } from '../../hooks/UseIsUserListed';
+import { parse } from "date-fns";
+import type { Map } from "immutable";
+import { connect } from "react-redux";
+import { useIsUserListed } from "../../hooks/UseIsUserListed";
+import type { RootStateType } from "../../store";
+import { CreateDeleteModify } from "../create_delete_modify";
+import { RelativeTime } from "../relative_time";
+import { Details } from "./details";
 
 type propsType = {
   properties: Map<string, any>;
@@ -26,21 +24,20 @@ function HeaderComponent({
   trustedlist,
   watchlisted,
 }: propsType) {
-  const user = properties.get('user');
+  const user = properties.get("user");
   const date = parse(
-    properties.get('date'),
-    // eslint-disable-next-line
+    properties.get("date"),
     "yyyy-MM-dd'T'HH:mm:ssX",
-    new Date()
+    new Date(),
   );
-  const create = properties.get('create');
-  const modify = properties.get('modify');
-  const destroy = properties.get('delete');
+  const create = properties.get("create");
+  const modify = properties.get("modify");
+  const destroy = properties.get("delete");
   const [isInTrustedlist, isInWatchlist] = useIsUserListed(
     user,
-    properties.get('uid'),
+    properties.get("uid"),
     trustedlist,
-    watchlisted
+    watchlisted,
   );
 
   return (
@@ -91,7 +88,7 @@ function HeaderComponent({
 }
 
 const Header = connect((state: RootStateType, props) => ({
-  trustedlist: state.trustedlist.get('trustedlist'),
-  watchlisted: state.watchlist.get('watchlist'),
+  trustedlist: state.trustedlist.get("trustedlist"),
+  watchlisted: state.watchlist.get("watchlist"),
 }))(HeaderComponent);
 export { Header };

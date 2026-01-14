@@ -1,7 +1,7 @@
-import React from 'react';
-import Select from 'react-select';
-import { fromJS } from 'immutable';
-import type { filterType } from './';
+import { fromJS } from "immutable";
+import React from "react";
+import Select from "react-select";
+import type { filterType } from "./";
 
 interface RadioProps {
   name: string;
@@ -15,7 +15,7 @@ interface RadioProps {
 
 export class Radio extends React.PureComponent<RadioProps> {
   onChangeLocal = (data: any) => {
-    if (!data || data.value === '') {
+    if (!data || data.value === "") {
       return this.props.onChange(this.props.name); // always sends 1 size array to keep things consistent with multiselect InputTypes
     }
     this.props.onChange(this.props.name, fromJS([data])); // always sends 1 size array to keep things consistent with multiselect InputTypes

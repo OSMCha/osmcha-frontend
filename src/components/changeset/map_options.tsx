@@ -1,19 +1,19 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-import type { RootStateType } from '../../store';
-import { updateStyle } from '../../store/map_controls_actions';
+import type { RootStateType } from "../../store";
+import { updateStyle } from "../../store/map_controls_actions";
 
 // helper functions for adding/removing elements from an array when a
 // checkbox is toggled
 const add = (arr: string[], elem: string): string[] => {
-  let set = new Set(arr);
+  const set = new Set(arr);
   set.add(elem);
   return Array.from(set);
 };
 
 const remove = (arr: string[], elem: string): string[] => {
-  let set = new Set(arr);
+  const set = new Set(arr);
   set.delete(elem);
   return Array.from(set);
 };
@@ -33,10 +33,10 @@ interface MapOptionsProps {
 
 class _MapOptions extends React.PureComponent<MapOptionsProps> {
   layerOptions = [
-    { label: 'Bing Maps Aerial', value: 'bing' },
-    { label: 'Esri World Imagery', value: 'esri' },
-    { label: 'Esri World Imagery (Clarity) Beta', value: 'esri-clarity' },
-    { label: 'OpenStreetMap Carto', value: 'carto' },
+    { label: "Bing Maps Aerial", value: "bing" },
+    { label: "Esri World Imagery", value: "esri" },
+    { label: "Esri World Imagery (Clarity) Beta", value: "esri-clarity" },
+    { label: "OpenStreetMap Carto", value: "carto" },
   ];
 
   render() {
@@ -56,9 +56,9 @@ class _MapOptions extends React.PureComponent<MapOptionsProps> {
               <label>
                 <input
                   type="checkbox"
-                  style={{ accentColor: '#39DBC0' }}
-                  checked={showActions.includes('create')}
-                  onChange={() => setShowActions(toggle(showActions, 'create'))}
+                  style={{ accentColor: "#39DBC0" }}
+                  checked={showActions.includes("create")}
+                  onChange={() => setShowActions(toggle(showActions, "create"))}
                 />
                 Added
               </label>
@@ -67,9 +67,9 @@ class _MapOptions extends React.PureComponent<MapOptionsProps> {
               <label>
                 <input
                   type="checkbox"
-                  style={{ accentColor: '#E7BA60' }}
-                  checked={showActions.includes('modify')}
-                  onChange={() => setShowActions(toggle(showActions, 'modify'))}
+                  style={{ accentColor: "#E7BA60" }}
+                  checked={showActions.includes("modify")}
+                  onChange={() => setShowActions(toggle(showActions, "modify"))}
                 />
                 Modified
               </label>
@@ -78,9 +78,9 @@ class _MapOptions extends React.PureComponent<MapOptionsProps> {
               <label>
                 <input
                   type="checkbox"
-                  style={{ accentColor: '#CC2C47' }}
-                  checked={showActions.includes('delete')}
-                  onChange={() => setShowActions(toggle(showActions, 'delete'))}
+                  style={{ accentColor: "#CC2C47" }}
+                  checked={showActions.includes("delete")}
+                  onChange={() => setShowActions(toggle(showActions, "delete"))}
                 />
                 Deleted
               </label>
@@ -89,9 +89,9 @@ class _MapOptions extends React.PureComponent<MapOptionsProps> {
               <label>
                 <input
                   type="checkbox"
-                  style={{ accentColor: '#8B79C4' }}
-                  checked={showActions.includes('noop')}
-                  onChange={() => setShowActions(toggle(showActions, 'noop'))}
+                  style={{ accentColor: "#8B79C4" }}
+                  checked={showActions.includes("noop")}
+                  onChange={() => setShowActions(toggle(showActions, "noop"))}
                 />
                 Unchanged
               </label>
@@ -105,10 +105,10 @@ class _MapOptions extends React.PureComponent<MapOptionsProps> {
               <label>
                 <input
                   type="checkbox"
-                  checked={showElements.includes('node')}
-                  onChange={() => setShowElements(toggle(showElements, 'node'))}
+                  checked={showElements.includes("node")}
+                  onChange={() => setShowElements(toggle(showElements, "node"))}
                 />
-                Nodes{' '}
+                Nodes{" "}
                 <svg className="icon h18 w18 inline-block align-middle color-black">
                   <use xlinkHref="#icon-marker" />
                 </svg>
@@ -118,10 +118,10 @@ class _MapOptions extends React.PureComponent<MapOptionsProps> {
               <label>
                 <input
                   type="checkbox"
-                  checked={showElements.includes('way')}
-                  onChange={() => setShowElements(toggle(showElements, 'way'))}
+                  checked={showElements.includes("way")}
+                  onChange={() => setShowElements(toggle(showElements, "way"))}
                 />
-                Ways{' '}
+                Ways{" "}
                 <svg className="icon h18 w18 inline-block align-middle color-black">
                   <use xlinkHref="#icon-polyline" />
                 </svg>
@@ -131,12 +131,12 @@ class _MapOptions extends React.PureComponent<MapOptionsProps> {
               <label>
                 <input
                   type="checkbox"
-                  checked={showElements.includes('relation')}
+                  checked={showElements.includes("relation")}
                   onChange={() =>
-                    setShowElements(toggle(showElements, 'relation'))
+                    setShowElements(toggle(showElements, "relation"))
                   }
                 />
-                Relations{' '}
+                Relations{" "}
                 <svg className="icon h18 w18 inline-block align-middle color-black">
                   <use xlinkHref="#icon-viewport" />
                 </svg>
@@ -161,8 +161,8 @@ class _MapOptions extends React.PureComponent<MapOptionsProps> {
 }
 
 const MapOptions = connect(
-  (state: RootStateType, props) => ({ style: state.mapControls.get('style') }),
-  { updateStyle }
+  (state: RootStateType, props) => ({ style: state.mapControls.get("style") }),
+  { updateStyle },
 )(_MapOptions);
 
 export { MapOptions };

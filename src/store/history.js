@@ -1,4 +1,5 @@
-import { createBrowserHistory } from 'history';
-let historyConfig = {};
+import { createBrowserHistory } from "history";
+
+const historyConfig = {};
 const history = createBrowserHistory(historyConfig);
 export { history };

@@ -1,4 +1,4 @@
-import { matchPath } from 'react-router';
+import { matchPath } from "react-router";
 
 export function getParam(param: string, location: any, path: string) {
   const match = matchPath(location.pathname, path);
@@ -7,7 +7,7 @@ export function getParam(param: string, location: any, path: string) {
 }
 
 export function getChangesetIdFromLocation(location: any) {
-  const changesetId = parseInt(getParam('id', location, '/changesets/:id'), 10);
+  const changesetId = parseInt(getParam("id", location, "/changesets/:id"), 10);
   if (!changesetId || Number.isNaN(changesetId)) {
     return null;
   }
@@ -15,7 +15,7 @@ export function getChangesetIdFromLocation(location: any) {
 }
 
 export function checkForLegacyURL(location: any) {
-  const changesetId = parseInt(getParam('id', location, '/:id'), 10);
+  const changesetId = parseInt(getParam("id", location, "/:id"), 10);
   if (!changesetId || Number.isNaN(changesetId)) {
     return null;
   }

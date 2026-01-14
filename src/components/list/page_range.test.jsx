@@ -1,23 +1,22 @@
-import React from 'react';
-import { PageRange } from './page_range';
-import renderer from 'react-test-renderer';
+import renderer from "react-test-renderer";
+import { PageRange } from "./page_range";
 
-it('renders correctly', () => {
+it("renders correctly", () => {
   const tree = renderer
     .create(
       <PageRange
-        page={'<'}
+        page={"<"}
         pageIndex={0}
         disabled={false}
         active={false}
         getChangesetsPage={() => {}}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
 
-it('renders correctly', () => {
+it("renders correctly", () => {
   const tree = renderer
     .create(
       <PageRange
@@ -26,7 +25,7 @@ it('renders correctly', () => {
         pageIndex={4}
         active={true}
         getChangesetsPage={() => {}}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();

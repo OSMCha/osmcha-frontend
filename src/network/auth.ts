@@ -1,15 +1,15 @@
-import { osmchaSocialTokenUrl } from '../config/constants';
-import { API_URL } from '../config';
-import { handleErrors } from './aoi';
+import { API_URL } from "../config";
+import { osmchaSocialTokenUrl } from "../config/constants";
+import { handleErrors } from "./aoi";
 
 export function postFinalTokensOSMCha(code: string) {
   const formData = new URLSearchParams();
-  formData.append('code', code);
+  formData.append("code", code);
 
   return fetch(osmchaSocialTokenUrl, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+      "Content-Type": "application/x-www-form-urlencoded",
     },
     body: formData.toString(),
   })
@@ -23,8 +23,8 @@ export function postFinalTokensOSMCha(code: string) {
 
 export function getAuthUrl() {
   return fetch(`${API_URL}/social-auth/`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
   })
     .then(handleErrors)
     .then((res) => {
@@ -34,10 +34,10 @@ export function getAuthUrl() {
 
 export function fetchUserDetails(token: string) {
   return fetch(`${API_URL}/users/`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   })
     .then(handleErrors)
@@ -50,13 +50,13 @@ export function updateUserDetails(
   token: string,
   message_good: string,
   message_bad: string,
-  comment_feature: boolean
+  comment_feature: boolean,
 ) {
   return fetch(`${API_URL}/users/`, {
-    method: 'PATCH',
+    method: "PATCH",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
     body: JSON.stringify({
       message_good,

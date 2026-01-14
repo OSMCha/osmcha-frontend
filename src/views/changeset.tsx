@@ -1,19 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Map, fromJS } from 'immutable';
-import Mousetrap from 'mousetrap';
-import * as maplibre from 'maplibre-gl';
-import { MapLibreAugmentedDiffViewer } from '@osmcha/maplibre-adiff-viewer';
+import type { MapLibreAugmentedDiffViewer } from "@osmcha/maplibre-adiff-viewer";
+import { fromJS, Map } from "immutable";
+import type * as maplibre from "maplibre-gl";
+import Mousetrap from "mousetrap";
+import React from "react";
+import { connect } from "react-redux";
 
-import { Changeset as ChangesetOverlay } from '../components/changeset';
-import { CMap } from '../views/map';
-import { NavbarChangeset } from '../views/navbar_changeset';
-
-import { dispatchEvent } from '../utils/dispatch_event';
-
-import { applyFilters } from '../store/filters_actions';
-import { FILTER_BY_USER } from '../config/bindings';
-import type { RootStateType } from '../store';
+import { Changeset as ChangesetOverlay } from "../components/changeset";
+import { FILTER_BY_USER } from "../config/bindings";
+import type { RootStateType } from "../store";
+import { applyFilters } from "../store/filters_actions";
+import { dispatchEvent } from "../utils/dispatch_event";
+import { CMap } from "../views/map";
+import { NavbarChangeset } from "../views/navbar_changeset";
 
 /**
  * This is the main component for the changeset view.
@@ -46,9 +44,9 @@ class _Changeset extends React.PureComponent<ChangesetProps, ChangesetState> {
     // from @osmcha/maplibre-adiff-viewer ({ type, old, new })
     selected: null,
     // map configuration state (set in the map options panel and used in the CMap view)
-    showElements: ['node', 'way', 'relation'],
-    showActions: ['create', 'modify', 'delete', 'noop'],
-    basemapStyle: 'bing',
+    showElements: ["node", "way", "relation"],
+    showActions: ["create", "modify", "delete", "noop"],
+    basemapStyle: "bing",
   };
 
   // This ref is passed to CMap, which updates it with references to the MapLibre map
@@ -71,8 +69,8 @@ class _Changeset extends React.PureComponent<ChangesetProps, ChangesetState> {
       // reset selected element and filter choices when switching between changesets
       this.setState({
         selected: null,
-        showElements: ['node', 'way', 'relation'],
-        showActions: ['create', 'modify', 'delete', 'noop'],
+        showElements: ["node", "way", "relation"],
+        showActions: ["create", "modify", "delete", "noop"],
       });
     }
   }
@@ -84,19 +82,19 @@ class _Changeset extends React.PureComponent<ChangesetProps, ChangesetState> {
   filterChangesetsByUser = () => {
     if (this.props.currentChangeset) {
       const userName = this.props.currentChangeset.getIn([
-        'properties',
-        'user',
+        "properties",
+        "user",
       ]);
       this.props.applyFilters(
         Map<string, any>().set(
-          'users',
+          "users",
           fromJS([
             {
               label: userName,
               value: userName,
             },
-          ])
-        )
+          ]),
+        ),
       );
     }
   };
@@ -110,11 +108,11 @@ class _Changeset extends React.PureComponent<ChangesetProps, ChangesetState> {
     }
 
     if (errorChangeset) {
-      dispatchEvent('showToast', {
+      dispatchEvent("showToast", {
         title: `changeset:${changesetId} failed to load`,
-        content: 'Try reloading osmcha',
+        content: "Try reloading osmcha",
         timeOut: 5000,
-        type: 'error',
+        type: "error",
       });
       console.error(errorChangeset);
       return null;
@@ -162,14 +160,14 @@ const Changeset = connect(
     location: props.location,
     changesetId: parseInt(props.match.params.id, 10),
     currentChangeset: state.changeset.getIn([
-      'changesets',
+      "changesets",
       parseInt(props.match.params.id, 10),
     ]),
-    errorChangeset: state.changeset.get('errorChangeset'),
-    loading: state.changeset.get('loading'),
-    token: state.auth.get('token'),
+    errorChangeset: state.changeset.get("errorChangeset"),
+    loading: state.changeset.get("loading"),
+    token: state.auth.get("token"),
   }),
-  { applyFilters }
+  { applyFilters },
 )(_Changeset);
 
 export { Changeset };

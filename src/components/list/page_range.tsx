@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface PageRangeProps {
   page: string | number;
@@ -15,10 +15,10 @@ export class PageRange extends React.PureComponent<PageRangeProps> {
         onClick={this._onClick}
         disabled={this.props.disabled}
         className={`flex-child btn btn--s color-gray round bg-gray-faint bg-darken10-on-active bg-darken5-on-hover
-          ${this.props.active && 'is-active '}
+          ${this.props.active && "is-active "}
           `}
       >
-        {typeof this.props.page === 'number' ? (
+        {typeof this.props.page === "number" ? (
           this.props.page + 1
         ) : (
           <svg className="icon icon--s inline-block align-middle ">

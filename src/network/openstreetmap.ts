@@ -1,16 +1,19 @@
-import { fromJS, Map } from 'immutable';
-import { apiOSM } from '../config/constants';
-import { API_URL } from '../config';
+import { fromJS, Map } from "immutable";
+import { API_URL } from "../config";
+import { apiOSM } from "../config/constants";
 
 export async function fetchChangesetMetadata(id: number): Promise<any> {
-  let res = await fetch(
-    `${apiOSM}/changeset/${id}.json?include_discussion=true`
+  const res = await fetch(
+    `${apiOSM}/changeset/${id}.json?include_discussion=true`,
   );
-  let metadata = await res.json();
+  const metadata = await res.json();
   return metadata;
 }
 
-export function getUserDetails(uid: number, token: string): Promise<Map<string, any>> {
+export function getUserDetails(
+  uid: number,
+  token: string,
+): Promise<Map<string, any>> {
   const user: any = { uid: uid };
   const fromOSM = fetch(`${apiOSM}/user/${uid}.json`)
     .then((r) => r.json())
@@ -26,10 +29,10 @@ export function getUserDetails(uid: number, token: string): Promise<Map<string, 
     .catch((e) => user);
 
   const fromOSMCha = fetch(`${API_URL}/user-stats/${uid}/`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   })
     .then((r) => r.json())

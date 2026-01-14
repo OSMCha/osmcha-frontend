@@ -1,16 +1,19 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Map } from 'immutable';
-
-import { Button } from '../button';
-import { applyUpdateUserDetails } from '../../store/auth_actions';
-import type { RootStateType } from '../../store';
-import thumbsUp from '../../assets/thumbs-up.svg';
-import thumbsDown from '../../assets/thumbs-down.svg';
+import { Map } from "immutable";
+import React from "react";
+import { connect } from "react-redux";
+import thumbsDown from "../../assets/thumbs-down.svg";
+import thumbsUp from "../../assets/thumbs-up.svg";
+import type { RootStateType } from "../../store";
+import { applyUpdateUserDetails } from "../../store/auth_actions";
+import { Button } from "../button";
 
 interface EditUserDetailsProps {
   userDetails: Map<string, any>;
-  applyUpdateUserDetails: (messageGood: string, messageBad: string, commentFeature: boolean) => void;
+  applyUpdateUserDetails: (
+    messageGood: string,
+    messageBad: string,
+    commentFeature: boolean,
+  ) => void;
 }
 
 interface EditUserDetailsState {
@@ -19,20 +22,23 @@ interface EditUserDetailsState {
   comment_feature: boolean;
 }
 
-class _EditUserDetails extends React.PureComponent<EditUserDetailsProps, EditUserDetailsState> {
+class _EditUserDetails extends React.PureComponent<
+  EditUserDetailsProps,
+  EditUserDetailsState
+> {
   constructor(props: EditUserDetailsProps) {
     super(props);
     this.state = {
-      message_good: props.userDetails.get('message_good'),
-      message_bad: props.userDetails.get('message_bad'),
-      comment_feature: props.userDetails.get('comment_feature'),
+      message_good: props.userDetails.get("message_good"),
+      message_bad: props.userDetails.get("message_bad"),
+      comment_feature: props.userDetails.get("comment_feature"),
     };
   }
   componentWillReceiveProps(nextProps: EditUserDetailsProps) {
-    this.setState({ message_good: nextProps.userDetails.get('message_good') });
-    this.setState({ message_bad: nextProps.userDetails.get('message_bad') });
+    this.setState({ message_good: nextProps.userDetails.get("message_good") });
+    this.setState({ message_bad: nextProps.userDetails.get("message_bad") });
     this.setState({
-      comment_feature: nextProps.userDetails.get('comment_feature'),
+      comment_feature: nextProps.userDetails.get("comment_feature"),
     });
   }
   onChangeMessageGood = (event: any) => {
@@ -45,14 +51,14 @@ class _EditUserDetails extends React.PureComponent<EditUserDetailsProps, EditUse
     this.props.applyUpdateUserDetails(
       this.state.message_good,
       this.state.message_bad,
-      this.state.comment_feature
+      this.state.comment_feature,
     );
   };
   renderGoodBadImg(isGood) {
     return (
       <img
         src={isGood ? thumbsUp : thumbsDown}
-        alt={`${isGood ? 'good' : 'bad'}`}
+        alt={`${isGood ? "good" : "bad"}`}
         className="icon inline-block mt3"
       />
     );
@@ -63,7 +69,7 @@ class _EditUserDetails extends React.PureComponent<EditUserDetailsProps, EditUse
       <div>
         <span className="ml12 flex-parent flex-parent--row my3">
           <p className="flex-child txt-s">
-            Default comment for changesets reviewed as GOOD{' '}
+            Default comment for changesets reviewed as GOOD{" "}
             {this.renderGoodBadImg(true)}:
           </p>
         </span>
@@ -75,7 +81,7 @@ class _EditUserDetails extends React.PureComponent<EditUserDetailsProps, EditUse
         />
         <span className="ml12 flex-parent flex-parent--row my3 pt6">
           <p className="flex-child txt-s">
-            Default comment for changesets reviewed as BAD{' '}
+            Default comment for changesets reviewed as BAD{" "}
             {this.renderGoodBadImg(false)}:
           </p>
         </span>
@@ -94,11 +100,11 @@ class _EditUserDetails extends React.PureComponent<EditUserDetailsProps, EditUse
 }
 const EditUserDetails = connect(
   (state: RootStateType, props) => ({
-    userDetails: state.auth.getIn(['userDetails'], Map()),
+    userDetails: state.auth.getIn(["userDetails"], Map()),
   }),
   {
     applyUpdateUserDetails,
-  }
+  },
 )(_EditUserDetails);
 
 export { EditUserDetails };

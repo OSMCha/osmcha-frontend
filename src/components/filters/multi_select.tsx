@@ -1,11 +1,11 @@
-import React from 'react';
-import { fromJS } from 'immutable';
-import Select from 'react-select';
-import AsyncSelect from 'react-select/async';
-import CreatableSelect from 'react-select/creatable';
-import { API_URL } from '../../config';
-import { fetchReasons } from '../../network/reasons_tags';
-import type { filterType } from './';
+import { fromJS } from "immutable";
+import React from "react";
+import Select from "react-select";
+import AsyncSelect from "react-select/async";
+import CreatableSelect from "react-select/creatable";
+import { API_URL } from "../../config";
+import { fetchReasons } from "../../network/reasons_tags";
+import type { filterType } from "./";
 
 interface MultiSelectProps {
   name: string;
@@ -26,16 +26,19 @@ interface MultiSelectState {
   reasons: any;
 }
 
-export class MultiSelect extends React.PureComponent<MultiSelectProps, MultiSelectState> {
+export class MultiSelect extends React.PureComponent<
+  MultiSelectProps,
+  MultiSelectState
+> {
   state: MultiSelectState = {
-    inputValue: '',
-    allToggle: this.props.name.slice(0, 4) === 'all_',
+    inputValue: "",
+    allToggle: this.props.name.slice(0, 4) === "all_",
     reasons: null,
   };
 
   componentDidMount() {
     // Special case for "Reasons for Flagging" field
-    if (this.props.dataURL === 'suspicion-reasons') {
+    if (this.props.dataURL === "suspicion-reasons") {
       fetchReasons(this.props.token).then((reasons) => {
         this.setState({ reasons });
       });
@@ -46,9 +49,9 @@ export class MultiSelect extends React.PureComponent<MultiSelectProps, MultiSele
     if (!this.props.dataURL) return Promise.resolve([]);
 
     // Special case for "Reasons for Flagging" field
-    if (this.props.dataURL === 'suspicion-reasons' && this.state.reasons) {
+    if (this.props.dataURL === "suspicion-reasons" && this.state.reasons) {
       const filteredReasons = this.state.reasons.filter((reason) =>
-        reason.name.toLowerCase().includes(inputValue.toLowerCase())
+        reason.name.toLowerCase().includes(inputValue.toLowerCase()),
       );
       const options = filteredReasons.map((d) => ({
         ...d,
@@ -59,10 +62,10 @@ export class MultiSelect extends React.PureComponent<MultiSelectProps, MultiSele
     }
 
     return fetch(`${API_URL}/${this.props.dataURL}/?page_size=200`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: this.props.token ? `Token ${this.props.token}` : '',
+        "Content-Type": "application/json",
+        Authorization: this.props.token ? `Token ${this.props.token}` : "",
       },
     })
       .then((response) => {
@@ -83,11 +86,11 @@ export class MultiSelect extends React.PureComponent<MultiSelectProps, MultiSele
 
   sendData = (allToggle: boolean, data: Array<any>) => {
     let name =
-      this.props.name.slice(0, 4) === 'all_'
+      this.props.name.slice(0, 4) === "all_"
         ? this.props.name.slice(4)
         : this.props.name;
 
-    name = `${allToggle ? 'all_' : ''}${name}`;
+    name = `${allToggle ? "all_" : ""}${name}`;
     if (data.length === 0) return this.props.onChange(name);
     var processed = data.map((o) => ({ label: o.label, value: o.value })); // remove any bogus keys
     this.props.onChange(name, fromJS(processed));
@@ -97,15 +100,15 @@ export class MultiSelect extends React.PureComponent<MultiSelectProps, MultiSele
     const { name, options, placeholder, value, display, dataURL } = this.props;
 
     const handleKeyDown: React.KeyboardEventHandler = (event) => {
-      if (this.state.inputValue === '') return;
-      if (event.key === 'Enter' || event.key === 'Tab') {
+      if (this.state.inputValue === "") return;
+      if (event.key === "Enter" || event.key === "Tab") {
         const oldValues = value?.toJS() ?? [];
         const newValue = {
           value: this.state.inputValue,
           label: this.state.inputValue,
         };
         this.sendData(this.state.allToggle, [...oldValues, newValue]);
-        this.setState({ inputValue: '' });
+        this.setState({ inputValue: "" });
         event.preventDefault();
       }
     };
@@ -113,7 +116,7 @@ export class MultiSelect extends React.PureComponent<MultiSelectProps, MultiSele
     if (dataURL) {
       // Special case for "Reasons for Flagging" field, which fetches reasons list once and
       // then filters the options client-side
-      if (dataURL === 'suspicion-reasons') {
+      if (dataURL === "suspicion-reasons") {
         const options =
           this.state.reasons?.map((d) => ({
             ...d,
@@ -188,7 +191,7 @@ export class MultiSelect extends React.PureComponent<MultiSelectProps, MultiSele
   };
 
   handleToggle = (e: React.MouseEvent) => {
-    let { value } = this.props;
+    const { value } = this.props;
     const jsValue = value && value.toJS();
     if (jsValue && Array.isArray(jsValue)) {
       this.sendData(!this.state.allToggle, jsValue);
@@ -237,10 +240,10 @@ export class MappingTeamMultiSelect extends MultiSelect {
   getAsyncOptions = (inputValue: string) => {
     if (!this.props.dataURL) return Promise.resolve([]);
     return fetch(`${API_URL}/${this.props.dataURL}/`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: this.props.token ? `Token ${this.props.token}` : '',
+        "Content-Type": "application/json",
+        Authorization: this.props.token ? `Token ${this.props.token}` : "",
       },
     })
       .then((response) => {
@@ -253,7 +256,7 @@ export class MappingTeamMultiSelect extends MultiSelect {
           } else {
             return {
               ...d,
-              label: d.name.replace('(verified)', ''),
+              label: d.name.replace("(verified)", ""),
               value: d.name,
             };
           }
@@ -264,11 +267,11 @@ export class MappingTeamMultiSelect extends MultiSelect {
 
   sendData = (allToggle: boolean, data: Array<any>) => {
     let name =
-      this.props.name.slice(0, 4) === 'all_'
+      this.props.name.slice(0, 4) === "all_"
         ? this.props.name.slice(4)
         : this.props.name;
 
-    name = `${allToggle ? 'all_' : ''}${name}`;
+    name = `${allToggle ? "all_" : ""}${name}`;
     if (data.length === 0) return this.props.onChange(name);
     var processed = data.map((o) => ({ label: o.label, value: o.value })); // remove any bogus keys
     this.props.onChange(name, fromJS(processed));

@@ -1,5 +1,3 @@
-import React from 'react';
-
 type propsType = {
   isActive: boolean;
   setOpenAll: Function;
@@ -14,7 +12,7 @@ export const OpenAll = ({ isActive, setOpenAll }: propsType) => (
       aria-checked={isActive}
       tabIndex={0}
     >
-      {isActive ? 'Close all' : 'Open all'}
+      {isActive ? "Close all" : "Open all"}
     </button>
   </div>
 );
