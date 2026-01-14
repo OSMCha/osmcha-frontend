@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { push } from "react-router-redux";
+import { push } from "redux-first-history";
 
 import { Button } from "../components/button";
 import { Dropdown } from "../components/dropdown";
@@ -161,7 +161,7 @@ class _NavbarSidebar extends React.PureComponent<NavbarSidebarProps> {
 
 const NavbarSidebar = connect(
   (state: RootStateType, props) => ({
-    location: state.routing.location,
+    location: state.router.location,
     oAuthToken: state.auth.get("oAuthToken"),
     token: state.auth.get("token"),
     username: state.auth.getIn(["userDetails", "username"]),

@@ -1,7 +1,7 @@
 import { Map } from "immutable";
 import React from "react";
 import { connect } from "react-redux";
-import { push } from "react-router-redux";
+import { push } from "redux-first-history";
 import { Avatar } from "../components/avatar";
 import { Button } from "../components/button";
 import type { filtersType } from "../components/filters";
@@ -10,6 +10,7 @@ import type { RootStateType } from "../store";
 import { logUserOut } from "../store/auth_actions";
 import { modal } from "../store/modal_actions";
 import { isMobile } from "../utils";
+import { withRouter } from "../utils/withRouter";
 
 type propsType = {
   avatar: string | undefined | null;
@@ -132,8 +133,7 @@ class _User extends React.PureComponent<propsType, any> {
   }
 }
 
-const User = connect(
-  (state: RootStateType, props) => ({
+const User = withRouter(connect((state: RootStateType, props: any) => ({
     location: props.location,
     changesetId: parseInt(state.changeset.get("changesetId"), 10),
     currentChangeset: state.changeset.getIn([
@@ -150,6 +150,6 @@ const User = connect(
     modal,
     push,
   },
-)(_User);
+)(_User));
 
 export { User };

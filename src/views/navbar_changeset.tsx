@@ -30,7 +30,7 @@ type propsType = {
   changesetId: number;
   currentChangeset: Map<string, any>;
   username: string | undefined | null;
-  lastKeyStroke: Map<string, any>;
+  lastKeyStroke?: Map<string, any>;
   camera?: any;
   handleChangesetModifyTag: (
     d: number,
@@ -48,8 +48,8 @@ type propsType = {
 class _NavbarChangeset extends React.PureComponent<propsType, any> {
   componentWillReceiveProps(nextProps: propsType) {
     if (!this.props.currentChangeset) return;
-    const lastKeyStroke: Map<string, any> = nextProps.lastKeyStroke;
-    if (is(this.props.lastKeyStroke, lastKeyStroke)) return;
+    const lastKeyStroke = nextProps.lastKeyStroke;
+    if (!lastKeyStroke || is(this.props.lastKeyStroke, lastKeyStroke)) return;
     switch (lastKeyStroke.keySeq().first()) {
       case VERIFY_BAD.label: {
         this.props.handleChangesetModifyHarmful(

@@ -80,7 +80,7 @@ const ActionItem = ({
 };
 
 type propsType = {
-  changesetId: string;
+  changesetId: number;
   changes: any;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;

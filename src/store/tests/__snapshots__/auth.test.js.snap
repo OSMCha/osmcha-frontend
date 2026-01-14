@@ -5,17 +5,20 @@ exports[`auth actions testing > test authTokenFlow  1`] = `
   "call": [
     {
       "@@redux-saga/IO": true,
-      "CALL": {
+      "combinator": false,
+      "payload": {
         "args": [
           "xbiZdWS1EYS608suvHrL",
         ],
         "context": null,
         "fn": "@@redux-saga-test-plan/json/function/postFinalTokensOSMCha",
       },
+      "type": "CALL",
     },
     {
       "@@redux-saga/IO": true,
-      "CALL": {
+      "combinator": false,
+      "payload": {
         "args": [
           "token",
           "2d2289bd78985b2b46af29607ee50fa37cb1723a",
@@ -23,12 +26,14 @@ exports[`auth actions testing > test authTokenFlow  1`] = `
         "context": null,
         "fn": "@@redux-saga-test-plan/json/function/setItem",
       },
+      "type": "CALL",
     },
   ],
   "put": [
     {
       "@@redux-saga/IO": true,
-      "PUT": {
+      "combinator": false,
+      "payload": {
         "action": {
           "callback": undefined,
           "callbackArgs": undefined,
@@ -44,12 +49,14 @@ exports[`auth actions testing > test authTokenFlow  1`] = `
           },
           "type": "INIT_MODAL",
         },
-        "channel": null,
+        "channel": undefined,
       },
+      "type": "PUT",
     },
     {
       "@@redux-saga/IO": true,
-      "PUT": {
+      "combinator": false,
+      "payload": {
         "action": {
           "callback": undefined,
           "callbackArgs": undefined,
@@ -65,26 +72,31 @@ exports[`auth actions testing > test authTokenFlow  1`] = `
           },
           "type": "INIT_MODAL",
         },
-        "channel": null,
+        "channel": undefined,
       },
+      "type": "PUT",
     },
     {
       "@@redux-saga/IO": true,
-      "PUT": {
+      "combinator": false,
+      "payload": {
         "action": {
           "token": "2d2289bd78985b2b46af29607ee50fa37cb1723a",
           "type": "AUTH_SAVE_TOKEN",
         },
-        "channel": null,
+        "channel": undefined,
       },
+      "type": "PUT",
     },
   ],
   "take": [
     {
       "@@redux-saga/IO": true,
-      "TAKE": {
+      "combinator": false,
+      "payload": {
         "pattern": "AUTH_GET_FINAL_TOKEN",
       },
+      "type": "TAKE",
     },
   ],
 }

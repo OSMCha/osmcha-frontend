@@ -1,5 +1,4 @@
 import { Map } from "immutable";
-import { routerMiddleware, routerReducer } from "react-router-redux";
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import createSagaMiddleware from "redux-saga";
 import * as safeStorage from "../utils/safe_storage";
@@ -16,7 +15,7 @@ import type { ChangesetsPageType } from "./changesets_page_reducer";
 import { changesetsPageReducer } from "./changesets_page_reducer";
 import type { filtersReducerType } from "./filters_reducer";
 import { filtersReducer } from "./filters_reducer";
-import { history } from "./history";
+import { createReduxHistory, routerMiddleware, routerReducer } from "./history";
 import type { mapControlsReducerType } from "./map_controls_reducer";
 import { mapControlsReducer } from "./map_controls_reducer";
 import type { ModalType } from "./modal_reducer";
@@ -33,7 +32,7 @@ export type RootStateType = {
   aoi: aoiReducerType;
   changeset: ChangesetType;
   modal: ModalType;
-  routing: any;
+  router: any;
   trustedlist: trustedlistReducerType;
   watchlist: watchlistReducerType;
   mapControls: mapControlsReducerType;
@@ -46,7 +45,7 @@ const reducers = combineReducers({
   filters: filtersReducer,
   mapControls: mapControlsReducer,
   aoi: aoiReducer,
-  routing: routerReducer,
+  router: routerReducer,
   auth: authReducer,
   modal: modalReducer,
   trustedlist: trustedlistReducer,
@@ -55,7 +54,7 @@ const reducers = combineReducers({
 
 const sagaMiddleware = createSagaMiddleware();
 // Middlewares
-const middlewares = [sagaMiddleware, routerMiddleware(history)];
+const middlewares = [sagaMiddleware, routerMiddleware];
 
 const appliedMiddlewares = applyMiddleware(...middlewares);
 
@@ -66,11 +65,14 @@ const persistedState = {
     oAuthToken: safeStorage.getItem("oauth_token"),
     oAuthTokenSecret: safeStorage.getItem("oauth_token_secret"),
     error: null,
-  }),
+  }) as any,
 };
 
 // Store
 const store = createStore(reducers, persistedState, appliedMiddlewares);
 sagaMiddleware.run(sagas);
 
-export { store };
+// Create history after store initialization (required by redux-first-history)
+const history = createReduxHistory(store);
+
+export { store, history };

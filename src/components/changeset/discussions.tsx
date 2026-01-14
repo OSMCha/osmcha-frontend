@@ -37,7 +37,7 @@ class DiscussionsComponent extends React.PureComponent<DiscussionsProps> {
     } else {
       return (
         <div className="">
-          {discussions.map((comment, i) => (
+          {discussions.toArray().map((comment, i) => (
             <div
               key={i}
               className="flex-parent flex-parent--column justify--space-between border border--gray-light round p6 my6 mt12"

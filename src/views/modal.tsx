@@ -24,14 +24,6 @@ interface ModalProps {
 }
 
 class _Modal extends React.PureComponent<ModalProps> {
-  static defaultProps = {
-    title: "Error",
-    description: "Oops there was a problem. Please reload the app.",
-    autoDismiss: 5,
-    dismiss: true,
-    position: "tr",
-    kind: "error",
-  };
   ref: any = null;
   componentDidMount() {
     if (this.props.error) {
@@ -46,13 +38,15 @@ class _Modal extends React.PureComponent<ModalProps> {
     if (!this.ref) return;
     this.ref.addNotification({
       uid,
-      title: nextProps.title,
+      title: nextProps.title ?? "Error",
       message:
-        (nextProps.error && nextProps.error.message) || nextProps.description,
-      level: nextProps.kind,
-      autoDismiss: nextProps.autoDismiss,
-      position: nextProps.position,
-      dismissible: nextProps.dismiss,
+        (nextProps.error && nextProps.error.message) ||
+        nextProps.description ||
+        "Oops there was a problem. Please reload the app.",
+      level: nextProps.kind ?? "error",
+      autoDismiss: nextProps.autoDismiss ?? 5,
+      position: nextProps.position ?? "tr",
+      dismissible: nextProps.dismiss ?? true,
       action: nextProps.callbackLabel && {
         label: nextProps.callbackLabel,
         callback: () => nextProps.activateModalCallback(uid),

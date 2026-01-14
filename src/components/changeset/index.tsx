@@ -425,9 +425,11 @@ const ChangesetWithData = withFetchDataSilent(
   ChangesetWithKeyboard,
 );
 
-const Changeset = connect((state: RootStateType, props) => ({
-  token: state.auth.get("token"),
-  osmInfo: fromJS(state.changeset.getIn(["changesetMap", props.changesetId])),
-}))(ChangesetWithData);
+const Changeset = connect(
+  (state: RootStateType, props: { changesetId: number }) => ({
+    token: state.auth.get("token"),
+    osmInfo: fromJS(state.changeset.getIn(["changesetMap", props.changesetId])),
+  }),
+)(ChangesetWithData);
 
 export { Changeset };

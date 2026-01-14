@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { About } from "./views/about";
 import { Authorized } from "./views/authorized";
 import { Changeset } from "./views/changeset";
@@ -22,18 +22,20 @@ export const AppMobile = () => {
         style={{ height: "100vh" }}
       >
         <NavbarSidebar />
-        <Route path="/" exact component={ChangesetsList} />
-        <Route path="/changesets/:id" component={Changeset} />
-        <Route path="/about" component={About} />
-        <Route path="/stats" component={Stats} />
-        <Route path="/filters" component={Filters} />
-        <Route path="/user" component={User} />
-        <Route path="/saved-filters" component={SavedFilters} />
-        <Route path="/trusted-users" component={TrustedUsers} />
-        <Route path="/watchlist" component={Watchlist} />
-        <Route path="/authorized" component={Authorized} />
-        <Route path="/teams" exact component={MappingTeams} />
-        <Route path="/teams/:id" component={EditMappingTeam} />
+        <Routes>
+          <Route path="/" element={<ChangesetsList />} />
+          <Route path="/changesets/:id" element={<Changeset />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/stats" element={<Stats />} />
+          <Route path="/filters" element={<Filters />} />
+          <Route path="/user" element={<User />} />
+          <Route path="/saved-filters" element={<SavedFilters />} />
+          <Route path="/trusted-users" element={<TrustedUsers />} />
+          <Route path="/watchlist" element={<Watchlist />} />
+          <Route path="/authorized" element={<Authorized />} />
+          <Route path="/teams" element={<MappingTeams />} />
+          <Route path="/teams/:id" element={<EditMappingTeam />} />
+        </Routes>
       </div>
       <Modal />
     </>

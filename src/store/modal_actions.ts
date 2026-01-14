@@ -1,5 +1,4 @@
-import { delay } from "redux-saga";
-import { call, put, take, takeEvery } from "redux-saga/effects";
+import { call, delay, put, take, takeEvery } from "redux-saga/effects";
 
 export const SHOW_MODAL = "SHOW_MODAL";
 export const INIT_MODAL = "INIT_MODAL";

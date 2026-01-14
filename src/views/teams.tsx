@@ -2,7 +2,7 @@ import { List, Map } from "immutable";
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { push } from "react-router-redux";
+import { push } from "redux-first-history";
 import { Button } from "../components/button";
 import { withFetchDataSilent } from "../components/fetch_data_enhancer";
 import type { filterOptionsType, filterType } from "../components/filters";
@@ -14,6 +14,7 @@ import {
   deleteMappingTeam,
   fetchUserMappingTeams,
 } from "../network/mapping_team";
+import { withRouter } from "../utils/withRouter";
 import type { RootStateType } from "../store";
 import { logUserOut } from "../store/auth_actions";
 import { modal } from "../store/modal_actions";
@@ -197,8 +198,7 @@ const MappingTeamsWithData = withFetchDataSilent(
   _MappingTeams,
 );
 
-const MappingTeams = connect(
-  (state: RootStateType, props) => ({
+const MappingTeams = withRouter(connect((state: RootStateType, props: any) => ({
     location: props.location,
     oAuthToken: state.auth.get("oAuthToken"),
     token: state.auth.get("token"),
@@ -209,6 +209,6 @@ const MappingTeams = connect(
     logUserOut,
     push,
   },
-)(MappingTeamsWithData);
+)(MappingTeamsWithData));
 
 export { MappingTeams };

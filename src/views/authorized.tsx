@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { push } from "react-router-redux";
+import { push } from "redux-first-history";
 import type { RootStateType } from "../store";
 import { getFinalToken } from "../store/auth_actions";
 
@@ -38,7 +38,7 @@ class _Authorized extends React.PureComponent<
 
 const Authorized = connect(
   (state: RootStateType, props) => ({
-    location: state.routing.location,
+    location: state.router.location,
   }),
   {
     getFinalToken,
