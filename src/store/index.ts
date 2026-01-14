@@ -3,7 +3,6 @@ import { Map } from 'immutable';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { history } from './history';
 import createSagaMiddleware from 'redux-saga';
-import { composeWithDevTools } from 'redux-devtools-extension';
 
 import * as safeStorage from '../utils/safe_storage';
 
@@ -61,27 +60,7 @@ const sagaMiddleware = createSagaMiddleware();
 // Middlewares
 const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
-let appliedMiddlewares = applyMiddleware(...middlewares);
-if (import.meta.env.MODE !== 'production') {
-  // const { createLogger } = require('redux-logger');
-
-  // const logger = createLogger({
-  //   stateTransformer: state => {
-  //     let newState = {};
-
-  //     for (var i of Object.keys(state)) {
-  //       if (Iterable.isIterable(state[i])) {
-  //         newState[i] = state[i].toJS();
-  //       } else {
-  //         newState[i] = state[i];
-  //       }
-  //     }
-  //     return newState;
-  //   }
-  // });
-  // middlewares.push(logger);
-  appliedMiddlewares = composeWithDevTools(appliedMiddlewares);
-}
+const appliedMiddlewares = applyMiddleware(...middlewares);
 
 // Persisted state
 const persistedState = {

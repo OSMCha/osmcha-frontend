@@ -1,16 +1,20 @@
-import request from 'superagent';
 import { osmchaSocialTokenUrl } from '../config/constants';
 import { API_URL } from '../config';
 import { handleErrors } from './aoi';
 
 export function postFinalTokensOSMCha(code: string) {
-  return request
-    .post(osmchaSocialTokenUrl)
-    .type('form')
-    .send({ code: code })
-    .then((r) => {
-      return r.body;
-    })
+  const formData = new URLSearchParams();
+  formData.append('code', code);
+
+  return fetch(osmchaSocialTokenUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: formData.toString(),
+  })
+    .then(handleErrors)
+    .then((r) => r.json())
     .catch((e) => {
       console.error(e);
       return Promise.reject(e);
