@@ -1,32 +1,22 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`auth actions testing test authTokenFlow  1`] = `
-Object {
-  "call": Array [
-    Object {
+exports[`auth actions testing > test authTokenFlow  1`] = `
+{
+  "call": [
+    {
       "@@redux-saga/IO": true,
-      "CALL": Object {
-        "args": Array [],
-        "context": null,
-        "fn": "@@redux-saga-test-plan/json/function/postTokensOSMCha",
-      },
-    },
-    Object {
-      "@@redux-saga/IO": true,
-      "CALL": Object {
-        "args": Array [
-          "zi2Lu2r5H1z5ZTbQ2YIjZJHRnwmOHKpBfvWu83ZG",
-          "C2l9h7YEC1AzSyCi1aTKmsOi0WmEU7DMolabWrPZ",
+      "CALL": {
+        "args": [
           "xbiZdWS1EYS608suvHrL",
         ],
         "context": null,
         "fn": "@@redux-saga-test-plan/json/function/postFinalTokensOSMCha",
       },
     },
-    Object {
+    {
       "@@redux-saga/IO": true,
-      "CALL": Object {
-        "args": Array [
+      "CALL": {
+        "args": [
           "token",
           "2d2289bd78985b2b46af29607ee50fa37cb1723a",
         ],
@@ -34,35 +24,54 @@ Object {
         "fn": "@@redux-saga-test-plan/json/function/setItem",
       },
     },
-    Object {
-      "@@redux-saga/IO": true,
-      "CALL": Object {
-        "args": Array [
-          "oauth_token",
-          "zi2Lu2r5H1z5ZTbQ2YIjZJHRnwmOHKpBfvWu83ZG",
-        ],
-        "context": null,
-        "fn": "@@redux-saga-test-plan/json/function/setItem",
-      },
-    },
-    Object {
-      "@@redux-saga/IO": true,
-      "CALL": Object {
-        "args": Array [
-          "oauth_token_secret",
-          "C2l9h7YEC1AzSyCi1aTKmsOi0WmEU7DMolabWrPZ",
-        ],
-        "context": null,
-        "fn": "@@redux-saga-test-plan/json/function/setItem",
-      },
-    },
   ],
-  "put": Array [
-    Object {
+  "put": [
+    {
       "@@redux-saga/IO": true,
-      "PUT": Object {
-        "action": Object {
-          "oauth_verifier": "xbiZdWS1EYS608suvHrL",
+      "PUT": {
+        "action": {
+          "callback": undefined,
+          "callbackArgs": undefined,
+          "payload": {
+            "autoDismiss": 1,
+            "callbackLabel": undefined,
+            "description": "Please, wait. We are logging you in.",
+            "dismiss": true,
+            "error": undefined,
+            "kind": "warning",
+            "position": "tr",
+            "title": "Login in progress",
+          },
+          "type": "INIT_MODAL",
+        },
+        "channel": null,
+      },
+    },
+    {
+      "@@redux-saga/IO": true,
+      "PUT": {
+        "action": {
+          "callback": undefined,
+          "callbackArgs": undefined,
+          "payload": {
+            "autoDismiss": 2,
+            "callbackLabel": undefined,
+            "description": "You are now logged in!",
+            "dismiss": true,
+            "error": undefined,
+            "kind": "success",
+            "position": "tr",
+            "title": "Successful authentication",
+          },
+          "type": "INIT_MODAL",
+        },
+        "channel": null,
+      },
+    },
+    {
+      "@@redux-saga/IO": true,
+      "PUT": {
+        "action": {
           "token": "2d2289bd78985b2b46af29607ee50fa37cb1723a",
           "type": "AUTH_SAVE_TOKEN",
         },
@@ -70,10 +79,10 @@ Object {
       },
     },
   ],
-  "take": Array [
-    Object {
+  "take": [
+    {
       "@@redux-saga/IO": true,
-      "TAKE": Object {
+      "TAKE": {
         "pattern": "AUTH_GET_FINAL_TOKEN",
       },
     },
