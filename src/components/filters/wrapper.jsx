@@ -1,5 +1,4 @@
-import React from 'react';
-import { isMobile } from '../../utils';
+import { isMobile } from "../../utils";
 
 export function Wrapper({
   display,
@@ -7,7 +6,7 @@ export function Wrapper({
   description,
   handleFocus = () => {},
   name,
-  hasValue
+  hasValue,
 }) {
   const mobile = isMobile();
 

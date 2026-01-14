@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function CreateDeleteModify(props: any) {
   const showZero = props.showZero;
   return (

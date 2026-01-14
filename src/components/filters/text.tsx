@@ -1,6 +1,6 @@
-import React from 'react';
-import { fromJS } from 'immutable';
-import type { filterType } from './';
+import { fromJS } from "immutable";
+import React from "react";
+import type { filterType } from "./";
 
 interface TextProps {
   name: string;
@@ -20,17 +20,17 @@ interface TextState {
 
 export class Text extends React.Component<TextProps, TextState> {
   static defaultProps = {
-    className: '',
+    className: "",
   };
   state: TextState = {
     isValid: true,
   };
   handleFormChange = (event: any) => {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     this.setState({ isValid: target.validity.valid });
-    if (!value || value === '') {
+    if (!value || value === "") {
       return this.props.onChange(name);
     }
     this.props.onChange(
@@ -41,19 +41,19 @@ export class Text extends React.Component<TextProps, TextState> {
           label: value,
           value,
         },
-      ])
+      ]),
     );
   };
   render() {
     const { name, type, placeholder, display, value, className, min, max } =
       this.props;
     const { isValid } = this.state;
-    const errorClass = 'border border--1 border--red';
+    const errorClass = "border border--1 border--red";
     return (
       <input
         name={name}
-        className={`input ${className} ${isValid ? '' : errorClass}`}
-        value={(value && value.getIn([0, 'value'])) || ''} // allways sends 1 size array to keep things consistent
+        className={`input ${className} ${isValid ? "" : errorClass}`}
+        value={(value && value.getIn([0, "value"])) || ""} // allways sends 1 size array to keep things consistent
         onChange={this.handleFormChange}
         type={type}
         placeholder={placeholder || display}

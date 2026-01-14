@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import Placeholder from './user.jpg';
+import { PureComponent } from "react";
+import Placeholder from "./user.jpg";
 
 interface AvatarProps {
   url: string;
@@ -31,8 +31,8 @@ export class Avatar extends PureComponent<AvatarProps> {
     let url: string = Placeholder;
     if (this.props.url) {
       url = this.props.url;
-      if (url.indexOf('http://') > -1) {
-        url = 'https://' + url.slice(5);
+      if (url.indexOf("http://") > -1) {
+        url = "https://" + url.slice(5);
       }
     }
     return (

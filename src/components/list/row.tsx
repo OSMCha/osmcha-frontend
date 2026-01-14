@@ -1,11 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Map } from 'immutable';
-
-import { SecondaryLine } from './secondary_line';
-import { PrimaryLine } from './primary_line';
-import { Title } from './title';
-import { history } from '../../store/history';
+import type { Map } from "immutable";
+import React from "react";
+import { Link } from "react-router-dom";
+import { history } from "../../store/history";
+import { PrimaryLine } from "./primary_line";
+import { SecondaryLine } from "./secondary_line";
+import { Title } from "./title";
 
 interface RowProps {
   properties: Map<string, any>;
@@ -15,7 +14,6 @@ interface RowProps {
 }
 
 export class Row extends React.Component<RowProps> {
-
   shouldComponentUpdate(nextProps: any) {
     return (
       nextProps.properties !== this.props.properties ||
@@ -36,15 +34,15 @@ export class Row extends React.Component<RowProps> {
       this.wasOpen = !!this.props.active;
     }
 
-    let borderClass = 'border-l border-l--4 border-color-neutral';
-    if (properties.get('harmful') === true)
-      borderClass = 'border-l border-l--4 border-color-bad';
-    if (properties.get('harmful') === false)
-      borderClass = 'border-l border-l--4 border-color-good';
+    let borderClass = "border-l border-l--4 border-color-neutral";
+    if (properties.get("harmful") === true)
+      borderClass = "border-l border-l--4 border-color-bad";
+    if (properties.get("harmful") === false)
+      borderClass = "border-l border-l--4 border-color-good";
 
-    let backgroundClass = '';
+    let backgroundClass = "";
 
-    backgroundClass += active ? 'light-blue' : this.wasOpen ? 'bg-darken5' : '';
+    backgroundClass += active ? "light-blue" : this.wasOpen ? "bg-darken5" : "";
     return (
       <div
         onClick={() =>
@@ -68,18 +66,18 @@ export class Row extends React.Component<RowProps> {
               <Title
                 properties={properties}
                 wasOpen={this.wasOpen}
-                date={properties.get('date')}
+                date={properties.get("date")}
               />
               <PrimaryLine
-                reasons={properties.get('reasons')}
-                tags={properties.get('tags')}
-                comment={properties.get('comment')}
+                reasons={properties.get("reasons")}
+                tags={properties.get("tags")}
+                comment={properties.get("comment")}
               />
             </Link>
             <SecondaryLine
               changesetId={changesetId}
               properties={properties}
-              date={properties.get('date')}
+              date={properties.get("date")}
             />
           </div>
         </div>

@@ -1,7 +1,7 @@
-import React from 'react';
-import { Map, fromJS } from 'immutable';
-import debounce from 'lodash.debounce';
-import { getDisplayName } from '../utils/component';
+import { fromJS, Map } from "immutable";
+import debounce from "lodash.debounce";
+import React from "react";
+import { getDisplayName } from "../utils/component";
 
 type stateType = {
   data: Map<string, any>;
@@ -15,12 +15,9 @@ type stateType = {
 export function withFetchDataSilent<P extends {}, S extends {}>(
   dataToFetch: (props: P) => any,
   onUpdate: (b: P, a: P) => boolean,
-  WrappedComponent: React.ComponentClass<P, S>
+  WrappedComponent: React.ComponentClass<P, S>,
 ): React.ComponentClass<P, stateType> {
-  return class FetchDataEnhancer extends React.PureComponent<
-    P,
-    stateType
-  > {
+  return class FetchDataEnhancer extends React.PureComponent<P, stateType> {
     static displayName = `HOCFetchData${getDisplayName(WrappedComponent)}`;
     state: stateType = {
       data: Map<string, any>(),

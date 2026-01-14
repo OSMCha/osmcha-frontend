@@ -1,25 +1,24 @@
-import { all, put, call, takeEvery, select } from 'redux-saga/effects';
+import { all, call, put, select, takeEvery } from "redux-saga/effects";
 
 import {
-  postUserToTrustedList,
   deleteFromTrustedList,
-} from '../network/osmcha_trustedlist';
-import { modal } from './modal_actions';
-
-import type { RootStateType } from './';
+  postUserToTrustedList,
+} from "../network/osmcha_trustedlist";
+import type { RootStateType } from "./";
+import { modal } from "./modal_actions";
 
 export const TRUSTEDLIST = {
-  define: 'TRUSTEDLIST.define',
-  add: 'TRUSTEDLIST.add',
-  remove: 'TRUSTEDLIST.remove',
-  clear: 'TRUSTEDLIST.clear',
+  define: "TRUSTEDLIST.define",
+  add: "TRUSTEDLIST.add",
+  remove: "TRUSTEDLIST.remove",
+  clear: "TRUSTEDLIST.clear",
 };
 
 export function action(type: string, payload?: any | null) {
   return { type, ...payload };
 }
 
-export const tokenSelector = (state: RootStateType) => state.auth.get('token');
+export const tokenSelector = (state: RootStateType) => state.auth.get("token");
 
 export const addToTrustedlist = (trustedlist_user: string) =>
   action(TRUSTEDLIST.add, { trustedlist_user });
@@ -44,17 +43,17 @@ export function* addToTrustedlistSaga({
     yield call(postUserToTrustedList, token, trustedlist_user);
     yield put(
       modal({
-        title: 'Success',
+        title: "Success",
         description: `User ${trustedlist_user} added to your Trusted Users list.`,
-        kind: 'success',
-      })
+        kind: "success",
+      }),
     );
   } catch (e) {
     console.error(e);
     yield put(
       modal({
         error: e as Error,
-      })
+      }),
     );
   }
 }
@@ -68,17 +67,17 @@ export function* removeFromTrustedlistSaga({
     yield call(deleteFromTrustedList, token, trustedlist_user);
     yield put(
       modal({
-        title: 'Success',
+        title: "Success",
         description: `User ${trustedlist_user} removed from your Trusted Users list.`,
-        kind: 'success',
-      })
+        kind: "success",
+      }),
     );
   } catch (e) {
     console.error(e);
     yield put(
       modal({
         error: e as Error,
-      })
+      }),
     );
   }
 }

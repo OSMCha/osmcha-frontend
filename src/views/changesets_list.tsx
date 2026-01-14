@@ -1,27 +1,24 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { is, List as ImmutableList, Map, fromJS } from 'immutable';
-import { push } from 'react-router-redux';
-import type { RootStateType } from '../store';
-
+import { fromJS, type List as ImmutableList, is, type Map } from "immutable";
+import React from "react";
+import { connect } from "react-redux";
+import { push } from "react-router-redux";
+import { keyboardToggleEnhancer } from "../components/keyboard_enhancer";
+import { List } from "../components/list";
+import { Footer } from "../components/list/footer";
+import { Header } from "../components/list/header";
 import {
-  getChangesetsPage,
-  checkForNewChangesets,
-} from '../store/changesets_page_actions';
-
-import { applyFilters } from '../store/filters_actions';
-
-import { List } from '../components/list';
-import { Footer } from '../components/list/footer';
-import { Header } from '../components/list/header';
-import { keyboardToggleEnhancer } from '../components/keyboard_enhancer';
-import {
-  NEXT_CHANGESET,
-  PREV_CHANGESET,
   FILTER_BINDING,
   HELP_BINDING,
+  NEXT_CHANGESET,
+  PREV_CHANGESET,
   REFRESH_CHANGESETS,
-} from '../config/bindings';
+} from "../config/bindings";
+import type { RootStateType } from "../store";
+import {
+  checkForNewChangesets,
+  getChangesetsPage,
+} from "../store/changesets_page_actions";
+import { applyFilters } from "../store/filters_actions";
 
 type propsType = {
   location: any;
@@ -57,17 +54,17 @@ class _ChangesetsList extends React.PureComponent<propsType, any> {
 
   goUpDownToChangeset = (direction: number) => {
     if (!this.props.currentPage) return;
-    let features = this.props.currentPage.get('features');
+    const features = this.props.currentPage.get("features");
     if (features) {
       let index = features.findIndex(
-        (f) => f.get('id') === this.props.activeChangesetId
+        (f) => f.get("id") === this.props.activeChangesetId,
       );
       index += direction;
       const nextFeature = features.get(index);
       if (nextFeature) {
         const location = {
           ...this.props.location, //  clone it
-          pathname: `/changesets/${nextFeature.get('id')}`,
+          pathname: `/changesets/${nextFeature.get("id")}`,
         };
         this.props.push(location);
       }
@@ -75,16 +72,16 @@ class _ChangesetsList extends React.PureComponent<propsType, any> {
   };
 
   toggleFilters() {
-    if (this.props.location && this.props.location.pathname === '/filters') {
+    if (this.props.location && this.props.location.pathname === "/filters") {
       const location = {
         ...this.props.location, //  clone it
-        pathname: '/',
+        pathname: "/",
       };
       this.props.push(location);
     } else {
       const location = {
         ...this.props.location, //  clone it
-        pathname: '/filters',
+        pathname: "/filters",
       };
       this.props.push(location);
     }
@@ -93,18 +90,18 @@ class _ChangesetsList extends React.PureComponent<propsType, any> {
   toggleHelp() {
     if (
       this.props.location &&
-      this.props.location.pathname.startsWith('/about')
+      this.props.location.pathname.startsWith("/about")
     ) {
       const location = {
         ...this.props.location, //  clone it
-        pathname: '/',
+        pathname: "/",
       };
       this.props.push(location);
     } else {
       console.log(...this.props.location);
       const location = {
         ...this.props.location, //  clone it
-        pathname: '/about',
+        pathname: "/about",
       };
       this.props.push(location);
     }
@@ -142,7 +139,7 @@ class _ChangesetsList extends React.PureComponent<propsType, any> {
 
   handleFilterOrderBy = (selected: Array<any>) => {
     let mergedFilters;
-    mergedFilters = this.props.filters.set('order_by', fromJS(selected));
+    mergedFilters = this.props.filters.set("order_by", fromJS(selected));
     this.props.applyFilters(mergedFilters);
   };
 
@@ -184,7 +181,7 @@ class _ChangesetsList extends React.PureComponent<propsType, any> {
         <Footer
           pageIndex={pageIndex}
           getChangesetsPage={getChangesetsPage}
-          count={currentPage && currentPage.get('count')}
+          count={currentPage && currentPage.get("count")}
         />
       </div>
     );
@@ -200,21 +197,21 @@ const _ChangesetsListWithKeyboard = keyboardToggleEnhancer(
     HELP_BINDING,
     REFRESH_CHANGESETS,
   ],
-  _ChangesetsList
+  _ChangesetsList,
 );
 
 const ChangesetsList = connect(
   (state: RootStateType, props) => ({
     location: state.routing.location,
-    loading: state.changesetsPage.get('loading'),
-    error: state.changesetsPage.get('error'),
-    currentPage: state.changesetsPage.get('currentPage'),
-    diff: state.changesetsPage.get('diff'),
-    diffLoading: state.changesetsPage.get('diffLoading'),
-    pageIndex: state.changesetsPage.get('pageIndex') || 0,
-    activeChangesetId: state.changeset.get('changesetId'),
-    filters: state.filters.get('filters'),
-    aoiId: state.aoi.get('aoi').get('id'),
+    loading: state.changesetsPage.get("loading"),
+    error: state.changesetsPage.get("error"),
+    currentPage: state.changesetsPage.get("currentPage"),
+    diff: state.changesetsPage.get("diff"),
+    diffLoading: state.changesetsPage.get("diffLoading"),
+    pageIndex: state.changesetsPage.get("pageIndex") || 0,
+    activeChangesetId: state.changeset.get("changesetId"),
+    filters: state.filters.get("filters"),
+    aoiId: state.aoi.get("aoi").get("id"),
   }),
   {
     // actions
@@ -222,6 +219,6 @@ const ChangesetsList = connect(
     checkForNewChangesets,
     applyFilters,
     push,
-  }
+  },
 )(_ChangesetsListWithKeyboard);
 export { ChangesetsList };

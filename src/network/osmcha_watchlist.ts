@@ -1,12 +1,12 @@
-import { handleErrors } from './aoi';
-import { API_URL } from '../config';
+import { API_URL } from "../config";
+import { handleErrors } from "./aoi";
 
 export function fetchWatchList(token: string): Promise<any> {
   return fetch(`${API_URL}/blacklisted-users/`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   })
     .then(handleErrors)
@@ -16,20 +16,20 @@ export function fetchWatchList(token: string): Promise<any> {
 
 export function deleteFromWatchList(token: string, uid: string): Promise<any> {
   return fetch(`${API_URL}/blacklisted-users/${uid}/`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   }).then(handleErrors);
 }
 
 export function postUserToWatchList(token: string, data: any): Promise<any> {
   return fetch(`${API_URL}/blacklisted-users/`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
     body: JSON.stringify({
       username: data.watchlist_user.username,

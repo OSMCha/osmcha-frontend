@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Property = ({ property, value, imageryMatch, sourceMatch }) => {
   return (
     <div key={property} className="col">
@@ -10,18 +8,18 @@ const Property = ({ property, value, imageryMatch, sourceMatch }) => {
         {property}
       </strong>
       <span className="wmax180 txt-break-word txt-s">{value}</span>
-      {property === 'imagery' && (
+      {property === "imagery" && (
         <span>
           <br />
           {imageryMatch.map((e, k) => (
             <a href={e} key={k} className="color-blue">
               {Array.isArray(
                 e.match(
-                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                )
+                  /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/gim,
+                ),
               ) ? (
                 e.match(
-                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                  /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/gim,
                 )[0]
               ) : (
                 <svg className="icon h18 w18 inline-block align-middle ">
@@ -32,7 +30,7 @@ const Property = ({ property, value, imageryMatch, sourceMatch }) => {
           ))}
         </span>
       )}
-      {property === 'source' && (
+      {property === "source" && (
         <span>
           <br />
           {sourceMatch.map((e, k) => (
@@ -46,11 +44,11 @@ const Property = ({ property, value, imageryMatch, sourceMatch }) => {
             >
               {Array.isArray(
                 e.match(
-                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
-                )
+                  /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/gim,
+                ),
               ) ? (
                 e.match(
-                  /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
+                  /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/gim,
                 )[0]
               ) : (
                 <svg className="icon h18 w18 inline-block align-middle ">

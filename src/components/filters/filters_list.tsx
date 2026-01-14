@@ -1,22 +1,20 @@
-import React from 'react';
-
+import React from "react";
+import filters from "../../config/filters.json";
+import { getDefaultFromDate } from "../../utils/filters";
+import { loadingEnhancer } from "../loading_enhancer";
+import type { filtersType, filterType } from "./";
 import {
-  Text,
-  Radio,
-  MappingTeamMultiSelect,
-  MultiSelect,
-  Wrapper,
-  Meta,
   DateField,
   LocationSelect,
-} from './';
+  MappingTeamMultiSelect,
+  Meta,
+  MultiSelect,
+  Radio,
+  Text,
+  Wrapper,
+} from "./";
 
-import { loadingEnhancer } from '../loading_enhancer';
-import filters from '../../config/filters.json';
-import { getDefaultFromDate } from '../../utils/filters';
-import type { filterType, filtersType } from './';
-
-const defaultDate = getDefaultFromDate().getIn(['date__gte']);
+const defaultDate = getDefaultFromDate().getIn(["date__gte"]);
 
 var filtersData = filters.filter((f) => {
   return !f.ignore;
@@ -55,97 +53,97 @@ class _FiltersList extends React.PureComponent<propsType> {
       key: k,
       description: this.props.active === f.name && f.description,
     };
-    if (f.range && f.type === 'number') {
-      const gteValue = this.props.filters.get(f.name + '__gte');
-      const lteValue = this.props.filters.get(f.name + '__lte');
+    if (f.range && f.type === "number") {
+      const gteValue = this.props.filters.get(f.name + "__gte");
+      const lteValue = this.props.filters.get(f.name + "__lte");
       return (
         <Wrapper
           {...wrapperProps}
           hasValue={
-            this.props.filters.has(f.name + '__gte') ||
-            this.props.filters.has(f.name + '__lte')
+            this.props.filters.has(f.name + "__gte") ||
+            this.props.filters.has(f.name + "__lte")
           }
         >
           <span className="flex-parent flex-parent--row">
             <Text
               {...propsToSend}
               className="mr3"
-              name={f.name + '__gte'}
+              name={f.name + "__gte"}
               value={gteValue}
-              placeholder={'from'}
-              max={lteValue && lteValue.getIn([0, 'value'])}
+              placeholder={"from"}
+              max={lteValue && lteValue.getIn([0, "value"])}
               min="0"
             />
             <Text
               {...propsToSend}
-              name={f.name + '__lte'}
+              name={f.name + "__lte"}
               value={lteValue}
-              placeholder={'to'}
-              min={gteValue && gteValue.getIn([0, 'value'])}
+              placeholder={"to"}
+              min={gteValue && gteValue.getIn([0, "value"])}
             />
           </span>
         </Wrapper>
       );
     }
-    if (!f.range && f.type === 'number') {
+    if (!f.range && f.type === "number") {
       return (
         <Wrapper {...wrapperProps}>
           <Text {...propsToSend} className="mr3" min="1" max="100" />
         </Wrapper>
       );
     }
-    if (f.range && f.type === 'date') {
-      let gteValue = this.props.filters.get(f.name + '__gte');
-      if (f.name === 'date') {
-        gteValue = this.props.filters.get(f.name + '__gte') || defaultDate;
+    if (f.range && f.type === "date") {
+      let gteValue = this.props.filters.get(f.name + "__gte");
+      if (f.name === "date") {
+        gteValue = this.props.filters.get(f.name + "__gte") || defaultDate;
       }
-      const lteValue = this.props.filters.get(f.name + '__lte');
-      const today = new Date().toISOString().split('T')[0];
+      const lteValue = this.props.filters.get(f.name + "__lte");
+      const today = new Date().toISOString().split("T")[0];
       return (
         <Wrapper
           {...wrapperProps}
           hasValue={
-            this.props.filters.has(f.name + '__gte') ||
-            this.props.filters.has(f.name + '__lte')
+            this.props.filters.has(f.name + "__gte") ||
+            this.props.filters.has(f.name + "__lte")
           }
         >
           <span className="flex-parent flex-parent--row h36">
             <DateField
               {...propsToSend}
-              name={f.name + '__gte'}
+              name={f.name + "__gte"}
               value={gteValue}
               className="mr3"
-              placeholder={'From'}
-              max={(lteValue && lteValue.getIn([0, 'value'])) || today}
+              placeholder={"From"}
+              max={(lteValue && lteValue.getIn([0, "value"])) || today}
             />
             <DateField
               {...propsToSend}
-              name={f.name + '__lte'}
+              name={f.name + "__lte"}
               value={lteValue}
               className="ml3"
-              placeholder={'To'}
-              min={gteValue && gteValue.getIn([0, 'value'])}
+              placeholder={"To"}
+              min={gteValue && gteValue.getIn([0, "value"])}
               max={today}
             />
           </span>
         </Wrapper>
       );
     }
-    if (f.type === 'text') {
+    if (f.type === "text") {
       return (
         <Wrapper {...wrapperProps}>
           <Text {...propsToSend} />
         </Wrapper>
       );
     }
-    if (f.type === 'radio') {
+    if (f.type === "radio") {
       return (
         <Wrapper {...wrapperProps}>
           <Radio {...propsToSend} />
         </Wrapper>
       );
     }
-    if (f.type === 'meta') {
+    if (f.type === "meta") {
       return (
         <Wrapper
           {...wrapperProps}
@@ -160,7 +158,7 @@ class _FiltersList extends React.PureComponent<propsType> {
         </Wrapper>
       );
     }
-    if (f.type === 'text_comma') {
+    if (f.type === "text_comma") {
       let { name, value, onChange } = propsToSend;
       if (f.all) {
         onChange = this.props.handleToggleAll;
@@ -177,7 +175,7 @@ class _FiltersList extends React.PureComponent<propsType> {
           hasValue={this.props.filters.has(name)}
           description={this.props.active === f.name && f.description}
         >
-          {name.endsWith('_teams') ? (
+          {name.endsWith("_teams") ? (
             <MappingTeamMultiSelect
               {...propsToSend}
               name={name}
@@ -212,20 +210,20 @@ class _FiltersList extends React.PureComponent<propsType> {
           name="location"
           display="Location"
           hasValue={
-            this.props.filters.has('geometry') ||
-            this.props.filters.has('in_bbox')
+            this.props.filters.has("geometry") ||
+            this.props.filters.has("in_bbox")
           }
-          handleFocus={() => this.props.handleFocus('location')}
+          handleFocus={() => this.props.handleFocus("location")}
           description={
-            this.props.active === 'location' &&
-            'Filter changesets whose bounding box intersects a chosen area'
+            this.props.active === "location" &&
+            "Filter changesets whose bounding box intersects a chosen area"
           }
         >
           <LocationSelect
             name="location"
             value={
-              this.props.filters.get('geometry') ||
-              this.props.filters.get('in_bbox')
+              this.props.filters.get("geometry") ||
+              this.props.filters.get("in_bbox")
             }
             placeholder="Type a place name"
             onChange={this.props.handleChange}

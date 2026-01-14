@@ -1,9 +1,8 @@
-import React from 'react';
-import { Map, List } from 'immutable';
-
-import { cancelablePromise } from '../../utils/promise';
-import { postComment } from '../../network/changeset';
-import { Button } from '../button';
+import type { List, Map } from "immutable";
+import React from "react";
+import { postComment } from "../../network/changeset";
+import { cancelablePromise } from "../../utils/promise";
+import { Button } from "../button";
 
 type propsType = {
   token: string;
@@ -26,7 +25,7 @@ export class CommentForm extends React.PureComponent<propsType, stateType> {
   state: stateType = {
     success: false,
     error: false,
-    value: '',
+    value: "",
   };
 
   componentWillUnmount() {
@@ -41,17 +40,17 @@ export class CommentForm extends React.PureComponent<propsType, stateType> {
   updateValue(props) {
     const userCommentedBefore =
       props.discussions.filter(
-        (item) => item.get('userName') === props.userDetails.get('username')
+        (item) => item.get("userName") === props.userDetails.get("username"),
       ).size > 0;
     if (
-      this.state.value === '' &&
+      this.state.value === "" &&
       props.changesetIsHarmful !== null &&
       !userCommentedBefore
     ) {
       if (props.changesetIsHarmful) {
-        this.setState({ value: props.userDetails.get('message_bad') });
+        this.setState({ value: props.userDetails.get("message_bad") });
       } else {
-        this.setState({ value: props.userDetails.get('message_good') });
+        this.setState({ value: props.userDetails.get("message_good") });
       }
     }
   }
@@ -67,13 +66,13 @@ export class CommentForm extends React.PureComponent<propsType, stateType> {
   postComment = (comment: string) => {
     if (!comment) return;
     this.postCommentPromise = cancelablePromise(
-      postComment(this.props.changesetId, this.props.token, comment)
+      postComment(this.props.changesetId, this.props.token, comment),
     );
     this.postCommentPromise.promise
       .then((r) => {
         this.setState({ success: true });
         this.setState({ error: false });
-        this.setState({ value: '' });
+        this.setState({ value: "" });
       })
       .catch((e) => {
         console.log(e);

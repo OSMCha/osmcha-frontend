@@ -1,8 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-
-import type { RootStateType } from '../../store';
-import { getAuthUrl } from '../../network/auth';
+import React from "react";
+import { connect } from "react-redux";
+import { getAuthUrl } from "../../network/auth";
+import type { RootStateType } from "../../store";
 
 interface SignInButtonProps {
   text: string;
@@ -12,7 +11,6 @@ interface SignInButtonProps {
 }
 
 class _SignInButton extends React.PureComponent<SignInButtonProps> {
-
   handleLoginClick = () => {
     getAuthUrl().then((res) => {
       window.location.assign(res.auth_url);
@@ -21,7 +19,7 @@ class _SignInButton extends React.PureComponent<SignInButtonProps> {
   render() {
     const extraClasses = this.props.className
       ? this.props.className
-      : 'border--darken5 border--darken25-on-hover bg-darken10 bg-darken5-on-hover color-gray';
+      : "border--darken5 border--darken25-on-hover bg-darken10 bg-darken5-on-hover color-gray";
     return (
       <button
         onClick={this.handleLoginClick}
@@ -37,8 +35,8 @@ class _SignInButton extends React.PureComponent<SignInButtonProps> {
 }
 
 const SignInButton = connect((state: RootStateType, props) => ({
-  oAuthToken: state.auth.get('oAuthToken'),
-  pageIndex: state.changesetsPage.get('pageIndex') || 0,
+  oAuthToken: state.auth.get("oAuthToken"),
+  pageIndex: state.changesetsPage.get("pageIndex") || 0,
 }))(_SignInButton);
 
 export { SignInButton };

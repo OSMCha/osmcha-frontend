@@ -1,6 +1,5 @@
-import React from 'react';
-import { Map, List } from 'immutable';
-import { Reasons } from '../reasons';
+import { type List, Map } from "immutable";
+import { Reasons } from "../reasons";
 
 const Feature = ({
   data,
@@ -16,25 +15,25 @@ const Feature = ({
   let reasons;
   // operation necessary to the change
   if (
-    data.get('reasons').size &&
-    typeof data.get('reasons').get(0) === 'number'
+    data.get("reasons").size &&
+    typeof data.get("reasons").get(0) === "number"
   ) {
     reasons = changesetReasons.filter((reason) =>
-      data.get('reasons').contains(reason.get('id'))
+      data.get("reasons").contains(reason.get("id")),
     );
   } else {
-    reasons = data.get('reasons');
+    reasons = data.get("reasons");
   }
   return (
     <tr className="txt-s">
-      <td>{data.get('osm_id')}</td>
-      <td>{data.get('name')}</td>
+      <td>{data.get("osm_id")}</td>
+      <td>{data.get("name")}</td>
       <td>
-        {data.get('note') ? (
-          <abbr title={data.get('note')}>
+        {data.get("note") ? (
+          <abbr title={data.get("note")}>
             <Reasons
               reasons={reasons}
-              userFlag={data.get('user_flag')}
+              userFlag={data.get("user_flag")}
               underline={true}
               color="blue"
             />
@@ -43,7 +42,7 @@ const Feature = ({
           <Reasons
             reasons={reasons}
             color="blue"
-            userFlag={data.get('user_flag')}
+            userFlag={data.get("user_flag")}
           />
         )}
       </td>
@@ -53,14 +52,14 @@ const Feature = ({
           role="button"
           tabIndex={0}
           onMouseEnter={() =>
-            setHighlight(data.get('type'), data.get('id'), true)
+            setHighlight(data.get("type"), data.get("id"), true)
           }
           onMouseLeave={() =>
-            setHighlight(data.get('type'), data.get('id'), false)
+            setHighlight(data.get("type"), data.get("id"), false)
           }
-          onFocus={() => setHighlight(data.get('type'), data.get('id'), true)}
-          onBlur={() => setHighlight(data.get('type'), data.get('id'), false)}
-          onClick={() => zoomToAndSelect(data.get('type'), data.get('id'))}
+          onFocus={() => setHighlight(data.get("type"), data.get("id"), true)}
+          onBlur={() => setHighlight(data.get("type"), data.get("id"), false)}
+          onClick={() => zoomToAndSelect(data.get("type"), data.get("id"))}
         >
           Map
         </span>
@@ -69,8 +68,8 @@ const Feature = ({
             rel="noopener noreferrer"
             target="_blank"
             href={`http://localhost:8111/load_object?objects=${data
-              .getIn(['url'], '')
-              .charAt(0)}${data.get('osm_id')}`}
+              .getIn(["url"], "")
+              .charAt(0)}${data.get("osm_id")}`}
           >
             JOSM
           </a>
@@ -91,32 +90,34 @@ export function Features({
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 }) {
-  let features: List<Map<string, any>> = properties.get('features');
+  let features: List<Map<string, any>> = properties.get("features");
   const reviewedFeatures: List<Map<string, any>> = properties
-    .get('reviewed_features')
+    .get("reviewed_features")
     .map((feature) =>
       Map({
-        url: feature.get('id'),
-        user_flag: `Flagged by ${feature.get('user')}`,
-        osm_id: feature.get('id').split('-')[1],
+        url: feature.get("id"),
+        user_flag: `Flagged by ${feature.get("user")}`,
+        osm_id: feature.get("id").split("-")[1],
         reasons: [],
-      })
+      }),
     );
-  const reviewedIds = reviewedFeatures.map((feature) => feature!.get('url'));
-  const featuresIds = features.map((feature) => feature!.get('url'));
+  const reviewedIds = reviewedFeatures.map((feature) => feature?.get("url"));
+  const featuresIds = features.map((feature) => feature?.get("url"));
   const intersection = features
-    .filter((feature) => reviewedIds.includes(feature!.get('url')))
-    .map((feature, k) => [k, feature!.get('url')]);
+    .filter((feature) => reviewedIds.includes(feature?.get("url")))
+    .map((feature, k) => [k, feature?.get("url")]);
   intersection.forEach((item) => {
     features = features.setIn(
-      [item![0], 'user_flag'],
-      reviewedFeatures.find((f) => f!.get('url') === item![1])!.get('user_flag')
+      [item?.[0], "user_flag"],
+      reviewedFeatures
+        .find((f) => f?.get("url") === item?.[1])
+        ?.get("user_flag"),
     );
   });
   features = features.concat(
     reviewedFeatures.filter(
-      (feature) => !featuresIds.includes(feature!.get('url'))
-    )
+      (feature) => !featuresIds.includes(feature?.get("url")),
+    ),
   ) as List<Map<string, any>>;
 
   return (
@@ -152,7 +153,7 @@ export function Features({
                 <Feature
                   key={k}
                   data={f!}
-                  changesetReasons={properties.get('reasons')}
+                  changesetReasons={properties.get("reasons")}
                   setHighlight={setHighlight}
                   zoomToAndSelect={zoomToAndSelect}
                 />

@@ -1,37 +1,36 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Map, List } from 'immutable';
-import { push } from 'react-router-redux';
-import { Link } from 'react-router-dom';
-
-import { getObjAsQueryParam, isMobile } from '../utils';
-import { BlockMarkup } from '../components/user/block_markup';
-import { SaveUser } from '../components/user/save_user';
+import { List, Map } from "immutable";
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { push } from "react-router-redux";
+import { Button } from "../components/button";
+import { SecondaryPagesHeader } from "../components/secondary_pages_header";
+import { BlockMarkup } from "../components/user/block_markup";
+import { SaveUser } from "../components/user/save_user";
+import type { RootStateType } from "../store";
+import { logUserOut } from "../store/auth_actions";
+import { modal } from "../store/modal_actions";
 import {
   addToWatchlist,
   removeFromWatchlist,
-} from '../store/watchlist_actions';
-import { modal } from '../store/modal_actions';
-import { logUserOut } from '../store/auth_actions';
-import { Button } from '../components/button';
-import { SecondaryPagesHeader } from '../components/secondary_pages_header';
-import type { RootStateType } from '../store';
+} from "../store/watchlist_actions";
+import { getObjAsQueryParam, isMobile } from "../utils";
 
 const WatchListBlock = ({ data, removeFromWatchList }) => (
   <BlockMarkup>
     <span>
-      <span>{data.getIn(['username'])}</span>
-      <span className="txt-em color-gray pl6">({data.getIn(['uid'])})</span>
+      <span>{data.getIn(["username"])}</span>
+      <span className="txt-em color-gray pl6">({data.getIn(["uid"])})</span>
     </span>
     <span>
       <Link
         className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
         to={{
-          search: getObjAsQueryParam('filters', {
+          search: getObjAsQueryParam("filters", {
             users: [
               {
-                label: data.getIn(['username']),
-                value: data.getIn(['username']),
+                label: data.getIn(["username"]),
+                value: data.getIn(["username"]),
               },
             ],
           }),
@@ -41,9 +40,9 @@ const WatchListBlock = ({ data, removeFromWatchList }) => (
       </Link>
       <Button
         className="mr3 bg-transparent border--0"
-        onClick={() => removeFromWatchList(data.getIn(['uid']))}
+        onClick={() => removeFromWatchList(data.getIn(["uid"]))}
       >
-        <svg className={'icon txt-m mb3 inline-block align-middle'}>
+        <svg className={"icon txt-m mb3 inline-block align-middle"}>
           <use xlinkHref="#icon-trash" />
         </svg>
         Remove
@@ -106,21 +105,21 @@ class _Watchlist extends React.PureComponent<propsType, any> {
   render() {
     let watchList = this.props.watchlisted ? this.props.watchlisted : List();
     watchList = watchList.sortBy(
-      (a) => a.get('username'),
-      (a: string, b: string) => a.localeCompare(b)
+      (a) => a.get("username"),
+      (a: string, b: string) => a.localeCompare(b),
     ) as List<any>;
     const mobile = isMobile();
 
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white ${
-          mobile ? 'viewport-full' : ''
+          mobile ? "viewport-full" : ""
         }`}
       >
         <SecondaryPagesHeader title="Watchlist" avatar={this.props.avatar} />
         <div
           className={`${
-            mobile ? 'px12' : 'px30'
+            mobile ? "px12" : "px30"
           } flex-child pb60 filters-scroll`}
         >
           <div className="flex-parent flex-parent--column align justify--space-between">
@@ -150,12 +149,12 @@ class _Watchlist extends React.PureComponent<propsType, any> {
                 <Link
                   className="input wmax180 ml12 btn btn--s border border--1 border--lighten25 border--lighten50-on-hover round bg-darken5 bg-lighten25-on-hover color-gray transition"
                   to={{
-                    search: getObjAsQueryParam('filters', {
-                      blacklist: [{ label: 'Yes', value: 'True' }],
+                    search: getObjAsQueryParam("filters", {
+                      blacklist: [{ label: "Yes", value: "True" }],
                     }),
                   }}
                 >
-                  <svg className={'icon txt-m mb3 inline-block align-middle'}>
+                  <svg className={"icon txt-m mb3 inline-block align-middle"}>
                     <use xlinkHref="#icon-filter" />
                   </svg>
                   Watchlist's changesets
@@ -172,11 +171,11 @@ class _Watchlist extends React.PureComponent<propsType, any> {
 const Watchlist = connect(
   (state: RootStateType, props) => ({
     location: props.location,
-    watchlisted: state.watchlist.get('watchlist'),
-    oAuthToken: state.auth.get('oAuthToken'),
-    token: state.auth.get('token'),
-    userDetails: state.auth.getIn(['userDetails'], Map()),
-    avatar: state.auth.getIn(['userDetails', 'avatar']),
+    watchlisted: state.watchlist.get("watchlist"),
+    oAuthToken: state.auth.get("oAuthToken"),
+    token: state.auth.get("token"),
+    userDetails: state.auth.getIn(["userDetails"], Map()),
+    avatar: state.auth.getIn(["userDetails", "avatar"]),
   }),
   {
     logUserOut,
@@ -184,7 +183,7 @@ const Watchlist = connect(
     push,
     addToWatchlist,
     removeFromWatchlist,
-  }
+  },
 )(_Watchlist);
 
 export { Watchlist };

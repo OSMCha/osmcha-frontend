@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button } from '../button';
+import React from "react";
+import { Button } from "../button";
 
 interface TrustedListUserProps {
   onSave: (username: string) => void;
@@ -9,16 +9,19 @@ interface TrustedListUserState {
   username: string;
 }
 
-export class TrustedListUser extends React.Component<TrustedListUserProps, TrustedListUserState> {
+export class TrustedListUser extends React.Component<
+  TrustedListUserProps,
+  TrustedListUserState
+> {
   state: TrustedListUserState = {
-    username: '',
+    username: "",
   };
 
   onAdd = () => {
     const username = this.state.username;
     if (username && username.length > 0) {
       this.props.onSave(username);
-      this.setState({ username: '' });
+      this.setState({ username: "" });
     }
   };
 

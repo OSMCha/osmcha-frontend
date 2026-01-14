@@ -1,12 +1,12 @@
-import { API_URL } from '../config';
-import { handleErrors } from './aoi';
+import { API_URL } from "../config";
+import { handleErrors } from "./aoi";
 
 export function createMappingTeam(token: string, name: string, users: object) {
   return fetch(`${API_URL}/mapping-team/`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
     body: JSON.stringify({
       name,
@@ -19,10 +19,10 @@ export function createMappingTeam(token: string, name: string, users: object) {
 
 export function fetchMappingTeam(token: string, id: number) {
   return fetch(`${API_URL}/mapping-team/${id}/`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   })
     .then(handleErrors)
@@ -30,20 +30,20 @@ export function fetchMappingTeam(token: string, id: number) {
 }
 export function deleteMappingTeam(token: string, id: number) {
   return fetch(`${API_URL}/mapping-team/${id}/`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   }).then(handleErrors);
 }
 
 export function fetchUserMappingTeams(token: string, owner: string) {
   return fetch(`${API_URL}/mapping-team/?owner=${owner}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   })
     .then(handleErrors)
@@ -53,10 +53,10 @@ export function fetchUserMappingTeams(token: string, owner: string) {
 
 export function fetchTrustedMappingTeams(token: string) {
   return fetch(`${API_URL}/mapping-team/?trusted=true`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   })
     .then(handleErrors)
@@ -67,13 +67,13 @@ export function updateMappingTeam(
   token: string,
   id: number,
   name?: string | null,
-  users?: object | null
+  users?: object | null,
 ) {
   return fetch(`${API_URL}/mapping-team/${id}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
     body: JSON.stringify({
       name,

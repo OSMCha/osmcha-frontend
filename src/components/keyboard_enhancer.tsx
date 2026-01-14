@@ -1,8 +1,8 @@
-import React from 'react';
-import Mousetrap from 'mousetrap';
-import { Map } from 'immutable';
+import { Map } from "immutable";
+import Mousetrap from "mousetrap";
+import React from "react";
 
-import { getDisplayName } from '../utils/component';
+import { getDisplayName } from "../utils/component";
 
 type stateType = {
   bindings: Map<string, any>;
@@ -20,7 +20,7 @@ export function keyboardToggleEnhancer<P extends {}, S extends {}>(
     label: string;
     bindings: Array<string>;
   }>,
-  WrappedComponent: React.ComponentClass<P, S>
+  WrappedComponent: React.ComponentClass<P, S>,
 ): React.ComponentClass<P, stateType> {
   return class wrapper extends React.PureComponent<P, stateType> {
     static displayName = `HOCKeyboard${getDisplayName(WrappedComponent)}`;
@@ -37,7 +37,7 @@ export function keyboardToggleEnhancer<P extends {}, S extends {}>(
             return this.exclusiveKeyToggle(item.label);
           }
           this.toggleKey(item.label);
-        })
+        }),
       );
     }
 
@@ -46,14 +46,14 @@ export function keyboardToggleEnhancer<P extends {}, S extends {}>(
       bindings.forEach((item) =>
         item.bindings.forEach((b) => {
           Mousetrap.unbind(b);
-        })
+        }),
       );
     }
 
     // allow toggling the state of a particular key
     toggleKey = (label: string) => {
       let prev = this.state.bindings;
-      let lastKeyStroke = Map<string, any>().set(label, !prev.get(label));
+      const lastKeyStroke = Map<string, any>().set(label, !prev.get(label));
       prev = prev.set(label, !prev.get(label));
       this.setState({
         bindings: prev,

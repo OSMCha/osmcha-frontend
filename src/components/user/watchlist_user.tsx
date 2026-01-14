@@ -1,6 +1,6 @@
-import React from 'react';
-import { Button } from '../button';
-import { handleErrors } from '../../network/aoi';
+import React from "react";
+import { handleErrors } from "../../network/aoi";
+import { Button } from "../button";
 
 interface WatchListUserProps {
   onSave: (username: string, uid: string) => void;
@@ -14,10 +14,13 @@ interface WatchListUserState {
   verified: boolean;
 }
 
-export class WatchListUser extends React.Component<WatchListUserProps, WatchListUserState> {
+export class WatchListUser extends React.Component<
+  WatchListUserProps,
+  WatchListUserState
+> {
   state: WatchListUserState = {
-    username: '',
-    uid: '',
+    username: "",
+    uid: "",
     isValidUsername: true,
     isValidUid: true,
     verified: false,
@@ -34,15 +37,15 @@ export class WatchListUser extends React.Component<WatchListUserProps, WatchList
   };
   fetchUsername = (username: string) =>
     fetch(
-      `https://www.openstreetmap.org/api/0.6/changesets.json?display_name=${this.state.username}`
+      `https://www.openstreetmap.org/api/0.6/changesets.json?display_name=${this.state.username}`,
     )
       .then(handleErrors)
       .then((r) => r.json())
       .then((r) => {
         try {
           return r.changesets[0].uid;
-        } catch (e) {
-          throw new Error('No changesets found for user');
+        } catch (_e) {
+          throw new Error("No changesets found for user");
         }
       });
 
@@ -65,7 +68,7 @@ export class WatchListUser extends React.Component<WatchListUserProps, WatchList
             verified: true,
             isValidUsername: true,
             isValidUid: true,
-          })
+          }),
         )
         .catch((r) => this.setState({ isValidUid: false, verified: false }));
     } else if (this.state.username.length > 0 && this.state.uid.length === 0) {
@@ -84,10 +87,10 @@ export class WatchListUser extends React.Component<WatchListUserProps, WatchList
             verified: true,
             isValidUsername: true,
             isValidUid: true,
-          })
+          }),
         )
         .catch((r) =>
-          this.setState({ isValidUsername: false, verified: false })
+          this.setState({ isValidUsername: false, verified: false }),
         );
     } else if (this.state.uid.length > 0 && this.state.username.length > 0) {
       Promise.all([
@@ -105,14 +108,14 @@ export class WatchListUser extends React.Component<WatchListUserProps, WatchList
             resp[0].uid === resp[1].uid &&
             resp[0].username === resp[1].username
           ) {
-            window.alert('The user is valid');
+            window.alert("The user is valid");
             this.setState({ verified: true });
           } else {
             this.setState({ isValidUsername: false, isValidUid: false });
           }
         })
         .catch((e) =>
-          this.setState({ isValidUsername: false, isValidUid: false })
+          this.setState({ isValidUsername: false, isValidUid: false }),
         );
     }
   };
@@ -127,33 +130,33 @@ export class WatchListUser extends React.Component<WatchListUserProps, WatchList
   };
 
   render() {
-    const errorClass = 'border border--1 border--red';
+    const errorClass = "border border--1 border--red";
     return (
       <span className="flex-parent flex-parent--row">
         <input
-          className={`input ${this.state.isValidUsername ? '' : errorClass}`}
-          style={{ marginRight: '6px !important' }}
+          className={`input ${this.state.isValidUsername ? "" : errorClass}`}
+          style={{ marginRight: "6px !important" }}
           value={this.state.username}
           onChange={this.setUsername}
           placeholder="Username"
           type="text"
         />
         <input
-          className={`input ${this.state.isValidUid ? '' : errorClass}`}
+          className={`input ${this.state.isValidUid ? "" : errorClass}`}
           value={this.state.uid}
           onChange={this.setUid}
           placeholder="UID"
           type="text"
         />
         <Button
-          className={'wmax180 ml12 bg-transparent border--0'}
+          className={"wmax180 ml12 bg-transparent border--0"}
           onClick={this.verifyInput}
         >
-          {this.state.verified ? 'Verified' : 'Verify'}
+          {this.state.verified ? "Verified" : "Verify"}
         </Button>
         <Button
           className={`btn wmax120 ml12 ${
-            this.state.verified ? 'btn--green' : ''
+            this.state.verified ? "btn--green" : ""
           }`}
           onClick={this.onAdd}
         >

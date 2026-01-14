@@ -5,10 +5,10 @@ export function cancelablePromise(promise: Promise<any>) {
   const wrappedPromise = new Promise((resolve, reject) => {
     promise
       .then((val) =>
-        hasCanceled_ ? reject({ isCanceled: true }) : resolve(val)
+        hasCanceled_ ? reject({ isCanceled: true }) : resolve(val),
       )
       .catch((error) =>
-        hasCanceled_ ? reject({ isCanceled: true }) : reject(error)
+        hasCanceled_ ? reject({ isCanceled: true }) : reject(error),
       );
   });
 
@@ -31,14 +31,14 @@ export function cancelableFetchJSON(url: string, token?: string) {
     return cancelablePromise(
       fetch(url, {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: token ? `Token ${token}` : '',
+          "Content-Type": "application/json",
+          Authorization: token ? `Token ${token}` : "",
         },
       })
         .then(handleErrors)
         .then((res) => {
           return res.json();
-        })
+        }),
     );
   } else {
     return cancelablePromise(
@@ -46,7 +46,7 @@ export function cancelableFetchJSON(url: string, token?: string) {
         .then(handleErrors)
         .then((res) => {
           return res.json();
-        })
+        }),
     );
   }
 }

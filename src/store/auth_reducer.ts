@@ -1,8 +1,8 @@
-import { Map, fromJS } from 'immutable';
-import { AUTH } from './auth_actions';
+import { fromJS, Map } from "immutable";
+import { AUTH } from "./auth_actions";
 
 export type AuthType = Map<
-  'oAuthToken' | 'oAuthTokenSecret' | 'error' | 'token' | 'userDetails',
+  "oAuthToken" | "oAuthTokenSecret" | "error" | "token" | "userDetails",
   any
 >;
 
@@ -16,23 +16,23 @@ const initialState: AuthType = fromJS({
 
 export function authReducer(
   state: AuthType = initialState,
-  action: any
+  action: any,
 ): AuthType {
   switch (action.type) {
     case AUTH.saveToken: {
-      return state.set('token', action.token).set('error', null);
+      return state.set("token", action.token).set("error", null);
     }
     case AUTH.clearSession: {
-      return fromJS({ error: state.get('error') }); // retain the error
+      return fromJS({ error: state.get("error") }); // retain the error
     }
     case AUTH.loginError: {
-      return state.set('error', action.error);
+      return state.set("error", action.error);
     }
     case AUTH.userDetails: {
-      return state.set('userDetails', action.userDetails);
+      return state.set("userDetails", action.userDetails);
     }
     case AUTH.clearUserDetails: {
-      return state.set('userDetails', Map());
+      return state.set("userDetails", Map());
     }
     default:
       return state;

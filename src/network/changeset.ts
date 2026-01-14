@@ -1,16 +1,16 @@
-import adiffParser from '@osmcha/osm-adiff-parser';
-import { parse, subSeconds } from 'date-fns';
+import adiffParser from "@osmcha/osm-adiff-parser";
+import { parse, subSeconds } from "date-fns";
 
-import { API_URL } from '../config';
-import { adiffServiceUrl, apiOSM, overpassBase } from '../config/constants';
-import { handleErrors } from './aoi';
+import { API_URL } from "../config";
+import { adiffServiceUrl, apiOSM, overpassBase } from "../config/constants";
+import { handleErrors } from "./aoi";
 
 export function fetchChangeset(id: number, token?: string | null) {
   return fetch(`${API_URL}/changesets/${id}/`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   })
     .then(handleErrors)
@@ -20,8 +20,8 @@ export function fetchChangeset(id: number, token?: string | null) {
 }
 
 export async function fetchAndParseAugmentedDiff(id: number) {
-  let xml = await fetchAugmentedDiff(id);
-  let adiff = await adiffParser(xml);
+  const xml = await fetchAugmentedDiff(id);
+  const adiff = await adiffParser(xml);
   return adiff;
 }
 
@@ -38,10 +38,10 @@ async function fetchAugmentedDiff(id: number) {
 }
 
 async function fetchAugmentedDiffFromAdiffService(id: number) {
-  let res = await fetch(`${adiffServiceUrl}/changesets/${id}.adiff`);
+  const res = await fetch(`${adiffServiceUrl}/changesets/${id}.adiff`);
   if (res.status !== 200) {
     throw new Error(
-      `GET /changesets/${id}.adiff returned ${res.status} ${res.statusText}`
+      `GET /changesets/${id}.adiff returned ${res.status} ${res.statusText}`,
     );
   }
   return await res.text();
@@ -49,27 +49,27 @@ async function fetchAugmentedDiffFromAdiffService(id: number) {
 
 async function fetchAugmentedDiffFromOverpass(id: number) {
   let res = await fetch(`${apiOSM}/changeset/${id}.json`);
-  let { changeset } = await res.json();
-  let createdAt = parse(
+  const { changeset } = await res.json();
+  const createdAt = parse(
     changeset.created_at,
     "yyyy-MM-dd'T'HH:mm:ssX",
-    new Date()
+    new Date(),
   );
-  let closedAt =
+  const closedAt =
     changeset.closed_at &&
     parse(changeset.closed_at, "yyyy-MM-dd'T'HH:mm:ssX", new Date());
 
-  let adiffArgs = [subSeconds(createdAt, 1), closedAt]
+  const adiffArgs = [subSeconds(createdAt, 1), closedAt]
     .filter(Boolean)
     .map((d) => `"${d.toISOString()}"`)
-    .join(',');
+    .join(",");
 
   let data = `[out:xml][adiff:${adiffArgs}];`;
   data +=
-    '(node(bbox)(changed);way(bbox)(changed);relation(bbox)(changed););out meta geom(bbox);';
+    "(node(bbox)(changed);way(bbox)(changed);relation(bbox)(changed););out meta geom(bbox);";
 
-  let epsilon = 0.00001;
-  let bbox = [
+  const epsilon = 0.00001;
+  const bbox = [
     changeset.min_lon - epsilon || -180,
     changeset.min_lat - epsilon || -90,
     changeset.max_lon + epsilon || 180,
@@ -77,7 +77,7 @@ async function fetchAugmentedDiffFromOverpass(id: number) {
   ];
 
   res = await fetch(
-    `${overpassBase}?data=${encodeURIComponent(data)}&bbox=${bbox.join(',')}`
+    `${overpassBase}?data=${encodeURIComponent(data)}&bbox=${bbox.join(",")}`,
   );
   return await res.text();
 }
@@ -89,15 +89,15 @@ export function setHarmful(id: number, token: string, harmful: boolean | -1) {
     url = `${API_URL}/changesets/${id}/uncheck/`;
   } else {
     url = `${API_URL}/changesets/${id}/${
-      harmful ? 'set-harmful' : 'set-good'
+      harmful ? "set-harmful" : "set-good"
     }/`;
   }
 
   return fetch(url, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
   })
     .then(handleErrors)
@@ -118,16 +118,16 @@ export function setTag(
   id: number,
   token: string,
   tag: any,
-  remove: boolean = false
+  remove: boolean = false,
 ) {
   if (Number.isNaN(parseInt(tag.value, 10))) {
-    throw new Error('tag is not a valid number');
+    throw new Error("tag is not a valid number");
   }
   return fetch(`${API_URL}/changesets/${id}/tags/${tag.value}/`, {
-    method: remove ? 'DELETE' : 'POST',
+    method: remove ? "DELETE" : "POST",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
     body: createForm({
       tag_pk: tag,
@@ -142,10 +142,10 @@ export function setTag(
 
 export function postComment(id: number, token: string, comment: string) {
   return fetch(`${API_URL}/changesets/${id}/comment/`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Token ${token}` : '',
+      "Content-Type": "application/json",
+      Authorization: token ? `Token ${token}` : "",
     },
     body: JSON.stringify({
       comment: comment,
@@ -160,29 +160,29 @@ export function postComment(id: number, token: string, comment: string) {
 export function flagFeature(changeset: number, feature: string, token: string) {
   return fetch(
     `${API_URL}/changesets/${changeset}/review-feature/${feature.replace(
-      '/',
-      '-'
+      "/",
+      "-",
     )}`,
     {
-      method: 'PUT',
-      headers: { Authorization: token ? `Token ${token}` : '' },
-    }
+      method: "PUT",
+      headers: { Authorization: token ? `Token ${token}` : "" },
+    },
   ).then(handleErrors);
 }
 
 export function unflagFeature(
   changeset: number,
   feature: string,
-  token: string
+  token: string,
 ) {
   return fetch(
     `${API_URL}/changesets/${changeset}/review-feature/${feature.replace(
-      '/',
-      '-'
+      "/",
+      "-",
     )}`,
     {
-      method: 'DELETE',
-      headers: { Authorization: token ? `Token ${token}` : '' },
-    }
+      method: "DELETE",
+      headers: { Authorization: token ? `Token ${token}` : "" },
+    },
   ).then(handleErrors);
 }

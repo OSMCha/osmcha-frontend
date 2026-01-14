@@ -1,36 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import deepEqual from 'deep-equal';
+import deepEqual from "deep-equal";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 
-import type { RootStateType } from '../../store';
-import { FeatureListItem } from './tag_changes';
-import { Loading } from '../loading';
-import { OpenAll } from '../open_all';
-import { ExpandItemIcon } from '../expand_item_icon';
+import type { RootStateType } from "../../store";
+import { ExpandItemIcon } from "../expand_item_icon";
+import { Loading } from "../loading";
+import { OpenAll } from "../open_all";
+import { FeatureListItem } from "./tag_changes";
 
 function geometryChangesFromActions(actions) {
   const finalReport = new Map();
 
-  let nodes = actions
+  const nodes = actions
     .filter(
       (action) =>
-        action.type === 'modify' &&
-        action.new.type == 'node' &&
-        (action.new.lon !== action.old.lon || action.new.lat !== action.old.lat)
+        action.type === "modify" &&
+        action.new.type === "node" &&
+        (action.new.lon !== action.old.lon ||
+          action.new.lat !== action.old.lat),
     )
     .map((action) => action.new.id);
 
-  let ways = actions
+  const ways = actions
     .filter(
       (action) =>
-        action.type === 'modify' &&
-        action.new.type === 'way' &&
-        !deepEqual(action.old.nodes, action.new.nodes)
+        action.type === "modify" &&
+        action.new.type === "way" &&
+        !deepEqual(action.old.nodes, action.new.nodes),
     )
     .map((action) => action.new.id);
 
-  finalReport.set('node', nodes);
-  finalReport.set('way', ways);
+  finalReport.set("node", nodes);
+  finalReport.set("way", ways);
 
   return finalReport;
 }
@@ -42,7 +43,7 @@ const GeometryChangesItem = ({
   setHighlight,
   zoomToAndSelect,
 }) => {
-  const titles = { node: 'Nodes', way: 'Ways', relation: 'Relations' };
+  const titles = { node: "Nodes", way: "Ways", relation: "Relations" };
   const [isOpen, setIsOpen] = useState(opened);
 
   useEffect(() => setIsOpen(opened), [opened]);
@@ -61,7 +62,7 @@ const GeometryChangesItem = ({
           {elementIds.length}
         </strong>
       </button>
-      <ul className="cmap-vlist" style={{ display: isOpen ? 'block' : 'none' }}>
+      <ul className="cmap-vlist" style={{ display: isOpen ? "block" : "none" }}>
         {elementIds.map((id) => (
           <FeatureListItem
             type={elementType}
@@ -97,14 +98,14 @@ const GeometryChangesComponent = ({
   useEffect(() => {
     const newChangeReport: Array<[string, any]> = [];
     if (changes && changes.get(changesetId)) {
-      const adiff = changes.get(changesetId)['adiff'];
+      const adiff = changes.get(changesetId).adiff;
 
       const processed = geometryChangesFromActions(adiff.actions);
       processed.forEach((featureIDs, tag) =>
-        newChangeReport.push([tag, featureIDs])
+        newChangeReport.push([tag, featureIDs]),
       );
       setChangeReport(
-        newChangeReport.filter((changeType) => changeType[1].length)
+        newChangeReport.filter((changeType) => changeType[1].length),
       );
     }
   }, [changes, changesetId]);
@@ -134,12 +135,12 @@ const GeometryChangesComponent = ({
           <span>No geometry changes in this changeset.</span>
         )
       ) : (
-        <Loading className="pt18"  />
+        <Loading className="pt18" />
       )}
     </div>
   );
 };
 
 export const GeometryChanges = connect((state: RootStateType, props) => ({
-  changes: state.changeset.get('changesetMap'),
+  changes: state.changeset.get("changesetMap"),
 }))(GeometryChangesComponent);

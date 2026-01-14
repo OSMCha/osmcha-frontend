@@ -1,16 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-import type { RootStateType } from '../../store';
-import { Dropdown } from '../dropdown';
-import {
-  addToWatchlist,
-  removeFromWatchlist,
-} from '../../store/watchlist_actions';
+import type { RootStateType } from "../../store";
 import {
   addToTrustedlist,
   removeFromTrustedlist,
-} from '../../store/trustedlist_actions';
+} from "../../store/trustedlist_actions";
+import {
+  addToWatchlist,
+  removeFromWatchlist,
+} from "../../store/watchlist_actions";
+import { Dropdown } from "../dropdown";
 
 type propsType = {
   user: Map<string, any>;
@@ -24,8 +24,8 @@ type propsType = {
 
 class _TrustWatchUser extends React.PureComponent<any, propsType, any> {
   handleVerify = (arr: Array<any>) => {
-    const username = this.props.user.get('name');
-    const uid = this.props.user.get('uid');
+    const username = this.props.user.get("name");
+    const uid = this.props.user.get("uid");
     if (arr.length === 1) {
       if (arr[0].value === false) {
         this.props.addToWatchlist({ username, uid });
@@ -34,29 +34,29 @@ class _TrustWatchUser extends React.PureComponent<any, propsType, any> {
         this.props.addToTrustedlist(username);
       }
     } else if (arr.length > 1) {
-      throw new Error('verify array is big');
+      throw new Error("verify array is big");
     }
   };
 
   handleVerifyClear = () => {
     const is_in_trustedlist =
-      this.props.trustedlist.indexOf(this.props.user.get('name')) !== -1;
+      this.props.trustedlist.indexOf(this.props.user.get("name")) !== -1;
     const is_watchlisted =
       this.props.watchlist
-        .map((user) => user.get('uid'))
-        .indexOf(this.props.user.get('uid')) !== -1;
+        .map((user) => user.get("uid"))
+        .indexOf(this.props.user.get("uid")) !== -1;
 
     if (is_watchlisted) {
-      this.props.removeFromWatchlist(this.props.user.get('uid'));
+      this.props.removeFromWatchlist(this.props.user.get("uid"));
     } else if (is_in_trustedlist) {
-      this.props.removeFromTrustedlist(this.props.user.get('name'));
+      this.props.removeFromTrustedlist(this.props.user.get("name"));
     }
   };
 
   render() {
-    const watchlist = this.props.watchlist.map((user) => user.get('uid'));
+    const watchlist = this.props.watchlist.map((user) => user.get("uid"));
 
-    if (watchlist.includes(this.props.user.get('uid'))) {
+    if (watchlist.includes(this.props.user.get("uid"))) {
       return (
         <div className="flex-parent-inline">
           <span className="btn btn--s border border--1 round color-gray transition pl12 pr6 bg-lighten50 border--red-light">
@@ -68,7 +68,7 @@ class _TrustWatchUser extends React.PureComponent<any, propsType, any> {
             </span>
             <svg
               onClick={() =>
-                this.props.removeFromWatchlist(this.props.user.get('uid'))
+                this.props.removeFromWatchlist(this.props.user.get("uid"))
               }
               className="icon inline-block align-middle pl6 w24 h24 cursor-pointer color-gray"
             >
@@ -79,7 +79,7 @@ class _TrustWatchUser extends React.PureComponent<any, propsType, any> {
       );
     } else if (
       this.props.trustedlist &&
-      this.props.trustedlist.includes(this.props.user.get('name'))
+      this.props.trustedlist.includes(this.props.user.get("name"))
     ) {
       return (
         <div className="flex-parent-inline">
@@ -92,7 +92,7 @@ class _TrustWatchUser extends React.PureComponent<any, propsType, any> {
             </span>
             <svg
               onClick={(e) =>
-                this.props.removeFromTrustedlist(this.props.user.get('name'))
+                this.props.removeFromTrustedlist(this.props.user.get("name"))
               }
               className="icon inline-block align-middle pl6 w24 h24 cursor-pointer color-gray"
             >
@@ -106,18 +106,18 @@ class _TrustWatchUser extends React.PureComponent<any, propsType, any> {
     return (
       <div className="select-container">
         <Dropdown
-          eventTypes={['click', 'touchend']}
+          eventTypes={["click", "touchend"]}
           value={[]}
           onAdd={() => {}}
           onRemove={() => {}}
           options={[
             {
               value: false,
-              label: 'Add to your watchlist',
+              label: "Add to your watchlist",
             },
             {
               value: true,
-              label: 'Add to your trusted users list',
+              label: "Add to your trusted users list",
             },
           ]}
           onChange={this.handleVerify}
@@ -131,15 +131,15 @@ class _TrustWatchUser extends React.PureComponent<any, propsType, any> {
 
 const TrustWatchUser = connect(
   (state: RootStateType, props) => ({
-    trustedlist: state.trustedlist.get('trustedlist'),
-    watchlist: state.watchlist.get('watchlist'),
+    trustedlist: state.trustedlist.get("trustedlist"),
+    watchlist: state.watchlist.get("watchlist"),
   }),
   {
     addToWatchlist,
     removeFromWatchlist,
     addToTrustedlist,
     removeFromTrustedlist,
-  }
+  },
 )(_TrustWatchUser);
 
 export { TrustWatchUser };

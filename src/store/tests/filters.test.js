@@ -1,78 +1,77 @@
-import { expectSaga } from 'redux-saga-test-plan';
-
-import { fromJS, Map } from 'immutable';
+import { fromJS, Map } from "immutable";
+import { expectSaga } from "redux-saga-test-plan";
 
 import {
   action,
-  filtersSaga,
+  CHANGESETS_PAGE,
   FILTERS,
-  CHANGESETS_PAGE
-} from '../filters_actions';
+  filtersSaga,
+} from "../filters_actions";
 
-describe('filters', () => {
+describe("filters", () => {
   const newFilters = fromJS({
     date__gte: [
       {
-        label: '2017-06-28',
-        value: '2017-06-28'
-      }
+        label: "2017-06-28",
+        value: "2017-06-28",
+      },
     ],
     is_suspect: [
       {
-        label: 'Yes',
-        value: 'True'
-      }
+        label: "Yes",
+        value: "True",
+      },
     ],
     reasons: [
       {
-        label: 'possible import',
-        value: 3
-      }
+        label: "possible import",
+        value: 3,
+      },
     ],
     harmful: [
       {
-        label: 'Show Bad only',
-        value: 'True'
-      }
+        label: "Show Bad only",
+        value: "True",
+      },
     ],
     modify__gte: [
       {
-        label: '0',
-        value: '0'
-      }
-    ]
+        label: "0",
+        value: "0",
+      },
+    ],
   });
   const location = {
-    pathname: '/filters',
-    search: '',
-    hash: '',
-    key: 'zyi6uj'
+    pathname: "/filters",
+    search: "",
+    hash: "",
+    key: "zyi6uj",
   };
   const newLocation = {
-    pathname: '/',
+    pathname: "/",
     search:
-      'filters=%7B%22date__gte%22%3A%5B%7B%22label%22%3A%222017-06-28%22%2C%22value%22%3A%222017-06-28%22%7D%5D%2C%22is_suspect%22%3A%5B%7B%22label%22%3A%22Yes%22%2C%22value%22%3A%22True%22%7D%5D%2C%22reasons%22%3A%5B%7B%22label%22%3A%22possible%20import%22%2C%22value%22%3A3%7D%5D%2C%22harmful%22%3A%5B%7B%22label%22%3A%22Show%20Bad%20only%22%2C%22value%22%3A%22True%22%7D%5D%2C%22modify__gte%22%3A%5B%7B%22label%22%3A%220%22%2C%22value%22%3A%220%22%7D%5D%7D',
-    hash: '',
-    key: 'zyi6uj'
+      "filters=%7B%22date__gte%22%3A%5B%7B%22label%22%3A%222017-06-28%22%2C%22value%22%3A%222017-06-28%22%7D%5D%2C%22is_suspect%22%3A%5B%7B%22label%22%3A%22Yes%22%2C%22value%22%3A%22True%22%7D%5D%2C%22reasons%22%3A%5B%7B%22label%22%3A%22possible%20import%22%2C%22value%22%3A3%7D%5D%2C%22harmful%22%3A%5B%7B%22label%22%3A%22Show%20Bad%20only%22%2C%22value%22%3A%22True%22%7D%5D%2C%22modify__gte%22%3A%5B%7B%22label%22%3A%220%22%2C%22value%22%3A%220%22%7D%5D%7D",
+    hash: "",
+    key: "zyi6uj",
   };
-  it(' x resetting of filters', async () => {
+  it(" x resetting of filters", async () => {
     return await expectSaga(filtersSaga, location)
       .put(
         action(FILTERS.set, {
-          filters: Map()
-        })
+          filters: Map(),
+        }),
       )
       .put.actionType(CHANGESETS_PAGE.fetch)
       .run();
   });
-  it('applying new filter', async () => {
+  it("applying new filter", async () => {
     return await expectSaga(filtersSaga, newLocation)
       // .provide([[select(locationSelector), location]])
       // .put(push(newLocation))
       .put(
         action(FILTERS.set, {
-          filters: newFilters
-        })
+          filters: newFilters,
+        }),
       )
       .put.actionType(CHANGESETS_PAGE.fetch)
       .run();

@@ -1,23 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { push } from 'react-router-redux';
-import { connect } from 'react-redux';
-import { Map, List } from 'immutable';
-
-import { modal } from '../store/modal_actions';
-import { logUserOut } from '../store/auth_actions';
-import { applyFilters } from '../store/filters_actions';
-import { cancelablePromise, isMobile } from '../utils';
-import { fetchAllAOIs } from '../network/aoi';
-import { createAOI, deleteAOI } from '../network/aoi';
-import { withFetchDataSilent } from '../components/fetch_data_enhancer';
-import { SecondaryPagesHeader } from '../components/secondary_pages_header';
-import { Button } from '../components/button';
-import { CustomURL } from '../components/customURL';
-import { BlockMarkup } from '../components/user/block_markup';
-import type { filtersType } from '../components/filters';
-import type { RootStateType } from '../store';
-import { API_URL } from '../config';
+import { List, Map } from "immutable";
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { push } from "react-router-redux";
+import { Button } from "../components/button";
+import { CustomURL } from "../components/customURL";
+import { withFetchDataSilent } from "../components/fetch_data_enhancer";
+import type { filtersType } from "../components/filters";
+import { SecondaryPagesHeader } from "../components/secondary_pages_header";
+import { BlockMarkup } from "../components/user/block_markup";
+import { API_URL } from "../config";
+import { createAOI, deleteAOI, fetchAllAOIs } from "../network/aoi";
+import type { RootStateType } from "../store";
+import { logUserOut } from "../store/auth_actions";
+import { applyFilters } from "../store/filters_actions";
+import { modal } from "../store/modal_actions";
+import { cancelablePromise, isMobile } from "../utils";
 
 interface SaveButtonProps {
   onCreate: (value: string) => void;
@@ -107,13 +105,13 @@ const AOIsBlock = ({ data, activeAoiId, removeAoi }) => (
     <Link
       className="mx3"
       to={{
-        search: `aoi=${data.getIn(['id'])}`,
-        pathname: '/filters',
+        search: `aoi=${data.getIn(["id"])}`,
+        pathname: "/filters",
       }}
     >
       <span className="txt-bold">
-        {data.getIn(['properties', 'name'])}
-        {activeAoiId === data.getIn(['id']) && (
+        {data.getIn(["properties", "name"])}
+        {activeAoiId === data.getIn(["id"]) && (
           <span className="ml12 btn btn--s px6 py0 bg-darken25 events-none">
             Active
           </span>
@@ -122,7 +120,7 @@ const AOIsBlock = ({ data, activeAoiId, removeAoi }) => (
     </Link>
     <span>
       <CustomURL
-        href={`${API_URL}/aoi/${data.getIn(['id'])}/changesets/feed/`}
+        href={`${API_URL}/aoi/${data.getIn(["id"])}/changesets/feed/`}
         className="mr3"
         iconName="rss"
       >
@@ -130,9 +128,9 @@ const AOIsBlock = ({ data, activeAoiId, removeAoi }) => (
       </CustomURL>
       <Button
         className="mr3 bg-transparent border--0"
-        onClick={() => removeAoi(data.getIn(['id']))}
+        onClick={() => removeAoi(data.getIn(["id"]))}
       >
-        <svg className={'icon txt-m mb3 inline-block align-middle color-gray'}>
+        <svg className={"icon txt-m mb3 inline-block align-middle color-gray"}>
           <use xlinkHref="#icon-trash" />
         </svg>
         Delete
@@ -141,12 +139,7 @@ const AOIsBlock = ({ data, activeAoiId, removeAoi }) => (
   </BlockMarkup>
 );
 
-const ListFortified = ({
-  data,
-  TargetBlock,
-  propsToPass,
-  SaveComp,
-}) => (
+const ListFortified = ({ data, TargetBlock, propsToPass, SaveComp }) => (
   <div>
     {data.map((e, i) => (
       <TargetBlock key={i} data={e} {...propsToPass} />
@@ -205,13 +198,13 @@ class _SavedFilters extends React.PureComponent<propsType, any> {
     this.props.push({
       ...this.props.location,
       search: `aoi=${aoiId}`,
-      path: '/filters',
+      path: "/filters",
     });
   };
   createAOI = (name: string) => {
-    if (name === '' || !name) return;
+    if (name === "" || !name) return;
     this.createAOIPromise = cancelablePromise(
-      createAOI(this.props.token, name, this.props.filters)
+      createAOI(this.props.token, name, this.props.filters),
     );
 
     this.createAOIPromise.promise
@@ -223,7 +216,7 @@ class _SavedFilters extends React.PureComponent<propsType, any> {
     deleteAOI(this.props.token, aoiId)
       .then((r) => {
         if (aoiId === this.props.aoiId) {
-          this.props.applyFilters(Map(), '/user');
+          this.props.applyFilters(Map(), "/user");
         } else {
           // const location = {
           //   ...this.props.location, //  clone it
@@ -232,16 +225,16 @@ class _SavedFilters extends React.PureComponent<propsType, any> {
           this.props.reloadData();
         }
         this.props.modal({
-          kind: 'success',
-          title: 'Filter Deleted ',
+          kind: "success",
+          title: "Filter Deleted ",
           description: `The ${aoiId} was deleted`,
         });
       })
       .catch((e) => {
         this.props.reloadData();
         this.props.modal({
-          kind: 'error',
-          title: 'Deletion failed ',
+          kind: "error",
+          title: "Deletion failed ",
           error: e,
         });
       });
@@ -259,7 +252,7 @@ class _SavedFilters extends React.PureComponent<propsType, any> {
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
-          mobile ? 'viewport-full' : ''
+          mobile ? "viewport-full" : ""
         }`}
       >
         <SecondaryPagesHeader
@@ -272,7 +265,7 @@ class _SavedFilters extends React.PureComponent<propsType, any> {
               <div>
                 <div className="mt24 mb12">
                   <ListFortified
-                    data={this.props.data.getIn(['aoi', 'features'], List())}
+                    data={this.props.data.getIn(["aoi", "features"], List())}
                     TargetBlock={AOIsBlock}
                     propsToPass={{
                       activeAoiId: this.props.aoiId,
@@ -297,25 +290,25 @@ const SavedFiltersWithData = withFetchDataSilent(
     aoi: cancelablePromise(fetchAllAOIs(props.token)),
   }),
   (nextProps: propsType, props: propsType) => true,
-  _SavedFilters
+  _SavedFilters,
 );
 
 const SavedFilters = connect(
   (state: RootStateType, props) => ({
     location: props.location,
-    filters: state.filters.get('filters'),
-    oAuthToken: state.auth.get('oAuthToken'),
-    token: state.auth.get('token'),
-    userDetails: state.auth.getIn(['userDetails'], Map()),
-    avatar: state.auth.getIn(['userDetails', 'avatar']),
-    aoiId: state.aoi.getIn(['aoi', 'id'], null),
+    filters: state.filters.get("filters"),
+    oAuthToken: state.auth.get("oAuthToken"),
+    token: state.auth.get("token"),
+    userDetails: state.auth.getIn(["userDetails"], Map()),
+    avatar: state.auth.getIn(["userDetails", "avatar"]),
+    aoiId: state.aoi.getIn(["aoi", "id"], null),
   }),
   {
     applyFilters,
     logUserOut,
     modal,
     push,
-  }
+  },
 )(SavedFiltersWithData);
 
 export { SavedFilters };

@@ -1,10 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { parse } from 'date-fns';
-
-import { RelativeTime } from '../relative_time';
-import { useIsUserListed } from '../../hooks/UseIsUserListed';
-import type { RootStateType } from '../../store';
+import { parse } from "date-fns";
+import { connect } from "react-redux";
+import { useIsUserListed } from "../../hooks/UseIsUserListed";
+import type { RootStateType } from "../../store";
+import { RelativeTime } from "../relative_time";
 
 function TitleComponent({
   properties,
@@ -14,17 +12,17 @@ function TitleComponent({
   watchlisted,
 }: any) {
   const [isInTrustedlist, isInWatchlist] = useIsUserListed(
-    properties.get('user'),
-    properties.get('uid'),
+    properties.get("user"),
+    properties.get("uid"),
     trustedlist,
-    watchlisted
+    watchlisted,
   );
 
   return (
     <div>
       <span className="flex-parent flex-parent--row justify--space-between align-items--center">
         <strong className="txt-m mt3 mr6">
-          {properties.get('user') || <i>OSM User</i>}
+          {properties.get("user") || <i>OSM User</i>}
           {isInTrustedlist && (
             <svg className="icon inline-block align-middle pl3 w18 h18 color-yellow">
               <use xlinkHref="#icon-star" />
@@ -48,8 +46,8 @@ function TitleComponent({
 }
 
 const Title = connect((state: RootStateType, props) => ({
-  trustedlist: state.trustedlist.get('trustedlist'),
-  watchlisted: state.watchlist.get('watchlist'),
+  trustedlist: state.trustedlist.get("trustedlist"),
+  watchlisted: state.watchlist.get("watchlist"),
 }))(TitleComponent);
 
 export { Title };

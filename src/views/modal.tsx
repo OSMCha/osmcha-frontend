@@ -1,18 +1,18 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Notify from 'react-notification-system';
+import React from "react";
+import Notify from "react-notification-system";
+import { connect } from "react-redux";
 
-import type { RootStateType } from '../store';
+import type { RootStateType } from "../store";
 
 import {
-  dismissModalCallback,
   activateModalCallback,
-} from '../store/modal_actions';
+  dismissModalCallback,
+} from "../store/modal_actions";
 
 interface ModalProps {
   title: string | undefined | null;
   description: string | undefined | null;
-  kind: 'error' | 'success';
+  kind: "error" | "success";
   dismiss: boolean | undefined | null;
   autoDismiss: boolean | undefined | null;
   dismissModalCallback: (a: number) => any;
@@ -25,12 +25,12 @@ interface ModalProps {
 
 class _Modal extends React.PureComponent<ModalProps> {
   static defaultProps = {
-    title: 'Error',
-    description: 'Oops there was a problem. Please reload the app.',
+    title: "Error",
+    description: "Oops there was a problem. Please reload the app.",
     autoDismiss: 5,
     dismiss: true,
-    position: 'tr',
-    kind: 'error',
+    position: "tr",
+    kind: "error",
   };
   ref: any = null;
   componentDidMount() {
@@ -71,18 +71,18 @@ class _Modal extends React.PureComponent<ModalProps> {
 }
 const Modal = connect(
   (state: RootStateType) => ({
-    error: state.modal.get('error'),
-    callback: state.modal.get('callback'),
-    callbackLabel: state.modal.get('callbackLabel'),
-    title: state.modal.get('title'),
-    description: state.modal.get('description'),
-    dismiss: state.modal.get('dismiss'),
-    position: state.modal.get('position'),
-    autoDismiss: state.modal.get('autoDismiss'),
-    kind: state.modal.get('kind'),
-    uid: state.modal.get('uid'),
+    error: state.modal.get("error"),
+    callback: state.modal.get("callback"),
+    callbackLabel: state.modal.get("callbackLabel"),
+    title: state.modal.get("title"),
+    description: state.modal.get("description"),
+    dismiss: state.modal.get("dismiss"),
+    position: state.modal.get("position"),
+    autoDismiss: state.modal.get("autoDismiss"),
+    kind: state.modal.get("kind"),
+    uid: state.modal.get("uid"),
   }),
-  { dismissModalCallback, activateModalCallback }
+  { dismissModalCallback, activateModalCallback },
 )(_Modal);
 
 export { Modal };

@@ -1,23 +1,19 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { fromJS, is, type List, Map } from "immutable";
+import React from "react";
+import { connect } from "react-redux";
+import { push } from "react-router-redux";
+import type { filtersType, filterType } from "../components/filters";
+import { FiltersHeader } from "../components/filters/filters_header";
+import { FiltersList } from "../components/filters/filters_list";
+import { deleteAOI } from "../network/aoi";
+import type { RootStateType } from "../store";
+import { applyCreateAOI, applyUpdateAOI } from "../store/aoi_actions";
+import { checkForNewChangesets } from "../store/changesets_page_actions";
+import { applyFilters } from "../store/filters_actions";
+import { modal } from "../store/modal_actions";
+import { delayPromise, isMobile } from "../utils";
 
-import { Map, List, fromJS, is } from 'immutable';
-
-import { checkForNewChangesets } from '../store/changesets_page_actions';
-import { applyFilters } from '../store/filters_actions';
-import { applyUpdateAOI, applyCreateAOI } from '../store/aoi_actions';
-import { modal } from '../store/modal_actions';
-
-import { FiltersList } from '../components/filters/filters_list';
-import { FiltersHeader } from '../components/filters/filters_header';
-
-import { deleteAOI } from '../network/aoi';
-import type { RootStateType } from '../store';
-import { delayPromise, isMobile } from '../utils';
-
-import type { filterType, filtersType } from '../components/filters';
-const NEW_AOI = 'unnamed *';
+const NEW_AOI = "unnamed *";
 
 type propsType = {
   filters: filtersType;
@@ -40,13 +36,13 @@ type stateType = {
 };
 
 const noDateGte: filtersType = fromJS({
-  date__gte: [{ label: '', value: '' }],
+  date__gte: [{ label: "", value: "" }],
 });
 
 class _Filters extends React.PureComponent<propsType, stateType> {
   state = {
     filters: this.props.filters,
-    active: '',
+    active: "",
     // aoiName: this.props.aoi.getIn(['properties', 'name'], NEW_AOI)
   };
   componentWillReceiveProps(nextProps: propsType) {
@@ -66,24 +62,24 @@ class _Filters extends React.PureComponent<propsType, stateType> {
     // loaded AOI.
     if (JSON.stringify(this.state.filters.toJS()).length > 7000) {
       this.props.modal({
-        kind: 'error',
-        title: 'Use Save Filter',
+        kind: "error",
+        title: "Use Save Filter",
         description:
-          'Your filter is too big to be applied. You need to Save your Filter to be able to see the results.',
+          "Your filter is too big to be applied. You need to Save your Filter to be able to see the results.",
       });
     } else {
       if (is(this.state.filters, this.props.filters)) {
         this.props.push({
           ...this.props.location,
-          pathname: '/',
+          pathname: "/",
         });
         return;
       }
-      this.props.applyFilters(this.state.filters, '/');
+      this.props.applyFilters(this.state.filters, "/");
       // show user if there were any new changesets
       // incase service had cached the request
       delayPromise(3000).promise.then(() =>
-        this.props.checkForNewChangesets(true)
+        this.props.checkForNewChangesets(true),
       );
     }
   };
@@ -93,7 +89,7 @@ class _Filters extends React.PureComponent<propsType, stateType> {
       // if someone cleared date__gte filter
       // we use the convention defined at `noDateGte`
       // to signify no default gte.
-      if (name === 'date__gte' && values == null) {
+      if (name === "date__gte" && values == null) {
         filters = filters.merge(noDateGte);
       } else if (values == null) {
         // clear this filter
@@ -106,12 +102,12 @@ class _Filters extends React.PureComponent<propsType, stateType> {
   };
   handleToggleAll = (name: string, values?: filterType) => {
     let filters = this.state.filters;
-    const isAll = name.slice(0, 4) === 'all_';
+    const isAll = name.slice(0, 4) === "all_";
     //  delete the opposite value
     if (isAll) {
       filters = filters.delete(name.slice(4));
     } else {
-      filters = filters.delete('all_' + name);
+      filters = filters.delete("all_" + name);
     }
     // regularly handle change
     if (!values) {
@@ -125,7 +121,7 @@ class _Filters extends React.PureComponent<propsType, stateType> {
     this.setState({ filters });
   };
   handleClear = () => {
-    this.props.applyFilters(Map(), '/');
+    this.props.applyFilters(Map(), "/");
   };
   loadAoiId = (aoiId: string) => {
     this.props.push({
@@ -134,15 +130,15 @@ class _Filters extends React.PureComponent<propsType, stateType> {
     });
   };
   getAOIName = () => {
-    if (this.props.loading) return '';
-    return this.props.aoi.getIn(['properties', 'name'], NEW_AOI);
+    if (this.props.loading) return "";
+    return this.props.aoi.getIn(["properties", "name"], NEW_AOI);
   };
   getAOIId = (aoiId: string) => {
-    if (this.props.loading) return '';
-    return this.props.aoi.get('id');
+    if (this.props.loading) return "";
+    return this.props.aoi.get("id");
   };
   removeAOI = (aoiId: string) => {
-    if (aoiId === this.props.aoi.get('id')) {
+    if (aoiId === this.props.aoi.get("id")) {
       this.handleClear();
     }
     deleteAOI(this.props.token, aoiId).catch((e) => console.error(e));
@@ -159,7 +155,7 @@ class _Filters extends React.PureComponent<propsType, stateType> {
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white ${
-          mobile ? 'viewport-full' : ''
+          mobile ? "viewport-full" : ""
         }`}
       >
         <FiltersHeader
@@ -169,7 +165,7 @@ class _Filters extends React.PureComponent<propsType, stateType> {
           loading={this.props.loading}
           token={this.props.token}
           aoiName={this.getAOIName()}
-          aoiId={this.props.loading ? '' : this.props.aoi.get('id')}
+          aoiId={this.props.loading ? "" : this.props.aoi.get("id")}
           loadAoiId={this.loadAoiId}
           handleApply={this.handleApply}
           handleClear={this.handleClear}
@@ -192,12 +188,12 @@ class _Filters extends React.PureComponent<propsType, stateType> {
 
 const Filters = connect(
   (state: RootStateType, props) => ({
-    filters: state.filters.get('filters'),
-    aoi: state.aoi.get('aoi'),
-    loading: state.filters.get('loading'),
-    features: state.changesetsPage.getIn(['currentPage', 'features']),
+    filters: state.filters.get("filters"),
+    aoi: state.aoi.get("aoi"),
+    loading: state.filters.get("loading"),
+    features: state.changesetsPage.getIn(["currentPage", "features"]),
     location: props.location,
-    token: state.auth.get('token'),
+    token: state.auth.get("token"),
   }),
   {
     checkForNewChangesets,
@@ -206,7 +202,7 @@ const Filters = connect(
     applyUpdateAOI,
     push,
     modal,
-  }
+  },
 )(_Filters);
 
 export { Filters };

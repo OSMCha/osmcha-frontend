@@ -1,21 +1,20 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Map, List } from 'immutable';
-import { push } from 'react-router-redux';
-import { Link } from 'react-router-dom';
-
-import { getObjAsQueryParam, isMobile } from '../utils';
-import { BlockMarkup } from '../components/user/block_markup';
-import { SaveUser } from '../components/user/save_user';
-import { SecondaryPagesHeader } from '../components/secondary_pages_header';
+import { List, Map } from "immutable";
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { push } from "react-router-redux";
+import { Button } from "../components/button";
+import { SecondaryPagesHeader } from "../components/secondary_pages_header";
+import { BlockMarkup } from "../components/user/block_markup";
+import { SaveUser } from "../components/user/save_user";
+import type { RootStateType } from "../store";
+import { logUserOut } from "../store/auth_actions";
+import { modal } from "../store/modal_actions";
 import {
   addToTrustedlist,
   removeFromTrustedlist,
-} from '../store/trustedlist_actions';
-import { modal } from '../store/modal_actions';
-import { logUserOut } from '../store/auth_actions';
-import { Button } from '../components/button';
-import type { RootStateType } from '../store';
+} from "../store/trustedlist_actions";
+import { getObjAsQueryParam, isMobile } from "../utils";
 
 const TrustedListBlock = ({ data, removeFromTrustedList }) => (
   <BlockMarkup>
@@ -26,7 +25,7 @@ const TrustedListBlock = ({ data, removeFromTrustedList }) => (
       <Link
         className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
         to={{
-          search: getObjAsQueryParam('filters', {
+          search: getObjAsQueryParam("filters", {
             users: [
               {
                 label: data,
@@ -42,7 +41,7 @@ const TrustedListBlock = ({ data, removeFromTrustedList }) => (
         className="mr3 bg-transparent border--0"
         onClick={() => removeFromTrustedList(data)}
       >
-        <svg className={'icon txt-m mb3 inline-block align-middle'}>
+        <svg className={"icon txt-m mb3 inline-block align-middle"}>
           <use xlinkHref="#icon-trash" />
         </svg>
         Remove
@@ -106,14 +105,14 @@ class _TrustedUsers extends React.PureComponent<propsType, any> {
     let trustedUsers = this.props.trustedList ? this.props.trustedList : List();
     trustedUsers = trustedUsers.sortBy(
       (a) => a,
-      (a: string, b: string) => a.localeCompare(b)
+      (a: string, b: string) => a.localeCompare(b),
     ) as List<any>;
     const mobile = isMobile();
 
     return (
       <div
         className={`flex-parent flex-parent--column changesets-filters bg-white${
-          mobile ? ' viewport-full' : ''
+          mobile ? " viewport-full" : ""
         }`}
       >
         <SecondaryPagesHeader
@@ -148,11 +147,11 @@ class _TrustedUsers extends React.PureComponent<propsType, any> {
 const TrustedUsers = connect(
   (state: RootStateType, props) => ({
     location: props.location,
-    trustedList: state.trustedlist.get('trustedlist'),
-    oAuthToken: state.auth.get('oAuthToken'),
-    token: state.auth.get('token'),
-    userDetails: state.auth.getIn(['userDetails'], Map()),
-    avatar: state.auth.getIn(['userDetails', 'avatar']),
+    trustedList: state.trustedlist.get("trustedlist"),
+    oAuthToken: state.auth.get("oAuthToken"),
+    token: state.auth.get("token"),
+    userDetails: state.auth.getIn(["userDetails"], Map()),
+    avatar: state.auth.getIn(["userDetails", "avatar"]),
   }),
   {
     logUserOut,
@@ -160,7 +159,7 @@ const TrustedUsers = connect(
     push,
     addToTrustedlist,
     removeFromTrustedlist,
-  }
+  },
 )(_TrustedUsers);
 
 export { TrustedUsers };

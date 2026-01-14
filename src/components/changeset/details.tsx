@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Map } from 'immutable';
-import AnchorifyText from 'react-anchorify-text';
-import AssemblyAnchor from '../assembly_anchor';
-import TranslateButton from './translate_button';
-import { Reasons } from '../reasons';
-import PropertyList from './property_list';
+import type { Map } from "immutable";
+import { useState } from "react";
+import AnchorifyText from "react-anchorify-text";
+import AssemblyAnchor from "../assembly_anchor";
+import { Reasons } from "../reasons";
+import PropertyList from "./property_list";
+import TranslateButton from "./translate_button";
 
 export function Details({
   properties,
@@ -14,36 +14,36 @@ export function Details({
   changesetId: number;
   expanded?: boolean;
 }) {
-  let source = properties.get('source');
-  let imagery = properties.get('imagery_used');
-  const editor = properties.get('editor');
-  const metadata = properties.get('metadata');
-  const reasons = properties.get('reasons');
-  const comment = properties.get('comment');
+  let source = properties.get("source");
+  let imagery = properties.get("imagery_used");
+  const editor = properties.get("editor");
+  const metadata = properties.get("metadata");
+  const reasons = properties.get("reasons");
+  const comment = properties.get("comment");
 
   const urlRegex = new RegExp(
-    /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/gim
+    /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])/gim,
   );
 
   let sourceMatch = [];
-  if (source && source.indexOf('{switch:a,b,c}.') > -1) {
-    source = source.replace('{switch:a,b,c}.', '');
+  if (source && source.indexOf("{switch:a,b,c}.") > -1) {
+    source = source.replace("{switch:a,b,c}.", "");
   }
   if (source && source.match(urlRegex)) {
     sourceMatch = source.match(urlRegex);
-    source = source.replace(urlRegex, '');
+    source = source.replace(urlRegex, "");
   }
 
   let imageryMatch = [];
   if (imagery && imagery.match(urlRegex)) {
     imageryMatch = imagery.match(urlRegex);
-    imagery = imagery.replace(urlRegex, '');
+    imagery = imagery.replace(urlRegex, "");
   }
 
   let propertiesObj = {};
   // As JOSM doesn't use the imagery field, change the order
   // to make the source field visible in the first page
-  if (imagery === 'Not reported') {
+  if (imagery === "Not reported") {
     propertiesObj = {
       editor: editor,
       source: source,
@@ -59,9 +59,9 @@ export function Details({
 
   Array.from(metadata, ([p, v]) => {
     if (
-      !p.startsWith('ideditor') &&
-      !p.startsWith('resolved') &&
-      !p.startsWith('warnings')
+      !p.startsWith("ideditor") &&
+      !p.startsWith("resolved") &&
+      !p.startsWith("warnings")
     ) {
       propertiesObj[p] = v;
     }
@@ -76,7 +76,7 @@ export function Details({
         <div className="flex-parent flex-parent--row flex-parent--wrap mb3">
           <p
             className={`flex-child txt-subhead txt-l txt-break-url ${
-              !comment ? 'color-gray txt-em' : ''
+              !comment ? "color-gray txt-em" : ""
             }`}
           >
             <AnchorifyText

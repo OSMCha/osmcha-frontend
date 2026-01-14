@@ -1,9 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-
-import { getFinalToken } from '../store/auth_actions';
-import type { RootStateType } from '../store';
+import React from "react";
+import { connect } from "react-redux";
+import { push } from "react-router-redux";
+import type { RootStateType } from "../store";
+import { getFinalToken } from "../store/auth_actions";
 
 interface AuthorizedProps {
   location: any;
@@ -15,18 +14,21 @@ interface AuthorizedState {
   isReadyToRedirect: boolean;
 }
 
-class _Authorized extends React.PureComponent<AuthorizedProps, AuthorizedState> {
+class _Authorized extends React.PureComponent<
+  AuthorizedProps,
+  AuthorizedState
+> {
   state: AuthorizedState = {
     isReadyToRedirect: false,
   };
 
   componentDidMount() {
     const params = new URLSearchParams(this.props.location.search);
-    let authCode = params.get('code');
+    const authCode = params.get("code");
     if (authCode) {
       this.props.getFinalToken(authCode);
     }
-    this.props.push({ ...this.props.location, search: '', pathname: '/' });
+    this.props.push({ ...this.props.location, search: "", pathname: "/" });
   }
 
   render() {
@@ -41,7 +43,7 @@ const Authorized = connect(
   {
     getFinalToken,
     push,
-  }
+  },
 )(_Authorized);
 
 export { Authorized };

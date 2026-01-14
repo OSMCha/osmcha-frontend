@@ -1,24 +1,23 @@
-import { put, call, select, all, takeLatest } from 'redux-saga/effects';
-import { fromJS, Map } from 'immutable';
-import { push } from 'react-router-redux';
-
-import { fetchAOI, createAOI, updateAOI } from '../network/aoi';
-import { fetchReasons, fetchTags } from '../network/reasons_tags';
-import { validateFilters } from '../utils/filters';
-import { CHANGESETS_PAGE, FILTERS } from './filters_actions';
-import { tokenSelector } from './auth_actions';
-import { modal } from './modal_actions';
-import type { filtersType } from '../components/filters';
-import type { RootStateType } from './';
+import { fromJS, Map } from "immutable";
+import { push } from "react-router-redux";
+import { all, call, put, select, takeLatest } from "redux-saga/effects";
+import type { filtersType } from "../components/filters";
+import { createAOI, fetchAOI, updateAOI } from "../network/aoi";
+import { fetchReasons, fetchTags } from "../network/reasons_tags";
+import { validateFilters } from "../utils/filters";
+import type { RootStateType } from "./";
+import { tokenSelector } from "./auth_actions";
+import { CHANGESETS_PAGE, FILTERS } from "./filters_actions";
+import { modal } from "./modal_actions";
 
 export const AOI = {
-  fetch: 'AOI.fetch',
-  clear: 'AOI.clear',
-  fetched: 'AOI.fetched',
-  create: 'AOI.create',
-  update: 'AOI.update',
-  loading: 'AOI.loading',
-  error: 'AOI.error',
+  fetch: "AOI.fetch",
+  clear: "AOI.clear",
+  fetched: "AOI.fetched",
+  create: "AOI.create",
+  update: "AOI.update",
+  loading: "AOI.loading",
+  error: "AOI.error",
 };
 
 export function action(type: string, payload?: any | null) {
@@ -28,7 +27,7 @@ export function action(type: string, payload?: any | null) {
 export const applyUpdateAOI = (
   aoiId: string,
   name: string,
-  filters: filtersType
+  filters: filtersType,
 ) => action(AOI.update, { aoiId, name, filters });
 
 export const applyCreateAOI = (name: string, filters: filtersType) =>
@@ -49,26 +48,26 @@ export function* fetchAOISaga(aoiId: string): any {
   const tags = yield call(fetchTags, token);
   const aoi = fromJS(data);
   yield put(action(AOI.fetched, { aoi }));
-  let filters = aoi.getIn(['properties', 'filters'], Map());
+  let filters = aoi.getIn(["properties", "filters"], Map());
   filters = filters.map((v, k) => {
-    if (k === 'reasons') {
+    if (k === "reasons") {
       return fromJS(
-        v.split(',').map((o) => ({
+        v.split(",").map((o) => ({
           value: o,
-          label: reasons.filter((i) => i.id === Number(o))[0]['name'],
-        }))
+          label: reasons.filter((i) => i.id === Number(o))[0].name,
+        })),
       );
     }
-    if (k === 'tags') {
+    if (k === "tags") {
       return fromJS(
-        v.split(',').map((o) => ({
+        v.split(",").map((o) => ({
           value: o,
-          label: tags.filter((i) => i.id === Number(o))[0]['name'],
-        }))
+          label: tags.filter((i) => i.id === Number(o))[0].name,
+        })),
       );
     }
     try {
-      if (JSON.parse(v) && JSON.parse(v).hasOwnProperty('coordinates')) {
+      if (JSON.parse(v) && Object.hasOwn(JSON.parse(v), "coordinates")) {
         return fromJS([
           {
             value: JSON.parse(v),
@@ -78,13 +77,13 @@ export function* fetchAOISaga(aoiId: string): any {
       } else {
         throw SyntaxError;
       }
-    } catch (e) {
-      const options = v.split(',');
+    } catch (_e) {
+      const options = v.split(",");
       return fromJS(
         options.map((o) => ({
           value: o,
           label: o,
-        }))
+        })),
       );
     }
   });
@@ -106,20 +105,20 @@ export function* createAOISaga({
     const data = yield call(createAOI, token, name, filters);
     const aoi = fromJS(data);
     yield put(action(AOI.fetched, { aoi }));
-    let location = yield select(locationSelector);
+    const location = yield select(locationSelector);
     yield put(
       push({
         ...location,
         pathname: location.pathname,
         search: `aoi=${data.id}`,
-      })
+      }),
     );
   } catch (e) {
     console.error(e);
     yield put(
       modal({
         error: e as Error,
-      })
+      }),
     );
   }
 }
@@ -138,24 +137,30 @@ export function* updateAOISaga({
   try {
     yield put(action(AOI.loading, { loading: true }));
     const token = yield select(tokenSelector);
-    const data = yield call(updateAOI, token, parseInt(aoiId, 10), name, filters);
+    const data = yield call(
+      updateAOI,
+      token,
+      parseInt(aoiId, 10),
+      name,
+      filters,
+    );
     const aoi = fromJS(data);
     yield put(action(AOI.fetched, { aoi }));
     yield call(validateFilters, filters);
     yield put(
       action(FILTERS.set, {
         filters,
-      })
+      }),
     );
     yield put(
-      action(CHANGESETS_PAGE.fetch, { pageIndex: 0, aoiId: aoiId, filters })
+      action(CHANGESETS_PAGE.fetch, { pageIndex: 0, aoiId: aoiId, filters }),
     );
   } catch (e) {
     console.error(e);
     yield put(
       modal({
         error: e as Error,
-      })
+      }),
     );
   }
 }

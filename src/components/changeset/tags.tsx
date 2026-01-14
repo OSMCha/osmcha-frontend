@@ -1,8 +1,8 @@
-import React from 'react';
-import { API_URL } from '../../config';
-import { Map as ImmutableMap } from 'immutable';
-import { Dropdown } from '../dropdown';
-import { cancelablePromise } from '../../utils/promise';
+import { Map as ImmutableMap } from "immutable";
+import React from "react";
+import { API_URL } from "../../config";
+import { cancelablePromise } from "../../utils/promise";
+import { Dropdown } from "../dropdown";
 
 // TOFIX Needs cleanup.
 
@@ -14,7 +14,7 @@ interface TagsProps {
     d: number,
     c: ImmutableMap<string, any>,
     b: any,
-    a: boolean
+    a: boolean,
   ) => unknown;
 }
 
@@ -41,15 +41,15 @@ export class Tags extends React.PureComponent<TagsProps, TagsState> {
       this.tagsData = cancelablePromise(
         fetch(`${API_URL}/tags/`).then((response) => {
           return response.json();
-        })
+        }),
       );
     }
 
     return this.tagsData.promise
       .then((json) => {
-        let data = {};
-        let selectData = json.results.filter(
-          (d) => d.is_visible && d.for_changeset
+        const data = {};
+        const selectData = json.results.filter(
+          (d) => d.is_visible && d.for_changeset,
         );
 
         selectData.forEach((d) => {
@@ -90,7 +90,7 @@ export class Tags extends React.PureComponent<TagsProps, TagsState> {
     if (!this.props.currentChangeset) return null;
 
     const value = this.props.currentChangeset
-      .getIn(['properties', 'tags'], this.defaultValue)
+      .getIn(["properties", "tags"], this.defaultValue)
       .toJS()
       .map((t) => ({
         value: t.id,
@@ -100,18 +100,18 @@ export class Tags extends React.PureComponent<TagsProps, TagsState> {
     if (this.state.options) {
       return (
         <Dropdown
-          eventTypes={['click', 'touchend']}
+          eventTypes={["click", "touchend"]}
           multi
           onAdd={this.onAdd}
           onRemove={this.onRemove}
           disabled={this.props.disabled}
           className={`${
-            this.props.disabled ? 'cursor-notallowed' : ''
+            this.props.disabled ? "cursor-notallowed" : ""
           } flex-parent mr3`}
           value={value}
           options={this.state.options}
           onChange={() => {}}
-          display={`Tags${value.length > 0 ? ` (${value.length})` : ''}`}
+          display={`Tags${value.length > 0 ? ` (${value.length})` : ""}`}
           position="right"
         />
       );

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function TranslateButton({ text }: { text: string }) {
   return (
     <a

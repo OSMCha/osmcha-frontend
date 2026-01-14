@@ -1,20 +1,20 @@
-import { Map, fromJS } from 'immutable';
+import { fromJS, type Map } from "immutable";
 
-import { MAPCONTROLS } from './map_controls_actions';
+import { MAPCONTROLS } from "./map_controls_actions";
 
-export type mapControlsReducerType = Map<'style', any>;
+export type mapControlsReducerType = Map<"style", any>;
 
 const mapControlsInitial: mapControlsReducerType = fromJS({
-  style: 'satellite',
+  style: "satellite",
 });
 
 export function mapControlsReducer(
   state: mapControlsReducerType = mapControlsInitial,
-  action: any
+  action: any,
 ): mapControlsReducerType {
   switch (action.type) {
     case MAPCONTROLS.setStyle: {
-      return state.set('style', action.style);
+      return state.set("style", action.style);
     }
     default:
       return state;

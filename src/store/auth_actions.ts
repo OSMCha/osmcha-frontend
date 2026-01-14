@@ -1,35 +1,34 @@
-import { put, call, take, select, all, takeLatest } from 'redux-saga/effects';
-import { delay as delayPromise } from 'redux-saga';
-import { push } from 'react-router-redux';
-import { fromJS } from 'immutable';
+import { fromJS } from "immutable";
+import { push } from "react-router-redux";
+import { delay as delayPromise } from "redux-saga";
+import { all, call, put, select, take, takeLatest } from "redux-saga/effects";
 
 import {
-  postFinalTokensOSMCha,
   fetchUserDetails,
+  postFinalTokensOSMCha,
   updateUserDetails,
-} from '../network/auth';
-import { getStatus } from '../network/status';
-import { fetchChangeset } from '../network/changeset';
-import { fetchWatchList } from '../network/osmcha_watchlist';
-import { setItem, removeItem } from '../utils/safe_storage';
-import { modal } from './modal_actions';
-import { TRUSTEDLIST } from './trustedlist_actions';
-import { WATCHLIST } from './watchlist_actions';
-import { pageIndexSelector, CHANGESETS_PAGE } from './changesets_page_actions';
-import { CHANGESET } from './changeset_actions';
-
-import type { RootStateType } from './';
+} from "../network/auth";
+import { fetchChangeset } from "../network/changeset";
+import { fetchWatchList } from "../network/osmcha_watchlist";
+import { getStatus } from "../network/status";
+import { removeItem, setItem } from "../utils/safe_storage";
+import type { RootStateType } from "./";
+import { CHANGESET } from "./changeset_actions";
+import { CHANGESETS_PAGE, pageIndexSelector } from "./changesets_page_actions";
+import { modal } from "./modal_actions";
+import { TRUSTEDLIST } from "./trustedlist_actions";
+import { WATCHLIST } from "./watchlist_actions";
 
 export const AUTH = {
-  postSocialToken: 'AUTH_POST_SOCIAL_TOKEN',
-  getFinalToken: 'AUTH_GET_FINAL_TOKEN',
-  saveToken: 'AUTH_SAVE_TOKEN',
-  logout: 'AUTH_LOGOUT',
-  clearSession: 'AUTH_CLEAR_SESSION',
-  loginError: 'AUTH_LOGIN_ERROR',
-  userDetails: 'AUTH_USER_DETAILS',
-  clearUserDetails: 'AUTH_CLEAR_USER_DETAILS',
-  updateUserDetails: 'UPDATE_USER_DETAILS',
+  postSocialToken: "AUTH_POST_SOCIAL_TOKEN",
+  getFinalToken: "AUTH_GET_FINAL_TOKEN",
+  saveToken: "AUTH_SAVE_TOKEN",
+  logout: "AUTH_LOGOUT",
+  clearSession: "AUTH_CLEAR_SESSION",
+  loginError: "AUTH_LOGIN_ERROR",
+  userDetails: "AUTH_USER_DETAILS",
+  clearUserDetails: "AUTH_CLEAR_USER_DETAILS",
+  updateUserDetails: "UPDATE_USER_DETAILS",
 };
 
 export function action(type: string, payload?: any | null) {
@@ -45,21 +44,21 @@ export const getFinalToken = (code: string) =>
 
 export const logUserOut = () => action(AUTH.logout);
 
-export const tokenSelector = (state: RootStateType) => state.auth.get('token');
+export const tokenSelector = (state: RootStateType) => state.auth.get("token");
 
 export const locationSelector = (state: RootStateType) =>
   state.routing.location;
 
 export const changesetIdSelector = (state: RootStateType) =>
-  state.changeset.get('changesetId');
+  state.changeset.get("changesetId");
 
-const delay = import.meta.env.MODE === 'test' ? () => {} : delayPromise;
+const delay = import.meta.env.MODE === "test" ? () => {} : delayPromise;
 const DELAY = 1000;
 
 export const applyUpdateUserDetails = (
   message_good: string,
   message_bad: string,
-  comment_feature: boolean
+  comment_feature: boolean,
 ) =>
   action(AUTH.updateUserDetails, {
     message_good,
@@ -87,36 +86,36 @@ export function* watchAuth(): any {
         token = yield call(authTokenFlow);
       }
       const userDetails = fromJS(yield call(fetchUserDetails, token));
-      const trustedlist = userDetails.get('whitelists');
+      const trustedlist = userDetails.get("whitelists");
       const watchlist = fromJS(yield call(fetchWatchList, token));
       const status = fromJS(yield call(getStatus));
       yield put(action(TRUSTEDLIST.define, { trustedlist }));
       yield put(action(WATCHLIST.define, { watchlist }));
       yield put(action(AUTH.userDetails, { userDetails }));
-      let pageIndex = yield select(pageIndexSelector);
+      const pageIndex = yield select(pageIndexSelector);
       if (pageIndex) {
         yield put(action(CHANGESETS_PAGE.fetch, { pageIndex }));
       }
-      let changesetId = yield select(changesetIdSelector);
+      const changesetId = yield select(changesetIdSelector);
       if (changesetId) {
-        let changeset = yield call(fetchChangeset, changesetId, token);
+        const changeset = yield call(fetchChangeset, changesetId, token);
         yield put(
           action(CHANGESET.fetched, {
             data: fromJS(changeset),
             changesetId,
-          })
+          }),
         );
       }
       // show status notification
-      if (status.get('status') !== 'success') {
+      if (status.get("status") !== "success") {
         yield put(
           modal({
-            title: 'OSMCha Status',
-            description: status.get('message'),
-            kind: status.get('status'),
+            title: "OSMCha Status",
+            description: status.get("message"),
+            kind: status.get("status"),
             autoDismiss: 20,
-            position: 'bc',
-          })
+            position: "bc",
+          }),
         );
       }
 
@@ -130,12 +129,12 @@ export function* watchAuth(): any {
       yield put(action(AUTH.loginError, error));
       yield call(delay, delayBy / 2);
       const err = error as Error;
-      err.name = 'Error';
+      err.name = "Error";
       yield put(
         modal({
           error: err,
-          kind: 'warning',
-        })
+          kind: "warning",
+        }),
       );
       yield take(AUTH.logout);
       delayBy = 4 * delayBy;
@@ -147,26 +146,26 @@ export function* watchAuth(): any {
 }
 
 export function* logoutFlow(): any {
-  yield call(removeItem, 'token');
+  yield call(removeItem, "token");
   yield put(action(AUTH.clearSession));
   yield put(action(TRUSTEDLIST.clear));
   // get CHANGESET_PAGE without user metadata
-  let pageIndex = yield select(pageIndexSelector);
+  const pageIndex = yield select(pageIndexSelector);
   if (pageIndex) {
     yield put(action(CHANGESETS_PAGE.fetch, { pageIndex }));
   }
   yield put(action(AUTH.clearUserDetails));
-  let location = yield select(locationSelector);
+  const location = yield select(locationSelector);
   yield put(
     push({
       ...location,
-      pathname: '/',
-    })
+      pathname: "/",
+    }),
   );
 }
 
 export function* authTokenFlow(): any {
-  console.log('Authorization flow started');
+  console.log("Authorization flow started");
   // yield take(ACTION) waits for the particular action
   // to emit and resume the flow. next in action would
   // be to wait for the action `GET_FINAL_TOKEN`
@@ -174,29 +173,29 @@ export function* authTokenFlow(): any {
   const { code } = yield take(AUTH.getFinalToken);
   yield put(
     modal({
-      kind: 'warning',
-      title: 'Login in progress',
-      description: 'Please, wait. We are logging you in.',
+      kind: "warning",
+      title: "Login in progress",
+      description: "Please, wait. We are logging you in.",
       autoDismiss: 1,
-    })
+    }),
   );
   const { token } = yield call(postFinalTokensOSMCha, code);
-  if (!token || token === '') {
-    throw new Error('invalid token');
+  if (!token || token === "") {
+    throw new Error("invalid token");
   }
   yield put(
     modal({
-      kind: 'success',
-      title: 'Successful authentication',
-      description: 'You are now logged in!',
+      kind: "success",
+      title: "Successful authentication",
+      description: "You are now logged in!",
       autoDismiss: 2,
-    })
+    }),
   );
-  yield call(setItem, 'token', token);
+  yield call(setItem, "token", token);
   yield put(
     action(AUTH.saveToken, {
       token,
-    })
+    }),
   );
   return token;
 }
@@ -211,7 +210,7 @@ export function* updateUserDetailsSaga({
   comment_feature: boolean;
 }): any {
   try {
-    let token = yield select(tokenSelector);
+    const token = yield select(tokenSelector);
     if (token) {
       const userDetails = fromJS(
         yield call(
@@ -219,16 +218,16 @@ export function* updateUserDetailsSaga({
           token,
           message_good,
           message_bad,
-          comment_feature
-        )
+          comment_feature,
+        ),
       );
       yield put(action(AUTH.userDetails, { userDetails }));
       yield put(
         modal({
-          kind: 'success',
-          title: 'User updated',
-          description: 'Your user preferences were updated successfully',
-        })
+          kind: "success",
+          title: "User updated",
+          description: "Your user preferences were updated successfully",
+        }),
       );
     }
   } catch (e) {
@@ -236,7 +235,7 @@ export function* updateUserDetailsSaga({
     yield put(
       modal({
         error: e as Error,
-      })
+      }),
     );
   }
 }

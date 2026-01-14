@@ -1,85 +1,81 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { fromJS } from 'immutable';
-import debounce from 'lodash.debounce';
-import Select from 'react-select';
-import AsyncSelect from 'react-select/async';
-
-import maplibre from 'maplibre-gl';
+import area from "@turf/area";
+import bbox from "@turf/bbox";
+import bboxPolygon from "@turf/bbox-polygon";
+import simplify from "@turf/simplify";
+import truncate from "@turf/truncate";
+import { fromJS } from "immutable";
+import debounce from "lodash.debounce";
+import maplibre from "maplibre-gl";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Select from "react-select";
+import AsyncSelect from "react-select/async";
 import {
   TerraDraw,
-  TerraDrawRectangleMode,
   TerraDrawPolygonMode,
+  TerraDrawRectangleMode,
   TerraDrawRenderMode,
-} from 'terra-draw';
-import { TerraDrawMapLibreGLAdapter } from 'terra-draw-maplibre-gl-adapter';
-import area from '@turf/area';
-import bbox from '@turf/bbox';
-import bboxPolygon from '@turf/bbox-polygon';
-import simplify from '@turf/simplify';
-import truncate from '@turf/truncate';
+} from "terra-draw";
+import { TerraDrawMapLibreGLAdapter } from "terra-draw-maplibre-gl-adapter";
 
-import { nominatimSearch } from '../../network/nominatim';
+import { nominatimSearch } from "../../network/nominatim";
 
 const LocationSelect = (props) => {
   const { name, value, placeholder, onChange } = props;
 
-  const [queryType, setQueryType] = useState('q');
+  const [queryType, setQueryType] = useState("q");
   const [isLoading, setIsLoading] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const [activeMode, setActiveMode] = useState('render');
+  const [inputValue, setInputValue] = useState("");
+  const [activeMode, setActiveMode] = useState("render");
 
   const mapRef = useRef<maplibre.Map | null>(null);
   const drawRef = useRef<TerraDraw | null>(null);
 
   const queryTypeOptions = [
-    { value: 'q', label: 'Any' },
-    { value: 'city', label: 'City' },
-    { value: 'county', label: 'County' },
-    { value: 'state', label: 'State' },
-    { value: 'country', label: 'Country' },
+    { value: "q", label: "Any" },
+    { value: "city", label: "City" },
+    { value: "county", label: "County" },
+    { value: "state", label: "State" },
+    { value: "country", label: "Country" },
   ];
 
-  const updateMap = useCallback(
-    (data) => {
-      const map = mapRef.current;
-      if (!map) return;
+  const updateMap = useCallback((data) => {
+    const map = mapRef.current;
+    if (!map) return;
 
-      // called with geojson polygon of a feature that was retrieved by
-      // name from Nominatim
-      if (map.getSource('feature')) {
-        (map.getSource('feature') as any).setData(data);
-      } else {
-        map.addSource('feature', { type: 'geojson', data });
-      }
+    // called with geojson polygon of a feature that was retrieved by
+    // name from Nominatim
+    if (map.getSource("feature")) {
+      (map.getSource("feature") as any).setData(data);
+    } else {
+      map.addSource("feature", { type: "geojson", data });
+    }
 
-      if (map.getLayer('geometry') === undefined) {
-        map.addLayer({
-          id: 'geometry',
-          type: 'fill',
-          source: 'feature',
-          paint: {
-            'fill-color': '#088',
-            'fill-opacity': 0.3,
-          },
-        });
-      }
+    if (map.getLayer("geometry") === undefined) {
+      map.addLayer({
+        id: "geometry",
+        type: "fill",
+        source: "feature",
+        paint: {
+          "fill-color": "#088",
+          "fill-opacity": 0.3,
+        },
+      });
+    }
 
-      const bounds = bbox(data);
-      map.fitBounds(
-        [
-          bounds.slice(0, 2) as [number, number],
-          bounds.slice(2, 4) as [number, number],
-        ],
-        { padding: 20 }
-      );
-    },
-    [onChange]
-  );
+    const bounds = bbox(data);
+    map.fitBounds(
+      [
+        bounds.slice(0, 2) as [number, number],
+        bounds.slice(2, 4) as [number, number],
+      ],
+      { padding: 20 },
+    );
+  }, []);
 
   useEffect(() => {
     const map = new maplibre.Map({
-      container: 'geometry-map',
-      style: '/positron.json',
+      container: "geometry-map",
+      style: "/positron.json",
     });
 
     map.setMaxPitch(0);
@@ -93,72 +89,74 @@ const LocationSelect = (props) => {
       modes: [
         new TerraDrawRectangleMode(),
         new TerraDrawPolygonMode(),
-        new TerraDrawRenderMode({ modeName: 'render', styles: {} }),
+        new TerraDrawRenderMode({ modeName: "render", styles: {} }),
       ],
     });
 
     mapRef.current = map;
     drawRef.current = draw;
 
-    map.on('load', () => {
+    map.on("load", () => {
       draw.start();
 
-      draw.on('finish', (id, context) => {
+      draw.on("finish", (id, context) => {
         const snapshot = draw.getSnapshot();
         const feature = snapshot.find((f) => f.id === id);
 
         if (!feature) return;
 
-        if (feature.geometry.type === 'Polygon') {
-          if (draw.getMode() === 'rectangle') {
+        if (feature.geometry.type === "Polygon") {
+          if (draw.getMode() === "rectangle") {
             const bounds = bbox(feature);
-            const wsen = bounds.map((v) => v.toFixed(4)).join(',');
-            onChange('geometry', null);
-            onChange('in_bbox', fromJS([{ label: wsen, value: wsen }]));
+            const wsen = bounds.map((v) => v.toFixed(4)).join(",");
+            onChange("geometry", null);
+            onChange("in_bbox", fromJS([{ label: wsen, value: wsen }]));
           } else {
             onChange(
-              'geometry',
-              fromJS([{ label: feature.geometry, value: feature.geometry }])
+              "geometry",
+              fromJS([{ label: feature.geometry, value: feature.geometry }]),
             );
-            onChange('in_bbox', null);
+            onChange("in_bbox", null);
           }
         }
 
         // Set mode back to render after completing a shape
-        draw.setMode('render');
-        setActiveMode('render');
+        draw.setMode("render");
+        setActiveMode("render");
         updateMap(feature.geometry);
       });
     });
 
-    map.on('style.load', () => {
-      map.setProjection({ type: 'globe' });
+    map.on("style.load", () => {
+      map.setProjection({ type: "globe" });
 
       // Display initial bbox or polygon (if it exists) on the map
       if (value && value.size > 0) {
         const { value: geometry } = value.get(0).toJS();
-        if (geometry && typeof geometry === 'object') {
+        if (geometry && typeof geometry === "object") {
           // geometry is a GeoJSON polygon
           updateMap(geometry);
-        } else if (geometry && typeof geometry === 'string') {
+        } else if (geometry && typeof geometry === "string") {
           // geometry is a bbox string (WSEN, comma-separated)
-          const bounds = geometry.split(',').map(Number);
-          updateMap(bboxPolygon(bounds as [number, number, number, number]).geometry);
+          const bounds = geometry.split(",").map(Number);
+          updateMap(
+            bboxPolygon(bounds as [number, number, number, number]).geometry,
+          );
         }
       }
     });
 
     return () => map?.remove();
-  }, [onChange, updateMap]);
+  }, [onChange, updateMap, value]);
 
   // Check if one character input is allowed (for East Asian languages)
   const isOneCharInputAllowed = useCallback((input) => {
     // Allowing one character input if it contains characters from certain scripts while
     // guarding against browsers that don't support this kind of regular expression
     try {
-      // @ts-ignore - Unicode property escapes require ES2018+, but we have fallback
+      // @ts-expect-error - Unicode property escapes require ES2018+, but we have fallback
       return /\p{scx=Han}|\p{scx=Hangul}|\p{scx=Hiragana}|\p{scx=Katakana}/u.test(
-        input
+        input,
       );
     } catch {
       // Allowing always is better than never allowing for the above-mentioned scripts
@@ -187,7 +185,7 @@ const LocationSelect = (props) => {
 
           setIsLoading(false);
           return data;
-        } catch (e) {
+        } catch (_e) {
           setIsLoading(false);
           return [];
         }
@@ -196,14 +194,14 @@ const LocationSelect = (props) => {
         return [];
       }
     },
-    [queryType, isOneCharInputAllowed]
+    [queryType, isOneCharInputAllowed],
   );
 
   const debouncedLoadOptions = useCallback(
     debounce((inputValue, callback) => {
       loadOptions(inputValue).then(callback);
     }, 500),
-    [loadOptions]
+    [],
   );
 
   const handleChange = useCallback(
@@ -222,17 +220,17 @@ const LocationSelect = (props) => {
         });
 
         onChange(
-          'geometry',
-          fromJS([{ label: simplified_geometry, value: simplified_geometry }])
+          "geometry",
+          fromJS([{ label: simplified_geometry, value: simplified_geometry }]),
         );
-        onChange('in_bbox', null);
+        onChange("in_bbox", null);
 
         updateMap(
-          truncate(simplified_geometry, { precision: 6, coordinates: 2 })
+          truncate(simplified_geometry, { precision: 6, coordinates: 2 }),
         );
       }
     },
-    [updateMap]
+    [updateMap, onChange],
   );
 
   const handleQueryTypeChange = useCallback((selectedOption) => {
@@ -257,17 +255,17 @@ const LocationSelect = (props) => {
     const map = mapRef.current;
     if (draw) {
       draw.clear();
-      draw.setMode('render');
-      setActiveMode('render');
+      draw.setMode("render");
+      setActiveMode("render");
     }
-    if (map && map.getSource('feature')) {
-      (map.getSource('feature') as any).setData({
-        type: 'Feature',
+    if (map && map.getSource("feature")) {
+      (map.getSource("feature") as any).setData({
+        type: "Feature",
         geometry: null,
       });
     }
-    onChange('geometry', null);
-    onChange('in_bbox', null);
+    onChange("geometry", null);
+    onChange("in_bbox", null);
   }, [onChange]);
 
   return (
@@ -278,7 +276,7 @@ const LocationSelect = (props) => {
             onChange={handleQueryTypeChange}
             options={queryTypeOptions}
             value={queryTypeOptions.find(
-              (option) => option.value === queryType
+              (option) => option.value === queryType,
             )}
             placeholder="Place Type"
           />
@@ -304,11 +302,11 @@ const LocationSelect = (props) => {
             <div className="flex-child flex-child--no-shrink mr6">
               <button
                 className={`btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition ${
-                  activeMode === 'rectangle'
-                    ? 'bg-darken25 bg-darken25-on-hover'
-                    : ''
+                  activeMode === "rectangle"
+                    ? "bg-darken25 bg-darken25-on-hover"
+                    : ""
                 }`}
-                onClick={() => handleModeChange('rectangle')}
+                onClick={() => handleModeChange("rectangle")}
               >
                 <svg className="icon h18 w18 inline-block align-middle">
                   <use xlinkHref="#icon-polygon" />
@@ -319,11 +317,11 @@ const LocationSelect = (props) => {
             <div className="flex-child flex-child--no-shrink mr6">
               <button
                 className={`btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition ${
-                  activeMode === 'polygon'
-                    ? 'bg-darken25 bg-darken25-on-hover'
-                    : ''
+                  activeMode === "polygon"
+                    ? "bg-darken25 bg-darken25-on-hover"
+                    : ""
                 }`}
-                onClick={() => handleModeChange('polygon')}
+                onClick={() => handleModeChange("polygon")}
               >
                 <svg className="icon h18 w18 inline-block align-middle">
                   <use xlinkHref="#icon-pencil" />
@@ -348,10 +346,10 @@ const LocationSelect = (props) => {
         </div>
       </div>
       <p>
-        {activeMode == 'rectangle' &&
-          'Click two corners to draw a bounding box.'}
-        {activeMode == 'polygon' &&
-          'Click a series of points to draw a polygon; click back on the first point to finish.'}
+        {activeMode === "rectangle" &&
+          "Click two corners to draw a bounding box."}
+        {activeMode === "polygon" &&
+          "Click a series of points to draw a polygon; click back on the first point to finish."}
       </p>
     </div>
   );

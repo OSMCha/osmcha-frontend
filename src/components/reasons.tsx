@@ -1,5 +1,4 @@
-import React from 'react';
-import { List } from 'immutable';
+import type { List } from "immutable";
 
 export function Reasons({
   reasons,
@@ -12,13 +11,13 @@ export function Reasons({
   underline?: boolean;
   color: string;
 }) {
-  const extraClass = underline ? 'txt-underline-dotted' : '';
+  const extraClass = underline ? "txt-underline-dotted" : "";
   return (
     <span className="mb3">
       {reasons.map((r: Map<string, any>, k) => (
         <Reason
           key={k}
-          text={r.get('name')}
+          text={r.get("name")}
           color={color}
           extraClass={extraClass}
         />

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Reasons } from '../reasons';
+import { Reasons } from "../reasons";
 
 export function PrimaryLine({ reasons, comment, tags }: any) {
   return (

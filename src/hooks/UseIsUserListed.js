@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export const useIsUserListed = (username, uid, trustedlist, watchlist) => {
   const [isInTrustedlist, setIsInTrustedlist] = useState(false);
@@ -7,14 +7,14 @@ export const useIsUserListed = (username, uid, trustedlist, watchlist) => {
   useEffect(() => {
     try {
       setIsInTrustedlist(trustedlist.indexOf(username) !== -1);
-    } catch (e) {
+    } catch (_e) {
       setIsInTrustedlist(false);
     }
     try {
       setIsInWatchlist(
-        watchlist.map(user => user.get('uid')).indexOf(uid) !== -1
+        watchlist.map((user) => user.get("uid")).indexOf(uid) !== -1,
       );
-    } catch (e) {
+    } catch (_e) {
       setIsInWatchlist(false);
     }
   }, [username, uid, watchlist, trustedlist]);

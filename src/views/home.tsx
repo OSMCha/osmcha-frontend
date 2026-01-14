@@ -1,10 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
-import { appVersion, isDev, isStaging, isLocal } from '../config';
-import banner from '../assets/banner.png';
-import work_flow from '../assets/work_flow.png';
-import osmus from '../assets/osmus.png';
+import { Link } from "react-router-dom";
+import banner from "../assets/banner.png";
+import osmus from "../assets/osmus.png";
+import work_flow from "../assets/work_flow.png";
+import { appVersion, isDev, isLocal, isStaging } from "../config";
 
 export function Home() {
   return (
@@ -22,9 +20,9 @@ export function Home() {
       <div className="flex-parent flex-parent--column align-center txt-l">
         <div className="txt-xl">
           v{appVersion}
-          {isDev && ' Dev'}
-          {isStaging && ' Staging'}
-          {isLocal && ' Local'}
+          {isDev && " Dev"}
+          {isStaging && " Staging"}
+          {isLocal && " Local"}
         </div>
         <div className="flex-parent flex-parent--row flex-parent--center-main">
           <Link
@@ -33,10 +31,10 @@ export function Home() {
           >
             <svg className="icon">
               <use xlinkHref="#icon-info" />
-            </svg>{' '}
+            </svg>{" "}
             <span>Guide</span>
-          </Link>{' '}
-          |{' '}
+          </Link>{" "}
+          |{" "}
           <a
             target="__blank"
             className="link link--gray flex-parent flex-parent--row flex-parent--center-cross mx6"
@@ -44,10 +42,10 @@ export function Home() {
           >
             <svg className="icon">
               <use xlinkHref="#icon-github" />
-            </svg>{' '}
+            </svg>{" "}
             <span>GitHub</span>
-          </a>{' '}
-          |{' '}
+          </a>{" "}
+          |{" "}
           <a
             target="__blank"
             className="link link--gray flex-parent flex-parent--row flex-parent--center-cross mx6"
@@ -55,10 +53,10 @@ export function Home() {
           >
             <svg className="icon">
               <use xlinkHref="#icon-creditcard" />
-            </svg>{' '}
+            </svg>{" "}
             <span>Donate</span>
           </a>
-          |{' '}
+          |{" "}
           <a
             target="__blank"
             className="link link--gray flex-parent flex-parent--row flex-parent--center-cross mx6"
@@ -66,7 +64,7 @@ export function Home() {
           >
             <svg className="icon">
               <use xlinkHref="#icon-bug" />
-            </svg>{' '}
+            </svg>{" "}
             <span>File an issue</span>
           </a>
         </div>

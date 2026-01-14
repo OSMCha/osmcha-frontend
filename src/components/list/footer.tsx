@@ -1,8 +1,6 @@
-import React from 'react';
-import { Range } from 'immutable';
-
-import { PageRange } from './page_range';
-import { PAGE_SIZE } from '../../config/constants';
+import { Range } from "immutable";
+import { PAGE_SIZE } from "../../config/constants";
+import { PageRange } from "./page_range";
 
 const RANGE = 6;
 
@@ -27,7 +25,7 @@ export function Footer({
   return (
     <footer className="hmin55 p12 border-t border--gray-light bg-gray-faint txt-s flex-parent justify--space-around">
       <PageRange
-        page={'arrow-left'}
+        page={"arrow-left"}
         pageIndex={pageIndex - 1}
         disabled={pageIndex - 1 === -1}
         active={false}
@@ -43,7 +41,7 @@ export function Footer({
         />
       ))}
       <PageRange
-        page={'arrow-right'}
+        page={"arrow-right"}
         disabled={pageIndex + 1 >= maxPageCount}
         pageIndex={pageIndex + 1}
         active={false}

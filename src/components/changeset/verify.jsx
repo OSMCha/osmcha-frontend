@@ -1,7 +1,6 @@
-import React from 'react';
-import { Dropdown } from '../dropdown';
-import thumbsUp from '../../assets/thumbs-up.svg';
-import thumbsDown from '../../assets/thumbs-down.svg';
+import thumbsDown from "../../assets/thumbs-down.svg";
+import thumbsUp from "../../assets/thumbs-up.svg";
+import { Dropdown } from "../dropdown";
 
 export function Verify({
   changeset,
@@ -11,34 +10,34 @@ export function Verify({
   value,
   onClear,
   username,
-  checkUser
+  checkUser,
 }) {
-  if (changeset.getIn(['properties', 'checked'])) {
-    const isHarmful = changeset.getIn(['properties', 'harmful']);
+  if (changeset.getIn(["properties", "checked"])) {
+    const isHarmful = changeset.getIn(["properties", "harmful"]);
     return (
       <div
         className={`flex-parent align-items--center btn btn--s border border--1 round color-gray transition pl12 pr6 ${
           isHarmful
-            ? 'bg-lighten50 border--red-light'
-            : 'bg-lighten50 border--green-light'
+            ? "bg-lighten50 border--red-light"
+            : "bg-lighten50 border--green-light"
         }`}
-        style={{ maxWidth: '100px' }}
+        style={{ maxWidth: "100px" }}
       >
         <img
           src={isHarmful ? thumbsDown : thumbsUp}
-          alt={`Marked as ${isHarmful ? 'bad' : 'good'}`}
+          alt={`Marked as ${isHarmful ? "bad" : "good"}`}
           className="icon inline-block w14 h14"
         />
         <span
           className="ml6"
           style={{
-            flex: '1',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis'
+            flex: "1",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
           }}
         >
-          {checkUser ? <>{checkUser}</> : <em>Verified</em>}
+          {checkUser ? checkUser : <em>Verified</em>}
         </span>
         <svg
           onClick={onClear}
@@ -53,7 +52,7 @@ export function Verify({
   return (
     <div className="select-container">
       <Dropdown
-        eventTypes={['click', 'touchend']}
+        eventTypes={["click", "touchend"]}
         value={[]}
         onAdd={() => {}}
         onRemove={() => {}}

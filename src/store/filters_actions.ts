@@ -1,40 +1,36 @@
+import { Map } from "immutable";
+import { LOCATION_CHANGE, push } from "react-router-redux";
 import {
-  put,
-  call,
-  take,
-  fork,
-  select,
-  cancel,
   all,
+  call,
+  cancel,
+  fork,
+  put,
+  select,
+  take,
   takeLatest,
-} from 'redux-saga/effects';
-import { LOCATION_CHANGE } from 'react-router-redux';
-import { Map } from 'immutable';
-import { push } from 'react-router-redux';
-
-import { getSearchObj, getObjAsQueryParam } from '../utils/query_params';
-import { validateFilters } from '../utils/filters';
-import { fetchAOISaga, AOI } from './aoi_actions';
-
-import { modal } from './modal_actions';
-
-import type { RootStateType } from './';
-import type { filtersType } from '../components/filters';
+} from "redux-saga/effects";
+import type { filtersType } from "../components/filters";
+import { validateFilters } from "../utils/filters";
+import { getObjAsQueryParam, getSearchObj } from "../utils/query_params";
+import type { RootStateType } from "./";
+import { AOI, fetchAOISaga } from "./aoi_actions";
+import { modal } from "./modal_actions";
 
 export const CHANGESETS_PAGE = {
-  fetch: 'CHANGESETS_PAGE_FETCH',
-  fetched: 'CHANGESETS_PAGE_FETCHED',
-  modify: 'CHANGESETS_PAGE_MODIFY_CHANGESET',
-  loading: 'CHANGESETS_PAGE_LOADING',
-  error: 'CHANGESETS_PAGE_ERROR',
-  checkNew: 'CHANGESETS_PAGE_CHECK_NEW_CHANGESETS',
-  updateNewCount: 'CHANGESETS_PAGE_UPDATE_NEW_COUNT',
-  checkNewLoading: 'CHANGESETS_PAGE_CHECK_NEW_LOADING',
+  fetch: "CHANGESETS_PAGE_FETCH",
+  fetched: "CHANGESETS_PAGE_FETCHED",
+  modify: "CHANGESETS_PAGE_MODIFY_CHANGESET",
+  loading: "CHANGESETS_PAGE_LOADING",
+  error: "CHANGESETS_PAGE_ERROR",
+  checkNew: "CHANGESETS_PAGE_CHECK_NEW_CHANGESETS",
+  updateNewCount: "CHANGESETS_PAGE_UPDATE_NEW_COUNT",
+  checkNewLoading: "CHANGESETS_PAGE_CHECK_NEW_LOADING",
 };
 
 export const FILTERS = {
-  set: 'FILTERS_SET',
-  apply: 'FILTERS_APPLY',
+  set: "FILTERS_SET",
+  apply: "FILTERS_APPLY",
 };
 
 export function action(type: string, payload?: any | null) {
@@ -77,8 +73,8 @@ export function* applyFilterSaga({
   filters: filtersType;
   pathname: string;
 }): any {
-  const search = getObjAsQueryParam('filters', filters.toJS());
-  let location = yield select(locationSelector);
+  const search = getObjAsQueryParam("filters", filters.toJS());
+  const location = yield select(locationSelector);
   // I could find one comment on `push(location)` in the readme
   // ref: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
   yield put(
@@ -86,7 +82,7 @@ export function* applyFilterSaga({
       ...location,
       pathname: pathname || location.pathname,
       search, // update the search
-    })
+    }),
   );
 }
 
@@ -110,11 +106,11 @@ export function* filtersSaga(location: any): any {
     yield put(
       action(FILTERS.set, {
         filters,
-      })
+      }),
     );
     if (aoiId) {
       yield put(
-        action(CHANGESETS_PAGE.fetch, { pageIndex: 0, filters, aoiId })
+        action(CHANGESETS_PAGE.fetch, { pageIndex: 0, filters, aoiId }),
       );
     } else {
       yield put(action(CHANGESETS_PAGE.fetch, { pageIndex: 0, filters }));
@@ -122,12 +118,12 @@ export function* filtersSaga(location: any): any {
   } catch (e) {
     console.error(e);
     const location = yield select(locationSelector);
-    location.search = '';
+    location.search = "";
     yield all([
       put(
         modal({
           error: e as Error,
-        })
+        }),
       ),
       put(push(location)),
     ]);
@@ -140,4 +136,4 @@ export const locationSelector = (state: RootStateType) =>
 /** Sagas **/
 
 export const filtersSelector = (state: RootStateType) =>
-  state.filters.get('filters');
+  state.filters.get("filters");

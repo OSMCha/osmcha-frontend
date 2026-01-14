@@ -1,27 +1,25 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-
-import { Changeset } from './views/changeset';
-import { About } from './views/about';
-import { Stats } from './views/stats';
-import { Filters } from './views/filters';
-import { ChangesetsList } from './views/changesets_list';
-import { NavbarSidebar } from './views/navbar_sidebar';
-import { Authorized } from './views/authorized';
-import { Modal } from './views/modal';
-import { User } from './views/user';
-import { SavedFilters } from './views/saved_filters';
-import { TrustedUsers } from './views/trusted_users';
-import { Watchlist } from './views/watchlist';
-import { MappingTeams } from './views/teams';
-import { EditMappingTeam } from './views/edit_team';
+import { Route } from "react-router-dom";
+import { About } from "./views/about";
+import { Authorized } from "./views/authorized";
+import { Changeset } from "./views/changeset";
+import { ChangesetsList } from "./views/changesets_list";
+import { EditMappingTeam } from "./views/edit_team";
+import { Filters } from "./views/filters";
+import { Modal } from "./views/modal";
+import { NavbarSidebar } from "./views/navbar_sidebar";
+import { SavedFilters } from "./views/saved_filters";
+import { Stats } from "./views/stats";
+import { MappingTeams } from "./views/teams";
+import { TrustedUsers } from "./views/trusted_users";
+import { User } from "./views/user";
+import { Watchlist } from "./views/watchlist";
 
 export const AppMobile = () => {
   return (
     <>
       <div
         className="flex-parent flex-parent--column"
-        style={{ height: '100vh' }}
+        style={{ height: "100vh" }}
       >
         <NavbarSidebar />
         <Route path="/" exact component={ChangesetsList} />

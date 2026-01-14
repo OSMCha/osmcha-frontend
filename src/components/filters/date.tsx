@@ -1,10 +1,10 @@
-import React from 'react';
-import { fromJS } from 'immutable';
-import DatePicker from 'react-datepicker';
-import { format, parse } from 'date-fns';
-import type { filterType } from './';
+import { format, parse } from "date-fns";
+import { fromJS } from "immutable";
+import React from "react";
+import DatePicker from "react-datepicker";
+import type { filterType } from "./";
 
-import 'react-datepicker/dist/react-datepicker.css';
+import "react-datepicker/dist/react-datepicker.css";
 
 interface DateFieldProps {
   name: string;
@@ -20,12 +20,12 @@ interface DateFieldProps {
 
 export class DateField extends React.Component<DateFieldProps> {
   static defaultProps = {
-    className: '',
+    className: "",
   };
   handleDateChange = (date) => {
     const name = this.props.name;
     if (date) {
-      const value = format(date, 'yyyy-MM-dd');
+      const value = format(date, "yyyy-MM-dd");
       this.props.onChange(
         name,
         fromJS([
@@ -34,7 +34,7 @@ export class DateField extends React.Component<DateFieldProps> {
             label: value,
             value,
           },
-        ])
+        ]),
       );
     } else {
       this.props.onChange(name);
@@ -42,14 +42,14 @@ export class DateField extends React.Component<DateFieldProps> {
   };
   render() {
     const { placeholder, display, value, className, min, max } = this.props;
-    const hasValue = value && value.getIn([0, 'value']);
+    const hasValue = value && value.getIn([0, "value"]);
     return (
       <DatePicker
         className={`input ${className}`}
         isClearable={true}
         selected={
           hasValue
-            ? parse(value.getIn([0, 'value']), 'yyyy-MM-dd', new Date())
+            ? parse(value.getIn([0, "value"]), "yyyy-MM-dd", new Date())
             : null
         }
         placeholderText={placeholder || display}

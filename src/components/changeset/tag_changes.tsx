@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { MapLibreAugmentedDiffViewer } from '@osmcha/maplibre-adiff-viewer';
+import type { MapLibreAugmentedDiffViewer } from "@osmcha/maplibre-adiff-viewer";
+import type React from "react";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 
-import type { RootStateType } from '../../store';
-import { Loading } from '../loading';
-import { OpenAll } from '../open_all';
-import { ExpandItemIcon } from '../expand_item_icon';
+import type { RootStateType } from "../../store";
+import { ExpandItemIcon } from "../expand_item_icon";
+import { Loading } from "../loading";
+import { OpenAll } from "../open_all";
 
 export function tagChangesFromActions(actions) {
   const finalReport = new Map();
   const analyzedFeatures = actions.map(analyzeAction);
-  const keys = ['addedTags', 'changedValues', 'deletedTags'];
+  const keys = ["addedTags", "changedValues", "deletedTags"];
   analyzedFeatures.map((item) =>
     keys.map((key) =>
       item.get(key).forEach((tag) => {
@@ -20,16 +21,16 @@ export function tagChangesFromActions(actions) {
             finalReport
               .get(tag[0])
               .concat([
-                { id: item.get('id'), type: item.get('type'), value: tag[1] },
-              ])
+                { id: item.get("id"), type: item.get("type"), value: tag[1] },
+              ]),
           );
         } else {
           finalReport.set(tag[0], [
-            { id: item.get('id'), type: item.get('type'), value: tag[1] },
+            { id: item.get("id"), type: item.get("type"), value: tag[1] },
           ]);
         }
-      })
-    )
+      }),
+    ),
   );
   return finalReport;
 }
@@ -38,32 +39,32 @@ export function analyzeAction(action) {
   const oldVersionKeys = Object.keys(action.old.tags);
   const newVersionKeys = Object.keys(action.new.tags);
   const addedTags = newVersionKeys.filter(
-    (tag) => !oldVersionKeys.includes(tag)
+    (tag) => !oldVersionKeys.includes(tag),
   );
   const deletedTags = oldVersionKeys.filter(
-    (tag) => !newVersionKeys.includes(tag)
+    (tag) => !newVersionKeys.includes(tag),
   );
   const changedValues = newVersionKeys
     .filter((tag) => !addedTags.includes(tag) && !deletedTags.includes(tag))
     .filter((tag) => action.new.tags[tag] !== action.old.tags[tag]);
   const result = new Map();
   result
-    .set('id', action.new.id)
-    .set('type', action.new.type)
+    .set("id", action.new.id)
+    .set("type", action.new.type)
     .set(
-      'addedTags',
-      addedTags.map((tag) => [`Added tag ${tag}`, action.new.tags[tag]])
+      "addedTags",
+      addedTags.map((tag) => [`Added tag ${tag}`, action.new.tags[tag]]),
     )
     .set(
-      'deletedTags',
-      deletedTags.map((tag) => [`Deleted tag ${tag}`, action.old.tags[tag]])
+      "deletedTags",
+      deletedTags.map((tag) => [`Deleted tag ${tag}`, action.old.tags[tag]]),
     )
     .set(
-      'changedValues',
+      "changedValues",
       changedValues.map((tag) => [
         `Changed value of tag ${tag}`,
         [action.old.tags[tag], action.new.tags[tag]],
-      ])
+      ]),
     );
   return result;
 }
@@ -84,13 +85,13 @@ export function FeatureListItem({ id, type, ...props }) {
 }
 
 function ChangeTitle({ value, type }) {
-  if (type.startsWith('Added')) {
+  if (type.startsWith("Added")) {
     return <span className="txt-code cmap-bg-create-light">{value}</span>;
   }
-  if (type.startsWith('Deleted')) {
+  if (type.startsWith("Deleted")) {
     return <span className="txt-code cmap-bg-delete-light">{value}</span>;
   }
-  if (type.startsWith('Changed')) {
+  if (type.startsWith("Changed")) {
     const [oldValue, newValue] = value;
     // dir="auto" solves a display issue when tag values are in RTL scripts (e.g. Arabic, Hebrew).
     // See https://github.com/OSMCha/osmcha-frontend/issues/765
@@ -118,7 +119,7 @@ export const ChangeItem = ({
 }) => {
   const [isOpen, setIsOpen] = useState(opened);
   const values = Array.from(new Set(features.map((feature) => feature.value)));
-  const last_space = tag.lastIndexOf(' ') + 1;
+  const last_space = tag.lastIndexOf(" ") + 1;
 
   useEffect(() => setIsOpen(opened), [opened]);
 
@@ -140,7 +141,7 @@ export const ChangeItem = ({
       {values.map((value, n) => (
         <div
           className="ml18 py3"
-          style={{ display: isOpen ? 'block' : 'none' }}
+          style={{ display: isOpen ? "block" : "none" }}
           key={n}
         >
           <ChangeTitle value={value} type={tag} />
@@ -219,14 +220,14 @@ const TagChangesComponent = ({
   useEffect(() => {
     const newChangeReport: Array<[string, any[]]> = [];
     if (changes && changes.get(changesetId)) {
-      const adiff = changes.get(changesetId)['adiff'];
+      const adiff = changes.get(changesetId).adiff;
       const modifyActions = adiff.actions.filter(
-        (action) => action.type === 'modify'
+        (action) => action.type === "modify",
       );
 
       const processed = tagChangesFromActions(modifyActions);
       processed.forEach((featureIDs, tag) =>
-        newChangeReport.push([tag, featureIDs])
+        newChangeReport.push([tag, featureIDs]),
       );
       setChangeReport(newChangeReport.sort());
     }
@@ -257,7 +258,7 @@ const TagChangesComponent = ({
 };
 
 const TagChanges = connect((state: RootStateType, props) => ({
-  changes: state.changeset.get('changesetMap'),
+  changes: state.changeset.get("changesetMap"),
 }))(TagChangesComponent);
 
 export { TagChanges };
