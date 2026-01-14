@@ -2,6 +2,8 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { fromJS } from 'immutable';
 import { StaticRouter } from 'react-router';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import { PrimaryLine } from './primary_line';
 import { Row } from './row';
 import MockDate from 'mockdate';
@@ -54,6 +56,12 @@ const changeset = fromJS({
     check_date: '2017-06-08T08:51:29.983657Z'
   }
 });
+
+const mockStore = createStore(() => ({
+  trustedlist: fromJS({ trustedlist: [] }),
+  watchlist: fromJS({ watchlist: [] }),
+}));
+
 it('renders PrimaryLine correctly', () => {
   MockDate.set(1497172627326);
 
@@ -75,14 +83,16 @@ it('renders active row properly', () => {
 
   const tree1 = renderer
     .create(
-      <StaticRouter context={{}}>
-        <Row
-          properties={changeset.getIn(['properties'])}
-          active
-          changesetId={changeset.getIn(['id'])}
-          inputRef={() => {}}
-        />
-      </StaticRouter>
+      <Provider store={mockStore}>
+        <StaticRouter context={{}}>
+          <Row
+            properties={changeset.getIn(['properties'])}
+            active
+            changesetId={changeset.getIn(['id'])}
+            inputRef={() => {}}
+          />
+        </StaticRouter>
+      </Provider>
     )
     .toJSON();
   expect(tree1).toMatchSnapshot();
@@ -94,14 +104,16 @@ it('renders inactive row properly', () => {
 
   const tree1 = renderer
     .create(
-      <StaticRouter context={{}}>
-        <Row
-          properties={changeset.getIn(['properties'])}
-          active={false}
-          changesetId={changeset.getIn(['id'])}
-          inputRef={() => {}}
-        />
-      </StaticRouter>
+      <Provider store={mockStore}>
+        <StaticRouter context={{}}>
+          <Row
+            properties={changeset.getIn(['properties'])}
+            active={false}
+            changesetId={changeset.getIn(['id'])}
+            inputRef={() => {}}
+          />
+        </StaticRouter>
+      </Provider>
     )
     .toJSON();
   expect(tree1).toMatchSnapshot();

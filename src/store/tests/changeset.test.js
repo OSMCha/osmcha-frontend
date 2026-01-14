@@ -13,7 +13,6 @@ import {
   fetchChangesetMapAction,
   setHarmfulAction,
   setTagActions,
-  changesetMapModule,
   changesetsSelector,
   tokenSelector,
   locationSelector,
@@ -22,6 +21,8 @@ import {
   CHANGESET_MODIFY,
   CHANGESET_MAP
 } from '../changeset_actions';
+import { fetchChangesetMetadata } from '../../network/openstreetmap';
+import { fetchAndParseAugmentedDiff } from '../../network/changeset';
 
 describe('fetchChangesetAction', () => {
   const changesetId = 50052312;
@@ -116,15 +117,13 @@ describe('fetchChangesetMapAction', () => {
       .run();
   });
   it('when new changesetId', async () => {
-    const mockChangesetMap = {
-      geojson: {},
-      featureMap: {},
-      changeset: {}
-    };
+    const mockMetadata = { changeset: {} };
+    const mockAdiff = { geojson: {}, featureMap: {} };
     return await expectSaga(fetchChangesetMapAction, changesetId)
       .provide([
         [select(changesetMapSelector), changesetMap],
-        [matchers.call.fn(changesetMapModule), mockChangesetMap]
+        [matchers.call.fn(fetchChangesetMetadata), mockMetadata],
+        [matchers.call.fn(fetchAndParseAugmentedDiff), mockAdiff]
       ])
       .put(
         action(CHANGESET_MAP.loading, {
@@ -133,7 +132,7 @@ describe('fetchChangesetMapAction', () => {
       )
       .put(
         action(CHANGESET_MAP.fetched, {
-          data: mockChangesetMap,
+          data: { metadata: mockMetadata, adiff: mockAdiff },
           changesetId
         })
       )
@@ -145,7 +144,7 @@ describe('fetchChangesetMapAction', () => {
       .provide([
         [select(changesetMapSelector), changesetMap],
         [select(locationSelector), location],
-        [matchers.call.fn(changesetMapModule), throwError(error)]
+        [matchers.call.fn(fetchChangesetMetadata), throwError(error)]
       ])
       .put(
         action(CHANGESET_MAP.loading, {
