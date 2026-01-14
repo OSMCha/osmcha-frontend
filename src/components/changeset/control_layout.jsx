@@ -32,7 +32,7 @@ export function ControlLayout({
       }}
     >
       <Control
-        active={bindingsState.get(CHANGESET_DETAILS_DETAILS.label)}
+        active={bindingsState[CHANGESET_DETAILS_DETAILS.label]}
         onClick={toggleDetails}
         className="unround-r unround-bl"
       >
@@ -41,20 +41,20 @@ export function ControlLayout({
         </svg>
       </Control>
       <Control
-        active={bindingsState.get(CHANGESET_DETAILS_SUSPICIOUS.label)}
+        active={bindingsState[CHANGESET_DETAILS_SUSPICIOUS.label]}
         onClick={toggleFeatures}
         className="unround"
       >
         <svg
           className={`icon h18 w18 inline-block align-middle ${
-            features && features.size === 0 ? "color-darken25" : "color-black"
+            features && features.length === 0 ? "color-darken25" : "color-black"
           }`}
         >
           <use xlinkHref="#icon-alert" />
         </svg>
       </Control>
       <Control
-        active={bindingsState.get(CHANGESET_DETAILS_TAGS.label)}
+        active={bindingsState[CHANGESET_DETAILS_TAGS.label]}
         onClick={toggleTags}
         className="unround"
       >
@@ -63,7 +63,7 @@ export function ControlLayout({
         </svg>
       </Control>
       <Control
-        active={bindingsState.get(CHANGESET_DETAILS_GEOMETRY_CHANGES.label)}
+        active={bindingsState[CHANGESET_DETAILS_GEOMETRY_CHANGES.label]}
         onClick={toggleGeometryChanges}
         className="unround"
       >
@@ -72,7 +72,7 @@ export function ControlLayout({
         </svg>
       </Control>
       <Control
-        active={bindingsState.get(CHANGESET_DETAILS_OTHER_FEATURES.label)}
+        active={bindingsState[CHANGESET_DETAILS_OTHER_FEATURES.label]}
         onClick={toggleOtherFeatures}
         className="unround"
       >
@@ -81,20 +81,20 @@ export function ControlLayout({
         </svg>
       </Control>
       <Control
-        active={bindingsState.get(CHANGESET_DETAILS_DISCUSSIONS.label)}
+        active={bindingsState[CHANGESET_DETAILS_DISCUSSIONS.label]}
         onClick={toggleDiscussions}
         className="unround"
       >
         <svg
           className={`icon h18 w18 inline-block align-middle ${
-            discussions.size === 0 ? "color-darken25" : "color-black"
+            discussions.length === 0 ? "color-darken25" : "color-black"
           }`}
         >
           <use xlinkHref="#icon-contact" />
         </svg>
       </Control>
       <Control
-        active={bindingsState.get(CHANGESET_DETAILS_USER.label)}
+        active={bindingsState[CHANGESET_DETAILS_USER.label]}
         onClick={toggleUser}
         className="unround"
       >
@@ -103,7 +103,7 @@ export function ControlLayout({
         </svg>
       </Control>
       <Control
-        active={bindingsState.get(CHANGESET_DETAILS_MAP.label)}
+        active={bindingsState[CHANGESET_DETAILS_MAP.label]}
         onClick={toggleMapOptions}
         className="unround-r unround-tl"
       >

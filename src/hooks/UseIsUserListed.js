@@ -1,23 +1,17 @@
-import { useEffect, useState } from "react";
+import { useUserDetails } from "../query/hooks/useUserDetails";
+import { useWatchlist } from "../query/hooks/useWatchlist";
 
-export const useIsUserListed = (username, uid, trustedlist, watchlist) => {
-  const [isInTrustedlist, setIsInTrustedlist] = useState(false);
-  const [isInWatchlist, setIsInWatchlist] = useState(false);
+export const useIsUserListed = (username, uid, token) => {
+  const { data: userDetails } = useUserDetails(token);
+  const { data: watchlist = [] } = useWatchlist(token);
 
-  useEffect(() => {
-    try {
-      setIsInTrustedlist(trustedlist.indexOf(username) !== -1);
-    } catch (_e) {
-      setIsInTrustedlist(false);
-    }
-    try {
-      setIsInWatchlist(
-        watchlist.map((user) => user.get("uid")).indexOf(uid) !== -1,
-      );
-    } catch (_e) {
-      setIsInWatchlist(false);
-    }
-  }, [username, uid, watchlist, trustedlist]);
+  // Trustedlist comes from user details, not a separate API call
+  const trustedlist = userDetails?.whitelists || [];
+
+  const isInTrustedlist =
+    Array.isArray(trustedlist) && trustedlist.includes(username);
+  const isInWatchlist =
+    Array.isArray(watchlist) && watchlist.some((user) => user.uid === uid);
 
   return [isInTrustedlist, isInWatchlist];
 };

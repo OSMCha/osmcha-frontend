@@ -1,208 +1,187 @@
-import { fromJS, is, type List, Map } from "immutable";
-import React from "react";
-import { connect } from "react-redux";
-import { push } from "redux-first-history";
-import type { filtersType, filterType } from "../components/filters";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FiltersHeader } from "../components/filters/filters_header";
 import { FiltersList } from "../components/filters/filters_list";
-import { deleteAOI } from "../network/aoi";
-import type { RootStateType } from "../store";
-import { applyCreateAOI, applyUpdateAOI } from "../store/aoi_actions";
-import { checkForNewChangesets } from "../store/changesets_page_actions";
-import { applyFilters } from "../store/filters_actions";
-import { modal } from "../store/modal_actions";
-import { delayPromise, isMobile } from "../utils";
-import { withRouter } from "../utils/withRouter";
+import { useAuth } from "../hooks/useAuth";
+import { useFilters } from "../hooks/useFilters";
+import { useAOI } from "../query/hooks/useAOI";
+import {
+  useCreateAOI,
+  useDeleteAOI,
+  useUpdateAOI,
+} from "../query/hooks/useAOIMutations";
+import { isMobile } from "../utils";
 
 const NEW_AOI = "unnamed *";
 
-type propsType = {
-  filters: filtersType;
-  loading: boolean;
-  aoi: any;
-  token: string;
-  location: any;
-  features: List<Map<string, any>> | undefined | null;
-  checkForNewChangesets: (a: boolean) => any;
-  push: (location: any) => void;
-  applyFilters: (a: filtersType, path?: string) => unknown; // base 0;
-  applyCreateAOI: (name: string, a: filtersType) => unknown;
-  applyUpdateAOI: (aoiId: string, name: string, a: filtersType) => unknown;
-  modal: (a: any) => any;
-};
-
-type stateType = {
-  filters: filtersType;
-  active: string;
-};
-
-const noDateGte: filtersType = fromJS({
+const noDateGte = {
   date__gte: [{ label: "", value: "" }],
-});
+};
 
-class _Filters extends React.PureComponent<propsType, stateType> {
-  state = {
-    filters: this.props.filters,
-    active: "",
-    // aoiName: this.props.aoi.getIn(['properties', 'name'], NEW_AOI)
+function Filters() {
+  const { token } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const {
+    filters: urlFilters,
+    setFilters,
+    setAoiId,
+    aoiId,
+    clearFilters,
+  } = useFilters();
+
+  const { data: aoi, isLoading: aoiLoading } = useAOI(aoiId, token);
+  const createAOIMutation = useCreateAOI(token);
+  const updateAOIMutation = useUpdateAOI(token);
+  const deleteAOIMutation = useDeleteAOI(token);
+
+  const [localFilters, setLocalFilters] = useState(urlFilters);
+  const [active, setActive] = useState("");
+
+  const loading =
+    aoiLoading || createAOIMutation.isPending || updateAOIMutation.isPending;
+
+  // Sync local filters with URL filters when they change
+  useEffect(() => {
+    setLocalFilters(urlFilters);
+  }, [urlFilters]);
+
+  const handleFocus = (name: string) => {
+    setActive(name);
   };
-  componentWillReceiveProps(nextProps: propsType) {
-    if (!is(this.props.filters, nextProps.filters)) {
-      this.setState({
-        filters: nextProps.filters,
-      });
+
+  const handleApply = () => {
+    const newParams = new URLSearchParams();
+    if (localFilters && Object.keys(localFilters).length > 0) {
+      newParams.set("filters", JSON.stringify(localFilters));
     }
-  }
-  handleFocus = (name: string) => {
-    this.setState({
-      active: name,
+    if (aoiId) {
+      newParams.set("aoi", aoiId);
+    }
+
+    navigate({
+      pathname: "/",
+      search: newParams.toString(),
     });
   };
-  handleApply = () => {
-    // in case the user clicks on apply when filter
-    // loaded AOI.
-    if (JSON.stringify(this.state.filters.toJS()).length > 7000) {
-      this.props.modal({
-        kind: "error",
-        title: "Use Save Filter",
-        description:
-          "Your filter is too big to be applied. You need to Save your Filter to be able to see the results.",
-      });
-    } else {
-      if (is(this.state.filters, this.props.filters)) {
-        this.props.push({
-          ...this.props.location,
-          pathname: "/",
-        });
-        return;
-      }
-      this.props.applyFilters(this.state.filters, "/");
-      // show user if there were any new changesets
-      // incase service had cached the request
-      delayPromise(3000).promise.then(() =>
-        this.props.checkForNewChangesets(true),
-      );
-    }
-  };
-  handleChange = (name: string, values?: filterType) => {
-    this.setState((state) => {
-      let filters = state.filters;
+
+  const handleChange = (name: string, values?: any) => {
+    setLocalFilters((prevFilters) => {
+      const newFilters = { ...prevFilters };
+
       // if someone cleared date__gte filter
       // we use the convention defined at `noDateGte`
       // to signify no default gte.
       if (name === "date__gte" && values == null) {
-        filters = filters.merge(noDateGte);
+        return { ...newFilters, ...noDateGte };
       } else if (values == null) {
         // clear this filter
-        filters = filters.delete(name);
+        delete newFilters[name];
       } else {
-        filters = filters.set(name, values);
+        newFilters[name] = values;
       }
-      return { filters };
+      return newFilters;
     });
   };
-  handleToggleAll = (name: string, values?: filterType) => {
-    let filters = this.state.filters;
-    const isAll = name.slice(0, 4) === "all_";
-    //  delete the opposite value
-    if (isAll) {
-      filters = filters.delete(name.slice(4));
-    } else {
-      filters = filters.delete("all_" + name);
-    }
-    // regularly handle change
-    if (!values) {
-      filters = filters.delete(name);
-    } else {
-      filters = filters.set(name, values);
-    }
-    return this.setState({ filters });
-  };
-  replaceFiltersState = (filters) => {
-    this.setState({ filters });
-  };
-  handleClear = () => {
-    this.props.applyFilters(Map(), "/");
-  };
-  loadAoiId = (aoiId: string) => {
-    this.props.push({
-      ...this.props.location,
-      search: `aoi=${aoiId}`,
-    });
-  };
-  getAOIName = () => {
-    if (this.props.loading) return "";
-    return this.props.aoi.getIn(["properties", "name"], NEW_AOI);
-  };
-  getAOIId = (aoiId: string) => {
-    if (this.props.loading) return "";
-    return this.props.aoi.get("id");
-  };
-  removeAOI = (aoiId: string) => {
-    if (aoiId === this.props.aoi.get("id")) {
-      this.handleClear();
-    }
-    deleteAOI(this.props.token, aoiId).catch((e) => console.error(e));
-  };
-  createAOI = (name: string) => {
-    this.props.applyCreateAOI(name, this.state.filters);
-  };
-  updateAOI = (aoiId: string, name: string) => {
-    this.props.applyUpdateAOI(aoiId, name, this.state.filters);
-  };
-  render() {
-    const mobile = isMobile();
 
-    return (
-      <div
-        className={`flex-parent flex-parent--column changesets-filters bg-white ${
-          mobile ? "viewport-full" : ""
-        }`}
-      >
-        <FiltersHeader
-          createAOI={this.createAOI}
-          updateAOI={this.updateAOI}
-          removeAOI={this.removeAOI}
-          loading={this.props.loading}
-          token={this.props.token}
-          aoiName={this.getAOIName()}
-          aoiId={this.props.loading ? "" : this.props.aoi.get("id")}
-          loadAoiId={this.loadAoiId}
-          handleApply={this.handleApply}
-          handleClear={this.handleClear}
-          search={this.props.location.search}
-        />
-        <FiltersList
-          loading={this.props.loading}
-          filters={this.state.filters}
-          active={this.state.active}
-          handleFocus={this.handleFocus}
-          handleChange={this.handleChange}
-          handleToggleAll={this.handleToggleAll}
-          replaceFiltersState={this.replaceFiltersState}
-          token={this.props.token}
-        />
-      </div>
-    );
-  }
+  const handleToggleAll = (name: string, values?: any) => {
+    setLocalFilters((prevFilters) => {
+      const newFilters = { ...prevFilters };
+      const isAll = name.slice(0, 4) === "all_";
+
+      // delete the opposite value
+      if (isAll) {
+        delete newFilters[name.slice(4)];
+      } else {
+        delete newFilters["all_" + name];
+      }
+
+      // regularly handle change
+      if (!values) {
+        delete newFilters[name];
+      } else {
+        newFilters[name] = values;
+      }
+      return newFilters;
+    });
+  };
+
+  const replaceFiltersState = (filters: any) => {
+    setLocalFilters(filters);
+  };
+
+  const handleClear = () => {
+    clearFilters();
+    navigate("/");
+  };
+
+  const loadAoiId = (aoiId: string) => {
+    setAoiId(aoiId);
+  };
+
+  const getAOIName = () => {
+    if (loading) return "";
+    return aoi?.properties?.name || NEW_AOI;
+  };
+
+  const getAOIId = () => {
+    if (loading) return "";
+    return aoi?.id;
+  };
+
+  const removeAOI = (aoiIdToRemove: string) => {
+    const currentAoiId = getAOIId();
+    if (aoiIdToRemove === currentAoiId) {
+      handleClear();
+    }
+    deleteAOIMutation.mutate(aoiIdToRemove);
+  };
+
+  const createAOI = (name: string) => {
+    createAOIMutation.mutate({ name, filters: localFilters });
+  };
+
+  const updateAOI = (aoiIdToUpdate: string, name: string) => {
+    updateAOIMutation.mutate({
+      aoiId: aoiIdToUpdate,
+      name,
+      filters: localFilters,
+    });
+  };
+
+  const mobile = isMobile();
+
+  return (
+    <div
+      className={`flex-parent flex-parent--column changesets-filters bg-white ${
+        mobile ? "viewport-full" : ""
+      }`}
+    >
+      <FiltersHeader
+        createAOI={createAOI}
+        updateAOI={updateAOI}
+        removeAOI={removeAOI}
+        loading={loading}
+        token={token}
+        aoiName={getAOIName()}
+        aoiId={getAOIId()}
+        loadAoiId={loadAoiId}
+        handleApply={handleApply}
+        handleClear={handleClear}
+        search={location.search}
+      />
+      <FiltersList
+        loading={loading}
+        filters={localFilters}
+        active={active}
+        handleFocus={handleFocus}
+        handleChange={handleChange}
+        handleToggleAll={handleToggleAll}
+        replaceFiltersState={replaceFiltersState}
+        token={token}
+      />
+    </div>
+  );
 }
-
-const Filters = withRouter(connect((state: RootStateType, props: any) => ({
-    filters: state.filters.get("filters"),
-    aoi: state.aoi.get("aoi"),
-    loading: state.filters.get("loading"),
-    features: state.changesetsPage.getIn(["currentPage", "features"]),
-    location: props.location,
-    token: state.auth.get("token"),
-  }),
-  {
-    checkForNewChangesets,
-    applyFilters,
-    applyCreateAOI,
-    applyUpdateAOI,
-    push,
-    modal,
-  },
-)(_Filters));
 
 export { Filters };

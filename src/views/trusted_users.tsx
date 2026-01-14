@@ -1,23 +1,26 @@
-import { List, Map } from "immutable";
 import React from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { push } from "redux-first-history";
 import { Button } from "../components/button";
 import { SecondaryPagesHeader } from "../components/secondary_pages_header";
 import { BlockMarkup } from "../components/user/block_markup";
 import { SaveUser } from "../components/user/save_user";
-import type { RootStateType } from "../store";
-import { logUserOut } from "../store/auth_actions";
-import { modal } from "../store/modal_actions";
+import { useAuth } from "../hooks/useAuth";
 import {
-  addToTrustedlist,
-  removeFromTrustedlist,
-} from "../store/trustedlist_actions";
-import { withRouter } from "../utils/withRouter";
+  useAddToTrustedlist,
+  useRemoveFromTrustedlist,
+} from "../query/hooks/useTrustedlistMutations";
+import { useTrustedlist } from "../query/hooks/useTrustedlist";
 import { getObjAsQueryParam, isMobile } from "../utils";
 
-const TrustedListBlock = ({ data, removeFromTrustedList }) => (
+interface TrustedListBlockProps {
+  data: string;
+  removeFromTrustedList: (username: string) => void;
+}
+
+const TrustedListBlock = ({
+  data,
+  removeFromTrustedList,
+}: TrustedListBlockProps) => (
   <BlockMarkup>
     <span>
       <span>{data}</span>
@@ -51,14 +54,19 @@ const TrustedListBlock = ({ data, removeFromTrustedList }) => (
   </BlockMarkup>
 );
 
+interface ListFortifiedProps {
+  data: string[];
+  TargetBlock: React.ComponentType<TrustedListBlockProps>;
+  propsToPass: { removeFromTrustedList: (username: string) => void };
+  SaveComp: React.ReactNode;
+}
+
 const ListFortified = ({
-  onAdd,
-  onRemove,
   data,
   TargetBlock,
   propsToPass,
   SaveComp,
-}) => (
+}: ListFortifiedProps) => (
   <div>
     {data.map((e, i) => (
       <TargetBlock key={i} data={e} {...propsToPass} />
@@ -67,99 +75,52 @@ const ListFortified = ({
   </div>
 );
 
-type propsType = {
-  avatar: string | undefined | null;
-  token: string;
-  data: Map<string, any>;
-  location: any;
-  userDetails: Map<string, any>;
-  reloadData: () => any;
-  logUserOut: () => any;
-  push: (a: any) => any;
-  modal: (a: any) => any;
-  trustedList: Map<string, any>;
-  addToTrustedlist: (a: string) => void;
-  removeFromTrustedlist: (a: string) => void;
-};
+function TrustedUsers() {
+  const { token, user } = useAuth();
+  const { data: trustedList = [] } = useTrustedlist(token);
+  const addMutation = useAddToTrustedlist(token);
+  const removeMutation = useRemoveFromTrustedlist(token);
 
-class _TrustedUsers extends React.PureComponent<propsType, any> {
-  state = {
-    userValues: null,
-  };
-  addToTrustedList = ({ username }: { username: string }) => {
+  const addToTrustedList = ({ username }: { username: string }) => {
     if (!username) return;
-    this.props.addToTrustedlist(username);
+    addMutation.mutate(username);
   };
-  removeFromTrustedList = (username: string) => {
+
+  const removeFromTrustedList = (username: string) => {
     if (!username) return;
-    this.props.removeFromTrustedlist(username);
-  };
-  onUserChange = (value?: Array<any> | null) => {
-    if (Array.isArray(value) && value.length === 0)
-      return this.setState({ userValues: null });
-    this.setState({
-      userValues: value,
-    });
+    removeMutation.mutate(username);
   };
 
-  render() {
-    let trustedUsers = this.props.trustedList ? this.props.trustedList : List();
-    trustedUsers = trustedUsers.sortBy(
-      (a) => a,
-      (a: string, b: string) => a.localeCompare(b),
-    ) as List<any>;
-    const mobile = isMobile();
+  const trustedUsers = [...trustedList].sort((a, b) => a.localeCompare(b));
+  const mobile = isMobile();
 
-    return (
-      <div
-        className={`flex-parent flex-parent--column changesets-filters bg-white${
-          mobile ? " viewport-full" : ""
-        }`}
-      >
-        <SecondaryPagesHeader
-          title="Trusted Users"
-          avatar={this.props.avatar}
-        />
-        <div className="px30 flex-child  pb60  filters-scroll">
-          <div className="flex-parent flex-parent--column align justify--space-between">
-            {this.props.token && (
-              <div>
-                <div className="mt24 mb12">
-                  <ListFortified
-                    onAdd={() => {}}
-                    onRemove={() => {}}
-                    data={trustedUsers}
-                    TargetBlock={TrustedListBlock}
-                    propsToPass={{
-                      removeFromTrustedList: this.removeFromTrustedList,
-                    }}
-                    SaveComp={<SaveUser onCreate={this.addToTrustedList} />}
-                  />
-                </div>
+  return (
+    <div
+      className={`flex-parent flex-parent--column changesets-filters bg-white${
+        mobile ? " viewport-full" : ""
+      }`}
+    >
+      <SecondaryPagesHeader title="Trusted Users" avatar={user?.avatar} />
+      <div className="px30 flex-child pb60 filters-scroll">
+        <div className="flex-parent flex-parent--column align justify--space-between">
+          {token && (
+            <div>
+              <div className="mt24 mb12">
+                <ListFortified
+                  data={trustedUsers}
+                  TargetBlock={TrustedListBlock}
+                  propsToPass={{
+                    removeFromTrustedList,
+                  }}
+                  SaveComp={<SaveUser onCreate={addToTrustedList} />}
+                />
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-const TrustedUsers = withRouter(connect((state: RootStateType, props: any) => ({
-    location: props.location,
-    trustedList: state.trustedlist.get("trustedlist"),
-    oAuthToken: state.auth.get("oAuthToken"),
-    token: state.auth.get("token"),
-    userDetails: state.auth.getIn(["userDetails"], Map()),
-    avatar: state.auth.getIn(["userDetails", "avatar"]),
-  }),
-  {
-    logUserOut,
-    modal,
-    push,
-    addToTrustedlist,
-    removeFromTrustedlist,
-  },
-)(_TrustedUsers));
 
 export { TrustedUsers };

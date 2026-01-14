@@ -1,175 +1,126 @@
 import type { MapLibreAugmentedDiffViewer } from "@osmcha/maplibre-adiff-viewer";
-import { fromJS, Map } from "immutable";
 import type * as maplibre from "maplibre-gl";
 import Mousetrap from "mousetrap";
-import React from "react";
-import { connect } from "react-redux";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import { Changeset as ChangesetOverlay } from "../components/changeset";
 import { FILTER_BY_USER } from "../config/bindings";
-import type { RootStateType } from "../store";
-import { applyFilters } from "../store/filters_actions";
-import { dispatchEvent } from "../utils/dispatch_event";
-import { withRouter } from "../utils/withRouter";
+import { useAuth } from "../hooks/useAuth";
+import { useFilters } from "../hooks/useFilters";
+import { useChangeset } from "../query/hooks/useChangeset";
+import { showToast } from "../utils/toast";
 import { CMap } from "../views/map";
 import { NavbarChangeset } from "../views/navbar_changeset";
 
-/**
- * This is the main component for the changeset view.
- * It displays the changeset details and the map.
- */
-interface ChangesetProps {
-  errorChangeset: any | undefined | null;
-  location: any;
-  loading: boolean;
-  currentChangeset?: Map<string, any>;
-  changesetId: number;
-  token: string;
-  applyFilters: (a: Map<string, any>) => unknown;
-}
+function Changeset() {
+  const { token, user } = useAuth();
+  const { setFilters } = useFilters();
+  const { id } = useParams<{ id: string }>();
+  const changesetId = id ? parseInt(id, 10) : null;
 
-interface ChangesetState {
-  camera: any;
-  selected: any;
-  showElements: Array<string>;
-  showActions: Array<string>;
-  basemapStyle: string;
-}
+  const {
+    data: currentChangeset,
+    isLoading,
+    error,
+  } = useChangeset(changesetId, token);
 
-class _Changeset extends React.PureComponent<ChangesetProps, ChangesetState> {
-  state: ChangesetState = {
-    // map camera parameters, updated when the map moves, and used to construct
-    // external editor urls. either null or { center: [lng, lat], zoom: number }.
-    camera: null,
-    // the currently selected element on the map; either null or an 'action' object
-    // from @osmcha/maplibre-adiff-viewer ({ type, old, new })
-    selected: null,
-    // map configuration state (set in the map options panel and used in the CMap view)
-    showElements: ["node", "way", "relation"],
-    showActions: ["create", "modify", "delete", "noop"],
-    basemapStyle: "bing",
-  };
+  const [camera, setCamera] = useState<any>(null);
+  const [selected, setSelected] = useState<any>(null);
+  const [showElements, setShowElements] = useState<Array<string>>([
+    "node",
+    "way",
+    "relation",
+  ]);
+  const [showActions, setShowActions] = useState<Array<string>>([
+    "create",
+    "modify",
+    "delete",
+    "noop",
+  ]);
 
   // This ref is passed to CMap, which updates it with references to the MapLibre map
   // and AdiffViewer instance. Other components can use this ref to imperatively update
   // the map state.
-  mapRef: React.MutableRefObject<{
+  const mapRef = useRef<{
     map: maplibre.Map;
     adiffViewer: MapLibreAugmentedDiffViewer;
-  } | null> = React.createRef() as any;
+  } | null>(null);
 
-  componentDidMount() {
-    Mousetrap.bind(FILTER_BY_USER.bindings, this.filterChangesetsByUser);
-  }
-
-  componentDidUpdate(prevProps: any) {
-    if (
-      this.props.token !== prevProps.token ||
-      this.props.changesetId !== prevProps.changesetId
-    ) {
-      // reset selected element and filter choices when switching between changesets
-      this.setState({
-        selected: null,
-        showElements: ["node", "way", "relation"],
-        showActions: ["create", "modify", "delete", "noop"],
+  const filterChangesetsByUser = useCallback(() => {
+    if (currentChangeset && currentChangeset.properties) {
+      const userName = currentChangeset.properties.user;
+      setFilters({
+        users: [
+          {
+            label: userName,
+            value: userName,
+          },
+        ],
       });
     }
-  }
+  }, [currentChangeset, setFilters]);
 
-  componentWillUnmount() {
-    FILTER_BY_USER.bindings.forEach((k) => Mousetrap.unbind(k));
-  }
+  useEffect(() => {
+    Mousetrap.bind(FILTER_BY_USER.bindings, filterChangesetsByUser);
+    return () => {
+      FILTER_BY_USER.bindings.forEach((k) => Mousetrap.unbind(k));
+    };
+  }, [filterChangesetsByUser]);
 
-  filterChangesetsByUser = () => {
-    if (this.props.currentChangeset) {
-      const userName = this.props.currentChangeset.getIn([
-        "properties",
-        "user",
-      ]);
-      this.props.applyFilters(
-        Map<string, any>().set(
-          "users",
-          fromJS([
-            {
-              label: userName,
-              value: userName,
-            },
-          ]),
-        ),
-      );
-    }
-  };
+  useEffect(() => {
+    // Reset selected element and filter choices when switching between changesets
+    setSelected(null);
+    setShowElements(["node", "way", "relation"]);
+    setShowActions(["create", "modify", "delete", "noop"]);
+  }, [token, changesetId]);
 
-  showChangeset = () => {
-    const { loading, errorChangeset, currentChangeset, changesetId, token } =
-      this.props;
-
-    if (loading || !currentChangeset) {
-      return null;
-    }
-
-    if (errorChangeset) {
-      dispatchEvent("showToast", {
+  useEffect(() => {
+    if (error) {
+      showToast({
+        kind: "error",
         title: `changeset:${changesetId} failed to load`,
-        content: "Try reloading osmcha",
-        timeOut: 5000,
-        type: "error",
+        description: "Try reloading osmcha",
       });
-      console.error(errorChangeset);
-      return null;
+      console.error(error);
     }
-    return (
-      <ChangesetOverlay
-        changesetId={changesetId}
+  }, [error, changesetId]);
+
+  return (
+    <div className="flex-parent flex-parent--column h-full">
+      <NavbarChangeset
+        changesetId={changesetId || 0}
         currentChangeset={currentChangeset}
-        showElements={this.state.showElements}
-        showActions={this.state.showActions}
-        setShowElements={(showElements) => this.setState({ showElements })}
-        setShowActions={(showActions) => this.setState({ showActions })}
-        mapRef={this.mapRef}
-        selected={this.state.selected}
-        setSelected={(selected) => this.setState({ selected })}
+        username={user?.username || null}
+        camera={camera}
       />
-    );
-  };
+      <div className="flex-child flex-child--grow relative">
+        <CMap
+          changesetId={changesetId}
+          mapRef={mapRef}
+          className="z0 fixed bottom right"
+          showElements={showElements}
+          showActions={showActions}
+          setSelected={setSelected}
+          setCamera={setCamera}
+        />
 
-  render() {
-    return (
-      <div className="flex-parent flex-parent--column h-full">
-        <NavbarChangeset camera={this.state.camera} />
-        <div className="flex-child flex-child--grow relative">
-          <CMap
-            mapRef={this.mapRef}
-            className="z0 fixed bottom right"
-            showElements={this.state.showElements}
-            showActions={this.state.showActions}
-            setSelected={(selected) => this.setState({ selected })}
-            setCamera={(camera) => this.setState({ camera })}
+        {!isLoading && currentChangeset && changesetId && (
+          <ChangesetOverlay
+            changesetId={changesetId}
+            currentChangeset={currentChangeset}
+            showElements={showElements}
+            showActions={showActions}
+            setShowElements={setShowElements}
+            setShowActions={setShowActions}
+            mapRef={mapRef}
+            selected={selected}
+            setSelected={setSelected}
           />
-
-          {this.showChangeset()}
-        </div>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-const Changeset = withRouter(
-  connect(
-    (state: RootStateType, props: any) => ({
-      changeset: state.changeset,
-      location: props.location,
-      changesetId: parseInt(props.match.params.id, 10),
-      currentChangeset: state.changeset.getIn([
-        "changesets",
-        parseInt(props.match.params.id, 10),
-      ]),
-      errorChangeset: state.changeset.get("errorChangeset"),
-      loading: state.changeset.get("loading"),
-      token: state.auth.get("token"),
-    }),
-    { applyFilters },
-  )(_Changeset),
-);
 
 export { Changeset };

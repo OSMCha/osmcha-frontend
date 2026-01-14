@@ -1,4 +1,3 @@
-import type { List, Map } from "immutable";
 import React from "react";
 import { postComment } from "../../network/changeset";
 import { cancelablePromise } from "../../utils/promise";
@@ -7,9 +6,13 @@ import { Button } from "../button";
 type propsType = {
   token: string;
   changesetId: number;
-  userDetails: Map<string, any>;
+  userDetails: {
+    username?: string;
+    message_bad?: string;
+    message_good?: string;
+  };
   changesetIsHarmful: boolean;
-  discussions: List<any>;
+  discussions: any[];
 };
 
 type stateType = {
@@ -40,17 +43,17 @@ export class CommentForm extends React.PureComponent<propsType, stateType> {
   updateValue(props) {
     const userCommentedBefore =
       props.discussions.filter(
-        (item) => item.get("userName") === props.userDetails.get("username"),
-      ).size > 0;
+        (item) => item.userName === props.userDetails.username,
+      ).length > 0;
     if (
       this.state.value === "" &&
       props.changesetIsHarmful !== null &&
       !userCommentedBefore
     ) {
       if (props.changesetIsHarmful) {
-        this.setState({ value: props.userDetails.get("message_bad") });
+        this.setState({ value: props.userDetails.message_bad });
       } else {
-        this.setState({ value: props.userDetails.get("message_good") });
+        this.setState({ value: props.userDetails.message_good });
       }
     }
   }

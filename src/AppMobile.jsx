@@ -5,7 +5,6 @@ import { Changeset } from "./views/changeset";
 import { ChangesetsList } from "./views/changesets_list";
 import { EditMappingTeam } from "./views/edit_team";
 import { Filters } from "./views/filters";
-import { Modal } from "./views/modal";
 import { NavbarSidebar } from "./views/navbar_sidebar";
 import { SavedFilters } from "./views/saved_filters";
 import { Stats } from "./views/stats";
@@ -37,7 +36,6 @@ export const AppMobile = () => {
           <Route path="/teams/:id" element={<EditMappingTeam />} />
         </Routes>
       </div>
-      <Modal />
     </>
   );
 };

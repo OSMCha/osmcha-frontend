@@ -1,49 +1,28 @@
-import React from "react";
-import { connect } from "react-redux";
-import { push } from "redux-first-history";
-import type { RootStateType } from "../store";
-import { getFinalToken } from "../store/auth_actions";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { completeOAuthLogin } from "../utils/auth";
 
-interface AuthorizedProps {
-  location: any;
-  getFinalToken: (a: string) => unknown;
-  push: (a: any) => any;
-}
+export function Authorized() {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-interface AuthorizedState {
-  isReadyToRedirect: boolean;
-}
-
-class _Authorized extends React.PureComponent<
-  AuthorizedProps,
-  AuthorizedState
-> {
-  state: AuthorizedState = {
-    isReadyToRedirect: false,
-  };
-
-  componentDidMount() {
-    const params = new URLSearchParams(this.props.location.search);
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
     const authCode = params.get("code");
+
     if (authCode) {
-      this.props.getFinalToken(authCode);
+      completeOAuthLogin(authCode)
+        .then(() => {
+          navigate("/", { replace: true });
+        })
+        .catch((error) => {
+          console.error("OAuth completion failed:", error);
+          navigate("/", { replace: true });
+        });
+    } else {
+      navigate("/", { replace: true });
     }
-    this.props.push({ ...this.props.location, search: "", pathname: "/" });
-  }
+  }, [location.search, navigate]);
 
-  render() {
-    return <div className="center">Logging in...</div>;
-  }
+  return <div className="center">Logging in...</div>;
 }
-
-const Authorized = connect(
-  (state: RootStateType, props) => ({
-    location: state.router.location,
-  }),
-  {
-    getFinalToken,
-    push,
-  },
-)(_Authorized);
-
-export { Authorized };

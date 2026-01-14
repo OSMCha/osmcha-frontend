@@ -1,8 +1,6 @@
-import { fromJS, type List as ImmutableList, is, type Map } from "immutable";
-import React from "react";
-import { connect } from "react-redux";
-import { push } from "redux-first-history";
-import { keyboardToggleEnhancer } from "../components/keyboard_enhancer";
+import Mousetrap from "mousetrap";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { List } from "../components/list";
 import { Footer } from "../components/list/footer";
 import { Header } from "../components/list/header";
@@ -13,212 +11,136 @@ import {
   PREV_CHANGESET,
   REFRESH_CHANGESETS,
 } from "../config/bindings";
-import type { RootStateType } from "../store";
-import {
-  checkForNewChangesets,
-  getChangesetsPage,
-} from "../store/changesets_page_actions";
-import { applyFilters } from "../store/filters_actions";
+import { useAuth } from "../hooks/useAuth";
+import { useFilters } from "../hooks/useFilters";
+import { useChangesetsPage } from "../query/hooks/useChangesetsPage";
 
-type propsType = {
-  location: any;
-  loading: boolean;
-  error: any;
-  currentPage: Map<string, any> | undefined | null;
-  diff: number;
-  diffLoading: boolean;
-  pageIndex: number;
-  activeChangesetId: number | undefined | null;
-  filters: Map<string, ImmutableList<any>>;
-  aoiId: string | undefined | null;
-  lastKeyStroke: Map<string, any>;
-  getChangesetsPage: (b: number, a?: boolean) => unknown; // base 0;
-  checkForNewChangesets: (a: boolean) => any;
-  push: (a: any) => unknown;
-  applyFilters: (a: Map<string, ImmutableList<any>>) => unknown; // base 0;
-};
+function ChangesetsList() {
+  const { token } = useAuth();
+  const { id } = useParams<{ id?: string }>();
+  const activeChangesetId = id ? parseInt(id, 10) : null;
+  const [pageIndex, setPageIndex] = useState(0);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { filters, aoiId, setFilters } = useFilters();
 
-class _ChangesetsList extends React.PureComponent<propsType, any> {
-  checkUpdate: { promise: Promise<any>; cancel(): void } | null = null;
-  maxPageCount = Infinity;
+  const {
+    data: currentPage,
+    isLoading,
+    refetch,
+  } = useChangesetsPage({
+    pageIndex,
+    filters,
+    aoiId,
+    token,
+  });
 
-  // constructor(props: propsType) {
-  //   super(props);
-  //   this.props.getChangesetsPage(props.pageIndex);
-  //   this.checkUpdate = delayPromise(2000);
-  //   this.checkUpdate.promise.then(() => this.props.checkForNewChangesets(true));
-  // }
-  componentWillUnmount() {
-    this.checkUpdate && this.checkUpdate.cancel();
-  }
-
-  goUpDownToChangeset = (direction: number) => {
-    if (!this.props.currentPage) return;
-    const features = this.props.currentPage.get("features");
-    if (features) {
-      let index = features.findIndex(
-        (f) => f.get("id") === this.props.activeChangesetId,
-      );
-      index += direction;
-      const nextFeature = features.get(index);
-      if (nextFeature) {
-        const location = {
-          ...this.props.location, //  clone it
-          pathname: `/changesets/${nextFeature.get("id")}`,
-        };
-        this.props.push(location);
-      }
+  const goUpDownToChangeset = (direction: number) => {
+    if (!currentPage?.features) return;
+    const features = currentPage.features;
+    let index = features.findIndex((f: any) => f.id === activeChangesetId);
+    index += direction;
+    const nextFeature = features[index];
+    if (nextFeature) {
+      navigate({
+        pathname: `/changesets/${nextFeature.id}`,
+        search: location.search,
+      });
     }
   };
 
-  toggleFilters() {
-    if (this.props.location && this.props.location.pathname === "/filters") {
-      const location = {
-        ...this.props.location, //  clone it
-        pathname: "/",
-      };
-      this.props.push(location);
+  const toggleFilters = () => {
+    if (location.pathname === "/filters") {
+      navigate({ pathname: "/", search: location.search });
     } else {
-      const location = {
-        ...this.props.location, //  clone it
-        pathname: "/filters",
-      };
-      this.props.push(location);
+      navigate({ pathname: "/filters", search: location.search });
     }
-  }
+  };
 
-  toggleHelp() {
-    if (
-      this.props.location &&
-      this.props.location.pathname.startsWith("/about")
-    ) {
-      const location = {
-        ...this.props.location, //  clone it
-        pathname: "/",
-      };
-      this.props.push(location);
+  const toggleHelp = () => {
+    if (location.pathname.startsWith("/about")) {
+      navigate({ pathname: "/", search: location.search });
     } else {
-      console.log(...this.props.location);
-      const location = {
-        ...this.props.location, //  clone it
-        pathname: "/about",
-      };
-      this.props.push(location);
+      navigate({ pathname: "/about", search: location.search });
     }
-  }
-
-  componentWillReceiveProps(nextProps: propsType) {
-    const lastKeyStroke: Map<string, any> = nextProps.lastKeyStroke;
-    if (is(this.props.lastKeyStroke, lastKeyStroke)) return;
-    switch (lastKeyStroke.keySeq().first()) {
-      case FILTER_BINDING.label: {
-        this.toggleFilters();
-        break;
-      }
-      case HELP_BINDING.label: {
-        this.toggleHelp();
-        break;
-      }
-      case NEXT_CHANGESET.label: {
-        this.goUpDownToChangeset(1);
-        break;
-      }
-      case PREV_CHANGESET.label: {
-        this.goUpDownToChangeset(-1);
-        break;
-      }
-      case REFRESH_CHANGESETS.label: {
-        this.reloadCurrentPage();
-        break;
-      }
-      default: {
-        return;
-      }
-    }
-  }
-
-  handleFilterOrderBy = (selected: Array<any>) => {
-    let mergedFilters;
-    mergedFilters = this.props.filters.set("order_by", fromJS(selected));
-    this.props.applyFilters(mergedFilters);
   };
 
-  reloadCurrentPage = () => {
-    this.props.getChangesetsPage(this.props.pageIndex, true);
+  const handleFilterOrderBy = (selected: Array<any>) => {
+    const newFilters = { ...filters, order_by: selected };
+    setFilters(newFilters);
   };
 
-  render() {
-    const {
-      filters,
-      currentPage,
-      loading,
-      location,
-      diff,
-      diffLoading,
-      activeChangesetId,
-      pageIndex,
-      getChangesetsPage,
-    } = this.props;
+  const reloadCurrentPage = () => {
+    refetch();
+  };
 
-    return (
-      <div className="flex-parent flex-parent--column changesets-list">
-        <Header
-          filters={filters}
-          handleFilterOrderBy={this.handleFilterOrderBy}
-          location={location}
-          currentPage={currentPage}
-          diff={diff}
-          diffLoading={diffLoading}
-          reloadCurrentPage={this.reloadCurrentPage}
-        />
-        <List
-          activeChangesetId={activeChangesetId}
-          loading={loading}
-          currentPage={currentPage}
-          pageIndex={pageIndex}
-          location={location.pathname ? location.pathname : null}
-        />
-        <Footer
-          pageIndex={pageIndex}
-          getChangesetsPage={getChangesetsPage}
-          count={currentPage && currentPage.get("count")}
-        />
-      </div>
-    );
-  }
+  const handleChangePage = (newPageIndex: number) => {
+    setPageIndex(newPageIndex);
+  };
+
+  useEffect(() => {
+    const shortcuts = [
+      {
+        bindings: NEXT_CHANGESET.bindings,
+        handler: () => goUpDownToChangeset(1),
+      },
+      {
+        bindings: PREV_CHANGESET.bindings,
+        handler: () => goUpDownToChangeset(-1),
+      },
+      {
+        bindings: FILTER_BINDING.bindings,
+        handler: toggleFilters,
+      },
+      {
+        bindings: HELP_BINDING.bindings,
+        handler: toggleHelp,
+      },
+      {
+        bindings: REFRESH_CHANGESETS.bindings,
+        handler: reloadCurrentPage,
+      },
+    ];
+
+    shortcuts.forEach((shortcut) => {
+      Mousetrap.bind(shortcut.bindings, (e) => {
+        e.preventDefault();
+        shortcut.handler();
+      });
+    });
+
+    return () => {
+      shortcuts.forEach((shortcut) => {
+        Mousetrap.unbind(shortcut.bindings);
+      });
+    };
+  }, [currentPage, activeChangesetId, filters, location]);
+
+  return (
+    <div className="flex-parent flex-parent--column changesets-list">
+      <Header
+        filters={filters}
+        handleFilterOrderBy={handleFilterOrderBy}
+        location={location}
+        currentPage={currentPage}
+        diff={0}
+        diffLoading={false}
+        reloadCurrentPage={reloadCurrentPage}
+      />
+      <List
+        activeChangesetId={activeChangesetId}
+        loading={isLoading}
+        currentPage={currentPage}
+        pageIndex={pageIndex}
+        location={location.pathname}
+      />
+      <Footer
+        pageIndex={pageIndex}
+        getChangesetsPage={handleChangePage}
+        count={currentPage?.count}
+      />
+    </div>
+  );
 }
 
-const _ChangesetsListWithKeyboard = keyboardToggleEnhancer(
-  false,
-  [
-    NEXT_CHANGESET,
-    PREV_CHANGESET,
-    FILTER_BINDING,
-    HELP_BINDING,
-    REFRESH_CHANGESETS,
-  ],
-  _ChangesetsList,
-);
-
-const ChangesetsList = connect(
-  (state: RootStateType, props) => ({
-    location: state.router.location,
-    loading: state.changesetsPage.get("loading"),
-    error: state.changesetsPage.get("error"),
-    currentPage: state.changesetsPage.get("currentPage"),
-    diff: state.changesetsPage.get("diff"),
-    diffLoading: state.changesetsPage.get("diffLoading"),
-    pageIndex: state.changesetsPage.get("pageIndex") || 0,
-    activeChangesetId: state.changeset.get("changesetId"),
-    filters: state.filters.get("filters"),
-    aoiId: state.aoi.get("aoi").get("id"),
-  }),
-  {
-    // actions
-    getChangesetsPage,
-    checkForNewChangesets,
-    applyFilters,
-    push,
-  },
-)(_ChangesetsListWithKeyboard) as any;
 export { ChangesetsList };

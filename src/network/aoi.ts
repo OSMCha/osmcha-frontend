@@ -1,5 +1,3 @@
-import { Iterable } from "immutable";
-import type { filtersType, filterType } from "../components/filters";
 import { API_URL } from "../config";
 
 export function getString(input) {
@@ -35,15 +33,15 @@ export function handleErrors(response: any) {
 export function createAOI(
   token: string,
   name: string,
-  filters: filtersType,
+  filters: any,
 ): Promise<any> {
   const serverFilters = {};
-  filters.forEach((v: filterType | undefined, k: string | undefined) => {
-    if (!Iterable.isIterable(v) || !k) return;
-    const filter = v!;
-    serverFilters[k] = filter
-      .filter((x) => !!x && Iterable.isIterable(x) && x.get("value") !== "")
-      .map((x) => getString(x?.get("value")))
+  Object.keys(filters).forEach((k) => {
+    const v = filters[k];
+    if (!Array.isArray(v) || !k) return;
+    serverFilters[k] = v
+      .filter((x) => !!x && typeof x === "object" && x.value !== "")
+      .map((x) => getString(x.value))
       .join(",");
   });
   return fetch(`${API_URL}/aoi/`, {
@@ -95,15 +93,15 @@ export function updateAOI(
   token: string,
   aoiId: number,
   name: string,
-  filters: filtersType,
+  filters: any,
 ): Promise<any> {
   const serverFilters = {};
-  filters.forEach((v: filterType | undefined, k: string | undefined) => {
-    if (!Iterable.isIterable(v) || !k) return;
-    const filter = v!;
-    serverFilters[k] = filter
-      .filter((x) => !!x && Iterable.isIterable(x) && x.get("value") !== "")
-      .map((x) => getString(x?.get("value")))
+  Object.keys(filters).forEach((k) => {
+    const v = filters[k];
+    if (!Array.isArray(v) || !k) return;
+    serverFilters[k] = v
+      .filter((x) => !!x && typeof x === "object" && x.value !== "")
+      .map((x) => getString(x.value))
       .join(",");
   });
   return fetch(`${API_URL}/aoi/${aoiId}/`, {

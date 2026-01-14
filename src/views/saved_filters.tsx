@@ -1,104 +1,71 @@
-import { List, Map } from "immutable";
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { push } from "redux-first-history";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/button";
 import { CustomURL } from "../components/customURL";
-import { withFetchDataSilent } from "../components/fetch_data_enhancer";
-import type { filtersType } from "../components/filters";
 import { SecondaryPagesHeader } from "../components/secondary_pages_header";
 import { BlockMarkup } from "../components/user/block_markup";
 import { API_URL } from "../config";
-import { createAOI, deleteAOI, fetchAllAOIs } from "../network/aoi";
-import type { RootStateType } from "../store";
-import { logUserOut } from "../store/auth_actions";
-import { applyFilters } from "../store/filters_actions";
-import { modal } from "../store/modal_actions";
-import { cancelablePromise, isMobile } from "../utils";
-import { withRouter } from "../utils/withRouter";
+import { useAuth } from "../hooks/useAuth";
+import { useFilters } from "../hooks/useFilters";
+import { useAllAOIs } from "../query/hooks/useAOI";
+import { useCreateAOI, useDeleteAOI } from "../query/hooks/useAOIMutations";
+import { isMobile } from "../utils";
 
 interface SaveButtonProps {
   onCreate: (value: string) => void;
-  placeholder?: string;
 }
 
-interface SaveButtonState {
-  editing: boolean;
-  value?: string;
-}
+function SaveButton({ onCreate }: SaveButtonProps) {
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState("");
 
-class SaveButton extends React.PureComponent<SaveButtonProps, SaveButtonState> {
-  constructor(props: SaveButtonProps) {
-    super(props);
-    this.state = {
-      editing: false,
-    };
-  }
-  ref: any;
-  clicked = false;
-  onClick = (event) => {
-    this.clicked = true;
-    this.setState({ editing: true });
-  };
-  onChange = (event: any) => {
-    this.setState({ value: event.target.value });
-  };
-  onKeyDown = (event) => {
-    if (event.keyCode === 13) {
-      this.setState({
-        editing: false,
-      });
-      if (this.state.value) {
-        this.props.onCreate(this.state.value);
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      setEditing(false);
+      if (value) {
+        onCreate(value);
+        setValue("");
       }
-    } else if (event.keyCode === 27) {
-      this.setState({
-        editing: false,
-      });
-      this.clicked = false;
+    } else if (event.key === "Escape") {
+      setEditing(false);
+      setValue("");
     }
   };
 
-  onSave = (event) => {
-    this.setState({
-      editing: false,
-    });
-    if (this.state.value) {
-      this.props.onCreate(this.state.value);
+  const handleSave = () => {
+    setEditing(false);
+    if (value) {
+      onCreate(value);
+      setValue("");
     }
   };
 
-  render() {
-    return (
-      <span>
-        {this.state.editing ? (
-          <span className="flex-parent flex-parent--row ">
-            <input
-              placeholder={this.props.placeholder}
-              className="input wmax120 ml12"
-              ref={(r) => {
-                if (this.clicked) {
-                  r && r.select();
-                  this.clicked = false;
-                }
-              }}
-              value={this.state.value}
-              onChange={this.onChange}
-              onKeyDown={this.onKeyDown}
-            />
-            <Button className="input wmax120 ml6" onClick={this.onSave}>
-              Save
-            </Button>
-          </span>
-        ) : (
-          <Button className="input wmax120 ml12 mt12" onClick={this.onClick}>
-            Save Filter
+  return (
+    <span>
+      {editing ? (
+        <span className="flex-parent flex-parent--row ">
+          <input
+            placeholder="Filter name"
+            className="input wmax120 ml12"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            autoFocus
+          />
+          <Button className="input wmax120 ml6" onClick={handleSave}>
+            Save
           </Button>
-        )}
-      </span>
-    );
-  }
+        </span>
+      ) : (
+        <Button
+          className="input wmax120 ml12 mt12"
+          onClick={() => setEditing(true)}
+        >
+          Save Filter
+        </Button>
+      )}
+    </span>
+  );
 }
 
 const AOIsBlock = ({ data, activeAoiId, removeAoi }) => (
@@ -106,13 +73,13 @@ const AOIsBlock = ({ data, activeAoiId, removeAoi }) => (
     <Link
       className="mx3"
       to={{
-        search: `aoi=${data.getIn(["id"])}`,
+        search: `aoi=${data.id}`,
         pathname: "/filters",
       }}
     >
       <span className="txt-bold">
-        {data.getIn(["properties", "name"])}
-        {activeAoiId === data.getIn(["id"]) && (
+        {data.properties?.name}
+        {activeAoiId === data.id && (
           <span className="ml12 btn btn--s px6 py0 bg-darken25 events-none">
             Active
           </span>
@@ -121,7 +88,7 @@ const AOIsBlock = ({ data, activeAoiId, removeAoi }) => (
     </Link>
     <span>
       <CustomURL
-        href={`${API_URL}/aoi/${data.getIn(["id"])}/changesets/feed/`}
+        href={`${API_URL}/aoi/${data.id}/changesets/feed/`}
         className="mr3"
         iconName="rss"
       >
@@ -129,7 +96,7 @@ const AOIsBlock = ({ data, activeAoiId, removeAoi }) => (
       </CustomURL>
       <Button
         className="mr3 bg-transparent border--0"
-        onClick={() => removeAoi(data.getIn(["id"]))}
+        onClick={() => removeAoi(data.id)}
       >
         <svg className={"icon txt-m mb3 inline-block align-middle color-gray"}>
           <use xlinkHref="#icon-trash" />
@@ -149,166 +116,64 @@ const ListFortified = ({ data, TargetBlock, propsToPass, SaveComp }) => (
   </div>
 );
 
-type propsType = {
-  avatar: string | undefined | null;
-  aoiId: string | undefined | null;
-  token: string;
-  data: Map<string, any>;
-  location: any;
-  filters: filtersType;
-  userDetails: Map<string, any>;
-  applyFilters: (a: filtersType, path?: string) => unknown; // base;
-  reloadData: () => any;
-  logUserOut: () => any;
-  push: (a: any) => any;
-  modal: (a: any) => any;
-  addToWatchlist?: (payload: { username: string; uid: string }) => any;
-  removeFromWatchlist?: (uid: number) => any;
-  addToTrustedlist?: (username: string) => any;
-  removeFromTrustedlist?: (username: string) => any;
-};
+function SavedFilters() {
+  const { token, user } = useAuth();
+  const { filters, aoiId, clearFilters } = useFilters();
+  const aoisQuery = useAllAOIs(token);
+  const createMutation = useCreateAOI(token);
+  const deleteMutation = useDeleteAOI(token);
+  const navigate = useNavigate();
+  const mobile = isMobile();
 
-class _SavedFilters extends React.PureComponent<propsType, any> {
-  createAOIPromise;
-  state = {
-    userValues: null,
-  };
-  componentWillUnmount() {
-    this.createAOIPromise && this.createAOIPromise.cancel();
-  }
+  const createAOI = (name: string) => {
+    if (!name || !token) return;
 
-  addToWatchList = ({ username, uid }: { username: string; uid: string }) => {
-    if (!username || !uid) return;
-    this.props.addToWatchlist?.({ username, uid });
+    createMutation.mutate({ name, filters });
   };
-  removeFromWatchList = (uid: number) => {
-    if (!uid) return;
-    this.props.removeFromWatchlist?.(uid);
-  };
-  addToTrustedList = ({ username }: { username: string }) => {
-    if (!username) return;
-    this.props.addToTrustedlist?.(username);
-  };
-  removeFromTrustedList = (username: string) => {
-    if (!username) return;
-    this.props.removeFromTrustedlist?.(username);
-  };
-  // aoi
-  loadAoiId = (aoiId?: string | null) => {
-    if (!aoiId) return;
-    this.props.push({
-      ...this.props.location,
-      search: `aoi=${aoiId}`,
-      path: "/filters",
-    });
-  };
-  createAOI = (name: string) => {
-    if (name === "" || !name) return;
-    this.createAOIPromise = cancelablePromise(
-      createAOI(this.props.token, name, this.props.filters),
-    );
 
-    this.createAOIPromise.promise
-      .then((r) => r && this.loadAoiId(r.id))
-      .catch((e) => console.error(e));
-  };
-  removeAOI = (aoiId: string) => {
-    if (!aoiId) return;
-    deleteAOI(this.props.token, aoiId)
-      .then((r) => {
-        if (aoiId === this.props.aoiId) {
-          this.props.applyFilters(Map(), "/user");
-        } else {
-          // const location = {
-          //   ...this.props.location, //  clone it
-          //   pathname: '/user'
-          // };
-          this.props.reloadData();
+  const removeAOI = (aoiIdToRemove: string) => {
+    if (!aoiIdToRemove || !token) return;
+
+    deleteMutation.mutate(aoiIdToRemove, {
+      onSuccess: () => {
+        if (aoiIdToRemove === aoiId) {
+          clearFilters();
+          navigate("/user");
         }
-        this.props.modal({
-          kind: "success",
-          title: "Filter Deleted ",
-          description: `The ${aoiId} was deleted`,
-        });
-      })
-      .catch((e) => {
-        this.props.reloadData();
-        this.props.modal({
-          kind: "error",
-          title: "Deletion failed ",
-          error: e,
-        });
-      });
-  };
-  onUserChange = (value?: Array<any> | null) => {
-    if (Array.isArray(value) && value.length === 0)
-      return this.setState({ userValues: null });
-    this.setState({
-      userValues: value,
+      },
     });
   };
-  render() {
-    const mobile = isMobile();
 
-    return (
-      <div
-        className={`flex-parent flex-parent--column changesets-filters bg-white${
-          mobile ? "viewport-full" : ""
-        }`}
-      >
-        <SecondaryPagesHeader
-          title="Saved Filters"
-          avatar={this.props.avatar}
-        />
-        <div className="px30 flex-child  pb60  filters-scroll">
-          <div className="flex-parent flex-parent--column align justify--space-between">
-            {this.props.token && (
-              <div>
-                <div className="mt24 mb12">
-                  <ListFortified
-                    data={this.props.data.getIn(["aoi", "features"], List())}
-                    TargetBlock={AOIsBlock}
-                    propsToPass={{
-                      activeAoiId: this.props.aoiId,
-                      removeAoi: this.removeAOI,
-                    }}
-                    SaveComp={<SaveButton onCreate={this.createAOI} />}
-                  />
-                </div>
+  const aois = aoisQuery.data?.features || [];
+
+  return (
+    <div
+      className={`flex-parent flex-parent--column changesets-filters bg-white${
+        mobile ? "viewport-full" : ""
+      }`}
+    >
+      <SecondaryPagesHeader title="Saved Filters" avatar={user?.avatar} />
+      <div className="px30 flex-child  pb60  filters-scroll">
+        <div className="flex-parent flex-parent--column align justify--space-between">
+          {token && (
+            <div>
+              <div className="mt24 mb12">
+                <ListFortified
+                  data={aois}
+                  TargetBlock={AOIsBlock}
+                  propsToPass={{
+                    activeAoiId: aoiId,
+                    removeAoi: removeAOI,
+                  }}
+                  SaveComp={<SaveButton onCreate={createAOI} />}
+                />
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
-/**
- * Never use props not required by the Basecomponent in HOCs
- */
-const SavedFiltersWithData = withFetchDataSilent(
-  (props: propsType) => ({
-    aoi: cancelablePromise(fetchAllAOIs(props.token)),
-  }),
-  (nextProps: propsType, props: propsType) => true,
-  _SavedFilters,
-);
-
-const SavedFilters = withRouter(connect((state: RootStateType, props: any) => ({
-    location: props.location,
-    filters: state.filters.get("filters"),
-    oAuthToken: state.auth.get("oAuthToken"),
-    token: state.auth.get("token"),
-    userDetails: state.auth.getIn(["userDetails"], Map()),
-    avatar: state.auth.getIn(["userDetails", "avatar"]),
-    aoiId: state.aoi.getIn(["aoi", "id"], null),
-  }),
-  {
-    applyFilters,
-    logUserOut,
-    modal,
-    push,
-  },
-)(SavedFiltersWithData));
 
 export { SavedFilters };

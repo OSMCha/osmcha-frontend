@@ -1,122 +1,102 @@
-import { Map as ImmutableMap } from "immutable";
-import React from "react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { API_URL } from "../../config";
-import { cancelablePromise } from "../../utils/promise";
+import { useSetTag } from "../../query/hooks/useSetTag";
+import { useAuthStore } from "../../stores/authStore";
 import { Dropdown } from "../dropdown";
-
-// TOFIX Needs cleanup.
 
 interface TagsProps {
   changesetId: number;
   disabled: boolean;
-  currentChangeset: ImmutableMap<string, any>;
-  handleChangesetModifyTag: (
-    d: number,
-    c: ImmutableMap<string, any>,
-    b: any,
-    a: boolean,
-  ) => unknown;
+  currentChangeset: any;
 }
 
-interface TagsState {
-  options: Array<any>;
-  allTags: any;
-}
+let cachedTagsPromise: Promise<any> | null = null;
 
-let cacheTagsData;
-export class Tags extends React.PureComponent<TagsProps, TagsState> {
-  state: TagsState = {
-    allTags: {},
-    options: [],
-  };
+export function Tags({ changesetId, disabled, currentChangeset }: TagsProps) {
+  const [options, setOptions] = useState<
+    Array<{ label: string; value: number }>
+  >([]);
+  const token = useAuthStore((state) => state.token);
+  const setTagMutation = useSetTag();
 
-  tagsData = cacheTagsData;
-
-  componentDidMount() {
-    this.getAsyncOptions();
-  }
-
-  getAsyncOptions = () => {
-    if (!this.tagsData) {
-      this.tagsData = cancelablePromise(
-        fetch(`${API_URL}/tags/`).then((response) => {
-          return response.json();
-        }),
-      );
+  useEffect(() => {
+    if (!cachedTagsPromise) {
+      cachedTagsPromise = fetch(`${API_URL}/tags/`)
+        .then((response) => response.json())
+        .catch((error) => {
+          console.error("Failed to fetch tags:", error);
+          return { results: [] };
+        });
     }
 
-    return this.tagsData.promise
+    cachedTagsPromise
       .then((json) => {
-        const data = {};
         const selectData = json.results.filter(
-          (d) => d.is_visible && d.for_changeset,
+          (d: any) => d.is_visible && d.for_changeset,
         );
-
-        selectData.forEach((d) => {
-          data[d.name] = { ...d, value: d.id, label: d.name };
-        });
-        this.setState({
-          allTags: data,
-          options: selectData.map((d) => ({ label: d.name, value: d.id })),
-        });
+        setOptions(
+          selectData.map((d: any) => ({ label: d.name, value: d.id })),
+        );
       })
-      .catch((e) => {});
-  };
+      .catch((error) => {
+        console.error("Error processing tags:", error);
+      });
+  }, []);
 
-  componentWillUnmount() {
-    if (this.tagsData) {
-      cacheTagsData = this.tagsData;
-      this.tagsData.cancel();
+  const onAdd = (obj: any) => {
+    if (!obj || !token) {
+      if (!token) {
+        toast.error("You must be logged in to add tags");
+      }
+      return;
     }
-  }
 
-  onAdd = (obj: any) => {
-    if (!obj) return;
-    const { changesetId, currentChangeset, handleChangesetModifyTag } =
-      this.props;
-    handleChangesetModifyTag(changesetId, currentChangeset, obj, false);
+    setTagMutation.mutate({
+      changesetId,
+      tag: obj,
+      remove: false,
+      token,
+    });
   };
 
-  onRemove = (obj: any) => {
-    if (!obj) return;
-    const { changesetId, currentChangeset, handleChangesetModifyTag } =
-      this.props;
-    handleChangesetModifyTag(changesetId, currentChangeset, obj, true);
-  };
-
-  defaultValue = ImmutableMap();
-
-  render() {
-    if (!this.props.currentChangeset) return null;
-
-    const value = this.props.currentChangeset
-      .getIn(["properties", "tags"], this.defaultValue)
-      .toJS()
-      .map((t) => ({
-        value: t.id,
-        label: t.name,
-      }));
-
-    if (this.state.options) {
-      return (
-        <Dropdown
-          eventTypes={["click", "touchend"]}
-          multi
-          onAdd={this.onAdd}
-          onRemove={this.onRemove}
-          disabled={this.props.disabled}
-          className={`${
-            this.props.disabled ? "cursor-notallowed" : ""
-          } flex-parent mr3`}
-          value={value}
-          options={this.state.options}
-          onChange={() => {}}
-          display={`Tags${value.length > 0 ? ` (${value.length})` : ""}`}
-          position="right"
-        />
-      );
-    } else {
-      return null;
+  const onRemove = (obj: any) => {
+    if (!obj || !token) {
+      if (!token) {
+        toast.error("You must be logged in to remove tags");
+      }
+      return;
     }
-  }
+
+    setTagMutation.mutate({
+      changesetId,
+      tag: obj,
+      remove: true,
+      token,
+    });
+  };
+
+  if (!currentChangeset || options.length === 0) return null;
+
+  const tags = currentChangeset.properties?.tags || [];
+  const value = tags.map((t: any) => ({
+    value: t.id,
+    label: t.name,
+  }));
+
+  return (
+    <Dropdown
+      eventTypes={["click", "touchend"]}
+      multi
+      onAdd={onAdd}
+      onRemove={onRemove}
+      disabled={disabled}
+      className={`${disabled ? "cursor-notallowed" : ""} flex-parent mr3`}
+      value={value}
+      options={options}
+      onChange={() => {}}
+      display={`Tags${value.length > 0 ? ` (${value.length})` : ""}`}
+      position="right"
+    />
+  );
 }

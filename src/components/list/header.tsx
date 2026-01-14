@@ -16,9 +16,11 @@ export function Header({
   const valueData: any[] = [];
   const orderByFilter = filtersConfig.find((f) => f.name === "order_by");
   const options = orderByFilter?.options ?? [];
-  if (filters.get("order_by")) {
+  const orderByValue = filters?.order_by;
+  if (orderByValue) {
+    const firstValue = orderByValue?.[0]?.value;
     options.forEach((o) => {
-      if (filters.getIn(["order_by", 0, "value"]) === o.value) {
+      if (firstValue === o.value) {
         valueData.push(o);
       }
     });
@@ -46,7 +48,9 @@ export function Header({
           }}
         >
           <Button className="mx3">
-            Filters {filters.size > 0 && `(${filters.size})`}
+            Filters{" "}
+            {Object.keys(filters || {}).length > 0 &&
+              `(${Object.keys(filters || {}).length})`}
           </Button>
         </NavLink>
       </header>
@@ -56,12 +60,7 @@ export function Header({
         } flex-child align-items--center`}
       >
         <span className="flex-parent flex-parent--row justify--space-between color-gray txt-s txt-bold">
-          <span>
-            {(currentPage &&
-              numberWithCommas(currentPage.getIn(["count"], 0))) ||
-              0}{" "}
-            changesets.
-          </span>
+          <span>{numberWithCommas(currentPage?.count ?? 0)} changesets.</span>
           <span className="flex-parent flex-parent--row">
             {diffLoading ? (
               <span className="loading loading--s inline" />

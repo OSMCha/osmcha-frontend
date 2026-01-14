@@ -1,4 +1,3 @@
-import { fromJS, Map } from "immutable";
 import React from "react";
 import Select from "react-select";
 import type { filtersType } from "./";
@@ -14,26 +13,30 @@ interface MetaProps {
 
 export class Meta extends React.PureComponent<MetaProps> {
   handleChange = (data: any) => {
-    let { activeFilters } = this.props;
-    if (!activeFilters) activeFilters = Map();
+    let activeFilters = { ...this.props.activeFilters };
+    if (!activeFilters) activeFilters = {};
+
     this.props.metaOf.forEach((f) => {
-      activeFilters = activeFilters.delete(f);
+      delete activeFilters[f];
     });
+
     if (data && data.value) {
-      activeFilters = activeFilters.merge(fromJS(data.value));
+      activeFilters = { ...activeFilters, ...data.value };
     }
+
     this.props.replaceFiltersState(activeFilters);
   };
+
   findCurrentValue = () => {
     const { activeFilters } = this.props;
     let value;
     if (activeFilters) {
-      activeFilters.forEach((v, k) => {
+      Object.entries(activeFilters).forEach(([k, v]) => {
         this.props.options.forEach((option) => {
           if (
             v &&
             Object.keys(option.value)[0] === k &&
-            v.getIn([0, "value"]) === option.value[k][0].value
+            v?.[0]?.value === option.value[k][0].value
           ) {
             value = option;
           }
@@ -42,6 +45,7 @@ export class Meta extends React.PureComponent<MetaProps> {
     }
     return value;
   };
+
   render() {
     const { name, placeholder } = this.props;
     const value = this.findCurrentValue();
@@ -49,7 +53,7 @@ export class Meta extends React.PureComponent<MetaProps> {
       <Select
         className="react-select"
         name={name}
-        value={value} // always takes 1st item array to keep things consistent with multiselect InputTypes
+        value={value}
         options={this.props.options}
         placeholder={placeholder}
         onChange={this.handleChange}

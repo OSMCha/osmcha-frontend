@@ -1,4 +1,3 @@
-import type { Map } from "immutable";
 import { useState } from "react";
 import AnchorifyText from "react-anchorify-text";
 import AssemblyAnchor from "../assembly_anchor";
@@ -10,16 +9,16 @@ export function Details({
   properties,
   changesetId,
 }: {
-  properties: Map<string, any>;
+  properties: any;
   changesetId: number;
   expanded?: boolean;
 }) {
-  let source = properties.get("source");
-  let imagery = properties.get("imagery_used");
-  const editor = properties.get("editor");
-  const metadata = properties.get("metadata");
-  const reasons = properties.get("reasons");
-  const comment = properties.get("comment");
+  let source = properties.source;
+  let imagery = properties.imagery_used;
+  const editor = properties.editor;
+  const metadata = properties.metadata;
+  const reasons = properties.reasons;
+  const comment = properties.comment;
 
   const urlRegex = new RegExp(
     /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])/gim,

@@ -1,52 +1,59 @@
 import { format, sub } from "date-fns";
-import { fromJS, List, Map } from "immutable";
-import type { filtersType } from "../components/filters";
 import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from "../config/constants";
 
-export function validateFilters(filters: filtersType): boolean {
-  var test = () => {
-    if (!Map.isMap(filters)) return false;
-    let valid = true;
-    filters.forEach((v, k) => {
-      if (!List.isList(v)) {
-        // check for list
+export function validateFilters(filters: any): boolean {
+  // Validate plain object filters (not Immutable.js)
+  if (!filters || typeof filters !== "object") {
+    throw new Error("The filters that you applied were not correct.");
+  }
+
+  let valid = true;
+  Object.keys(filters).forEach((key) => {
+    const value = filters[key];
+
+    // Each filter value should be an array
+    if (!Array.isArray(value)) {
+      valid = false;
+      return;
+    }
+
+    // Each item in the array should have label and value
+    value.forEach((item) => {
+      if (
+        !item ||
+        typeof item !== "object" ||
+        !("label" in item) ||
+        !("value" in item)
+      ) {
         valid = false;
-      } else {
-        v?.forEach((vv) => {
-          if (!vv || !(Map.isMap(vv) && vv.has("label") && vv.has("value"))) {
-            valid = false;
-          }
-          if (!Map.isMap(vv)) {
-            valid = false;
-          }
-        });
       }
     });
-    return valid;
-  };
-  if (!test()) {
+  });
+
+  if (!valid) {
+    console.log(filters);
     throw new Error("The filters that you applied were not correct.");
-  } else {
-    return true;
   }
+
+  return true;
 }
 
-export function getDefaultFromDate(extraDays = 0): filtersType {
+export function getDefaultFromDate(extraDays = 0): any {
   const defaultDate = format(
     sub(new Date(), { days: DEFAULT_FROM_DATE + extraDays }),
     "yyyy-MM-dd",
   );
-  return fromJS({
+  return {
     date__gte: [
       {
         label: defaultDate,
         value: defaultDate,
       },
     ],
-  });
+  };
 }
 
-export function getDefaultToDate(): filtersType {
+export function getDefaultToDate(): any {
   const now = new Date();
   const defaultDate = format(
     sub(new Date(now.getTime() + now.getTimezoneOffset() * 60 * 1000), {
@@ -54,31 +61,36 @@ export function getDefaultToDate(): filtersType {
     }),
     "yyyy-MM-dd HH:mm",
   );
-  return fromJS({
+  return {
     date__lte: [
       {
         label: "",
         value: defaultDate,
       },
     ],
-  });
+  };
 }
 
-export function appendDefaultDate(filters: filtersType) {
+export function appendDefaultDate(filters: any) {
   // Set From date to 2 days behind if there isn't a date query.
   // In case of a users or uids query, set the From date to 30 days behind
-  if (filters && !filters.has("date__gte") && !filters.has("date__lte")) {
+  let result = { ...filters };
+
+  if (filters && !("date__gte" in filters) && !("date__lte" in filters)) {
+    const filterKeys = Object.keys(filters);
     if (
-      filters.count() === 1 &&
-      (filters.has("users") || filters.has("uids"))
+      filterKeys.length === 1 &&
+      (filterKeys.includes("users") || filterKeys.includes("uids"))
     ) {
-      filters = filters.merge(getDefaultFromDate(28));
+      result = { ...result, ...getDefaultFromDate(28) };
     } else {
-      filters = filters.merge(getDefaultFromDate());
+      result = { ...result, ...getDefaultFromDate() };
     }
   }
-  if (filters && !filters.has("date__lte")) {
-    filters = filters.merge(getDefaultToDate());
+
+  if (filters && !("date__lte" in filters)) {
+    result = { ...result, ...getDefaultToDate() };
   }
-  return filters;
+
+  return result;
 }

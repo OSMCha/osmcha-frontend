@@ -1,5 +1,4 @@
 import { format, parse } from "date-fns";
-import { fromJS } from "immutable";
 import React from "react";
 import DatePicker from "react-datepicker";
 import type { filterType } from "./";
@@ -22,41 +21,33 @@ export class DateField extends React.Component<DateFieldProps> {
   static defaultProps = {
     className: "",
   };
-  handleDateChange = (date) => {
+  handleDateChange = (date: Date | null) => {
     const name = this.props.name;
     if (date) {
       const value = format(date, "yyyy-MM-dd");
-      this.props.onChange(
-        name,
-        fromJS([
-          // allways sends 1 size array to keep things consistent
-          {
-            label: value,
-            value,
-          },
-        ]),
-      );
+      this.props.onChange(name, [
+        {
+          label: value,
+          value,
+        },
+      ]);
     } else {
       this.props.onChange(name);
     }
   };
   render() {
     const { placeholder, display, value, className, min, max } = this.props;
-    const hasValue = value && value.getIn([0, "value"]);
+    const dateValue = value?.[0]?.value;
     return (
       <DatePicker
         className={`input ${className}`}
         isClearable={true}
-        selected={
-          hasValue
-            ? parse(value.getIn([0, "value"]), "yyyy-MM-dd", new Date())
-            : null
-        }
+        selected={dateValue ? parse(dateValue, "yyyy-MM-dd", new Date()) : null}
         placeholderText={placeholder || display}
         onChange={this.handleDateChange}
         dateFormat="yyyy-MM-dd"
-        minDate={min && Date.parse(min)}
-        maxDate={max && Date.parse(max)}
+        minDate={min ? new Date(min) : undefined}
+        maxDate={max ? new Date(max) : undefined}
       />
     );
   }

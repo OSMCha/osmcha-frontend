@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
 
-import type { RootStateType } from "../../store";
 import { ExpandItemIcon } from "../expand_item_icon";
 import { Loading } from "../loading";
 import { OpenAll } from "../open_all";
 import { FeatureListItem } from "./tag_changes";
 
-function otherChangesFromActions(actions) {
+function otherChangesFromActions(actions: any[]) {
   const finalReport = new Map();
 
   for (const actionType of ["create", "delete"]) {
@@ -37,9 +35,9 @@ const ActionItem = ({
   features,
   setHighlight,
   zoomToAndSelect,
-}) => {
+}: any) => {
   const [isOpen, setIsOpen] = useState(opened);
-  const titles = {
+  const titles: Record<string, string> = {
     create: "Created",
     modify: "Modified Relations",
     delete: "Deleted",
@@ -62,7 +60,7 @@ const ActionItem = ({
         </strong>
       </button>
       <ul className="cmap-vlist" style={{ display: isOpen ? "block" : "none" }}>
-        {features.map((item, k) => (
+        {features.map((item: any, k: number) => (
           <FeatureListItem
             id={item.id}
             type={item.type}
@@ -81,24 +79,23 @@ const ActionItem = ({
 
 type propsType = {
   changesetId: number;
-  changes: any;
+  adiff: any;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 };
 
-const OtherFeaturesComponent = ({
+function OtherFeatures({
   changesetId,
-  changes,
+  adiff,
   setHighlight,
   zoomToAndSelect,
-}: propsType) => {
+}: propsType) {
   const [changeReport, setChangeReport] = useState<Array<[string, any[]]>>([]);
   const [openAll, setOpenAll] = useState(false);
 
   useEffect(() => {
     const newChangeReport: Array<[string, any[]]> = [];
-    if (changes && changes.get(changesetId)) {
-      const adiff = changes.get(changesetId).adiff;
+    if (adiff) {
       const processed = otherChangesFromActions(adiff.actions);
       processed.forEach((featureIDs, tag) =>
         newChangeReport.push([tag, featureIDs]),
@@ -107,7 +104,7 @@ const OtherFeaturesComponent = ({
         newChangeReport.filter((changeType) => changeType[1].length),
       );
     }
-  }, [changes, changesetId]);
+  }, [adiff, changesetId]);
 
   return (
     <div className="px12 py6">
@@ -119,7 +116,7 @@ const OtherFeaturesComponent = ({
           <OpenAll isActive={openAll} setOpenAll={setOpenAll} />
         ) : null}
       </div>
-      {changes.get(changesetId) ? (
+      {adiff ? (
         changeReport.length ? (
           changeReport.map((change, k) => (
             <ActionItem
@@ -139,8 +136,6 @@ const OtherFeaturesComponent = ({
       )}
     </div>
   );
-};
+}
 
-export const OtherFeatures = connect((state: RootStateType, props) => ({
-  changes: state.changeset.get("changesetMap"),
-}))(OtherFeaturesComponent);
+export { OtherFeatures };

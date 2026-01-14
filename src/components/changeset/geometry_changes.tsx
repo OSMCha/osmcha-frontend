@@ -1,14 +1,12 @@
 import deepEqual from "deep-equal";
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
 
-import type { RootStateType } from "../../store";
 import { ExpandItemIcon } from "../expand_item_icon";
 import { Loading } from "../loading";
 import { OpenAll } from "../open_all";
 import { FeatureListItem } from "./tag_changes";
 
-function geometryChangesFromActions(actions) {
+function geometryChangesFromActions(actions: any[]) {
   const finalReport = new Map();
 
   const nodes = actions
@@ -42,8 +40,12 @@ const GeometryChangesItem = ({
   opened,
   setHighlight,
   zoomToAndSelect,
-}) => {
-  const titles = { node: "Nodes", way: "Ways", relation: "Relations" };
+}: any) => {
+  const titles: Record<string, string> = {
+    node: "Nodes",
+    way: "Ways",
+    relation: "Relations",
+  };
   const [isOpen, setIsOpen] = useState(opened);
 
   useEffect(() => setIsOpen(opened), [opened]);
@@ -63,7 +65,7 @@ const GeometryChangesItem = ({
         </strong>
       </button>
       <ul className="cmap-vlist" style={{ display: isOpen ? "block" : "none" }}>
-        {elementIds.map((id) => (
+        {elementIds.map((id: number) => (
           <FeatureListItem
             key={id}
             type={elementType}
@@ -82,25 +84,23 @@ const GeometryChangesItem = ({
 
 type propsType = {
   changesetId: number;
-  changes: any;
+  adiff: any;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 };
 
-const GeometryChangesComponent = ({
+function GeometryChanges({
   changesetId,
-  changes,
+  adiff,
   setHighlight,
   zoomToAndSelect,
-}: propsType) => {
+}: propsType) {
   const [changeReport, setChangeReport] = useState<Array<[string, any]>>([]);
   const [openAll, setOpenAll] = useState(false);
 
   useEffect(() => {
     const newChangeReport: Array<[string, any]> = [];
-    if (changes && changes.get(changesetId)) {
-      const adiff = changes.get(changesetId).adiff;
-
+    if (adiff) {
       const processed = geometryChangesFromActions(adiff.actions);
       processed.forEach((featureIDs, tag) =>
         newChangeReport.push([tag, featureIDs]),
@@ -109,7 +109,7 @@ const GeometryChangesComponent = ({
         newChangeReport.filter((changeType) => changeType[1].length),
       );
     }
-  }, [changes, changesetId]);
+  }, [adiff, changesetId]);
 
   return (
     <div className="px12 py6">
@@ -121,7 +121,7 @@ const GeometryChangesComponent = ({
           <OpenAll isActive={openAll} setOpenAll={setOpenAll} />
         ) : null}
       </div>
-      {changes.get(changesetId) ? (
+      {adiff ? (
         changeReport.length ? (
           changeReport.map(([elementType, elementIds]) => (
             <GeometryChangesItem
@@ -141,8 +141,6 @@ const GeometryChangesComponent = ({
       )}
     </div>
   );
-};
+}
 
-export const GeometryChanges = connect((state: RootStateType, props) => ({
-  changes: state.changeset.get("changesetMap"),
-}))(GeometryChangesComponent);
+export { GeometryChanges };

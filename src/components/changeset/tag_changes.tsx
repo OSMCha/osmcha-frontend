@@ -1,20 +1,16 @@
-import type { MapLibreAugmentedDiffViewer } from "@osmcha/maplibre-adiff-viewer";
-import type React from "react";
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
 
-import type { RootStateType } from "../../store";
 import { ExpandItemIcon } from "../expand_item_icon";
 import { Loading } from "../loading";
 import { OpenAll } from "../open_all";
 
-export function tagChangesFromActions(actions) {
+export function tagChangesFromActions(actions: any[]) {
   const finalReport = new Map();
   const analyzedFeatures = actions.map(analyzeAction);
   const keys = ["addedTags", "changedValues", "deletedTags"];
   analyzedFeatures.map((item) =>
     keys.map((key) =>
-      item.get(key).forEach((tag) => {
+      item.get(key).forEach((tag: any) => {
         if (finalReport.get(tag[0])) {
           finalReport.set(
             tag[0],
@@ -35,7 +31,7 @@ export function tagChangesFromActions(actions) {
   return finalReport;
 }
 
-export function analyzeAction(action) {
+export function analyzeAction(action: any) {
   const oldVersionKeys = Object.keys(action.old.tags);
   const newVersionKeys = Object.keys(action.new.tags);
   const addedTags = newVersionKeys.filter(
@@ -69,7 +65,7 @@ export function analyzeAction(action) {
   return result;
 }
 
-export function FeatureListItem({ id, type, ...props }) {
+export function FeatureListItem({ id, type, ...props }: any) {
   return (
     <li>
       <span
@@ -84,7 +80,7 @@ export function FeatureListItem({ id, type, ...props }) {
   );
 }
 
-function ChangeTitle({ value, type }) {
+function ChangeTitle({ value, type }: { value: any; type: string }) {
   if (type.startsWith("Added")) {
     return <span className="txt-code cmap-bg-create-light">{value}</span>;
   }
@@ -116,9 +112,11 @@ export const ChangeItem = ({
   features,
   setHighlight,
   zoomToAndSelect,
-}) => {
+}: any) => {
   const [isOpen, setIsOpen] = useState(opened);
-  const values = Array.from(new Set(features.map((feature) => feature.value)));
+  const values = Array.from(
+    new Set(features.map((feature: any) => feature.value)),
+  );
   const last_space = tag.lastIndexOf(" ") + 1;
 
   useEffect(() => setIsOpen(opened), [opened]);
@@ -147,8 +145,8 @@ export const ChangeItem = ({
           <ChangeTitle value={value} type={tag} />
           <ul className="ml6">
             {features
-              .filter((feature) => feature.value === value)
-              .map((feature, k) => (
+              .filter((feature: any) => feature.value === value)
+              .map((feature: any, k: number) => (
                 <FeatureListItem
                   type={feature.type}
                   id={feature.id}
@@ -177,11 +175,11 @@ const ChangeItemList = ({
   openAll,
   setHighlight,
   zoomToAndSelect,
-}) => {
+}: any) => {
   return (
     <>
       {changes.length ? (
-        changes.map((change, k) => (
+        changes.map((change: any, k: number) => (
           <ChangeItem
             key={k}
             tag={change[0]}
@@ -200,26 +198,25 @@ const ChangeItemList = ({
 
 type propsType = {
   changesetId: number;
-  changes: any;
+  adiff: any;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 };
 
-const TagChangesComponent = ({
+function TagChanges({
   changesetId,
-  changes,
+  adiff,
   setHighlight,
   zoomToAndSelect,
-}: propsType) => {
+}: propsType) {
   const [changeReport, setChangeReport] = useState<Array<[string, any[]]>>([]);
   const [openAll, setOpenAll] = useState(false);
 
   useEffect(() => {
     const newChangeReport: Array<[string, any[]]> = [];
-    if (changes && changes.get(changesetId)) {
-      const adiff = changes.get(changesetId).adiff;
+    if (adiff) {
       const modifyActions = adiff.actions.filter(
-        (action) => action.type === "modify",
+        (action: any) => action.type === "modify",
       );
 
       const processed = tagChangesFromActions(modifyActions);
@@ -228,7 +225,7 @@ const TagChangesComponent = ({
       );
       setChangeReport(newChangeReport.sort());
     }
-  }, [changes, changesetId]);
+  }, [adiff, changesetId]);
 
   return (
     <div className="px12 py6">
@@ -240,7 +237,7 @@ const TagChangesComponent = ({
           <OpenAll isActive={openAll} setOpenAll={setOpenAll} />
         ) : null}
       </div>
-      {changes.get(changesetId) ? (
+      {adiff ? (
         <ChangeItemList
           changes={changeReport}
           openAll={openAll}
@@ -252,10 +249,6 @@ const TagChangesComponent = ({
       )}
     </div>
   );
-};
-
-const TagChanges = connect((state: RootStateType, props) => ({
-  changes: state.changeset.get("changesetMap"),
-}))(TagChangesComponent);
+}
 
 export { TagChanges };

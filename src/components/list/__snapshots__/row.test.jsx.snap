@@ -57,9 +57,7 @@ exports[`renders PrimaryLine correctly 1`] = `
 `;
 
 exports[`renders active row properly 1`] = `
-<div
-  onClick={[Function]}
->
+<div>
   <div
     className="light-blue border-l border-l--4 border-color-bad"
   >
@@ -209,9 +207,7 @@ exports[`renders active row properly 1`] = `
 `;
 
 exports[`renders inactive row properly 1`] = `
-<div
-  onClick={[Function]}
->
+<div>
   <div
     className=" border-l border-l--4 border-color-bad"
   >

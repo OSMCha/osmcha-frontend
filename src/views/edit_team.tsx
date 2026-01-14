@@ -1,160 +1,66 @@
-import { Map } from "immutable";
-import React from "react";
-import { connect } from "react-redux";
-import { push } from "redux-first-history";
-import { withFetchDataSilent } from "../components/fetch_data_enhancer";
-import { withRouter } from "../utils/withRouter";
+import { useParams } from "react-router-dom";
 import { SecondaryPagesHeader } from "../components/secondary_pages_header";
 import { SignIn } from "../components/sign_in";
 import NewTeam from "../components/teams/new_team";
+import { useAuth } from "../hooks/useAuth";
 import {
-  deleteMappingTeam,
-  fetchMappingTeam,
-  updateMappingTeam,
-} from "../network/mapping_team";
-import type { RootStateType } from "../store";
-import { logUserOut } from "../store/auth_actions";
-import { modal } from "../store/modal_actions";
+  useMappingTeam,
+  useUpdateMappingTeam,
+} from "../query/hooks/useMappingTeams";
 import { isMobile } from "../utils";
-import { cancelablePromise } from "../utils/promise";
 
-type propsType = {
-  avatar: string | undefined | null;
-  token: string;
-  teamId: number;
-  data: Map<string, any>;
-  location: any;
-  userDetails: Map<string, any>;
-  reloadData: () => any;
-  logUserOut: () => any;
-  push: (a: any) => any;
-  modal: (a: any) => any;
-};
+function EditMappingTeam() {
+  const { id } = useParams<{ id: string }>();
+  const teamId = id ? parseInt(id, 10) : null;
+  const { token, user } = useAuth();
+  const teamQuery = useMappingTeam(token, teamId);
+  const updateMutation = useUpdateMappingTeam();
+  const mobile = isMobile();
 
-class _EditMappingTeam extends React.PureComponent<propsType, any> {
-  updateTeamPromise: any;
-  createTeamPromise: { promise: Promise<any>; cancel(): void } | null = null;
-  state = {
-    userValues: null,
+  const editTeam = (id: string, name: string, users: object) => {
+    if (!name || !users || !token) return;
+
+    updateMutation.mutate({
+      token,
+      teamId: parseInt(id, 10),
+      name,
+      users,
+    });
   };
 
-  componentWillUnmount() {
-    this.createTeamPromise && this.createTeamPromise.cancel();
-  }
+  const team = teamQuery.data;
 
-  editTeam = (id: string, name: string, users: object) => {
-    if (name === "" || !name || !users) return;
-    this.updateTeamPromise = cancelablePromise(
-      updateMappingTeam(this.props.token, parseInt(id, 10), name, users),
-    );
-    this.updateTeamPromise.promise
-      .then((r) => {
-        this.props.modal({
-          kind: "success",
-          title: "Team Updated ",
-          description: `The team ${name} was updated successfully!`,
-        });
-        this.props.reloadData();
-      })
-      .catch((e) => {
-        this.props.modal({
-          kind: "error",
-          title: "Update failed ",
-          error: e,
-        });
-        console.error(e);
-      });
-  };
-
-  removeTeam = (teamId: string) => {
-    if (!teamId) return;
-    deleteMappingTeam(this.props.token, parseInt(teamId, 10))
-      .then((r) => {
-        this.props.modal({
-          kind: "success",
-          title: "Team Deleted ",
-          description: `The team with id ${teamId} was deleted`,
-        });
-        this.props.reloadData();
-      })
-      .catch((e) => {
-        this.props.reloadData();
-        this.props.modal({
-          kind: "error",
-          title: "Deletion failed ",
-          error: e,
-        });
-      });
-  };
-
-  render() {
-    const mobile = isMobile();
-
-    return (
-      <div
-        className={`flex-parent flex-parent--column changesets-filters bg-white${
-          mobile ? "viewport-full" : ""
-        }`}
-      >
-        <SecondaryPagesHeader
-          title="Edit team"
-          avatar={this.props.userDetails.get("avatar")}
-        />
-        {this.props.token ? (
-          <div className="px30 flex-child  pb60  filters-scroll">
-            <div className="flex-parent flex-parent--column align justify--space-between">
-              <div>
-                <div className="mt24 mb12">
-                  <h2 className="pl12 txt-xl mr6 border-b border--gray-light border--1">
-                    <strong>Editing mapping team: </strong>
-                    {this.props.data.getIn(["team", "name"])}
-                  </h2>
-                  <NewTeam
-                    onChange={this.editTeam}
-                    editing={true}
-                    activeTeam={this.props.data.get("team")}
-                    userIsOwner={
-                      this.props.data.getIn(["team", "owner"]) ===
-                      this.props.userDetails.get("username")
-                    }
-                  />
-                </div>
+  return (
+    <div
+      className={`flex-parent flex-parent--column changesets-filters bg-white${
+        mobile ? "viewport-full" : ""
+      }`}
+    >
+      <SecondaryPagesHeader title="Edit team" avatar={user?.avatar} />
+      {token ? (
+        <div className="px30 flex-child  pb60  filters-scroll">
+          <div className="flex-parent flex-parent--column align justify--space-between">
+            <div>
+              <div className="mt24 mb12">
+                <h2 className="pl12 txt-xl mr6 border-b border--gray-light border--1">
+                  <strong>Editing mapping team: </strong>
+                  {team?.name}
+                </h2>
+                <NewTeam
+                  onChange={editTeam}
+                  editing={updateMutation.isPending}
+                  activeTeam={team}
+                  userIsOwner={team?.owner === user?.username}
+                />
               </div>
             </div>
           </div>
-        ) : (
-          <SignIn />
-        )}
-      </div>
-    );
-  }
+        </div>
+      ) : (
+        <SignIn />
+      )}
+    </div>
+  );
 }
-/**
- * Never use props not required by the Basecomponent in HOCs
- */
-const _EditMappingTeamWithData = withFetchDataSilent(
-  (props: propsType) => ({
-    team: cancelablePromise(fetchMappingTeam(props.token, props.teamId)),
-  }),
-  (nextProps: propsType, props: propsType) => true,
-  _EditMappingTeam,
-);
-
-const EditMappingTeam = withRouter(
-  connect(
-    (state: RootStateType, props: any) => ({
-      location: props.location,
-      teamId: parseInt(props.match.params.id, 10),
-      oAuthToken: state.auth.get("oAuthToken"),
-      token: state.auth.get("token"),
-      userDetails: state.auth.getIn(["userDetails"], Map()),
-    }),
-    {
-      modal,
-      logUserOut,
-      push,
-    },
-  )(_EditMappingTeamWithData),
-);
 
 export { EditMappingTeam };
