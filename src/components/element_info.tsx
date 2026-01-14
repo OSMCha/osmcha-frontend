@@ -224,13 +224,13 @@ function MetadataTable({ changesetId, action }) {
         <tr>
           <td>version</td>
           {elements.map((element) => (
-            <td>{element.version}</td>
+            <td key={element.version}>{element.version}</td>
           ))}
         </tr>
         <tr>
           <td>timestamp</td>
           {elements.map((element) => (
-            <td>{element.timestamp}</td>
+            <td key={element.version}>{element.timestamp}</td>
           ))}
         </tr>
         <tr>
@@ -238,27 +238,27 @@ function MetadataTable({ changesetId, action }) {
           {elements.map((element) => {
             if (element.changeset !== changesetId) {
               return (
-                <td>
+                <td key={element.version}>
                   <a href={`/changesets/${element.changeset}`}>
                     {element.changeset}
                   </a>
                 </td>
               );
             } else {
-              return <td>{element.changeset}</td>;
+              return <td key={element.version}>{element.changeset}</td>;
             }
           })}
         </tr>
         <tr>
           <td>uid</td>
           {elements.map((element) => (
-            <td>{element.uid}</td>
+            <td key={element.version}>{element.uid}</td>
           ))}
         </tr>
         <tr>
           <td>username</td>
           {elements.map((element) => (
-            <td>
+            <td key={element.version}>
               <a href={`${osmUrl}/user/${element.user}`}>{element.user}</a>
             </td>
           ))}

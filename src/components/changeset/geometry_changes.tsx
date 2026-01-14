@@ -65,6 +65,7 @@ const GeometryChangesItem = ({
       <ul className="cmap-vlist" style={{ display: isOpen ? "block" : "none" }}>
         {elementIds.map((id) => (
           <FeatureListItem
+            key={id}
             type={elementType}
             id={id}
             onMouseEnter={() => setHighlight(elementType, id, true)}
@@ -124,6 +125,7 @@ const GeometryChangesComponent = ({
         changeReport.length ? (
           changeReport.map(([elementType, elementIds]) => (
             <GeometryChangesItem
+              key={elementType}
               elementType={elementType}
               elementIds={elementIds}
               opened={openAll}
