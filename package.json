@@ -40,11 +40,12 @@
     "deep-equal": "^2.2.3",
     "diff": "^7.0.0",
     "dompurify": "^3.0.3",
+    "linkify-react": "^4.3.2",
+    "linkifyjs": "^4.3.2",
     "lodash.debounce": "^4.0.8",
     "maplibre-gl": "^5.1.0",
     "mousetrap": "^1.6.5",
     "react": "^18.3.1",
-    "react-anchorify-text": "^2.4.1",
     "react-click-outside": "^3.0.1",
     "react-datepicker": "^4.1.1",
     "react-dom": "^18.3.1",
@@ -71,16 +72,6 @@
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vitest": "^4.0.17"
-  },
-  "overrides": {
-    "react-anchorify-text": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    },
-    "react-notification-system": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    }
   },
   "browserslist": [
     ">0.2%",

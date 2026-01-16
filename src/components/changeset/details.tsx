@@ -1,6 +1,5 @@
+import Linkify from "linkify-react";
 import { useState } from "react";
-import AnchorifyText from "react-anchorify-text";
-import AssemblyAnchor from "../assembly_anchor";
 import { Reasons } from "../reasons";
 import PropertyList from "./property_list";
 import TranslateButton from "./translate_button";
@@ -78,13 +77,15 @@ export function Details({
               !comment ? "color-gray txt-em" : ""
             }`}
           >
-            <AnchorifyText
-              text={
-                comment ? comment : `${changesetId} does not have a comment.`
-              }
+            <Linkify
+              options={{
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className: "link",
+              }}
             >
-              <AssemblyAnchor />
-            </AnchorifyText>
+              {comment ? comment : `${changesetId} does not have a comment.`}
+            </Linkify>
           </p>
         </div>
         <div className="flex-parent">
