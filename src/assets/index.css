@@ -224,10 +224,6 @@ img {
   background: transparent;
 }
 
-/*react-notification-system*/
-.notifications-tr {
-  margin-top: 56px;
-}
 /* changeset map*/
 .cmap-container .cmap-sidebar {
   position: fixed;

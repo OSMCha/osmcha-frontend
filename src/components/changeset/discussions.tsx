@@ -1,8 +1,7 @@
 import { parse } from "date-fns";
-import AnchorifyText from "react-anchorify-text";
+import Linkify from "linkify-react";
 import { useAuth } from "../../hooks/useAuth";
 
-import AssemblyAnchor from "../assembly_anchor";
 import { RelativeTime } from "../relative_time";
 import { CommentForm } from "./comment";
 import { SignInButton } from "./sign_in_button";
@@ -69,9 +68,15 @@ function Discussions({
               </div>
               <div className="flex-parent flex-parent--column mt6 mb3">
                 <p className="txt-break-url">
-                  <AnchorifyText text={comment.text}>
-                    <AssemblyAnchor />
-                  </AnchorifyText>
+                  <Linkify
+                    options={{
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                      className: "link",
+                    }}
+                  >
+                    {comment.text}
+                  </Linkify>
                 </p>
               </div>
               <div className="flex-parent justify--flex-end">
