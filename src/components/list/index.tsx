@@ -13,20 +13,15 @@ type CurrentPage = {
   count: number;
 };
 
-type propTypes = {
-  currentPage: CurrentPage | undefined | null;
-  activeChangesetId: number | undefined | null;
+type Props = {
+  currentPage?: CurrentPage;
+  activeChangesetId: number | null;
   pageIndex: number;
   loading?: boolean;
   location?: string;
 };
 
-function List({
-  currentPage,
-  activeChangesetId,
-  loading,
-  location,
-}: propTypes) {
+function List({ currentPage, activeChangesetId, loading, location }: Props) {
   const { token } = useAuth();
   const activeRef = useRef<HTMLElement | null>(null);
 
@@ -71,7 +66,7 @@ function List({
             active={f.id === activeChangesetId}
             properties={f.properties}
             changesetId={f.id}
-            inputRef={f.id === activeChangesetId ? handleScroll : null}
+            inputRef={f.id === activeChangesetId ? handleScroll : undefined}
             key={k}
           />
         ))}

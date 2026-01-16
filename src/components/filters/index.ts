@@ -6,11 +6,11 @@ export { Radio } from "./radio";
 export { Text } from "./text";
 export { Wrapper } from "./wrapper";
 
-type filterOptionsType = {
-  label?: string | null;
-  value?: string | null;
+type FilterOption = {
+  label: string;
+  value: string | number;
 };
 
-export type filterType = Array<filterOptionsType>;
+export type Filter = Array<FilterOption>;
 
-export type filtersType = Record<string, filterType>;
+export type Filters = Record<string, Filter>;

@@ -14,7 +14,7 @@ export function Footer({
 }: {
   pageIndex: number;
   getChangesetsPage: (b: number, a?: boolean) => unknown;
-  count: number | undefined | null;
+  count?: number;
 }) {
   const base = Math.floor(pageIndex / RANGE) * RANGE;
   let maxPageCount = 0;

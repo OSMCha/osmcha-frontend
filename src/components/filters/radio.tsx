@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "react-select";
-import type { filterType } from "./";
+import type { Filter } from "./";
 
 interface RadioProps {
   name: string;
@@ -8,8 +8,8 @@ interface RadioProps {
   type: string;
   placeholder: string;
   options: Array<any>;
-  value: filterType;
-  onChange: (a: string, value?: filterType) => any;
+  value: Filter;
+  onChange: (a: string, value?: Filter) => any;
 }
 
 export class Radio extends React.PureComponent<RadioProps> {

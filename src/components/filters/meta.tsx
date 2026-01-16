@@ -1,14 +1,14 @@
 import React from "react";
 import Select from "react-select";
-import type { filtersType } from "./";
+import type { Filters } from "./";
 
 interface MetaProps {
   placeholder: string;
   name: string;
-  activeFilters: filtersType;
+  activeFilters: Filters;
   metaOf: Array<string>;
   options: Array<any>;
-  replaceFiltersState: (a: filtersType) => void;
+  replaceFiltersState: (a: Filters) => void;
 }
 
 export class Meta extends React.PureComponent<MetaProps> {

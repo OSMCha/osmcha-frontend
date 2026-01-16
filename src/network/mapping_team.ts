@@ -54,8 +54,8 @@ export function fetchUserMappingTeams(token: string, owner: string) {
 export function updateMappingTeam(
   token: string,
   id: number,
-  name?: string | null,
-  users?: object | null,
+  name: string,
+  users: object,
 ) {
   return fetch(`${API_URL}/mapping-team/${id}`, {
     method: "PUT",

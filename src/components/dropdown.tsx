@@ -131,8 +131,8 @@ interface DropdownProps {
   disabled: boolean;
   value: Array<any>;
   onChange: (a: Array<any>) => any;
-  onAdd: (a?: any | null) => any;
-  onRemove: (a?: any | null) => any;
+  onAdd: (a: any) => any;
+  onRemove: (a: any) => any;
   options: Array<any>;
   display: string;
   deletable?: (value: string) => any;

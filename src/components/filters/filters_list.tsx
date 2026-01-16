@@ -2,7 +2,7 @@ import React from "react";
 import filters from "../../config/filters.json";
 import { getDefaultFromDate } from "../../utils/filters";
 import { loadingEnhancer } from "../loading_enhancer";
-import type { filterType } from "./";
+import type { Filter } from "./";
 import {
   DateField,
   LocationSelect,
@@ -20,18 +20,18 @@ var filtersData = filters.filter((f) => {
   return !f.ignore;
 });
 
-type propsType = {
+type Props = {
   filters: any;
   loading: boolean;
   active: string;
   token: string | null;
-  handleChange: (name: string, values?: filterType) => void;
+  handleChange: (name: string, values?: Filter) => void;
   handleFocus: (name: string) => void;
   replaceFiltersState: (filters: any) => void;
-  handleToggleAll: (name: string, values?: filterType) => void;
+  handleToggleAll: (name: string, values?: Filter) => void;
 };
 
-class _FiltersList extends React.PureComponent<propsType> {
+class _FiltersList extends React.PureComponent<Props> {
   renderFilters = (f: any, k: number) => {
     const propsToSend = {
       name: f.name,

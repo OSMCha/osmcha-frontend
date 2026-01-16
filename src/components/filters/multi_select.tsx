@@ -4,17 +4,17 @@ import AsyncSelect from "react-select/async";
 import CreatableSelect from "react-select/creatable";
 import { API_URL } from "../../config";
 import { fetchReasons } from "../../network/reasons_tags";
-import type { filterType } from "./";
+import type { Filter } from "./";
 
 interface MultiSelectProps {
   name: string;
   display: string;
-  value: filterType;
+  value: Filter;
   type: string;
   placeholder: string;
   options: Array<any>;
-  dataURL: string | undefined | null;
-  onChange: (a: string, value?: filterType) => any;
+  dataURL?: string;
+  onChange: (a: string, value?: Filter) => any;
   showAllToggle: boolean;
   token: string | null;
 }
@@ -78,8 +78,7 @@ export class MultiSelect extends React.PureComponent<
       });
   };
 
-  onChangeLocal = (data?: readonly any[] | null) => {
-    if (!Array.isArray(data) && data !== null) return;
+  onChangeLocal = (data: readonly any[] | null) => {
     this.sendData(this.state.allToggle, data ? Array.from(data) : []);
   };
 

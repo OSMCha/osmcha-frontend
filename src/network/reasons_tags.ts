@@ -1,7 +1,7 @@
 import { API_URL } from "../config";
 import { handleErrors } from "./aoi";
 
-export function fetchReasons(token?: string | null) {
+export function fetchReasons(token: string | null) {
   return fetch(`${API_URL}/suspicion-reasons/?page_size=200`, {
     method: "GET",
     headers: {

@@ -1,9 +1,9 @@
-type propsType = {
+type Props = {
   isActive: boolean;
   setOpenAll: Function;
 };
 
-export const OpenAll = ({ isActive, setOpenAll }: propsType) => (
+export const OpenAll = ({ isActive, setOpenAll }: Props) => (
   <div className="inline-block fr">
     <button
       className="txt-s txt-underline pointer"

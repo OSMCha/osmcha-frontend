@@ -6,9 +6,9 @@ import { Title } from "./title";
 
 interface RowProps {
   properties: any;
-  active: boolean | undefined | null;
+  active?: boolean;
   changesetId: number;
-  inputRef: ((a: any) => any) | undefined | null;
+  inputRef?: (a: any) => any;
 }
 
 export class Row extends React.Component<RowProps> {

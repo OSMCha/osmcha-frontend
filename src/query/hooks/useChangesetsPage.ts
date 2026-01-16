@@ -21,8 +21,8 @@ export function useChangesetsPage({
         pageIndex,
         filters,
         token,
-        false,
         aoiId,
+        false,
       );
       return data;
     },
