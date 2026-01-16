@@ -1,7 +1,6 @@
 import { API_URL } from "../config";
 import { PAGE_SIZE } from "../config/constants";
 import { appendDefaultDate } from "../utils/filters";
-import { handleErrors } from "./aoi";
 
 export function fetchChangesetsPage(
   pageIndex: number,

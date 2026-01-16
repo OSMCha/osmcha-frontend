@@ -22,12 +22,7 @@ function Filters() {
   const { token } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  const {
-    filters: urlFilters,
-    setAoiId,
-    aoiId,
-    clearFilters,
-  } = useFilters();
+  const { filters: urlFilters, setAoiId, aoiId, clearFilters } = useFilters();
 
   const { data: aoi, isLoading: aoiLoading } = useAOI(aoiId, token);
   const createAOIMutation = useCreateAOI(token);

@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 import { postFinalTokensOSMCha } from "../network/auth";
-import { setItem } from "./safe_storage";
 import { useAuthStore } from "../stores/authStore";
+import { setItem } from "./safe_storage";
 
 /**
  * Completes OAuth login flow by exchanging code for token.

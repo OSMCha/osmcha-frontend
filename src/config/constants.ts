@@ -2,8 +2,7 @@ import { API_URL } from "./";
 
 export const PAGE_SIZE = Number(window.env.VITE_PAGE_SIZE) || 25;
 export const overpassBase =
-  window.env.VITE_OVERPASS_BASE ||
-  "https://overpass-api.de/api/interpreter";
+  window.env.VITE_OVERPASS_BASE || "https://overpass-api.de/api/interpreter";
 export const statusUrl =
   "https://raw.githubusercontent.com/osmcha/osmcha-frontend/status/status.json";
 
@@ -24,10 +23,8 @@ export const nominatimUrl =
   "https://nominatim.openstreetmap.org/search.php";
 
 // set a default from date x days before today
-export const DEFAULT_FROM_DATE =
-  Number(window.env.VITE_DEFAULT_FROM_DATE) || 2;
+export const DEFAULT_FROM_DATE = Number(window.env.VITE_DEFAULT_FROM_DATE) || 2;
 // exclude changesets newer than x minutes. It's needed because of the difference
 // between the time a changeset is processed by OSMCha and the time its map
 // visualization is available
-export const DEFAULT_TO_DATE =
-  Number(window.env.VITE_DEFAULT_TO_DATE) || 5;
+export const DEFAULT_TO_DATE = Number(window.env.VITE_DEFAULT_TO_DATE) || 5;

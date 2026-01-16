@@ -66,7 +66,7 @@ export function useRemoveFromWatchlist(token: string | null) {
       }
       toast.error("Failed to remove user", { description: error.message });
     },
-    onSuccess: (_data,) => {
+    onSuccess: (_data) => {
       toast.success("Success", {
         description: `User removed from your watchlist.`,
       });

@@ -50,7 +50,6 @@ function SaveButton({ onCreate }: SaveButtonProps) {
             value={value}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            autoFocus
           />
           <Button className="input wmax120 ml6" onClick={handleSave}>
             Save

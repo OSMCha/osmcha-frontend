@@ -104,7 +104,7 @@ function OtherFeatures({
         newChangeReport.filter((changeType) => changeType[1].length),
       );
     }
-  }, [adiff, changesetId]);
+  }, [adiff]);
 
   return (
     <div className="px12 py6">

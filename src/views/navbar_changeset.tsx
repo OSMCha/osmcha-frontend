@@ -1,5 +1,5 @@
 import Mousetrap from "mousetrap";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { OpenIn } from "../components/changeset/open_in";
@@ -37,23 +37,26 @@ export function NavbarChangeset({
   const token = useAuthStore((state) => state.token);
   const markHarmfulMutation = useMarkHarmful();
 
-  const handleMarkHarmful = (harmful: boolean | -1) => {
-    if (!token) {
-      toast.error("You must be logged in to mark changesets");
-      return;
-    }
-    if (!username) {
-      toast.error("Username not available");
-      return;
-    }
+  const handleMarkHarmful = useCallback(
+    (harmful: boolean | -1) => {
+      if (!token) {
+        toast.error("You must be logged in to mark changesets");
+        return;
+      }
+      if (!username) {
+        toast.error("Username not available");
+        return;
+      }
 
-    markHarmfulMutation.mutate({
-      changesetId,
-      harmful,
-      username,
-      token,
-    });
-  };
+      markHarmfulMutation.mutate({
+        changesetId,
+        harmful,
+        username,
+        token,
+      });
+    },
+    [token, username, changesetId, markHarmfulMutation],
+  );
 
   useEffect(() => {
     if (!currentChangeset) return;
@@ -135,7 +138,7 @@ export function NavbarChangeset({
         Mousetrap.unbind(shortcut.bindings);
       });
     };
-  }, [currentChangeset, changesetId, token, username]);
+  }, [currentChangeset, changesetId, handleMarkHarmful]);
 
   const handleVerify = (arr: Array<any>) => {
     if (arr.length === 1) {
@@ -233,10 +236,8 @@ export function NavbarChangeset({
             )}
             <Verify
               changeset={currentChangeset}
-              value={[]}
               onChange={handleVerify}
               onClear={handleVerifyClear}
-              username={username}
               checkUser={currentChangeset.properties?.check_user}
               options={[
                 {
@@ -248,7 +249,6 @@ export function NavbarChangeset({
                   label: "Bad",
                 },
               ]}
-              className="select--s"
             />
           </>
         )

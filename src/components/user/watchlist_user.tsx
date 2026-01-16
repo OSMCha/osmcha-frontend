@@ -72,7 +72,7 @@ export class WatchListUser extends React.Component<
         )
         .catch(() => this.setState({ isValidUid: false, verified: false }));
     } else if (this.state.username.length > 0 && this.state.uid.length === 0) {
-      this.fetchUsername(this.state.username)
+      this.fetchUsername()
         .then((r) => ({
           uid: r.toString(),
           username: this.state.username,
@@ -98,7 +98,7 @@ export class WatchListUser extends React.Component<
           uid: r.id,
           username: r.name,
         })),
-        this.fetchUsername(this.state.username).then((r) => ({
+        this.fetchUsername().then((r) => ({
           uid: r.id,
           username: r.name,
         })),

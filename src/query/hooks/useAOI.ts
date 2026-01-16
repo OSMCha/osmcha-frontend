@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAOI, fetchAllAOIs } from "../../network/aoi";
+import { fetchAllAOIs, fetchAOI } from "../../network/aoi";
 
 export function useAOI(aoiId: string | null, token: string | null) {
   return useQuery({

@@ -1,5 +1,3 @@
-
-
 import { useMapStore } from "../../stores/mapStore";
 
 // helper functions for adding/removing elements from an array when a

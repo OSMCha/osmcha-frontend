@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { fetchChangesetsPage } from "../../network/changesets_page";
 
 interface ChangesetsPageParams {

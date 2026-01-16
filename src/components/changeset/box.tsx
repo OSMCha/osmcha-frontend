@@ -9,12 +9,7 @@ interface BoxProps {
   bg?: string;
 }
 
-export const Box = ({
-  children,
-  className = "",
-  style,
-  bg = "",
-}: BoxProps) => (
+export const Box = ({ children, className = "", style, bg = "" }: BoxProps) => (
   <div className={`mb3 z4 bg-gray-faint ${className} `} style={style}>
     <div
       className={`${bg} scroll-styled scroll-auto hmax360`}

@@ -27,9 +27,7 @@ interface NewTeamProps {
   userIsOwner: boolean;
 }
 
-type ValidationResult =
-  | { valid: true }
-  | { valid: false; error: string };
+type ValidationResult = { valid: true } | { valid: false; error: string };
 
 const NewTeam = (props: NewTeamProps) => {
   const [teamName, setTeamName] = useState("");
@@ -57,7 +55,11 @@ const NewTeam = (props: NewTeamProps) => {
 
   const onClickAddAnotherUser = () => setTeamUsers([...teamUsers, {}]);
 
-  const onChangeInput = (property: string, value: string | null, idx: number) => {
+  const onChangeInput = (
+    property: string,
+    value: string | null,
+    idx: number,
+  ) => {
     const teamUsersToUpdate = [...teamUsers];
     teamUsersToUpdate[idx] = { ...teamUsersToUpdate[idx], [property]: value };
     setTeamUsers(teamUsersToUpdate);

@@ -98,7 +98,7 @@ const LocationSelect = (props) => {
     map.on("load", () => {
       draw.start();
 
-      draw.on("finish", (id,) => {
+      draw.on("finish", (id) => {
         const snapshot = draw.getSnapshot();
         const feature = snapshot.find((f) => f.id === id);
 
@@ -145,7 +145,7 @@ const LocationSelect = (props) => {
     });
 
     return () => map?.remove();
-  }, []);
+  }, [onChange, updateMap, value]);
 
   // Check if one character input is allowed (for East Asian languages)
   const isOneCharInputAllowed = useCallback((input) => {

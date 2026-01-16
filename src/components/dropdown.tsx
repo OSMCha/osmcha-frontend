@@ -144,10 +144,7 @@ interface DropdownState {
   display: boolean;
 }
 
-class _Dropdown extends React.PureComponent<
-  DropdownProps,
-  DropdownState
-> {
+class _Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
   state: DropdownState = {
     display: false,
   };
