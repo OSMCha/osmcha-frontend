@@ -1,8 +1,7 @@
 /// <reference types="vite/client" />
 
-interface ImportMetaEnv {
-  readonly VITE_STACK: string;
-  readonly VITE_PRODUCTION_API_URL?: string;
+interface RuntimeEnv {
+  readonly VITE_API_URL?: string;
   readonly VITE_PAGE_SIZE?: string;
   readonly VITE_OVERPASS_BASE?: string;
   readonly VITE_DISABLE_REAL_CHANGESETS?: string;
@@ -14,6 +13,48 @@ interface ImportMetaEnv {
   readonly VITE_DEFAULT_TO_DATE?: string;
 }
 
+interface ImportMetaEnv extends RuntimeEnv {}
+
 interface ImportMeta {
   readonly env: ImportMetaEnv;
+}
+
+interface Window {
+  env: RuntimeEnv;
+}
+
+// Type declarations for importing static assets
+declare module "*.jpg" {
+  const value: string;
+  export default value;
+}
+
+declare module "*.jpeg" {
+  const value: string;
+  export default value;
+}
+
+declare module "*.png" {
+  const value: string;
+  export default value;
+}
+
+declare module "*.svg" {
+  const value: string;
+  export default value;
+}
+
+declare module "*.gif" {
+  const value: string;
+  export default value;
+}
+
+declare module "*.webp" {
+  const value: string;
+  export default value;
+}
+
+declare module "*.ico" {
+  const value: string;
+  export default value;
 }

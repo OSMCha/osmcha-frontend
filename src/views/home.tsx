@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import banner from "../assets/banner.png";
 import osmus from "../assets/osmus.png";
 import work_flow from "../assets/work_flow.png";
-import { appVersion, isDev, isLocal, isStaging } from "../config";
+import { appVersion, isLocal } from "../config";
 
 export function Home() {
   return (
@@ -20,8 +20,6 @@ export function Home() {
       <div className="flex-parent flex-parent--column align-center txt-l">
         <div className="txt-xl">
           v{appVersion}
-          {isDev && " Dev"}
-          {isStaging && " Staging"}
           {isLocal && " Local"}
         </div>
         <div className="flex-parent flex-parent--row flex-parent--center-main">
