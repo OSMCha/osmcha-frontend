@@ -1,7 +1,7 @@
 import DOMPurify from "dompurify";
 import React from "react";
 import showdown from "showdown";
-import { appVersion, isDev, isLocal, isStaging } from "../config";
+import { appVersion, isLocal } from "../config";
 import { cancelablePromise } from "../utils/promise";
 
 const converter = new showdown.Converter({
@@ -84,9 +84,7 @@ export class About extends React.PureComponent {
       <div className="scroll-auto about-page-height flex-parent flex-parent--column pb12 flex-parent--center-cross">
         <div className="txt-xs txt-mono align-right">
           OSMCha Version {appVersion}
-          {isDev && " Dev"}
           {isLocal && " Local"}
-          {isStaging && " Staging"}
         </div>
         <div
           id="guide"

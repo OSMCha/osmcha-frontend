@@ -1,23 +1,20 @@
 FROM node:22-alpine as builder
 
-ENV DEBIAN_FRONTEND noninteractive
-
-ARG BUILD_ENV=prod
-
 WORKDIR /app
-COPY package.json package-lock.json /app/
-RUN npm clean-install --legacy-peer-deps
+RUN apk update && apk add curl git jq
 
-COPY src/ /app/src
-COPY public/ /app/public
-COPY index.html /app/
-COPY vite.config.ts /app/
-COPY tsconfig.json /app/
-COPY tsconfig.node.json /app/
-ENV VITE_PRODUCTION_API_URL /api/v1
+COPY package.json package-lock.json .
+RUN npm clean-install
 
-RUN npm run build:${BUILD_ENV}
+COPY . .
+RUN npm run build
 
 FROM nginx:alpine
+
+RUN apk update && apk add jq
+
 COPY --from=builder /app/build /srv/www
-COPY nginx.conf /etc/nginx/templates/default.conf.template
+COPY docker/nginx.conf /etc/nginx/templates/default.conf.template
+COPY docker/90-write-env-to-json.sh /docker-entrypoint.d
+
+EXPOSE 80
