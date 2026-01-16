@@ -26,16 +26,6 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: "build",
       sourcemap: true,
-      chunkSizeWarningLimit: 1000,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            "react-vendor": ["react", "react-dom"],
-            "maplibre-vendor": ["maplibre-gl", "@osmcha/maplibre-adiff-viewer"],
-            "router-vendor": ["react-router", "react-router-dom"],
-          },
-        },
-      },
     },
 
     test: {
