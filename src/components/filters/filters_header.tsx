@@ -93,17 +93,13 @@ interface FiltersHeaderProps {
 function FiltersHeader({
   createAOI,
   updateAOI,
-  removeAOI,
-  loading,
   search,
   token,
   aoiName,
   aoiId,
   handleApply,
   handleClear,
-  loadAoiId,
 }: FiltersHeaderProps) {
-  const location = useLocation();
   const navigate = useNavigate();
   const [aoiList, setAoiList] = useState<Array<any>>([]);
 

@@ -5,7 +5,7 @@ import { getObjAsQueryParam } from "../../utils/query_params";
 import { CreateDeleteModify } from "../create_delete_modify";
 import { NumberOfComments } from "./comments";
 
-export function SecondaryLine({ changesetId, date, properties }: any) {
+export function SecondaryLine({ changesetId, properties }: any) {
   return (
     <span className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray">
       <span>

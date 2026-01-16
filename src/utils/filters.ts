@@ -2,7 +2,6 @@ import { format, sub } from "date-fns";
 import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from "../config/constants";
 
 export function validateFilters(filters: any): boolean {
-  // Validate plain object filters (not Immutable.js)
   if (!filters || typeof filters !== "object") {
     throw new Error("The filters that you applied were not correct.");
   }
@@ -53,7 +52,7 @@ export function getDefaultFromDate(extraDays = 0): any {
   };
 }
 
-export function getDefaultToDate(): any {
+function getDefaultToDate(): any {
   const now = new Date();
   const defaultDate = format(
     sub(new Date(now.getTime() + now.getTimezoneOffset() * 60 * 1000), {

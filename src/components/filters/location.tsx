@@ -98,7 +98,7 @@ const LocationSelect = (props) => {
     map.on("load", () => {
       draw.start();
 
-      draw.on("finish", (id, context) => {
+      draw.on("finish", (id,) => {
         const snapshot = draw.getSnapshot();
         const feature = snapshot.find((f) => f.id === id);
 

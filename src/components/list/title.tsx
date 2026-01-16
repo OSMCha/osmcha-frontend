@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useIsUserListed } from "../../hooks/UseIsUserListed";
 import { RelativeTime } from "../relative_time";
 
-function Title({ properties, wasOpen, date }: any) {
+function Title({ properties, date }: any) {
   const { token } = useAuth();
   const [isInTrustedlist, isInWatchlist] = useIsUserListed(
     properties.user,

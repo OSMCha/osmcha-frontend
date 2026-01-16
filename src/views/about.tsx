@@ -74,7 +74,7 @@ export class About extends React.PureComponent {
       .then((markdown) =>
         this.setState({ about: converter.makeHtml(markdown) }),
       )
-      .catch((e) => {});
+      .catch(() => {});
   }
   componentWillUnmount() {
     this.cancellablePromise && this.cancellablePromise.cancel();

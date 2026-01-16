@@ -1,11 +1,17 @@
 import react from "@vitejs/plugin-react";
+import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, loadEnv } from "vite";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
+  const plugins = [react()];
+  if (process.env.ANALYZE) {
+    plugins.push(visualizer({ open: true }));
+  }
+
   return {
-    plugins: [react()],
+    plugins,
 
     define: {
       "process.env.NODE_ENV": JSON.stringify(env.NODE_ENV || mode),
@@ -19,7 +25,7 @@ export default defineConfig(({ mode }) => {
 
     build: {
       outDir: "build",
-      sourcemap: mode !== "production",
+      sourcemap: true,
       chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {

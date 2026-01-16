@@ -4,7 +4,7 @@ import { ExpandItemIcon } from "../expand_item_icon";
 import { Loading } from "../loading";
 import { OpenAll } from "../open_all";
 
-export function tagChangesFromActions(actions: any[]) {
+function tagChangesFromActions(actions: any[]) {
   const finalReport = new Map();
   const analyzedFeatures = actions.map(analyzeAction);
   const keys = ["addedTags", "changedValues", "deletedTags"];
@@ -31,7 +31,7 @@ export function tagChangesFromActions(actions: any[]) {
   return finalReport;
 }
 
-export function analyzeAction(action: any) {
+function analyzeAction(action: any) {
   const oldVersionKeys = Object.keys(action.old.tags);
   const newVersionKeys = Object.keys(action.new.tags);
   const addedTags = newVersionKeys.filter(
@@ -106,7 +106,7 @@ function ChangeTitle({ value, type }: { value: any; type: string }) {
   return <div></div>;
 }
 
-export const ChangeItem = ({
+const ChangeItem = ({
   opened,
   tag,
   features,

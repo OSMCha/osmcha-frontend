@@ -2,9 +2,9 @@ import pkg from "../../package.json";
 
 export const isDev = import.meta.env.VITE_STACK === "DEV";
 export const isStaging = import.meta.env.VITE_STACK === "STAGING";
-export const isProd = import.meta.env.VITE_STACK === "PRODUCTION";
+const isProd = import.meta.env.VITE_STACK === "PRODUCTION";
 export const isLocal = import.meta.env.MODE === "development";
-export const stack = import.meta.env.VITE_STACK;
+const stack = import.meta.env.VITE_STACK;
 export const appVersion = pkg.version;
 
 const url =

@@ -106,7 +106,7 @@ export function setHarmful(id: number, token: string, harmful: boolean | -1) {
     });
 }
 
-export const createForm = (obj: any) => {
+const createForm = (obj: any) => {
   var formData = new FormData();
   Object.keys(obj).forEach((k) => {
     formData.append(k, obj[k]);

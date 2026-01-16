@@ -11,8 +11,6 @@ interface BoxProps {
 
 export const Box = ({
   children,
-  pullDown,
-  pullUp,
   className = "",
   style,
   bg = "",

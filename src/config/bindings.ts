@@ -18,10 +18,6 @@ export const REFRESH_CHANGESETS = {
   label: "REFRESH_CHANGESETS",
   bindings: ["R", "r"],
 };
-export const CHANGESET_DETAILS_SHOW_ALL = {
-  label: "CHANGESET_DETAILS_SHOW_ALL",
-  bindings: ["0"],
-};
 export const CHANGESET_DETAILS_DETAILS = {
   label: "CHANGESET_DETAILS_DETAILS",
   bindings: ["1"],

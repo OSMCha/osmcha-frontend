@@ -17,12 +17,12 @@ function EditMappingTeam() {
   const updateMutation = useUpdateMappingTeam();
   const mobile = isMobile();
 
-  const editTeam = (id: string, name: string, users: object) => {
+  const editTeam = (id: number, name: string, users: object) => {
     if (!name || !users || !token) return;
 
     updateMutation.mutate({
       token,
-      teamId: parseInt(id, 10),
+      teamId: id,
       name,
       users,
     });

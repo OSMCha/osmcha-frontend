@@ -189,7 +189,7 @@ export class MultiSelect extends React.PureComponent<
     }
   };
 
-  handleToggle = (e: React.MouseEvent) => {
+  handleToggle = () => {
     const { value } = this.props;
     if (value && Array.isArray(value)) {
       this.sendData(!this.state.allToggle, value);
@@ -235,7 +235,7 @@ export class MultiSelect extends React.PureComponent<
 }
 
 export class MappingTeamMultiSelect extends MultiSelect {
-  getAsyncOptions = (inputValue: string) => {
+  getAsyncOptions = () => {
     if (!this.props.dataURL) return Promise.resolve([]);
     return fetch(`${API_URL}/${this.props.dataURL}/`, {
       method: "GET",

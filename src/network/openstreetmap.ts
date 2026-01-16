@@ -22,7 +22,7 @@ export function getUserDetails(uid: number, token: string): Promise<any> {
       user.name = u.display_name;
       return user;
     })
-    .catch((e) => user);
+    .catch(() => user);
 
   const fromOSMCha = fetch(`${API_URL}/user-stats/${uid}/`, {
     method: "GET",
@@ -32,7 +32,7 @@ export function getUserDetails(uid: number, token: string): Promise<any> {
     },
   })
     .then((r) => r.json())
-    .catch((e) => ({}));
+    .catch(() => ({}));
 
   return Promise.all([fromOSMCha, fromOSM]).then(([r1, r2]) => ({
     ...r2,

@@ -24,7 +24,6 @@ function Filters() {
   const navigate = useNavigate();
   const {
     filters: urlFilters,
-    setFilters,
     setAoiId,
     aoiId,
     clearFilters,

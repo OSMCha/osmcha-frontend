@@ -63,26 +63,3 @@ export function fetchChangesetsPage(
     return res.json();
   });
 }
-
-export function fetchAOIChangesetPage(
-  pageIndex: number,
-  aoiId: string,
-  token: string,
-) {
-  return fetch(
-    `${API_URL}/aoi/${aoiId}/changesets/?page_size=${PAGE_SIZE}&page=${
-      pageIndex + 1
-    }`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token ? `Token ${token}` : "",
-      },
-    },
-  )
-    .then(handleErrors)
-    .then((res) => {
-      return res.json();
-    });
-}

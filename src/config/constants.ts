@@ -6,15 +6,11 @@ export const overpassBase =
   "https://overpass-api.de/api/interpreter";
 export const statusUrl =
   "https://raw.githubusercontent.com/osmcha/osmcha-frontend/status/status.json";
-export const enableRealChangesets = !import.meta.env
-  .VITE_DISABLE_REAL_CHANGESETS;
 
 export const osmchaSocialTokenUrl = `${API_URL}/social-auth/`;
-export const osmchaUrl = API_URL.replace("api/v1", "");
 
 export const osmUrl =
   import.meta.env.VITE_OSM_URL || "https://www.openstreetmap.org";
-export const isOfficialOSM = osmUrl === "https://www.openstreetmap.org";
 export const apiOSM =
   import.meta.env.VITE_OSM_API || "https://api.openstreetmap.org/api/0.6";
 export const adiffServiceUrl =

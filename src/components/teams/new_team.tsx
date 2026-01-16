@@ -22,10 +22,14 @@ interface Team {
 interface NewTeamProps {
   editing?: boolean;
   activeTeam?: Team;
-  onChange: (id: number, teamName: string, teamUsers: TeamUser[]) => void;
-  onCreate: (teamName: string, teamUsers: TeamUser[]) => void;
+  onChange?: (id: number, teamName: string, teamUsers: TeamUser[]) => void;
+  onCreate?: (teamName: string, teamUsers: TeamUser[]) => void;
   userIsOwner: boolean;
 }
+
+type ValidationResult =
+  | { valid: true }
+  | { valid: false; error: string };
 
 const NewTeam = (props: NewTeamProps) => {
   const [teamName, setTeamName] = useState("");
@@ -53,20 +57,20 @@ const NewTeam = (props: NewTeamProps) => {
 
   const onClickAddAnotherUser = () => setTeamUsers([...teamUsers, {}]);
 
-  const onChangeInput = (property: keyof TeamUser, value: string | null, idx: number) => {
+  const onChangeInput = (property: string, value: string | null, idx: number) => {
     const teamUsersToUpdate = [...teamUsers];
     teamUsersToUpdate[idx] = { ...teamUsersToUpdate[idx], [property]: value };
     setTeamUsers(teamUsersToUpdate);
   };
 
-  const validateData = () => {
+  const validateData = (): ValidationResult => {
     if (!teamName) {
       return { valid: false, error: "Team name cannot be empty." };
     }
     if (teamUsers) {
       try {
         if (
-          teamUsers.filter((i) => Object.hasOwn(i, "username")).length ===
+          teamUsers.filter((i) => "username" in i && i.username).length ===
           teamUsers.length
         ) {
           return { valid: true };
@@ -91,10 +95,10 @@ const NewTeam = (props: NewTeamProps) => {
     const validation = validateData();
 
     if (validation.valid) {
-      if (props.activeTeam) {
+      if (props.activeTeam && props.onChange) {
         props.onChange(props.activeTeam.id, teamName, teamUsers);
         setValidationErrorMessage("");
-      } else {
+      } else if (props.onCreate) {
         props.onCreate(teamName, teamUsers);
         setEditing(false);
         setValidationErrorMessage("");
