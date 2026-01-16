@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { toast } from "sonner";
-import { useAuthStore } from "../stores/authStore";
-import { useUserDetails } from "../query/hooks/useUserDetails";
 import { useStatus } from "../query/hooks/useStatus";
+import { useUserDetails } from "../query/hooks/useUserDetails";
+import { useAuthStore } from "../stores/authStore";
 
 /**
  * Hook for accessing auth state and user details.

@@ -108,7 +108,7 @@ export function Features({
     (feature) => ({
       url: feature.id,
       user_flag: `Flagged by ${feature.user}`,
-      osm_id: Number.parseInt(feature.id.split("-")[1]),
+      osm_id: Number.parseInt(feature.id.split("-")[1], 10),
       reasons: [],
       type: "",
       id: 0,

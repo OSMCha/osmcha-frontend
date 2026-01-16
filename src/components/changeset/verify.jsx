@@ -2,13 +2,7 @@ import thumbsDown from "../../assets/thumbs-down.svg";
 import thumbsUp from "../../assets/thumbs-up.svg";
 import { Dropdown } from "../dropdown";
 
-export function Verify({
-  changeset,
-  options,
-  onChange,
-  onClear,
-  checkUser,
-}) {
+export function Verify({ changeset, options, onChange, onClear, checkUser }) {
   if (changeset.properties?.checked) {
     const isHarmful = changeset.properties.harmful;
     return (

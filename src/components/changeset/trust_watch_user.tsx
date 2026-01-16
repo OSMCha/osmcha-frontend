@@ -1,14 +1,14 @@
 import { useAuth } from "../../hooks/useAuth";
+import { useTrustedlist } from "../../query/hooks/useTrustedlist";
 import {
   useAddToTrustedlist,
   useRemoveFromTrustedlist,
 } from "../../query/hooks/useTrustedlistMutations";
+import { useWatchlist } from "../../query/hooks/useWatchlist";
 import {
   useAddToWatchlist,
   useRemoveFromWatchlist,
 } from "../../query/hooks/useWatchlistMutations";
-import { useTrustedlist } from "../../query/hooks/useTrustedlist";
-import { useWatchlist } from "../../query/hooks/useWatchlist";
 import { Dropdown } from "../dropdown";
 
 interface TrustWatchUserProps {

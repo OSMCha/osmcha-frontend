@@ -225,7 +225,7 @@ function TagChanges({
       );
       setChangeReport(newChangeReport.sort());
     }
-  }, [adiff, changesetId]);
+  }, [adiff]);
 
   return (
     <div className="px12 py6">

@@ -26,4 +26,4 @@ function setItem(key: string, value: string): void {
   }
 }
 
-export { getItem, setItem,  };
+export { getItem, setItem };

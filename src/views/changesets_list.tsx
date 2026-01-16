@@ -1,5 +1,5 @@
 import Mousetrap from "mousetrap";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { List } from "../components/list";
 import { Footer } from "../components/list/footer";
@@ -35,44 +35,47 @@ function ChangesetsList() {
     token,
   });
 
-  const goUpDownToChangeset = (direction: number) => {
-    if (!currentPage?.features) return;
-    const features = currentPage.features;
-    let index = features.findIndex((f: any) => f.id === activeChangesetId);
-    index += direction;
-    const nextFeature = features[index];
-    if (nextFeature) {
-      navigate({
-        pathname: `/changesets/${nextFeature.id}`,
-        search: location.search,
-      });
-    }
-  };
+  const goUpDownToChangeset = useCallback(
+    (direction: number) => {
+      if (!currentPage?.features) return;
+      const features = currentPage.features;
+      let index = features.findIndex((f: any) => f.id === activeChangesetId);
+      index += direction;
+      const nextFeature = features[index];
+      if (nextFeature) {
+        navigate({
+          pathname: `/changesets/${nextFeature.id}`,
+          search: location.search,
+        });
+      }
+    },
+    [currentPage, activeChangesetId, navigate, location.search],
+  );
 
-  const toggleFilters = () => {
+  const toggleFilters = useCallback(() => {
     if (location.pathname === "/filters") {
       navigate({ pathname: "/", search: location.search });
     } else {
       navigate({ pathname: "/filters", search: location.search });
     }
-  };
+  }, [location.pathname, location.search, navigate]);
 
-  const toggleHelp = () => {
+  const toggleHelp = useCallback(() => {
     if (location.pathname.startsWith("/about")) {
       navigate({ pathname: "/", search: location.search });
     } else {
       navigate({ pathname: "/about", search: location.search });
     }
-  };
+  }, [location.pathname, location.search, navigate]);
 
   const handleFilterOrderBy = (selected: Array<any>) => {
     const newFilters = { ...filters, order_by: selected };
     setFilters(newFilters);
   };
 
-  const reloadCurrentPage = () => {
+  const reloadCurrentPage = useCallback(() => {
     refetch();
-  };
+  }, [refetch]);
 
   const handleChangePage = (newPageIndex: number) => {
     setPageIndex(newPageIndex);
@@ -114,7 +117,7 @@ function ChangesetsList() {
         Mousetrap.unbind(shortcut.bindings);
       });
     };
-  }, [currentPage, activeChangesetId, filters, location]);
+  }, [goUpDownToChangeset, reloadCurrentPage, toggleFilters, toggleHelp]);
 
   return (
     <div className="flex-parent flex-parent--column changesets-list">

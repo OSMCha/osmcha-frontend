@@ -22,7 +22,7 @@ export function useFilters() {
   }, [searchParams]);
 
   const setFilters = useCallback(
-    (newFilters: any,) => {
+    (newFilters: any) => {
       try {
         // Validate filters before setting
         validateFilters(newFilters);

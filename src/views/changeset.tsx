@@ -73,7 +73,7 @@ function Changeset() {
     setSelected(null);
     setShowElements(["node", "way", "relation"]);
     setShowActions(["create", "modify", "delete", "noop"]);
-  }, [token, changesetId]);
+  }, []);
 
   useEffect(() => {
     if (error) {

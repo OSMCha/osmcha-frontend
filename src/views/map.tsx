@@ -1,7 +1,7 @@
 import { MapLibreAugmentedDiffViewer } from "@osmcha/maplibre-adiff-viewer";
 import * as maplibre from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Loading } from "../components/loading";
 import { SignIn } from "../components/sign_in";
@@ -9,7 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useChangesetMap } from "../query/hooks/useChangesetMap";
 import { useMapStore } from "../stores/mapStore";
 
-const BING_AERIAL_IMAGERY_STYLE = {
+const BING_AERIAL_IMAGERY_STYLE: maplibre.StyleSpecification = {
   version: 8,
   sources: {
     bing: {
@@ -35,7 +35,7 @@ const BING_AERIAL_IMAGERY_STYLE = {
   ],
 };
 
-const ESRI_WORLD_IMAGERY_STYLE = {
+const ESRI_WORLD_IMAGERY_STYLE: maplibre.StyleSpecification = {
   version: 8,
   sources: {
     esri: {
@@ -59,7 +59,7 @@ const ESRI_WORLD_IMAGERY_STYLE = {
   ],
 };
 
-const ESRI_WORLD_IMAGERY_CLARITY_STYLE = {
+const ESRI_WORLD_IMAGERY_CLARITY_STYLE: maplibre.StyleSpecification = {
   version: 8,
   sources: {
     esri: {
@@ -82,7 +82,7 @@ const ESRI_WORLD_IMAGERY_CLARITY_STYLE = {
   ],
 };
 
-const OPENSTREETMAP_CARTO_STYLE = {
+const OPENSTREETMAP_CARTO_STYLE: maplibre.StyleSpecification = {
   version: 8,
   sources: {
     "osm-tiles": {
@@ -140,18 +140,22 @@ function CMap(props: CMapProps) {
 
   const changeset = changesetQuery.data;
 
-  const handleClick = (event: any, action: any) => {
-    props.setSelected(action);
+  const handleClick = useCallback(
+    (event: any, action: any) => {
+      props.setSelected(action);
 
-    if (action) {
-      const element = action.new ?? action.old;
-      adiffViewerRef.current?.select(element.type, element.id);
-    } else {
-      adiffViewerRef.current?.deselect();
-    }
-  };
+      if (action) {
+        const element = action.new ?? action.old;
+        adiffViewerRef.current?.select(element.type, element.id);
+      } else {
+        adiffViewerRef.current?.deselect();
+      }
+    },
+    [props.setSelected],
+  );
 
-  // Initialize map when changeset data is loaded
+  // Initialize map when changeset data is loaded.
+  // Only recreate the map when token or changeset changes.
   useEffect(() => {
     if (!token || !changeset) {
       return;
@@ -171,11 +175,9 @@ function CMap(props: CMapProps) {
 
     setLoading(true);
 
-    const basemapStyle = BASEMAP_STYLES[style] ?? DEFAULT_BASEMAP_STYLE;
-
     const map = new maplibre.Map({
       container,
-      style: basemapStyle,
+      style: DEFAULT_BASEMAP_STYLE,
       maxZoom: 22,
       hash: false,
       attributionControl: false,
@@ -193,8 +195,6 @@ function CMap(props: CMapProps) {
       "Map data from <a href=https://openstreetmap.org/copyright>OpenStreetMap</a>";
     const adiffViewer = new MapLibreAugmentedDiffViewer(adiff, {
       onClick: handleClick,
-      showElements: props.showElements,
-      showActions: props.showActions,
     });
 
     map.on("load", async () => {
@@ -238,11 +238,11 @@ function CMap(props: CMapProps) {
         props.mapRef.current = null;
       }
     };
-  }, [token, changeset, props.changesetId]);
+  }, [token, changeset, handleClick, props.setCamera, props.mapRef]);
 
-  // Update map when style or filter options change
+  // Update map when style or filter options change (including initial setup)
   useEffect(() => {
-    if (!mapRef.current || !adiffViewerRef.current || loading) return;
+    if (!mapRef.current || !adiffViewerRef.current) return;
 
     const basemapStyle = BASEMAP_STYLES[style] ?? DEFAULT_BASEMAP_STYLE;
     mapRef.current.setStyle(basemapStyle);
@@ -254,7 +254,7 @@ function CMap(props: CMapProps) {
     };
 
     adiffViewerRef.current.refresh();
-  }, [style, props.showElements, props.showActions, loading]);
+  }, [style, props.showElements, props.showActions, handleClick]);
 
   if (!token) {
     return <SignIn />;

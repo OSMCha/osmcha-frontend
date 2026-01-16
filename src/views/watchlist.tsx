@@ -1,15 +1,15 @@
-import React from "react";
+import type React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/button";
 import { SecondaryPagesHeader } from "../components/secondary_pages_header";
 import { BlockMarkup } from "../components/user/block_markup";
 import { SaveUser } from "../components/user/save_user";
 import { useAuth } from "../hooks/useAuth";
+import { useWatchlist } from "../query/hooks/useWatchlist";
 import {
   useAddToWatchlist,
   useRemoveFromWatchlist,
 } from "../query/hooks/useWatchlistMutations";
-import { useWatchlist } from "../query/hooks/useWatchlist";
 import { getObjAsQueryParam, isMobile } from "../utils";
 
 interface WatchlistUser {
