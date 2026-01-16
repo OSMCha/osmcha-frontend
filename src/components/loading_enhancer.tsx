@@ -1,14 +1,14 @@
 import React from "react";
 import { Loading } from "./loading";
 
-type propTypes = {
+type Props = {
   loading: boolean;
 };
 
 export function loadingEnhancer<P extends {}, S extends {}>(
   WrappedComponent: React.ComponentClass<P, S>,
-): React.ComponentClass<P & propTypes> {
-  return class PureRendered extends React.PureComponent<P & propTypes> {
+): React.ComponentClass<P & Props> {
+  return class PureRendered extends React.PureComponent<P & Props> {
     render() {
       return this.props.loading ? (
         <Loading />

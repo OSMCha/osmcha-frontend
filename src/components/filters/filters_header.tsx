@@ -82,7 +82,7 @@ interface FiltersHeaderProps {
   removeAOI: (id: string) => void;
   loading: boolean;
   search: string;
-  token?: string | null;
+  token: string | null;
   aoiName?: string;
   aoiId?: string;
   handleApply: () => void;

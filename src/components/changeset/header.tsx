@@ -5,19 +5,14 @@ import { CreateDeleteModify } from "../create_delete_modify";
 import { RelativeTime } from "../relative_time";
 import { Details } from "./details";
 
-type propsType = {
+type Props = {
   properties: any;
   changesetId: number;
   userEditCount: number;
   toggleUser: () => unknown;
 };
 
-function Header({
-  properties,
-  changesetId,
-  userEditCount,
-  toggleUser,
-}: propsType) {
+function Header({ properties, changesetId, userEditCount, toggleUser }: Props) {
   const { token } = useAuth();
   const user = properties.user;
   const date = parse(properties.date, "yyyy-MM-dd'T'HH:mm:ssX", new Date());

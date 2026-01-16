@@ -82,7 +82,7 @@ const GeometryChangesItem = ({
   );
 };
 
-type propsType = {
+type Props = {
   changesetId: number;
   adiff: any;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
@@ -94,7 +94,7 @@ function GeometryChanges({
   adiff,
   setHighlight,
   zoomToAndSelect,
-}: propsType) {
+}: Props) {
   const [changeReport, setChangeReport] = useState<Array<[string, any]>>([]);
   const [openAll, setOpenAll] = useState(false);
 

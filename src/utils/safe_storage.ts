@@ -6,7 +6,7 @@
  * Wraps localStorage.getItem in a try/catch. Return null
  * if the key does not exist or localStorage fails.
  */
-function getItem(key: string): string | undefined | null {
+function getItem(key: string): string | null {
   try {
     return localStorage.getItem(key) || null;
   } catch (_err) {

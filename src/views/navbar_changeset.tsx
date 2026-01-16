@@ -24,7 +24,7 @@ import { isMobile } from "../utils";
 interface NavbarChangesetProps {
   changesetId: number;
   currentChangeset: any;
-  username: string | undefined | null;
+  username?: string;
   camera?: any;
 }
 

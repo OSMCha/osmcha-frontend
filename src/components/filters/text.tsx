@@ -1,16 +1,16 @@
 import React from "react";
-import type { filterType } from "./";
+import type { Filter } from "./";
 
 interface TextProps {
   name: string;
   display: string;
   type: string;
   placeholder: string;
-  value: filterType;
+  value: Filter;
   className: string;
-  onChange: (a: string, value?: filterType) => any;
-  min: string | undefined | null;
-  max: string | undefined | null;
+  onChange: (a: string, value?: Filter) => any;
+  min?: string;
+  max?: string;
 }
 
 interface TextState {

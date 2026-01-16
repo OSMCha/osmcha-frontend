@@ -1,7 +1,7 @@
 import { format, parse } from "date-fns";
 import React from "react";
 import DatePicker from "react-datepicker";
-import type { filterType } from "./";
+import type { Filter } from "./";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -10,11 +10,11 @@ interface DateFieldProps {
   display: string;
   type: string;
   placeholder: string;
-  value: filterType;
+  value: Filter;
   className: string;
-  onChange: (a: string, value?: filterType) => any;
-  min: string | undefined | null;
-  max: string | undefined | null;
+  onChange: (a: string, value?: Filter) => any;
+  min?: string;
+  max?: string;
 }
 
 export class DateField extends React.Component<DateFieldProps> {
@@ -42,7 +42,11 @@ export class DateField extends React.Component<DateFieldProps> {
       <DatePicker
         className={`input ${className}`}
         isClearable={true}
-        selected={dateValue ? parse(dateValue, "yyyy-MM-dd", new Date()) : null}
+        selected={
+          dateValue && typeof dateValue === "string"
+            ? parse(dateValue, "yyyy-MM-dd", new Date())
+            : null
+        }
         placeholderText={placeholder || display}
         onChange={this.handleDateChange}
         dateFormat="yyyy-MM-dd"

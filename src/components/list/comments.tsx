@@ -1,8 +1,4 @@
-export function NumberOfComments({
-  count,
-}: {
-  count: number | undefined | null;
-}) {
+export function NumberOfComments({ count }: { count?: number }) {
   const displayCount = count ?? 0;
   return (
     <span

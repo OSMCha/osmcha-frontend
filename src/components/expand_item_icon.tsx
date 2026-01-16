@@ -1,8 +1,8 @@
-type propsType = {
+type Props = {
   isOpen: boolean;
 };
 
-export const ExpandItemIcon = ({ isOpen }: propsType) => {
+export const ExpandItemIcon = ({ isOpen }: Props) => {
   return (
     <>
       {isOpen ? (

@@ -5,9 +5,9 @@ import { appendDefaultDate } from "../utils/filters";
 export function fetchChangesetsPage(
   pageIndex: number,
   filters: any = {},
-  token: string | undefined | null,
+  token: string | null,
+  aoiId: string | null,
   nocache?: boolean,
-  aoiId?: string | null,
 ) {
   let flatFilters = "";
   filters = appendDefaultDate(filters);

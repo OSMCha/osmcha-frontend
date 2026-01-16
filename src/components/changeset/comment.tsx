@@ -3,7 +3,7 @@ import { postComment } from "../../network/changeset";
 import { cancelablePromise } from "../../utils/promise";
 import { Button } from "../button";
 
-type propsType = {
+type Props = {
   token: string;
   changesetId: number;
   userDetails: {
@@ -15,17 +15,17 @@ type propsType = {
   discussions: any[];
 };
 
-type stateType = {
+type State = {
   success: boolean;
   error: boolean;
   value: string;
 };
 
-export class CommentForm extends React.PureComponent<propsType, stateType> {
+export class CommentForm extends React.PureComponent<Props, State> {
   postCommentPromise: any;
   clicked: boolean = false;
 
-  state: stateType = {
+  state: State = {
     success: false,
     error: false,
     value: "",

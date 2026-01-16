@@ -5,7 +5,7 @@ import { API_URL } from "../config";
 import { adiffServiceUrl, apiOSM, overpassBase } from "../config/constants";
 import { handleErrors } from "./aoi";
 
-export function fetchChangeset(id: number, token?: string | null) {
+export function fetchChangeset(id: number, token: string | null) {
   return fetch(`${API_URL}/changesets/${id}/`, {
     method: "GET",
     headers: {
