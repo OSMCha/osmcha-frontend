@@ -30,12 +30,3 @@ export function useChangesetsPage({
     retry: 3,
   });
 }
-
-// Hook to manually refetch the current page
-export function useRefreshChangesetsPage() {
-  const queryClient = useQueryClient();
-
-  return () => {
-    queryClient.invalidateQueries({ queryKey: ["changesets", "page"] });
-  };
-}

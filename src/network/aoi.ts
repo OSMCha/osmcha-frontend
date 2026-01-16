@@ -1,6 +1,6 @@
 import { API_URL } from "../config";
 
-export function getString(input) {
+function getString(input) {
   if (typeof input === "object") {
     return JSON.stringify(input);
   } else {

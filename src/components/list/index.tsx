@@ -24,7 +24,6 @@ type propTypes = {
 function List({
   currentPage,
   activeChangesetId,
-  pageIndex,
   loading,
   location,
 }: propTypes) {

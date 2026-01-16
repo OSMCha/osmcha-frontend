@@ -51,18 +51,6 @@ export function fetchUserMappingTeams(token: string, owner: string) {
     .then((res) => res.results);
 }
 
-export function fetchTrustedMappingTeams(token: string) {
-  return fetch(`${API_URL}/mapping-team/?trusted=true`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-  })
-    .then(handleErrors)
-    .then((res) => res.json());
-}
-
 export function updateMappingTeam(
   token: string,
   id: number,

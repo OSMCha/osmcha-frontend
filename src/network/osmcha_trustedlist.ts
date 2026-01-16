@@ -1,20 +1,6 @@
 import { API_URL } from "../config";
 import { handleErrors } from "./aoi";
 
-export function fetchTrustedList(token: string): Promise<any> {
-  return fetch(`${API_URL}/whitelist-user/`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-  })
-    .then(handleErrors)
-    .then((res) => {
-      return res.json();
-    });
-}
-
 export function deleteFromTrustedList(
   token: string,
   username: string,

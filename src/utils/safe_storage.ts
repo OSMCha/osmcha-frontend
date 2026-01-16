@@ -26,15 +26,4 @@ function setItem(key: string, value: string): void {
   }
 }
 
-/**
- * Wraps localStorage.removeItem in a try/catch.
- */
-function removeItem(key: string): void {
-  try {
-    localStorage.removeItem(key);
-  } catch (_err) {
-    console.warn("Could not delete from localStorage.");
-  }
-}
-
-export { getItem, setItem, removeItem };
+export { getItem, setItem,  };

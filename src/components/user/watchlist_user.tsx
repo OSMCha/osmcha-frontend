@@ -35,7 +35,7 @@ export class WatchListUser extends React.Component<
     const value = target.value;
     this.setState({ uid: value, isValidUid: true, verified: false });
   };
-  fetchUsername = (username: string) =>
+  fetchUsername = () =>
     fetch(
       `https://www.openstreetmap.org/api/0.6/changesets.json?display_name=${this.state.username}`,
     )
@@ -70,7 +70,7 @@ export class WatchListUser extends React.Component<
             isValidUid: true,
           }),
         )
-        .catch((r) => this.setState({ isValidUid: false, verified: false }));
+        .catch(() => this.setState({ isValidUid: false, verified: false }));
     } else if (this.state.username.length > 0 && this.state.uid.length === 0) {
       this.fetchUsername(this.state.username)
         .then((r) => ({
@@ -89,7 +89,7 @@ export class WatchListUser extends React.Component<
             isValidUid: true,
           }),
         )
-        .catch((r) =>
+        .catch(() =>
           this.setState({ isValidUsername: false, verified: false }),
         );
     } else if (this.state.uid.length > 0 && this.state.username.length > 0) {
@@ -114,7 +114,7 @@ export class WatchListUser extends React.Component<
             this.setState({ isValidUsername: false, isValidUid: false });
           }
         })
-        .catch((e) =>
+        .catch(() =>
           this.setState({ isValidUsername: false, isValidUid: false }),
         );
     }

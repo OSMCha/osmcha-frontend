@@ -11,9 +11,6 @@ export class App extends Component {
       const searchObj = getSearchObj(window.location.search);
       const filters = searchObj.filters || {};
       if (filters && Object.keys(filters).length > 0) {
-        const filterKeys = Object.keys(filters)
-          .sort((a, b) => a.localeCompare(b))
-          .join(",");
       }
     }
   }

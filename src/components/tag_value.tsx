@@ -28,7 +28,7 @@ function convertSourceData(input: Tag2LinkItem[]): Record<string, string> {
   return output;
 }
 
-export const TAG2LINK = convertSourceData(tag2linkRaw as Tag2LinkItem[]);
+const TAG2LINK = convertSourceData(tag2linkRaw as Tag2LinkItem[]);
 
 export const TagValue: React.FC<{ k: string; v: string }> = ({ k, v }) => {
   const placeholderUrl = TAG2LINK[k];

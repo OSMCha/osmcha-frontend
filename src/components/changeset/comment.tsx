@@ -72,7 +72,7 @@ export class CommentForm extends React.PureComponent<propsType, stateType> {
       postComment(this.props.changesetId, this.props.token, comment),
     );
     this.postCommentPromise.promise
-      .then((r) => {
+      .then(() => {
         this.setState({ success: true });
         this.setState({ error: false });
         this.setState({ value: "" });
@@ -83,7 +83,7 @@ export class CommentForm extends React.PureComponent<propsType, stateType> {
         this.setState({ success: false });
       });
   };
-  handleSubmit = (event) => {
+  handleSubmit = () => {
     this.postComment(this.state.value);
   };
   render() {

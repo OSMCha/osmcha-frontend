@@ -6,12 +6,7 @@ export { Radio } from "./radio";
 export { Text } from "./text";
 export { Wrapper } from "./wrapper";
 
-export type InputType = {
-  label: string;
-  value: string;
-};
-
-export type filterOptionsType = {
+type filterOptionsType = {
   label?: string | null;
   value?: string | null;
 };

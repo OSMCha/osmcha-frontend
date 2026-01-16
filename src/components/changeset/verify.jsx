@@ -5,11 +5,8 @@ import { Dropdown } from "../dropdown";
 export function Verify({
   changeset,
   options,
-  className,
   onChange,
-  value,
   onClear,
-  username,
   checkUser,
 }) {
   if (changeset.properties?.checked) {
