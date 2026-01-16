@@ -51,7 +51,6 @@
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^5.1.2",
     "jsdom": "^27.4.0",
-    "lint-staged": "^4.0.0",
     "mockdate": "^3.0.5",
     "react-test-renderer": "^18.3.1",
     "rollup-plugin-visualizer": "^6.0.5",
@@ -60,7 +59,7 @@
     "vitest": "^4.0.17"
   },
   "scripts": {
-    "precommit": "lint-staged",
+    "precommit": "npm run check",
     "typecheck": "tsc",
     "start": "vite",
     "dev": "vite",
@@ -76,12 +75,6 @@
     "build:prod": "VITE_STACK=PRODUCTION vite build",
     "analyze": "ANALYZE=true npm run build:prod",
     "preview": "vite preview"
-  },
-  "lint-staged": {
-    "*.{js,ts,jsx,tsx}": [
-      "biome check --write --no-errors-on-unmatched",
-      "git add"
-    ]
   },
   "overrides": {
     "react-anchorify-text": {
