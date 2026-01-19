@@ -1,7 +1,8 @@
 import { parse } from "date-fns";
 import React from "react";
+import Markdown from "react-markdown";
 import { Link } from "react-router-dom";
-import showdown from "showdown";
+import remarkGfm from "remark-gfm";
 import { getObjAsQueryParam } from "../../utils/query_params";
 import { Avatar } from "../avatar";
 import { RelativeTime } from "../relative_time";
@@ -81,13 +82,6 @@ export class User extends React.PureComponent {
     );
   }
   render() {
-    const converter = new showdown.Converter({
-      noHeaderId: true,
-      simplifiedAutoLink: true,
-    });
-    const UserDescriptionHTML = converter.makeHtml(
-      this.props.userDetails.description || "",
-    );
     const registrationDate = this.props.userDetails.accountCreated
       ? parse(
           this.props.userDetails.accountCreated,
@@ -191,10 +185,11 @@ export class User extends React.PureComponent {
               </div>
             )}
             <div className="mt12">
-              <p
-                className="txt-subhead txt-s txt-break-url user-description"
-                dangerouslySetInnerHTML={{ __html: UserDescriptionHTML }}
-              />
+              <div className="txt-subhead txt-s txt-break-url user-description">
+                <Markdown remarkPlugins={[remarkGfm]}>
+                  {this.props.userDetails.description || ""}
+                </Markdown>
+              </div>
             </div>
           </div>
         ) : (
