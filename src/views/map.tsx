@@ -175,6 +175,8 @@ function CMap(props: CMapProps) {
 
     setLoading(true);
 
+    props.setSelected(null);
+
     const map = new maplibre.Map({
       container,
       style: DEFAULT_BASEMAP_STYLE,
@@ -238,7 +240,14 @@ function CMap(props: CMapProps) {
         props.mapRef.current = null;
       }
     };
-  }, [token, changeset, handleClick, props.setCamera, props.mapRef]);
+  }, [
+    token,
+    changeset,
+    handleClick,
+    props.setCamera,
+    props.setSelected,
+    props.mapRef,
+  ]);
 
   // Update map when style or filter options change (including initial setup)
   useEffect(() => {
