@@ -8,8 +8,15 @@ import { getAuthUrl } from "../network/auth";
 import { useAuthStore } from "../stores/authStore";
 import { isMobile } from "../utils";
 
+interface UserData {
+  username?: string;
+  uid?: string | number;
+  [key: string]: any;
+}
+
 function NavbarSidebar() {
   const { token, user } = useAuth();
+  const currentUser = user as UserData | undefined;
   const oAuthToken = useAuthStore((s) => s.oAuthToken);
   const clearAuth = useAuthStore((s) => s.clearAuth);
   const queryClient = useQueryClient();
@@ -30,8 +37,8 @@ function NavbarSidebar() {
   };
 
   const onUserMenuSelect = (arr: Array<any>) => {
-    const username = user?.username;
-    const uid = user?.uid;
+    const username = currentUser?.username;
+    const uid = currentUser?.uid;
 
     if (arr.length === 1) {
       if (arr[0].url === "/logout") {
@@ -62,7 +69,7 @@ function NavbarSidebar() {
   };
 
   const renderUserMenuOptions = () => {
-    const username = user?.username;
+    const username = currentUser?.username;
 
     return (
       <Dropdown

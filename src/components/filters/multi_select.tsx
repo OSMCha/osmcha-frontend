@@ -38,7 +38,7 @@ export class MultiSelect extends React.PureComponent<
   componentDidMount() {
     // Special case for "Reasons for Flagging" field
     if (this.props.dataURL === "suspicion-reasons") {
-      fetchReasons(this.props.token).then((reasons) => {
+      fetchReasons().then((reasons) => {
         this.setState({ reasons });
       });
     }

@@ -10,7 +10,7 @@ import { useAuthStore } from "../stores/authStore";
  */
 export function useAuth() {
   const token = useAuthStore((s) => s.token);
-  const userQuery = useUserDetails(token);
+  const userQuery = useUserDetails();
   const statusQuery = useStatus();
 
   // Show status notification if needed

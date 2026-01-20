@@ -1,13 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchChangeset } from "../../network/changeset";
 
-export function useChangeset(changesetId: number | null, token: string | null) {
+export function useChangeset(changesetId: number | null) {
   return useQuery({
-    queryKey: ["changeset", changesetId, token],
+    queryKey: ["changeset", changesetId],
     queryFn: async () => {
       if (!changesetId) throw new Error("No changeset ID");
-      const data = await fetchChangeset(changesetId, token);
-      return data;
+      return fetchChangeset(changesetId);
     },
     enabled: !!changesetId,
     staleTime: 10 * 60 * 1000, // 10 minutes

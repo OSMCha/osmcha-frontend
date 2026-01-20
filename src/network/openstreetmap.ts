@@ -1,5 +1,5 @@
-import { API_URL } from "../config";
 import { apiOSM } from "../config/constants";
+import { api } from "./request";
 
 export async function fetchChangesetMetadata(id: number): Promise<any> {
   const res = await fetch(
@@ -9,8 +9,9 @@ export async function fetchChangesetMetadata(id: number): Promise<any> {
   return metadata;
 }
 
-export function getUserDetails(uid: number, token: string): Promise<any> {
-  const user: any = { uid: uid };
+export function getUserDetails(uid: number): Promise<any> {
+  const user: any = { uid };
+
   const fromOSM = fetch(`${apiOSM}/user/${uid}.json`)
     .then((r) => r.json())
     .then((r) => {
@@ -24,15 +25,9 @@ export function getUserDetails(uid: number, token: string): Promise<any> {
     })
     .catch(() => user);
 
-  const fromOSMCha = fetch(`${API_URL}/user-stats/${uid}/`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-  })
-    .then((r) => r.json())
-    .catch(() => ({}));
+  const fromOSMCha = api
+    .get<Record<string, any>>(`/user-stats/${uid}/`)
+    .catch(() => ({}) as Record<string, any>);
 
   return Promise.all([fromOSMCha, fromOSM]).then(([r1, r2]) => ({
     ...r2,

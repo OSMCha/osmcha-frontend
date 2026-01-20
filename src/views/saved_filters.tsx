@@ -115,12 +115,18 @@ const ListFortified = ({ data, TargetBlock, propsToPass, SaveComp }) => (
   </div>
 );
 
+interface UserData {
+  avatar?: string;
+  [key: string]: any;
+}
+
 function SavedFilters() {
   const { token, user } = useAuth();
+  const currentUser = user as UserData | undefined;
   const { filters, aoiId, clearFilters } = useFilters();
-  const aoisQuery = useAllAOIs(token);
-  const createMutation = useCreateAOI(token);
-  const deleteMutation = useDeleteAOI(token);
+  const aoisQuery = useAllAOIs();
+  const createMutation = useCreateAOI();
+  const deleteMutation = useDeleteAOI();
   const navigate = useNavigate();
   const mobile = isMobile();
 
@@ -151,7 +157,10 @@ function SavedFilters() {
         mobile ? "viewport-full" : ""
       }`}
     >
-      <SecondaryPagesHeader title="Saved Filters" avatar={user?.avatar} />
+      <SecondaryPagesHeader
+        title="Saved Filters"
+        avatar={currentUser?.avatar}
+      />
       <div className="px30 flex-child  pb60  filters-scroll">
         <div className="flex-parent flex-parent--column align justify--space-between">
           {token && (

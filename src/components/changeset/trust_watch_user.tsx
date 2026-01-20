@@ -1,4 +1,3 @@
-import { useAuth } from "../../hooks/useAuth";
 import { useTrustedlist } from "../../query/hooks/useTrustedlist";
 import {
   useAddToTrustedlist,
@@ -19,13 +18,12 @@ interface TrustWatchUserProps {
 }
 
 function TrustWatchUser({ user }: TrustWatchUserProps) {
-  const { token } = useAuth();
-  const { data: trustedlist = [] } = useTrustedlist(token);
-  const { data: watchlist = [] } = useWatchlist(token);
-  const addToTrustedlistMutation = useAddToTrustedlist(token);
-  const removeFromTrustedlistMutation = useRemoveFromTrustedlist(token);
-  const addToWatchlistMutation = useAddToWatchlist(token);
-  const removeFromWatchlistMutation = useRemoveFromWatchlist(token);
+  const { data: trustedlist = [] } = useTrustedlist();
+  const { data: watchlist = [] } = useWatchlist();
+  const addToTrustedlistMutation = useAddToTrustedlist();
+  const removeFromTrustedlistMutation = useRemoveFromTrustedlist();
+  const addToWatchlistMutation = useAddToWatchlist();
+  const removeFromWatchlistMutation = useRemoveFromWatchlist();
 
   const username = user.name;
   const uid = user.uid;

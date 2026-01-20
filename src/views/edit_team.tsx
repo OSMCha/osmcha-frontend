@@ -9,26 +9,40 @@ import {
 } from "../query/hooks/useMappingTeams";
 import { isMobile } from "../utils";
 
+interface TeamData {
+  id?: number;
+  avatar?: string;
+  name?: string;
+  owner?: string;
+  users?: any[];
+  [key: string]: any;
+}
+
+interface UserData {
+  username?: string;
+  [key: string]: any;
+}
+
 function EditMappingTeam() {
   const { id } = useParams<{ id: string }>();
   const teamId = id ? parseInt(id, 10) : null;
   const { token, user } = useAuth();
-  const teamQuery = useMappingTeam(token, teamId);
+  const teamQuery = useMappingTeam(teamId);
   const updateMutation = useUpdateMappingTeam();
   const mobile = isMobile();
+  const currentUser = user as UserData | undefined;
 
   const editTeam = (id: number, name: string, users: object) => {
     if (!name || !users || !token) return;
 
     updateMutation.mutate({
-      token,
       teamId: id,
       name,
       users,
     });
   };
 
-  const team = teamQuery.data;
+  const team = teamQuery.data as TeamData | undefined;
 
   return (
     <div
@@ -36,7 +50,7 @@ function EditMappingTeam() {
         mobile ? "viewport-full" : ""
       }`}
     >
-      <SecondaryPagesHeader title="Edit team" avatar={user?.avatar} />
+      <SecondaryPagesHeader title="Edit team" avatar={currentUser?.avatar} />
       {token ? (
         <div className="px30 flex-child  pb60  filters-scroll">
           <div className="flex-parent flex-parent--column align justify--space-between">
@@ -49,8 +63,8 @@ function EditMappingTeam() {
                 <NewTeam
                   onChange={editTeam}
                   editing={updateMutation.isPending}
-                  activeTeam={team}
-                  userIsOwner={team?.owner === user?.username}
+                  activeTeam={team as any}
+                  userIsOwner={team?.owner === currentUser?.username}
                 />
               </div>
             </div>

@@ -1,15 +1,10 @@
 import { nominatimUrl } from "../config/constants";
-import { handleErrors } from "./aoi";
+import { handleResponse } from "./request";
 
-export function nominatimSearch(input, type): Promise<any> {
-  return fetch(
+export async function nominatimSearch(input, type): Promise<any> {
+  const res = await fetch(
     `${nominatimUrl}?polygon_geojson=1&format=json&${type}=${input}`,
-    {
-      method: "GET",
-    },
-  )
-    .then(handleErrors)
-    .then((response) => {
-      return response.json();
-    });
+    { method: "GET" },
+  );
+  return handleResponse(res);
 }

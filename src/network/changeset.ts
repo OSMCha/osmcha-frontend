@@ -1,22 +1,11 @@
 import adiffParser from "@osmcha/osm-adiff-parser";
 import { parse, subSeconds } from "date-fns";
 
-import { API_URL } from "../config";
 import { adiffServiceUrl, apiOSM, overpassBase } from "../config/constants";
-import { handleErrors } from "./aoi";
+import { api } from "./request";
 
-export function fetchChangeset(id: number, token: string | null) {
-  return fetch(`${API_URL}/changesets/${id}/`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-  })
-    .then(handleErrors)
-    .then((res) => {
-      return res.json();
-    });
+export function fetchChangeset(id: number) {
+  return api.get(`/changesets/${id}/`);
 }
 
 export async function fetchAndParseAugmentedDiff(id: number) {
@@ -82,107 +71,34 @@ async function fetchAugmentedDiffFromOverpass(id: number) {
   return await res.text();
 }
 
-export function setHarmful(id: number, token: string, harmful: boolean | -1) {
+export function setHarmful(id: number, harmful: boolean | -1) {
   // -1 is for unsetting
-  let url;
-  if (harmful === -1) {
-    url = `${API_URL}/changesets/${id}/uncheck/`;
-  } else {
-    url = `${API_URL}/changesets/${id}/${
-      harmful ? "set-harmful" : "set-good"
-    }/`;
-  }
-
-  return fetch(url, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-  })
-    .then(handleErrors)
-    .then((res) => {
-      return res.json();
-    });
+  const action =
+    harmful === -1 ? "uncheck" : harmful ? "set-harmful" : "set-good";
+  return api.put(`/changesets/${id}/${action}/`);
 }
 
-const createForm = (obj: any) => {
-  var formData = new FormData();
-  Object.keys(obj).forEach((k) => {
-    formData.append(k, obj[k]);
-  });
-  return formData;
-};
-
-export function setTag(
-  id: number,
-  token: string,
-  tag: any,
-  remove: boolean = false,
-) {
+export function setTag(id: number, tag: any, remove: boolean = false) {
   if (Number.isNaN(parseInt(tag.value, 10))) {
     throw new Error("tag is not a valid number");
   }
-  return fetch(`${API_URL}/changesets/${id}/tags/${tag.value}/`, {
-    method: remove ? "DELETE" : "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-    body: createForm({
-      tag_pk: tag,
-      id,
-    }),
-  })
-    .then(handleErrors)
-    .then((res) => {
-      return res.json();
-    });
+
+  const endpoint = `/changesets/${id}/tags/${tag.value}/`;
+  return remove
+    ? api.delete(endpoint)
+    : api.post(endpoint, { tag_pk: tag, id });
 }
 
-export function postComment(id: number, token: string, comment: string) {
-  return fetch(`${API_URL}/changesets/${id}/comment/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-    body: JSON.stringify({
-      comment: comment,
-    }),
-  })
-    .then(handleErrors)
-    .then((res) => {
-      return res.json();
-    });
+export function postComment(id: number, comment: string) {
+  return api.post(`/changesets/${id}/comment/`, { comment });
 }
 
-export function flagFeature(changeset: number, feature: string, token: string) {
-  return fetch(
-    `${API_URL}/changesets/${changeset}/review-feature/${feature.replace(
-      "/",
-      "-",
-    )}`,
-    {
-      method: "PUT",
-      headers: { Authorization: token ? `Token ${token}` : "" },
-    },
-  ).then(handleErrors);
+export function flagFeature(changeset: number, feature: string) {
+  const featureParam = feature.replace("/", "-");
+  return api.put(`/changesets/${changeset}/review-feature/${featureParam}`);
 }
 
-export function unflagFeature(
-  changeset: number,
-  feature: string,
-  token: string,
-) {
-  return fetch(
-    `${API_URL}/changesets/${changeset}/review-feature/${feature.replace(
-      "/",
-      "-",
-    )}`,
-    {
-      method: "DELETE",
-      headers: { Authorization: token ? `Token ${token}` : "" },
-    },
-  ).then(handleErrors);
+export function unflagFeature(changeset: number, feature: string) {
+  const featureParam = feature.replace("/", "-");
+  return api.delete(`/changesets/${changeset}/review-feature/${featureParam}`);
 }

@@ -15,13 +15,20 @@ interface DiscussionsProps {
   changesetIsHarmful: boolean;
 }
 
+interface UserDetails {
+  username?: string;
+  message_bad?: string;
+  message_good?: string;
+}
+
 function Discussions({
   discussions,
   changesetId,
   changesetAuthor,
   changesetIsHarmful,
 }: DiscussionsProps) {
-  const { token, user: userDetails } = useAuth();
+  const { token, user } = useAuth();
+  const userDetails = user as UserDetails | undefined;
 
   const renderComments = () => {
     if (discussions.length === 0) {
@@ -116,7 +123,7 @@ function Discussions({
             changesetIsHarmful={changesetIsHarmful}
             discussions={discussions}
             token={token}
-            userDetails={userDetails}
+            userDetails={userDetails || {}}
           />
         </div>
       )}

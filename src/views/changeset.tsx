@@ -13,8 +13,22 @@ import { showToast } from "../utils/toast";
 import { CMap } from "../views/map";
 import { NavbarChangeset } from "../views/navbar_changeset";
 
+interface ChangesetData {
+  properties?: {
+    user?: string;
+    [key: string]: any;
+  };
+  [key: string]: any;
+}
+
+interface UserData {
+  username?: string;
+  [key: string]: any;
+}
+
 function Changeset() {
-  const { token, user } = useAuth();
+  const { user } = useAuth();
+  const currentUser = user as UserData | undefined;
   const { setFilters } = useFilters();
   const { id } = useParams<{ id: string }>();
   const changesetId = id ? parseInt(id, 10) : null;
@@ -23,7 +37,9 @@ function Changeset() {
     data: currentChangeset,
     isLoading,
     error,
-  } = useChangeset(changesetId, token);
+  } = useChangeset(changesetId);
+
+  const changeset = currentChangeset as ChangesetData | undefined;
 
   const [camera, setCamera] = useState<any>(null);
   const [selected, setSelected] = useState<any>(null);
@@ -48,8 +64,8 @@ function Changeset() {
   } | null>(null);
 
   const filterChangesetsByUser = useCallback(() => {
-    if (currentChangeset && currentChangeset.properties) {
-      const userName = currentChangeset.properties.user;
+    if (changeset && changeset.properties) {
+      const userName = changeset.properties.user;
       setFilters({
         users: [
           {
@@ -59,7 +75,7 @@ function Changeset() {
         ],
       });
     }
-  }, [currentChangeset, setFilters]);
+  }, [changeset, setFilters]);
 
   useEffect(() => {
     Mousetrap.bind(FILTER_BY_USER.bindings, filterChangesetsByUser);
@@ -90,8 +106,8 @@ function Changeset() {
     <div className="flex-parent flex-parent--column h-full">
       <NavbarChangeset
         changesetId={changesetId || 0}
-        currentChangeset={currentChangeset}
-        username={user?.username || null}
+        currentChangeset={changeset}
+        username={currentUser?.username}
         camera={camera}
       />
       <div className="flex-child flex-child--grow relative">
@@ -105,10 +121,10 @@ function Changeset() {
           setCamera={setCamera}
         />
 
-        {!isLoading && currentChangeset && changesetId && (
+        {!isLoading && changeset && changesetId && (
           <ChangesetOverlay
             changesetId={changesetId}
-            currentChangeset={currentChangeset}
+            currentChangeset={changeset}
             showElements={showElements}
             showActions={showActions}
             setShowElements={setShowElements}

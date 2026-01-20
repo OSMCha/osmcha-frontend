@@ -5,16 +5,16 @@ import {
   postUserToTrustedList,
 } from "../../network/osmcha_trustedlist";
 
-export function useAddToTrustedlist(token: string | null) {
+export function useAddToTrustedlist() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (username: string) => postUserToTrustedList(token!, username),
+    mutationFn: (username: string) => postUserToTrustedList(username),
     onMutate: async (username) => {
-      await queryClient.cancelQueries({ queryKey: ["user", "details", token] });
-      const previous = queryClient.getQueryData(["user", "details", token]);
+      await queryClient.cancelQueries({ queryKey: ["user", "details"] });
+      const previous = queryClient.getQueryData(["user", "details"]);
 
-      queryClient.setQueryData(["user", "details", token], (old: any) => {
+      queryClient.setQueryData(["user", "details"], (old: any) => {
         if (!old) return old;
         const whitelists = old.whitelists || [];
         return { ...old, whitelists: [...whitelists, username] };
@@ -24,7 +24,7 @@ export function useAddToTrustedlist(token: string | null) {
     },
     onError: (error: Error, _username, context) => {
       if (context?.previous) {
-        queryClient.setQueryData(["user", "details", token], context.previous);
+        queryClient.setQueryData(["user", "details"], context.previous);
       }
       toast.error("Failed to add user", { description: error.message });
     },
@@ -34,21 +34,21 @@ export function useAddToTrustedlist(token: string | null) {
       });
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["user", "details", token] });
+      queryClient.invalidateQueries({ queryKey: ["user", "details"] });
     },
   });
 }
 
-export function useRemoveFromTrustedlist(token: string | null) {
+export function useRemoveFromTrustedlist() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (username: string) => deleteFromTrustedList(token!, username),
+    mutationFn: (username: string) => deleteFromTrustedList(username),
     onMutate: async (username) => {
-      await queryClient.cancelQueries({ queryKey: ["user", "details", token] });
-      const previous = queryClient.getQueryData(["user", "details", token]);
+      await queryClient.cancelQueries({ queryKey: ["user", "details"] });
+      const previous = queryClient.getQueryData(["user", "details"]);
 
-      queryClient.setQueryData(["user", "details", token], (old: any) => {
+      queryClient.setQueryData(["user", "details"], (old: any) => {
         if (!old) return old;
         const whitelists = (old.whitelists || []).filter(
           (u: string) => u !== username,
@@ -60,7 +60,7 @@ export function useRemoveFromTrustedlist(token: string | null) {
     },
     onError: (error: Error, _username, context) => {
       if (context?.previous) {
-        queryClient.setQueryData(["user", "details", token], context.previous);
+        queryClient.setQueryData(["user", "details"], context.previous);
       }
       toast.error("Failed to remove user", { description: error.message });
     },
@@ -70,7 +70,7 @@ export function useRemoveFromTrustedlist(token: string | null) {
       });
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["user", "details", token] });
+      queryClient.invalidateQueries({ queryKey: ["user", "details"] });
     },
   });
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { handleErrors } from "../../network/aoi";
+import { handleResponse } from "../../network/request";
 import { Button } from "../button";
 
 interface WatchListUserProps {
@@ -35,24 +35,24 @@ export class WatchListUser extends React.Component<
     const value = target.value;
     this.setState({ uid: value, isValidUid: true, verified: false });
   };
-  fetchUsername = () =>
-    fetch(
+  fetchUsername = async () => {
+    const res = await fetch(
       `https://www.openstreetmap.org/api/0.6/changesets.json?display_name=${this.state.username}`,
-    )
-      .then(handleErrors)
-      .then((r) => r.json())
-      .then((r) => {
-        try {
-          return r.changesets[0].uid;
-        } catch (_e) {
-          throw new Error("No changesets found for user");
-        }
-      });
+    );
+    const data = await handleResponse<any>(res);
+    try {
+      return data.changesets[0].uid;
+    } catch (_e) {
+      throw new Error("No changesets found for user");
+    }
+  };
 
-  fetchUid = (uid: string) =>
-    fetch(`https://www.openstreetmap.org/api/0.6/user/${uid}.json`)
-      .then(handleErrors)
-      .then((r) => r.json());
+  fetchUid = async (uid: string) => {
+    const res = await fetch(
+      `https://www.openstreetmap.org/api/0.6/user/${uid}.json`,
+    );
+    return handleResponse<any>(res);
+  };
 
   verifyInput = () => {
     if (this.state.uid.length > 0 && this.state.username.length === 0) {

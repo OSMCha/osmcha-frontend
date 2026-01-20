@@ -106,7 +106,7 @@ function Changeset({
 
     let cancelled = false;
 
-    getUserDetails(uid, token)
+    getUserDetails(uid)
       .then((details) => {
         if (!cancelled) {
           setUserDetails(details);

@@ -1,15 +1,7 @@
-import { API_URL } from "../config";
-import { handleErrors } from "./aoi";
+import { api } from "./request";
 
-export function fetchReasons(token: string | null) {
-  return fetch(`${API_URL}/suspicion-reasons/?page_size=200`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-  })
-    .then(handleErrors)
-    .then((res) => res.json())
+export function fetchReasons() {
+  return api
+    .get<{ results: any[] }>("/suspicion-reasons/?page_size=200")
     .then((res) => res.results);
 }

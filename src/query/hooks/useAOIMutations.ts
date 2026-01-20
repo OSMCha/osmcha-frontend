@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { createAOI, deleteAOI, updateAOI } from "../../network/aoi";
 
-export function useCreateAOI(token: string | null) {
+export function useCreateAOI() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   return useMutation({
     mutationFn: ({ name, filters }: { name: string; filters: any }) =>
-      createAOI(token!, name, filters),
+      createAOI(name, filters),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["aois", token] });
+      queryClient.invalidateQueries({ queryKey: ["aois"] });
       toast.success("AOI created successfully");
       navigate(`/?aoi=${data.id}`, { replace: true });
     },
@@ -22,7 +22,7 @@ export function useCreateAOI(token: string | null) {
   });
 }
 
-export function useUpdateAOI(token: string | null) {
+export function useUpdateAOI() {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -34,12 +34,10 @@ export function useUpdateAOI(token: string | null) {
       aoiId: string;
       name: string;
       filters: any;
-    }) => updateAOI(token!, parseInt(aoiId, 10), name, filters),
+    }) => updateAOI(aoiId, name, filters),
     onSuccess: (data, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: ["aoi", variables.aoiId, token],
-      });
-      queryClient.invalidateQueries({ queryKey: ["aois", token] });
+      queryClient.invalidateQueries({ queryKey: ["aoi", variables.aoiId] });
+      queryClient.invalidateQueries({ queryKey: ["aois"] });
       toast.success("AOI updated successfully");
     },
     onError: (error: Error) => {
@@ -49,14 +47,14 @@ export function useUpdateAOI(token: string | null) {
   });
 }
 
-export function useDeleteAOI(token: string | null) {
+export function useDeleteAOI() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (aoiId: string) => deleteAOI(token!, aoiId),
+    mutationFn: (aoiId: string) => deleteAOI(aoiId),
     onSuccess: (_data, aoiId) => {
-      queryClient.invalidateQueries({ queryKey: ["aoi", aoiId, token] });
-      queryClient.invalidateQueries({ queryKey: ["aois", token] });
+      queryClient.invalidateQueries({ queryKey: ["aoi", aoiId] });
+      queryClient.invalidateQueries({ queryKey: ["aois"] });
       toast.success("AOI deleted successfully");
     },
     onError: (error: Error) => {

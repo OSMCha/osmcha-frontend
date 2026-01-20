@@ -10,26 +10,26 @@ interface WatchlistUser {
   uid: string;
 }
 
-export function useAddToWatchlist(token: string | null) {
+export function useAddToWatchlist() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({ username, uid }: WatchlistUser) =>
-      postUserToWatchList(token!, { watchlist_user: { username, uid } }),
+      postUserToWatchList({ watchlist_user: { username, uid } }),
     onMutate: async ({ username, uid }) => {
-      await queryClient.cancelQueries({ queryKey: ["watchlist", token] });
-      const previous = queryClient.getQueryData(["watchlist", token]);
+      await queryClient.cancelQueries({ queryKey: ["watchlist"] });
+      const previous = queryClient.getQueryData(["watchlist"]);
 
-      queryClient.setQueryData(
-        ["watchlist", token],
-        (old: WatchlistUser[] = []) => [...old, { username, uid }],
-      );
+      queryClient.setQueryData(["watchlist"], (old: WatchlistUser[] = []) => [
+        ...old,
+        { username, uid },
+      ]);
 
       return { previous };
     },
     onError: (error: Error, _variables, context) => {
       if (context?.previous) {
-        queryClient.setQueryData(["watchlist", token], context.previous);
+        queryClient.setQueryData(["watchlist"], context.previous);
       }
       toast.error("Failed to add user", { description: error.message });
     },
@@ -39,30 +39,29 @@ export function useAddToWatchlist(token: string | null) {
       });
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["watchlist", token] });
+      queryClient.invalidateQueries({ queryKey: ["watchlist"] });
     },
   });
 }
 
-export function useRemoveFromWatchlist(token: string | null) {
+export function useRemoveFromWatchlist() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (uid: string) => deleteFromWatchList(token!, uid),
+    mutationFn: (uid: string) => deleteFromWatchList(uid),
     onMutate: async (uid) => {
-      await queryClient.cancelQueries({ queryKey: ["watchlist", token] });
-      const previous = queryClient.getQueryData(["watchlist", token]);
+      await queryClient.cancelQueries({ queryKey: ["watchlist"] });
+      const previous = queryClient.getQueryData(["watchlist"]);
 
-      queryClient.setQueryData(
-        ["watchlist", token],
-        (old: WatchlistUser[] = []) => old.filter((u) => u.uid !== uid),
+      queryClient.setQueryData(["watchlist"], (old: WatchlistUser[] = []) =>
+        old.filter((u) => u.uid !== uid),
       );
 
       return { previous };
     },
     onError: (error: Error, _uid, context) => {
       if (context?.previous) {
-        queryClient.setQueryData(["watchlist", token], context.previous);
+        queryClient.setQueryData(["watchlist"], context.previous);
       }
       toast.error("Failed to remove user", { description: error.message });
     },
@@ -72,7 +71,7 @@ export function useRemoveFromWatchlist(token: string | null) {
       });
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["watchlist", token] });
+      queryClient.invalidateQueries({ queryKey: ["watchlist"] });
     },
   });
 }

@@ -11,12 +11,16 @@ import {
   PREV_CHANGESET,
   REFRESH_CHANGESETS,
 } from "../config/bindings";
-import { useAuth } from "../hooks/useAuth";
 import { useFilters } from "../hooks/useFilters";
 import { useChangesetsPage } from "../query/hooks/useChangesetsPage";
 
+interface ChangesetsPageData {
+  features: Array<{ id: number; properties: any }>;
+  count: number;
+  [key: string]: any;
+}
+
 function ChangesetsList() {
-  const { token } = useAuth();
   const { id } = useParams<{ id?: string }>();
   const activeChangesetId = id ? parseInt(id, 10) : null;
   const [pageIndex, setPageIndex] = useState(0);
@@ -32,13 +36,14 @@ function ChangesetsList() {
     pageIndex,
     filters,
     aoiId,
-    token,
   });
+
+  const page = currentPage as ChangesetsPageData | undefined;
 
   const goUpDownToChangeset = useCallback(
     (direction: number) => {
-      if (!currentPage?.features) return;
-      const features = currentPage.features;
+      if (!page?.features) return;
+      const features = page.features;
       let index = features.findIndex((f: any) => f.id === activeChangesetId);
       index += direction;
       const nextFeature = features[index];
@@ -49,7 +54,7 @@ function ChangesetsList() {
         });
       }
     },
-    [currentPage, activeChangesetId, navigate, location.search],
+    [page, activeChangesetId, navigate, location.search],
   );
 
   const toggleFilters = useCallback(() => {
@@ -73,7 +78,7 @@ function ChangesetsList() {
     setFilters(newFilters);
   };
 
-  const reloadCurrentPage = useCallback(() => {
+  const reloadChangesetsPageData = useCallback(() => {
     refetch();
   }, [refetch]);
 
@@ -101,7 +106,7 @@ function ChangesetsList() {
       },
       {
         bindings: REFRESH_CHANGESETS.bindings,
-        handler: reloadCurrentPage,
+        handler: reloadChangesetsPageData,
       },
     ];
 
@@ -117,7 +122,12 @@ function ChangesetsList() {
         Mousetrap.unbind(shortcut.bindings);
       });
     };
-  }, [goUpDownToChangeset, reloadCurrentPage, toggleFilters, toggleHelp]);
+  }, [
+    goUpDownToChangeset,
+    reloadChangesetsPageData,
+    toggleFilters,
+    toggleHelp,
+  ]);
 
   return (
     <div className="flex-parent flex-parent--column changesets-list">
@@ -125,22 +135,22 @@ function ChangesetsList() {
         filters={filters}
         handleFilterOrderBy={handleFilterOrderBy}
         location={location}
-        currentPage={currentPage}
+        currentPage={page}
         diff={0}
         diffLoading={false}
-        reloadCurrentPage={reloadCurrentPage}
+        reloadChangesetsPageData={reloadChangesetsPageData}
       />
       <List
         activeChangesetId={activeChangesetId}
         loading={isLoading}
-        currentPage={currentPage}
+        currentPage={page}
         pageIndex={pageIndex}
         location={location.pathname}
       />
       <Footer
         pageIndex={pageIndex}
         getChangesetsPage={handleChangePage}
-        count={currentPage?.count}
+        count={page?.count}
       />
     </div>
   );
