@@ -7,23 +7,25 @@ import {
   fetchUserMappingTeams,
   updateMappingTeam,
 } from "../../network/mapping_team";
+import { useAuthStore } from "../../stores/authStore";
 
-export function useMappingTeams(
-  token: string | null,
-  username: string | undefined,
-) {
+export function useMappingTeams(username: string | undefined) {
+  const token = useAuthStore((state) => state.token);
+
   return useQuery({
     queryKey: ["mappingTeams", username],
-    queryFn: () => fetchUserMappingTeams(token!, username!),
+    queryFn: () => fetchUserMappingTeams(username!),
     enabled: !!token && !!username,
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }
 
-export function useMappingTeam(token: string | null, teamId: number | null) {
+export function useMappingTeam(teamId: number | null) {
+  const token = useAuthStore((state) => state.token);
+
   return useQuery({
     queryKey: ["mappingTeam", teamId],
-    queryFn: () => fetchMappingTeam(token!, teamId!),
+    queryFn: () => fetchMappingTeam(teamId!),
     enabled: !!token && !!teamId,
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
@@ -33,15 +35,8 @@ export function useCreateMappingTeam() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({
-      token,
-      name,
-      users,
-    }: {
-      token: string;
-      name: string;
-      users: object;
-    }) => createMappingTeam(token, name, users),
+    mutationFn: ({ name, users }: { name: string; users: object }) =>
+      createMappingTeam(name, users),
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["mappingTeams"] });
       toast.success("Team Created", {
@@ -61,16 +56,14 @@ export function useUpdateMappingTeam() {
 
   return useMutation({
     mutationFn: ({
-      token,
       teamId,
       name,
       users,
     }: {
-      token: string;
       teamId: number;
       name: string;
       users: object;
-    }) => updateMappingTeam(token, teamId, name, users),
+    }) => updateMappingTeam(teamId, name, users),
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
         queryKey: ["mappingTeam", variables.teamId],
@@ -92,12 +85,11 @@ export function useDeleteMappingTeam() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ token, teamId }: { token: string; teamId: number }) =>
-      deleteMappingTeam(token, teamId),
+    mutationFn: (teamId: number) => deleteMappingTeam(teamId),
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["mappingTeams"] });
       toast.success("Team Deleted", {
-        description: `The team with id ${variables.teamId} was deleted`,
+        description: `The team with id ${variables} was deleted`,
       });
     },
     onError: (error: Error) => {

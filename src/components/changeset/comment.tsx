@@ -69,7 +69,7 @@ export class CommentForm extends React.PureComponent<Props, State> {
   postComment = (comment: string) => {
     if (!comment) return;
     this.postCommentPromise = cancelablePromise(
-      postComment(this.props.changesetId, this.props.token, comment),
+      postComment(this.props.changesetId, comment),
     );
     this.postCommentPromise.promise
       .then(() => {

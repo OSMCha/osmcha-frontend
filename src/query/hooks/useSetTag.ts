@@ -6,15 +6,14 @@ interface SetTagParams {
   changesetId: number;
   tag: { value: number; label: string };
   remove: boolean;
-  token: string;
 }
 
 export function useSetTag() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ changesetId, tag, remove, token }: SetTagParams) =>
-      setTag(changesetId, token, tag, remove),
+    mutationFn: ({ changesetId, tag, remove }: SetTagParams) =>
+      setTag(changesetId, tag, remove),
 
     onMutate: async ({ changesetId, tag, remove }) => {
       // Cancel outgoing refetches

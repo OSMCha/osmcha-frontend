@@ -7,8 +7,18 @@ import { useAuth } from "../hooks/useAuth";
 import { useAuthStore } from "../stores/authStore";
 import { isMobile } from "../utils";
 
+interface UserData {
+  avatar?: string;
+  username?: string;
+  id?: string | number;
+  uid?: string | number;
+  is_staff?: boolean;
+  [key: string]: any;
+}
+
 function User() {
   const { token, user } = useAuth();
+  const currentUser = user as UserData | undefined;
   const clearAuth = useAuthStore((s) => s.clearAuth);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -39,12 +49,14 @@ function User() {
       </header>
       <div className="px30 flex-child  pb60  filters-scroll">
         <span className="flex-parent flex-parent--row align justify--space-between  mr6 txt-bold mt24">
-          <Avatar size={72} url={user?.avatar || ""} />
+          <Avatar size={72} url={currentUser?.avatar || ""} />
           <span
             className="flex-child flex-child--grow pl24  pt18"
             style={{ alignSelf: "center" }}
           >
-            <h2 className="txt-xl">Welcome, {user?.username || "stranger"}!</h2>
+            <h2 className="txt-xl">
+              Welcome, {currentUser?.username || "stranger"}!
+            </h2>
             <div className="flex-child flex-child--grow">&nbsp;</div>
           </span>
         </span>
@@ -54,17 +66,17 @@ function User() {
           </h2>
           <span className="ml12 flex-parent flex-parent--row my3">
             <p className="flex-child txt-bold w120">OSMCha ID: </p>
-            <p className="flex-child">{user?.id}</p>
+            <p className="flex-child">{currentUser?.id}</p>
           </span>
           <span className="ml12 flex-parent flex-parent--row my3">
             <p className="flex-child txt-bold w120">OSM ID: </p>
-            <p className="flex-child">{user?.uid}</p>
+            <p className="flex-child">{currentUser?.uid}</p>
           </span>
           <span className="ml12 flex-parent flex-parent--row my3">
             <p className="flex-child txt-bold w120">Username: </p>
-            <p className="flex-child">{user?.username}</p>
+            <p className="flex-child">{currentUser?.username}</p>
           </span>
-          {user?.is_staff && (
+          {currentUser?.is_staff && (
             <span className="ml12 flex-parent flex-parent--row my3">
               <p className="flex-child txt-bold w120">Staff: </p>
               <p className="flex-child">Yes</p>

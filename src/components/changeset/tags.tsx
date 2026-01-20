@@ -56,7 +56,6 @@ export function Tags({ changesetId, disabled, currentChangeset }: TagsProps) {
       changesetId,
       tag: obj,
       remove: false,
-      token,
     });
   };
 
@@ -72,7 +71,6 @@ export function Tags({ changesetId, disabled, currentChangeset }: TagsProps) {
       changesetId,
       tag: obj,
       remove: true,
-      token,
     });
   };
 

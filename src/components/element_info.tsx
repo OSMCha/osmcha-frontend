@@ -206,9 +206,9 @@ function FlagButton({
   const handleClick = async () => {
     if (!token) return;
     if (flagged) {
-      unflagFeature(changesetId, featureId, token);
+      unflagFeature(changesetId, featureId);
     } else {
-      flagFeature(changesetId, featureId, token);
+      flagFeature(changesetId, featureId);
     }
     setFlagged(!flagged);
   };

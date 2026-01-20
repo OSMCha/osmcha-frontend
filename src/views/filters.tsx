@@ -11,6 +11,7 @@ import {
   useUpdateAOI,
 } from "../query/hooks/useAOIMutations";
 import { isMobile } from "../utils";
+import { deserializeFiltersFromObject } from "../utils/filters";
 
 const NEW_AOI = "unnamed *";
 
@@ -24,10 +25,10 @@ function Filters() {
   const navigate = useNavigate();
   const { filters: urlFilters, setAoiId, aoiId, clearFilters } = useFilters();
 
-  const { data: aoi, isLoading: aoiLoading } = useAOI(aoiId, token);
-  const createAOIMutation = useCreateAOI(token);
-  const updateAOIMutation = useUpdateAOI(token);
-  const deleteAOIMutation = useDeleteAOI(token);
+  const { data: aoi, isLoading: aoiLoading } = useAOI(aoiId);
+  const createAOIMutation = useCreateAOI();
+  const updateAOIMutation = useUpdateAOI();
+  const deleteAOIMutation = useDeleteAOI();
 
   const [localFilters, setLocalFilters] = useState(urlFilters);
   const [active, setActive] = useState("");
@@ -39,6 +40,17 @@ function Filters() {
   useEffect(() => {
     setLocalFilters(urlFilters);
   }, [urlFilters]);
+
+  // Populate filters from AOI when loading a saved filter (no URL filters)
+  useEffect(() => {
+    const hasUrlFilters = urlFilters && Object.keys(urlFilters).length > 0;
+    if (aoi?.properties?.filters && !hasUrlFilters) {
+      const deserializedFilters = deserializeFiltersFromObject(
+        aoi.properties.filters,
+      );
+      setLocalFilters(deserializedFilters);
+    }
+  }, [aoi, urlFilters]);
 
   const handleFocus = (name: string) => {
     setActive(name);

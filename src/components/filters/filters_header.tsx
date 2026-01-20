@@ -107,7 +107,7 @@ function FiltersHeader({
     let cancelled = false;
 
     if (token) {
-      fetchAllAOIs(token)
+      fetchAllAOIs()
         .then((r) => {
           if (cancelled) return;
           const list = r.features.map((aoi: any) => ({

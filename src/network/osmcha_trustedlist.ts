@@ -1,35 +1,9 @@
-import { API_URL } from "../config";
-import { handleErrors } from "./aoi";
+import { api } from "./request";
 
-export function deleteFromTrustedList(
-  token: string,
-  username: string,
-): Promise<any> {
-  return fetch(`${API_URL}/whitelist-user/${username}/`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-  }).then(handleErrors);
+export function deleteFromTrustedList(username: string): Promise<any> {
+  return api.delete(`/whitelist-user/${username}/`);
 }
 
-export function postUserToTrustedList(
-  token: string,
-  whitelist_user: string,
-): Promise<any> {
-  return fetch(`${API_URL}/whitelist-user/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-    body: JSON.stringify({
-      whitelist_user,
-    }),
-  })
-    .then(handleErrors)
-    .then((res) => {
-      return res.json();
-    });
+export function postUserToTrustedList(whitelist_user: string): Promise<any> {
+  return api.post("/whitelist-user/", { whitelist_user });
 }

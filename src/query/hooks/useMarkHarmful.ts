@@ -6,15 +6,14 @@ interface MarkHarmfulParams {
   changesetId: number;
   harmful: boolean | -1;
   username: string;
-  token: string;
 }
 
 export function useMarkHarmful() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ changesetId, harmful, token }: MarkHarmfulParams) =>
-      setHarmful(changesetId, token, harmful),
+    mutationFn: ({ changesetId, harmful }: MarkHarmfulParams) =>
+      setHarmful(changesetId, harmful),
 
     onMutate: async ({ changesetId, harmful, username }) => {
       // Cancel outgoing refetches

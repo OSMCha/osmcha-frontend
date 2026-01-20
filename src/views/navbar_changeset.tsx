@@ -52,10 +52,9 @@ export function NavbarChangeset({
         changesetId,
         harmful,
         username,
-        token,
       });
     },
-    [token, username, changesetId, markHarmfulMutation],
+    [username, changesetId, markHarmfulMutation, token],
   );
 
   useEffect(() => {

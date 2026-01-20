@@ -14,7 +14,7 @@ export async function completeOAuthLogin(code: string) {
       duration: 1000,
     });
 
-    const { token } = await postFinalTokensOSMCha(code);
+    const { token } = (await postFinalTokensOSMCha(code)) as { token: string };
 
     if (!token || token === "") {
       throw new Error("Invalid token");

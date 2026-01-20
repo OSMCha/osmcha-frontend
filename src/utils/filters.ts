@@ -93,3 +93,76 @@ export function appendDefaultDate(filters: any) {
 
   return result;
 }
+
+function getString(input: any): string {
+  if (typeof input === "object") {
+    return JSON.stringify(input);
+  }
+  return String(input);
+}
+
+export function deserializeFiltersFromObject(
+  apiFilters: Record<string, string>,
+): any {
+  const result: any = {};
+
+  Object.keys(apiFilters).forEach((k) => {
+    const v = apiFilters[k];
+    if (typeof v !== "string" || !k) return;
+
+    // Empty string should be converted to empty array with one empty item
+    if (v === "") {
+      result[k] = [{ label: "", value: "" }];
+      return;
+    }
+
+    // Split comma-separated values and convert to array of objects
+    const values = v.split(",").map((val) => ({
+      label: val.trim(),
+      value: val.trim(),
+    }));
+
+    result[k] = values;
+  });
+
+  return result;
+}
+
+export function serializeFiltersToObject(filters: any): Record<string, string> {
+  const result: Record<string, string> = {};
+
+  Object.keys(filters).forEach((k) => {
+    const v = filters[k];
+    if (!Array.isArray(v) || !k) return;
+
+    const serialized = v
+      .filter((x) => !!x && typeof x === "object" && x.value !== "")
+      .map((x) => getString(x.value))
+      .join(",");
+
+    if (serialized) {
+      result[k] = serialized;
+    }
+  });
+
+  return result;
+}
+
+export function serializeFiltersToQuery(filters: any): string {
+  let query = "";
+
+  Object.keys(filters).forEach((k) => {
+    const v = filters[k];
+    if (!Array.isArray(v) || !k) return;
+
+    const filterJoined = v
+      .filter((x) => !!x && typeof x === "object" && x.value !== "")
+      .map((x) => String(x.value))
+      .join(",");
+
+    if (filterJoined === "") return;
+    query += `&${k}=${encodeURIComponent(filterJoined)}`;
+  });
+
+  return query;
+}

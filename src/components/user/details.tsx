@@ -15,26 +15,34 @@ function renderGoodBadImg(isGood: boolean) {
   );
 }
 
+interface UserDetails {
+  message_good?: string;
+  message_bad?: string;
+  comment_feature?: boolean;
+}
+
 function EditUserDetails() {
   const { token, user } = useAuth();
   const updateMutation = useUpdateUserDetails();
+  const userDetails = user as UserDetails | undefined;
 
-  const [messageGood, setMessageGood] = useState(user?.message_good || "");
-  const [messageBad, setMessageBad] = useState(user?.message_bad || "");
-  const commentFeature = user?.comment_feature ?? false;
+  const [messageGood, setMessageGood] = useState(
+    userDetails?.message_good || "",
+  );
+  const [messageBad, setMessageBad] = useState(userDetails?.message_bad || "");
+  const commentFeature = userDetails?.comment_feature ?? false;
 
   useEffect(() => {
-    if (user) {
-      setMessageGood(user.message_good || "");
-      setMessageBad(user.message_bad || "");
+    if (userDetails) {
+      setMessageGood(userDetails.message_good || "");
+      setMessageBad(userDetails.message_bad || "");
     }
-  }, [user]);
+  }, [userDetails]);
 
   const handleSubmit = () => {
     if (!token) return;
 
     updateMutation.mutate({
-      token,
       messageGood,
       messageBad,
       commentFeature,

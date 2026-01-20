@@ -5,26 +5,17 @@ interface ChangesetsPageParams {
   pageIndex: number;
   filters: any;
   aoiId: string | null;
-  token: string | null;
 }
 
 export function useChangesetsPage({
   pageIndex,
   filters,
   aoiId,
-  token,
 }: ChangesetsPageParams) {
   return useQuery({
-    queryKey: ["changesets", "page", pageIndex, filters, aoiId, token],
+    queryKey: ["changesets", "page", pageIndex, filters, aoiId],
     queryFn: async () => {
-      const data = await fetchChangesetsPage(
-        pageIndex,
-        filters,
-        token,
-        aoiId,
-        false,
-      );
-      return data;
+      return fetchChangesetsPage(pageIndex, filters, aoiId, false);
     },
     staleTime: 5 * 60 * 1000,
     retry: 3,

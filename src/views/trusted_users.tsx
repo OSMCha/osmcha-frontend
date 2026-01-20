@@ -75,11 +75,17 @@ const ListFortified = ({
   </div>
 );
 
+interface UserData {
+  avatar?: string;
+  [key: string]: any;
+}
+
 function TrustedUsers() {
   const { token, user } = useAuth();
-  const { data: trustedList = [] } = useTrustedlist(token);
-  const addMutation = useAddToTrustedlist(token);
-  const removeMutation = useRemoveFromTrustedlist(token);
+  const currentUser = user as UserData | undefined;
+  const { data: trustedList = [] } = useTrustedlist();
+  const addMutation = useAddToTrustedlist();
+  const removeMutation = useRemoveFromTrustedlist();
 
   const addToTrustedList = ({ username }: { username: string }) => {
     if (!username) return;
@@ -100,7 +106,10 @@ function TrustedUsers() {
         mobile ? " viewport-full" : ""
       }`}
     >
-      <SecondaryPagesHeader title="Trusted Users" avatar={user?.avatar} />
+      <SecondaryPagesHeader
+        title="Trusted Users"
+        avatar={currentUser?.avatar}
+      />
       <div className="px30 flex-child pb60 filters-scroll">
         <div className="flex-parent flex-parent--column align justify--space-between">
           {token && (

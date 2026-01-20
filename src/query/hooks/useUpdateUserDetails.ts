@@ -7,16 +7,14 @@ export function useUpdateUserDetails() {
 
   return useMutation({
     mutationFn: ({
-      token,
       messageGood,
       messageBad,
       commentFeature,
     }: {
-      token: string;
       messageGood: string;
       messageBad: string;
       commentFeature: boolean;
-    }) => updateUserDetails(token, messageGood, messageBad, commentFeature),
+    }) => updateUserDetails(messageGood, messageBad, commentFeature),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["userDetails"] });
       toast.success("Preferences saved successfully");

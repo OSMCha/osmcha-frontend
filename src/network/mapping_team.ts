@@ -1,73 +1,23 @@
-import { API_URL } from "../config";
-import { handleErrors } from "./aoi";
+import { api } from "./request";
 
-export function createMappingTeam(token: string, name: string, users: object) {
-  return fetch(`${API_URL}/mapping-team/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-    body: JSON.stringify({
-      name,
-      users,
-    }),
-  })
-    .then(handleErrors)
-    .then((res) => res.json());
+export function createMappingTeam(name: string, users: object) {
+  return api.post("/mapping-team/", { name, users });
 }
 
-export function fetchMappingTeam(token: string, id: number) {
-  return fetch(`${API_URL}/mapping-team/${id}/`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-  })
-    .then(handleErrors)
-    .then((res) => res.json());
-}
-export function deleteMappingTeam(token: string, id: number) {
-  return fetch(`${API_URL}/mapping-team/${id}/`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-  }).then(handleErrors);
+export function fetchMappingTeam(id: number) {
+  return api.get(`/mapping-team/${id}/`);
 }
 
-export function fetchUserMappingTeams(token: string, owner: string) {
-  return fetch(`${API_URL}/mapping-team/?owner=${owner}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-  })
-    .then(handleErrors)
-    .then((res) => res.json())
+export function deleteMappingTeam(id: number) {
+  return api.delete(`/mapping-team/${id}/`);
+}
+
+export function fetchUserMappingTeams(owner: string) {
+  return api
+    .get<{ results: any[] }>(`/mapping-team/?owner=${owner}`)
     .then((res) => res.results);
 }
 
-export function updateMappingTeam(
-  token: string,
-  id: number,
-  name: string,
-  users: object,
-) {
-  return fetch(`${API_URL}/mapping-team/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Token ${token}` : "",
-    },
-    body: JSON.stringify({
-      name,
-      users,
-    }),
-  })
-    .then(handleErrors)
-    .then((res) => res.json());
+export function updateMappingTeam(id: number, name: string, users: object) {
+  return api.put(`/mapping-team/${id}`, { name, users });
 }

@@ -1,12 +1,7 @@
 import { whosThat } from "../config/constants";
-import { handleErrors } from "./aoi";
+import { handleResponse } from "./request";
 
-export function getUsers(input): Promise<any> {
-  return fetch(`${whosThat}${input}`, {
-    method: "GET",
-  })
-    .then(handleErrors)
-    .then((response) => {
-      return response.json();
-    });
+export async function getUsers(input): Promise<any> {
+  const res = await fetch(`${whosThat}${input}`, { method: "GET" });
+  return handleResponse(res);
 }

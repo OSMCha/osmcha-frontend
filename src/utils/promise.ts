@@ -19,9 +19,3 @@ export function cancelablePromise(promise: Promise<any>) {
     },
   };
 }
-function _handleErrors(response) {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
-}

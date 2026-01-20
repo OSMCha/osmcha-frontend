@@ -1,12 +1,7 @@
 import { statusUrl } from "../config/constants";
-import { handleErrors } from "./aoi";
+import { handleResponse } from "./request";
 
-export function getStatus(): Promise<any> {
-  return fetch(`${statusUrl}`, {
-    method: "GET",
-  })
-    .then(handleErrors)
-    .then((response) => {
-      return response.json();
-    });
+export async function getStatus(): Promise<any> {
+  const res = await fetch(statusUrl, { method: "GET" });
+  return handleResponse(res);
 }

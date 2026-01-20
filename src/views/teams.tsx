@@ -54,9 +54,16 @@ const ListFortified = ({ data, TargetBlock, propsToPass, SaveComp }) => (
   </div>
 );
 
+interface UserData {
+  username?: string;
+  avatar?: string;
+  [key: string]: any;
+}
+
 function MappingTeams() {
   const { token, user } = useAuth();
-  const teamsQuery = useMappingTeams(token, user?.username);
+  const currentUser = user as UserData | undefined;
+  const teamsQuery = useMappingTeams(currentUser?.username);
   const createMutation = useCreateMappingTeam();
   const deleteMutation = useDeleteMappingTeam();
   const mobile = isMobile();
@@ -64,13 +71,13 @@ function MappingTeams() {
   const createTeam = (name: string, users: object) => {
     if (!name || !users || !token) return;
 
-    createMutation.mutate({ token, name, users });
+    createMutation.mutate({ name, users });
   };
 
   const removeTeam = (teamId: number) => {
     if (!teamId || !token) return;
 
-    deleteMutation.mutate({ token, teamId });
+    deleteMutation.mutate(teamId);
   };
 
   const teams = teamsQuery.data || [];
@@ -81,7 +88,7 @@ function MappingTeams() {
         mobile ? "viewport-full" : ""
       }`}
     >
-      <SecondaryPagesHeader title="Teams" avatar={user?.avatar} />
+      <SecondaryPagesHeader title="Teams" avatar={currentUser?.avatar} />
       <div className="px30 flex-child  pb60  filters-scroll">
         <div className="flex-parent flex-parent--column align justify--space-between">
           {token && (

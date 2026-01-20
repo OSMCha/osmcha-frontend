@@ -78,11 +78,17 @@ const ListFortified = ({
   </div>
 );
 
+interface UserData {
+  avatar?: string;
+  [key: string]: any;
+}
+
 function Watchlist() {
   const { token, user } = useAuth();
-  const { data: watchlist = [] } = useWatchlist(token);
-  const addMutation = useAddToWatchlist(token);
-  const removeMutation = useRemoveFromWatchlist(token);
+  const currentUser = user as UserData | undefined;
+  const { data: watchlist = [] } = useWatchlist();
+  const addMutation = useAddToWatchlist();
+  const removeMutation = useRemoveFromWatchlist();
 
   const addToWatchList = ({ username, uid }: WatchlistUser) => {
     if (!username || !uid) return;
@@ -105,7 +111,7 @@ function Watchlist() {
         mobile ? "viewport-full" : ""
       }`}
     >
-      <SecondaryPagesHeader title="Watchlist" avatar={user?.avatar} />
+      <SecondaryPagesHeader title="Watchlist" avatar={currentUser?.avatar} />
       <div
         className={`${mobile ? "px12" : "px30"} flex-child pb60 filters-scroll`}
       >
