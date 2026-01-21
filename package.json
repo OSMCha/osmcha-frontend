@@ -38,7 +38,7 @@
     "@turf/truncate": "^7.1.0",
     "date-fns": "^2.22.1",
     "deep-equal": "^2.2.3",
-    "diff": "^7.0.0",
+    "diff": "^8.0.3",
     "linkify-react": "^4.3.2",
     "linkifyjs": "^4.3.2",
     "lodash.debounce": "^4.0.8",
