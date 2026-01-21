@@ -87,7 +87,6 @@ function TrustWatchUser({ user }: TrustWatchUserProps) {
   return (
     <div className="select-container">
       <Dropdown
-        eventTypes={["click", "touchend"]}
         value={[]}
         onAdd={() => {}}
         onRemove={() => {}}

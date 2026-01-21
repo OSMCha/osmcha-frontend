@@ -84,7 +84,6 @@ export function Tags({ changesetId, disabled, currentChangeset }: TagsProps) {
 
   return (
     <Dropdown
-      eventTypes={["click", "touchend"]}
       multi
       onAdd={onAdd}
       onRemove={onRemove}
