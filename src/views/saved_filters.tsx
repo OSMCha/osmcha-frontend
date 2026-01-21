@@ -9,7 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useFilters } from "../hooks/useFilters";
 import { useAllAOIs } from "../query/hooks/useAOI";
 import { useCreateAOI, useDeleteAOI } from "../query/hooks/useAOIMutations";
-import { isMobile } from "../utils";
+import { isMobile } from "../utils/isMobile";
 
 interface SaveButtonProps {
   onCreate: (value: string) => void;

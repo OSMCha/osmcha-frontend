@@ -10,8 +10,8 @@ import {
   useDeleteAOI,
   useUpdateAOI,
 } from "../query/hooks/useAOIMutations";
-import { isMobile } from "../utils";
 import { deserializeFiltersFromObject } from "../utils/filters";
+import { isMobile } from "../utils/isMobile";
 
 const NEW_AOI = "unnamed *";
 

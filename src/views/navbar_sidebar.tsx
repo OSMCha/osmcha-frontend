@@ -6,7 +6,7 @@ import { Navbar } from "../components/navbar";
 import { useAuth } from "../hooks/useAuth";
 import { getAuthUrl } from "../network/auth";
 import { useAuthStore } from "../stores/authStore";
-import { isMobile } from "../utils";
+import { isMobile } from "../utils/isMobile";
 
 interface UserData {
   username?: string;

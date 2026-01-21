@@ -10,7 +10,8 @@ import {
   useAddToTrustedlist,
   useRemoveFromTrustedlist,
 } from "../query/hooks/useTrustedlistMutations";
-import { getObjAsQueryParam, isMobile } from "../utils";
+import { isMobile } from "../utils/isMobile";
+import { getObjAsQueryParam } from "../utils/query_params";
 
 interface TrustedListBlockProps {
   data: string;

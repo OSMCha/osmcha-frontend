@@ -1,4 +1,4 @@
-import { isMobile } from "../utils";
+import { isMobile } from "../utils/isMobile";
 import { Avatar } from "./avatar";
 
 interface SecondaryPagesHeaderProps {

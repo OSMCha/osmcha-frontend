@@ -9,7 +9,7 @@ import {
   useDeleteMappingTeam,
   useMappingTeams,
 } from "../query/hooks/useMappingTeams";
-import { isMobile } from "../utils";
+import { isMobile } from "../utils/isMobile";
 
 const TeamsBlock = ({ data, removeTeam }) => (
   <BlockMarkup>
