@@ -10,7 +10,24 @@ import { SignInButton } from "./sign_in_button";
 import { TrustWatchUser } from "./trust_watch_user";
 import { UserOSMLink } from "./user_osm_link";
 
-class UserLink extends React.PureComponent {
+interface UserDetails {
+  uid?: number | string;
+  name?: string;
+  img?: string;
+  accountCreated?: string;
+  count?: number;
+  changesets_in_osmcha?: number;
+  harmful_changesets?: number;
+  checked_changesets?: number;
+  description?: string;
+}
+
+interface UserLinkProps {
+  userDetails: UserDetails;
+  harmful: boolean;
+}
+
+class UserLink extends React.PureComponent<UserLinkProps> {
   getHarmfulObject() {
     if (this.props.harmful) {
       return {
@@ -29,8 +46,8 @@ class UserLink extends React.PureComponent {
       return `${this.props.userDetails.harmful_changesets} Bad`;
     } else {
       const count =
-        this.props.userDetails.checked_changesets -
-        this.props.userDetails.harmful_changesets;
+        this.props.userDetails.checked_changesets! -
+        this.props.userDetails.harmful_changesets!;
       return `${count} Good`;
     }
   }
@@ -58,8 +75,13 @@ class UserLink extends React.PureComponent {
   }
 }
 
-// getObjAsQueryParam('filters', filters.toJS());
-export class User extends React.PureComponent {
+interface UserProps {
+  userDetails: UserDetails;
+  whosThat: string[];
+  changesetUsername?: boolean;
+}
+
+export class User extends React.PureComponent<UserProps> {
   renderUidFilterLink() {
     return (
       <Link
@@ -130,7 +152,9 @@ export class User extends React.PureComponent {
             </div>
 
             <div className="mt6">
-              <TrustWatchUser user={this.props.userDetails} />
+              <TrustWatchUser
+                user={this.props.userDetails as { name: string; uid: number }}
+              />
             </div>
 
             <div className="mt12">

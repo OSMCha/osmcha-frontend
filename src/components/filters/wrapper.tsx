@@ -1,4 +1,14 @@
+import type React from "react";
 import { isMobile } from "../../utils";
+
+interface WrapperProps {
+  display: string;
+  children: React.ReactNode;
+  description?: string | false;
+  handleFocus?: (name: string) => void;
+  name: string;
+  hasValue?: boolean;
+}
 
 export function Wrapper({
   display,
@@ -7,7 +17,7 @@ export function Wrapper({
   handleFocus = () => {},
   name,
   hasValue,
-}) {
+}: WrapperProps) {
   const mobile = isMobile();
 
   return (

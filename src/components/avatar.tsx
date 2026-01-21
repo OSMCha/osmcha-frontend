@@ -2,7 +2,7 @@ import { PureComponent } from "react";
 import Placeholder from "./user.jpg";
 
 interface AvatarProps {
-  url: string;
+  url?: string;
   size: number;
 }
 

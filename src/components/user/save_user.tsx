@@ -4,11 +4,23 @@ import { Button } from "../button";
 import { TrustedListUser } from "./trustedlist_user";
 import { WatchListUser } from "./watchlist_user";
 
-export class SaveUser extends React.PureComponent {
-  state = {
+interface SaveUserProps {
+  forWatchlist?: boolean;
+  onCreate: (data: any) => void;
+}
+
+interface SaveUserState {
+  showInput: boolean;
+}
+
+export class SaveUser extends React.PureComponent<
+  SaveUserProps,
+  SaveUserState
+> {
+  state: SaveUserState = {
     showInput: false,
   };
-  onSave = (username, uid) => {
+  onSave = (username: string, uid?: number | string) => {
     if (this.props.forWatchlist) {
       if (!username || !uid) return;
       this.props.onCreate({ username, uid });

@@ -11,6 +11,20 @@ import {
 import { Control } from "./control";
 import { Floater } from "./floater";
 
+interface ControlLayoutProps {
+  bindingsState: Record<string, boolean>;
+  features?: unknown[];
+  discussions: unknown[];
+  toggleDetails: () => void;
+  toggleFeatures: () => void;
+  toggleOtherFeatures: () => void;
+  toggleGeometryChanges: () => void;
+  toggleTags: () => void;
+  toggleDiscussions: () => void;
+  toggleUser: () => void;
+  toggleMapOptions: () => void;
+}
+
 export function ControlLayout({
   bindingsState,
   features,
@@ -23,7 +37,7 @@ export function ControlLayout({
   toggleDiscussions,
   toggleUser,
   toggleMapOptions,
-}) {
+}: ControlLayoutProps) {
   return (
     <Floater
       style={{

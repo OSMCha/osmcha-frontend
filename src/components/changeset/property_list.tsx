@@ -1,6 +1,18 @@
 import Property from "./property";
 
-const PropertyList = ({ limit, properties, imageryMatch, sourceMatch }) => {
+interface PropertyListProps {
+  limit: number;
+  properties: Record<string, string>;
+  imageryMatch?: string[];
+  sourceMatch?: string[];
+}
+
+const PropertyList = ({
+  limit,
+  properties,
+  imageryMatch,
+  sourceMatch,
+}: PropertyListProps) => {
   return (
     <>
       {Object.entries(properties)

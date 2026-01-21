@@ -1,6 +1,12 @@
 import React from "react";
 
-export class Floater extends React.PureComponent {
+interface FloaterProps {
+  className?: string;
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+}
+
+export class Floater extends React.PureComponent<FloaterProps> {
   render() {
     return (
       <div

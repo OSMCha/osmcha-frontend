@@ -2,7 +2,35 @@ import thumbsDown from "../../assets/thumbs-down.svg";
 import thumbsUp from "../../assets/thumbs-up.svg";
 import { Dropdown } from "../dropdown";
 
-export function Verify({ changeset, options, onChange, onClear, checkUser }) {
+interface ChangesetProperties {
+  checked?: boolean;
+  harmful?: boolean;
+}
+
+interface Changeset {
+  properties?: ChangesetProperties;
+}
+
+interface VerifyOption {
+  label: string;
+  value: string | boolean;
+}
+
+interface VerifyProps {
+  changeset: Changeset;
+  options: VerifyOption[];
+  onChange: (value: VerifyOption[]) => void;
+  onClear: () => void;
+  checkUser?: string;
+}
+
+export function Verify({
+  changeset,
+  options,
+  onChange,
+  onClear,
+  checkUser,
+}: VerifyProps) {
   if (changeset.properties?.checked) {
     const isHarmful = changeset.properties.harmful;
     return (

@@ -1,7 +1,21 @@
 import { isMobile } from "../../utils";
 import { Dropdown } from "../dropdown";
 
-function openEditor(selected, camera) {
+interface Camera {
+  center: {
+    lng: number;
+    lat: number;
+  };
+  zoom: number;
+}
+
+interface DropdownOption {
+  label: string;
+  value: string;
+  href?: string;
+}
+
+function openEditor(selected: DropdownOption[], camera: Camera) {
   let baseUrl;
   if (selected && selected[0].value === "iD") {
     baseUrl = "https://www.openstreetmap.org/edit?editor=id&";
@@ -18,13 +32,25 @@ function openEditor(selected, camera) {
     const windowObjectReference = window.open("editor - OSMCha");
     const url = `${baseUrl}#map=${zoom}/${lat}/${lng}`;
 
-    windowObjectReference.location.href = url;
+    windowObjectReference!.location.href = url;
   }
 }
 
-export function OpenIn({ display, changesetId, camera, className }) {
+interface OpenInProps {
+  display: string;
+  changesetId: string | number;
+  camera: Camera;
+  className?: string;
+}
+
+export function OpenIn({
+  display,
+  changesetId,
+  camera,
+  className,
+}: OpenInProps) {
   const mobile = isMobile();
-  const options = [
+  const options: DropdownOption[] = [
     {
       label: "Achavi",
       value: "Achavi",

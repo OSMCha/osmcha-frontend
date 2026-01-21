@@ -1,4 +1,16 @@
-export const UserOSMLink = ({ userName, linkClasses, children }) => {
+import type React from "react";
+
+interface UserOSMLinkProps {
+  userName?: string;
+  linkClasses?: string;
+  children: React.ReactNode;
+}
+
+export const UserOSMLink = ({
+  userName,
+  linkClasses,
+  children,
+}: UserOSMLinkProps) => {
   if (!userName) return null;
 
   const url = `https://www.openstreetmap.org/user/${userName}`;
