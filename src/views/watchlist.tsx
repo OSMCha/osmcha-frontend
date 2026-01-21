@@ -10,7 +10,8 @@ import {
   useAddToWatchlist,
   useRemoveFromWatchlist,
 } from "../query/hooks/useWatchlistMutations";
-import { getObjAsQueryParam, isMobile } from "../utils";
+import { isMobile } from "../utils/isMobile";
+import { getObjAsQueryParam } from "../utils/query_params";
 
 interface WatchlistUser {
   username: string;

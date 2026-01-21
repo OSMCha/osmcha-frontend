@@ -7,7 +7,7 @@ import {
   useMappingTeam,
   useUpdateMappingTeam,
 } from "../query/hooks/useMappingTeams";
-import { isMobile } from "../utils";
+import { isMobile } from "../utils/isMobile";
 
 interface TeamData {
   id?: number;

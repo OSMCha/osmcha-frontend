@@ -1,5 +1,5 @@
 import type React from "react";
-import { isMobile } from "../utils";
+import { isMobile } from "../utils/isMobile";
 
 interface NavbarProps {
   className?: string;

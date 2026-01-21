@@ -19,7 +19,7 @@ import {
 } from "../config/bindings";
 import { useMarkHarmful } from "../query/hooks/useMarkHarmful";
 import { useAuthStore } from "../stores/authStore";
-import { isMobile } from "../utils";
+import { isMobile } from "../utils/isMobile";
 
 interface NavbarChangesetProps {
   changesetId: number;

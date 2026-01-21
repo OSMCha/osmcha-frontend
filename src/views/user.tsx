@@ -5,7 +5,7 @@ import { Button } from "../components/button";
 import { EditUserDetails } from "../components/user/details";
 import { useAuth } from "../hooks/useAuth";
 import { useAuthStore } from "../stores/authStore";
-import { isMobile } from "../utils";
+import { isMobile } from "../utils/isMobile";
 
 interface UserData {
   avatar?: string;
