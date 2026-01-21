@@ -1,7 +1,7 @@
 import { parse } from "date-fns";
 import React from "react";
 import Markdown from "react-markdown";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import remarkGfm from "remark-gfm";
 import { getObjAsQueryParam } from "../../utils/query_params";
 import { Avatar } from "../avatar";

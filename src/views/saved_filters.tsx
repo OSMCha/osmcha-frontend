@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { Button } from "../components/button";
 import { CustomURL } from "../components/customURL";
 import { SecondaryPagesHeader } from "../components/secondary_pages_header";

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { SecondaryPagesHeader } from "../components/secondary_pages_header";
 import { SignIn } from "../components/sign_in";
 import NewTeam from "../components/teams/new_team";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { PrimaryLine } from "./primary_line";
 import { SecondaryLine } from "./secondary_line";
 import { Title } from "./title";

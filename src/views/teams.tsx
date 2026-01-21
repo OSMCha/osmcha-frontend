@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Button } from "../components/button";
 import { SecondaryPagesHeader } from "../components/secondary_pages_header";
 import NewTeam from "../components/teams/new_team";

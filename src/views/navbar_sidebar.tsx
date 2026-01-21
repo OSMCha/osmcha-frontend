@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router";
 import { Button } from "../components/button";
 import { Dropdown } from "../components/dropdown";
 import { Navbar } from "../components/navbar";

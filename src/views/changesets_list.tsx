@@ -1,6 +1,6 @@
 import Mousetrap from "mousetrap";
 import { useCallback, useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { List } from "../components/list";
 import { Footer } from "../components/list/footer";
 import { Header } from "../components/list/header";

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import { FiltersHeader } from "../components/filters/filters_header";
 import { FiltersList } from "../components/filters/filters_list";
 import { useAuth } from "../hooks/useAuth";
