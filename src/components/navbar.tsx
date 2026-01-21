@@ -1,12 +1,21 @@
+import type React from "react";
 import { isMobile } from "../utils";
 
+interface NavbarProps {
+  className?: string;
+  title?: React.ReactNode;
+  titleClassName?: string;
+  buttons?: React.ReactNode;
+  buttonsClassName?: string;
+}
+
 export function Navbar({
-  className,
+  className = "",
   title,
   titleClassName = "",
   buttons,
   buttonsClassName = "",
-}) {
+}: NavbarProps) {
   const mobile = isMobile();
 
   return (

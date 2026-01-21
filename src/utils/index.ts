@@ -1,5 +1,3 @@
-export * from "./component";
-export * from "./dispatch_event";
 export * from "./element_in_view";
 export * from "./filters";
 export * from "./isMobile";

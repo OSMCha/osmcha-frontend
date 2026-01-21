@@ -1,4 +1,10 @@
-export const BlockMarkup = ({ children }) => (
+import type React from "react";
+
+interface BlockMarkupProps {
+  children: React.ReactNode;
+}
+
+export const BlockMarkup = ({ children }: BlockMarkupProps) => (
   <div className="flex-child flex-child--grow bg-gray-faint mx12 round p12 my6">
     <div className="flex-parent flex-parent--row justify--space-between">
       {children}

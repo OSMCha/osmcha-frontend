@@ -1,6 +1,6 @@
 import { parse } from "date-fns";
-import { useIsUserListed } from "../../hooks/UseIsUserListed";
 import { useAuth } from "../../hooks/useAuth";
+import { useIsUserListed } from "../../hooks/useIsUserListed";
 import { RelativeTime } from "../relative_time";
 
 function Title({ properties, date }: any) {

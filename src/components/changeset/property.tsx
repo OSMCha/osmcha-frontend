@@ -1,4 +1,16 @@
-const Property = ({ property, value, imageryMatch, sourceMatch }) => {
+interface PropertyProps {
+  property: string;
+  value: string;
+  imageryMatch?: string[];
+  sourceMatch?: string[];
+}
+
+const Property = ({
+  property,
+  value,
+  imageryMatch,
+  sourceMatch,
+}: PropertyProps) => {
   return (
     <div key={property} className="col">
       <strong
@@ -8,7 +20,7 @@ const Property = ({ property, value, imageryMatch, sourceMatch }) => {
         {property}
       </strong>
       <span className="wmax180 txt-break-word txt-s">{value}</span>
-      {property === "imagery" && (
+      {property === "imagery" && imageryMatch && (
         <span>
           <br />
           {imageryMatch.map((e, k) => (
@@ -20,7 +32,7 @@ const Property = ({ property, value, imageryMatch, sourceMatch }) => {
               ) ? (
                 e.match(
                   /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/gim,
-                )[0]
+                )![0]
               ) : (
                 <svg className="icon h18 w18 inline-block align-middle ">
                   <use xlinkHref="#icon-share" />
@@ -30,13 +42,13 @@ const Property = ({ property, value, imageryMatch, sourceMatch }) => {
           ))}
         </span>
       )}
-      {property === "source" && (
+      {property === "source" && sourceMatch && (
         <span>
           <br />
           {sourceMatch.map((e, k) => (
             <a
-              href={sourceMatch}
-              title={sourceMatch}
+              href={sourceMatch[0]}
+              title={sourceMatch[0]}
               key={k}
               className="color-blue"
               target="_blank"
@@ -49,7 +61,7 @@ const Property = ({ property, value, imageryMatch, sourceMatch }) => {
               ) ? (
                 e.match(
                   /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/gim,
-                )[0]
+                )![0]
               ) : (
                 <svg className="icon h18 w18 inline-block align-middle ">
                   <use xlinkHref="#icon-share" />

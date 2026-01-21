@@ -1,7 +1,15 @@
 import { isMobile } from "../utils";
 import { Avatar } from "./avatar";
 
-export function SecondaryPagesHeader({ title, avatar }) {
+interface SecondaryPagesHeaderProps {
+  title: string;
+  avatar?: string;
+}
+
+export function SecondaryPagesHeader({
+  title,
+  avatar,
+}: SecondaryPagesHeaderProps) {
   const mobile = isMobile();
 
   return (
