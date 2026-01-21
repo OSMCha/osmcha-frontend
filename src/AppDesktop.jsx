@@ -8,7 +8,6 @@ import { Filters } from "./views/filters";
 import { Home } from "./views/home";
 import { NavbarSidebar } from "./views/navbar_sidebar";
 import { SavedFilters } from "./views/saved_filters";
-import { Stats } from "./views/stats";
 import { MappingTeams } from "./views/teams";
 import { TrustedUsers } from "./views/trusted_users";
 import { User } from "./views/user";
@@ -28,7 +27,6 @@ export const AppDesktop = () => {
             <Route path="/filters" element={<Filters />} />
             <Route path="/changesets/:id" element={<Changeset />} />
             <Route path="/about" element={<About />} />
-            <Route path="/stats" element={<Stats />} />
             <Route path="/user" element={<User />} />
             <Route path="/teams" element={<MappingTeams />} />
             <Route path="/teams/:id" element={<EditMappingTeam />} />

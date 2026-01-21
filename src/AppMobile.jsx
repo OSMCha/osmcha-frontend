@@ -7,7 +7,6 @@ import { EditMappingTeam } from "./views/edit_team";
 import { Filters } from "./views/filters";
 import { NavbarSidebar } from "./views/navbar_sidebar";
 import { SavedFilters } from "./views/saved_filters";
-import { Stats } from "./views/stats";
 import { MappingTeams } from "./views/teams";
 import { TrustedUsers } from "./views/trusted_users";
 import { User } from "./views/user";
@@ -25,7 +24,6 @@ export const AppMobile = () => {
           <Route path="/" element={<ChangesetsList />} />
           <Route path="/changesets/:id" element={<Changeset />} />
           <Route path="/about" element={<About />} />
-          <Route path="/stats" element={<Stats />} />
           <Route path="/filters" element={<Filters />} />
           <Route path="/user" element={<User />} />
           <Route path="/saved-filters" element={<SavedFilters />} />
