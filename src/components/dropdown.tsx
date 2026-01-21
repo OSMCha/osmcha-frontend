@@ -1,7 +1,21 @@
-import React from "react";
+import type React from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./dropdown.css";
-import onClickOutside from "react-click-outside";
 import { Button } from "./button";
+
+interface DropdownProps {
+  className?: string;
+  disabled?: boolean;
+  value?: Array<any>;
+  onChange?: (value: Array<any>) => void;
+  onAdd?: (option: any) => void;
+  onRemove?: (option: any) => void;
+  options: Array<any>;
+  display: string | React.ReactNode;
+  deletable?: (value: string) => void;
+  multi?: boolean;
+  position?: "left" | "right";
+}
 
 interface DropdownContentProps {
   value: Array<any>;
@@ -12,187 +26,178 @@ interface DropdownContentProps {
   multi: boolean;
   toggleDropdown: () => void;
   styles?: React.CSSProperties;
-  deletable?: (value: string) => any;
+  deletable?: (value: string) => void;
 }
 
-class _DropdownContent extends React.PureComponent<DropdownContentProps> {
-  isActive = (obj: any) => {
-    if (!this.props.value) return false;
+const DropdownContent: React.FC<DropdownContentProps> = ({
+  value,
+  onChange,
+  onRemove,
+  onAdd,
+  options,
+  multi,
+  toggleDropdown,
+  styles,
+  deletable,
+}) => {
+  const isActive = useCallback(
+    (obj: any) => {
+      if (!value) return false;
+      return value.some((v) => v.label === obj.label);
+    },
+    [value],
+  );
 
-    for (const v of this.props.value) {
-      if (v.label === obj.label) {
-        return true;
+  const handleClick = useCallback(
+    (data: any) => {
+      if (!data || !data.label || !value || !onChange) return;
+
+      const existingIndex = value.findIndex((v) => v.label === data.label);
+
+      if (existingIndex !== -1) {
+        // Remove the option
+        onRemove(data);
+        onChange([
+          ...value.slice(0, existingIndex),
+          ...value.slice(existingIndex + 1),
+        ]);
+      } else {
+        // Add the option
+        const newArray = multi ? [...value, data] : [data];
+        onAdd(data);
+        onChange(newArray);
       }
-    }
-    return false;
-  };
 
-  handleClick = (data: any) => {
-    if (data) {
-      var label = data.label;
-      if (!label || !this.props.value || !this.props.onChange) return;
-      const value = this.props.value;
-      const ourObj = data;
-      if (!ourObj) return;
-
-      let isRemove = false;
-      for (let x = 0; x < value.length; x++) {
-        if (value[x].label === label) {
-          isRemove = true;
-          this.props.onRemove(ourObj);
-          this.props.onChange(value.slice(0, x).concat(value.slice(x + 1)));
-        }
+      if (!multi) {
+        toggleDropdown();
       }
+    },
+    [value, onChange, onRemove, onAdd, multi, toggleDropdown],
+  );
 
-      if (!isRemove) {
-        let newArray = value.slice(0, value.length);
-        if (!this.props.multi) {
-          newArray = [];
-        }
-        newArray.push(ourObj);
-        this.props.onAdd(ourObj);
-        this.props.onChange(newArray);
-      }
-    }
-    if (!this.props.multi) {
-      this.props.toggleDropdown();
-    }
-  };
-
-  render() {
-    return (
-      <ul
-        className="dropdown-content wmin96 round wmax240"
-        style={this.props.styles}
-      >
-        {this.props.options.map((i, k) => (
-          <li
-            key={k}
-            onClick={this.handleClick.bind(null, i)}
-            className="dropdown-content-item flex-parent flex-parent--row flex-parent--center-cross py6 px12"
-          >
-            {this.props.multi && (
-              <input
-                data-label={i.label}
-                data-payload={JSON.stringify(i)}
-                type="checkbox"
-                checked={this.isActive(i)}
-                value={i.label}
-                className="cursor-pointer mt6"
-              />
-            )}
-            {i.href ? (
-              <a
-                target={"_blank"}
-                rel="noopener noreferrer"
-                href={i.href}
-                onClick={this.props.toggleDropdown}
-                className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${
-                  this.isActive(i) ? "is-active txt-bold" : ""
-                }`}
-              >
-                {i.label}
-              </a>
-            ) : (
-              <span
-                onClick={
-                  this.props.multi ? () => {} : this.props.toggleDropdown
-                }
-                className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${
-                  this.isActive(i) ? "is-active txt-bold" : ""
-                }`}
-              >
-                {i.label}
-              </span>
-            )}
-            {this.props.deletable && (
-              <span
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  this.props.toggleDropdown();
-                  this.props.deletable?.(i.value);
-                }}
-              >
-                x
-              </span>
-            )}
-          </li>
-        ))}
-      </ul>
-    );
-  }
-}
-
-const DropdownContent = onClickOutside(_DropdownContent);
-
-interface DropdownProps {
-  className: string;
-  disabled: boolean;
-  value: Array<any>;
-  onChange: (a: Array<any>) => any;
-  onAdd: (a: any) => any;
-  onRemove: (a: any) => any;
-  options: Array<any>;
-  display: string;
-  deletable?: (value: string) => any;
-  multi: boolean;
-  position: string;
-}
-
-interface DropdownState {
-  display: boolean;
-}
-
-class _Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
-  state: DropdownState = {
-    display: false,
-  };
-
-  handleClickOutside = () => {
-    this.setState({
-      display: false,
-    });
-  };
-
-  toggleDropdown = () => {
-    this.setState({
-      display: !this.state.display,
-    });
-  };
-
-  isActive = (obj: any) => {
-    for (const v of this.props.value) {
-      if (v.label === obj.label) {
-        return true;
-      }
-    }
-    return false;
-  };
-
-  render() {
-    return (
-      <div className={`dropdown pointer ${this.props.className || ""}`}>
-        <Button
-          iconName="chevron-down"
-          onClick={this.toggleDropdown}
-          className="wmin96"
+  return (
+    <ul className="dropdown-content wmin96 round wmax240" style={styles}>
+      {options.map((i, k) => (
+        <li
+          key={k}
+          onClick={() => handleClick(i)}
+          className="dropdown-content-item flex-parent flex-parent--row flex-parent--center-cross py6 px12"
         >
-          <span>{this.props.display}</span>
-        </Button>
-        {this.state.display && (
-          <DropdownContent
-            {...this.props}
-            eventTypes={["click", "touchend"]}
-            toggleDropdown={this.toggleDropdown}
-            styles={
-              this.props.position === "right" ? { right: 0 } : { left: 0 }
-            }
-          />
-        )}
-      </div>
-    );
-  }
-}
+          {multi && (
+            <input
+              data-label={i.label}
+              data-payload={JSON.stringify(i)}
+              type="checkbox"
+              checked={isActive(i)}
+              value={i.label}
+              className="cursor-pointer mt6"
+              readOnly
+            />
+          )}
+          {i.href ? (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={i.href}
+              onClick={toggleDropdown}
+              className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${
+                isActive(i) ? "is-active txt-bold" : ""
+              }`}
+            >
+              {i.label}
+            </a>
+          ) : (
+            <span
+              className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${
+                isActive(i) ? "is-active txt-bold" : ""
+              }`}
+            >
+              {i.label}
+            </span>
+          )}
+          {deletable && (
+            <span
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleDropdown();
+                deletable(i.value as string);
+              }}
+            >
+              x
+            </span>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+};
 
-export const Dropdown = onClickOutside(_Dropdown);
+export const Dropdown: React.FC<DropdownProps> = ({
+  className = "",
+  disabled,
+  value = [],
+  onChange = () => {},
+  onAdd = () => {},
+  onRemove = () => {},
+  options,
+  display,
+  deletable,
+  multi = false,
+  position = "left",
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const toggleDropdown = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
+
+  // Click-outside detection
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchend", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchend", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  return (
+    <div ref={dropdownRef} className={`dropdown pointer ${className}`}>
+      <Button
+        iconName="chevron-down"
+        onClick={toggleDropdown}
+        className="wmin96"
+        disabled={disabled}
+      >
+        <span>{display}</span>
+      </Button>
+      {isOpen && (
+        <DropdownContent
+          value={value}
+          onChange={onChange}
+          onAdd={onAdd}
+          onRemove={onRemove}
+          options={options}
+          multi={multi}
+          toggleDropdown={toggleDropdown}
+          styles={position === "right" ? { right: 0 } : { left: 0 }}
+          deletable={deletable}
+        />
+      )}
+    </div>
+  );
+};
