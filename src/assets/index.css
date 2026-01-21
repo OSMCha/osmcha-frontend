@@ -557,3 +557,61 @@ th {
 .member-table tr:hover {
   font-weight: bold;
 }
+
+.app-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.app-sidebar {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.app-main {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+@media only screen and (min-width: 801px) {
+  .app-layout {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+  }
+
+  .app-sidebar {
+    grid-column: 1;
+    border-right: 1px solid #d8d8d8;
+    background-color: #fafafa;
+  }
+
+  .app-main {
+    grid-column: 2;
+  }
+}
+
+/* on small screens, hide the splash screen and just show the changeset list */
+@media only screen and (max-width: 800px) {
+  body.route-home .app-sidebar {
+    display: block;
+  }
+
+  body.route-home .app-main {
+    display: none;
+  }
+
+  body:not(.route-home) .app-sidebar {
+    display: none;
+  }
+
+  body:not(.route-home) .app-main {
+    display: block;
+  }
+
+  .app-sidebar,
+  .app-main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+}
