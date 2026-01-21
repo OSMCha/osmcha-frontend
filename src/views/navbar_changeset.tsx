@@ -1,6 +1,6 @@
 import Mousetrap from "mousetrap";
 import { useCallback, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { toast } from "sonner";
 import { OpenIn } from "../components/changeset/open_in";
 import { Tags } from "../components/changeset/tags";

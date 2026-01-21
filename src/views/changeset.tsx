@@ -2,7 +2,7 @@ import type { MapLibreAugmentedDiffViewer } from "@osmcha/maplibre-adiff-viewer"
 import type * as maplibre from "maplibre-gl";
 import Mousetrap from "mousetrap";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 import { Changeset as ChangesetOverlay } from "../components/changeset";
 import { FILTER_BY_USER } from "../config/bindings";

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router";
 import { getSearchObj } from "./utils/query_params";
 import { About } from "./views/about";
 import { Authorized } from "./views/authorized";

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import banner from "../assets/banner.png";
 import osmus from "../assets/osmus.png";
 import work_flow from "../assets/work_flow.png";

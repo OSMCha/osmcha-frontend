@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { API_URL } from "../../config";
 import { fetchAllAOIs } from "../../network/aoi";
 import { Button } from "../button";

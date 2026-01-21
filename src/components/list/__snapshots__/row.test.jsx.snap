@@ -65,6 +65,7 @@ exports[`renders active row properly 1`] = `
       className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light flex-parent flex-parent--column"
     >
       <a
+        data-discover="true"
         href="/changesets/49328744"
         onClick={[Function]}
       >
@@ -150,6 +151,7 @@ exports[`renders active row properly 1`] = `
         <span>
           <a
             className="txt-underline-on-hover"
+            data-discover="true"
             href="/changesets/49328744"
             onClick={[Function]}
           >
@@ -161,6 +163,7 @@ exports[`renders active row properly 1`] = `
           </a>
           <a
             className="txt-underline-on-hover"
+            data-discover="true"
             href="/?filters=%7B%22users%22%3A%5B%7B%22label%22%3A%22nammala%22%2C%22value%22%3A%22nammala%22%7D%5D%2C%22date__gte%22%3A%5B%7B%22label%22%3A%22%22%2C%22value%22%3A%22%22%7D%5D%7D"
             onClick={[Function]}
             title="See nammala's changesets"
@@ -215,6 +218,7 @@ exports[`renders inactive row properly 1`] = `
       className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light flex-parent flex-parent--column"
     >
       <a
+        data-discover="true"
         href="/changesets/49328744"
         onClick={[Function]}
       >
@@ -300,6 +304,7 @@ exports[`renders inactive row properly 1`] = `
         <span>
           <a
             className="txt-underline-on-hover"
+            data-discover="true"
             href="/changesets/49328744"
             onClick={[Function]}
           >
@@ -311,6 +316,7 @@ exports[`renders inactive row properly 1`] = `
           </a>
           <a
             className="txt-underline-on-hover"
+            data-discover="true"
             href="/?filters=%7B%22users%22%3A%5B%7B%22label%22%3A%22nammala%22%2C%22value%22%3A%22nammala%22%7D%5D%2C%22date__gte%22%3A%5B%7B%22label%22%3A%22%22%2C%22value%22%3A%22%22%7D%5D%7D"
             onClick={[Function]}
             title="See nammala's changesets"

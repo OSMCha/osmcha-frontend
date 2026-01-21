@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import filtersConfig from "../../config/filters.json";
 import numberWithCommas from "../../utils/number_with_commas";
 import { Button } from "../button";

@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { Button } from "../button";

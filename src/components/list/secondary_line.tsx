@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import thumbsDown from "../../assets/thumbs-down.svg";
 import thumbsUp from "../../assets/thumbs-up.svg";
 import { getObjAsQueryParam } from "../../utils/query_params";
