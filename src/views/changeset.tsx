@@ -64,7 +64,7 @@ function Changeset() {
   } | null>(null);
 
   const filterChangesetsByUser = useCallback(() => {
-    if (changeset && changeset.properties) {
+    if (changeset?.properties) {
       const userName = changeset.properties.user;
       setFilters({
         users: [
@@ -80,7 +80,9 @@ function Changeset() {
   useEffect(() => {
     Mousetrap.bind(FILTER_BY_USER.bindings, filterChangesetsByUser);
     return () => {
-      FILTER_BY_USER.bindings.forEach((k) => Mousetrap.unbind(k));
+      for (const k of FILTER_BY_USER.bindings) {
+        Mousetrap.unbind(k);
+      }
     };
   }, [filterChangesetsByUser]);
 

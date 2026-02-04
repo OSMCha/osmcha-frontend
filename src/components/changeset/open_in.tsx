@@ -1,5 +1,5 @@
 import { isMobile } from "../../utils/isMobile";
-import { Dropdown } from "../dropdown";
+import { Dropdown, type DropdownOption } from "../dropdown";
 
 interface Camera {
   center: {
@@ -9,37 +9,10 @@ interface Camera {
   zoom: number;
 }
 
-interface DropdownOption {
-  label: string;
-  value: string;
-  href?: string;
-}
-
-function openEditor(selected: DropdownOption[], camera: Camera) {
-  let baseUrl;
-  if (selected && selected[0].value === "iD") {
-    baseUrl = "https://www.openstreetmap.org/edit?editor=id&";
-  }
-  if (selected && selected[0].value === "Rapid") {
-    baseUrl = "https://rapideditor.org/edit?";
-  }
-  if (baseUrl) {
-    const { lng, lat } = camera.center;
-    // iD, Rapid etc match their zoom parameters to Leaflet (raster) zoom
-    // levels, which are off by one from MapLibre (vector) zoom levels
-    const zoom = camera.zoom + 1;
-
-    const windowObjectReference = window.open("editor - OSMCha");
-    const url = `${baseUrl}#map=${zoom}/${lat}/${lng}`;
-
-    windowObjectReference!.location.href = url;
-  }
-}
-
 interface OpenInProps {
   display: string;
   changesetId: string | number;
-  camera: Camera;
+  camera?: Camera;
   className?: string;
 }
 
@@ -50,6 +23,17 @@ export function OpenIn({
   className,
 }: OpenInProps) {
   const mobile = isMobile();
+
+  let hash = "";
+  if (camera) {
+    // build #map=... hash string for iD/Rapid editors
+    const { lng, lat } = camera.center;
+    // iD, Rapid etc match their zoom parameters to Leaflet (raster) zoom
+    // levels, which are off by one from MapLibre (vector) zoom levels
+    const zoom = camera.zoom + 1;
+    hash = `#map=${zoom}/${lat}/${lng}`;
+  }
+
   const options: DropdownOption[] = [
     {
       label: "Achavi",
@@ -59,6 +43,7 @@ export function OpenIn({
     {
       label: "iD",
       value: "iD",
+      href: `https://www.openstreetmap.org/edit?editor=id${hash}`,
     },
     {
       label: "JOSM",
@@ -78,6 +63,7 @@ export function OpenIn({
     {
       label: "Rapid",
       value: "Rapid",
+      href: `https://rapideditor.org/edit${hash}`,
     },
     {
       label: "ResultMaps",
@@ -99,7 +85,6 @@ export function OpenIn({
         onAdd={() => {}}
         onRemove={() => {}}
         value={[]}
-        onChange={(value) => openEditor(value, camera)}
         options={options}
         display={display}
         position="left"

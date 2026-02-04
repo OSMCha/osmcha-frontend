@@ -26,14 +26,12 @@ const Feature = ({
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 }) => {
-  let reasons;
-  if (data.reasons.length && typeof data.reasons[0] === "number") {
-    reasons = changesetReasons.filter((reason) =>
-      (data.reasons as number[]).includes(reason.id),
-    );
-  } else {
-    reasons = data.reasons;
-  }
+  const reasons =
+    data.reasons.length && typeof data.reasons[0] === "number"
+      ? changesetReasons.filter((reason) =>
+          (data.reasons as number[]).includes(reason.id),
+        )
+      : data.reasons;
   return (
     <tr className="txt-s">
       <td>{data.osm_id}</td>

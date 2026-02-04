@@ -41,18 +41,18 @@ function NavbarSidebar() {
     const uid = currentUser?.uid;
 
     if (arr.length === 1) {
-      if (arr[0].url === "/logout") {
+      if (arr[0].href === "/logout") {
         handleLogout();
         return;
       }
-      if (arr[0].url === "/my-changesets") {
+      if (arr[0].href === "/my-changesets") {
         navigate({
           pathname: "/",
           search: `filters={"uids":[{"label":"${uid}","value":"${uid}"}],"date__gte":[{"label":"","value":""}]}`,
         });
         return;
       }
-      if (arr[0].url === "/my-reviews") {
+      if (arr[0].href === "/my-reviews") {
         navigate({
           pathname: "/",
           search: `filters={"checked_by":[{"label":"${username}","value":"${username}"}],"date__gte":[{"label":"","value":""}]}`,
@@ -60,7 +60,7 @@ function NavbarSidebar() {
         return;
       }
       navigate({
-        pathname: arr[0].url,
+        pathname: arr[0].href,
         search: location.search,
       });
     } else if (arr.length > 1) {
@@ -83,20 +83,20 @@ function NavbarSidebar() {
           )
         }
         options={[
-          { label: "Account settings", url: "/user" },
+          { label: "Account settings", href: "/user" },
           {
             label: "My Changesets",
-            url: "/my-changesets",
+            href: "/my-changesets",
           },
           {
             label: "My Reviews",
-            url: "/my-reviews",
+            href: "/my-reviews",
           },
-          { label: "My Saved Filters", url: "/saved-filters" },
-          { label: "My Teams", url: "/teams" },
-          { label: "My Trusted Users List", url: "/trusted-users" },
-          { label: "My Watchlist", url: "/watchlist" },
-          { label: "Logout", url: "/logout" },
+          { label: "My Saved Filters", href: "/saved-filters" },
+          { label: "My Teams", href: "/teams" },
+          { label: "My Trusted Users List", href: "/trusted-users" },
+          { label: "My Watchlist", href: "/watchlist" },
+          { label: "Logout", href: "/logout" },
         ]}
         onChange={onUserMenuSelect}
         value={[]}

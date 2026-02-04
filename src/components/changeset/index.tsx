@@ -82,9 +82,9 @@ function Changeset({
   const [bindingsState, setBindingsState] = useState<Record<string, boolean>>(
     () => {
       const initial: Record<string, boolean> = {};
-      toggleOptions.forEach((opt) => {
+      for (const opt of toggleOptions) {
         initial[opt.label] = opt === CHANGESET_DETAILS_DETAILS; // Only details visible by default
-      });
+      }
       return initial;
     },
   );
@@ -92,9 +92,9 @@ function Changeset({
   const exclusiveKeyToggle = useCallback((label: string) => {
     setBindingsState((prev) => {
       const newState: Record<string, boolean> = {};
-      toggleOptions.forEach((opt) => {
+      for (const opt of toggleOptions) {
         newState[opt.label] = opt.label === label ? !prev[label] : false;
-      });
+      }
       return newState;
     });
   }, []);
@@ -129,14 +129,16 @@ function Changeset({
 
   // Setup keyboard shortcuts
   useEffect(() => {
-    toggleOptions.forEach((opt) => {
+    for (const opt of toggleOptions) {
       Mousetrap.bind(opt.bindings, () => exclusiveKeyToggle(opt.label));
-    });
+    }
 
     return () => {
-      toggleOptions.forEach((opt) => {
-        opt.bindings.forEach((binding) => Mousetrap.unbind(binding));
-      });
+      for (const opt of toggleOptions) {
+        for (const binding of opt.bindings) {
+          Mousetrap.unbind(binding);
+        }
+      }
     };
   }, [exclusiveKeyToggle]);
 

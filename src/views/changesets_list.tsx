@@ -110,17 +110,17 @@ function ChangesetsList() {
       },
     ];
 
-    shortcuts.forEach((shortcut) => {
+    for (const shortcut of shortcuts) {
       Mousetrap.bind(shortcut.bindings, (e) => {
         e.preventDefault();
         shortcut.handler();
       });
-    });
+    }
 
     return () => {
-      shortcuts.forEach((shortcut) => {
+      for (const shortcut of shortcuts) {
         Mousetrap.unbind(shortcut.bindings);
-      });
+      }
     };
   }, [
     goUpDownToChangeset,

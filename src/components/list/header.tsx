@@ -19,11 +19,11 @@ export function Header({
   const orderByValue = filters?.order_by;
   if (orderByValue) {
     const firstValue = orderByValue?.[0]?.value;
-    options.forEach((o) => {
+    for (const o of options) {
       if (firstValue === o.value) {
         valueData.push(o);
       }
-    });
+    }
   }
   return (
     <div>
@@ -34,7 +34,7 @@ export function Header({
           onChange={handleFilterOrderBy}
           value={valueData}
           options={options}
-          display={(valueData[0] && valueData[0].label) || "Order by"}
+          display={valueData[0]?.label || "Order by"}
           position="left"
         />
         <NavLink

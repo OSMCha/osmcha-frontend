@@ -114,9 +114,7 @@ const NewTeam = (props: NewTeamProps) => {
     <div className="px12">
       {editing ? (
         <>
-          {props.activeTeam ? (
-            <></>
-          ) : (
+          {!props.activeTeam && (
             <h3 className="txt-h4 txt-bold pt12">Add a new mapping team</h3>
           )}
 

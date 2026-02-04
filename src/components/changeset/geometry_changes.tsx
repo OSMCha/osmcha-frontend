@@ -102,9 +102,9 @@ function GeometryChanges({
     const newChangeReport: Array<[string, any]> = [];
     if (adiff) {
       const processed = geometryChangesFromActions(adiff.actions);
-      processed.forEach((featureIDs, tag) =>
-        newChangeReport.push([tag, featureIDs]),
-      );
+      for (const [tag, featureIDs] of processed) {
+        newChangeReport.push([tag, featureIDs]);
+      }
       setChangeReport(
         newChangeReport.filter((changeType) => changeType[1].length),
       );
