@@ -19,7 +19,7 @@ export function getUserDetails(uid: number): Promise<any> {
       user.count = u.changesets.count;
       user.accountCreated = u.account_created;
       user.description = u.description;
-      user.img = u.img && u.img.href;
+      user.img = u.img?.href;
       user.name = u.display_name;
       return user;
     })

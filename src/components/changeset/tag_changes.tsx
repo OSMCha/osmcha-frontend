@@ -8,9 +8,9 @@ function tagChangesFromActions(actions: any[]) {
   const finalReport = new Map();
   const analyzedFeatures = actions.map(analyzeAction);
   const keys = ["addedTags", "changedValues", "deletedTags"];
-  analyzedFeatures.map((item) =>
-    keys.map((key) =>
-      item.get(key).forEach((tag: any) => {
+  for (const item of analyzedFeatures) {
+    for (const key of keys) {
+      for (const tag of item.get(key)) {
         if (finalReport.get(tag[0])) {
           finalReport.set(
             tag[0],
@@ -25,9 +25,9 @@ function tagChangesFromActions(actions: any[]) {
             { id: item.get("id"), type: item.get("type"), value: tag[1] },
           ]);
         }
-      }),
-    ),
-  );
+      }
+    }
+  }
   return finalReport;
 }
 
@@ -220,9 +220,9 @@ function TagChanges({
       );
 
       const processed = tagChangesFromActions(modifyActions);
-      processed.forEach((featureIDs, tag) =>
-        newChangeReport.push([tag, featureIDs]),
-      );
+      for (const [tag, featureIDs] of processed) {
+        newChangeReport.push([tag, featureIDs]);
+      }
       setChangeReport(newChangeReport.sort());
     }
   }, [adiff]);

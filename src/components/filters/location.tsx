@@ -254,7 +254,7 @@ const LocationSelect = (props) => {
       draw.setMode("render");
       setActiveMode("render");
     }
-    if (map && map.getSource("feature")) {
+    if (map?.getSource("feature")) {
       (map.getSource("feature") as any).setData({
         type: "Feature",
         geometry: null,

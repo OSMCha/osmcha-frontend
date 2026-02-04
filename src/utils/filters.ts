@@ -7,17 +7,17 @@ export function validateFilters(filters: any): boolean {
   }
 
   let valid = true;
-  Object.keys(filters).forEach((key) => {
+  for (const key of Object.keys(filters)) {
     const value = filters[key];
 
     // Each filter value should be an array
     if (!Array.isArray(value)) {
       valid = false;
-      return;
+      return false;
     }
 
     // Each item in the array should have label and value
-    value.forEach((item) => {
+    for (const item of value) {
       if (
         !item ||
         typeof item !== "object" ||
@@ -26,8 +26,8 @@ export function validateFilters(filters: any): boolean {
       ) {
         valid = false;
       }
-    });
-  });
+    }
+  }
 
   if (!valid) {
     console.log(filters);
@@ -106,14 +106,14 @@ export function deserializeFiltersFromObject(
 ): any {
   const result: any = {};
 
-  Object.keys(apiFilters).forEach((k) => {
+  for (const k of Object.keys(apiFilters)) {
     const v = apiFilters[k];
-    if (typeof v !== "string" || !k) return;
+    if (typeof v !== "string" || !k) continue;
 
     // Empty string should be converted to empty array with one empty item
     if (v === "") {
       result[k] = [{ label: "", value: "" }];
-      return;
+      continue;
     }
 
     // Split comma-separated values and convert to array of objects
@@ -123,7 +123,7 @@ export function deserializeFiltersFromObject(
     }));
 
     result[k] = values;
-  });
+  }
 
   return result;
 }
@@ -131,9 +131,9 @@ export function deserializeFiltersFromObject(
 export function serializeFiltersToObject(filters: any): Record<string, string> {
   const result: Record<string, string> = {};
 
-  Object.keys(filters).forEach((k) => {
+  for (const k of Object.keys(filters)) {
     const v = filters[k];
-    if (!Array.isArray(v) || !k) return;
+    if (!Array.isArray(v) || !k) continue;
 
     const serialized = v
       .filter((x) => !!x && typeof x === "object" && x.value !== "")
@@ -143,7 +143,7 @@ export function serializeFiltersToObject(filters: any): Record<string, string> {
     if (serialized) {
       result[k] = serialized;
     }
-  });
+  }
 
   return result;
 }
@@ -151,18 +151,18 @@ export function serializeFiltersToObject(filters: any): Record<string, string> {
 export function serializeFiltersToQuery(filters: any): string {
   let query = "";
 
-  Object.keys(filters).forEach((k) => {
+  for (const k of Object.keys(filters)) {
     const v = filters[k];
-    if (!Array.isArray(v) || !k) return;
+    if (!Array.isArray(v) || !k) continue;
 
     const filterJoined = v
       .filter((x) => !!x && typeof x === "object" && x.value !== "")
       .map((x) => String(x.value))
       .join(",");
 
-    if (filterJoined === "") return;
+    if (filterJoined === "") continue;
     query += `&${k}=${encodeURIComponent(filterJoined)}`;
-  });
+  }
 
   return query;
 }

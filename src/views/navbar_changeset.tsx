@@ -125,17 +125,17 @@ export function NavbarChangeset({
       },
     ];
 
-    shortcuts.forEach((shortcut) => {
+    for (const shortcut of shortcuts) {
       Mousetrap.bind(shortcut.bindings, (e) => {
         e.preventDefault();
         shortcut.handler();
       });
-    });
+    }
 
     return () => {
-      shortcuts.forEach((shortcut) => {
+      for (const shortcut of shortcuts) {
         Mousetrap.unbind(shortcut.bindings);
-      });
+      }
     };
   }, [currentChangeset, changesetId, handleMarkHarmful]);
 
@@ -149,8 +149,7 @@ export function NavbarChangeset({
     handleMarkHarmful(-1);
   };
 
-  const isChecked = () =>
-    currentChangeset && currentChangeset.properties?.checked;
+  const isChecked = () => currentChangeset?.properties?.checked;
 
   const mobile = isMobile();
 

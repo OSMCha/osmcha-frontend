@@ -1,6 +1,6 @@
 type Props = {
   isActive: boolean;
-  setOpenAll: Function;
+  setOpenAll: (value: boolean) => void;
 };
 
 export const OpenAll = ({ isActive, setOpenAll }: Props) => (

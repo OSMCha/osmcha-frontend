@@ -16,11 +16,11 @@ export class Meta extends React.PureComponent<MetaProps> {
     let activeFilters = { ...this.props.activeFilters };
     if (!activeFilters) activeFilters = {};
 
-    this.props.metaOf.forEach((f) => {
+    for (const f of this.props.metaOf) {
       delete activeFilters[f];
-    });
+    }
 
-    if (data && data.value) {
+    if (data?.value) {
       activeFilters = { ...activeFilters, ...data.value };
     }
 
@@ -29,21 +29,20 @@ export class Meta extends React.PureComponent<MetaProps> {
 
   findCurrentValue = () => {
     const { activeFilters } = this.props;
-    let value;
-    if (activeFilters) {
-      Object.entries(activeFilters).forEach(([k, v]) => {
-        this.props.options.forEach((option) => {
-          if (
-            v &&
-            Object.keys(option.value)[0] === k &&
-            v?.[0]?.value === option.value[k][0].value
-          ) {
-            value = option;
-          }
-        });
-      });
+    if (!activeFilters) return null;
+
+    for (const [k, v] of Object.entries(activeFilters)) {
+      for (const option of this.props.options) {
+        if (
+          v &&
+          Object.keys(option.value)[0] === k &&
+          v?.[0]?.value === option.value[k][0].value
+        ) {
+          return option;
+        }
+      }
     }
-    return value;
+    return null;
   };
 
   render() {

@@ -1,6 +1,6 @@
 import thumbsDown from "../../assets/thumbs-down.svg";
 import thumbsUp from "../../assets/thumbs-up.svg";
-import { Dropdown } from "../dropdown";
+import { Dropdown, type DropdownOption } from "../dropdown";
 
 interface ChangesetProperties {
   checked?: boolean;
@@ -11,15 +11,10 @@ interface Changeset {
   properties?: ChangesetProperties;
 }
 
-interface VerifyOption {
-  label: string;
-  value: string | boolean;
-}
-
 interface VerifyProps {
   changeset: Changeset;
-  options: VerifyOption[];
-  onChange: (value: VerifyOption[]) => void;
+  options: DropdownOption[];
+  onChange: (value: DropdownOption[]) => void;
   onClear: () => void;
   checkUser?: string;
 }

@@ -27,13 +27,13 @@ export function Details({
   if (source && source.indexOf("{switch:a,b,c}.") > -1) {
     source = source.replace("{switch:a,b,c}.", "");
   }
-  if (source && source.match(urlRegex)) {
+  if (source?.match(urlRegex)) {
     sourceMatch = source.match(urlRegex);
     source = source.replace(urlRegex, "");
   }
 
   let imageryMatch = [];
-  if (imagery && imagery.match(urlRegex)) {
+  if (imagery?.match(urlRegex)) {
     imageryMatch = imagery.match(urlRegex);
     imagery = imagery.replace(urlRegex, "");
   }
@@ -55,7 +55,7 @@ export function Details({
     };
   }
 
-  Array.from(metadata, ([p, v]) => {
+  for (const [p, v] of Object.entries(metadata)) {
     if (
       !p.startsWith("ideditor") &&
       !p.startsWith("resolved") &&
@@ -63,7 +63,7 @@ export function Details({
     ) {
       propertiesObj[p] = v;
     }
-  });
+  }
 
   const size = Object.keys(propertiesObj).length;
   const [leftLimit, setLeftLimit] = useState(0);

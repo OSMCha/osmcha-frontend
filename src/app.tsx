@@ -19,7 +19,7 @@ export const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (document && document.body) {
+    if (document?.body) {
       const searchObj = getSearchObj(window.location.search);
       const filters = searchObj.filters || {};
       if (filters && Object.keys(filters).length > 0) {
@@ -36,28 +36,26 @@ export const App = () => {
   }, [location]);
 
   return (
-    <>
-      <div className="app-layout">
-        <div className="app-sidebar">
-          <NavbarSidebar />
-          <ChangesetsList />
-        </div>
-        <div className="app-main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/filters" element={<Filters />} />
-            <Route path="/changesets/:id" element={<Changeset />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/user" element={<User />} />
-            <Route path="/teams" element={<MappingTeams />} />
-            <Route path="/teams/:id" element={<EditMappingTeam />} />
-            <Route path="/saved-filters" element={<SavedFilters />} />
-            <Route path="/trusted-users" element={<TrustedUsers />} />
-            <Route path="/watchlist" element={<Watchlist />} />
-            <Route path="/authorized" element={<Authorized />} />
-          </Routes>
-        </div>
+    <div className="app-layout">
+      <div className="app-sidebar">
+        <NavbarSidebar />
+        <ChangesetsList />
       </div>
-    </>
+      <div className="app-main">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/filters" element={<Filters />} />
+          <Route path="/changesets/:id" element={<Changeset />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/user" element={<User />} />
+          <Route path="/teams" element={<MappingTeams />} />
+          <Route path="/teams/:id" element={<EditMappingTeam />} />
+          <Route path="/saved-filters" element={<SavedFilters />} />
+          <Route path="/trusted-users" element={<TrustedUsers />} />
+          <Route path="/watchlist" element={<Watchlist />} />
+          <Route path="/authorized" element={<Authorized />} />
+        </Routes>
+      </div>
+    </div>
   );
 };

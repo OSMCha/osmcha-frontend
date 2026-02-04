@@ -20,25 +20,15 @@
       "recommended": true,
       "suspicious": {
         "noExplicitAny": "off",
-        "noArrayIndexKey": "off",
-        "noShadowRestrictedNames": "off",
-        "useIterableCallbackReturn": "off",
-        "noImplicitAnyLet": "off"
+        "noArrayIndexKey": "off"
       },
       "correctness": {
         "noUnusedVariables": "error",
-        "noUnusedFunctionParameters": "off",
-        "noInnerDeclarations": "off"
+        "noUnusedFunctionParameters": "off"
       },
       "style": {
         "useTemplate": "off",
-        "noNonNullAssertion": "off",
-        "useConst": "off"
-      },
-      "complexity": {
-        "useOptionalChain": "off",
-        "noBannedTypes": "off",
-        "noUselessFragments": "off"
+        "noNonNullAssertion": "off"
       },
       "a11y": {
         "useButtonType": "off",
@@ -47,9 +37,6 @@
         "useKeyWithClickEvents": "off",
         "useSemanticElements": "off",
         "noLabelWithoutControl": "off"
-      },
-      "security": {
-        "noDangerouslySetInnerHtml": "off"
       }
     }
   }

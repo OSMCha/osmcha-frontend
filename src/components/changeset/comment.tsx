@@ -32,7 +32,7 @@ export class CommentForm extends React.PureComponent<Props, State> {
   };
 
   componentWillUnmount() {
-    this.postCommentPromise && this.postCommentPromise.cancel();
+    this.postCommentPromise?.cancel();
   }
   componentDidMount() {
     this.updateValue(this.props);
@@ -110,7 +110,7 @@ export class CommentForm extends React.PureComponent<Props, State> {
                   className="textarea"
                   ref={(r) => {
                     if (this.clicked) {
-                      r && r.select();
+                      r?.select();
                       this.clicked = false;
                     }
                   }}

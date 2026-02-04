@@ -3,14 +3,20 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import "./dropdown.css";
 import { Button } from "./button";
 
+export interface DropdownOption {
+  label: string;
+  value?: string | number | boolean | object;
+  href?: string;
+}
+
 interface DropdownProps {
   className?: string;
   disabled?: boolean;
-  value?: Array<any>;
-  onChange?: (value: Array<any>) => void;
-  onAdd?: (option: any) => void;
-  onRemove?: (option: any) => void;
-  options: Array<any>;
+  value?: DropdownOption[];
+  onChange?: (value: DropdownOption[]) => void;
+  onAdd?: (option: DropdownOption) => void;
+  onRemove?: (option: DropdownOption) => void;
+  options: DropdownOption[];
   display: string | React.ReactNode;
   deletable?: (value: string) => void;
   multi?: boolean;
@@ -18,11 +24,11 @@ interface DropdownProps {
 }
 
 interface DropdownContentProps {
-  value: Array<any>;
-  onChange: (value: Array<any>) => void;
-  onRemove: (obj: any) => void;
-  onAdd: (obj: any) => void;
-  options: Array<any>;
+  value: DropdownOption[];
+  onChange: (value: DropdownOption[]) => void;
+  onRemove: (obj: DropdownOption) => void;
+  onAdd: (obj: DropdownOption) => void;
+  options: DropdownOption[];
   multi: boolean;
   toggleDropdown: () => void;
   styles?: React.CSSProperties;
@@ -41,7 +47,7 @@ const DropdownContent: React.FC<DropdownContentProps> = ({
   deletable,
 }) => {
   const isActive = useCallback(
-    (obj: any) => {
+    (obj: DropdownOption) => {
       if (!value) return false;
       return value.some((v) => v.label === obj.label);
     },
@@ -49,7 +55,7 @@ const DropdownContent: React.FC<DropdownContentProps> = ({
   );
 
   const handleClick = useCallback(
-    (data: any) => {
+    (data: DropdownOption) => {
       if (!data || !data.label || !value || !onChange) return;
 
       const existingIndex = value.findIndex((v) => v.label === data.label);
