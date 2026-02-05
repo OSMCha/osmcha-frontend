@@ -41,8 +41,8 @@ If you are running your own local copy of the
 [`osmcha-django`](https://github.com/OSMCha/osmcha-django) backend, you'll
 need to register your own OAuth app on openstreetmap.org, configure the backend
 to use that secret key, and then point this frontend at your local backend by
-setting the `REACT_APP_PRODUCTION_API_URL` environment variable. After that,
-normal OAuth login through the frontend UI should work.
+setting the `OSMCHA_API_URL` environment variable. After that, normal OAuth
+login through the frontend UI should work.
 
 ### Local testing
 

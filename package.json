@@ -13,7 +13,7 @@
   "scripts": {
     "precommit": "npm run check",
     "typecheck": "tsc",
-    "build-env": "dotenv -c -- jq -n 'env | with_entries(select(.key | startswith(\"VITE_\")))' > public/env.json",
+    "build-env": "dotenv -c -- jq -n 'env | with_entries(select(.key | startswith(\"OSMCHA_\")))' > public/env.json",
     "start": "npm run build-env && vite",
     "dev": "npm run start",
     "lint": "biome lint",
