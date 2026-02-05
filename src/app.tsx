@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router";
-import { getSearchObj } from "./utils/query_params";
 import { About } from "./views/about";
 import { Authorized } from "./views/authorized";
 import { Changeset } from "./views/changeset";
@@ -19,15 +18,8 @@ export const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (document?.body) {
-      const searchObj = getSearchObj(window.location.search);
-      const filters = searchObj.filters || {};
-      if (filters && Object.keys(filters).length > 0) {
-      }
-    }
-  }, []);
-
-  useEffect(() => {
+    // add a class for the current route to the body, so that CSS selectors can
+    // target elements only on specific routes if necessary
     const route = location.pathname.split("/")[1] || "home";
     document.body.className = `route-${route}`;
     return () => {
