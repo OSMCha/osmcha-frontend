@@ -1,4 +1,4 @@
-import { SignInButton } from "./changeset/sign_in_button";
+import { SignInButton } from "./changeset/sign_in_button.tsx";
 
 export function SignIn() {
   return (

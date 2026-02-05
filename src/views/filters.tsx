@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { FiltersHeader } from "../components/filters/filters_header";
-import { FiltersList } from "../components/filters/filters_list";
-import { useAuth } from "../hooks/useAuth";
-import { useFilters } from "../hooks/useFilters";
-import { useAOI } from "../query/hooks/useAOI";
+import { FiltersHeader } from "../components/filters/filters_header.tsx";
+import { FiltersList } from "../components/filters/filters_list.tsx";
+import { useAuth } from "../hooks/useAuth.ts";
+import { useFilters } from "../hooks/useFilters.ts";
+import { useAOI } from "../query/hooks/useAOI.ts";
 import {
   useCreateAOI,
   useDeleteAOI,
   useUpdateAOI,
-} from "../query/hooks/useAOIMutations";
-import { deserializeFiltersFromObject } from "../utils/filters";
-import { isMobile } from "../utils/isMobile";
+} from "../query/hooks/useAOIMutations.ts";
+import { deserializeFiltersFromObject } from "../utils/filters.ts";
+import { isMobile } from "../utils/isMobile.ts";
 
 const NEW_AOI = "unnamed *";
 

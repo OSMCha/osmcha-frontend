@@ -4,14 +4,14 @@ import Mousetrap from "mousetrap";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 
-import { Changeset as ChangesetOverlay } from "../components/changeset";
-import { FILTER_BY_USER } from "../config/bindings";
-import { useAuth } from "../hooks/useAuth";
-import { useFilters } from "../hooks/useFilters";
-import { useChangeset } from "../query/hooks/useChangeset";
-import { showToast } from "../utils/toast";
-import { CMap } from "../views/map";
-import { NavbarChangeset } from "../views/navbar_changeset";
+import { Changeset as ChangesetOverlay } from "../components/changeset/index.tsx";
+import { FILTER_BY_USER } from "../config/bindings.ts";
+import { useAuth } from "../hooks/useAuth.ts";
+import { useFilters } from "../hooks/useFilters.ts";
+import { useChangeset } from "../query/hooks/useChangeset.ts";
+import { showToast } from "../utils/toast.ts";
+import { CMap } from "../views/map.tsx";
+import { NavbarChangeset } from "../views/navbar_changeset.tsx";
 
 interface ChangesetData {
   properties?: {

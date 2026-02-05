@@ -1,4 +1,4 @@
-import { Reasons } from "../reasons";
+import { Reasons } from "../reasons.tsx";
 
 interface PrimaryLineProps {
   reasons: any[];

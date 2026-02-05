@@ -2,9 +2,9 @@ import React from "react";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import CreatableSelect from "react-select/creatable";
-import { API_URL } from "../../config";
-import { fetchReasons } from "../../network/reasons_tags";
-import type { Filter } from "./";
+import { API_URL } from "../../config/index.ts";
+import { fetchReasons } from "../../network/reasons_tags.ts";
+import type { Filter } from "./index.ts";
 
 interface MultiSelectProps {
   name: string;

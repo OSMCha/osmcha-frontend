@@ -2,8 +2,8 @@ import { Link } from "react-router";
 import banner from "../assets/banner.png";
 import osmus from "../assets/osmus.png";
 import work_flow from "../assets/work_flow.png";
-import { appVersion, isLocal } from "../config";
-import { isMobile } from "../utils/isMobile";
+import { appVersion, isLocal } from "../config/index.ts";
+import { isMobile } from "../utils/isMobile.ts";
 
 export function Home() {
   // Don't show splash screen on mobile

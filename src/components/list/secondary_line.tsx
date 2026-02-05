@@ -1,9 +1,9 @@
 import { Link } from "react-router";
 import thumbsDown from "../../assets/thumbs-down.svg";
 import thumbsUp from "../../assets/thumbs-up.svg";
-import { getObjAsQueryParam } from "../../utils/query_params";
-import { CreateDeleteModify } from "../create_delete_modify";
-import { NumberOfComments } from "./comments";
+import { getObjAsQueryParam } from "../../utils/query_params.ts";
+import { CreateDeleteModify } from "../create_delete_modify.tsx";
+import { NumberOfComments } from "./comments.tsx";
 
 interface SecondaryLineProps {
   changesetId: number;

@@ -1,12 +1,12 @@
 import { diffArrays } from "diff";
 import { useEffect, useState } from "react";
 import thumbsDown from "../assets/thumbs-down.svg";
-import { osmUrl } from "../config/constants";
-import { useAuth } from "../hooks/useAuth";
-import { flagFeature, unflagFeature } from "../network/changeset";
-import { Button } from "./button";
-import { Dropdown } from "./dropdown";
-import { TagValue } from "./tag_value";
+import { osmUrl } from "../config/constants.ts";
+import { useAuth } from "../hooks/useAuth.ts";
+import { flagFeature, unflagFeature } from "../network/changeset.ts";
+import { Button } from "./button.tsx";
+import { Dropdown } from "./dropdown.tsx";
+import { TagValue } from "./tag_value.tsx";
 
 interface ElementInfoProps {
   changeset: any;

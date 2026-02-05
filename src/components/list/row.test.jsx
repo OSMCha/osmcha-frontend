@@ -2,8 +2,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import MockDate from "mockdate";
 import { StaticRouter } from "react-router";
 import renderer from "react-test-renderer";
-import { PrimaryLine } from "./primary_line";
-import { Row } from "./row";
+import { PrimaryLine } from "./primary_line.tsx";
+import { Row } from "./row.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {

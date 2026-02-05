@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { ExpandItemIcon } from "../expand_item_icon";
-import { Loading } from "../loading";
-import { OpenAll } from "../open_all";
+import { ExpandItemIcon } from "../expand_item_icon.tsx";
+import { Loading } from "../loading.tsx";
+import { OpenAll } from "../open_all.tsx";
 
 function tagChangesFromActions(actions: any[]) {
   const finalReport = new Map();

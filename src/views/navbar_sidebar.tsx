@@ -1,12 +1,12 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { Link, useLocation, useNavigate } from "react-router";
-import { Button } from "../components/button";
-import { Dropdown } from "../components/dropdown";
-import { Navbar } from "../components/navbar";
-import { useAuth } from "../hooks/useAuth";
-import { getAuthUrl } from "../network/auth";
-import { useAuthStore } from "../stores/authStore";
-import { isMobile } from "../utils/isMobile";
+import { Button } from "../components/button.tsx";
+import { Dropdown } from "../components/dropdown.tsx";
+import { Navbar } from "../components/navbar.tsx";
+import { useAuth } from "../hooks/useAuth.ts";
+import { getAuthUrl } from "../network/auth.ts";
+import { useAuthStore } from "../stores/authStore.ts";
+import { isMobile } from "../utils/isMobile.ts";
 
 interface UserData {
   username?: string;

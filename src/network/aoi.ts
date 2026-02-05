@@ -1,5 +1,5 @@
-import { serializeFiltersToObject } from "../utils/filters";
-import { api } from "./request";
+import { serializeFiltersToObject } from "../utils/filters.ts";
+import { api } from "./request.ts";
 
 export function createAOI(name: string, filters: any): Promise<any> {
   return api.post("/aoi/", {

@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "react-select";
-import type { Filters } from "./";
+import type { Filters } from "./index.ts";
 
 interface MetaProps {
   placeholder: string;

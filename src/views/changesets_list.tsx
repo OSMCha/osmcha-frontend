@@ -1,18 +1,18 @@
 import Mousetrap from "mousetrap";
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
-import { List } from "../components/list";
-import { Footer } from "../components/list/footer";
-import { Header } from "../components/list/header";
+import { Footer } from "../components/list/footer.tsx";
+import { Header } from "../components/list/header.tsx";
+import { List } from "../components/list/index.tsx";
 import {
   FILTER_BINDING,
   HELP_BINDING,
   NEXT_CHANGESET,
   PREV_CHANGESET,
   REFRESH_CHANGESETS,
-} from "../config/bindings";
-import { useFilters } from "../hooks/useFilters";
-import { useChangesetsPage } from "../query/hooks/useChangesetsPage";
+} from "../config/bindings.ts";
+import { useFilters } from "../hooks/useFilters.ts";
+import { useChangesetsPage } from "../query/hooks/useChangesetsPage.ts";
 
 interface ChangesetsPageData {
   features: Array<{ id: number; properties: any }>;

@@ -7,9 +7,9 @@ import {
   CHANGESET_DETAILS_SUSPICIOUS,
   CHANGESET_DETAILS_TAGS,
   CHANGESET_DETAILS_USER,
-} from "../../config/bindings";
-import { Control } from "./control";
-import { Floater } from "./floater";
+} from "../../config/bindings.ts";
+import { Control } from "./control.tsx";
+import { Floater } from "./floater.tsx";
 
 interface ControlLayoutProps {
   bindingsState: Record<string, boolean>;

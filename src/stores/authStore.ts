@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { getItem } from "../utils/safe_storage";
+import { getItem } from "../utils/safe_storage.ts";
 
 interface AuthState {
   token: string | null;

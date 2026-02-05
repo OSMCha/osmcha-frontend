@@ -1,5 +1,5 @@
-import { isMobile } from "../../utils/isMobile";
-import { Dropdown, type DropdownOption } from "../dropdown";
+import { isMobile } from "../../utils/isMobile.ts";
+import { Dropdown, type DropdownOption } from "../dropdown.tsx";
 
 interface Camera {
   center: {

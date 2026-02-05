@@ -1,14 +1,14 @@
-import { useTrustedlist } from "../../query/hooks/useTrustedlist";
+import { useTrustedlist } from "../../query/hooks/useTrustedlist.ts";
 import {
   useAddToTrustedlist,
   useRemoveFromTrustedlist,
-} from "../../query/hooks/useTrustedlistMutations";
-import { useWatchlist } from "../../query/hooks/useWatchlist";
+} from "../../query/hooks/useTrustedlistMutations.ts";
+import { useWatchlist } from "../../query/hooks/useWatchlist.ts";
 import {
   useAddToWatchlist,
   useRemoveFromWatchlist,
-} from "../../query/hooks/useWatchlistMutations";
-import { Dropdown } from "../dropdown";
+} from "../../query/hooks/useWatchlistMutations.ts";
+import { Dropdown } from "../dropdown.tsx";
 
 interface TrustWatchUserProps {
   user: {

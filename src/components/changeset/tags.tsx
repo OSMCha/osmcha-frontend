@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { API_URL } from "../../config";
-import { useSetTag } from "../../query/hooks/useSetTag";
-import { useAuthStore } from "../../stores/authStore";
-import { Dropdown } from "../dropdown";
+import { API_URL } from "../../config/index.ts";
+import { useSetTag } from "../../query/hooks/useSetTag.ts";
+import { useAuthStore } from "../../stores/authStore.ts";
+import { Dropdown } from "../dropdown.tsx";
 
 interface TagsProps {
   changesetId: number;

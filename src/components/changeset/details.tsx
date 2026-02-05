@@ -1,8 +1,8 @@
 import Linkify from "linkify-react";
 import { useState } from "react";
-import { Reasons } from "../reasons";
-import PropertyList from "./property_list";
-import TranslateButton from "./translate_button";
+import { Reasons } from "../reasons.tsx";
+import PropertyList from "./property_list.tsx";
+import TranslateButton from "./translate_button.tsx";
 
 export function Details({
   properties,

@@ -1,11 +1,11 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
-import { Avatar } from "../components/avatar";
-import { Button } from "../components/button";
-import { EditUserDetails } from "../components/user/details";
-import { useAuth } from "../hooks/useAuth";
-import { useAuthStore } from "../stores/authStore";
-import { isMobile } from "../utils/isMobile";
+import { Avatar } from "../components/avatar.tsx";
+import { Button } from "../components/button.tsx";
+import { EditUserDetails } from "../components/user/details.tsx";
+import { useAuth } from "../hooks/useAuth.ts";
+import { useAuthStore } from "../stores/authStore.ts";
+import { isMobile } from "../utils/isMobile.ts";
 
 interface UserData {
   avatar?: string;

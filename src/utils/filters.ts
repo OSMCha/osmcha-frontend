@@ -1,5 +1,5 @@
 import { format, sub } from "date-fns";
-import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from "../config/constants";
+import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from "../config/constants.ts";
 
 export function validateFilters(filters: any): boolean {
   if (!filters || typeof filters !== "object") {

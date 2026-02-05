@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { updateUserDetails } from "../../network/auth";
+import { updateUserDetails } from "../../network/auth.ts";
 
 export function useUpdateUserDetails() {
   const queryClient = useQueryClient();

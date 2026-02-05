@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
-import { createAOI, deleteAOI, updateAOI } from "../../network/aoi";
+import { createAOI, deleteAOI, updateAOI } from "../../network/aoi.ts";
 
 export function useCreateAOI() {
   const queryClient = useQueryClient();

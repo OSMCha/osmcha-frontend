@@ -1,5 +1,5 @@
-import { PAGE_SIZE } from "../../config/constants";
-import { PageRange } from "./page_range";
+import { PAGE_SIZE } from "../../config/constants.ts";
+import { PageRange } from "./page_range.tsx";
 
 const RANGE = 6;
 

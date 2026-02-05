@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { API_URL } from "../../config";
-import { fetchAllAOIs } from "../../network/aoi";
-import { Button } from "../button";
-import { Dropdown } from "../dropdown";
+import { API_URL } from "../../config/index.ts";
+import { fetchAllAOIs } from "../../network/aoi.ts";
+import { Button } from "../button.tsx";
+import { Dropdown } from "../dropdown.tsx";
 
 interface SaveAOIProps {
   name?: string;

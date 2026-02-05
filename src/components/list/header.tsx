@@ -1,8 +1,8 @@
 import { NavLink } from "react-router";
 import filtersConfig from "../../config/filters.json";
-import numberWithCommas from "../../utils/number_with_commas";
-import { Button } from "../button";
-import { Dropdown } from "../dropdown";
+import numberWithCommas from "../../utils/number_with_commas.ts";
+import { Button } from "../button.tsx";
+import { Dropdown } from "../dropdown.tsx";
 
 interface HeaderProps {
   filters: any;

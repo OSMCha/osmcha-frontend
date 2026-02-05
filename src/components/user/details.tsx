@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import thumbsDown from "../../assets/thumbs-down.svg";
 import thumbsUp from "../../assets/thumbs-up.svg";
-import { useAuth } from "../../hooks/useAuth";
-import { useUpdateUserDetails } from "../../query/hooks/useUpdateUserDetails";
-import { Button } from "../button";
+import { useAuth } from "../../hooks/useAuth.ts";
+import { useUpdateUserDetails } from "../../query/hooks/useUpdateUserDetails.ts";
+import { Button } from "../button.tsx";
 
 function renderGoodBadImg(isGood: boolean) {
   return (

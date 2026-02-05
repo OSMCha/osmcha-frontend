@@ -2,10 +2,10 @@ import Mousetrap from "mousetrap";
 import { useCallback, useEffect } from "react";
 import { Link } from "react-router";
 import { toast } from "sonner";
-import { OpenIn } from "../components/changeset/open_in";
-import { Tags } from "../components/changeset/tags";
-import { Verify } from "../components/changeset/verify";
-import { Navbar } from "../components/navbar";
+import { OpenIn } from "../components/changeset/open_in.tsx";
+import { Tags } from "../components/changeset/tags.tsx";
+import { Verify } from "../components/changeset/verify.tsx";
+import { Navbar } from "../components/navbar.tsx";
 import {
   OPEN_IN_ACHAVI,
   OPEN_IN_HDYC,
@@ -16,10 +16,10 @@ import {
   VERIFY_BAD,
   VERIFY_CLEAR,
   VERIFY_GOOD,
-} from "../config/bindings";
-import { useMarkHarmful } from "../query/hooks/useMarkHarmful";
-import { useAuthStore } from "../stores/authStore";
-import { isMobile } from "../utils/isMobile";
+} from "../config/bindings.ts";
+import { useMarkHarmful } from "../query/hooks/useMarkHarmful.ts";
+import { useAuthStore } from "../stores/authStore.ts";
+import { isMobile } from "../utils/isMobile.ts";
 
 interface NavbarChangesetProps {
   changesetId: number;

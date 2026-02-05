@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getStatus } from "../../network/status";
+import { getStatus } from "../../network/status.ts";
 
 export function useStatus() {
   return useQuery({

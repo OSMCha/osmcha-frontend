@@ -1,5 +1,5 @@
 import renderer from "react-test-renderer";
-import { PageRange } from "./page_range";
+import { PageRange } from "./page_range.tsx";
 
 it("renders correctly", () => {
   const tree = renderer

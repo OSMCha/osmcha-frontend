@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router";
 import { toast } from "sonner";
-import { validateFilters } from "../utils/filters";
+import { validateFilters } from "../utils/filters.ts";
 
 export function useFilters() {
   const [searchParams, setSearchParams] = useSearchParams();

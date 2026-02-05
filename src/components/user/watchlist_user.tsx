@@ -1,6 +1,6 @@
 import React from "react";
-import { handleResponse } from "../../network/request";
-import { Button } from "../button";
+import { handleResponse } from "../../network/request.ts";
+import { Button } from "../button.tsx";
 
 interface WatchListUserProps {
   onSave: (username: string, uid: string) => void;

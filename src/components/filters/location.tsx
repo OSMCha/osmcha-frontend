@@ -16,7 +16,7 @@ import {
 } from "terra-draw";
 import { TerraDrawMapLibreGLAdapter } from "terra-draw-maplibre-gl-adapter";
 
-import { nominatimSearch } from "../../network/nominatim";
+import { nominatimSearch } from "../../network/nominatim.ts";
 
 const LocationSelect = (props) => {
   const { name, value, placeholder, onChange } = props;

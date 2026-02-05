@@ -3,12 +3,12 @@ import React from "react";
 import Markdown from "react-markdown";
 import { Link } from "react-router";
 import remarkGfm from "remark-gfm";
-import { getObjAsQueryParam } from "../../utils/query_params";
-import { Avatar } from "../avatar";
-import { RelativeTime } from "../relative_time";
-import { SignInButton } from "./sign_in_button";
-import { TrustWatchUser } from "./trust_watch_user";
-import { UserOSMLink } from "./user_osm_link";
+import { getObjAsQueryParam } from "../../utils/query_params.ts";
+import { Avatar } from "../avatar.tsx";
+import { RelativeTime } from "../relative_time.tsx";
+import { SignInButton } from "./sign_in_button.tsx";
+import { TrustWatchUser } from "./trust_watch_user.tsx";
+import { UserOSMLink } from "./user_osm_link.tsx";
 
 interface UserDetails {
   uid?: number | string;

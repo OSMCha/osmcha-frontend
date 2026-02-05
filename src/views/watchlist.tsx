@@ -1,17 +1,17 @@
 import type React from "react";
 import { Link } from "react-router";
-import { Button } from "../components/button";
-import { SecondaryPagesHeader } from "../components/secondary_pages_header";
-import { BlockMarkup } from "../components/user/block_markup";
-import { SaveUser } from "../components/user/save_user";
-import { useAuth } from "../hooks/useAuth";
-import { useWatchlist } from "../query/hooks/useWatchlist";
+import { Button } from "../components/button.tsx";
+import { SecondaryPagesHeader } from "../components/secondary_pages_header.tsx";
+import { BlockMarkup } from "../components/user/block_markup.tsx";
+import { SaveUser } from "../components/user/save_user.tsx";
+import { useAuth } from "../hooks/useAuth.ts";
+import { useWatchlist } from "../query/hooks/useWatchlist.ts";
 import {
   useAddToWatchlist,
   useRemoveFromWatchlist,
-} from "../query/hooks/useWatchlistMutations";
-import { isMobile } from "../utils/isMobile";
-import { getObjAsQueryParam } from "../utils/query_params";
+} from "../query/hooks/useWatchlistMutations.ts";
+import { isMobile } from "../utils/isMobile.ts";
+import { getObjAsQueryParam } from "../utils/query_params.ts";
 
 interface WatchlistUser {
   username: string;

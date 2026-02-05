@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAndParseAugmentedDiff } from "../../network/changeset";
-import { fetchChangesetMetadata } from "../../network/openstreetmap";
+import { fetchAndParseAugmentedDiff } from "../../network/changeset.ts";
+import { fetchChangesetMetadata } from "../../network/openstreetmap.ts";
 
 export function useChangesetMap(changesetId: number | null) {
   return useQuery({

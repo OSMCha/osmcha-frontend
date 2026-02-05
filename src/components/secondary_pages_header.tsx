@@ -1,5 +1,5 @@
-import { isMobile } from "../utils/isMobile";
-import { Avatar } from "./avatar";
+import { isMobile } from "../utils/isMobile.ts";
+import { Avatar } from "./avatar.tsx";
 
 interface SecondaryPagesHeaderProps {
   title: string;

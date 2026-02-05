@@ -1,7 +1,7 @@
 import { format, parse } from "date-fns";
 import React from "react";
 import DatePicker from "react-datepicker";
-import type { Filter } from "./";
+import type { Filter } from "./index.ts";
 
 import "react-datepicker/dist/react-datepicker.css";
 

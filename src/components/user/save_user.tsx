@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Button } from "../button";
-import { TrustedListUser } from "./trustedlist_user";
-import { WatchListUser } from "./watchlist_user";
+import { Button } from "../button.tsx";
+import { TrustedListUser } from "./trustedlist_user.tsx";
+import { WatchListUser } from "./watchlist_user.tsx";
 
 interface SaveUserProps {
   forWatchlist?: boolean;

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { setHarmful } from "../../network/changeset";
+import { setHarmful } from "../../network/changeset.ts";
 
 interface MarkHarmfulParams {
   changesetId: number;

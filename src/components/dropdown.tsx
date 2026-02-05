@@ -1,7 +1,7 @@
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./dropdown.css";
-import { Button } from "./button";
+import { Button } from "./button.tsx";
 
 export interface DropdownOption {
   label: string;

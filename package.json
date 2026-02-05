@@ -18,7 +18,7 @@
     "dev": "npm run start",
     "lint": "biome lint",
     "format": "biome format --write",
-    "check": "biome check && npm run typecheck",
+    "check": "npm run typecheck && biome check",
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
