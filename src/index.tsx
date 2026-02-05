@@ -17,7 +17,7 @@ root.render(
   <QueryClientProvider client={queryClient}>
     <Router>
       <App />
-      <Toaster position="bottom-center" />
+      <Toaster position="top-right" />
     </Router>
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>,
