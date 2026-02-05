@@ -224,39 +224,6 @@ img {
   background: transparent;
 }
 
-/* changeset map*/
-.cmap-container .cmap-sidebar {
-  position: fixed;
-  bottom: 0px;
-  padding: 5px;
-  top: inherit;
-  left: inherit;
-}
-
-.cmap-container .cmap-map {
-  background: #000;
-}
-
-.cmap-changeset-section,
-.cmap-sidebar {
-  display: none;
-}
-
-.cmap-diff {
-  position: fixed;
-  bottom: 14px;
-  right: 0px;
-  padding: 5px;
-  top: inherit;
-  left: inherit;
-  z-index: 0;
-}
-
-.cmap-changeset-link,
-.cmap-wikidata-link {
-  text-decoration: underline;
-}
-
 .txt-bold-on-hover:hover {
   font-weight: 600;
 }
