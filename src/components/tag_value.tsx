@@ -1,4 +1,3 @@
-import type React from "react";
 import { Fragment } from "react";
 import tag2linkRaw from "tag2link";
 
@@ -30,7 +29,12 @@ function convertSourceData(input: Tag2LinkItem[]): Record<string, string> {
 
 const TAG2LINK = convertSourceData(tag2linkRaw as Tag2LinkItem[]);
 
-export const TagValue: React.FC<{ k: string; v: string }> = ({ k, v }) => {
+interface TagValueProps {
+  k: string;
+  v: string;
+}
+
+export function TagValue({ k, v }: TagValueProps) {
   const placeholderUrl = TAG2LINK[k];
 
   // simple key, not clickable
@@ -57,4 +61,4 @@ export const TagValue: React.FC<{ k: string; v: string }> = ({ k, v }) => {
       ))}
     </>
   );
-};
+}

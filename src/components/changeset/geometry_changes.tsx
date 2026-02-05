@@ -34,13 +34,21 @@ function geometryChangesFromActions(actions: any[]) {
   return finalReport;
 }
 
+interface GeometryChangesItemProps {
+  elementType: string;
+  elementIds: number[];
+  opened: boolean;
+  setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
+  zoomToAndSelect: (type: string, id: number) => void;
+}
+
 const GeometryChangesItem = ({
   elementType,
   elementIds,
   opened,
   setHighlight,
   zoomToAndSelect,
-}: any) => {
+}: GeometryChangesItemProps) => {
   const titles: Record<string, string> = {
     node: "Nodes",
     way: "Ways",

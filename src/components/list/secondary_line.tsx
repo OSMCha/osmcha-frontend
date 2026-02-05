@@ -5,7 +5,20 @@ import { getObjAsQueryParam } from "../../utils/query_params";
 import { CreateDeleteModify } from "../create_delete_modify";
 import { NumberOfComments } from "./comments";
 
-export function SecondaryLine({ changesetId, properties }: any) {
+interface SecondaryLineProps {
+  changesetId: number;
+  properties: {
+    checked: boolean;
+    check_user: string;
+    harmful: boolean;
+    comments_count: number;
+    create: number;
+    modify: number;
+    delete: number;
+  };
+}
+
+export function SecondaryLine({ changesetId, properties }: SecondaryLineProps) {
   return (
     <span className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray">
       <span>

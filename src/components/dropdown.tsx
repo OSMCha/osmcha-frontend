@@ -35,7 +35,7 @@ interface DropdownContentProps {
   deletable?: (value: string) => void;
 }
 
-const DropdownContent: React.FC<DropdownContentProps> = ({
+function DropdownContent({
   value,
   onChange,
   onRemove,
@@ -45,7 +45,7 @@ const DropdownContent: React.FC<DropdownContentProps> = ({
   toggleDropdown,
   styles,
   deletable,
-}) => {
+}: DropdownContentProps) {
   const isActive = useCallback(
     (obj: DropdownOption) => {
       if (!value) return false;
@@ -137,9 +137,9 @@ const DropdownContent: React.FC<DropdownContentProps> = ({
       ))}
     </ul>
   );
-};
+}
 
-export const Dropdown: React.FC<DropdownProps> = ({
+export function Dropdown({
   className = "",
   disabled,
   value = [],
@@ -151,7 +151,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   deletable,
   multi = false,
   position = "left",
-}) => {
+}: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -206,4 +206,4 @@ export const Dropdown: React.FC<DropdownProps> = ({
       )}
     </div>
   );
-};
+}
