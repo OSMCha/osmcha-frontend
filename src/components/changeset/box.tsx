@@ -2,8 +2,6 @@ import type React from "react";
 
 interface BoxProps {
   children: React.ReactNode;
-  pullDown?: any;
-  pullUp?: any;
   className?: string;
   style?: React.CSSProperties;
   bg?: string;
