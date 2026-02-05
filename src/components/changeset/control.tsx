@@ -1,4 +1,16 @@
-export function Control({ active, onClick, children, className }: any) {
+interface ControlProps {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function Control({
+  active,
+  onClick,
+  children,
+  className,
+}: ControlProps) {
   return (
     <span
       className={`${className} mx6 cursor-pointer txt-s inline-block txt-bold round p6 transition color-darken75

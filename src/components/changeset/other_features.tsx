@@ -29,13 +29,21 @@ function otherChangesFromActions(actions: any[]) {
   return finalReport;
 }
 
+interface ActionItemProps {
+  opened: boolean;
+  tag: string;
+  features: any[];
+  setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
+  zoomToAndSelect: (type: string, id: number) => void;
+}
+
 const ActionItem = ({
   opened,
   tag,
   features,
   setHighlight,
   zoomToAndSelect,
-}: any) => {
+}: ActionItemProps) => {
   const [isOpen, setIsOpen] = useState(opened);
   const titles: Record<string, string> = {
     create: "Created",

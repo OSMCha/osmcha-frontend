@@ -141,7 +141,7 @@ function NavbarSidebar() {
           ) : (
             <Button
               onClick={handleLoginClick}
-              disable={!oAuthToken}
+              disabled={!oAuthToken}
               iconName="osm"
             >
               Sign in

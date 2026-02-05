@@ -54,22 +54,14 @@ export class Row extends React.Component<RowProps> {
                 pathname: `/changesets/${changesetId}`,
               }}
             >
-              <Title
-                properties={properties}
-                wasOpen={this.wasOpen}
-                date={properties.date}
-              />
+              <Title properties={properties} date={properties.date} />
               <PrimaryLine
                 reasons={properties.reasons}
                 tags={properties.tags}
                 comment={properties.comment}
               />
             </Link>
-            <SecondaryLine
-              changesetId={changesetId}
-              properties={properties}
-              date={properties.date}
-            />
+            <SecondaryLine changesetId={changesetId} properties={properties} />
           </div>
         </div>
       </div>

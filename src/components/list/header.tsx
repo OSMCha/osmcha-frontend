@@ -4,6 +4,21 @@ import numberWithCommas from "../../utils/number_with_commas";
 import { Button } from "../button";
 import { Dropdown } from "../dropdown";
 
+interface HeaderProps {
+  filters: any;
+  handleFilterOrderBy: (value: any) => void;
+  location: {
+    search: string;
+    pathname: string;
+  };
+  diffLoading: boolean;
+  diff: number;
+  currentPage?: {
+    count?: number;
+  };
+  reloadChangesetsPageData: () => void;
+}
+
 export function Header({
   filters,
   handleFilterOrderBy,
@@ -11,8 +26,8 @@ export function Header({
   diffLoading,
   diff,
   currentPage,
-  reloadCurrentPage,
-}: any) {
+  reloadChangesetsPageData,
+}: HeaderProps) {
   const valueData: any[] = [];
   const orderByFilter = filtersConfig.find((f) => f.name === "order_by");
   const options = orderByFilter?.options ?? [];
@@ -68,7 +83,7 @@ export function Header({
               <Button
                 className="mx3 btn--xs"
                 iconName="rotate"
-                onClick={reloadCurrentPage}
+                onClick={reloadChangesetsPageData}
               >
                 {diff > 0 ? `${diff} new` : ""}
               </Button>

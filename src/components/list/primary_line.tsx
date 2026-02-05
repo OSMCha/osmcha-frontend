@@ -1,6 +1,12 @@
 import { Reasons } from "../reasons";
 
-export function PrimaryLine({ reasons, comment, tags }: any) {
+interface PrimaryLineProps {
+  reasons: any[];
+  comment: string;
+  tags: any[];
+}
+
+export function PrimaryLine({ reasons, comment, tags }: PrimaryLineProps) {
   return (
     <span className="flex-parent flex-parent--column">
       <p className="flex-child truncate-3-lines my6 txt-break-url">{comment}</p>

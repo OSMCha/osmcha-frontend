@@ -401,9 +401,9 @@ function RelationMembersTable({
   action: any;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
 }) {
-  const oldMemberIds =
+  const oldMemberIds: string[] =
     action.old?.members.map((m: any) => `${m.type}/${m.ref}`) ?? [];
-  const newMemberIds =
+  const newMemberIds: string[] =
     action.new?.members.map((m: any) => `${m.type}/${m.ref}`) ?? [];
 
   const diff = diffArrays(oldMemberIds, newMemberIds, {
@@ -419,7 +419,7 @@ function RelationMembersTable({
         </tr>
       </thead>
       <tbody>
-        {diff.map(({ value }: any) => {
+        {diff.map(({ value }) => {
           const id = value[0];
           const [type, ref] = id.split("/");
           const oldMember = action.old?.members.find(

@@ -1,4 +1,18 @@
-export function CustomURL({ href, children, iconName, className, title }: any) {
+interface CustomURLProps {
+  href: string;
+  children?: React.ReactNode;
+  iconName?: string;
+  className?: string;
+  title?: string;
+}
+
+export function CustomURL({
+  href,
+  children,
+  iconName,
+  className,
+  title,
+}: CustomURLProps) {
   return (
     <a
       href={href}

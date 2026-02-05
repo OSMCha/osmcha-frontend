@@ -65,7 +65,13 @@ function analyzeAction(action: any) {
   return result;
 }
 
-export function FeatureListItem({ id, type, ...props }: any) {
+interface FeatureListItemProps {
+  id: number;
+  type: string;
+  [key: string]: any;
+}
+
+export function FeatureListItem({ id, type, ...props }: FeatureListItemProps) {
   return (
     <li>
       <span
@@ -106,13 +112,21 @@ function ChangeTitle({ value, type }: { value: any; type: string }) {
   return <div></div>;
 }
 
+interface ChangeItemProps {
+  opened: boolean;
+  tag: string;
+  features: any[];
+  setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
+  zoomToAndSelect: (type: string, id: number) => void;
+}
+
 const ChangeItem = ({
   opened,
   tag,
   features,
   setHighlight,
   zoomToAndSelect,
-}: any) => {
+}: ChangeItemProps) => {
   const [isOpen, setIsOpen] = useState(opened);
   const values = Array.from(
     new Set(features.map((feature: any) => feature.value)),
@@ -170,12 +184,19 @@ const ChangeItem = ({
   );
 };
 
+interface ChangeItemListProps {
+  changes: Array<[string, any[]]>;
+  openAll: boolean;
+  setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
+  zoomToAndSelect: (type: string, id: number) => void;
+}
+
 const ChangeItemList = ({
   changes,
   openAll,
   setHighlight,
   zoomToAndSelect,
-}: any) => {
+}: ChangeItemListProps) => {
   return (
     <>
       {changes.length ? (
