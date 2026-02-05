@@ -3,7 +3,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, loadEnv } from "vite";
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), "");
+  const env = loadEnv(mode, process.cwd(), "OSMCHA_");
 
   const plugins = [react()];
   if (process.env.ANALYZE) {

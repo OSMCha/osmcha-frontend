@@ -1,16 +1,16 @@
 /// <reference types="vite/client" />
 
 interface RuntimeEnv {
-  readonly VITE_API_URL?: string;
-  readonly VITE_PAGE_SIZE?: string;
-  readonly VITE_OVERPASS_BASE?: string;
-  readonly VITE_DISABLE_REAL_CHANGESETS?: string;
-  readonly VITE_OSM_URL?: string;
-  readonly VITE_OSM_API?: string;
-  readonly VITE_ADIFF_SERVICE_URL?: string;
-  readonly VITE_NOMINATIM_URL?: string;
-  readonly VITE_DEFAULT_FROM_DATE?: string;
-  readonly VITE_DEFAULT_TO_DATE?: string;
+  readonly OSMCHA_API_URL?: string;
+  readonly OSMCHA_PAGE_SIZE?: string;
+  readonly OSMCHA_OVERPASS_BASE?: string;
+  readonly OSMCHA_DISABLE_REAL_CHANGESETS?: string;
+  readonly OSMCHA_OSM_URL?: string;
+  readonly OSMCHA_OSM_API?: string;
+  readonly OSMCHA_ADIFF_SERVICE_URL?: string;
+  readonly OSMCHA_NOMINATIM_URL?: string;
+  readonly OSMCHA_DEFAULT_FROM_DATE?: string;
+  readonly OSMCHA_DEFAULT_TO_DATE?: string;
 }
 
 interface ImportMetaEnv extends RuntimeEnv {}
