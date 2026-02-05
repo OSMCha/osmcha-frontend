@@ -59,7 +59,7 @@ const ActionItem = ({
           {features.length}
         </strong>
       </button>
-      <ul className="cmap-vlist" style={{ display: isOpen ? "block" : "none" }}>
+      <ul style={{ display: isOpen ? "block" : "none" }}>
         {features.map((item: any, k: number) => (
           <FeatureListItem
             id={item.id}

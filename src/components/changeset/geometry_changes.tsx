@@ -64,7 +64,7 @@ const GeometryChangesItem = ({
           {elementIds.length}
         </strong>
       </button>
-      <ul className="cmap-vlist" style={{ display: isOpen ? "block" : "none" }}>
+      <ul style={{ display: isOpen ? "block" : "none" }}>
         {elementIds.map((id: number) => (
           <FeatureListItem
             key={id}

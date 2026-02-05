@@ -44,10 +44,8 @@ export function MapOptions({
   return (
     <div className="px12 py6">
       <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">Map Controls</h2>
-      <section className="cmap-filter-action-section cmap-pt3">
-        <h6 className="cmap-heading cursor-pointer txt-bold">
-          Filter by actions
-        </h6>
+      <section>
+        <h6 className="cursor-pointer txt-bold">Filter by actions</h6>
 
         <ul className="flex-parent">
           <li className="px6">
@@ -96,7 +94,7 @@ export function MapOptions({
           </li>
         </ul>
       </section>
-      <section className="cmap-filter-type-section">
+      <section>
         <h6 className="txt-bold">Filter by type</h6>
         <ul className="flex-parent">
           <li className="px6">
@@ -142,8 +140,8 @@ export function MapOptions({
           </li>
         </ul>
       </section>
-      <section className="cmap-map-style-section cmap-pb3">
-        <h6 className="cmap-heading cursor-pointer txt-bold">Map style</h6>
+      <section>
+        <h6 className="cursor-pointer txt-bold">Map style</h6>
         <select value={style} onChange={(e) => setStyle(e.target.value)}>
           {layerOptions.map((opt) => (
             <option key={opt.value} value={opt.value}>
