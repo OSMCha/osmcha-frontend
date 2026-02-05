@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAllAOIs, fetchAOI } from "../../network/aoi";
-import { useAuthStore } from "../../stores/authStore";
+import { fetchAllAOIs, fetchAOI } from "../../network/aoi.ts";
+import { useAuthStore } from "../../stores/authStore.ts";
 
 export function useAOI(aoiId: string | null) {
   const token = useAuthStore((state) => state.token);

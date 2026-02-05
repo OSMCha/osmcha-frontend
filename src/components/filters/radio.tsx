@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "react-select";
-import type { Filter } from "./";
+import type { Filter } from "./index.ts";
 
 interface RadioProps {
   name: string;

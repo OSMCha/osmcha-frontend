@@ -6,8 +6,8 @@ import {
   fetchMappingTeam,
   fetchUserMappingTeams,
   updateMappingTeam,
-} from "../../network/mapping_team";
-import { useAuthStore } from "../../stores/authStore";
+} from "../../network/mapping_team.ts";
+import { useAuthStore } from "../../stores/authStore.ts";
 
 export function useMappingTeams(username: string | undefined) {
   const token = useAuthStore((state) => state.token);

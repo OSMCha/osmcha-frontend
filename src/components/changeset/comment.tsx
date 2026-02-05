@@ -1,7 +1,7 @@
 import React from "react";
-import { postComment } from "../../network/changeset";
-import { cancelablePromise } from "../../utils/promise";
-import { Button } from "../button";
+import { postComment } from "../../network/changeset.ts";
+import { cancelablePromise } from "../../utils/promise.ts";
+import { Button } from "../button.tsx";
 
 type Props = {
   token: string;

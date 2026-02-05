@@ -3,11 +3,11 @@ import * as maplibre from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { Loading } from "../components/loading";
-import { SignIn } from "../components/sign_in";
-import { useAuth } from "../hooks/useAuth";
-import { useChangesetMap } from "../query/hooks/useChangesetMap";
-import { useMapStore } from "../stores/mapStore";
+import { Loading } from "../components/loading.tsx";
+import { SignIn } from "../components/sign_in.tsx";
+import { useAuth } from "../hooks/useAuth.ts";
+import { useChangesetMap } from "../query/hooks/useChangesetMap.ts";
+import { useMapStore } from "../stores/mapStore.ts";
 
 const BING_AERIAL_IMAGERY_STYLE: maplibre.StyleSpecification = {
   version: 8,

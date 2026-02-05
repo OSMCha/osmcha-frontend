@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import { Link } from "react-router";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { Button } from "../button";
+import { Button } from "../button.tsx";
 
 interface TeamUser {
   username?: string;

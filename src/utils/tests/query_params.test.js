@@ -1,4 +1,4 @@
-import { getObjAsQueryParam, getSearchObj } from "../query_params";
+import { getObjAsQueryParam, getSearchObj } from "../query_params.ts";
 
 describe("getSearchObj", () => {
   it("with input provided.", () => {

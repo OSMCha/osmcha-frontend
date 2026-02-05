@@ -1,4 +1,4 @@
-import { api } from "./request";
+import { api } from "./request.ts";
 
 export function fetchReasons() {
   return api

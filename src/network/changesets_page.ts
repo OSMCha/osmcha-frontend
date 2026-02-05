@@ -1,6 +1,9 @@
-import { PAGE_SIZE } from "../config/constants";
-import { appendDefaultDate, serializeFiltersToQuery } from "../utils/filters";
-import { api } from "./request";
+import { PAGE_SIZE } from "../config/constants.ts";
+import {
+  appendDefaultDate,
+  serializeFiltersToQuery,
+} from "../utils/filters.ts";
+import { api } from "./request.ts";
 
 export function fetchChangesetsPage(
   pageIndex: number,

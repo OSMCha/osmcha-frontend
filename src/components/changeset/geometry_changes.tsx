@@ -1,10 +1,10 @@
 import deepEqual from "deep-equal";
 import { useEffect, useState } from "react";
 
-import { ExpandItemIcon } from "../expand_item_icon";
-import { Loading } from "../loading";
-import { OpenAll } from "../open_all";
-import { FeatureListItem } from "./tag_changes";
+import { ExpandItemIcon } from "../expand_item_icon.tsx";
+import { Loading } from "../loading.tsx";
+import { OpenAll } from "../open_all.tsx";
+import { FeatureListItem } from "./tag_changes.tsx";
 
 function geometryChangesFromActions(actions: any[]) {
   const finalReport = new Map();

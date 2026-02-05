@@ -1,5 +1,5 @@
 import React from "react";
-import { Loading } from "./loading";
+import { Loading } from "./loading.tsx";
 
 type Props = {
   loading: boolean;

@@ -1,7 +1,7 @@
 import { toast } from "sonner";
-import { postFinalTokensOSMCha } from "../network/auth";
-import { useAuthStore } from "../stores/authStore";
-import { setItem } from "./safe_storage";
+import { postFinalTokensOSMCha } from "../network/auth.ts";
+import { useAuthStore } from "../stores/authStore.ts";
+import { setItem } from "./safe_storage.ts";
 
 /**
  * Completes OAuth login flow by exchanging code for token.

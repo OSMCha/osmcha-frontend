@@ -3,11 +3,11 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router } from "react-router";
 import { Toaster } from "sonner";
-import { queryClient } from "./query/client";
+import { queryClient } from "./query/client.ts";
 
 import "./assets/index.css";
 
-import { App } from "./app";
+import { App } from "./app.tsx";
 
 const container = document.getElementById("root");
 if (!container) throw new Error("Root element not found");

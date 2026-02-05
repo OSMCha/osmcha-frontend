@@ -1,12 +1,12 @@
 import { parse } from "date-fns";
 import Linkify from "linkify-react";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth.ts";
 
-import { RelativeTime } from "../relative_time";
-import { CommentForm } from "./comment";
-import { SignInButton } from "./sign_in_button";
-import TranslateButton from "./translate_button";
-import { UserOSMLink } from "./user_osm_link";
+import { RelativeTime } from "../relative_time.tsx";
+import { CommentForm } from "./comment.tsx";
+import { SignInButton } from "./sign_in_button.tsx";
+import TranslateButton from "./translate_button.tsx";
+import { UserOSMLink } from "./user_osm_link.tsx";
 
 interface DiscussionsProps {
   discussions: any[];

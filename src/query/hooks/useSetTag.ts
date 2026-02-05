@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { setTag } from "../../network/changeset";
+import { setTag } from "../../network/changeset.ts";
 
 interface SetTagParams {
   changesetId: number;

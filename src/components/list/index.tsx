@@ -1,9 +1,9 @@
 import { useCallback, useRef } from "react";
-import { useAuth } from "../../hooks/useAuth";
-import { elementInViewport } from "../../utils/element_in_view";
-import { SignInButton } from "../changeset/sign_in_button";
-import { Loading } from "../loading";
-import { Row } from "./row";
+import { useAuth } from "../../hooks/useAuth.ts";
+import { elementInViewport } from "../../utils/element_in_view.ts";
+import { SignInButton } from "../changeset/sign_in_button.tsx";
+import { Loading } from "../loading.tsx";
+import { Row } from "./row.tsx";
 
 type CurrentPage = {
   features: Array<{

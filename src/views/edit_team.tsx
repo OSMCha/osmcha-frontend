@@ -1,13 +1,13 @@
 import { useParams } from "react-router";
-import { SecondaryPagesHeader } from "../components/secondary_pages_header";
-import { SignIn } from "../components/sign_in";
-import NewTeam from "../components/teams/new_team";
-import { useAuth } from "../hooks/useAuth";
+import { SecondaryPagesHeader } from "../components/secondary_pages_header.tsx";
+import { SignIn } from "../components/sign_in.tsx";
+import NewTeam from "../components/teams/new_team.tsx";
+import { useAuth } from "../hooks/useAuth.ts";
 import {
   useMappingTeam,
   useUpdateMappingTeam,
-} from "../query/hooks/useMappingTeams";
-import { isMobile } from "../utils/isMobile";
+} from "../query/hooks/useMappingTeams.ts";
+import { isMobile } from "../utils/isMobile.ts";
 
 interface TeamData {
   id?: number;

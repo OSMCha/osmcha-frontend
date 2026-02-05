@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { completeOAuthLogin } from "../utils/auth";
+import { completeOAuthLogin } from "../utils/auth.ts";
 
 export function Authorized() {
   const location = useLocation();

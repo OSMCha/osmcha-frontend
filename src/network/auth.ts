@@ -1,5 +1,5 @@
-import { osmchaSocialTokenUrl } from "../config/constants";
-import { api, handleResponse } from "./request";
+import { osmchaSocialTokenUrl } from "../config/constants.ts";
+import { api, handleResponse } from "./request.ts";
 
 export async function postFinalTokensOSMCha(code: string) {
   const formData = new URLSearchParams();

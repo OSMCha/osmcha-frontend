@@ -1,4 +1,4 @@
-import { api } from "./request";
+import { api } from "./request.ts";
 
 export function createMappingTeam(name: string, users: object) {
   return api.post("/mapping-team/", { name, users });

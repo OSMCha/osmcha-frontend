@@ -1,9 +1,9 @@
 import { parse } from "date-fns";
-import { useAuth } from "../../hooks/useAuth";
-import { useIsUserListed } from "../../hooks/useIsUserListed";
-import { CreateDeleteModify } from "../create_delete_modify";
-import { RelativeTime } from "../relative_time";
-import { Details } from "./details";
+import { useAuth } from "../../hooks/useAuth.ts";
+import { useIsUserListed } from "../../hooks/useIsUserListed.ts";
+import { CreateDeleteModify } from "../create_delete_modify.tsx";
+import { RelativeTime } from "../relative_time.tsx";
+import { Details } from "./details.tsx";
 
 type Props = {
   properties: any;

@@ -1,5 +1,5 @@
-import { useUserDetails } from "../query/hooks/useUserDetails";
-import { useWatchlist } from "../query/hooks/useWatchlist";
+import { useUserDetails } from "../query/hooks/useUserDetails.ts";
+import { useWatchlist } from "../query/hooks/useWatchlist.ts";
 
 interface UserDetailsWithWhitelists {
   whitelists?: string[];

@@ -1,4 +1,4 @@
-import { API_URL } from "./";
+import { API_URL } from "./index.ts";
 
 export const PAGE_SIZE = Number(window.env.OSMCHA_PAGE_SIZE) || 25;
 export const overpassBase =

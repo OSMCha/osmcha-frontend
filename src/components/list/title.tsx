@@ -1,7 +1,7 @@
 import { parse } from "date-fns";
-import { useAuth } from "../../hooks/useAuth";
-import { useIsUserListed } from "../../hooks/useIsUserListed";
-import { RelativeTime } from "../relative_time";
+import { useAuth } from "../../hooks/useAuth.ts";
+import { useIsUserListed } from "../../hooks/useIsUserListed.ts";
+import { RelativeTime } from "../relative_time.tsx";
 
 interface TitleProps {
   properties: {

@@ -1,5 +1,5 @@
-import { API_URL } from "../config";
-import { useAuthStore } from "../stores/authStore";
+import { API_URL } from "../config/index.ts";
+import { useAuthStore } from "../stores/authStore.ts";
 
 export function makeApiRequest(
   endpoint: string,

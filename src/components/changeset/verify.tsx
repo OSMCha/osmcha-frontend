@@ -1,6 +1,6 @@
 import thumbsDown from "../../assets/thumbs-down.svg";
 import thumbsUp from "../../assets/thumbs-up.svg";
-import { Dropdown, type DropdownOption } from "../dropdown";
+import { Dropdown, type DropdownOption } from "../dropdown.tsx";
 
 interface ChangesetProperties {
   checked?: boolean;

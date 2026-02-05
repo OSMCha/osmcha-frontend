@@ -1,6 +1,6 @@
 import { createElement } from "react";
 import renderer from "react-test-renderer";
-import { TagValue } from "./tag_value";
+import { TagValue } from "./tag_value.tsx";
 
 describe("TagValue", () => {
   it.each`

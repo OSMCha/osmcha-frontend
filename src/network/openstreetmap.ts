@@ -1,5 +1,5 @@
-import { apiOSM } from "../config/constants";
-import { api } from "./request";
+import { apiOSM } from "../config/constants.ts";
+import { api } from "./request.ts";
 
 export async function fetchChangesetMetadata(id: number): Promise<any> {
   const res = await fetch(

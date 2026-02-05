@@ -12,23 +12,23 @@ import {
   CHANGESET_DETAILS_SUSPICIOUS,
   CHANGESET_DETAILS_TAGS,
   CHANGESET_DETAILS_USER,
-} from "../../config/bindings";
-import { useAuth } from "../../hooks/useAuth";
-import { getUserDetails } from "../../network/openstreetmap";
-import { getUsers } from "../../network/whosthat";
-import { useChangesetMap } from "../../query/hooks/useChangesetMap";
-import ElementInfo from "../element_info";
-import { Box } from "./box";
-import { ControlLayout } from "./control_layout";
-import { Discussions } from "./discussions";
-import { Features } from "./features";
-import { Floater } from "./floater";
-import { GeometryChanges } from "./geometry_changes";
-import { Header } from "./header";
-import { MapOptions } from "./map_options";
-import { OtherFeatures } from "./other_features";
-import { TagChanges } from "./tag_changes";
-import { User } from "./user";
+} from "../../config/bindings.ts";
+import { useAuth } from "../../hooks/useAuth.ts";
+import { getUserDetails } from "../../network/openstreetmap.ts";
+import { getUsers } from "../../network/whosthat.ts";
+import { useChangesetMap } from "../../query/hooks/useChangesetMap.ts";
+import ElementInfo from "../element_info.tsx";
+import { Box } from "./box.tsx";
+import { ControlLayout } from "./control_layout.tsx";
+import { Discussions } from "./discussions.tsx";
+import { Features } from "./features.tsx";
+import { Floater } from "./floater.tsx";
+import { GeometryChanges } from "./geometry_changes.tsx";
+import { Header } from "./header.tsx";
+import { MapOptions } from "./map_options.tsx";
+import { OtherFeatures } from "./other_features.tsx";
+import { TagChanges } from "./tag_changes.tsx";
+import { User } from "./user.tsx";
 
 type ChangesetProps = {
   changesetId: number;

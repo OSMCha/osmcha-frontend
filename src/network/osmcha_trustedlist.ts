@@ -1,4 +1,4 @@
-import { api } from "./request";
+import { api } from "./request.ts";
 
 export function deleteFromTrustedList(username: string): Promise<any> {
   return api.delete(`/whitelist-user/${username}/`);

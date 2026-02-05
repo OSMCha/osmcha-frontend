@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import {
   deleteFromTrustedList,
   postUserToTrustedList,
-} from "../../network/osmcha_trustedlist";
+} from "../../network/osmcha_trustedlist.ts";
 
 export function useAddToTrustedlist() {
   const queryClient = useQueryClient();

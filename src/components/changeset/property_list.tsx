@@ -1,4 +1,4 @@
-import Property from "./property";
+import Property from "./property.tsx";
 
 interface PropertyListProps {
   limit: number;

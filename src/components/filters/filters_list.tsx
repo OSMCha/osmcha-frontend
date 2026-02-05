@@ -1,8 +1,8 @@
 import React from "react";
 import filters from "../../config/filters.json";
-import { getDefaultFromDate } from "../../utils/filters";
-import { loadingEnhancer } from "../loading_enhancer";
-import type { Filter } from "./";
+import { getDefaultFromDate } from "../../utils/filters.ts";
+import { loadingEnhancer } from "../loading_enhancer.tsx";
+import type { Filter } from "./index.ts";
 import {
   DateField,
   LocationSelect,
@@ -12,7 +12,7 @@ import {
   Radio,
   Text,
   Wrapper,
-} from "./";
+} from "./index.ts";
 
 const defaultDate = getDefaultFromDate().date__gte;
 

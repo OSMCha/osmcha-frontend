@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchWatchList } from "../../network/osmcha_watchlist";
-import { useAuthStore } from "../../stores/authStore";
+import { fetchWatchList } from "../../network/osmcha_watchlist.ts";
+import { useAuthStore } from "../../stores/authStore.ts";
 
 export function useWatchlist() {
   const token = useAuthStore((state) => state.token);

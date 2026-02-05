@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router";
-import { PrimaryLine } from "./primary_line";
-import { SecondaryLine } from "./secondary_line";
-import { Title } from "./title";
+import { PrimaryLine } from "./primary_line.tsx";
+import { SecondaryLine } from "./secondary_line.tsx";
+import { Title } from "./title.tsx";
 
 interface RowProps {
   properties: any;

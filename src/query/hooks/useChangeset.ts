@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchChangeset } from "../../network/changeset";
+import { fetchChangeset } from "../../network/changeset.ts";
 
 export function useChangeset(changesetId: number | null) {
   return useQuery({

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchChangesetsPage } from "../../network/changesets_page";
+import { fetchChangesetsPage } from "../../network/changesets_page.ts";
 
 interface ChangesetsPageParams {
   pageIndex: number;

@@ -1,4 +1,4 @@
-import { useUserDetails } from "./useUserDetails";
+import { useUserDetails } from "./useUserDetails.ts";
 
 interface UserDetailsWithWhitelists {
   whitelists?: string[];

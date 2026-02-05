@@ -1,8 +1,8 @@
 import adiffParser from "@osmcha/osm-adiff-parser";
 import { parse, subSeconds } from "date-fns";
 
-import { adiffServiceUrl, apiOSM, overpassBase } from "../config/constants";
-import { api } from "./request";
+import { adiffServiceUrl, apiOSM, overpassBase } from "../config/constants.ts";
+import { api } from "./request.ts";
 
 export function fetchChangeset(id: number) {
   return api.get(`/changesets/${id}/`);

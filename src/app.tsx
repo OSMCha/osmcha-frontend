@@ -1,18 +1,18 @@
 import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router";
-import { About } from "./views/about";
-import { Authorized } from "./views/authorized";
-import { Changeset } from "./views/changeset";
-import { ChangesetsList } from "./views/changesets_list";
-import { EditMappingTeam } from "./views/edit_team";
-import { Filters } from "./views/filters";
-import { Home } from "./views/home";
-import { NavbarSidebar } from "./views/navbar_sidebar";
-import { SavedFilters } from "./views/saved_filters";
-import { MappingTeams } from "./views/teams";
-import { TrustedUsers } from "./views/trusted_users";
-import { User } from "./views/user";
-import { Watchlist } from "./views/watchlist";
+import { About } from "./views/about.tsx";
+import { Authorized } from "./views/authorized.tsx";
+import { Changeset } from "./views/changeset.tsx";
+import { ChangesetsList } from "./views/changesets_list.tsx";
+import { EditMappingTeam } from "./views/edit_team.tsx";
+import { Filters } from "./views/filters.tsx";
+import { Home } from "./views/home.tsx";
+import { NavbarSidebar } from "./views/navbar_sidebar.tsx";
+import { SavedFilters } from "./views/saved_filters.tsx";
+import { MappingTeams } from "./views/teams.tsx";
+import { TrustedUsers } from "./views/trusted_users.tsx";
+import { User } from "./views/user.tsx";
+import { Watchlist } from "./views/watchlist.tsx";
 
 export const App = () => {
   const location = useLocation();

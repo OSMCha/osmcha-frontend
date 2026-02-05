@@ -1,4 +1,4 @@
-import { useMapStore } from "../../stores/mapStore";
+import { useMapStore } from "../../stores/mapStore.ts";
 
 // helper functions for adding/removing elements from an array when a
 // checkbox is toggled

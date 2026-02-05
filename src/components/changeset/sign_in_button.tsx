@@ -1,4 +1,4 @@
-import { getAuthUrl } from "../../network/auth";
+import { getAuthUrl } from "../../network/auth.ts";
 
 interface SignInButtonProps {
   text: string;

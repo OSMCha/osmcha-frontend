@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { Button } from "../components/button";
-import { CustomURL } from "../components/customURL";
-import { SecondaryPagesHeader } from "../components/secondary_pages_header";
-import { BlockMarkup } from "../components/user/block_markup";
-import { API_URL } from "../config";
-import { useAuth } from "../hooks/useAuth";
-import { useFilters } from "../hooks/useFilters";
-import { useAllAOIs } from "../query/hooks/useAOI";
-import { useCreateAOI, useDeleteAOI } from "../query/hooks/useAOIMutations";
-import { isMobile } from "../utils/isMobile";
+import { Button } from "../components/button.tsx";
+import { CustomURL } from "../components/customURL.tsx";
+import { SecondaryPagesHeader } from "../components/secondary_pages_header.tsx";
+import { BlockMarkup } from "../components/user/block_markup.tsx";
+import { API_URL } from "../config/index.ts";
+import { useAuth } from "../hooks/useAuth.ts";
+import { useFilters } from "../hooks/useFilters.ts";
+import { useAllAOIs } from "../query/hooks/useAOI.ts";
+import { useCreateAOI, useDeleteAOI } from "../query/hooks/useAOIMutations.ts";
+import { isMobile } from "../utils/isMobile.ts";
 
 interface SaveButtonProps {
   onCreate: (value: string) => void;

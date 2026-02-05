@@ -1,5 +1,5 @@
 import type React from "react";
-import { isMobile } from "../../utils/isMobile";
+import { isMobile } from "../../utils/isMobile.ts";
 
 interface WrapperProps {
   display: string;

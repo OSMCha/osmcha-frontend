@@ -1,15 +1,15 @@
 import { Link } from "react-router";
-import { Button } from "../components/button";
-import { SecondaryPagesHeader } from "../components/secondary_pages_header";
-import NewTeam from "../components/teams/new_team";
-import { BlockMarkup } from "../components/user/block_markup";
-import { useAuth } from "../hooks/useAuth";
+import { Button } from "../components/button.tsx";
+import { SecondaryPagesHeader } from "../components/secondary_pages_header.tsx";
+import NewTeam from "../components/teams/new_team.tsx";
+import { BlockMarkup } from "../components/user/block_markup.tsx";
+import { useAuth } from "../hooks/useAuth.ts";
 import {
   useCreateMappingTeam,
   useDeleteMappingTeam,
   useMappingTeams,
-} from "../query/hooks/useMappingTeams";
-import { isMobile } from "../utils/isMobile";
+} from "../query/hooks/useMappingTeams.ts";
+import { isMobile } from "../utils/isMobile.ts";
 
 const TeamsBlock = ({ data, removeTeam }) => (
   <BlockMarkup>

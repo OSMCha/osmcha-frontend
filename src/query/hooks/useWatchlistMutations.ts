@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import {
   deleteFromWatchList,
   postUserToWatchList,
-} from "../../network/osmcha_watchlist";
+} from "../../network/osmcha_watchlist.ts";
 
 interface WatchlistUser {
   username: string;
