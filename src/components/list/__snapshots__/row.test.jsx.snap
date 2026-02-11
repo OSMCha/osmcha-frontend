@@ -84,7 +84,7 @@ exports[`renders active row properly 1`] = `
                
               <time
                 dateTime="2017-06-07T08:25:38.000Z"
-                title="Wed Jun 07 2017 01:25:38 GMT-0700 (Pacific Daylight Time)"
+                title="Wed Jun 07 2017 08:25:38 GMT+0000 (Coordinated Universal Time)"
               >
                 4 days ago
               </time>
@@ -237,7 +237,7 @@ exports[`renders inactive row properly 1`] = `
                
               <time
                 dateTime="2017-06-07T08:25:38.000Z"
-                title="Wed Jun 07 2017 01:25:38 GMT-0700 (Pacific Daylight Time)"
+                title="Wed Jun 07 2017 08:25:38 GMT+0000 (Coordinated Universal Time)"
               >
                 4 days ago
               </time>
