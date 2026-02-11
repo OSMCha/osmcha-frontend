@@ -105,7 +105,15 @@ function DropdownContent({
               target="_blank"
               rel="noopener noreferrer"
               href={i.href}
-              onClick={toggleDropdown}
+              onClick={(e) => {
+                if (i.href?.startsWith("/")) {
+                  // Internal link navigation is handled by react-router, so we need
+                  // to suppress the default navigation behavior. External links are
+                  // handled by the browser's native <a> behavior.
+                  e.preventDefault();
+                }
+                toggleDropdown();
+              }}
               className={`txt-nowrap flex-child--grow cursor-pointer color-gray ${
                 isActive(i) ? "is-active txt-bold" : ""
               }`}
