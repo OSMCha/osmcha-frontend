@@ -17,7 +17,6 @@ interface UserData {
 function NavbarSidebar() {
   const { token, user } = useAuth();
   const currentUser = user as UserData | undefined;
-  const oAuthToken = useAuthStore((s) => s.oAuthToken);
   const clearAuth = useAuthStore((s) => s.clearAuth);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -139,11 +138,7 @@ function NavbarSidebar() {
           {token ? (
             <div className="pointer">{renderUserMenuOptions()}</div>
           ) : (
-            <Button
-              onClick={handleLoginClick}
-              disabled={!oAuthToken}
-              iconName="osm"
-            >
+            <Button onClick={handleLoginClick} iconName="osm">
               Sign in
             </Button>
           )}
