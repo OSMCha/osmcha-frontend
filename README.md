@@ -12,23 +12,17 @@ Other relevant repositories that contain parts of the OSMCha application are:
 To set up a local development environment:
 
 1. Install Node.js and npm. The recommended Node.js version is listed in [.tool-versions](./.tool-versions). Tool managers like [asdf](https://asdf-vm.com/) or [mise](https://mise.jdx.dev/) can read this file and install the right version for you if you want. 
-1. Run `npm install` to install the required JavaScript dependencies.
-1. Run `npm run start` to start the frontend (it will rebuild automatically when you make changes)
-1. Open [http://127.0.0.1:3000](http://127.0.0.1:3000)
+2. Run `npm install` to install the required JavaScript dependencies.
+3. Run `npm run start` to start the frontend (it will rebuild automatically when you make changes)
+4. Open [http://127.0.0.1:3000](http://127.0.0.1:3000)
 
-Note: if you are running the frontend against the production backend (the
-default), you won't be able to use OAuth to log in through the UI. Instead
-you can copy your auth token from the DevTools console on the production
-website (`localStorage.getItem("token")`) and then paste it into the console
-on the development site (`localStorage.setItem("token", <value>)`). Refresh
-the page and you should now be logged in.
-
-If you are running your own local copy of the
-[`osmcha-django`](https://github.com/OSMCha/osmcha-django) backend, you'll
-need to register your own OAuth app on openstreetmap.org, configure the backend
-to use that secret key, and then point this frontend at your local backend by
-setting the `OSMCHA_API_URL` environment variable. After that, normal OAuth
-login through the frontend UI should work.
+If you are running the frontend against the production backend (the default),
+then OAuth login will work automatically. If you are running your own local
+copy of the [`osmcha-django`](https://github.com/OSMCha/osmcha-django) backend,
+you'll need to register your own OAuth app on openstreetmap.org, configure
+the backend to use that secret key, and then point this frontend at your local
+backend by setting the `OSMCHA_API_URL` environment variable. After that, normal
+OAuth login through the frontend UI should work.
 
 ### Testing and quality checks
 
