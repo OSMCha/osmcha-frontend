@@ -116,13 +116,23 @@ export function deserializeFiltersFromObject(
       continue;
     }
 
-    // Split comma-separated values and convert to array of objects
-    const values = v.split(",").map((val) => ({
-      label: val.trim(),
-      value: val.trim(),
-    }));
+    // If the value is a JSON object/array (e.g. geometry), keep it as-is.
+    // Otherwise split comma-separated string values.
+    let parsed: any;
+    try {
+      parsed = JSON.parse(v);
+    } catch {
+      parsed = undefined;
+    }
 
-    result[k] = values;
+    if (parsed !== undefined && typeof parsed === "object") {
+      result[k] = [{ label: parsed, value: parsed }];
+    } else {
+      result[k] = v.split(",").map((val) => ({
+        label: val.trim(),
+        value: val.trim(),
+      }));
+    }
   }
 
   return result;
@@ -157,7 +167,7 @@ export function serializeFiltersToQuery(filters: any): string {
 
     const filterJoined = v
       .filter((x) => !!x && typeof x === "object" && x.value !== "")
-      .map((x) => String(x.value))
+      .map((x) => getString(x.value))
       .join(",");
 
     if (filterJoined === "") continue;
