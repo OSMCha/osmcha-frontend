@@ -5,6 +5,10 @@ as far back as very early versions of this codebase, which was started in 2017
 (though note that there was an earlier version of OSMCha whose code is not
 included in the history of this repository).
 
+### 1.3.1
+
+- Fix an issue where GeoJSON geometry filters were failing to load data (#887)
+
 ### 1.3.0
 
 - Switch from Yarn to npm
