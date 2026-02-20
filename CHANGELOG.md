@@ -5,6 +5,22 @@ as far back as very early versions of this codebase, which was started in 2017
 (though note that there was an earlier version of OSMCha whose code is not
 included in the history of this repository).
 
+### 1.3.0
+
+- Switch from Yarn to npm
+- Port all Flow code to TypeScript
+- Switch from react-scripts to Vite
+- Switch from Jest to Vitest, and simplify other testing dependencies
+- Switch from Prettier + ESLint to Biome
+- Upgrade to React 18
+- Upgrade to react-router v7
+- Remove Redux and Immutable.js dependencies
+- Rewrite state management using React hooks or Zustand (for persistent state)
+- Port data fetching from Redux Sagas to TanStack Query.
+- Refactor npm scripts to make building, linting, and formatting easier
+
+See https://github.com/OSMCha/osmcha-frontend/pull/885 for more info
+
 ### 1.2.7
 
 - Fix an issue where changesets with only geometry changes (no tag changes)
