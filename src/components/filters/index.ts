@@ -1,4 +1,4 @@
-export { DateField } from "./date.tsx";
+export { DateField, parseStoredDate } from "./date.tsx";
 export { LocationSelect } from "./location.tsx";
 export { Meta } from "./meta.tsx";
 export { MappingTeamMultiSelect, MultiSelect } from "./multi_select.tsx";
