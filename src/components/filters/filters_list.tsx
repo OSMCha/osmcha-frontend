@@ -1,3 +1,4 @@
+import { startOfDay } from "date-fns";
 import React from "react";
 import filters from "../../config/filters.json";
 import { getDefaultFromDate } from "../../utils/filters.ts";
@@ -9,6 +10,7 @@ import {
   MappingTeamMultiSelect,
   Meta,
   MultiSelect,
+  parseStoredDate,
   Radio,
   Text,
   Wrapper,
@@ -98,7 +100,9 @@ class _FiltersList extends React.PureComponent<Props> {
         gteValue = this.props.filters[f.name + "__gte"] || defaultDate;
       }
       const lteValue = this.props.filters[f.name + "__lte"];
-      const today = new Date().toISOString().split("T")[0];
+      const today = startOfDay(new Date());
+      const gteDate = parseStoredDate(gteValue?.[0]?.value) ?? undefined;
+      const lteDate = parseStoredDate(lteValue?.[0]?.value) ?? undefined;
       return (
         <Wrapper
           {...wrapperProps}
@@ -114,7 +118,7 @@ class _FiltersList extends React.PureComponent<Props> {
               value={gteValue}
               className="mr3"
               placeholder={"From"}
-              max={lteValue?.[0]?.value || today}
+              max={lteDate || today}
             />
             <DateField
               {...propsToSend}
@@ -122,7 +126,7 @@ class _FiltersList extends React.PureComponent<Props> {
               value={lteValue}
               className="ml3"
               placeholder={"To"}
-              min={gteValue?.[0]?.value}
+              min={gteDate}
               max={today}
             />
           </span>

@@ -1,4 +1,4 @@
-import { format, sub } from "date-fns";
+import { startOfDay, sub } from "date-fns";
 import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from "../config/constants.ts";
 
 export function validateFilters(filters: any): boolean {
@@ -38,35 +38,19 @@ export function validateFilters(filters: any): boolean {
 }
 
 export function getDefaultFromDate(extraDays = 0): any {
-  const defaultDate = format(
+  const localMidnight = startOfDay(
     sub(new Date(), { days: DEFAULT_FROM_DATE + extraDays }),
-    "yyyy-MM-dd",
   );
+  const value = localMidnight.toISOString();
   return {
-    date__gte: [
-      {
-        label: defaultDate,
-        value: defaultDate,
-      },
-    ],
+    date__gte: [{ label: value, value }],
   };
 }
 
 function getDefaultToDate(): any {
-  const now = new Date();
-  const defaultDate = format(
-    sub(new Date(now.getTime() + now.getTimezoneOffset() * 60 * 1000), {
-      minutes: DEFAULT_TO_DATE,
-    }),
-    "yyyy-MM-dd HH:mm",
-  );
+  const value = sub(new Date(), { minutes: DEFAULT_TO_DATE }).toISOString();
   return {
-    date__lte: [
-      {
-        label: "",
-        value: defaultDate,
-      },
-    ],
+    date__lte: [{ label: "", value }],
   };
 }
 
