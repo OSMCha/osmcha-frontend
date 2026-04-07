@@ -22,9 +22,9 @@ export function Button({
       title={title}
       className={`${
         className || ""
-      } btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition ${
-        iconName && children ? "pl12 pr6" : ""
-      }`}
+      } btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover transition ${
+        disabled ? "" : "color-gray"
+      } ${iconName && children ? "pl12 pr6" : ""}`}
     >
       {children}
       {iconName && (

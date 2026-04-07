@@ -6,6 +6,8 @@ import { Dropdown } from "../dropdown.tsx";
 
 interface HeaderProps {
   filters: any;
+  aoiId: string | null;
+  aoiOrderBy: string | null;
   handleFilterOrderBy: (value: any) => void;
   location: {
     search: string;
@@ -21,6 +23,8 @@ interface HeaderProps {
 
 export function Header({
   filters,
+  aoiId,
+  aoiOrderBy,
   handleFilterOrderBy,
   location,
   diffLoading,
@@ -31,11 +35,10 @@ export function Header({
   const valueData: any[] = [];
   const orderByFilter = filtersConfig.find((f) => f.name === "order_by");
   const options = orderByFilter?.options ?? [];
-  const orderByValue = filters?.order_by;
-  if (orderByValue) {
-    const firstValue = orderByValue?.[0]?.value;
+  const effectiveOrderBy = aoiId ? aoiOrderBy : filters?.order_by?.[0]?.value;
+  if (effectiveOrderBy) {
     for (const o of options) {
-      if (firstValue === o.value) {
+      if (effectiveOrderBy === o.value) {
         valueData.push(o);
       }
     }
@@ -51,6 +54,12 @@ export function Header({
           options={options}
           display={valueData[0]?.label || "Order by"}
           position="left"
+          disabled={!!aoiId}
+          title={
+            aoiId
+              ? "Sort order is determined by the active saved filter"
+              : undefined
+          }
         />
         <NavLink
           style={({ isActive }) => ({
