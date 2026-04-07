@@ -12,6 +12,7 @@ export interface DropdownOption {
 interface DropdownProps {
   className?: string;
   disabled?: boolean;
+  title?: string;
   value?: DropdownOption[];
   onChange?: (value: DropdownOption[]) => void;
   onAdd?: (option: DropdownOption) => void;
@@ -150,6 +151,7 @@ function DropdownContent({
 export function Dropdown({
   className = "",
   disabled,
+  title,
   value = [],
   onChange = () => {},
   onAdd = () => {},
@@ -190,7 +192,11 @@ export function Dropdown({
   }, [isOpen]);
 
   return (
-    <div ref={dropdownRef} className={`dropdown pointer ${className}`}>
+    <div
+      ref={dropdownRef}
+      className={`dropdown pointer ${className}`}
+      title={title}
+    >
       <Button
         iconName="chevron-down"
         onClick={toggleDropdown}

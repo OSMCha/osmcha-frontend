@@ -12,6 +12,7 @@ import {
   REFRESH_CHANGESETS,
 } from "../config/bindings.ts";
 import { useFilters } from "../hooks/useFilters.ts";
+import { useAOI } from "../query/hooks/useAOI.ts";
 import { useChangesetsPage } from "../query/hooks/useChangesetsPage.ts";
 
 interface ChangesetsPageData {
@@ -27,6 +28,8 @@ function ChangesetsList() {
   const location = useLocation();
   const navigate = useNavigate();
   const { filters, aoiId, setFilters } = useFilters();
+  const { data: aoi } = useAOI(aoiId);
+  const aoiOrderBy = aoi?.properties?.filters?.order_by ?? null;
 
   const {
     data: currentPage,
@@ -133,6 +136,8 @@ function ChangesetsList() {
     <div className="flex-parent flex-parent--column changesets-list">
       <Header
         filters={filters}
+        aoiId={aoiId}
+        aoiOrderBy={aoiOrderBy}
         handleFilterOrderBy={handleFilterOrderBy}
         location={location}
         currentPage={page}
