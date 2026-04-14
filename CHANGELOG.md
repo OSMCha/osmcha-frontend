@@ -5,6 +5,12 @@ as far back as very early versions of this codebase, which was started in 2017
 (though note that there was an earlier version of OSMCha whose code is not
 included in the history of this repository).
 
+### 1.3.2
+
+- Improve help text for sort order field in filter UI
+- Make date filters use local time, not UTC
+- Disable sort order dropdown when an AOI filter is active
+
 ### 1.3.1
 
 - Fix an issue where GeoJSON geometry filters were failing to load data (#887)
