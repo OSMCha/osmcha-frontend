@@ -177,9 +177,12 @@ function CMap(props: CMapProps) {
 
     props.setSelected(null);
 
+    const currentStyleId = useMapStore.getState().style;
+    const style = BASEMAP_STYLES[currentStyleId] ?? DEFAULT_BASEMAP_STYLE;
+
     const map = new maplibre.Map({
       container,
-      style: DEFAULT_BASEMAP_STYLE,
+      style,
       maxZoom: 22,
       hash: false,
       attributionControl: false,
