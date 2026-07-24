@@ -1,9 +1,7 @@
 import { api } from "./request.ts";
 
-export function fetchWatchList(): Promise<any> {
-  return api
-    .get<{ results: any[] }>("/blacklisted-users/")
-    .then((res) => res.results);
+export function fetchWatchList(): Promise<any[]> {
+  return api.get<any[]>("/blacklisted-users/");
 }
 
 export function deleteFromWatchList(uid: string): Promise<any> {

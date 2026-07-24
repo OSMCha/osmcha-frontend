@@ -1,8 +1,7 @@
-import type React from "react";
+import { useState } from "react";
 import { Link } from "react-router";
-import { Button } from "../components/button.tsx";
 import { SecondaryPagesHeader } from "../components/secondary_pages_header.tsx";
-import { BlockMarkup } from "../components/user/block_markup.tsx";
+import { SortHeader } from "../components/sort_header.tsx";
 import { SaveUser } from "../components/user/save_user.tsx";
 import { useAuth } from "../hooks/useAuth.ts";
 import { useTrustedlist } from "../query/hooks/useTrustedlist.ts";
@@ -13,68 +12,7 @@ import {
 import { isMobile } from "../utils/isMobile.ts";
 import { getObjAsQueryParam } from "../utils/query_params.ts";
 
-interface TrustedListBlockProps {
-  data: string;
-  removeFromTrustedList: (username: string) => void;
-}
-
-const TrustedListBlock = ({
-  data,
-  removeFromTrustedList,
-}: TrustedListBlockProps) => (
-  <BlockMarkup>
-    <span>
-      <span>{data}</span>
-    </span>
-    <span>
-      <Link
-        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-        to={{
-          search: getObjAsQueryParam("filters", {
-            users: [
-              {
-                label: data,
-                value: data,
-              },
-            ],
-          }),
-        }}
-      >
-        Changesets
-      </Link>
-      <Button
-        className="mr3 bg-transparent border--0"
-        onClick={() => removeFromTrustedList(data)}
-      >
-        <svg className={"icon txt-m mb3 inline-block align-middle"}>
-          <use xlinkHref="#icon-trash" />
-        </svg>
-        Remove
-      </Button>
-    </span>
-  </BlockMarkup>
-);
-
-interface ListFortifiedProps {
-  data: string[];
-  TargetBlock: React.ComponentType<TrustedListBlockProps>;
-  propsToPass: { removeFromTrustedList: (username: string) => void };
-  SaveComp: React.ReactNode;
-}
-
-const ListFortified = ({
-  data,
-  TargetBlock,
-  propsToPass,
-  SaveComp,
-}: ListFortifiedProps) => (
-  <div>
-    {data.map((e, i) => (
-      <TargetBlock key={i} data={e} {...propsToPass} />
-    ))}
-    {SaveComp}
-  </div>
-);
+type SortDir = "asc" | "desc";
 
 interface UserData {
   avatar?: string;
@@ -87,6 +25,7 @@ function TrustedUsers() {
   const { data: trustedList = [] } = useTrustedlist();
   const addMutation = useAddToTrustedlist();
   const removeMutation = useRemoveFromTrustedlist();
+  const [sortDir, setSortDir] = useState<SortDir>("asc");
 
   const addToTrustedList = ({ username }: { username: string }) => {
     if (!username) return;
@@ -98,7 +37,10 @@ function TrustedUsers() {
     removeMutation.mutate(username);
   };
 
-  const trustedUsers = [...trustedList].sort((a, b) => a.localeCompare(b));
+  const sorted = [...trustedList].sort((a, b) => {
+    const cmp = a.localeCompare(b);
+    return sortDir === "asc" ? cmp : -cmp;
+  });
   const mobile = isMobile();
 
   return (
@@ -111,23 +53,76 @@ function TrustedUsers() {
         title="Trusted Users"
         avatar={currentUser?.avatar}
       />
-      <div className="px30 flex-child pb60 filters-scroll">
-        <div className="flex-parent flex-parent--column align justify--space-between">
-          {token && (
-            <div>
-              <div className="mt24 mb12">
-                <ListFortified
-                  data={trustedUsers}
-                  TargetBlock={TrustedListBlock}
-                  propsToPass={{
-                    removeFromTrustedList,
-                  }}
-                  SaveComp={<SaveUser onCreate={addToTrustedList} />}
-                />
-              </div>
+      <div
+        className={`${mobile ? "px12" : "px30"} flex-child pb60 filters-scroll`}
+      >
+        {token && (
+          <div className="mt24">
+            <div className="color-gray mb6 ml3">
+              {trustedList.length}{" "}
+              {trustedList.length === 1 ? "trusted user" : "trusted users"}
             </div>
-          )}
-        </div>
+            <table
+              className="table osmcha-custom-table w-full"
+              style={{ tableLayout: "fixed" }}
+            >
+              <colgroup>
+                <col style={{ width: "75%" }} />
+                <col style={{ width: "25%" }} />
+              </colgroup>
+              <thead>
+                <tr>
+                  <SortHeader
+                    label="Username"
+                    sortKey="username"
+                    active="username"
+                    dir={sortDir}
+                    onSort={() =>
+                      setSortDir(sortDir === "asc" ? "desc" : "asc")
+                    }
+                  />
+                  <th>
+                    <span className="hide-visually">Actions</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {sorted.map((username) => (
+                  <tr key={username} className="bg-darken5-on-hover">
+                    <td className="txt-bold">{username}</td>
+                    <td className="txt-right">
+                      <Link
+                        className="txt-underline-on-hover color-blue mr12"
+                        to={{
+                          search: getObjAsQueryParam("filters", {
+                            users: [{ label: username, value: username }],
+                          }),
+                        }}
+                      >
+                        Changesets
+                      </Link>
+                      <button
+                        type="button"
+                        className="bg-transparent color-gray color-red-on-hover cursor-pointer"
+                        title="Remove from trusted users"
+                        onClick={() => removeFromTrustedList(username)}
+                      >
+                        <svg className="icon inline-block align-middle w18 h18">
+                          <use xlinkHref="#icon-trash" />
+                        </svg>
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div className="mt18">
+              <SaveUser onCreate={addToTrustedList} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

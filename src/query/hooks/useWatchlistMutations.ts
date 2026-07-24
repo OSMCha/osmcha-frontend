@@ -8,6 +8,7 @@ import {
 interface WatchlistUser {
   username: string;
   uid: string;
+  date?: string;
 }
 
 export function useAddToWatchlist() {
@@ -22,7 +23,7 @@ export function useAddToWatchlist() {
 
       queryClient.setQueryData(["watchlist"], (old: WatchlistUser[] = []) => [
         ...old,
-        { username, uid },
+        { username, uid, date: new Date().toISOString() },
       ]);
 
       return { previous };

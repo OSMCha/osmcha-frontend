@@ -1,8 +1,9 @@
-import type React from "react";
+import { useState } from "react";
 import { Link } from "react-router";
-import { Button } from "../components/button.tsx";
+import { toast } from "sonner";
+import { RelativeTime } from "../components/relative_time.tsx";
 import { SecondaryPagesHeader } from "../components/secondary_pages_header.tsx";
-import { BlockMarkup } from "../components/user/block_markup.tsx";
+import { SortHeader } from "../components/sort_header.tsx";
 import { SaveUser } from "../components/user/save_user.tsx";
 import { useAuth } from "../hooks/useAuth.ts";
 import { useWatchlist } from "../query/hooks/useWatchlist.ts";
@@ -16,68 +17,21 @@ import { getObjAsQueryParam } from "../utils/query_params.ts";
 interface WatchlistUser {
   username: string;
   uid: string;
+  date?: string;
 }
 
-interface WatchListBlockProps {
-  data: WatchlistUser;
-  removeFromWatchList: (uid: string) => void;
+type SortKey = "username" | "uid" | "date";
+type SortDir = "asc" | "desc";
+
+function compareUsers(
+  a: WatchlistUser,
+  b: WatchlistUser,
+  key: SortKey,
+): number {
+  if (key === "uid") return Number(a.uid) - Number(b.uid);
+  if (key === "date") return (a.date || "").localeCompare(b.date || "");
+  return a.username.localeCompare(b.username);
 }
-
-const WatchListBlock = ({ data, removeFromWatchList }: WatchListBlockProps) => (
-  <BlockMarkup>
-    <span>
-      <span>{data.username}</span>
-      <span className="txt-em color-gray pl6">({data.uid})</span>
-    </span>
-    <span>
-      <Link
-        className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-        to={{
-          search: getObjAsQueryParam("filters", {
-            users: [
-              {
-                label: data.username,
-                value: data.username,
-              },
-            ],
-          }),
-        }}
-      >
-        Changesets
-      </Link>
-      <Button
-        className="mr3 bg-transparent border--0"
-        onClick={() => removeFromWatchList(data.uid)}
-      >
-        <svg className={"icon txt-m mb3 inline-block align-middle"}>
-          <use xlinkHref="#icon-trash" />
-        </svg>
-        Remove
-      </Button>
-    </span>
-  </BlockMarkup>
-);
-
-interface ListFortifiedProps {
-  data: WatchlistUser[];
-  TargetBlock: React.ComponentType<WatchListBlockProps>;
-  propsToPass: { removeFromWatchList: (uid: string) => void };
-  SaveComp: React.ReactNode;
-}
-
-const ListFortified = ({
-  data,
-  TargetBlock,
-  propsToPass,
-  SaveComp,
-}: ListFortifiedProps) => (
-  <div>
-    {data.map((e, i) => (
-      <TargetBlock key={i} data={e} {...propsToPass} />
-    ))}
-    {SaveComp}
-  </div>
-);
 
 interface UserData {
   avatar?: string;
@@ -90,9 +44,27 @@ function Watchlist() {
   const { data: watchlist = [] } = useWatchlist();
   const addMutation = useAddToWatchlist();
   const removeMutation = useRemoveFromWatchlist();
+  const [sortKey, setSortKey] = useState<SortKey>("date");
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
+
+  const onSort = (key: SortKey) => {
+    if (key === sortKey) {
+      setSortDir(sortDir === "asc" ? "desc" : "asc");
+    } else {
+      setSortKey(key);
+      // Names/ids read best ascending; dates most-recent-first.
+      setSortDir(key === "date" ? "desc" : "asc");
+    }
+  };
 
   const addToWatchList = ({ username, uid }: WatchlistUser) => {
     if (!username || !uid) return;
+    if (watchlist.some((u) => u.uid === uid)) {
+      toast.error("Already on watchlist", {
+        description: `User ${username} (${uid}) is already on your watchlist.`,
+      });
+      return;
+    }
     addMutation.mutate({ username, uid });
   };
 
@@ -101,9 +73,10 @@ function Watchlist() {
     removeMutation.mutate(uid);
   };
 
-  const sortedWatchlist = [...watchlist].sort((a, b) =>
-    a.username.localeCompare(b.username),
-  );
+  const sorted = [...watchlist].sort((a, b) => {
+    const cmp = compareUsers(a, b, sortKey);
+    return sortDir === "asc" ? cmp : -cmp;
+  });
   const mobile = isMobile();
 
   return (
@@ -116,41 +89,113 @@ function Watchlist() {
       <div
         className={`${mobile ? "px12" : "px30"} flex-child pb60 filters-scroll`}
       >
-        <div className="flex-parent flex-parent--column align justify--space-between">
-          {token && (
-            <div>
-              <div className="mt24 mb12">
-                <ListFortified
-                  data={sortedWatchlist}
-                  TargetBlock={WatchListBlock}
-                  propsToPass={{
-                    removeFromWatchList,
-                  }}
-                  SaveComp={
-                    <SaveUser onCreate={addToWatchList} forWatchlist={true} />
-                  }
-                />
-              </div>
+        {token && (
+          <div className="mt24">
+            <div className="color-gray mb6 ml3">
+              {watchlist.length} {watchlist.length === 1 ? "user" : "users"} on
+              your watchlist
             </div>
-          )}
-          {token && (
-            <span>
-              <Link
-                className="input wmax180 ml12 btn btn--s border border--1 border--lighten25 border--lighten50-on-hover round bg-darken5 bg-lighten25-on-hover color-gray transition"
-                to={{
-                  search: getObjAsQueryParam("filters", {
-                    blacklist: [{ label: "Yes", value: "True" }],
-                  }),
-                }}
-              >
-                <svg className={"icon txt-m mb3 inline-block align-middle"}>
-                  <use xlinkHref="#icon-filter" />
-                </svg>
-                Watchlist's changesets
-              </Link>
-            </span>
-          )}
-        </div>
+            <table
+              className="table osmcha-custom-table w-full"
+              style={{ tableLayout: "fixed" }}
+            >
+              <colgroup>
+                <col style={{ width: "25%" }} />
+                <col style={{ width: "25%" }} />
+                <col style={{ width: "25%" }} />
+                <col style={{ width: "25%" }} />
+              </colgroup>
+              <thead>
+                <tr>
+                  <SortHeader
+                    label="Username"
+                    sortKey="username"
+                    active={sortKey}
+                    dir={sortDir}
+                    onSort={onSort}
+                  />
+                  <SortHeader
+                    label="ID"
+                    sortKey="uid"
+                    active={sortKey}
+                    dir={sortDir}
+                    onSort={onSort}
+                  />
+                  <SortHeader
+                    label="Added"
+                    sortKey="date"
+                    active={sortKey}
+                    dir={sortDir}
+                    onSort={onSort}
+                  />
+                  <th>
+                    <span className="hide-visually">Actions</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {sorted.map((u) => (
+                  <tr key={u.uid} className="bg-darken5-on-hover">
+                    <td className="txt-bold">{u.username}</td>
+                    <td className="color-gray">{u.uid}</td>
+                    <td className="color-gray">
+                      {u.date ? (
+                        <RelativeTime datetime={new Date(u.date)} />
+                      ) : (
+                        "-"
+                      )}
+                    </td>
+                    <td className="txt-right">
+                      <Link
+                        className="txt-underline-on-hover color-blue mr12"
+                        to={{
+                          search: getObjAsQueryParam("filters", {
+                            users: [{ label: u.username, value: u.username }],
+                          }),
+                        }}
+                      >
+                        Changesets
+                      </Link>
+                      <button
+                        type="button"
+                        className="bg-transparent color-gray color-red-on-hover cursor-pointer"
+                        title="Remove from watchlist"
+                        onClick={() => removeFromWatchList(u.uid)}
+                      >
+                        <svg className="icon inline-block align-middle w18 h18">
+                          <use xlinkHref="#icon-trash" />
+                        </svg>
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div className="mt18">
+              <SaveUser onCreate={addToWatchList} forWatchlist={true} />
+            </div>
+          </div>
+        )}
+
+        {token && (
+          <div className="mt24">
+            <Link
+              className="btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+              to={{
+                search: getObjAsQueryParam("filters", {
+                  blacklist: [{ label: "Yes", value: "True" }],
+                }),
+              }}
+            >
+              <svg className="icon txt-m mb3 inline-block align-middle">
+                <use xlinkHref="#icon-filter" />
+              </svg>
+              View changesets from users on your watchlist
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

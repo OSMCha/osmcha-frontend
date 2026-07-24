@@ -11,7 +11,12 @@ interface WatchListUserState {
   uid: string;
   isValidUsername: boolean;
   isValidUid: boolean;
-  verified: boolean;
+  pending: boolean;
+}
+
+interface OsmUser {
+  uid: string;
+  username: string;
 }
 
 export class WatchListUser extends React.Component<
@@ -23,144 +28,113 @@ export class WatchListUser extends React.Component<
     uid: "",
     isValidUsername: true,
     isValidUid: true,
-    verified: false,
+    pending: false,
   };
+  // A username and uid identify the same OSM account 1:1. Editing one field
+  // clears the other so the pair can never drift out of sync; adding re-derives
+  // the missing half authoritatively from OSM.
   setUsername = (event: any) => {
-    const target = event.target;
-    const value = target.value;
-    this.setState({ username: value, isValidUsername: true, verified: false });
+    this.setState({
+      username: event.target.value,
+      uid: "",
+      isValidUsername: true,
+      isValidUid: true,
+    });
   };
   setUid = (event: any) => {
-    const target = event.target;
-    const value = target.value;
-    this.setState({ uid: value, isValidUid: true, verified: false });
-  };
-  fetchUsername = async () => {
-    const res = await fetch(
-      `https://www.openstreetmap.org/api/0.6/changesets.json?display_name=${this.state.username}`,
-    );
-    const data = await handleResponse<any>(res);
-    try {
-      return data.changesets[0].uid;
-    } catch (_e) {
-      throw new Error("No changesets found for user");
-    }
+    this.setState({
+      uid: event.target.value,
+      username: "",
+      isValidUsername: true,
+      isValidUid: true,
+    });
   };
 
-  fetchUid = async (uid: string) => {
+  fetchByUid = async (uid: string): Promise<OsmUser> => {
     const res = await fetch(
       `https://www.openstreetmap.org/api/0.6/user/${uid}.json`,
     );
-    return handleResponse<any>(res);
+    const data = await handleResponse<any>(res);
+    return { uid: data.user.id.toString(), username: data.user.display_name };
   };
 
-  verifyInput = () => {
-    if (this.state.uid.length > 0 && this.state.username.length === 0) {
-      this.fetchUid(this.state.uid)
-        .then((r) => ({
-          uid: r.user.id.toString(),
-          username: r.user.display_name,
-        }))
-        .then((r) =>
-          this.setState({
-            username: r.username,
-            uid: r.uid,
-            verified: true,
-            isValidUsername: true,
-            isValidUid: true,
-          }),
-        )
-        .catch(() => this.setState({ isValidUid: false, verified: false }));
-    } else if (this.state.username.length > 0 && this.state.uid.length === 0) {
-      this.fetchUsername()
-        .then((r) => ({
-          uid: r.toString(),
-          username: this.state.username,
-        }))
-        .then((x) => {
-          return x;
-        })
-        .then((r) =>
-          this.setState({
-            username: r.username,
-            uid: r.uid,
-            verified: true,
-            isValidUsername: true,
-            isValidUid: true,
-          }),
-        )
-        .catch(() =>
-          this.setState({ isValidUsername: false, verified: false }),
-        );
-    } else if (this.state.uid.length > 0 && this.state.username.length > 0) {
-      Promise.all([
-        this.fetchUid(this.state.uid).then((r) => ({
-          uid: r.id,
-          username: r.name,
-        })),
-        this.fetchUsername().then((r) => ({
-          uid: r.id,
-          username: r.name,
-        })),
-      ])
-        .then((resp) => {
-          if (
-            resp[0].uid === resp[1].uid &&
-            resp[0].username === resp[1].username
-          ) {
-            window.alert("The user is valid");
-            this.setState({ verified: true });
-          } else {
-            this.setState({ isValidUsername: false, isValidUid: false });
-          }
-        })
-        .catch(() =>
-          this.setState({ isValidUsername: false, isValidUid: false }),
-        );
+  fetchByUsername = async (username: string): Promise<OsmUser> => {
+    const res = await fetch(
+      `https://www.openstreetmap.org/api/0.6/changesets.json?display_name=${username}`,
+    );
+    const data = await handleResponse<any>(res);
+    const changeset = data.changesets[0];
+    if (!changeset) throw new Error("No changesets found for user");
+    return this.fetchByUid(changeset.uid.toString());
+  };
+
+  // Resolve whichever identifier was entered to the canonical username/uid pair
+  // from OSM, then hand it off. Verifying and adding are a single action.
+  onAdd = async () => {
+    const { uid, username, pending } = this.state;
+    if (pending) return;
+    const lookup =
+      uid.length > 0
+        ? this.fetchByUid(uid)
+        : username.length > 0
+          ? this.fetchByUsername(username)
+          : null;
+    if (!lookup) {
+      this.setState({ isValidUsername: false, isValidUid: false });
+      return;
+    }
+    this.setState({ pending: true });
+    try {
+      const user = await lookup;
+      this.props.onSave(user.username, user.uid);
+      this.setState({
+        username: "",
+        uid: "",
+        isValidUsername: true,
+        isValidUid: true,
+        pending: false,
+      });
+    } catch {
+      const byUid = uid.length > 0;
+      this.setState({
+        pending: false,
+        isValidUid: !byUid,
+        isValidUsername: byUid,
+      });
     }
   };
-  onAdd = () => {
-    const username = this.state.username;
-    const uid = this.state.uid;
-    if (username && username.length > 0 && uid && uid.length > 0) {
-      this.props.onSave(username, uid);
-    } else {
-      this.setState({ isValidUsername: false, isValidUid: false });
-    }
+
+  onKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") this.onAdd();
   };
 
   render() {
     const errorClass = "border border--1 border--red";
     return (
-      <span className="flex-parent flex-parent--row">
+      <span className="flex-parent flex-parent--row flex-parent--center-cross">
         <input
           className={`input ${this.state.isValidUsername ? "" : errorClass}`}
-          style={{ marginRight: "6px !important" }}
           value={this.state.username}
           onChange={this.setUsername}
+          onKeyDown={this.onKeyDown}
           placeholder="Username"
           type="text"
         />
+        <span className="txt-s txt-uppercase color-gray mx6">or</span>
         <input
           className={`input ${this.state.isValidUid ? "" : errorClass}`}
           value={this.state.uid}
           onChange={this.setUid}
+          onKeyDown={this.onKeyDown}
           placeholder="UID"
           type="text"
         />
         <Button
-          className={"wmax180 ml12 bg-transparent border--0"}
-          onClick={this.verifyInput}
-        >
-          {this.state.verified ? "Verified" : "Verify"}
-        </Button>
-        <Button
-          className={`btn wmax120 ml12 ${
-            this.state.verified ? "btn--green" : ""
-          }`}
+          className="wmax120 ml12"
           onClick={this.onAdd}
+          disabled={this.state.pending}
         >
-          Add
+          {this.state.pending ? "Adding..." : "Add"}
         </Button>
       </span>
     );
