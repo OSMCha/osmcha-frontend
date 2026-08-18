@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { groupBy } from "../../utils/group_by.ts";
 import { ExpandItemIcon } from "../expand_item_icon.tsx";
 import { Loading } from "../loading.tsx";
 import { OpenAll } from "../open_all.tsx";
@@ -128,9 +129,7 @@ const ChangeItem = ({
   zoomToAndSelect,
 }: ChangeItemProps) => {
   const [isOpen, setIsOpen] = useState(opened);
-  const values = Array.from(
-    new Set(features.map((feature: any) => feature.value)),
-  );
+  const groups = groupBy(features, (f: any) => JSON.stringify(f.value));
   const last_space = tag.lastIndexOf(" ") + 1;
 
   useEffect(() => setIsOpen(opened), [opened]);
@@ -150,33 +149,31 @@ const ChangeItem = ({
           {features.length}
         </strong>
       </button>
-      {values.map((value, n) => (
+      {[...groups.values()].map((group, n) => (
         <div
           className="ml18 py3"
           style={{ display: isOpen ? "block" : "none" }}
           key={n}
         >
-          <ChangeTitle value={value} type={tag} />
+          <ChangeTitle value={group[0].value} type={tag} />
           <ul className="ml6">
-            {features
-              .filter((feature: any) => feature.value === value)
-              .map((feature: any, k: number) => (
-                <FeatureListItem
-                  type={feature.type}
-                  id={feature.id}
-                  value={feature.value}
-                  key={k}
-                  onMouseEnter={() =>
-                    setHighlight(feature.type, feature.id, true)
-                  }
-                  onMouseLeave={() =>
-                    setHighlight(feature.type, feature.id, false)
-                  }
-                  onFocus={() => setHighlight(feature.type, feature.id, true)}
-                  onBlur={() => setHighlight(feature.type, feature.id, false)}
-                  onClick={() => zoomToAndSelect(feature.type, feature.id)}
-                />
-              ))}
+            {group.map((feature: any, k: number) => (
+              <FeatureListItem
+                type={feature.type}
+                id={feature.id}
+                value={feature.value}
+                key={k}
+                onMouseEnter={() =>
+                  setHighlight(feature.type, feature.id, true)
+                }
+                onMouseLeave={() =>
+                  setHighlight(feature.type, feature.id, false)
+                }
+                onFocus={() => setHighlight(feature.type, feature.id, true)}
+                onBlur={() => setHighlight(feature.type, feature.id, false)}
+                onClick={() => zoomToAndSelect(feature.type, feature.id)}
+              />
+            ))}
           </ul>
         </div>
       ))}
