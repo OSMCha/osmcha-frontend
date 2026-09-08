@@ -26,6 +26,10 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: "build",
       sourcemap: true,
+      // NOTE: this determines what JS syntax is available; standard library features
+      // are checked by tsc, so tsconfig.json's `lib` setting should be reviewed when
+      // upgrading Vite.
+      target: "baseline-widely-available",
     },
 
     test: {
