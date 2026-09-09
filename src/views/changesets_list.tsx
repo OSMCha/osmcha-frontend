@@ -1,6 +1,6 @@
 import Mousetrap from "mousetrap";
 import { useCallback, useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useLocation, useMatch, useNavigate } from "react-router";
 import { Footer } from "../components/list/footer.tsx";
 import { Header } from "../components/list/header.tsx";
 import { List } from "../components/list/index.tsx";
@@ -22,8 +22,10 @@ interface ChangesetsPageData {
 }
 
 function ChangesetsList() {
-  const { id } = useParams<{ id?: string }>();
-  const activeChangesetId = id ? parseInt(id, 10) : null;
+  const match = useMatch("/changesets/:id");
+  const activeChangesetId = match?.params.id
+    ? parseInt(match.params.id, 10)
+    : null;
   const [pageIndex, setPageIndex] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
