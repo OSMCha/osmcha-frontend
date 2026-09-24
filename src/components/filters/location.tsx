@@ -18,6 +18,41 @@ import { TerraDrawMapLibreGLAdapter } from "terra-draw-maplibre-gl-adapter";
 
 import { nominatimSearch } from "../../network/nominatim.ts";
 
+const EMPTY: GeoJSON.FeatureCollection = {
+  type: "FeatureCollection",
+  features: [],
+};
+
+/**
+ * Display a location filter value (a GeoJSON polygon or a WSEN bbox string)
+ * on the map and zoom to it, or clear the map if the value is empty.
+ */
+function showValue(map: maplibre.Map, value) {
+  const source = map.getSource("feature") as maplibre.GeoJSONSource;
+  const geometry = value?.[0]?.value;
+
+  let data: GeoJSON.Geometry;
+  if (geometry && typeof geometry === "object") {
+    data = geometry;
+  } else if (geometry && typeof geometry === "string") {
+    const bounds = geometry.split(",").map(Number);
+    data = bboxPolygon(bounds as [number, number, number, number]).geometry;
+  } else {
+    source.setData(EMPTY);
+    return;
+  }
+
+  source.setData(data);
+  const [w, s, e, n] = bbox(data);
+  map.fitBounds(
+    [
+      [w, s],
+      [e, n],
+    ],
+    { padding: 20 },
+  );
+}
+
 const LocationSelect = (props) => {
   const { name, value, placeholder, onChange } = props;
 
@@ -37,39 +72,12 @@ const LocationSelect = (props) => {
     { value: "country", label: "Country" },
   ];
 
-  const updateMap = useCallback((data) => {
-    const map = mapRef.current;
-    if (!map) return;
-
-    // called with geojson polygon of a feature that was retrieved by
-    // name from Nominatim
-    if (map.getSource("feature")) {
-      (map.getSource("feature") as any).setData(data);
-    } else {
-      map.addSource("feature", { type: "geojson", data });
-    }
-
-    if (map.getLayer("geometry") === undefined) {
-      map.addLayer({
-        id: "geometry",
-        type: "fill",
-        source: "feature",
-        paint: {
-          "fill-color": "#088",
-          "fill-opacity": 0.3,
-        },
-      });
-    }
-
-    const bounds = bbox(data);
-    map.fitBounds(
-      [
-        bounds.slice(0, 2) as [number, number],
-        bounds.slice(2, 4) as [number, number],
-      ],
-      { padding: 20 },
-    );
-  }, []);
+  // onChange is not stable across renders, but the map should only be created
+  // once, so the map's event handlers access it through a ref.
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+  const valueRef = useRef(value);
+  valueRef.current = value;
 
   useEffect(() => {
     const map = new maplibre.Map({
@@ -92,9 +100,6 @@ const LocationSelect = (props) => {
       ],
     });
 
-    mapRef.current = map;
-    drawRef.current = draw;
-
     map.on("load", () => {
       draw.start();
 
@@ -104,6 +109,7 @@ const LocationSelect = (props) => {
 
         if (!feature) return;
 
+        const onChange = onChangeRef.current;
         if (feature.geometry.type === "Polygon") {
           if (draw.getMode() === "rectangle") {
             const bounds = bbox(feature);
@@ -111,9 +117,11 @@ const LocationSelect = (props) => {
             onChange("geometry", null);
             onChange("in_bbox", [{ label: wsen, value: wsen }]);
           } else {
-            onChange("geometry", [
-              { label: feature.geometry, value: feature.geometry },
-            ]);
+            const geometry = truncate(feature.geometry, {
+              precision: 6,
+              coordinates: 2,
+            });
+            onChange("geometry", [{ label: geometry, value: geometry }]);
             onChange("in_bbox", null);
           }
         }
@@ -121,31 +129,42 @@ const LocationSelect = (props) => {
         // Set mode back to render after completing a shape
         draw.setMode("render");
         setActiveMode("render");
-        updateMap(feature.geometry);
       });
     });
 
     map.on("style.load", () => {
       map.setProjection({ type: "globe" });
-
-      // Display initial bbox or polygon (if it exists) on the map
-      if (value && value.length > 0) {
-        const { value: geometry } = value[0];
-        if (geometry && typeof geometry === "object") {
-          // geometry is a GeoJSON polygon
-          updateMap(geometry);
-        } else if (geometry && typeof geometry === "string") {
-          // geometry is a bbox string (WSEN, comma-separated)
-          const bounds = geometry.split(",").map(Number);
-          updateMap(
-            bboxPolygon(bounds as [number, number, number, number]).geometry,
-          );
-        }
-      }
+      map.addSource("feature", { type: "geojson", data: EMPTY });
+      map.addLayer({
+        id: "geometry",
+        type: "fill",
+        source: "feature",
+        paint: {
+          "fill-color": "#088",
+          "fill-opacity": 0.3,
+        },
+      });
+      showValue(map, valueRef.current);
     });
 
-    return () => map?.remove();
-  }, [onChange, updateMap, value]);
+    mapRef.current = map;
+    drawRef.current = draw;
+
+    return () => {
+      if (draw.enabled) draw.stop();
+      map.remove();
+      mapRef.current = null;
+      drawRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (map?.getSource("feature")) showValue(map, value);
+
+    const draw = drawRef.current;
+    if (!value?.length && draw?.enabled) draw.clear();
+  }, [value]);
 
   // Check if one character input is allowed (for East Asian languages)
   const isOneCharInputAllowed = useCallback((input) => {
@@ -205,28 +224,20 @@ const LocationSelect = (props) => {
     (selectedOption) => {
       if (selectedOption) {
         const draw = drawRef.current;
-        if (draw) {
-          draw.clear();
-        }
+        if (draw?.enabled) draw.clear();
 
         const tolerance =
           area(selectedOption.value) / 10 ** 6 < 1000 ? 0.01 : 0.1;
-        const simplified_geometry = simplify(selectedOption.value, {
-          tolerance: tolerance,
-          highQuality: true,
-        });
-
-        onChange("geometry", [
-          { label: simplified_geometry, value: simplified_geometry },
-        ]);
-        onChange("in_bbox", null);
-
-        updateMap(
-          truncate(simplified_geometry, { precision: 6, coordinates: 2 }),
+        const geometry = truncate(
+          simplify(selectedOption.value, { tolerance, highQuality: true }),
+          { precision: 6, coordinates: 2 },
         );
+
+        onChange("geometry", [{ label: geometry, value: geometry }]);
+        onChange("in_bbox", null);
       }
     },
-    [updateMap, onChange],
+    [onChange],
   );
 
   const handleQueryTypeChange = useCallback((selectedOption) => {
@@ -239,27 +250,19 @@ const LocationSelect = (props) => {
 
   const handleModeChange = useCallback((mode) => {
     const draw = drawRef.current;
-    if (draw) {
-      draw.clear();
-      draw.setMode(mode);
-      setActiveMode(mode);
-    }
+    if (!draw?.enabled) return;
+    draw.clear();
+    draw.setMode(mode);
+    setActiveMode(mode);
   }, []);
 
   const handleClear = useCallback(() => {
     const draw = drawRef.current;
-    const map = mapRef.current;
-    if (draw) {
+    if (draw?.enabled) {
       draw.clear();
       draw.setMode("render");
-      setActiveMode("render");
     }
-    if (map?.getSource("feature")) {
-      (map.getSource("feature") as any).setData({
-        type: "Feature",
-        geometry: null,
-      });
-    }
+    setActiveMode("render");
     onChange("geometry", null);
     onChange("in_bbox", null);
   }, [onChange]);
