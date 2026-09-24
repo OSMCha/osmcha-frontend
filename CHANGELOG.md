@@ -5,6 +5,12 @@ as far back as very early versions of this codebase, which was started in 2017
 (though note that there was an earlier version of OSMCha whose code is not
 included in the history of this repository).
 
+### 1.4.1
+
+- Group tag value changes (#921)
+- Fix active changeset highlighting in sidebar (#922)
+- Fix rerender bug in maplibre/terradraw map on filters page (#923)
+
 ### 1.4.0
 
 - Improve the user watchlist management UI, and fix some papercuts that
