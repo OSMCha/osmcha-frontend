@@ -16,7 +16,7 @@
     "range": false,
     "display": "Comment",
     "type": "text",
-    "description": " Filter changesets that mention a particular keyword in its comment. This is not case-sensitive.",
+    "description": " Filter for changesets that mention a particular keyword in its comment. This is not case-sensitive.",
     "placeholder": "Enter a keyword like hotosm, import or fixme"
   },
   {
@@ -26,7 +26,7 @@
     "all": false,
     "display": "Changeset size bound",
     "type": "number",
-    "description": "Filter changesets that have an area lower than X times the area of your BBox or geometry filter. For example, if the geometry you defined in your filter has an area of 1 degree and you set the 'Changeset size bound' to 2, it will filter the changesets whose area is lower than 2 degrees.",
+    "description": "Filter for changesets that have an area lower than X times the area of your BBox or geometry filter. For example, if the geometry you defined in your filter has an area of 1 degree and you set the 'Changeset size bound' to 2, it will only show the changesets whose area is lower than 2 degrees.",
     "placeholder": "Upper bound of changeset area"
   },
   {
@@ -37,7 +37,7 @@
     "display": "OSM features tags",
     "cache": true,
     "type": "text_comma",
-    "description": "Filter changesets using OSM tag values. Example: highway=footway. Use an asterisk to filter any value for a key, example: amenity=*",
+    "description": "Filter changesets using OSM tag values. Example: highway=footway. Use an asterisk to filter for any value for a key, example: amenity=*",
     "placeholder": "building=yes, amenity=*, highway=primary"
   },
   {
@@ -146,7 +146,7 @@
     "display": "Reviewed by",
     "cache": true,
     "type": "text_comma",
-    "description": "Filter changesets that were reviewed by a user. Start typing to select one or more users. This filter requires authentication to work.",
+    "description": "Filter for changesets that were reviewed by a user. Start typing to select one or more users. This filter requires authentication to work.",
     "placeholder": "Enter OSM usernames"
   },
   {
@@ -157,7 +157,7 @@
     "display": "Tags",
     "type": "text_comma",
     "data_url": "tags",
-    "description": "Filter changesets that have one or more manually assigned Tags. Start typing to select tags.",
+    "description": "Filter for changesets that have one or more manually assigned Tags. Start typing to select tags.",
     "placeholder": "Add tags"
   },
   {
@@ -179,7 +179,7 @@
     "display": "User ids",
     "cache": true,
     "type": "text_comma",
-    "description": "Show changesets created by users filtering by their OSM user ids. Start typing to select one or more uids.",
+    "description": "Show changesets created by users, filtering by their OSM user ids. Start typing to select one or more uids.",
     "placeholder": "Enter OSM user ids"
   },
   {
@@ -219,8 +219,8 @@
         "value": "False"
       }
     ],
-    "description": "If Yes, it will Filter changesets created by users that you added to your Watchlist.",
-    "placeholder": "Filter changesets created by users from your Watchlist"
+    "description": "If Yes, it will only show changesets created by users that you added to your Watchlist.",
+    "placeholder": "Show changesets created by users from your Watchlist"
   },
   {
     "name": "mapping_teams",
@@ -269,7 +269,7 @@
     "range": true,
     "display": "Objects Created",
     "type": "number",
-    "description": "Filter changesets whose number of elements created are greater than or equal to and/or lesser than or equal to a number.",
+    "description": "Filter for changesets whose number of elements created are greater than or equal to and/or lesser than or equal to a number.",
     "placeholder": "eg. 500"
   },
   {
@@ -279,7 +279,7 @@
     "range": true,
     "display": "Objects Modified",
     "type": "number",
-    "description": "Filter changesets whose number of elements modified are greater than or equal to and/or lesser than or equal to a number.",
+    "description": "Filter for changesets whose number of elements modified are greater than or equal to and/or lesser than or equal to a number.",
     "placeholder": "eg. 500"
   },
   {
@@ -289,7 +289,7 @@
     "range": true,
     "display": "Objects Deleted",
     "type": "number",
-    "description": "Filter changesets whose number of elements deleted are greater than or equal to and/or lesser than or equal to a number.",
+    "description": "Filter for changesets whose number of elements deleted are greater than or equal to and/or lesser than or equal to a number.",
     "placeholder": "eg. 500"
   },
   {
@@ -299,7 +299,7 @@
     "range": true,
     "display": "Number of comments",
     "type": "number",
-    "description": "Filter changesets whose number of comments are greater than or equal to and/or lesser than or equal to a number.",
+    "description": "Filter for changesets whose number of comments are greater than or equal to and/or lesser than or equal to a number.",
     "placeholder": "eg. 3"
   },
   {
@@ -309,7 +309,7 @@
     "range": false,
     "display": "Source",
     "type": "text",
-    "description": "Filter changesets by text in its source field. This is not case-sensitive.",
+    "description": "Filter for changesets by text in its source field. This is not case-sensitive.",
     "placeholder": "eg. Bing, Local"
   },
   {
@@ -319,7 +319,7 @@
     "range": false,
     "display": "Editor",
     "type": "text",
-    "description": "Filter changesets by editor used. This is not case-sensitive.",
+    "description": "Filter for changesets by editor used. This is not case-sensitive.",
     "placeholder": "eg. iD, JOSM"
   },
   {
@@ -329,7 +329,7 @@
     "range": false,
     "display": "Imagery used",
     "type": "text",
-    "description": "Filter changesets by text in its imagery_used field. This is not case-sensitive.",
+    "description": "Filter for changesets by text in its imagery_used field. This is not case-sensitive.",
     "placeholder": "eg. Bing, Mapbox"
   },
   {
@@ -339,7 +339,7 @@
     "all": false,
     "display": "Changeset IDs",
     "type": "text_comma",
-    "description": "Filter changesets by its ID. Use commas to search for more than one id.",
+    "description": "Filter for changesets by ID. Use commas to search for more than one id.",
     "placeholder": "Enter Changeset IDs"
   },
   {
@@ -349,7 +349,7 @@
     "range": false,
     "display": "Other metadata",
     "type": "text",
-    "description": "Filter changesets by any other metadata that is not present on the fields above. You can combine more than one filter, separated by commas.",
+    "description": "Filter for changesets by any other metadata that is not present on the fields above. You can combine more than one filter, separated by commas.",
     "placeholder": "eg. changesets_count__max=50,hashtags=#hotosm-project"
   },
   {
@@ -420,7 +420,7 @@
     "all": false,
     "display": "Powerful editor",
     "type": "text",
-    "description": "Filter changesets that were created using a software editor considered powerful (those that allow to create, modify or delete data in a batch).",
+    "description": "Filter for changesets that were created using a software editor considered powerful (those that allow to create, modify or delete data in a batch).",
     "placeholder": ""
   }
 ]
