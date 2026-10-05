@@ -582,3 +582,20 @@ th {
     flex-direction: column;
   }
 }
+
+.details-table {
+  width: 100%;
+}
+
+.details-table th,
+.details-table td {
+  vertical-align: top;
+  padding: 2px 0;
+}
+
+.details-table th {
+  font-weight: bold;
+  text-align: left;
+  white-space: nowrap;
+  padding-right: 12px;
+}

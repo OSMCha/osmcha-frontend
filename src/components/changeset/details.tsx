@@ -1,7 +1,5 @@
 import Linkify from "linkify-react";
-import { useState } from "react";
 import { Reasons } from "../reasons.tsx";
-import PropertyList from "./property_list.tsx";
 import TranslateButton from "./translate_button.tsx";
 
 export function Details({
@@ -23,24 +21,13 @@ export function Details({
     source = source.replace("{switch:a,b,c}.", "");
   }
 
-  let propertiesObj = {};
-  // As JOSM doesn't use the imagery field, change the order
-  // to make the source field visible in the first page
-  if (imagery === "Not reported") {
-    propertiesObj = {
-      editor: editor,
-      source: source,
-      imagery: imagery,
-    };
-  } else {
-    propertiesObj = {
-      editor: editor,
-      imagery: imagery,
-      source: source,
-    };
-  }
+  const propertiesObj: Record<string, string> = {
+    editor: editor,
+    source: source,
+    imagery: imagery,
+  };
 
-  for (const [p, v] of Object.entries(metadata)) {
+  for (const [p, v] of Object.entries<string>(metadata)) {
     if (
       !p.startsWith("ideditor") &&
       !p.startsWith("resolved") &&
@@ -49,9 +36,6 @@ export function Details({
       propertiesObj[p] = v;
     }
   }
-
-  const size = Object.keys(propertiesObj).length;
-  const [leftLimit, setLeftLimit] = useState(0);
 
   return (
     <div>
@@ -80,31 +64,28 @@ export function Details({
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap ">
         <Reasons reasons={reasons} color="blue" />
       </div>
-      <div className="grid pt12 pb6">
-        {leftLimit > 0 && (
-          <button
-            className="wmax12 mr6"
-            onClick={() => setLeftLimit(leftLimit - 2)}
-            title="Previous changeset properties"
-          >
-            <svg className="icon">
-              <use xlinkHref="#icon-chevron-left" />
-            </svg>
-          </button>
-        )}
-        <PropertyList properties={propertiesObj} limit={leftLimit} />
-        {leftLimit + 2 < size && (
-          <button
-            className="wmax12 ml6"
-            onClick={() => setLeftLimit(leftLimit + 2)}
-            title="Next changeset properties"
-          >
-            <svg className="icon">
-              <use xlinkHref="#icon-chevron-right" />
-            </svg>
-          </button>
-        )}
-      </div>
+      <table className="details-table txt-s my12">
+        <tbody>
+          {Object.entries(propertiesObj).map(([key, value]) => (
+            <tr key={key}>
+              <th scope="row" className="txt-uppercase">
+                {key}
+              </th>
+              <td className="txt-break-url">
+                <Linkify
+                  options={{
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    className: "color-blue",
+                  }}
+                >
+                  {value}
+                </Linkify>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
