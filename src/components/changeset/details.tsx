@@ -13,29 +13,14 @@ export function Details({
   expanded?: boolean;
 }) {
   let source = properties.source;
-  let imagery = properties.imagery_used;
+  const imagery = properties.imagery_used;
   const editor = properties.editor;
   const metadata = properties.metadata;
   const reasons = properties.reasons;
   const comment = properties.comment;
 
-  const urlRegex = new RegExp(
-    /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])/gim,
-  );
-
-  let sourceMatch = [];
-  if (source && source.indexOf("{switch:a,b,c}.") > -1) {
+  if (source?.includes("{switch:a,b,c}.")) {
     source = source.replace("{switch:a,b,c}.", "");
-  }
-  if (source?.match(urlRegex)) {
-    sourceMatch = source.match(urlRegex);
-    source = source.replace(urlRegex, "");
-  }
-
-  let imageryMatch = [];
-  if (imagery?.match(urlRegex)) {
-    imageryMatch = imagery.match(urlRegex);
-    imagery = imagery.replace(urlRegex, "");
   }
 
   let propertiesObj = {};
@@ -107,12 +92,7 @@ export function Details({
             </svg>
           </button>
         )}
-        <PropertyList
-          properties={propertiesObj}
-          limit={leftLimit}
-          imageryMatch={imageryMatch}
-          sourceMatch={sourceMatch}
-        />
+        <PropertyList properties={propertiesObj} limit={leftLimit} />
         {leftLimit + 2 < size && (
           <button
             className="wmax12 ml6"
