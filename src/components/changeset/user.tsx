@@ -209,7 +209,7 @@ export class User extends React.PureComponent<UserProps> {
               </div>
             )}
             <div className="mt12">
-              <div className="txt-subhead txt-s txt-break-url user-description">
+              <div className="prose txt-s txt-break-url">
                 <Markdown remarkPlugins={[remarkGfm]}>
                   {this.props.userDetails.description || ""}
                 </Markdown>

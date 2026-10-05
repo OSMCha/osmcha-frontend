@@ -20,7 +20,7 @@ interface SecondaryLineProps {
 
 export function SecondaryLine({ changesetId, properties }: SecondaryLineProps) {
   return (
-    <span className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray">
+    <span className="flex-parent flex-parent--row justify--space-between txt-s color-gray">
       <span>
         <Link
           to={{

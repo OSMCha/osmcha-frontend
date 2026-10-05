@@ -132,7 +132,7 @@ function FiltersHeader({
           href={`${API_URL}/aoi/${aoiId}/changesets/feed/`}
           title="RSS Feed"
         >
-          <svg className="icon icon--s mt-neg3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+          <svg className="icon icon--s mt-neg3 inline-block align-middle bg-gray-faint color-darken50 color-darken75-on-hover transition">
             <use xlinkHref="#icon-rss" />
           </svg>
         </a>
@@ -153,7 +153,7 @@ function FiltersHeader({
           }
           title="Copy filter URL"
         >
-          <svg className="icon icon--s mt-neg3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+          <svg className="icon icon--s mt-neg3 inline-block align-middle bg-gray-faint color-darken50 color-darken75-on-hover transition">
             <use xlinkHref="#icon-link" />
           </svg>
         </div>
@@ -193,8 +193,8 @@ function FiltersHeader({
 
   return (
     <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
-      <span className="txt-s color-gray--dark">{renderFilterInfo()}</span>
-      <span className="txt-l txt-bold color-gray--dark">
+      <span className="txt-s color-gray-dark">{renderFilterInfo()}</span>
+      <span className="txt-l txt-bold color-gray-dark">
         <span>
           Filters
           {aoiId && <span> / {aoiName}</span>}
@@ -202,7 +202,7 @@ function FiltersHeader({
           {renderRssLink()}
         </span>
       </span>
-      <span className="txt-l color-gray--dark">
+      <span className="txt-l color-gray-dark">
         {token && (
           <SaveAOI
             name={aoiName}
@@ -219,7 +219,7 @@ function FiltersHeader({
           Apply
         </Button>
         <Link to={{ search, pathname: "/" }} className="mx3 pointer">
-          <svg className="icon icon--m inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+          <svg className="icon icon--m inline-block align-middle bg-gray-faint color-darken50 color-darken75-on-hover transition">
             <use xlinkHref="#icon-close" />
           </svg>
         </Link>

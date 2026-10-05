@@ -146,7 +146,7 @@ exports[`renders active row properly 1`] = `
         </span>
       </a>
       <span
-        className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
+        className="flex-parent flex-parent--row justify--space-between txt-s color-gray"
       >
         <span>
           <a
@@ -299,7 +299,7 @@ exports[`renders inactive row properly 1`] = `
         </span>
       </a>
       <span
-        className="flex-parent flex-parent--row justify--space-between txt-light txt-s color-gray"
+        className="flex-parent flex-parent--row justify--space-between txt-s color-gray"
       >
         <span>
           <a

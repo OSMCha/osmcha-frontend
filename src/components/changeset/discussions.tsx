@@ -34,7 +34,7 @@ function Discussions({
     if (discussions.length === 0) {
       return (
         <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
-          <svg className="icon icon--xxl color-darken25">
+          <svg className="icon icon--xxl color-darken50">
             <use xlinkHref="#icon-contact" />
           </svg>
           <p className="txt-m">{"No discussions, yet."}</p>
@@ -60,7 +60,7 @@ function Discussions({
                     </UserOSMLink>{" "}
                   </strong>
                   {changesetAuthor === comment.user && (
-                    <span style={{ color: "#aaa" }}>(changeset author)</span>
+                    <span className="color-gray">(changeset author)</span>
                   )}
                 </span>
                 <span>
@@ -107,7 +107,7 @@ function Discussions({
       ) : (
         <div>
           <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
-            <svg className="icon icon--xxl color-darken25">
+            <svg className="icon icon--xxl color-darken50">
               <use xlinkHref="#icon-contact" />
             </svg>
           </div>

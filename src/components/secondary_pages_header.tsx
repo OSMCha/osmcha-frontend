@@ -18,7 +18,7 @@ export function SecondaryPagesHeader({
         mobile ? "px12" : "px30"
       } bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1`}
     >
-      <span className="txt-l txt-bold color-gray--dark">
+      <span className="txt-l txt-bold color-gray-dark">
         <span className="fl">
           <Avatar size={36} url={avatar} />
         </span>

@@ -272,6 +272,8 @@ const LocationSelect = (props) => {
       <div className="grid grid--gut12">
         <div className="col col--4">
           <Select
+            className="react-select"
+            classNamePrefix="react-select"
             onChange={handleQueryTypeChange}
             options={queryTypeOptions}
             value={queryTypeOptions.find(
@@ -284,6 +286,7 @@ const LocationSelect = (props) => {
           <AsyncSelect
             name={name}
             className="react-select"
+            classNamePrefix="react-select"
             loadOptions={debouncedLoadOptions}
             onChange={handleChange}
             onInputChange={handleInputChange}

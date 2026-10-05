@@ -145,7 +145,7 @@ export function Features({
         </h2>
         {features.length === 0 ? (
           <div className="flex-parent flex-parent--column flex-parent--center-cross mb12">
-            <svg className="icon icon--xxl color-darken25">
+            <svg className="icon icon--xxl color-darken50">
               <use xlinkHref="#icon-alert" />
             </svg>
             <p className="txt-m">{`No features were flagged for ${changesetId}.`}</p>
