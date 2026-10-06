@@ -4,7 +4,7 @@ import bboxPolygon from "@turf/bbox-polygon";
 import simplify from "@turf/simplify";
 import truncate from "@turf/truncate";
 import debounce from "lodash.debounce";
-import maplibre from "maplibre-gl";
+import * as maplibre from "maplibre-gl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";

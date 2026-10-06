@@ -42,7 +42,7 @@
     "linkify-react": "^4.3.2",
     "linkifyjs": "^4.3.2",
     "lodash.debounce": "^4.0.8",
-    "maplibre-gl": "^5.1.0",
+    "maplibre-gl": "^6.12.0",
     "mousetrap": "^1.6.5",
     "react": "^18.3.1",
     "react-datepicker": "^4.1.1",
