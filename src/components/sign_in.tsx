@@ -2,7 +2,7 @@ import { SignInButton } from "./changeset/sign_in_button.tsx";
 
 export function SignIn() {
   return (
-    <div className="flex-parent flex-parent--column flex-parent--center-cross bg-gray-faint hfull-55">
+    <div className="flex-parent flex-parent--column flex-parent--center-cross bg-white hfull-55">
       <div className="flex-child flex-child--grow">&nbsp;</div>
       <div className="flex-parent flex-parent--column flex-parent--center-cross">
         <svg className="icon h160 w160 inline-block align-middle pb3">

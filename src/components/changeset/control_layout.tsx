@@ -61,7 +61,7 @@ export function ControlLayout({
       >
         <svg
           className={`icon h18 w18 inline-block align-middle ${
-            features && features.length === 0 ? "color-darken25" : "color-black"
+            features && features.length === 0 ? "color-darken50" : "color-black"
           }`}
         >
           <use xlinkHref="#icon-alert" />
@@ -101,7 +101,7 @@ export function ControlLayout({
       >
         <svg
           className={`icon h18 w18 inline-block align-middle ${
-            discussions.length === 0 ? "color-darken25" : "color-black"
+            discussions.length === 0 ? "color-darken50" : "color-black"
           }`}
         >
           <use xlinkHref="#icon-contact" />

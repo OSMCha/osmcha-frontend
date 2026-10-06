@@ -182,7 +182,7 @@ export function NavbarChangeset({
             </Link>
           )}
           {!mobile && (
-            <div className="txt-l color-gray--dark">
+            <div className="txt-l color-gray-dark">
               <strong>Changeset:</strong> {changesetId}
               <span className="mr6">
                 <span
@@ -192,7 +192,7 @@ export function NavbarChangeset({
                   }
                   title="Copy OSMCha Changeset URL"
                 >
-                  <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+                  <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken50 color-darken75-on-hover transition">
                     <use xlinkHref="#icon-link" />
                   </svg>
                 </span>
@@ -202,7 +202,7 @@ export function NavbarChangeset({
                   rel="noopener noreferrer"
                   title="See on OSM"
                 >
-                  <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken25 color-darken50-on-hover transition">
+                  <svg className="icon icon--s mt-neg3 ml3 inline-block align-middle bg-gray-faint color-darken50 color-darken75-on-hover transition">
                     <use xlinkHref="#icon-share" />
                   </svg>
                 </a>

@@ -76,7 +76,7 @@ export function Details({
                   options={{
                     target: "_blank",
                     rel: "noopener noreferrer",
-                    className: "color-blue",
+                    className: "link",
                   }}
                 >
                   {value}

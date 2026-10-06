@@ -51,6 +51,7 @@ export class Meta extends React.PureComponent<MetaProps> {
     return (
       <Select
         className="react-select"
+        classNamePrefix="react-select"
         name={name}
         value={value}
         options={this.props.options}

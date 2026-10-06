@@ -2,24 +2,49 @@ body {
   scroll-behavior: smooth;
   overflow: auto;
 }
-/*html, body {
-  position: fixed;
-  overflow: hidden;
-}*/
 
-img {
-  image-rendering: -moz-crisp-edges; /* Firefox */
-  image-rendering: -o-crisp-edges; /* Opera */
-  image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
-  image-rendering: crisp-edges;
-  -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
+/* Overrides of assembly.css defaults, which have poor text contrast */
+body,
+input,
+textarea,
+.select option {
+  color: #000;
 }
 
-::-webkit-input-placeholder {
-  color: #aaa;
+.color-gray {
+  color: #444 !important;
 }
-::-moz-placeholder {
-  color: #aaa;
+
+.link--gray {
+  color: #444;
+}
+
+.link--gray:hover,
+.link--gray.is-active {
+  color: #000;
+}
+
+.link,
+.link--blue,
+.prose a:not(.unprose) {
+  color: #006dee;
+}
+
+.link:hover,
+.link.is-active,
+.link--blue:hover,
+.link--blue.is-active,
+.prose a:not(.unprose):hover {
+  color: #0054b8;
+  text-decoration: underline;
+}
+
+/* !important is needed to beat react-select's runtime-injected styles */
+::placeholder,
+.input::placeholder,
+.textarea::placeholder,
+.react-select__placeholder {
+  color: #888 !important;
 }
 
 .justify--space-between {
@@ -326,13 +351,6 @@ img {
   width: 144px;
 }
 
-.user-description a {
-  color: #448ee4;
-}
-.user-description h2 {
-  font-weight: 600;
-}
-
 /*home images*/
 .osmcha-logo {
   width: 35vw;
@@ -549,7 +567,7 @@ th {
   .app-sidebar {
     grid-column: 1;
     border-right: 1px solid #d8d8d8;
-    background-color: #fafafa;
+    background-color: #fff;
   }
 
   .app-main {

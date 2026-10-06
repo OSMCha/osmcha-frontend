@@ -126,6 +126,7 @@ export class MultiSelect extends React.PureComponent<
             isMulti
             name={name}
             className="react-select"
+            classNamePrefix="react-select"
             value={value}
             options={options}
             onChange={this.onChangeLocal}
@@ -140,6 +141,7 @@ export class MultiSelect extends React.PureComponent<
           isMulti
           name={name}
           className="react-select"
+          classNamePrefix="react-select"
           value={value}
           loadOptions={this.getAsyncOptions}
           onChange={this.onChangeLocal}
@@ -154,6 +156,7 @@ export class MultiSelect extends React.PureComponent<
       return (
         <CreatableSelect
           className="react-select"
+          classNamePrefix="react-select"
           isMulti
           isClearable
           formatCreateLabel={(label) => `Add ${label} to ${display}`}
@@ -171,6 +174,7 @@ export class MultiSelect extends React.PureComponent<
       return (
         <CreatableSelect
           className="react-select"
+          classNamePrefix="react-select"
           isMulti
           isClearable
           menuIsOpen={false}

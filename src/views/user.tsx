@@ -37,11 +37,11 @@ function User() {
       }`}
     >
       <header className="h55 hmin55 flex-parent px30 bg-gray-faint flex-parent--center-cross justify--space-between color-gray border-b border--gray-light border--1">
-        <span className="txt-l txt-bold color-gray--dark">
+        <span className="txt-l txt-bold color-gray-dark">
           <span>Account Settings</span>
         </span>
 
-        <span className="txt-l color-gray--dark">
+        <span className="txt-l color-gray-dark">
           <Button onClick={handleLogout} className="bg-white-on-hover">
             Logout
           </Button>
@@ -91,7 +91,7 @@ function User() {
                 onClick={() => navigator.clipboard.writeText(`Token ${token}`)}
                 title="Copy Authorization Token"
               >
-                <svg className="icon icon--m mt-neg3 inline-block align-middle color-darken25 color-darken50-on-hover transition">
+                <svg className="icon icon--m mt-neg3 inline-block align-middle color-darken50 color-darken75-on-hover transition">
                   <use xlinkHref="#icon-clipboard" />
                 </svg>
               </div>

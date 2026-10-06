@@ -222,7 +222,7 @@ const NewTeam = (props: NewTeamProps) => {
             Add user
           </Button>
 
-          <p className="txt-light txt-truncate pt6">
+          <p className="txt-truncate pt6">
             The mapping team members are <strong>public</strong> and can be
             visualized by any logged in OSMCha user.
           </p>

@@ -25,6 +25,7 @@ export class Radio extends React.PureComponent<RadioProps> {
     return (
       <Select
         className="react-select"
+        classNamePrefix="react-select"
         name={name}
         value={value?.[0] || null}
         options={options}

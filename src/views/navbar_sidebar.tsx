@@ -116,7 +116,7 @@ function NavbarSidebar() {
             pathname: "/",
           }}
           style={mobile ? { fontSize: "1.4em" } : { fontSize: "1.7em" }}
-          className="color-gray"
+          className="color-gray-dark"
         >
           <strong className="color-blue">OSM</strong>
           Cha
@@ -131,7 +131,7 @@ function NavbarSidebar() {
               pathname: "/about",
             }}
           >
-            <svg className="icon icon--m inline-block align-middle color-darken25 color-darken50-on-hover transition">
+            <svg className="icon icon--m inline-block align-middle color-darken50 color-darken75-on-hover transition">
               <use xlinkHref="#icon-question" />
             </svg>
           </Link>
