@@ -133,10 +133,16 @@ textarea,
   margin-top: calc(40vh - 2em);
 }
 
+.txt-subhead {
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
 .txt-jumbo {
   font-size: 6em;
   line-height: 2em;
 }
+
 .react-datepicker-wrapper {
   width: 100%;
 }
