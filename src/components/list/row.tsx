@@ -38,9 +38,11 @@ export class Row extends React.Component<RowProps> {
     if (properties.harmful === false)
       borderClass = "border-l border-l--4 border-color-good";
 
-    let backgroundClass = "";
-
-    backgroundClass += active ? "light-blue" : this.wasOpen ? "bg-darken5" : "";
+    const backgroundClass = active
+      ? "changeset-row--selected"
+      : this.wasOpen
+        ? "changeset-row--read"
+        : "";
     return (
       <div>
         <div className={`${backgroundClass} ${borderClass}`} ref={inputRef}>

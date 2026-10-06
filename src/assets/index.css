@@ -310,9 +310,12 @@ textarea,
 
 /* Changeset list color hacks */
 
-.light-blue,
-.light-blue-on-hover:hover {
-  background-color: #eef4fa;
+.changeset-row--read {
+  background-color: #eeeeee;
+}
+
+.changeset-row--selected {
+  background-color: #cfe1fa;
 }
 
 .changesets-list .border-color-good {
