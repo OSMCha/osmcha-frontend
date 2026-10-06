@@ -5,6 +5,26 @@ as far back as very early versions of this codebase, which was started in 2017
 (though note that there was an earlier version of OSMCha whose code is not
 included in the history of this repository).
 
+### 1.5.0
+
+- Fix URLs in 'sources' section of changeset details
+- Rearrange changeset details table for better use of space
+- Improve text contrast throughout the UI (#928)
+- Update filter text descriptions to clarify that they are filtering _for_ certain creteria, not filtering them _out_ (#925)
+- Tweak the look of the changeset info panel tab bar (#929)
+- Show which element is selected in the tag changes and geom changes tabs
+- Fix bug that caused 'Modified Relations' section to always be empty
+- Make enter key submit input on user watchlist page
+- Disable "view changesets" button on watchlist page when list is empty
+- Add a 404 page to the app router
+- Add redirects from `/:id` and `/changeset/:id` to `/changesets/:id`
+- Increase contrast of unread/read/selected states in changeset list
+- Improve accessibility of the changeset list
+- Add dashed underline to `<time>` in changeset panel
+- Tweak changeset comment styling in info panel
+- Remove line truncation from changeset list view
+- Bump maplibre to v6
+
 ### 1.4.1
 
 - Group tag value changes (#921)
