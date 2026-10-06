@@ -78,6 +78,14 @@ function Watchlist() {
     return sortDir === "asc" ? cmp : -cmp;
   });
   const mobile = isMobile();
+  const viewChangesetsLabel = (
+    <>
+      <svg className="icon txt-m mb3 inline-block align-middle">
+        <use xlinkHref="#icon-filter" />
+      </svg>
+      View changesets from users on your watchlist
+    </>
+  );
 
   return (
     <div
@@ -181,19 +189,31 @@ function Watchlist() {
 
         {token && (
           <div className="mt24">
-            <Link
-              className="btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
-              to={{
-                search: getObjAsQueryParam("filters", {
-                  blacklist: [{ label: "Yes", value: "True" }],
-                }),
-              }}
-            >
-              <svg className="icon txt-m mb3 inline-block align-middle">
-                <use xlinkHref="#icon-filter" />
-              </svg>
-              View changesets from users on your watchlist
-            </Link>
+            {watchlist.length > 0 ? (
+              <Link
+                className="btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
+                to={{
+                  search: getObjAsQueryParam("filters", {
+                    blacklist: [{ label: "Yes", value: "True" }],
+                  }),
+                }}
+              >
+                {viewChangesetsLabel}
+              </Link>
+            ) : (
+              <span
+                className="inline-block"
+                title="You don't have any users on your watchlist"
+              >
+                <button
+                  type="button"
+                  className="btn btn--s border border--1 border--darken5 round bg-darken10"
+                  disabled
+                >
+                  {viewChangesetsLabel}
+                </button>
+              </span>
+            )}
           </div>
         )}
       </div>
