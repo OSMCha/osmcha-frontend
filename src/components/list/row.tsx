@@ -1,8 +1,23 @@
 import React from "react";
-import { Link } from "react-router";
 import { PrimaryLine } from "./primary_line.tsx";
 import { SecondaryLine } from "./secondary_line.tsx";
 import { Title } from "./title.tsx";
+
+/** Accessible name for a row's link, summarizing the changeset. */
+function describe(changesetId: number, p: any) {
+  // TODO: if we ever localize OSMCha this string will need to
+  // be constructed in a less hacky way
+  const parts = [
+    `${p.comment || "No comment"} by ${p.user || "unknown user"} ` +
+      `with ${p.create} added, ${p.modify} modified, ${p.delete} removed elements`,
+    ...[...(p.reasons ?? []), ...(p.tags ?? [])].map((r: any) => r.name),
+  ];
+  if (p.checked) {
+    parts.push(`previously reviewed ${p.harmful ? "bad" : "good"}`);
+  }
+  parts.push(`changeset ${changesetId}`);
+  return parts.join(", ");
+}
 
 interface RowProps {
   properties: any;
@@ -44,29 +59,30 @@ export class Row extends React.Component<RowProps> {
         ? "changeset-row--read"
         : "";
     return (
-      <div>
-        <div className={`${backgroundClass} ${borderClass}`} ref={inputRef}>
+      <li>
+        <div
+          className={`relative ${backgroundClass} ${borderClass}`}
+          ref={inputRef}
+        >
           <div
             {...other}
             className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light flex-parent flex-parent--column"
           >
-            <Link
-              to={{
-                search: window.location.search,
-                pathname: `/changesets/${changesetId}`,
-              }}
-            >
-              <Title properties={properties} date={properties.date} />
-              <PrimaryLine
-                reasons={properties.reasons}
-                tags={properties.tags}
-                comment={properties.comment}
-              />
-            </Link>
-            <SecondaryLine changesetId={changesetId} properties={properties} />
+            <Title properties={properties} date={properties.date} />
+            <PrimaryLine
+              reasons={properties.reasons}
+              tags={properties.tags}
+              comment={properties.comment}
+            />
+            <SecondaryLine
+              changesetId={changesetId}
+              properties={properties}
+              label={describe(changesetId, properties)}
+              active={!!active}
+            />
           </div>
         </div>
-      </div>
+      </li>
     );
   }
 }

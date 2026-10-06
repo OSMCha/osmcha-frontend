@@ -2,7 +2,7 @@ export function NumberOfComments({ count }: { count?: number }) {
   const displayCount = count ?? 0;
   return (
     <span
-      className="mr6"
+      className="changeset-row-above mr6"
       title={`${displayCount} comment${displayCount > 1 ? "s" : ""}`}
     >
       <span>{displayCount}</span>

@@ -7,6 +7,8 @@ import { NumberOfComments } from "./comments.tsx";
 
 interface SecondaryLineProps {
   changesetId: number;
+  label: string;
+  active: boolean;
   properties: {
     checked: boolean;
     check_user: string;
@@ -18,7 +20,12 @@ interface SecondaryLineProps {
   };
 }
 
-export function SecondaryLine({ changesetId, properties }: SecondaryLineProps) {
+export function SecondaryLine({
+  changesetId,
+  properties,
+  label,
+  active,
+}: SecondaryLineProps) {
   return (
     <span className="flex-parent flex-parent--row justify--space-between txt-s color-gray">
       <span>
@@ -27,7 +34,9 @@ export function SecondaryLine({ changesetId, properties }: SecondaryLineProps) {
             search: window.location.search,
             pathname: `/changesets/${changesetId}`,
           }}
-          className="txt-underline-on-hover"
+          className="changeset-row-link"
+          aria-label={label}
+          aria-current={active ? "page" : undefined}
         >
           <span className="mr6">{changesetId}</span>
         </Link>
@@ -46,7 +55,7 @@ export function SecondaryLine({ changesetId, properties }: SecondaryLineProps) {
               pathname: "/",
             }}
             title={`See ${properties.check_user}'s changesets`}
-            className="txt-underline-on-hover"
+            className="changeset-row-above txt-underline-on-hover"
           >
             {properties.harmful ? (
               <img
@@ -82,4 +91,3 @@ export function SecondaryLine({ changesetId, properties }: SecondaryLineProps) {
     </span>
   );
 }
-//  <svg className="icon inline-block align-middle "> //       <use xlinkHref="#icon-options" /> //     </svg>
