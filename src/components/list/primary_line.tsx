@@ -9,7 +9,7 @@ interface PrimaryLineProps {
 export function PrimaryLine({ reasons, comment, tags }: PrimaryLineProps) {
   return (
     <div className="flex-parent flex-parent--column">
-      <p className="flex-child truncate-3-lines my6 txt-break-url">{comment}</p>
+      <p className="flex-child my6 txt-break-url">{comment}</p>
       <Reasons reasons={reasons} color="blue" />
       <Reasons reasons={tags} color="red" />
     </div>
