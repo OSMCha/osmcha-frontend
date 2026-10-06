@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from "react-router";
 import { About } from "./views/about.tsx";
 import { Authorized } from "./views/authorized.tsx";
 import { Changeset } from "./views/changeset.tsx";
+import { ChangesetRedirect } from "./views/changeset_redirect.tsx";
 import { ChangesetsList } from "./views/changesets_list.tsx";
 import { EditMappingTeam } from "./views/edit_team.tsx";
 import { Filters } from "./views/filters.tsx";
@@ -39,6 +40,8 @@ export const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/filters" element={<Filters />} />
           <Route path="/changesets/:id" element={<Changeset />} />
+          <Route path="/changeset/:id" element={<ChangesetRedirect />} />
+          <Route path="/:id" element={<ChangesetRedirect />} />
           <Route path="/about" element={<About />} />
           <Route path="/user" element={<User />} />
           <Route path="/teams" element={<MappingTeams />} />
