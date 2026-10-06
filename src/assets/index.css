@@ -318,6 +318,27 @@ textarea,
   background-color: #cfe1fa;
 }
 
+/* Stretch the link over its parent container so that the whole thing is clickable */
+.changeset-row-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.changeset-row-link:focus-visible {
+  outline: none;
+}
+
+.changeset-row-link:focus-visible::after {
+  outline: 2px solid #006dee;
+  outline-offset: -2px;
+}
+
+.changeset-row-above {
+  position: relative;
+  z-index: 1;
+}
+
 .changesets-list .border-color-good {
   border-color: rgba(57, 219, 192, 0.75);
 }

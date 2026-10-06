@@ -53,10 +53,19 @@ function ChangesetsList() {
       index += direction;
       const nextFeature = features[index];
       if (nextFeature) {
-        navigate({
-          pathname: `/changesets/${nextFeature.id}`,
-          search: location.search,
-        });
+        const pathname = `/changesets/${nextFeature.id}`;
+        // If focus is in the list, move it along with the active row so the two
+        // don't diverge. Otherwise leave focus alone (e.g. on the map).
+        if (document.activeElement?.classList.contains("changeset-row-link")) {
+          const link = [
+            ...document.querySelectorAll<HTMLAnchorElement>(
+              "a.changeset-row-link",
+            ),
+          ].find((a) => a.pathname === pathname);
+          // List.handleScroll handles the scrolling (how appropriately named!)
+          link?.focus({ preventScroll: true });
+        }
+        navigate({ pathname, search: location.search });
       }
     },
     [page, activeChangesetId, navigate, location.search],

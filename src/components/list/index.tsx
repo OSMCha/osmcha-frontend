@@ -59,18 +59,19 @@ function List({ currentPage, activeChangesetId, loading, location }: Props) {
   const features = currentPage?.features;
 
   return (
-    <ul className="flex-parent flex-parent--column scroll-styled flex-child--grow">
-      <div>
-        {features?.map((f, k) => (
-          <Row
-            active={f.id === activeChangesetId}
-            properties={f.properties}
-            changesetId={f.id}
-            inputRef={f.id === activeChangesetId ? handleScroll : undefined}
-            key={k}
-          />
-        ))}
-      </div>
+    <ul
+      className="flex-parent flex-parent--column scroll-styled flex-child--grow"
+      aria-label="Changesets"
+    >
+      {features?.map((f, k) => (
+        <Row
+          active={f.id === activeChangesetId}
+          properties={f.properties}
+          changesetId={f.id}
+          inputRef={f.id === activeChangesetId ? handleScroll : undefined}
+          key={k}
+        />
+      ))}
     </ul>
   );
 }

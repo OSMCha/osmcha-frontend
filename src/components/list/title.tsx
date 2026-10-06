@@ -35,7 +35,7 @@ function Title({ properties, date }: TitleProps) {
             </svg>
           )}
         </strong>
-        <span className="txt-s mr3">
+        <span className="changeset-row-above txt-s mr3">
           &nbsp;
           <RelativeTime
             datetime={parse(date, "yyyy-MM-dd'T'HH:mm:ssX", new Date())}
