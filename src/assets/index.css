@@ -779,3 +779,8 @@ th {
   border-radius: var(--tab-radius);
   background-color: #fff;
 }
+
+.changeset-tabs time[title] {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+}
