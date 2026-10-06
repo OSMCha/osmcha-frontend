@@ -1,4 +1,7 @@
+import { useRef } from "react";
+
 import { Reasons } from "../reasons.tsx";
+import { elementKey, useScrollToSelected } from "./selection.ts";
 
 type FeatureData = {
   osm_id: number;
@@ -18,11 +21,13 @@ type ChangesetReason = {
 const Feature = ({
   data,
   changesetReasons,
+  selected,
   setHighlight,
   zoomToAndSelect,
 }: {
   data: FeatureData;
   changesetReasons: ChangesetReason[];
+  selected: boolean;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 }) => {
@@ -33,7 +38,7 @@ const Feature = ({
         )
       : data.reasons;
   return (
-    <tr className="txt-s">
+    <tr className="feature-row txt-s" aria-current={selected || undefined}>
       <td>{data.osm_id}</td>
       <td>{data.name}</td>
       <td>
@@ -93,11 +98,13 @@ type Properties = {
 export function Features({
   properties,
   changesetId,
+  selected,
   setHighlight,
   zoomToAndSelect,
 }: {
   properties: Properties;
   changesetId: number;
+  selected: string | null;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 }) {
@@ -132,8 +139,11 @@ export function Features({
     reviewedFeatures.filter((feature) => !featuresIds.includes(feature.url)),
   );
 
+  const ref = useRef<HTMLDivElement>(null);
+  useScrollToSelected(ref, selected);
+
   return (
-    <div className="px12 py6">
+    <div className="px12 py6" ref={ref}>
       <div>
         <h2 className="txt-m txt-uppercase txt-bold mr6 mb3">
           Flagged Features
@@ -166,6 +176,7 @@ export function Features({
                   key={k}
                   data={f}
                   changesetReasons={properties.reasons}
+                  selected={elementKey(f.type, f.id) === selected}
                   setHighlight={setHighlight}
                   zoomToAndSelect={zoomToAndSelect}
                 />

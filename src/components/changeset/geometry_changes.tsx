@@ -1,13 +1,19 @@
 import deepEqual from "deep-equal";
-import { useEffect, useState } from "react";
+import { useMemo, useRef } from "react";
 
 import { ExpandItemIcon } from "../expand_item_icon.tsx";
 import { Loading } from "../loading.tsx";
 import { OpenAll } from "../open_all.tsx";
+import {
+  type Element,
+  elementKey,
+  useOpenGroups,
+  useScrollToSelected,
+} from "./selection.ts";
 import { FeatureListItem } from "./tag_changes.tsx";
 
 function geometryChangesFromActions(actions: any[]) {
-  const finalReport = new Map();
+  const finalReport = new Map<string, Element[]>();
 
   const nodes = actions
     .filter(
@@ -17,7 +23,7 @@ function geometryChangesFromActions(actions: any[]) {
         (action.new.lon !== action.old.lon ||
           action.new.lat !== action.old.lat),
     )
-    .map((action) => action.new.id);
+    .map((action) => ({ type: "node", id: action.new.id }));
 
   const ways = actions
     .filter(
@@ -26,7 +32,7 @@ function geometryChangesFromActions(actions: any[]) {
         action.new.type === "way" &&
         !deepEqual(action.old.nodes, action.new.nodes),
     )
-    .map((action) => action.new.id);
+    .map((action) => ({ type: "way", id: action.new.id }));
 
   finalReport.set("node", nodes);
   finalReport.set("way", ways);
@@ -36,16 +42,20 @@ function geometryChangesFromActions(actions: any[]) {
 
 interface GeometryChangesItemProps {
   elementType: string;
-  elementIds: number[];
-  opened: boolean;
+  elements: Element[];
+  isOpen: boolean;
+  onToggle: () => void;
+  selected: string | null;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 }
 
 const GeometryChangesItem = ({
   elementType,
-  elementIds,
-  opened,
+  elements,
+  isOpen,
+  onToggle,
+  selected,
   setHighlight,
   zoomToAndSelect,
 }: GeometryChangesItemProps) => {
@@ -54,35 +64,32 @@ const GeometryChangesItem = ({
     way: "Ways",
     relation: "Relations",
   };
-  const [isOpen, setIsOpen] = useState(opened);
-
-  useEffect(() => setIsOpen(opened), [opened]);
-
   return (
     <div>
       <button
         className="cursor-pointer"
         tabIndex={0}
         aria-pressed={isOpen}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={onToggle}
       >
         <ExpandItemIcon isOpen={isOpen} />
         <span className="txt-bold">{titles[elementType]}</span>
         <strong className="bg-blue-faint color-blue-dark mx6 px6 py3 txt-s round">
-          {elementIds.length}
+          {elements.length}
         </strong>
       </button>
       <ul style={{ display: isOpen ? "block" : "none" }}>
-        {elementIds.map((id: number) => (
+        {elements.map(({ type, id }) => (
           <FeatureListItem
             key={id}
-            type={elementType}
+            type={type}
             id={id}
-            onMouseEnter={() => setHighlight(elementType, id, true)}
-            onMouseLeave={() => setHighlight(elementType, id, false)}
-            onFocus={() => setHighlight(elementType, id, true)}
-            onBlur={() => setHighlight(elementType, id, false)}
-            onClick={() => zoomToAndSelect(elementType, id)}
+            selected={elementKey(type, id) === selected}
+            onMouseEnter={() => setHighlight(type, id, true)}
+            onMouseLeave={() => setHighlight(type, id, false)}
+            onFocus={() => setHighlight(type, id, true)}
+            onBlur={() => setHighlight(type, id, false)}
+            onClick={() => zoomToAndSelect(type, id)}
           />
         ))}
       </ul>
@@ -93,6 +100,7 @@ const GeometryChangesItem = ({
 type Props = {
   changesetId: number;
   adiff: any;
+  selected: string | null;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 };
@@ -100,43 +108,43 @@ type Props = {
 function GeometryChanges({
   changesetId,
   adiff,
+  selected,
   setHighlight,
   zoomToAndSelect,
 }: Props) {
-  const [changeReport, setChangeReport] = useState<Array<[string, any]>>([]);
-  const [openAll, setOpenAll] = useState(false);
-
-  useEffect(() => {
-    const newChangeReport: Array<[string, any]> = [];
-    if (adiff) {
-      const processed = geometryChangesFromActions(adiff.actions);
-      for (const [tag, featureIDs] of processed) {
-        newChangeReport.push([tag, featureIDs]);
-      }
-      setChangeReport(
-        newChangeReport.filter((changeType) => changeType[1].length),
-      );
-    }
+  const changeReport = useMemo(() => {
+    if (!adiff) return [];
+    return [...geometryChangesFromActions(adiff.actions)].filter(
+      ([_, elements]) => elements.length,
+    );
   }, [adiff]);
+  const { isOpen, toggle, allOpen, setAllOpen } = useOpenGroups(
+    changeReport,
+    selected,
+  );
+  const ref = useRef<HTMLDivElement>(null);
+  useScrollToSelected(ref, selected);
 
   return (
-    <div className="px12 py6">
+    <div className="px12 py6" ref={ref}>
       <div className="pb6">
         <h2 className="inline txt-m txt-uppercase txt-bold mr6 mb3">
           Geometry Changes
         </h2>
         {changeReport.length ? (
-          <OpenAll isActive={openAll} setOpenAll={setOpenAll} />
+          <OpenAll isActive={allOpen} setOpenAll={setAllOpen} />
         ) : null}
       </div>
       {adiff ? (
         changeReport.length ? (
-          changeReport.map(([elementType, elementIds]) => (
+          changeReport.map(([elementType, elements]) => (
             <GeometryChangesItem
               key={elementType}
               elementType={elementType}
-              elementIds={elementIds}
-              opened={openAll}
+              elements={elements}
+              isOpen={isOpen(elementType)}
+              onToggle={() => toggle(elementType)}
+              selected={selected}
               setHighlight={setHighlight}
               zoomToAndSelect={zoomToAndSelect}
             />

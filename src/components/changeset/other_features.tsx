@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useMemo, useRef } from "react";
 
 import { ExpandItemIcon } from "../expand_item_icon.tsx";
 import { Loading } from "../loading.tsx";
 import { OpenAll } from "../open_all.tsx";
+import {
+  type Element,
+  elementKey,
+  useOpenGroups,
+  useScrollToSelected,
+} from "./selection.ts";
 import { FeatureListItem } from "./tag_changes.tsx";
 
 function otherChangesFromActions(actions: any[]) {
-  const finalReport = new Map();
+  const finalReport = new Map<string, Element[]>();
 
   for (const actionType of ["create", "delete"]) {
     finalReport.set(
@@ -30,28 +36,29 @@ function otherChangesFromActions(actions: any[]) {
 }
 
 interface ActionItemProps {
-  opened: boolean;
+  isOpen: boolean;
+  onToggle: () => void;
   tag: string;
-  features: any[];
+  features: Element[];
+  selected: string | null;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 }
 
 const ActionItem = ({
-  opened,
+  isOpen,
+  onToggle,
   tag,
   features,
+  selected,
   setHighlight,
   zoomToAndSelect,
 }: ActionItemProps) => {
-  const [isOpen, setIsOpen] = useState(opened);
   const titles: Record<string, string> = {
     create: "Created",
     modify: "Modified Relations",
     delete: "Deleted",
   };
-
-  useEffect(() => setIsOpen(opened), [opened]);
 
   return (
     <div>
@@ -59,7 +66,7 @@ const ActionItem = ({
         className="cursor-pointer"
         tabIndex={0}
         aria-pressed={isOpen}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={onToggle}
       >
         <ExpandItemIcon isOpen={isOpen} />
         <span className="txt-bold">{titles[tag]}</span>
@@ -68,10 +75,11 @@ const ActionItem = ({
         </strong>
       </button>
       <ul style={{ display: isOpen ? "block" : "none" }}>
-        {features.map((item: any, k: number) => (
+        {features.map((item, k) => (
           <FeatureListItem
             id={item.id}
             type={item.type}
+            selected={elementKey(item.type, item.id) === selected}
             key={k}
             onMouseEnter={() => setHighlight(item.type, item.id, true)}
             onMouseLeave={() => setHighlight(item.type, item.id, false)}
@@ -88,6 +96,7 @@ const ActionItem = ({
 type Props = {
   changesetId: number;
   adiff: any;
+  selected: string | null;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 };
@@ -95,33 +104,31 @@ type Props = {
 function OtherFeatures({
   changesetId,
   adiff,
+  selected,
   setHighlight,
   zoomToAndSelect,
 }: Props) {
-  const [changeReport, setChangeReport] = useState<Array<[string, any[]]>>([]);
-  const [openAll, setOpenAll] = useState(false);
-
-  useEffect(() => {
-    const newChangeReport: Array<[string, any[]]> = [];
-    if (adiff) {
-      const processed = otherChangesFromActions(adiff.actions);
-      for (const [tag, featureIDs] of processed) {
-        newChangeReport.push([tag, featureIDs]);
-      }
-      setChangeReport(
-        newChangeReport.filter((changeType) => changeType[1].length),
-      );
-    }
+  const changeReport = useMemo(() => {
+    if (!adiff) return [];
+    return [...otherChangesFromActions(adiff.actions)].filter(
+      ([_, features]) => features.length,
+    );
   }, [adiff]);
+  const { isOpen, toggle, allOpen, setAllOpen } = useOpenGroups(
+    changeReport,
+    selected,
+  );
+  const ref = useRef<HTMLDivElement>(null);
+  useScrollToSelected(ref, selected);
 
   return (
-    <div className="px12 py6">
+    <div className="px12 py6" ref={ref}>
       <div className="pb6">
         <h2 className="inline txt-m txt-uppercase txt-bold mr6 mb3">
           Other features
         </h2>
         {changeReport.length ? (
-          <OpenAll isActive={openAll} setOpenAll={setOpenAll} />
+          <OpenAll isActive={allOpen} setOpenAll={setAllOpen} />
         ) : null}
       </div>
       {adiff ? (
@@ -131,7 +138,9 @@ function OtherFeatures({
               key={k}
               tag={change[0]}
               features={change[1]}
-              opened={openAll}
+              isOpen={isOpen(change[0])}
+              onToggle={() => toggle(change[0])}
+              selected={selected}
               setHighlight={setHighlight}
               zoomToAndSelect={zoomToAndSelect}
             />
