@@ -18,15 +18,13 @@ import { getUserDetails } from "../../network/openstreetmap.ts";
 import { getUsers } from "../../network/whosthat.ts";
 import { useChangesetMap } from "../../query/hooks/useChangesetMap.ts";
 import ElementInfo from "../element_info.tsx";
-import { Box } from "./box.tsx";
-import { ControlLayout } from "./control_layout.tsx";
 import { Discussions } from "./discussions.tsx";
 import { Features } from "./features.tsx";
-import { Floater } from "./floater.tsx";
 import { GeometryChanges } from "./geometry_changes.tsx";
 import { Header } from "./header.tsx";
 import { MapOptions } from "./map_options.tsx";
 import { OtherFeatures } from "./other_features.tsx";
+import { type Tab, Tabs } from "./tabs.tsx";
 import { TagChanges } from "./tag_changes.tsx";
 import { User } from "./user.tsx";
 
@@ -78,25 +76,12 @@ function Changeset({
   const [userDetails, setUserDetails] = useState<any>(null);
   const [whosThat, setWhosThat] = useState<any>(null);
 
-  // Keyboard toggle state - track which sections are visible
-  const [bindingsState, setBindingsState] = useState<Record<string, boolean>>(
-    () => {
-      const initial: Record<string, boolean> = {};
-      for (const opt of toggleOptions) {
-        initial[opt.label] = opt === CHANGESET_DETAILS_DETAILS; // Only details visible by default
-      }
-      return initial;
-    },
+  const [activeTab, setActiveTab] = useState<string | null>(
+    CHANGESET_DETAILS_DETAILS.label,
   );
 
-  const exclusiveKeyToggle = useCallback((label: string) => {
-    setBindingsState((prev) => {
-      const newState: Record<string, boolean> = {};
-      for (const opt of toggleOptions) {
-        newState[opt.label] = opt.label === label ? !prev[label] : false;
-      }
-      return newState;
-    });
+  const toggleTab = useCallback((label: string) => {
+    setActiveTab((prev) => (prev === label ? null : label));
   }, []);
 
   // Fetch user details when changeset changes
@@ -130,7 +115,7 @@ function Changeset({
   // Setup keyboard shortcuts
   useEffect(() => {
     for (const opt of toggleOptions) {
-      Mousetrap.bind(opt.bindings, () => exclusiveKeyToggle(opt.label));
+      Mousetrap.bind(opt.bindings, () => toggleTab(opt.label));
     }
 
     return () => {
@@ -140,7 +125,7 @@ function Changeset({
         }
       }
     };
-  }, [exclusiveKeyToggle]);
+  }, [toggleTab]);
 
   /// Given an OSM Element type (node/way/relation) and ID number,
   /// add or remove a highlight effect for the corresponding map features.
@@ -200,131 +185,126 @@ function Changeset({
     [mapRef, setSelected],
   );
 
-  const toggleDetails = () =>
-    exclusiveKeyToggle(CHANGESET_DETAILS_DETAILS.label);
-  const toggleFeatures = () =>
-    exclusiveKeyToggle(CHANGESET_DETAILS_SUSPICIOUS.label);
-  const toggleOtherFeatures = () =>
-    exclusiveKeyToggle(CHANGESET_DETAILS_OTHER_FEATURES.label);
-  const toggleTags = () => exclusiveKeyToggle(CHANGESET_DETAILS_TAGS.label);
-  const toggleGeometryChanges = () =>
-    exclusiveKeyToggle(CHANGESET_DETAILS_GEOMETRY_CHANGES.label);
-  const toggleDiscussions = () =>
-    exclusiveKeyToggle(CHANGESET_DETAILS_DISCUSSIONS.label);
-  const toggleUser = () => exclusiveKeyToggle(CHANGESET_DETAILS_USER.label);
-  const toggleMapOptions = () =>
-    exclusiveKeyToggle(CHANGESET_DETAILS_MAP.label);
-
   const properties = currentChangeset?.properties || {};
   const features = properties.features || [];
   const discussions = osmInfo?.metadata?.changeset?.comments || [];
 
+  const tabs: Tab[] = [
+    {
+      binding: CHANGESET_DETAILS_DETAILS,
+      title: "Details",
+      icon: "eye",
+      content: (
+        <Header
+          toggleUser={() => toggleTab(CHANGESET_DETAILS_USER.label)}
+          changesetId={changesetId}
+          properties={properties}
+          userEditCount={userDetails?.count || 0}
+        />
+      ),
+    },
+    {
+      binding: CHANGESET_DETAILS_SUSPICIOUS,
+      title: "Flagged features",
+      icon: "alert",
+      empty: features.length === 0,
+      content: (
+        <Features
+          changesetId={changesetId}
+          properties={properties}
+          setHighlight={setHighlight}
+          zoomToAndSelect={zoomToAndSelect}
+        />
+      ),
+    },
+    {
+      binding: CHANGESET_DETAILS_TAGS,
+      title: "Tag changes",
+      icon: "hash",
+      content: (
+        <TagChanges
+          changesetId={changesetId}
+          adiff={osmInfo?.adiff}
+          setHighlight={setHighlight}
+          zoomToAndSelect={zoomToAndSelect}
+        />
+      ),
+    },
+    {
+      binding: CHANGESET_DETAILS_GEOMETRY_CHANGES,
+      title: "Geometry changes",
+      icon: "point-line",
+      content: (
+        <GeometryChanges
+          changesetId={changesetId}
+          adiff={osmInfo?.adiff}
+          setHighlight={setHighlight}
+          zoomToAndSelect={zoomToAndSelect}
+        />
+      ),
+    },
+    {
+      binding: CHANGESET_DETAILS_OTHER_FEATURES,
+      title: "Other features",
+      icon: "plus",
+      content: (
+        <OtherFeatures
+          changesetId={changesetId}
+          adiff={osmInfo?.adiff}
+          setHighlight={setHighlight}
+          zoomToAndSelect={zoomToAndSelect}
+        />
+      ),
+    },
+    {
+      binding: CHANGESET_DETAILS_DISCUSSIONS,
+      title: "Discussions",
+      icon: "contact",
+      empty: discussions.length === 0,
+      content: (
+        <Discussions
+          changesetAuthor={properties.user}
+          discussions={discussions}
+          changesetIsHarmful={properties.harmful}
+          changesetId={changesetId}
+        />
+      ),
+    },
+    {
+      binding: CHANGESET_DETAILS_USER,
+      title: "User",
+      icon: "user",
+      content: (
+        <User
+          userDetails={{
+            uid: properties.uid,
+            name: properties.user,
+            ...userDetails,
+          }}
+          whosThat={whosThat || []}
+          changesetUsername
+        />
+      ),
+    },
+    {
+      binding: CHANGESET_DETAILS_MAP,
+      title: "Map controls",
+      icon: "map",
+      content: (
+        <MapOptions
+          showElements={showElements}
+          showActions={showActions}
+          setShowElements={setShowElements}
+          setShowActions={setShowActions}
+        />
+      ),
+    },
+  ];
+
   return (
     <React.Fragment>
-      <div
-        className="absolute flex-parent flex-parent--column clip"
-        style={{ top: 0, left: 0 }}
-      >
-        <div className="flex-child clip">
-          <ControlLayout
-            toggleDetails={toggleDetails}
-            toggleFeatures={toggleFeatures}
-            toggleOtherFeatures={toggleOtherFeatures}
-            toggleTags={toggleTags}
-            toggleGeometryChanges={toggleGeometryChanges}
-            toggleDiscussions={toggleDiscussions}
-            toggleUser={toggleUser}
-            toggleMapOptions={toggleMapOptions}
-            features={features}
-            bindingsState={bindingsState}
-            discussions={discussions}
-          />
-          <Floater style={{ marginTop: 5, marginLeft: 41 }}>
-            {bindingsState[CHANGESET_DETAILS_DETAILS.label] && (
-              <Box key={3} className=" responsive-box round-tr round-br">
-                <Header
-                  toggleUser={toggleUser}
-                  changesetId={changesetId}
-                  properties={properties}
-                  userEditCount={userDetails?.count || 0}
-                />
-              </Box>
-            )}
-            {bindingsState[CHANGESET_DETAILS_SUSPICIOUS.label] && (
-              <Box key={2} className=" responsive-box round-tr round-br">
-                <Features
-                  changesetId={changesetId}
-                  properties={properties}
-                  setHighlight={setHighlight}
-                  zoomToAndSelect={zoomToAndSelect}
-                />
-              </Box>
-            )}
-            {bindingsState[CHANGESET_DETAILS_TAGS.label] && (
-              <Box key={5} className=" responsive-box round-tr round-br">
-                <TagChanges
-                  changesetId={changesetId}
-                  adiff={osmInfo?.adiff}
-                  setHighlight={setHighlight}
-                  zoomToAndSelect={zoomToAndSelect}
-                />
-              </Box>
-            )}
-            {bindingsState[CHANGESET_DETAILS_GEOMETRY_CHANGES.label] && (
-              <Box key={5} className=" responsive-box round-tr round-br">
-                <GeometryChanges
-                  changesetId={changesetId}
-                  adiff={osmInfo?.adiff}
-                  setHighlight={setHighlight}
-                  zoomToAndSelect={zoomToAndSelect}
-                />
-              </Box>
-            )}
-            {bindingsState[CHANGESET_DETAILS_OTHER_FEATURES.label] && (
-              <Box key={5} className=" responsive-box round-tr round-br">
-                <OtherFeatures
-                  changesetId={changesetId}
-                  adiff={osmInfo?.adiff}
-                  setHighlight={setHighlight}
-                  zoomToAndSelect={zoomToAndSelect}
-                />
-              </Box>
-            )}
-            {bindingsState[CHANGESET_DETAILS_DISCUSSIONS.label] && (
-              <Box key={1} className=" responsive-box  round-tr round-br">
-                <Discussions
-                  changesetAuthor={properties.user}
-                  discussions={discussions}
-                  changesetIsHarmful={properties.harmful}
-                  changesetId={changesetId}
-                />
-              </Box>
-            )}
-            {bindingsState[CHANGESET_DETAILS_USER.label] && (
-              <Box key={0} className="responsive-box round-tr round-br">
-                <User
-                  userDetails={{
-                    uid: properties.uid,
-                    name: properties.user,
-                    ...userDetails,
-                  }}
-                  whosThat={whosThat || []}
-                  changesetUsername
-                />
-              </Box>
-            )}
-            {bindingsState[CHANGESET_DETAILS_MAP.label] && (
-              <Box key={4} className="responsive-box round-tr round-br">
-                <MapOptions
-                  showElements={showElements}
-                  showActions={showActions}
-                  setShowElements={setShowElements}
-                  setShowActions={setShowActions}
-                />
-              </Box>
-            )}
-          </Floater>
-        </div>
+      <div className="absolute z1" style={{ top: 8, left: 8 }}>
+        <Tabs tabs={tabs} activeId={activeTab} onToggle={toggleTab} />
       </div>
       {selected && (
         <div
