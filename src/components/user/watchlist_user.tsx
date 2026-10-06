@@ -70,7 +70,8 @@ export class WatchListUser extends React.Component<
 
   // Resolve whichever identifier was entered to the canonical username/uid pair
   // from OSM, then hand it off. Verifying and adding are a single action.
-  onAdd = async () => {
+  onSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     const { uid, username, pending } = this.state;
     if (pending) return;
     const lookup =
@@ -104,19 +105,17 @@ export class WatchListUser extends React.Component<
     }
   };
 
-  onKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") this.onAdd();
-  };
-
   render() {
     const errorClass = "border border--1 border--red";
     return (
-      <span className="flex-parent flex-parent--row flex-parent--center-cross">
+      <form
+        className="flex-parent flex-parent--row flex-parent--center-cross"
+        onSubmit={this.onSubmit}
+      >
         <input
           className={`input ${this.state.isValidUsername ? "" : errorClass}`}
           value={this.state.username}
           onChange={this.setUsername}
-          onKeyDown={this.onKeyDown}
           placeholder="Username"
           type="text"
         />
@@ -125,18 +124,17 @@ export class WatchListUser extends React.Component<
           className={`input ${this.state.isValidUid ? "" : errorClass}`}
           value={this.state.uid}
           onChange={this.setUid}
-          onKeyDown={this.onKeyDown}
           placeholder="UID"
           type="text"
         />
         <Button
           className="wmax120 ml12"
-          onClick={this.onAdd}
+          type="submit"
           disabled={this.state.pending}
         >
           {this.state.pending ? "Adding..." : "Add"}
         </Button>
-      </span>
+      </form>
     );
   }
 }

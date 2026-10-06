@@ -17,7 +17,8 @@ export class TrustedListUser extends React.Component<
     username: "",
   };
 
-  onAdd = () => {
+  onSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
     const username = this.state.username;
     if (username && username.length > 0) {
       this.props.onSave(username);
@@ -27,17 +28,18 @@ export class TrustedListUser extends React.Component<
 
   render() {
     return (
-      <span className="flex-parent flex-parent--row">
+      <form className="flex-parent flex-parent--row" onSubmit={this.onSubmit}>
         <input
           className="input"
+          value={this.state.username}
           onChange={(e) => this.setState({ username: e.target.value })}
           placeholder="Username"
           type="text"
         />
-        <Button className="btn wmax120 ml12" onClick={this.onAdd}>
+        <Button className="btn wmax120 ml12" type="submit">
           Add
         </Button>
-      </span>
+      </form>
     );
   }
 }
