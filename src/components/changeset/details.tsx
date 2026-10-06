@@ -42,7 +42,7 @@ export function Details({
       <div className="flex-parent flex-parent--column flex-parent--start flex-parent--wrap py12">
         <div className="flex-parent flex-parent--row flex-parent--wrap mb3">
           <p
-            className={`flex-child txt-subhead txt-l txt-break-url ${
+            className={`flex-child txt-subhead txt-break-url mb6 ${
               !comment ? "color-gray txt-em" : ""
             }`}
           >
@@ -53,7 +53,7 @@ export function Details({
                 className: "link",
               }}
             >
-              {comment ? comment : `${changesetId} does not have a comment.`}
+              {comment ? comment : "No comment provided"}
             </Linkify>
           </p>
         </div>
