@@ -27,7 +27,7 @@ function otherChangesFromActions(actions: any[]) {
     "modify",
     actions
       .filter(
-        (action) => action.type === "modify" && action.type === "relation",
+        (action) => action.type === "modify" && action.new.type === "relation",
       )
       .map((action) => ({ id: action.new.id, type: action.new.type })),
   );
