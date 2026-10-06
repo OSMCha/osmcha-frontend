@@ -18,12 +18,12 @@ export function SaveUser({ forWatchlist, onCreate }: SaveUserProps) {
   };
 
   return (
-    <span className="flex-parent flex-parent--row">
+    <div className="flex-parent flex-parent--row">
       {forWatchlist ? (
         <WatchListUser onSave={onSave} />
       ) : (
         <TrustedListUser onSave={onSave} />
       )}
-    </span>
+    </div>
   );
 }

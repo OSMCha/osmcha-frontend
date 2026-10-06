@@ -5,6 +5,7 @@ interface ButtonProps {
   className?: string;
   disabled?: boolean;
   title?: string;
+  type?: "button" | "submit";
 }
 
 export function Button({
@@ -14,9 +15,11 @@ export function Button({
   className,
   disabled,
   title,
+  type,
 }: ButtonProps) {
   return (
     <button
+      type={type}
       disabled={disabled}
       onClick={onClick}
       title={title}
