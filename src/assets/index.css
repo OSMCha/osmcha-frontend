@@ -605,15 +605,141 @@ th {
   width: 100%;
 }
 
-.details-table th,
-.details-table td {
-  vertical-align: top;
-  padding: 2px 0;
-}
-
 .details-table th {
   font-weight: bold;
   text-align: left;
   white-space: nowrap;
   padding-right: 12px;
+}
+
+/* Vertical tab bar for the changeset info panel */
+.changeset-tabs {
+  --tab-size: 36px;
+  --tab-gap: 4px;
+  --tab-radius: 6px;
+  --tab-outline: #ccc;
+
+  display: flex;
+  align-items: stretch;
+  gap: var(--tab-gap);
+  padding: var(--tab-gap);
+  border-radius: calc(var(--tab-radius) + var(--tab-gap));
+  background-color: #f2f2f2;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.changeset-tabs-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tab-gap);
+}
+
+.changeset-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tab-size);
+  height: var(--tab-size);
+  border: 1px solid transparent;
+  border-radius: var(--tab-radius);
+  color: #444;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.changeset-tab:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: #000;
+}
+
+.changeset-tab--empty {
+  color: #aaa;
+}
+
+.changeset-tab--empty:hover {
+  color: #777;
+}
+
+.changeset-tab:focus-visible {
+  outline: 2px solid #006dee;
+  outline-offset: -2px;
+}
+
+/*
+ * The active tab extends across the gap and over the panel's left border, and
+ * its own right border is hidden, so that the two appear like a single outlined shape.
+ */
+.changeset-tab[aria-selected="true"] {
+  z-index: 1;
+  width: calc(var(--tab-size) + var(--tab-gap) + 1px);
+  margin-right: calc(-1 * (var(--tab-gap) + 1px));
+  padding-right: calc(var(--tab-gap) + 1px);
+  border-color: var(--tab-outline);
+  border-right-color: transparent;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: #fff;
+  color: #000;
+}
+
+/*
+ * Concave "fillets" where the active tab meets the panel. Each is a small
+ * square just above/below the tab and aligned to its right edge. They are
+ * rendered as a quarter circle filled white outside the circle's radius and
+ * with a stroke along its circumference.
+ */
+.changeset-tab[aria-selected="true"]::before,
+.changeset-tab[aria-selected="true"]::after {
+  --r: var(--tab-radius);
+  --stops:
+    transparent calc(var(--r) - 1.5px), var(--tab-outline) calc(var(--r) - 1px),
+    var(--tab-outline) calc(var(--r) - 0.5px), #fff var(--r);
+  content: "";
+  position: absolute;
+  right: -1px;
+  width: var(--r);
+  height: var(--r);
+}
+
+.changeset-tab[aria-selected="true"]::before {
+  bottom: 100%;
+  background: radial-gradient(circle at 0 0, var(--stops));
+}
+
+.changeset-tab[aria-selected="true"]::after {
+  top: 100%;
+  background: radial-gradient(circle at 0 100%, var(--stops));
+}
+
+/*
+ * The first and last tabs don't need top and bottom fillets respectively,
+ * because they are flush with the top and bottom of the panel. (The first is
+ * guaranteed to be; the last is only because that panel is the map controls
+ * which has a predictable fixed height that's less than the height of the
+ * tab bar).
+ */
+.changeset-tab:first-child[aria-selected="true"]::before,
+.changeset-tab:last-child[aria-selected="true"]::after {
+  display: none;
+}
+
+.changeset-tabs:has(.changeset-tab:first-child[aria-selected="true"])
+  .changeset-tabs-panel {
+  border-top-left-radius: 0;
+}
+
+.changeset-tabs:has(.changeset-tab:last-child[aria-selected="true"])
+  .changeset-tabs-panel {
+  border-bottom-left-radius: 0;
+}
+
+.changeset-tabs-panel {
+  max-height: 360px;
+  overflow-y: auto;
+  border: 1px solid var(--tab-outline);
+  border-radius: var(--tab-radius);
+  background-color: #fff;
 }
