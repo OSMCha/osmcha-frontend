@@ -59,7 +59,7 @@ exports[`renders PrimaryLine correctly 1`] = `
 exports[`renders active row properly 1`] = `
 <div>
   <div
-    className="light-blue border-l border-l--4 border-color-bad"
+    className="changeset-row--selected border-l border-l--4 border-color-bad"
   >
     <div
       className="p12 cursor-pointer flex-parent flex-parent--column border-b border-b--1 border--gray-light flex-parent flex-parent--column"
