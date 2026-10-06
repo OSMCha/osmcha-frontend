@@ -8,6 +8,7 @@ import { EditMappingTeam } from "./views/edit_team.tsx";
 import { Filters } from "./views/filters.tsx";
 import { Home } from "./views/home.tsx";
 import { NavbarSidebar } from "./views/navbar_sidebar.tsx";
+import { NotFound } from "./views/not_found.tsx";
 import { SavedFilters } from "./views/saved_filters.tsx";
 import { MappingTeams } from "./views/teams.tsx";
 import { TrustedUsers } from "./views/trusted_users.tsx";
@@ -46,6 +47,7 @@ export const App = () => {
           <Route path="/trusted-users" element={<TrustedUsers />} />
           <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/authorized" element={<Authorized />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </div>
