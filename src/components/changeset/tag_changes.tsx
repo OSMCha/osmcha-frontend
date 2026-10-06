@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useMemo, useRef } from "react";
 
 import { groupBy } from "../../utils/group_by.ts";
 import { ExpandItemIcon } from "../expand_item_icon.tsx";
 import { Loading } from "../loading.tsx";
 import { OpenAll } from "../open_all.tsx";
+import { elementKey, useOpenGroups, useScrollToSelected } from "./selection.ts";
 
 function tagChangesFromActions(actions: any[]) {
   const finalReport = new Map();
@@ -69,16 +70,23 @@ function analyzeAction(action: any) {
 interface FeatureListItemProps {
   id: number;
   type: string;
+  selected: boolean;
   [key: string]: any;
 }
 
-export function FeatureListItem({ id, type, ...props }: FeatureListItemProps) {
+export function FeatureListItem({
+  id,
+  type,
+  selected,
+  ...props
+}: FeatureListItemProps) {
   return (
     <li>
       <span
-        className="cursor-pointer txt-bold-on-hover"
+        className="feature-list-item cursor-pointer txt-bold-on-hover"
         role="button"
         tabIndex={0}
+        aria-current={selected || undefined}
         {...props}
       >
         {type}/{id}
@@ -114,25 +122,26 @@ function ChangeTitle({ value, type }: { value: any; type: string }) {
 }
 
 interface ChangeItemProps {
-  opened: boolean;
+  isOpen: boolean;
+  onToggle: () => void;
   tag: string;
   features: any[];
+  selected: string | null;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 }
 
 const ChangeItem = ({
-  opened,
+  isOpen,
+  onToggle,
   tag,
   features,
+  selected,
   setHighlight,
   zoomToAndSelect,
 }: ChangeItemProps) => {
-  const [isOpen, setIsOpen] = useState(opened);
   const groups = groupBy(features, (f: any) => JSON.stringify(f.value));
   const last_space = tag.lastIndexOf(" ") + 1;
-
-  useEffect(() => setIsOpen(opened), [opened]);
 
   return (
     <div>
@@ -140,7 +149,7 @@ const ChangeItem = ({
         className="cursor-pointer"
         tabIndex={0}
         aria-pressed={isOpen}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={onToggle}
       >
         <ExpandItemIcon isOpen={isOpen} />
         <span className="txt-bold">{tag.slice(0, last_space)}</span>
@@ -161,7 +170,7 @@ const ChangeItem = ({
               <FeatureListItem
                 type={feature.type}
                 id={feature.id}
-                value={feature.value}
+                selected={elementKey(feature.type, feature.id) === selected}
                 key={k}
                 onMouseEnter={() =>
                   setHighlight(feature.type, feature.id, true)
@@ -183,14 +192,18 @@ const ChangeItem = ({
 
 interface ChangeItemListProps {
   changes: Array<[string, any[]]>;
-  openAll: boolean;
+  isOpen: (tag: string) => boolean;
+  toggle: (tag: string) => void;
+  selected: string | null;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 }
 
 const ChangeItemList = ({
   changes,
-  openAll,
+  isOpen,
+  toggle,
+  selected,
   setHighlight,
   zoomToAndSelect,
 }: ChangeItemListProps) => {
@@ -202,7 +215,9 @@ const ChangeItemList = ({
             key={k}
             tag={change[0]}
             features={change[1]}
-            opened={openAll}
+            isOpen={isOpen(change[0])}
+            onToggle={() => toggle(change[0])}
+            selected={selected}
             setHighlight={setHighlight}
             zoomToAndSelect={zoomToAndSelect}
           />
@@ -217,6 +232,7 @@ const ChangeItemList = ({
 type Props = {
   changesetId: number;
   adiff: any;
+  selected: string | null;
   setHighlight: (type: string, id: number, isHighlighted: boolean) => void;
   zoomToAndSelect: (type: string, id: number) => void;
 };
@@ -224,41 +240,43 @@ type Props = {
 function TagChanges({
   changesetId,
   adiff,
+  selected,
   setHighlight,
   zoomToAndSelect,
 }: Props) {
-  const [changeReport, setChangeReport] = useState<Array<[string, any[]]>>([]);
-  const [openAll, setOpenAll] = useState(false);
-
-  useEffect(() => {
-    const newChangeReport: Array<[string, any[]]> = [];
-    if (adiff) {
-      const modifyActions = adiff.actions.filter(
-        (action: any) => action.type === "modify",
-      );
-
-      const processed = tagChangesFromActions(modifyActions);
-      for (const [tag, featureIDs] of processed) {
-        newChangeReport.push([tag, featureIDs]);
-      }
-      setChangeReport(newChangeReport.sort());
-    }
+  const changeReport = useMemo(() => {
+    if (!adiff) return [];
+    const modifyActions = adiff.actions.filter(
+      (action: any) => action.type === "modify",
+    );
+    const processed: Array<[string, any[]]> = [
+      ...tagChangesFromActions(modifyActions),
+    ];
+    return processed.sort();
   }, [adiff]);
+  const { isOpen, toggle, allOpen, setAllOpen } = useOpenGroups(
+    changeReport,
+    selected,
+  );
+  const ref = useRef<HTMLDivElement>(null);
+  useScrollToSelected(ref, selected);
 
   return (
-    <div className="px12 py6">
+    <div className="px12 py6" ref={ref}>
       <div className="pb6">
         <h2 className="inline txt-m txt-uppercase txt-bold mr6 mb3">
           Tag changes
         </h2>
         {changeReport.length ? (
-          <OpenAll isActive={openAll} setOpenAll={setOpenAll} />
+          <OpenAll isActive={allOpen} setOpenAll={setAllOpen} />
         ) : null}
       </div>
       {adiff ? (
         <ChangeItemList
           changes={changeReport}
-          openAll={openAll}
+          isOpen={isOpen}
+          toggle={toggle}
+          selected={selected}
           setHighlight={setHighlight}
           zoomToAndSelect={zoomToAndSelect}
         />

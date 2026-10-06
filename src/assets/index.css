@@ -257,6 +257,18 @@ textarea,
   text-decoration: underline;
 }
 
+.feature-list-item[aria-current="true"],
+.feature-row[aria-current="true"] {
+  background-color: #fcefa9;
+}
+
+.feature-list-item[aria-current="true"] {
+  font-weight: 600;
+  padding: 1px 4px;
+  margin: 0 -4px;
+  border-radius: 3px;
+}
+
 .cmap-bg-create {
   background-color: #39dbc0;
 }

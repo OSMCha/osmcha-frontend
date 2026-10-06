@@ -24,6 +24,7 @@ import { GeometryChanges } from "./geometry_changes.tsx";
 import { Header } from "./header.tsx";
 import { MapOptions } from "./map_options.tsx";
 import { OtherFeatures } from "./other_features.tsx";
+import { elementKey } from "./selection.ts";
 import { type Tab, Tabs } from "./tabs.tsx";
 import { TagChanges } from "./tag_changes.tsx";
 import { User } from "./user.tsx";
@@ -185,6 +186,11 @@ function Changeset({
     [mapRef, setSelected],
   );
 
+  const selectedElement = selected ? (selected.new ?? selected.old) : null;
+  const selectedKey = selectedElement
+    ? elementKey(selectedElement.type, selectedElement.id)
+    : null;
+
   const properties = currentChangeset?.properties || {};
   const features = properties.features || [];
   const discussions = osmInfo?.metadata?.changeset?.comments || [];
@@ -212,6 +218,7 @@ function Changeset({
         <Features
           changesetId={changesetId}
           properties={properties}
+          selected={selectedKey}
           setHighlight={setHighlight}
           zoomToAndSelect={zoomToAndSelect}
         />
@@ -225,6 +232,7 @@ function Changeset({
         <TagChanges
           changesetId={changesetId}
           adiff={osmInfo?.adiff}
+          selected={selectedKey}
           setHighlight={setHighlight}
           zoomToAndSelect={zoomToAndSelect}
         />
@@ -238,6 +246,7 @@ function Changeset({
         <GeometryChanges
           changesetId={changesetId}
           adiff={osmInfo?.adiff}
+          selected={selectedKey}
           setHighlight={setHighlight}
           zoomToAndSelect={zoomToAndSelect}
         />
@@ -251,6 +260,7 @@ function Changeset({
         <OtherFeatures
           changesetId={changesetId}
           adiff={osmInfo?.adiff}
+          selected={selectedKey}
           setHighlight={setHighlight}
           zoomToAndSelect={zoomToAndSelect}
         />
