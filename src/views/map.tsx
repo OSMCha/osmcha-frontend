@@ -257,6 +257,19 @@ function CMap(props: CMapProps) {
     props.mapRef,
   ]);
 
+  // Remove the previous changeset's map if this one fails to load, so it isn't
+  // left visible behind the error message.
+  useEffect(() => {
+    if (!changesetQuery.isError || !mapRef.current) return;
+
+    mapRef.current.remove();
+    mapRef.current = null;
+    adiffViewerRef.current = null;
+    if (props.mapRef) {
+      props.mapRef.current = null;
+    }
+  }, [changesetQuery.isError, props.mapRef]);
+
   // Update map when style or filter options change (including initial setup)
   useEffect(() => {
     if (!mapRef.current || !adiffViewerRef.current) return;
