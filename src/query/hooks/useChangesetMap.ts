@@ -16,7 +16,8 @@ export function useChangesetMap(changesetId: number | null) {
       return { metadata, adiff };
     },
     enabled: !!changesetId,
-    staleTime: 30 * 60 * 1000, // 30 minutes - maps are expensive
-    retry: 3,
+    staleTime: 30 * 60 * 1000,
+    retry: false,
+    retryOnMount: false,
   });
 }

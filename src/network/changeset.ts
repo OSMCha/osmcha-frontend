@@ -38,6 +38,11 @@ async function fetchAugmentedDiffFromAdiffService(id: number) {
 
 async function fetchAugmentedDiffFromOverpass(id: number) {
   let res = await fetch(`${apiOSM}/changeset/${id}.json`);
+  if (!res.ok) {
+    throw new Error(
+      `GET /changeset/${id}.json returned ${res.status} ${res.statusText}`,
+    );
+  }
   const { changeset } = await res.json();
   const createdAt = parse(
     changeset.created_at,
@@ -68,6 +73,9 @@ async function fetchAugmentedDiffFromOverpass(id: number) {
   res = await fetch(
     `${overpassBase}?data=${encodeURIComponent(data)}&bbox=${bbox.join(",")}`,
   );
+  if (!res.ok) {
+    throw new Error(`Overpass query returned ${res.status} ${res.statusText}`);
+  }
   return await res.text();
 }
 

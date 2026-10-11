@@ -275,9 +275,9 @@ function CMap(props: CMapProps) {
   return (
     <React.Fragment>
       <div id="container" className="w-full h-full" />
-      {(loading || changesetQuery.isLoading) && (
+      {changesetQuery.isError ? (
         <div
-          className="absolute z0"
+          className="absolute z0 flex-parent flex-parent--column flex-parent--center-cross flex-parent--center-main"
           style={{
             top: 0,
             right: 0,
@@ -286,8 +286,28 @@ function CMap(props: CMapProps) {
             background: "rgba(0, 0, 0, 0.5)",
           }}
         >
-          <Loading height="100%" className="" />
+          <div className="bg-white round px18 py12 align-center">
+            <div className="txt-bold">Failed to load changeset map</div>
+            <div className="txt-s color-gray">
+              {changesetQuery.error.message}
+            </div>
+          </div>
         </div>
+      ) : (
+        (loading || changesetQuery.isLoading) && (
+          <div
+            className="absolute z0"
+            style={{
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              background: "rgba(0, 0, 0, 0.5)",
+            }}
+          >
+            <Loading height="100%" className="" />
+          </div>
+        )
       )}
     </React.Fragment>
   );
