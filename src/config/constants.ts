@@ -19,8 +19,7 @@ export const whosThat =
   "https://whosthat.osmz.ru/whosthat.php?action=names&id=";
 
 export const nominatimUrl =
-  window.env.OSMCHA_NOMINATIM_URL ||
-  "https://nominatim.openstreetmap.org/search.php";
+  window.env.OSMCHA_NOMINATIM_URL || "https://nominatim.openstreetmap.org";
 
 // set a default from date x days before today
 export const DEFAULT_FROM_DATE =

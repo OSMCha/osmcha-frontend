@@ -13,10 +13,8 @@ import {
   CHANGESET_DETAILS_TAGS,
   CHANGESET_DETAILS_USER,
 } from "../../config/bindings.ts";
-import { useAuth } from "../../hooks/useAuth.ts";
-import { getUserDetails } from "../../network/openstreetmap.ts";
-import { getUsers } from "../../network/whosthat.ts";
 import { useChangesetMap } from "../../query/hooks/useChangesetMap.ts";
+import { useUserInfo, useWhosThat } from "../../query/hooks/useUserInfo.ts";
 import ElementInfo from "../element_info.tsx";
 import { Discussions } from "./discussions.tsx";
 import { Features } from "./features.tsx";
@@ -71,11 +69,11 @@ function Changeset({
   selected,
   setSelected,
 }: ChangesetProps) {
-  const { token } = useAuth();
   const { data: osmInfo } = useChangesetMap(changesetId);
 
-  const [userDetails, setUserDetails] = useState<any>(null);
-  const [whosThat, setWhosThat] = useState<any>(null);
+  const uid = currentChangeset?.properties?.uid;
+  const { data: userDetails, isLoading: userDetailsLoading } = useUserInfo(uid);
+  const { data: whosThat } = useWhosThat(uid);
 
   const [activeTab, setActiveTab] = useState<string | null>(
     CHANGESET_DETAILS_DETAILS.label,
@@ -84,34 +82,6 @@ function Changeset({
   const toggleTab = useCallback((label: string) => {
     setActiveTab((prev) => (prev === label ? null : label));
   }, []);
-
-  // Fetch user details when changeset changes
-  useEffect(() => {
-    const uid = currentChangeset?.properties?.uid;
-    if (!uid || !token) return;
-
-    let cancelled = false;
-
-    getUserDetails(uid)
-      .then((details) => {
-        if (!cancelled) {
-          setUserDetails(details);
-        }
-      })
-      .catch((e) => console.log(e));
-
-    getUsers(uid)
-      .then((users) => {
-        if (!cancelled && users[0]?.names) {
-          setWhosThat(users[0].names);
-        }
-      })
-      .catch((e) => console.log(e));
-
-    return () => {
-      cancelled = true;
-    };
-  }, [currentChangeset?.properties?.uid, token]);
 
   // Setup keyboard shortcuts
   useEffect(() => {
@@ -205,7 +175,7 @@ function Changeset({
           toggleUser={() => toggleTab(CHANGESET_DETAILS_USER.label)}
           changesetId={changesetId}
           properties={properties}
-          userEditCount={userDetails?.count || 0}
+          userEditCount={userDetails?.count}
         />
       ),
     },
@@ -291,7 +261,8 @@ function Changeset({
             name: properties.user,
             ...userDetails,
           }}
-          whosThat={whosThat || []}
+          whosThat={whosThat ?? []}
+          loading={userDetailsLoading}
           changesetUsername
         />
       ),

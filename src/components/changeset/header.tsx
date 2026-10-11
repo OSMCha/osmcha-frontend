@@ -8,7 +8,7 @@ import { Details } from "./details.tsx";
 type Props = {
   properties: any;
   changesetId: number;
-  userEditCount: number;
+  userEditCount?: number;
   toggleUser: () => unknown;
 };
 
@@ -57,7 +57,7 @@ function Header({ properties, changesetId, userEditCount, toggleUser }: Props) {
                 <use xlinkHref="#icon-alert" />
               </svg>
             )}
-            {userEditCount > 0 && (
+            {userEditCount !== undefined && (
               <span className="txt-s txt-em">
                 &nbsp;({userEditCount} edits)
               </span>

@@ -8,6 +8,7 @@ interface WrapperProps {
   handleFocus?: (name: string) => void;
   name: string;
   hasValue?: boolean;
+  wide?: boolean;
 }
 
 export function Wrapper({
@@ -17,6 +18,7 @@ export function Wrapper({
   handleFocus = () => {},
   name,
   hasValue,
+  wide,
 }: WrapperProps) {
   const mobile = isMobile();
 
@@ -39,26 +41,33 @@ export function Wrapper({
         </span>
         <strong className="txt-truncate pointer">{display}&nbsp;</strong>
       </div>
-      <div className="grid">
-        <span className="col col--6-mxl col--6-ml col--12-mm col--12">
+      {wide ? (
+        <div>
+          {description && <p className="color-gray mb6">{description}</p>}
           {children}
-        </span>
-        {!mobile && (
-          <span className="col col--3-mxl col--3-ml col--1-mm">
-            <span className="desc block relative ml12 wmin120">
-              {description && (
-                <span
-                  key={0}
-                  className="absolute wmin300 color-gray bg-white"
-                  style={{ marginTop: -5 }}
-                >
-                  {description}
-                </span>
-              )}
-            </span>
+        </div>
+      ) : (
+        <div className="grid">
+          <span className="col col--6-mxl col--6-ml col--12-mm col--12">
+            {children}
           </span>
-        )}
-      </div>
+          {!mobile && (
+            <span className="col col--3-mxl col--3-ml col--1-mm">
+              <span className="desc block relative ml12 wmin120">
+                {description && (
+                  <span
+                    key={0}
+                    className="absolute wmin300 color-gray bg-white"
+                    style={{ marginTop: -5 }}
+                  >
+                    {description}
+                  </span>
+                )}
+              </span>
+            </span>
+          )}
+        </div>
+      )}
     </div>
   );
 }

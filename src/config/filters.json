@@ -20,16 +20,6 @@
     "placeholder": "Enter a keyword like hotosm, import or fixme"
   },
   {
-    "name": "area_lt",
-    "icontains": false,
-    "range": false,
-    "all": false,
-    "display": "Changeset size bound",
-    "type": "number",
-    "description": "Filter for changesets that have an area lower than X times the area of your BBox or geometry filter. For example, if the geometry you defined in your filter has an area of 1 degree and you set the 'Changeset size bound' to 2, it will only show the changesets whose area is lower than 2 degrees.",
-    "placeholder": "Upper bound of changeset area"
-  },
-  {
     "name": "tag_changes",
     "icontains": false,
     "all": true,

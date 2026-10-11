@@ -213,50 +213,48 @@ class _FiltersList extends React.PureComponent<Props> {
         <Wrapper
           name="location"
           display="Location"
+          wide
           hasValue={
             "geometry" in this.props.filters || "in_bbox" in this.props.filters
           }
           handleFocus={() => this.props.handleFocus("location")}
-          description={
-            this.props.active === "location" &&
-            "Filter changesets whose bounding box intersects a chosen area"
-          }
+          description="Filter for changesets whose bounding box intersects an area. Search for a place, or draw a box or polygon on the map."
         >
           <LocationSelect
             name="location"
             value={this.props.filters.geometry || this.props.filters.in_bbox}
-            placeholder="Type a place name"
+            sizeBound={this.props.filters.area_lt}
+            placeholder="Type a place name..."
             onChange={this.props.handleChange}
           />
         </Wrapper>
-        {filtersData.slice(2, 3).map((f: any, k) => this.renderFilters(f, k))}
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           OSM Features
         </h2>
-        {filtersData.slice(3, 4).map((f: any, k) => this.renderFilters(f, k))}
+        {filtersData.slice(2, 3).map((f: any, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Flags
         </h2>
-        {filtersData.slice(4, 6).map((f: any, k) => this.renderFilters(f, k))}
+        {filtersData.slice(3, 5).map((f: any, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Review
         </h2>
-        {filtersData.slice(6, 10).map((f: any, k) => this.renderFilters(f, k))}
+        {filtersData.slice(5, 9).map((f: any, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Users & Teams
         </h2>
-        {filtersData.slice(10, 17).map((f: any, k) => this.renderFilters(f, k))}
+        {filtersData.slice(9, 16).map((f: any, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
 
         <h2 className="txt-xl mr6 txt-bold mt30  border-b border--gray-light border--1">
           Changeset Details
         </h2>
-        {filtersData.slice(17).map((f: any, k) => this.renderFilters(f, k))}
+        {filtersData.slice(16).map((f: any, k) => this.renderFilters(f, k))}
         <span className="flex-child flex-child--grow wmin420 wmax435" />
       </div>
     );

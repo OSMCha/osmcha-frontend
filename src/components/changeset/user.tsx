@@ -78,6 +78,7 @@ class UserLink extends React.PureComponent<UserLinkProps> {
 interface UserProps {
   userDetails: UserDetails;
   whosThat: string[];
+  loading?: boolean;
   changesetUsername?: boolean;
 }
 
@@ -125,31 +126,42 @@ export class User extends React.PureComponent<UserProps> {
                 {this.props.userDetails.name}
               </div>
             </div>
-            <div>
-              <p className="txt-s color-gray align-center">
-                {registrationDate != null && (
-                  <React.Fragment>
-                    Joined&nbsp;
-                    <RelativeTime datetime={registrationDate} />
-                    {" | "}
-                  </React.Fragment>
-                )}
-                {this.props.userDetails.count
-                  ? this.renderUidFilterLink()
-                  : `${this.props.userDetails.changesets_in_osmcha} edits registered on OSMCha`}
+            {this.props.loading ? (
+              <p className="txt-s color-gray-light align-center">
+                Loading user details...
               </p>
-            </div>
-            <div>
-              <p className="txt-s color-gray align-center">
-                <UserLink userDetails={this.props.userDetails} harmful={true} />
-                &nbsp;and&nbsp;
-                <UserLink
-                  userDetails={this.props.userDetails}
-                  harmful={false}
-                />
-                &nbsp;changesets
-              </p>
-            </div>
+            ) : (
+              <React.Fragment>
+                <div>
+                  <p className="txt-s color-gray align-center">
+                    {registrationDate != null && (
+                      <React.Fragment>
+                        Joined&nbsp;
+                        <RelativeTime datetime={registrationDate} />
+                        {" | "}
+                      </React.Fragment>
+                    )}
+                    {this.props.userDetails.count
+                      ? this.renderUidFilterLink()
+                      : `${this.props.userDetails.changesets_in_osmcha} edits registered on OSMCha`}
+                  </p>
+                </div>
+                <div>
+                  <p className="txt-s color-gray align-center">
+                    <UserLink
+                      userDetails={this.props.userDetails}
+                      harmful={true}
+                    />
+                    &nbsp;and&nbsp;
+                    <UserLink
+                      userDetails={this.props.userDetails}
+                      harmful={false}
+                    />
+                    &nbsp;changesets
+                  </p>
+                </div>
+              </React.Fragment>
+            )}
 
             <div className="mt6">
               <TrustWatchUser
