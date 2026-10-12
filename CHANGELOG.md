@@ -5,6 +5,11 @@ as far back as very early versions of this codebase, which was started in 2017
 (though note that there was an earlier version of OSMCha whose code is not
 included in the history of this repository).
 
+### 1.5.1
+
+- Improve the area filter UI and Nominatim integration
+- Only fetch changeset diffs from the Overpass API after explicit confirmation from the user
+
 ### 1.5.0
 
 - Fix URLs in 'sources' section of changeset details
