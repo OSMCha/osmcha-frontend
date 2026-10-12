@@ -8,26 +8,31 @@ export function fetchChangeset(id: number) {
   return api.get(`/changesets/${id}/`);
 }
 
-export async function fetchAndParseAugmentedDiff(id: number) {
-  const xml = await fetchAugmentedDiff(id);
-  const adiff = await adiffParser(xml);
-  return adiff;
+/// Thrown when the adiff service has no augmented diff for a changeset, either
+/// because it hasn't been processed yet or because it predates the archive.
+export class AdiffNotFoundError extends Error {}
+
+/// Fetch and parse an augmented diff for the given changeset ID,
+/// from the configured adiff service.
+export async function fetchAugmentedDiff(id: number) {
+  const xml = await fetchAdiffServiceXml(id);
+  return await adiffParser(xml);
 }
 
-/// Fetch an augmented diff for the given changeset ID. Tries to fetch from the
-/// configured adiff service (if it exists) and falls back to using the configured
-/// Overpass server if that fails.
-async function fetchAugmentedDiff(id: number) {
-  try {
-    return await fetchAugmentedDiffFromAdiffService(id);
-  } catch (err) {
-    console.error(err);
-    return await fetchAugmentedDiffFromOverpass(id);
-  }
+/// Fetch and parse an augmented diff for the given changeset ID
+/// from the configured Overpass server. This should only be called
+/// in response to user action, to avoid spamming them with requests
+/// and generating unnecessary load on the server.
+export async function fetchAugmentedDiffFromOverpass(id: number) {
+  const xml = await fetchOverpassXml(id);
+  return await adiffParser(xml);
 }
 
-async function fetchAugmentedDiffFromAdiffService(id: number) {
+async function fetchAdiffServiceXml(id: number) {
   const res = await fetch(`${adiffServiceUrl}/changesets/${id}.adiff`);
+  if (res.status === 404) {
+    throw new AdiffNotFoundError(`No augmented diff found for changeset ${id}`);
+  }
   if (res.status !== 200) {
     throw new Error(
       `GET /changesets/${id}.adiff returned ${res.status} ${res.statusText}`,
@@ -36,8 +41,13 @@ async function fetchAugmentedDiffFromAdiffService(id: number) {
   return await res.text();
 }
 
-async function fetchAugmentedDiffFromOverpass(id: number) {
+async function fetchOverpassXml(id: number) {
   let res = await fetch(`${apiOSM}/changeset/${id}.json`);
+  if (!res.ok) {
+    throw new Error(
+      `GET /changeset/${id}.json returned ${res.status} ${res.statusText}`,
+    );
+  }
   const { changeset } = await res.json();
   const createdAt = parse(
     changeset.created_at,
@@ -68,6 +78,9 @@ async function fetchAugmentedDiffFromOverpass(id: number) {
   res = await fetch(
     `${overpassBase}?data=${encodeURIComponent(data)}&bbox=${bbox.join(",")}`,
   );
+  if (!res.ok) {
+    throw new Error(`Overpass query returned ${res.status} ${res.statusText}`);
+  }
   return await res.text();
 }
 
